@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "fivethree.vscode-svelte-snippets",
+    "ardenivanov.svelte-intellisense",
+    "svelte.svelte-vscode",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "waderyan.gitblame",
+    "esbenp.prettier-vscode"
+  ]
+}

@@ -7,10 +7,24 @@ Framework for making complex decision matrix visualizations.
 - [SvelteKit docs](https://kit.svelte.dev/docs).
 - [Packaging docs](https://kit.svelte.dev/docs/packaging).
 
+## Prerequisites
+
+We develop inside Visual Studio Code
+
+- [Visual Studio Code](https://code.visualstudio.com/download)
+
+The recommended extensions for Visual Studio Code can be installed by typing
+`@recommended` in the extensions tab. Install all the recmmended workspace
+extensions.
+
+We have created a `.editorconfig` file to ensure that all developers use the same
+settings for their code editor. This is used by the EditorConfig plugin for
+Visual Studio Code.
+
 ## Setting up
 
 You will need to install the following dependencies:
-- [Visual Studio Code](https://code.visualstudio.com/download)
+
 - [Node.js](https://nodejs.org/en/download/)
 - [npm](https://www.npmjs.com/get-npm)
 
