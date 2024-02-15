@@ -27,10 +27,10 @@
     "!dist/**/*.spec.*"
   ],
   "lint-staged": {
-    "*.js": [
+    "*.{js,ts}": [
       "eslint --quiet --fix"
     ],
-    "*.{json,js,html}": [
+    "*.{json,js,ts,html,svelte}": [
       "prettier --write --ignore-unknown"
     ]
   },

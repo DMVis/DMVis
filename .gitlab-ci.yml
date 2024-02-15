@@ -1,0 +1,40 @@
+image: node:20.11.0
+
+stages:
+  - check
+
+# Check stage
+lint-files:
+  stage: check
+  script:
+    - npm run lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+check-typescript:
+  stage: check
+  script:
+    - npm run check
+  needs:
+    - lint-files
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+run-tests:
+  stage: check
+  script:
+    - npm run test
+  needs:
+    - check-typescript
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+# Global settings
+before_script:
+  - npm install
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  untracked: true
+  paths:
+    - node_modules/
