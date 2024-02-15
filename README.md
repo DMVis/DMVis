@@ -39,9 +39,10 @@ nvm install
 ```
 
 Once you have installed the above dependencies, you can install the packages
-using the following command:
+using the following commands:
 
 ```bash
+npm install --save-dev husky
 npm install
 ```
 
