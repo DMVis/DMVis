@@ -1,5 +1,6 @@
 <script lang="ts">
   import Bar from '$lib/components/base/Bar.svelte';
+  import Line from '$lib/components/base/Line.svelte';
   import Point from '$lib/components/base/Point.svelte';
   import * as d3 from 'd3';
 
@@ -17,7 +18,7 @@
   let yScale = d3.scaleLinear().domain([0, height]).range([0, height]);
   let xScale = d3.scaleLinear().domain([0, width]).range([0, width]);
 
-  const numPoints: number = 200;
+  const numPoints: number = 3;
   const size: { x: number; y: number } = { x: 400, y: 400 };
   const data: { x: number; y: number }[] = genPoints();
 
@@ -39,6 +40,7 @@
   {#each data as p}
     <Point x={p.x} y={p.y} r={6} />
   {/each}
+  <Line points={data} />
 </svg>
 
 <h2>Bar example</h2>
