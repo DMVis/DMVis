@@ -1,23 +1,14 @@
-# Docsify
+# DMVis
 
-Firstly, make sure to install the docsify npm package.
-Although it should probably install automatically with, as a required package.
+DMVis is a Framework for making complex decision matrix visualizations.
 
-```bash
-npm i docsify-cli
-```
-
-## Running Docsify
+## Running Docsify locally
 
 Quite simply run:
 
 ```bash
 docsify serve documentation
 ```
-
-# DMVis
-
-Framework for making complex decision matrix visualizations.
 
 ## Useful docs
 

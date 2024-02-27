@@ -1,6 +1,14 @@
 # DMVis
 
-Framework for making complex decision matrix visualizations.
+DMVis is a Framework for making complex decision matrix visualizations.
+
+## Running Docsify locally
+
+Quite simply run:
+
+```bash
+docsify serve documentation
+```
 
 ## Useful docs
 

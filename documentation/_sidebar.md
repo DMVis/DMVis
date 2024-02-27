@@ -1,6 +1,6 @@
 - Get Started
 
-  - [Installing](README.md)
+  - [README](README.md)
   - Examples
     - [general documentation](components/example.md)
     - [component](components/component-example.md)

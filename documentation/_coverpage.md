@@ -8,6 +8,3 @@
 
 [GitHub](https://git.science.uu.nl/ics/sp/2024/v24i/dmvis)
 [Get Started](#docsify)
-
-<!-- background image -->
-<!-- ![](media/coverpage_background.jpeg) -->
