@@ -7,3 +7,4 @@
 
 - Components
   - [Bar](components/bar.md)
+  - [Point](components/point.md)

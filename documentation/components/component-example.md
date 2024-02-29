@@ -30,19 +30,19 @@ Amount of components to be placed
 
 ## Sample usage
 
-```html
+```svelte
 <svg width="{width}," {height}>
   {#each barData as p}
-  <Bar
-    x="{p.x}"
-    barWidth="{p.width}"
-    barHeight="{p.height}"
-    maxHeight="{height}"
-    {xScale}
-    {yScale}
-    xRounding="{5}"
-    yRounding="{5}"
-    strokeWidth="{4}" />
+    <Bar
+      x={p.x}
+      barWidth={p.width}
+      barHeight={p.height}
+      maxHeight={height}
+      {xScale}
+      {yScale}
+      xRounding={5}
+      yRounding={5}
+      strokeWidth={4} />
   {/each}
 </svg>
 ```

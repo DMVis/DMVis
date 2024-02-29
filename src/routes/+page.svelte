@@ -38,7 +38,7 @@
 
 <svg style="border: 1px solid black" width="400" height="400">
   {#each data as p}
-    <Point x={p.x} y={p.y} r={6} />
+    <Point x={p.x} y={p.y} radius={6} />
   {/each}
   <Line points={data} />
 </svg>
