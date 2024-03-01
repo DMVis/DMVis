@@ -6,7 +6,6 @@
   export let xScale: d3.ScaleLinear<number, number>;
   export let barWidth: number;
   export let barHeight: number;
-  export let maxWidth: number;
 
   export let color: string = 'rgb(50, 50, 50)';
   export let xRounding: number = 0; // Rounding in percentage of width
@@ -21,11 +20,11 @@
   Allows you to place a bar at a given coordinate, with given size, color and outline.
 
   ### Required Attributes
-    * y: number;                                - Non-scaled y coordinate of left-bottom of bar
+    * y: number;                                - Non-scaled y coordinate of top-left of bar
     * yScale: d3.ScaleLinear<number, number>;   - Y scale
     * xScale: d3.ScaleLinear<number, number>;   - X scale
-    * barWidth: number;                         - Width of bar
-    * barHeight: number;                        - Height of bar (Data)
+    * barWidth: number;                         - Width of bar (Data)
+    * barHeight: number;                        - Height of bar
     * maxWidth: number;                        - Maximum width of any bar, usually largest data point.
 
   ### Optional Attributes

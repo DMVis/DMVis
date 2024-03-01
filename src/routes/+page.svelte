@@ -67,7 +67,6 @@
       y={p.x}
       barWidth={p.height}
       barHeight={p.width}
-      maxWidth={width}
       {xScale}
       {yScale}
       xRounding={0}

@@ -6,5 +6,6 @@
     - [component](components/component-example.md)
 
 - Components
-  - [Bar](components/bar.md)
+  - [VerticalBar](components/verticalbar.md)
+  - [HorizontalBar](components/horizontalbar.md)
   - [Point](components/point.md)

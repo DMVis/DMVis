@@ -1,16 +1,16 @@
-# Bar component
+# HorizontalBar component
 
-The bar component is meant to be used in a larger bar chart, it just produces a single bar of certain dimensions, and color.
+The horizontal bar component is meant to be used in a larger bar chart, it just produces a single bar of certain dimensions, and color.
 
 > Note: This component only produces a bar, not an entire barchart!
 
 # Required Attributes
 
-## x
+## y
 
 - Type: `number`
 
-Non-scaled x coordinate of left-bottom of bar.
+Non-scaled y coordinate of top-left corner of bar.
 
 ## yScale:
 
@@ -28,19 +28,19 @@ X scale
 
 - Type: `number`
 
-Width of bar
+Width of bar (Data)
 
 ## barHeight
 
 - Type: `number`
 
-Height of bar (Data)
+Height of bar
 
-## maxHeight
+## maxWidth
 
 - Type: `number`
 
-Maximum height of any bar, usually largest data point.
+Maximum width of any bar, usually largest data point.
 
 # Optional Attributes
 
@@ -84,16 +84,13 @@ Color of outline of bar
 ```svelte
 <svg {width} {height}>
   {#each barData as p}
-    <Bar
-      x={p.x}
+    <HorizontalBar
+      y={p.value}
       barWidth={p.width}
       barHeight={p.height}
-      maxHeight={height}
+      maxWidth={maxValue}
       {xScale}
-      {yScale}
-      xRounding={5}
-      yRounding={5}
-      strokeWidth={4} />
+      {yScale} />
   {/each}
 </svg>
 ```
