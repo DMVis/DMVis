@@ -4,6 +4,8 @@
   import Line from '$lib/components/base/Line.svelte';
   import Point from '$lib/components/base/Point.svelte';
   import * as d3 from 'd3';
+  import LeftAxis from '$lib/components/base/LeftAxis.svelte';
+  import BottomAxis from '$lib/components/base/BottomAxis.svelte';
 
   const barData: { x: number; y: number; width: number; height: number }[] = [
     { x: 0, y: 0, width: 50, height: 289 },
@@ -14,10 +16,21 @@
     { x: 250, y: 0, width: 50, height: 230 }
   ];
 
-  let width = 400;
-  let height = 400;
+  const margin = { top: 40, right: 40, bottom: 40, left: 50 };
+
+  let width = 500;
+  let height = 500;
   let yScale = d3.scaleLinear().domain([0, height]).range([0, height]);
   let xScale = d3.scaleLinear().domain([0, width]).range([0, width]);
+
+  let yScaleAxis = d3
+    .scaleLinear()
+    .domain([0, height])
+    .range([margin.top, height - margin.bottom]);
+  let xScaleAxis = d3
+    .scaleLinear()
+    .domain([0, width])
+    .range([margin.left, width - margin.right]);
 
   const numPoints: number = 3;
   const size: { x: number; y: number } = { x: 400, y: 400 };
@@ -37,7 +50,7 @@
 <h1>DMVis</h1>
 <p>Framework for making complex decision matrix visualizations.</p>
 
-<svg style="border: 1px solid black" width="400" height="400">
+<svg {width} {height}>
   {#each data as p}
     <Point x={p.x} y={p.y} radius={6} />
   {/each}
@@ -45,7 +58,7 @@
 </svg>
 
 <h2>Vertical Bar example</h2>
-<svg width="{width}," {height}>
+<svg {width} {height}>
   {#each barData as p}
     <VerticalBar
       x={p.x}
@@ -60,8 +73,14 @@
   {/each}
 </svg>
 
+<h2>Axis Example</h2>
+<svg {width} {height}>
+  <LeftAxis yScale={yScaleAxis} fontSize={20} {margin} />
+  <BottomAxis xScale={xScaleAxis} {height} {margin} />
+</svg>
+
 <h2>Horizontal Bar example</h2>
-<svg width="{width}," {height}>
+<svg {width} {height}>
   {#each barData as p}
     <HorizontalBar
       y={p.x}
