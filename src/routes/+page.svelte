@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Bar from '$lib/components/base/Bar.svelte';
+  import HorizontalBar from '$lib/components/base/HorizontalBar.svelte';
+  import VerticalBar from '$lib/components/base/VerticalBar.svelte';
   import Line from '$lib/components/base/Line.svelte';
   import Point from '$lib/components/base/Point.svelte';
   import * as d3 from 'd3';
@@ -43,10 +44,10 @@
   <Line points={data} />
 </svg>
 
-<h2>Bar example</h2>
+<h2>Vertical Bar example</h2>
 <svg width="{width}," {height}>
   {#each barData as p}
-    <Bar
+    <VerticalBar
       x={p.x}
       barWidth={p.width}
       barHeight={p.height}
@@ -55,6 +56,22 @@
       {yScale}
       xRounding={5}
       yRounding={5}
+      strokeWidth={4} />
+  {/each}
+</svg>
+
+<h2>Horizontal Bar example</h2>
+<svg width="{width}," {height}>
+  {#each barData as p}
+    <HorizontalBar
+      y={p.x}
+      barWidth={p.height}
+      barHeight={p.width}
+      maxWidth={width}
+      {xScale}
+      {yScale}
+      xRounding={0}
+      yRounding={0}
       strokeWidth={4} />
   {/each}
 </svg>
