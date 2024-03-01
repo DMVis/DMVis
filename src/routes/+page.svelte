@@ -2,7 +2,9 @@
   import HorizontalBar from '$lib/components/base/HorizontalBar.svelte';
   import VerticalBar from '$lib/components/base/VerticalBar.svelte';
   import Line from '$lib/components/base/Line.svelte';
+  import Label from '$lib/components/base/Label.svelte';
   import Point from '$lib/components/base/Point.svelte';
+  import { OriginX, OriginY } from '$lib/Enums.js';
   import * as d3 from 'd3';
   import LeftAxis from '$lib/components/base/LeftAxis.svelte';
   import BottomAxis from '$lib/components/base/BottomAxis.svelte';
@@ -92,4 +94,23 @@
       yRounding={0}
       strokeWidth={4} />
   {/each}
+</svg>
+
+<h2>Label example</h2>
+<svg style="border: 1px solid black" width="500" height="500">
+  <Label
+    x={100}
+    y={100}
+    text="Hello, world!"
+    textColor="black"
+    color="#fe7215"
+    originX={OriginX.Left}
+    originY={OriginY.Top}
+    rotationDegrees={0}
+    opacity={'1'}
+    radiusX={5}
+    radiusY={5}
+    hasBackground={true} />
+  <Point x={100} y={100} radius={6} />
+  <!-- Point for debugging purpose -->
 </svg>

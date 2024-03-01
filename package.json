@@ -13,7 +13,8 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "docs": "docsify serve documentation"
   },
   "exports": {
     ".": {
@@ -30,7 +31,7 @@
     "*.{js,ts}": [
       "eslint --quiet --fix"
     ],
-    "*.{json,js,ts,html,svelte}": [
+    "*.{json,js,ts,html,svelte,md}": [
       "prettier --write --ignore-unknown"
     ]
   },
