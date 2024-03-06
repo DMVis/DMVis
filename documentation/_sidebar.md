@@ -12,6 +12,7 @@
     - [TopAxis](components/top-axis.md)
   - [Label](components/label.md)
   - [Point](components/point.md)
+  - [Line](components/line.md)
 
 - Utilities
   - [Origin](utils/origin.md)
