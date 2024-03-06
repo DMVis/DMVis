@@ -1,1 +1,2 @@
-// Reexport your entry components here
+// Export visualizations
+export { default as TemplateVis } from '$lib/components/visualisations/Template.svelte';
