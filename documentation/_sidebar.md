@@ -1,5 +1,7 @@
 - [Getting started](README.md)
 
+- Visualisations
+  - [LineChart](visualisations/LineChart.md)
 - Components
 
   - Bar

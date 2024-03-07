@@ -16,6 +16,11 @@
   export let marginBottom: number | null = null;
   export let marginTop: number | null = null;
 
+  export let minX: number | null = null;
+  export let maxX: number | null = null;
+  export let minY: number | null = null;
+  export let maxY: number | null = null;
+
   let xValues: number[] = data.map((d) => d.x);
   let yValues = data.map((d) => d.y);
 
@@ -27,31 +32,37 @@
 
   graphStore.height.set(height);
   graphStore.height.set(width);
-  graphStore.minX.set(d3.min(xValues) ?? 0);
-  graphStore.minY.set(d3.min(yValues) ?? 0);
-  graphStore.maxX.set(d3.max(xValues) ?? 0);
-  graphStore.maxY.set(d3.max(yValues) ?? 0);
+  graphStore.minX.set(minX ? minX : d3.min(xValues) ?? 0);
+  graphStore.minY.set(minY ? minY : d3.min(yValues) ?? 0);
+  graphStore.maxX.set(maxX ? maxX : d3.max(xValues) ?? 0);
+  graphStore.maxY.set(maxY ? maxY : d3.max(yValues) ?? 0);
 
   setContext('store', graphStore);
 </script>
 
 <!--
 @component
-### Visualisation Name
-A small description of the graph.
+### LineChart
+This is a visualisation to show a line between points
 
 #### Required attributes
-* attribute: type  - Description.
+  * width: number  - Width of the visualisation
+  * height: number  - Height of the visualisation
+  * data: { x: number; y: number }[]  - List of points
 
 #### Optional attributes
-* attribute: type  - Description. Default is 'default'.
+* marginLeft: number  - Margin to the left of the visualisation, defaults to 20
+* marginRight: number  - Margin to the right of the visualisation, defaults to 20
+* marginTop: number  - Margin to the top of the visualisation, defaults to 20
+* marginBottom: number  - Margin to the bottom of the visualisation, defaults to 20
+
+* minX: number  - Minimal value of the horizontal axes, defaults to data range
+* maxX: number  - Maximal value of the horizontal axes, defaults to data range
+* minY: number  - Minimal value of the vertical axes, defaults to data range
+* maxY: number  - Maximal value of the vertical axes, defaults to data range
 -->
 <svg class="visualisation" {height} {width}>
   <LeftAxis ticksNumber={yValues.length} />
   <BottomAxis ticksNumber={xValues.length} />
   <Line points={data} />
 </svg>
-
-<style>
-  /* Insert visualisation styling  */
-</style>

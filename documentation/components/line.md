@@ -8,9 +8,9 @@ The line component is meant to be used in charts like a linechart. It produces a
 
 ## points
 
-- Type: `[{ x: number; y: number }]`
+- Type: `{ x: number; y: number }[]`
 
-List of points containing a x and y value.
+List of points containing an x and y value.
 
 # Optional Attributes
 

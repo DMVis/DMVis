@@ -42,6 +42,7 @@ It displays tick marks and labels based on provided data.
   * fontSize: number - The font size of the tick labels. Defaults to 17.
   * color: string - The color of the axis line. Defaults to 'black'.
   * ticks: boolean - Whether to display tick marks. Defaults to true.
+  * ticksNumber: number            - The number of ticks you want displayed on the axes, defaults to 10
 -->
 
 <g bind:this={bottomAxisElement} transform="translate(0, {$height - $marginBottom})"></g>

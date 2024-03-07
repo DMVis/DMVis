@@ -45,6 +45,7 @@ It displays tick marks and labels based on provided data.
   * fontSize: number               - The font size of the tick labels. Defaults to 17.
   * color: string                  - The color of the axis line. Defaults to 'black'.
   * xOffset: number                - The offset of the axis from the left side of the graph. Defaults to 0.
+  * ticksNumber: number            - The number of ticks you want displayed on the axes, defaults to 10
 -->
 
 <g bind:this={yAxisElement} transform="translate({$marginLeft + offsetX}, 0)"></g>

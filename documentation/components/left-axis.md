@@ -26,10 +26,17 @@ Whether to display tick marks
 
 Font size of labels
 
+## ticksNumber
+
+- Type: `number`
+- Default: `10`
+
+Number of ticks on the axis
+
 ## Sample usage
 
 ```svelte
 <svg {width} {height}>
-  <LeftAxis {yScale} fontSize={12} color={'#FF0000'} />
+  <LeftAxis fontSize={12} color={'#FF0000'} />
 </svg>
 ```
