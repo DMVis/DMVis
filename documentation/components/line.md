@@ -10,7 +10,7 @@ The line component is meant to be used in charts like a linechart. It produces a
 
 - Type: `[{ x: number; y: number }]`
 
-List of scaled points containing a x and y value.
+List of points containing a x and y value.
 
 # Optional Attributes
 

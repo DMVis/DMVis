@@ -3,20 +3,6 @@
 The BottomAxis component is responsible for rendering the horizontal axis with the labes on the bottom.
 It displays tick marks and labels based on provided data.
 
-# Required Attributes
-
-## xScale:
-
-- Type: `d3.ScaleLinear<number, number>` | `d3.ScaleBand<string>`
-
-X scale
-
-## height:
-
-- Type: `number`
-
-Height of the svg
-
 # Optional Attributes
 
 ## color

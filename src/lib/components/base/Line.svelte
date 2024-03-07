@@ -1,9 +1,14 @@
 <script lang="ts">
+  import type { GraphStore } from '$lib/store.js';
+  import { getContext } from 'svelte';
+
   export let points: { x: number; y: number }[];
   export let color: string = '#000';
   export let width: number = 1;
 
-  $: path = `M${points.map((p) => `${p.x},${p.y}`).join('L')}`;
+  const { yScale, xScale } = getContext<GraphStore>('store');
+
+  $: path = `M${points.map((p) => `${$xScale(p.x)},${$yScale(p.y)}`).join('L')}`;
 </script>
 
 <!--

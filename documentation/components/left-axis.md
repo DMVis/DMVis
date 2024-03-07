@@ -3,14 +3,6 @@
 The LeftAxis component is responsible for rendering the vertical axis with the labes on the left side.
 It displays tick marks and labels based on provided data.
 
-# Required Attributes
-
-## yScale:
-
-- Type: `d3.ScaleLinear<number, number>` | `d3.ScaleBand<string>`
-
-Y scale
-
 # Optional Attributes
 
 ## color

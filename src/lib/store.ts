@@ -1,7 +1,7 @@
 import { scaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
 
-class GraphStore {
+export class GraphStore {
   public marginTop: Writable<number>;
   public marginBottom: Writable<number>;
   public marginLeft: Writable<number>;
@@ -10,7 +10,8 @@ class GraphStore {
   public height: Writable<number>;
   public minX: Writable<number>;
   public maxX: Writable<number>;
-
+  public minY: Writable<number>;
+  public maxY: Writable<number>;
   constructor() {
     this.marginTop = writable(20);
     this.marginBottom = writable(20);
@@ -20,6 +21,8 @@ class GraphStore {
     this.height = writable(400);
     this.minX = writable(0);
     this.maxX = writable(20);
+    this.minY = writable(0);
+    this.maxY = writable(20);
   }
 
   get xScale() {
@@ -34,10 +37,10 @@ class GraphStore {
 
   get yScale() {
     return derived(
-      [this.marginLeft, this.marginRight, this.width, this.minX, this.maxX],
-      ([$marginTop, $marginBottom, $height]) =>
+      [this.marginBottom, this.marginTop, this.height, this.minY, this.maxY],
+      ([$marginBottom, $marginTop, $height, $minY, $maxY]) =>
         scaleLinear()
-          .domain([0, 100])
+          .domain([$minY, $maxY])
           .range([$height - $marginBottom, $marginTop])
     );
   }

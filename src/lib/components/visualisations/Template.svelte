@@ -9,7 +9,7 @@
 
 <!--
 @component
-### Graph Name
+### Visualisation Name
 A small description of the graph.
 
 #### Required attributes
