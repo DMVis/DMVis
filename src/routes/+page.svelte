@@ -1,14 +1,41 @@
 <script lang="ts">
-  import LineChart from '$lib/components/visualisations/LineChart.svelte';
+  import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
 
-  let data: { x: number; y: number }[] = [
-    { x: 0, y: 0 },
-    { x: 1, y: 2 },
-    { x: 2, y: 4 },
-    { x: 3, y: 4 }
+  const height: number = 500;
+  const width: number = 500;
+
+  const mapData: Map<string, number>[] = [
+    new Map([
+      ['weight', 0],
+      ['size', 0],
+      ['age', 0]
+    ]),
+    new Map([
+      ['weight', 98],
+      ['size', 295],
+      ['age', 52]
+    ]),
+    new Map([
+      ['weight', 152],
+      ['size', 350],
+      ['age', 61]
+    ]),
+    new Map([
+      ['weight', 73],
+      ['size', 213],
+      ['age', 43]
+    ]),
+    new Map([
+      ['weight', 43],
+      ['size', 112],
+      ['age', 16]
+    ]),
+    new Map([
+      ['weight', 359],
+      ['size', 429],
+      ['age', 75]
+    ])
   ];
-  const width = 640;
-  const height = 640;
 </script>
 
-<LineChart marginLeft={40} marginBottom={40} {width} {height} {data} />
+<Scatterplot data={mapData} {height} {width} xAxis="age" yAxis="size" />

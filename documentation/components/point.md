@@ -1,6 +1,6 @@
 # Point component
 
-The point component is meant to be used in charts like a scatterplot. It produces a point at a given coordinate of certain color, size and style.
+The point component is meant to be used in visualisations like a scatterplot. It produces a point at a given coordinate of certain color, size and style.
 
 > Note: This component produces a single point, use it repeatedly to plot multiple points.
 
@@ -10,13 +10,13 @@ The point component is meant to be used in charts like a scatterplot. It produce
 
 - Type: `number`
 
-Scaled x-coordinate of the point.
+Non-scaled x-coordinate of the point.
 
 ## y
 
 -Type: `number`
 
-Scaled y-coordinate of the point.
+Non-scaled y-coordinate of the point.
 
 # Optional Attributes
 

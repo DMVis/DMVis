@@ -2,6 +2,7 @@
 
 - Visualisations
   - [LineChart](visualisations/LineChart.md)
+  - [Scatterplot](visualisations/Scatterplot.md)
 - Components
 
   - Bar

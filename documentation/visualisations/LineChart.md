@@ -27,28 +27,28 @@ List of points
 ## marginLeft
 
 - Type: `number`
-- Default: `20`
+- Default: `40`
 
 Margin left of the visualisation
 
 ## marginRight
 
 - Type: `number`
-- Default: `20`
+- Default: `40`
 
 Margin right of the visualisation
 
 ## marginTop
 
 - Type: `number`
-- Default: `20`
+- Default: `40`
 
 Margin above of the visualisation
 
 ## marginBottom
 
 - Type: `number`
-- Default: `20`
+- Default: `40`
 
 Margin under of the visualisation
 

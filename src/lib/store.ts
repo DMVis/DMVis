@@ -13,16 +13,16 @@ export class GraphStore {
   public minY: Writable<number>;
   public maxY: Writable<number>;
   constructor() {
-    this.marginTop = writable(20);
-    this.marginBottom = writable(20);
-    this.marginLeft = writable(20);
-    this.marginRight = writable(20);
+    this.marginTop = writable(40);
+    this.marginBottom = writable(40);
+    this.marginLeft = writable(40);
+    this.marginRight = writable(40);
     this.width = writable(640);
     this.height = writable(400);
     this.minX = writable(0);
-    this.maxX = writable(20);
+    this.maxX = writable(100);
+    this.maxY = writable(100);
     this.minY = writable(0);
-    this.maxY = writable(20);
   }
 
   get xScale() {
@@ -32,16 +32,18 @@ export class GraphStore {
         scaleLinear()
           .domain([$minX, $maxX])
           .range([$marginLeft, $width - $marginRight])
+          .nice()
     );
   }
 
   get yScale() {
     return derived(
-      [this.marginBottom, this.marginTop, this.height, this.minY, this.maxY],
-      ([$marginBottom, $marginTop, $height, $minY, $maxY]) =>
+      [this.marginTop, this.marginBottom, this.height, this.minY, this.maxY],
+      ([$marginTop, $marginBottom, $height, $maxY, $minY]) =>
         scaleLinear()
-          .domain([$minY, $maxY])
+          .domain([$maxY, $minY])
           .range([$height - $marginBottom, $marginTop])
+          .nice()
     );
   }
 }

@@ -51,10 +51,10 @@ This is a visualisation to show a line between points
   * data: { x: number; y: number }[]  - List of points
 
 #### Optional attributes
-* marginLeft: number  - Margin to the left of the visualisation, defaults to 20
-* marginRight: number  - Margin to the right of the visualisation, defaults to 20
-* marginTop: number  - Margin to the top of the visualisation, defaults to 20
-* marginBottom: number  - Margin to the bottom of the visualisation, defaults to 20
+* marginLeft: number  - Margin to the left of the visualisation, defaults to 40
+* marginRight: number  - Margin to the right of the visualisation, defaults to 40
+* marginTop: number  - Margin to the top of the visualisation, defaults to 40
+* marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
 
 * minX: number  - Minimal value of the horizontal axes, defaults to data range
 * maxX: number  - Maximal value of the horizontal axes, defaults to data range
