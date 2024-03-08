@@ -1,2 +1,2 @@
 // Export visualizations
-export { default as TemplateVis } from '$lib/components/visualisations/Template.svelte';
+export { default as LineChart } from '$lib/components/visualisations/LineChart.svelte';
