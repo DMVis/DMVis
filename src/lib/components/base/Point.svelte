@@ -8,6 +8,7 @@
   export let color: string = '#CCCCFF';
   export let borderColor: string = '#000';
   export let borderWidth: number = 1;
+  export let opacity: number = 1;
 
   const { xScale, yScale } = getContext<GraphStore>('store');
 </script>
@@ -27,6 +28,7 @@ It is used in combination with other components to create a chart.
   * color: string         - Color of the center of the point, defaulted to blue. Can be any hex-code, rgb or plain string colors
   * borderColor: string   - Color of the border of the point, defaulted to Black. Can be any hex-code, rgb or plain string colors
   * borderWidth: number   - Width of the border, defaulted to 1
+  * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
 -->
 <circle
   cx={$xScale(x)}
@@ -34,4 +36,5 @@ It is used in combination with other components to create a chart.
   r={radius}
   stroke={borderColor}
   fill={color}
-  stroke-width={borderWidth} />
+  stroke-width={borderWidth}
+  {opacity} />

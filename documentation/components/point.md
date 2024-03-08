@@ -52,6 +52,13 @@ Width of the border around the point.
 
 > Note: the border can be removed entirely by setting the value to 0.
 
+## opacity
+
+- Type: `number`
+- Default: `1`
+
+Opacity of the point, where 0 represents a completely transparent point and 1 respresents a completely opaque point.
+
 ## Sample usage
 
 ```svelte
