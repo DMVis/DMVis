@@ -47,5 +47,3 @@ export class GraphStore {
     );
   }
 }
-
-export const graphStore = new GraphStore();

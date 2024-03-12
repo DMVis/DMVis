@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { graphStore } from '$lib/store.js';
+  import { GraphStore } from '$lib/store.js';
   import { setContext } from 'svelte';
 
   // Insert exports
+  const graphStore = new GraphStore();
 
   setContext('store', graphStore);
 </script>

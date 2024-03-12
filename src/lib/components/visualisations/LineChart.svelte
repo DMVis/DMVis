@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { graphStore } from '$lib/store.js';
+  import { GraphStore } from '$lib/store.js';
   import * as d3 from 'd3';
   import { setContext } from 'svelte';
   import LeftAxis from '../base/LeftAxis.svelte';
@@ -25,6 +25,8 @@
   let yValues = data.map((d) => d.y);
 
   // Set store values
+  const graphStore = new GraphStore();
+
   marginLeft ? graphStore.marginLeft.set(marginLeft) : null;
   marginRight ? graphStore.marginRight.set(marginRight) : null;
   marginBottom ? graphStore.marginBottom.set(marginBottom) : null;
