@@ -1,4 +1,6 @@
 <script lang="ts">
+  import BarChartHorizontal from '$lib/components/visualisations/HorizontalBarChart.svelte';
+  import BarChartVertical from '$lib/components/visualisations/VerticalBarChart.svelte';
   import LineChart from '$lib/components/visualisations/LineChart.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
 
@@ -46,7 +48,20 @@
     { x: 200, y: 150 },
     { x: 250, y: 150 }
   ];
+
+  const barData: { label: string; value: number }[] = [
+    { label: 'a', value: 0 },
+    { label: 'b', value: 50 },
+    { label: 'c', value: 100 },
+    { label: 'd', value: 200 },
+    { label: 'e', value: 400 },
+    { label: 'f', value: 450 },
+    { label: 'g', value: 500 }
+  ];
 </script>
 
 <Scatterplot data={mapData} {height} {width} xAxis="age" yAxis="size" />
 <LineChart marginLeft={40} marginBottom={40} {width} {height} {data} />
+<br />
+<BarChartVertical {width} {height} {barData} minY={0} maxY={500} />
+<BarChartHorizontal {width} {height} {barData} minX={0} maxX={500} />

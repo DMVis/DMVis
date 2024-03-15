@@ -1,8 +1,7 @@
 <script lang="ts">
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOppositeOriginX, getOppositeOriginY, getOrigin } from '$lib/utils/OriginMapper.js';
-  import { graphStore } from '$lib/store.js';
-  import { getContext, onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import * as d3 from 'd3';
 
   // Required attributes
@@ -53,7 +52,7 @@
             // Negative values get flipped.
             value < 0 ? getOppositeOriginY(originY) : originY
           )
-      )
+      );
   });
 </script>
 

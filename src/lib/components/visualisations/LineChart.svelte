@@ -33,7 +33,7 @@
   marginTop ? graphStore.marginTop.set(marginTop) : null;
 
   graphStore.height.set(height);
-  graphStore.height.set(width);
+  graphStore.width.set(width);
 
   $: {
     xValues = data.map((d) => d.x);
