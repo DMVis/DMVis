@@ -40,56 +40,47 @@
   graphStore.width.set(width);
 
   let formattedData: Map<string, number>[];
-  //Check if data is of type Map, if not convert to Map
-  if (!(data[0] instanceof Map)) {
-    formattedData = [];
-    for (let i = 0; i < data.length; i++) {
-      let item = new Map<string, number>();
-      item.set('x', (data[i] as { x: number; y: number }).x);
-      item.set('y', (data[i] as { x: number; y: number }).y);
-      formattedData.push(item);
-    }
-  }
-  //If the data is already of type Map, check if the specified axis actually are present in the given data
-  else {
-    if (data[0].get(xAxis) == undefined) {
-      throw new Error('xAxis is not recognised, you may need to set the xAxis parameter');
-    }
-    if (data[0].get(yAxis) == undefined) {
-      throw new Error('yAxis is not recognised, you may need to set the yAxis parameter');
-    }
-    formattedData = data as Map<string, number>[];
-  }
 
-  //Autoscaling logic X
-  if (minX === 'auto') {
-    minX = d3.min(formattedData, function (d) {
-      return d.get(xAxis);
-    }) as number;
-  }
-  if (maxX === 'auto') {
-    maxX = d3.max(formattedData, function (d) {
-      return d.get(xAxis);
-    }) as number;
-  }
-  //Autoscaling logic Y
-  if (minY === 'auto') {
-    minY = d3.min(formattedData, function (d) {
-      return d.get(yAxis);
-    }) as number;
-  }
-  if (maxY === 'auto') {
-    maxY = d3.max(formattedData, function (d) {
-      return d.get(yAxis);
-    }) as number;
-  }
+  $: {
+    //Check if data is of type Map, if not convert to Map
+    if (!(data[0] instanceof Map)) {
+      formattedData = [];
+      for (let i = 0; i < data.length; i++) {
+        let item = new Map<string, number>();
+        item.set('x', (data[i] as { x: number; y: number }).x);
+        item.set('y', (data[i] as { x: number; y: number }).y);
+        formattedData.push(item);
+      }
+    }
+    //If the data is already of type Map, check if the specified axis actually are present in the given data
+    else {
+      if (data[0].get(xAxis) == undefined) {
+        throw new Error('xAxis is not recognised, you may need to set the xAxis parameter');
+      }
+      if (data[0].get(yAxis) == undefined) {
+        throw new Error('yAxis is not recognised, you may need to set the yAxis parameter');
+      }
+      formattedData = data as Map<string, number>[];
+    }
 
-  graphStore.minX.set(minX as number);
-  graphStore.minY.set(minY as number);
-  graphStore.maxX.set(maxX as number);
-  graphStore.maxY.set(maxY as number);
+    //Autoscaling logic X
+    graphStore.minX.set(
+      minX === 'auto' ? (d3.min(formattedData, (d) => d.get(xAxis)) as number) : minX ?? 0
+    );
+    graphStore.maxX.set(
+      maxX === 'auto' ? (d3.max(formattedData, (d) => d.get(xAxis)) as number) : maxX ?? 0
+    );
 
-  setContext('store', graphStore);
+    //Autoscaling logic Y
+    graphStore.minY.set(
+      minY === 'auto' ? (d3.min(formattedData, (d) => d.get(yAxis)) as number) : minY ?? 0
+    );
+    graphStore.maxY.set(
+      maxY === 'auto' ? (d3.max(formattedData, (d) => d.get(yAxis)) as number) : maxY ?? 0
+    );
+
+    setContext('store', graphStore);
+  }
 </script>
 
 <!--

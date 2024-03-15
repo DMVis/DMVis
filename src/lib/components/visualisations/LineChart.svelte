@@ -21,8 +21,8 @@
   export let minY: number | null = null;
   export let maxY: number | null = null;
 
-  let xValues: number[] = data.map((d) => d.x);
-  let yValues = data.map((d) => d.y);
+  let xValues: number[] = [];
+  let yValues: number[] = [];
 
   // Set store values
   const graphStore = new GraphStore();
@@ -34,10 +34,15 @@
 
   graphStore.height.set(height);
   graphStore.height.set(width);
-  graphStore.minX.set(minX ? minX : d3.min(xValues) ?? 0);
-  graphStore.minY.set(minY ? minY : d3.min(yValues) ?? 0);
-  graphStore.maxX.set(maxX ? maxX : d3.max(xValues) ?? 0);
-  graphStore.maxY.set(maxY ? maxY : d3.max(yValues) ?? 0);
+
+  $: {
+    xValues = data.map((d) => d.x);
+    yValues = data.map((d) => d.y);
+    graphStore.minX.set(minX ? minX : d3.min(xValues) ?? 0);
+    graphStore.minY.set(minY ? minY : d3.min(yValues) ?? 0);
+    graphStore.maxX.set(maxX ? maxX : d3.max(xValues) ?? 0);
+    graphStore.maxY.set(maxY ? maxY : d3.max(yValues) ?? 0);
+  }
 
   setContext('store', graphStore);
 </script>

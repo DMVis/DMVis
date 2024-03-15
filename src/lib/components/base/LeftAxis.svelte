@@ -1,8 +1,7 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { onMount } from 'svelte';
-  import type { AxisScale } from 'd3-axis';
   import { getContext } from 'svelte';
+  import type { AxisScale } from 'd3-axis';
   import type { GraphStore } from '$lib/store.js';
 
   const { yScale, marginLeft } = getContext<GraphStore>('store');
@@ -14,7 +13,7 @@
   export let ticksNumber: number = 10;
   let yAxisElement: SVGGElement;
 
-  onMount(() => {
+  $: {
     let axisGenerator;
 
     if (ticks) {
@@ -31,7 +30,7 @@
       .selectAll('text')
       .style('font-size', `${fontSize}px`)
       .style('color', color);
-  });
+  }
 </script>
 
 <!--

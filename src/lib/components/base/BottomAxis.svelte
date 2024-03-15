@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import type { AxisScale } from 'd3-axis';
   import type { GraphStore } from '$lib/store.js';
 
@@ -12,7 +12,7 @@
   export let ticksNumber: number = 10;
   let bottomAxisElement: SVGGElement;
 
-  onMount(() => {
+  $: {
     let axisGenerator;
 
     if (ticks) {
@@ -29,7 +29,7 @@
       .selectAll('text')
       .style('font-size', `${fontSize}px`)
       .style('color', color);
-  });
+  }
 </script>
 
 <!--
