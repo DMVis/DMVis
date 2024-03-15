@@ -19,6 +19,28 @@ export function getOrigin(
   }
 }
 
+export function getOppositeOriginX(originX: OriginX): OriginX {
+  switch (originX) {
+    case OriginX.Left:
+      return OriginX.Right;
+    case OriginX.Middle:
+      return OriginX.Middle;
+    case OriginX.Right:
+      return OriginX.Left;
+  }
+}
+
+export function getOppositeOriginY(originY: OriginY): OriginY {
+  switch (originY) {
+    case OriginY.Top:
+      return OriginY.Bottom;
+    case OriginY.Middle:
+      return OriginY.Middle;
+    case OriginY.Bottom:
+      return OriginY.Top;
+  }
+}
+
 function mapStartToDestination(dimension: number, destinationOrigin: OriginX | OriginY): number {
   switch (destinationOrigin) {
     case OriginX.Left || OriginY.Top:

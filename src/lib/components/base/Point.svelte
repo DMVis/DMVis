@@ -26,6 +26,7 @@ It is used in combination with other components to create a chart.
 #### Optional attributes
   * radius: number        - Radius of the point, defaulted to 5
   * color: string         - Color of the center of the point, defaulted to blue. Can be any hex-code, rgb or plain string colors
+  * opacity: string       - Opacity of the circle
   * borderColor: string   - Color of the border of the point, defaulted to Black. Can be any hex-code, rgb or plain string colors
   * borderWidth: number   - Width of the border, defaulted to 1
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1

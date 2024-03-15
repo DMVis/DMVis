@@ -5,9 +5,6 @@
   - [Scatterplot](visualisations/Scatterplot.md)
 - Components
 
-  - Bar
-    - [VerticalBar](components/verticalbar.md)
-    - [HorizontalBar](components/horizontalbar.md)
   - Axis
     - [LeftAxis](components/left-axis.md)
     - [BottomAxis](components/bottom-axis.md)
@@ -16,6 +13,7 @@
   - [Label](components/label.md)
   - [Point](components/point.md)
   - [Line](components/line.md)
+  - [Bar](components/Bar.md)
 
 - Utilities
   - [Origin](utils/origin.md)
