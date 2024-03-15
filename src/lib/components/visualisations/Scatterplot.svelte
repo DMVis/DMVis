@@ -3,9 +3,8 @@
   import { setContext } from 'svelte';
   import * as d3 from 'd3';
 
-  import LeftAxis from '$lib/components/base/LeftAxis.svelte';
-  import BottomAxis from '$lib/components/base/BottomAxis.svelte';
   import Point from '$lib/components/base/Point.svelte';
+  import Axis from '$lib/components/base/Axis.svelte';
 
   //Mandatory exports
   export let width: number;
@@ -113,8 +112,8 @@ These attributes are required when using the Map datatype
 -->
 <svg {width} {height}>
   {#if showAxis}
-    <LeftAxis />
-    <BottomAxis />
+    <Axis position="left" />
+    <Axis position="bottom" />
   {/if}
   {#each formattedData as p}
     <Point x={p.get(xAxis) ?? 0} y={p.get(yAxis) ?? 0} />

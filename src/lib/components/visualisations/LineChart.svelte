@@ -2,8 +2,7 @@
   import { GraphStore } from '$lib/store.js';
   import * as d3 from 'd3';
   import { setContext } from 'svelte';
-  import LeftAxis from '../base/LeftAxis.svelte';
-  import BottomAxis from '../base/BottomAxis.svelte';
+  import Axis from '../base/Axis.svelte';
   import Line from '../base/Line.svelte';
 
   // Insert exports
@@ -69,7 +68,7 @@ This is a visualisation to show a line between points
 * maxY: number  - Maximal value of the vertical axes, defaults to data range
 -->
 <svg class="visualisation" {height} {width}>
-  <LeftAxis ticksNumber={yValues.length} />
-  <BottomAxis ticksNumber={xValues.length} />
+  <Axis ticksNumber={yValues.length} position="left" />
+  <Axis ticksNumber={xValues.length} position="bottom" />
   <Line points={data} />
 </svg>
