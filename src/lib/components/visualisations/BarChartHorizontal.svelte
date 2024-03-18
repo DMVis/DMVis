@@ -11,8 +11,8 @@
   export let width: number;
   export let height: number;
   export let data: { label: string; value: number }[];
-  export let minX; // Can be made optional?
-  export let maxX; // Can be made optional?
+  export let minX: number; // Can be made optional?
+  export let maxX: number; // Can be made optional?
 
   // Optional attributes
   export let marginLeft: number | null = null;
@@ -20,7 +20,7 @@
   export let marginBottom: number | null = null;
   export let marginTop: number | null = null;
   export let padding: number = 0.2;
-  export let color: string = 'blue';       // Store needed?
+  export let color: string = 'blue'; // Store needed?
   export let opacity: number | string = 1; // Store needed?
   export let radiusX: number | string = 5;
   export let radiusY: number | string = 5;
@@ -32,8 +32,8 @@
   marginBottom ? graphStore.marginBottom.set(marginBottom) : null;
   marginTop ? graphStore.marginTop.set(marginTop) : null;
 
-  graphStore.height.set(height);
   graphStore.width.set(width);
+  graphStore.height.set(height);
   graphStore.values.set(data.map((data) => data.label));
   graphStore.minX.set(minX);
   graphStore.maxX.set(maxX);
