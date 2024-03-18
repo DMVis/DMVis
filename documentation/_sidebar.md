@@ -3,6 +3,8 @@
 - Visualisations
   - [LineChart](visualisations/LineChart.md)
   - [Scatterplot](visualisations/Scatterplot.md)
+  - [BarChartHorizontal](visualisations/BarChartHorizontal.md.md)
+  - [BarChartVertical](visualisations/BarChartVertical.md.md)
 - Components
 
   - Axis

@@ -4,7 +4,7 @@ To calculate a (new) origin for an element, we have created the `getOrigin` func
 
 ## Origin enums
 
-For both the horizontal and vertical axis, we have create enums to represent the origin of an element. The enums are as follows:
+For both the horizontal and vertical axis, we have created enums to represent the origin of an element. The enums are as follows:
 
 ```javascript
 export enum OriginX {
@@ -76,3 +76,17 @@ This function maps the end of the element to the destination origin. It takes in
 - `destinationOrigin`: The origin of the destination
 
 The function returns a number that represents the new origin of the element.
+
+## getFlippedOrigin
+The `getFlippedOrigin` function takes in the following parameter:
+
+- `origin`: An origin
+
+The function returns the opposite origin enum value. The mappings are as follows:
+
+OriginX.Left   -> OriginX.Right
+OriginX.Middle -> OriginX.Middle
+OriginX.Right  -> OriginX.Left
+OriginY.Top    -> OriginY.Bottom
+OriginY.Middle -> OriginY.Middle
+OriginY.Bottom -> OriginY.Top

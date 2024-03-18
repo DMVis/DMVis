@@ -19,19 +19,16 @@ export function getOrigin(
   }
 }
 
-export function getOppositeOriginX(originX: OriginX): OriginX {
-  switch (originX) {
+export function getFlippedOrigin(origin: OriginX | OriginY): OriginX | OriginY {
+  switch (origin) {
+    // Horizontals.
     case OriginX.Left:
       return OriginX.Right;
     case OriginX.Middle:
       return OriginX.Middle;
     case OriginX.Right:
       return OriginX.Left;
-  }
-}
-
-export function getOppositeOriginY(originY: OriginY): OriginY {
-  switch (originY) {
+    // Verticals.
     case OriginY.Top:
       return OriginY.Bottom;
     case OriginY.Middle:

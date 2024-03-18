@@ -1,6 +1,6 @@
 <script lang="ts">
-  import BarChartHorizontal from '$lib/components/visualisations/HorizontalBarChart.svelte';
-  import BarChartVertical from '$lib/components/visualisations/VerticalBarChart.svelte';
+  import BarChartHorizontal from '$lib/components/visualisations/BarChartHorizontal.svelte';
+  import BarChartVertical from '$lib/components/visualisations/BarChartVertical.svelte';
   import LineChart from '$lib/components/visualisations/LineChart.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
 
@@ -63,5 +63,5 @@
 <Scatterplot data={mapData} {height} {width} xAxis="age" yAxis="size" />
 <LineChart marginLeft={40} marginBottom={40} {width} {height} {data} />
 <br />
-<BarChartVertical {width} {height} {barData} minY={0} maxY={500} />
-<BarChartHorizontal {width} {height} {barData} minX={0} maxX={500} />
+<BarChartVertical {width} {height} data={barData} minY={0} maxY={500} />
+<BarChartHorizontal {width} {height} data={barData} minX={0} maxX={500} />
