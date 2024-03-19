@@ -31,7 +31,7 @@ describe('Html test', () => {
     expect(rect.getAttribute('rx')).toBe('0');
     expect(rect.getAttribute('ry')).toBe('0');
     expect(rect.getAttribute('fill')).toBe('red');
-    expect(rect.getAttribute('fill-opacity')).toBe('100%');
+    expect(rect.getAttribute('fill-opacity')).toBe('1');
 
     // Check if the label has the default attributes
     expect(text.textContent).toBe('Test');
@@ -39,7 +39,7 @@ describe('Html test', () => {
     expect(text.getAttribute('font-size')).toBe('12px');
     expect(text.getAttribute('font-family')).toBe('Arial');
     expect(text.getAttribute('font-weight')).toBe('normal');
-    expect(text.getAttribute('opacity')).toBe('100%');
+    expect(text.getAttribute('opacity')).toBe('1');
   });
 
   it('checks if custom attributes are filled', () => {
@@ -98,7 +98,7 @@ describe('Html test', () => {
     expect(text.getAttribute('font-size')).toBe('12px');
     expect(text.getAttribute('font-family')).toBe('Arial');
     expect(text.getAttribute('font-weight')).toBe('normal');
-    expect(text.getAttribute('opacity')).toBe('100%');
+    expect(text.getAttribute('opacity')).toBe('1');
   });
 });
 

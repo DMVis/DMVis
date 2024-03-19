@@ -11,12 +11,12 @@
 
   // Optional attributes
   export let color: string = 'red';
-  export let opacity: string = '100%';
+  export let opacity: number | string = 1;
   export let originX: OriginX = OriginX.Middle;
   export let originY: OriginY = OriginY.Middle;
   export let rotationDegrees: number = 0;
-  export let radiusX: string = '0';
-  export let radiusY: string = '0';
+  export let radiusX: number | string = 0;
+  export let radiusY: number | string = 0;
   export let padding: number = 20;
   export let textColor: string = 'black';
   export let fontSize: string = '12px';
@@ -67,26 +67,30 @@ Coordinates are relative to the parent SVG element.
 The default origin is the middle of the rectangle.
 
 #### Required attributes
-* x: number               - Non-scaled x coordinate of the label
-* y: number               - Non-scaled y coordinate of the label
-* text: string            - Text to display in the label
+* x: number                - X-coordinate of the label.
+* y: number                - Y-coordinate of the label.
+* text: string             - Text to display in the label.
 
 #### Optional attributes
-* color: string           - Color of the rectangle behind the label
-* opacity: string         - Opacity of the label
-* originX: OriginX        - Horizontal origin of the label.
-                            Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`
-* originY: OriginY        - Vertical origin of the label.
-                            Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`
-* rotationDegrees: number - Rotation of the label in degrees
-* radiusX: number         - Horizontal corner radius of the rectangle behind the label
-* radiusY: number         - Vertical corner radius of the rectangle behind the label
-* padding: number         - Padding around the text in the label
-* textColor: string       - Color of the text in the label
-* fontSize: string        - Font size of the text in the label
-* fontWeight: string      - Font weight of the text in the label
-* fontFamily: string      - Font family of the text in the label
-* hasBackground: bool     - Whether the label has a background or not
+* color: string            - Color of the rectangle behind the label.
+* opacity: number | string - Opacity of the label.
+* originX: OriginX         - Horizontal origin of the label.
+                             Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
+                             Which value is useful depends on your positioning logic.
+* originY: OriginY         - Vertical origin of the label.
+                             Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
+                             Which value is useful depends on your positioning logic.
+* rotationDegrees: number  - Rotation of the label in degrees.
+* radiusX: number | string - Horizontal corner radius of the bar as a number in range [0..1] or
+                             a percentage string formatted as '{number}%'.
+* radiusY: number | string - Vertical corner radius of the bar as a number in range [0..1] or
+                             a percentage string formatted as '{number}%'.
+* padding: number          - Padding around the text in the label.
+* textColor: string        - Color of the text in the label.
+* fontSize: string         - Font size of the text in the label.
+* fontWeight: string       - Font weight of the text in the label.
+* fontFamily: string       - Font family of the text in the label.
+* hasBackground: bool      - Whether the label has a background or not.
 -->
 
 <g transform="rotate({rotationDegrees}, {x}, {y})">
@@ -102,7 +106,6 @@ The default origin is the middle of the rectangle.
       fill={color}
       fill-opacity={opacity} />
   {/if}
-
   <text
     bind:this={textBlock}
     {x}

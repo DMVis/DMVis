@@ -1,6 +1,7 @@
 # Label component
 
-The label component can be used to add a label to a chart, it is a simple text element with a rectangle behind it.
+The label component can be used to add a label to a chart.
+It is a simple text element with a rectangle behind it.
 
 # Required Attributes
 
@@ -8,19 +9,19 @@ The label component can be used to add a label to a chart, it is a simple text e
 
 - Type: `number`
 
-Non-scaled x coordinate of the label
+X-coordinate of the label.
 
 ## y
 
 - Type: `number`
 
-Non-scaled y coordinate of the label
+Y-coordinate of the label.
 
 ## text
 
 - Type: `string`
 
-Text to display in the label
+Text to display in the label.
 
 # Optional Attributes
 
@@ -29,93 +30,97 @@ Text to display in the label
 - Type: `string`
 - Default: `#fe7215`
 
-Color of the rectangle behind the label
+Color of the rectangle behind the label.
 
 ## opacity
 
-- Type: `string`
+- Type: `number | string`
 - Default: `1`
 
-Opacity of the label
+Opacity of the label.
 
 ## originX
 
 - Type: `OriginX`
 - Default: `OriginX.Middle`
 
-Horizontal origin of the label
-Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`
+Horizontal origin of the label.
+Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
+Which value is useful depends on your positioning logic.
 
 ## originY
 
 - Type: `OriginY`
 - Default: `OriginY.Middle`
 
-Vertical origin of the label
-Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`
+Vertical origin of the label.
+Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
+Which value is useful depends on your positioning logic.
 
 ## rotationDegrees
 
 - Type: `number`
 - Default: `0`
 
-Rotation of the label in degrees
+Rotation of the label in degrees.
 
 ## radiusX
 
-- Type: `number`
+- Type: `number | string`
 - Default: `0`
 
-Horizontal corner radius of the rectangle behind the label
+Horizontal corner radius of the bar as a number in range [0..1] or
+a percentage string formatted as '{number}%'.
 
 ## radiusY
 
-- Type: `number`
+- Type: `number | string`
 - Default: `0`
 
-Vertical corner radius of the rectangle behind the label
+Vertical corner radius of the bar as a number in range [0..1] or
+a percentage string formatted as '{number}%'.
 
 ## padding
 
 - Type: `number`
 - Default: `20`
 
-Padding around the text in the label
+Padding around the text in the label.
 
 ## textColor
 
 - Type: `string`
 - Default: `black`
 
-Color of the text in the label
+Color of the text in the label.
 
 ## fontSize
 
 - Type: `string`
 - Default: `12px`
 
-Font size of the text in the label
+Font size of the text in the label.
 
 ## fontWeight
 
 - Type: `string`
 - Default: `normal`
 
-Font weight of the text in the label
+Font weight of the text in the label.
 
 ## fontFamily
 
 - Type: `string`
 - Default: `Arial`
 
-Font family of the text in the label
+Font family of the text in the label.
 
 ## hasBackground
 
 - Type: `bool`
 - Default: `true`
 
-Whether the label has a background or not
+Whether the label has a background or not.
 
 # Example usage
 
@@ -132,7 +137,7 @@ Label with all properties set.
     originX={OriginX.Middle}
     originY={OriginY.Middle}
     rotationDegrees={0}
-    opacity={'1'}
+    opacity={1}
     radiusX={5}
     radiusY={5}
     padding={20}
