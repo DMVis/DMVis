@@ -65,8 +65,8 @@ Coordinates are relative to the parent SVG element.
 The default origin is the bottom middle of the bar.
 
 #### Required attributes
-* x: number                - Non-scaled x coordinate of the bar.
-* y: number                - Non-scaled y coordinate of the bar.
+* x: number                - X-coordinate of the bar.
+* y: number                - Y-coordinate of the bar.
 * width: number            - Width of the bar.
 * height: number           - Height of the bar.
 * isValueAlongYAxis        - Whether the value is along the x-axis or y-axis (i.e. horizontal versus vertical bars)

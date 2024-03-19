@@ -11,7 +11,7 @@ The y-axis represents the categories of the data.
 
 - Type: `number`
 
- Width of the visualisation.
+Width of the visualisation.
 
 ## height
 

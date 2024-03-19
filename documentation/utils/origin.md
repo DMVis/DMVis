@@ -78,15 +78,16 @@ This function maps the end of the element to the destination origin. It takes in
 The function returns a number that represents the new origin of the element.
 
 ## getFlippedOrigin
+
 The `getFlippedOrigin` function takes in the following parameter:
 
 - `origin`: An origin
 
 The function returns the opposite origin enum value. The mappings are as follows:
 
-OriginX.Left   -> OriginX.Right
+OriginX.Left -> OriginX.Right
 OriginX.Middle -> OriginX.Middle
-OriginX.Right  -> OriginX.Left
-OriginY.Top    -> OriginY.Bottom
+OriginX.Right -> OriginX.Left
+OriginY.Top -> OriginY.Bottom
 OriginY.Middle -> OriginY.Middle
 OriginY.Bottom -> OriginY.Top

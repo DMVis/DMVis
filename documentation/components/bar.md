@@ -16,13 +16,13 @@ Coordinates are relative to the parent SVG element.
 
 - Type: `number`
 
-Non-scaled x coordinate of the bar.
+X-coordinate of the bar.
 
 ## y
 
 - Type: `number`
 
-Non-scaled y coordinate of the bar.
+Y-coordinate of the bar.
 
 ## width
 
