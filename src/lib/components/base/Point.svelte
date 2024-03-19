@@ -1,4 +1,5 @@
 <script lang="ts">
+  import * as d3 from 'd3';
   import { getContext } from 'svelte';
   import type { GraphStore } from '$lib/store.js';
 
@@ -11,6 +12,8 @@
   export let opacity: number = 1;
 
   const { xScale, yScale } = getContext<GraphStore>('store');
+  const xScaleLocal = $xScale as d3.ScaleLinear<number, number>;
+  const yScaleLocal = $yScale as d3.ScaleLinear<number, number>;
 </script>
 
 <!--
@@ -32,8 +35,8 @@ It is used in combination with other components to create a chart.
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
 -->
 <circle
-  cx={$xScale(x)}
-  cy={$yScale(y)}
+  cx={xScaleLocal(x)}
+  cy={yScaleLocal(y)}
   r={radius}
   stroke={borderColor}
   fill={color}

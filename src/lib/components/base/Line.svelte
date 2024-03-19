@@ -1,4 +1,5 @@
 <script lang="ts">
+  import * as d3 from 'd3';
   import type { GraphStore } from '$lib/store.js';
   import { getContext } from 'svelte';
 
@@ -7,8 +8,10 @@
   export let width: number = 1;
 
   const { yScale, xScale } = getContext<GraphStore>('store');
+  const xScaleLocal = $xScale as d3.ScaleLinear<number, number>;
+  const yScaleLocal = $yScale as d3.ScaleLinear<number, number>;
 
-  $: path = `M${points.map((p) => `${$xScale(p.x)},${$yScale(p.y)}`).join('L')}`;
+  $: path = `M${points.map((p) => `${xScaleLocal(p.x)},${yScaleLocal(p.y)}`).join('L')}`;
 </script>
 
 <!--

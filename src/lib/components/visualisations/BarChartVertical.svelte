@@ -41,10 +41,8 @@
   graphStore.xAxisType.set('band');
 
   // Private attributes
-  const { xScale } = graphStore;
+  const { xScale, marginTop: marginTopBar, marginBottom: marginBottomBar } = graphStore;
   const xScaleLocal = $xScale as d3.ScaleBand<string>;
-  const marginBottomBar = graphStore.marginBottom;
-  const marginTopBar = graphStore.marginTop;
   const barScale = d3
     .scaleLinear()
     .domain([minY, maxY])

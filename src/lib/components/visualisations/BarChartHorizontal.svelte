@@ -41,10 +41,8 @@
   graphStore.yAxisType.set('band');
 
   // Private attributes
-  const { yScale } = graphStore;
+  const { yScale, marginLeft: marginLeftBar, marginRight: marginRightBar } = graphStore;
   const yScaleLocal = $yScale as d3.ScaleBand<string>;
-  const marginLeftBar = graphStore.marginLeft;
-  const marginRightBar = graphStore.marginRight;
   const barScale = d3
     .scaleLinear()
     .domain([minX, maxX])
