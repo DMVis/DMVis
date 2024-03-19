@@ -2,6 +2,7 @@
   import BarChartHorizontal from '$lib/components/visualisations/BarChartHorizontal.svelte';
   import BarChartVertical from '$lib/components/visualisations/BarChartVertical.svelte';
   import LineChart from '$lib/components/visualisations/LineChart.svelte';
+  import MultiLineChart from '$lib/components/visualisations/MultiLineChart.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
 
   const height: number = 500;
@@ -58,6 +59,20 @@
     { label: 'f', value: 450 },
     { label: 'g', value: 500 }
   ];
+  function generateLargeDataset(numLines: number, numPointsPerLine: number) {
+    const dataset = [];
+    for (let i = 0; i < numLines; i++) {
+      const lineData = [];
+      for (let j = 0; j < numPointsPerLine; j++) {
+        const x = j * (1000 / numPointsPerLine);
+        const y = Math.floor(Math.random() * 1000);
+        lineData.push({ x: x, y: y });
+      }
+      dataset.push(lineData);
+    }
+    return dataset;
+  }
+  const largeData = generateLargeDataset(100, 10);
 </script>
 
 <Scatterplot data={mapData} {height} {width} xAxis="age" yAxis="size" />
@@ -65,3 +80,5 @@
 <br />
 <BarChartVertical {width} {height} data={barData} minY={0} maxY={500} />
 <BarChartHorizontal {width} {height} data={barData} minX={0} maxX={500} />
+<br />
+<MultiLineChart marginLeft={50} marginBottom={40} {width} {height} data={largeData} />

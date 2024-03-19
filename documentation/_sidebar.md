@@ -2,6 +2,7 @@
 
 - Visualisations
   - [LineChart](visualisations/LineChart.md)
+  - [MultiLineChart](visualisations/MultiLineChart.md)
   - [Scatterplot](visualisations/Scatterplot.md)
   - [BarChartHorizontal](visualisations/BarChartHorizontal.md.md)
   - [BarChartVertical](visualisations/BarChartVertical.md.md)
@@ -15,6 +16,7 @@
   - [Label](components/label.md)
   - [Point](components/point.md)
   - [Line](components/line.md)
+  - [HoverLine](components/hoverline.md)
   - [Bar](components/Bar.md)
 
 - Utilities
