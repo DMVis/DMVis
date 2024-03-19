@@ -3,8 +3,6 @@
   import BarChartVertical from '$lib/components/visualisations/BarChartVertical.svelte';
   import LineChart from '$lib/components/visualisations/LineChart.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
-  import Label from '$lib/components/base/Label.svelte';
-  import { OriginX, OriginY } from '$lib/Enums.js';
 
   const height: number = 500;
   const width: number = 500;
