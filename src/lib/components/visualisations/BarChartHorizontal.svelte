@@ -82,20 +82,22 @@ The y-axis represents the categories of the data.
                              a percentage string formatted as '{number}%'.
 -->
 <svg class="visualisation" {width} {height}>
-  {#each data as bar}
-    <Bar
-      x={$marginLeftBar}
-      y={yScaleLocal(bar.label) ?? 0}
-      width={yScaleLocal.bandwidth()}
-      value={barScale(bar.value)}
-      isValueAlongYAxis={false}
-      originX={OriginX.Left}
-      originY={OriginY.Top}
-      {color}
-      {opacity}
-      {radiusX}
-      {radiusY} />
-  {/each}
-  <Axis position="left" />
-  <Axis position="bottom" />
+  {#key data}
+    {#each data as bar}
+      <Bar
+        x={$marginLeftBar}
+        y={yScaleLocal(bar.label) ?? 0}
+        width={yScaleLocal.bandwidth()}
+        value={barScale(bar.value)}
+        isValueAlongYAxis={false}
+        originX={OriginX.Left}
+        originY={OriginY.Top}
+        {color}
+        {opacity}
+        {radiusX}
+        {radiusY} />
+    {/each}
+    <Axis position="left" />
+    <Axis position="bottom" />
+  {/key}
 </svg>

@@ -69,7 +69,9 @@ This is a visualisation to show a line between points
 * maxY: number  - Maximal value of the vertical axes, defaults to data range
 -->
 <svg class="visualisation" {height} {width}>
-  <Axis ticksNumber={yValues.length} position="left" />
-  <Axis ticksNumber={xValues.length} position="bottom" />
-  <Line points={data} />
+  {#key data}
+    <Axis ticksNumber={yValues.length} position="left" />
+    <Axis ticksNumber={xValues.length} position="bottom" />
+    <Line points={data} />
+  {/key}
 </svg>

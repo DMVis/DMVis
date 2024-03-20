@@ -3,6 +3,8 @@
 
   import { GraphStore } from '$lib/store.js';
 
+  export let data: { label: string; value: number }[];
+
   // Insert exports
   const graphStore = new GraphStore();
 
@@ -20,7 +22,11 @@ A small description of the graph.
 #### Optional attributes
 * attribute: type  - Description. Default is 'default'.
 -->
-<svg class="graph"> </svg>
+<svg class="graph">
+  {#key data}
+    <!-- Insert graph -->
+  {/key}
+</svg>
 
 <style>
   /* Insert graph styling  */

@@ -111,11 +111,13 @@ These attributes are required when using the Map datatype
   * showAxis: bool - Whether or not the axis should be drawn
 -->
 <svg {width} {height}>
-  {#if showAxis}
-    <Axis position="left" />
-    <Axis position="bottom" />
-  {/if}
-  {#each formattedData as p}
-    <Point x={p.get(xAxis) ?? 0} y={p.get(yAxis) ?? 0} />
-  {/each}
+  {#key data}
+    {#if showAxis}
+      <Axis position="left" />
+      <Axis position="bottom" />
+    {/if}
+    {#each formattedData as p}
+      <Point x={p.get(xAxis) ?? 0} y={p.get(yAxis) ?? 0} />
+    {/each}
+  {/key}
 </svg>

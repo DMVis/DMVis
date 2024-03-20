@@ -67,19 +67,21 @@ This is a visualisation to show a line between points
 * maxY: number  - Maximal value of the vertical axes, defaults to data range
 -->
 <svg id="multiLineContainer" class="visualisation" {height} {width}>
-  {#each data as p, i (i)}
-    <HoverLine
-      points={p}
-      width={2}
-      {anyLineHovered}
-      id={i}
-      on:mouseenter={() => {
-        anyLineHovered = true;
-      }}
-      on:mouseleave={() => {
-        anyLineHovered = false;
-      }} />
-  {/each}
-  <Axis position="left" />
-  <Axis position="bottom" />
+  {#key data}
+    {#each data as p, i (i)}
+      <HoverLine
+        points={p}
+        width={2}
+        {anyLineHovered}
+        id={i}
+        on:mouseenter={() => {
+          anyLineHovered = true;
+        }}
+        on:mouseleave={() => {
+          anyLineHovered = false;
+        }} />
+    {/each}
+    <Axis position="left" />
+    <Axis position="bottom" />
+  {/key}
 </svg>
