@@ -3,6 +3,7 @@
   import BarChartVertical from '$lib/components/visualisations/BarChartVertical.svelte';
   import LineChart from '$lib/components/visualisations/LineChart.svelte';
   import MultiLineChart from '$lib/components/visualisations/MultiLineChart.svelte';
+  import MultipleAxes from '$lib/components/visualisations/MultipleAxes.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
 
   const height: number = 500;
@@ -82,3 +83,11 @@
 <BarChartHorizontal {width} {height} data={barData} minX={0} maxX={500} />
 <br />
 <MultiLineChart marginLeft={50} marginBottom={40} {width} {height} data={largeData} />
+<MultipleAxes
+  data={[
+    ['label', 'gewicht', 'hoogte'],
+    ['Jesper', 67, 173],
+    ['Jelte', 82, 184]
+  ]}
+  {width}
+  {height} />

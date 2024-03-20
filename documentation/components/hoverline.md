@@ -35,7 +35,7 @@ Color of the line when this specific line is hovered.
 
 Color of the line when any other line is hovered.
 
-## width
+## lineWidth
 
 - Type: `number`
 - Default: `1`

@@ -4,22 +4,22 @@
   import { getContext, createEventDispatcher } from 'svelte';
   import Label from './Label.svelte';
 
-  export let points: { x: number; y: number }[];
+  export let values: (number | string)[];
   export let color: string = '#944';
   export let focusColor: string = '#F44';
   export let notFocusColor: string = '#BBB';
-  export let width: number = 1;
+  export let lineWidth: number = 1;
   export let anyLineHovered: boolean = false;
   export let id: number = 0;
 
   let thisHovered: boolean = false;
 
   const dispatch = createEventDispatcher();
-  const { yScale, xScale } = getContext<GraphStore>('store');
+  const { yScale, xScale, width } = getContext<GraphStore>('store');
   const yScaleLocal = $yScale as d3.ScaleLinear<number, number>;
   const xScaleLocal = $xScale as d3.ScaleLinear<number, number>;
 
-  $: path = `M${points.map((p) => `${xScaleLocal(p.x)},${yScaleLocal(p.y)}`).join('L')}`;
+  $: path = `M${values.map((value, index) => `${xScaleLocal(p.x)},${yScaleLocal(p.y)}`).join('L')}`;
 
   function redrawHoveredLine(id: number) {
     const lineElement = document.getElementById('line-' + id)!;
@@ -43,7 +43,7 @@ It is used in combination with other components to create a chart.
   * color: number                       - Color of the line, defaulted to red. Can be any hex-code, rgb or plain string colors
   * focusColor: number                  - Color of the line, when it is hovered. Defaulted to light red.
   * notFocusColor: number               - Color of the line, when `anyLineHovered === true`. Defaulted to grey.
-  * width: string                       - Width of the line, defaulted to 1
+  * lineWidth: string                   - Width of the line, defaulted to 1
   * anyLineHovered: boolean             - Whether any line in the graph is hovered. Defaulted to false.
   * id: number                          - Unique ID given to one instance of this line, used to redraw the line. Defaulted to 0.
 -->
@@ -52,7 +52,7 @@ It is used in combination with other components to create a chart.
   <path
     d={path}
     stroke={anyLineHovered ? (thisHovered ? focusColor : notFocusColor) : color}
-    stroke-width={width}
+    stroke-width={lineWidth}
     fill="none"
     on:mouseenter={() => {
       dispatch('mouseenter');
