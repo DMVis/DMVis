@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { GraphStore } from '$lib/store.js';
   import * as d3 from 'd3';
   import { setContext } from 'svelte';
-  import Axis from '../base/Axis.svelte';
-  import Line from '../base/Line.svelte';
+
+  import { GraphStore } from '$lib/store.js';
+  import Axis from '$lib/components/base/Axis.svelte';
+  import Line from '$lib/components/base/Line.svelte';
 
   // Insert exports
   export let width: number;

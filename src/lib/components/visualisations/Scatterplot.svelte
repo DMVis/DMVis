@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { GraphStore } from '$lib/store.js';
-  import { setContext } from 'svelte';
   import * as d3 from 'd3';
+  import { setContext } from 'svelte';
 
+  import { GraphStore } from '$lib/store.js';
   import Point from '$lib/components/base/Point.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
 

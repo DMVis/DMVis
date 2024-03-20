@@ -1,11 +1,11 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { GraphStore } from '$lib/store.js';
   import { setContext } from 'svelte';
-  import Bar from '$lib/components/base/Bar.svelte';
-  import LeftAxis from '$lib/components/base/LeftAxis.svelte';
-  import BottomAxis from '$lib/components/base/BottomAxis.svelte';
+
+  import { GraphStore } from '$lib/store.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
+  import Bar from '$lib/components/base/Bar.svelte';
+  import Axis from '$lib/components/base/Axis.svelte';
 
   // Required attributes
   export let width: number;
@@ -96,6 +96,6 @@ The y-axis represents the numerical values of the data.
       {radiusX}
       {radiusY} />
   {/each}
-  <LeftAxis />
-  <BottomAxis />
+  <Axis position="left" />
+  <Axis position="bottom" />
 </svg>

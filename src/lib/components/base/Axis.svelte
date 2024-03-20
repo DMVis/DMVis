@@ -24,36 +24,59 @@
   // Update the axis using reactive statements
   $: {
     // Create the axis generator
-    let axisGenerator;
+    let axisGenerator: d3.Axis<string> | d3.Axis<d3.NumberValue>;
 
     // Decide the placement and axis-type of the axis based on the position
     switch (position) {
       case 'top':
         placementY = Number(marginTop) + Number(offset);
-        axisGenerator = d3.axisTop(scale);
+        if (scale instanceof d3.scaleBand) {
+          axisGenerator = d3.axisTop(scale as d3.ScaleBand<string>);
+        } else {
+          axisGenerator = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+        }
         break;
       case 'bottom':
         placementY = Number($height) - Number($marginBottom) + Number(offset);
-        axisGenerator = d3.axisBottom(scale);
+        if (scale instanceof d3.scaleBand) {
+          axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
+        } else {
+          axisGenerator = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
+        }
         break;
       case 'left':
         placementX = Number($marginLeft) + Number(offset);
-        axisGenerator = d3.axisLeft(scale);
+        if (scale instanceof d3.scaleBand) {
+          axisGenerator = d3.axisLeft(scale as d3.ScaleBand<string>);
+        } else {
+          axisGenerator = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+        }
         break;
       case 'right':
         placementX = Number($marginRight) + Number(offset);
-        axisGenerator = d3.axisRight(scale);
+        if (scale instanceof d3.scaleBand) {
+          axisGenerator = d3.axisRight(scale as d3.ScaleBand<string>);
+        } else {
+          axisGenerator = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+        }
         break;
       default:
         placementX = Number($height) - Number($marginBottom) + Number(offset);
-        axisGenerator = d3.axisBottom(scale);
+        if (scale instanceof d3.scaleBand) {
+          axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
+        } else {
+          axisGenerator = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
+        }
     }
 
     // Set the tick size and number of ticks
-    if (ticks) {
-      axisGenerator = axisGenerator.tickSizeOuter(0).ticks(ticksNumber);
-    } else {
-      axisGenerator = axisGenerator.tickSize(0);
+    if (scale instanceof d3.scaleLinear) {
+      axisGenerator = axisGenerator as d3.Axis<d3.NumberValue>;
+      if (ticks) {
+        axisGenerator = axisGenerator.tickSizeOuter(0).ticks(ticksNumber);
+      } else {
+        axisGenerator = axisGenerator.tickSize(0);
+      }
     }
 
     // Render the axis

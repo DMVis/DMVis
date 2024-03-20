@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { GraphStore } from '$lib/store.js';
   import * as d3 from 'd3';
   import { setContext } from 'svelte';
-  import LeftAxis from '../base/LeftAxis.svelte';
-  import BottomAxis from '../base/BottomAxis.svelte';
-  import HoverLine from '../base/HoverLine.svelte';
+
+  import { GraphStore } from '$lib/store.js';
+  import Axis from '$lib/components/base/Axis.svelte';
+  import HoverLine from '$lib/components/base/HoverLine.svelte';
 
   // Insert exports
   export let width: number;
@@ -80,6 +80,6 @@ This is a visualisation to show a line between points
         anyLineHovered = false;
       }} />
   {/each}
-  <LeftAxis />
-  <BottomAxis />
+  <Axis position="left" />
+  <Axis position="bottom" />
 </svg>

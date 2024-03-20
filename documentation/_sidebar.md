@@ -1,6 +1,7 @@
 - [Getting started](README.md)
 
 - Visualisations
+
   - [BarChartHorizontal](visualisations/BarChartHorizontal.md.md)
   - [BarChartVertical](visualisations/BarChartVertical.md.md)
   - [LineChart](visualisations/LineChart.md)
@@ -8,6 +9,7 @@
   - [Scatterplot](visualisations/Scatterplot.md)
 
 - Components
+
   - [Axis](components/axis.md)
   - [Bar](components/Bar.md)
   - [HoverLine](components/hoverline.md)
