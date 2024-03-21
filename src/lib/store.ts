@@ -151,6 +151,10 @@ export class VisualisationStore {
     dimension: number,
     padding: number
   ) => {
+    if (data.length === 0) {
+      return [];
+    }
+
     const scales: Array<d3.ScaleLinear<number, number> | d3.ScaleBand<string>> = [];
 
     for (let i = 0; i < data[0].length; i++) {
@@ -170,7 +174,6 @@ export class VisualisationStore {
         );
       } else {
         const domain = extent(columnData as Array<number>);
-
         if (domain[0] === undefined) {
           throw new Error(
             `Data is incompatable, value range could not be found in column ${data[0][i]}`

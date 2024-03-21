@@ -72,6 +72,5 @@ This is a visualisation to show a line between points
       }} />
   {/each}
   <Axis position="left" />
-  <Axis position="bottom" />
-  {/each} -->
+  <Axis position="bottom" /> -->
 </svg>

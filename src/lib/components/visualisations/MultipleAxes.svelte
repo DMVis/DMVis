@@ -3,22 +3,19 @@
   import { VisualisationStore } from '$lib/store.js';
 
   import HoverLine from '$lib/components/base/HoverLine.svelte';
-  import Axis from '$lib/components/base/Axis.svelte';
-  import { Spacer } from '$lib/utils/Spacer.js';
+  import AxisExperimental from '$lib/components/base/AxisExperimental.svelte';
 
   // Insert exports
   export let width: number;
   export let height: number;
   export let data: (number | string)[][];
 
-  const graphStore = new VisualisationStore();
+  const visualisationStore = new VisualisationStore();
 
-  graphStore.width.set(width);
-  graphStore.height.set(height);
-  graphStore.data.set(data);
-  setContext('store', graphStore);
-
-  const { marginRight } = graphStore;
+  visualisationStore.width.set(width);
+  visualisationStore.height.set(height);
+  visualisationStore.data.set(data);
+  setContext('store', visualisationStore);
 </script>
 
 <!--
@@ -33,9 +30,7 @@ A small description of the graph.
 * attribute: type  - Description. Default is 'default'.
 -->
 <svg class="graph" {width} {height}>
-  {#each { length: data[0].length } as _, i}
-    <Axis offset={Spacer(width, $marginRight, data[0].length) * i} position={'left'} />
-  {/each}
+  <AxisExperimental position={'left'} />
   <!-- {#each data as p, i (i)}
     <HoverLine
       points={p}
