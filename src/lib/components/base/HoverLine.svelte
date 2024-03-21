@@ -19,7 +19,7 @@
   const yScaleLocal = $yScale as d3.ScaleLinear<number, number>;
   const xScaleLocal = $xScale as d3.ScaleLinear<number, number>;
 
-  $: path = `M${values.map((value, index) => `${xScaleLocal(p.x)},${yScaleLocal(p.y)}`).join('L')}`;
+  $: path = `M${values.map((value, index) => `${xScaleLocal(Number(value))},${yScaleLocal(Number(value))}`).join('L')}`;
 
   function redrawHoveredLine(id: number) {
     const lineElement = document.getElementById('line-' + id)!;
@@ -65,11 +65,11 @@ It is used in combination with other components to create a chart.
     }} />
 
   {#if thisHovered}
-    {#each points as p}
+    {#each values as p}
       <Label
-        x={xScaleLocal(p.x) - 10}
-        y={yScaleLocal(p.y) - 10}
-        text={p.y.toString()}
+        x={xScaleLocal(Number(p)) - 10}
+        y={yScaleLocal(Number(p)) - 10}
+        text={p.toString()}
         color={'#777'}
         hasBackground={false} />
     {/each}
