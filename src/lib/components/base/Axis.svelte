@@ -38,7 +38,7 @@
         break;
       case 'bottom':
         placementY = Number($height) - Number($marginBottom) + Number(offset);
-        if (scale instanceof d3.scaleBand) {
+        if ('padding' in scale) {
           axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
         } else {
           axisGenerator = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
@@ -46,7 +46,7 @@
         break;
       case 'left':
         placementX = Number($marginLeft) + Number(offset);
-        if (scale instanceof d3.scaleBand) {
+        if ('padding' in scale) {
           axisGenerator = d3.axisLeft(scale as d3.ScaleBand<string>);
         } else {
           axisGenerator = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
@@ -54,7 +54,7 @@
         break;
       case 'right':
         placementX = Number($marginRight) + Number(offset);
-        if (scale instanceof d3.scaleBand) {
+        if ('padding' in scale) {
           axisGenerator = d3.axisRight(scale as d3.ScaleBand<string>);
         } else {
           axisGenerator = d3.axisRight(scale as d3.ScaleLinear<number, number>);
@@ -62,7 +62,7 @@
         break;
       default:
         placementX = Number($height) - Number($marginBottom) + Number(offset);
-        if (scale instanceof d3.scaleBand) {
+        if ('padding' in scale) {
           axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
         } else {
           axisGenerator = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
@@ -70,7 +70,7 @@
     }
 
     // Set the tick size and number of ticks
-    if (scale instanceof d3.scaleLinear) {
+    if (!('padding' in scale)) {
       axisGenerator = axisGenerator as d3.Axis<d3.NumberValue>;
       if (ticks) {
         axisGenerator = axisGenerator.tickSizeOuter(0).ticks(ticksNumber);
