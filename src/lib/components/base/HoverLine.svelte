@@ -1,25 +1,37 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import type { GraphStore } from '$lib/store.js';
+  import type { GraphStore, VisualisationStore } from '$lib/store.js';
   import { getContext, createEventDispatcher } from 'svelte';
   import Label from './Label.svelte';
+  import { Spacer } from '$lib/utils/Spacer.js';
 
-  export let values: (number | string)[];
   export let color: string = '#944';
   export let focusColor: string = '#F44';
   export let notFocusColor: string = '#BBB';
   export let lineWidth: number = 1;
-  export let anyLineHovered: boolean = false;
   export let id: number = 0;
 
-  let thisHovered: boolean = false;
+  let hoveredLine: number;
 
-  const dispatch = createEventDispatcher();
-  const { yScale, xScale, width } = getContext<GraphStore>('store');
-  const yScaleLocal = $yScale as d3.ScaleLinear<number, number>;
-  const xScaleLocal = $xScale as d3.ScaleLinear<number, number>;
+  const { yScales, width, marginLeft, marginRight, data } = getContext<VisualisationStore>('store');
 
-  $: path = `M${values.map((value, index) => `${xScaleLocal(Number(value))},${yScaleLocal(Number(value))}`).join('L')}`;
+  let paths: string[] = [];
+  $: {
+    console.log($yScales[0]);
+    $data.slice(1).forEach((row) => {
+      console.log(paths);
+      paths.push(
+        `M${row
+          .map(
+            (value, index) =>
+              `${$marginLeft + Spacer($width, $marginLeft, $marginRight, $data[0].length) * index},${$yScales[
+                index
+              ](value as any)}`
+          )
+          .join('L')}`
+      );
+    });
+  }
 
   function redrawHoveredLine(id: number) {
     const lineElement = document.getElementById('line-' + id)!;
@@ -48,30 +60,31 @@ It is used in combination with other components to create a chart.
   * id: number                          - Unique ID given to one instance of this line, used to redraw the line. Defaulted to 0.
 -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<svg id="line-{id}">
-  <path
-    d={path}
-    stroke={anyLineHovered ? (thisHovered ? focusColor : notFocusColor) : color}
-    stroke-width={lineWidth}
-    fill="none"
-    on:mouseenter={() => {
-      dispatch('mouseenter');
-      redrawHoveredLine(id);
-      thisHovered = true;
-    }}
-    on:mouseleave={() => {
-      dispatch('mouseleave');
-      thisHovered = false;
-    }} />
+<g>
+  {#each paths as path, i}
+    <path
+      id={`line-${i}`}
+      d={path}
+      stroke={hoveredLine === i ? focusColor : notFocusColor}
+      stroke-width={lineWidth}
+      fill="none"
+      on:mouseenter={() => {
+        hoveredLine = i;
+        redrawHoveredLine(i);
+      }}
+      on:mouseleave={() => {
+        hoveredLine = -1;
+      }} />
 
-  {#if thisHovered}
-    {#each values as p}
-      <Label
-        x={xScaleLocal(Number(p)) - 10}
-        y={yScaleLocal(Number(p)) - 10}
-        text={p.toString()}
-        color={'#777'}
-        hasBackground={false} />
-    {/each}
-  {/if}
-</svg>
+    <!-- {#if thisHovered}
+      {#each values as p}
+        <Label
+          x={xScaleLocal(Number(p)) - 10}
+          y={yScaleLocal(Number(p)) - 10}
+          text={p.toString()}
+          color={'#777'}
+          hasBackground={false} />
+      {/each}
+    {/if} -->
+  {/each}
+</g>

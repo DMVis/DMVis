@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { VisualisationStore } from '$lib/store.js';
   import { Spacer } from '$lib/utils/Spacer.js';
 
@@ -21,178 +21,181 @@
   let placementX: number = 0;
   let placementY: number = 0;
   let axisGenerator: AxisConfig[] = [];
+  let axisRefs: SVGGElement[] = [];
 
   interface AxisConfig {
     axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+    element: SVGGElement;
     x: number;
     y: number;
   }
 
   // Update the axis using reactive statements
-  $: {
-    // Decide the placement and axis-type of the axis based on the position
-    switch (position) {
-      case 'top':
-        $xScales.forEach((scale, index) => {
-          let newAxis;
+  // $: {
+  // Decide the placement and axis-type of the axis based on the position
+  switch (position) {
+    case 'top':
+      $xScales.forEach((scale, index) => {
+        let newAxis;
 
-          if ('padding' in scale) {
-            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
+        if ('padding' in scale) {
+          newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
+        } else {
+          newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+          if (ticks) {
+            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
-            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-            if (ticks) {
-              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-            } else {
-              newAxis = newAxis.tickSize(0);
-            }
+            newAxis = newAxis.tickSize(0);
           }
+        }
 
-          placementY = $marginTop + Number(offset);
+        if (spacingDirection === 'horizontal') {
+          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
+          placementX = offset + spacerOffset;
+        } else {
+          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
+          placementY = $marginTop + offset + spacerOffset;
+        }
 
-          if (spacingDirection === 'horizontal') {
-            let spacerOffset = Spacer($width, $marginRight, $xScales.length) * index;
-            placementX = 0 + offset + spacerOffset;
+        axisGenerator.push({
+          axis: newAxis,
+          x: placementX,
+          y: placementY
+        } as AxisConfig);
+      });
+      break;
+    case 'bottom':
+      $xScales.forEach((scale, index) => {
+        let newAxis;
+
+        if ('padding' in scale) {
+          newAxis = d3.axisBottom(scale as d3.ScaleBand<string>);
+        } else {
+          newAxis = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
+          if (ticks) {
+            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
-            let spacerOffset = Spacer($height, $marginBottom, $xScales.length) * index;
-            placementY = $marginTop + offset + spacerOffset;
+            newAxis = newAxis.tickSize(0);
           }
+        }
 
-          axisGenerator.push({
-            axis: newAxis,
-            x: placementX * index,
-            y: placementY * index
-          } as AxisConfig);
-        });
-        break;
-      case 'bottom':
-        $xScales.forEach((scale, index) => {
-          let newAxis;
+        placementY = $marginTop + Number(offset);
 
-          if ('padding' in scale) {
-            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
+        if (spacingDirection === 'horizontal') {
+          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
+          placementX = offset + spacerOffset;
+        } else {
+          let spacerOffset = Spacer($height, $marginTop, $marginBottom, $xScales.length) * index;
+          placementY = $marginBottom + offset + spacerOffset;
+        }
+        axisGenerator.push({
+          axis: newAxis,
+          x: placementX * index,
+          y: placementY * index
+        } as AxisConfig);
+      });
+      break;
+    case 'left':
+      $yScales.forEach((scale, index) => {
+        let newAxis;
+
+        if ('padding' in scale) {
+          newAxis = d3.axisLeft(scale as d3.ScaleBand<string>);
+        } else {
+          newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+          if (ticks) {
+            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
-            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-            if (ticks) {
-              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-            } else {
-              newAxis = newAxis.tickSize(0);
-            }
+            newAxis = newAxis.tickSize(0);
           }
+        }
 
-          placementY = $marginTop + Number(offset);
+        if (spacingDirection === 'horizontal') {
+          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
+          placementX = $marginLeft + offset + spacerOffset;
+        } else {
+          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
+          placementY = 0 + offset + spacerOffset;
+        }
 
-          if (spacingDirection === 'horizontal') {
-            let spacerOffset = Spacer($width, $marginRight, $xScales.length) * index;
-            placementX = 0 + offset + spacerOffset;
+        axisGenerator.push({
+          axis: newAxis,
+          x: placementX,
+          y: placementY
+        } as AxisConfig);
+      });
+      break;
+    case 'right':
+      $yScales.forEach((scale, index) => {
+        let newAxis;
+
+        if ('padding' in scale) {
+          newAxis = d3.axisRight(scale as d3.ScaleBand<string>);
+        } else {
+          newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+          if (ticks) {
+            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
-            let spacerOffset = Spacer($height, $marginTop, $xScales.length) * index;
-            placementY = $marginBottom + offset + spacerOffset;
+            newAxis = newAxis.tickSize(0);
           }
-          axisGenerator.push({
-            axis: newAxis,
-            x: placementX * index,
-            y: placementY * index
-          } as AxisConfig);
-        });
-        break;
-      case 'left':
-        $yScales.forEach((scale, index) => {
-          let newAxis;
-          if ('padding' in scale) {
-            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
+        }
+
+        if (spacingDirection === 'horizontal') {
+          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
+          placementX = $marginRight + offset + spacerOffset;
+        } else {
+          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
+          placementY = 0 + offset + spacerOffset;
+        }
+        axisGenerator.push({
+          axis: newAxis,
+          x: placementX,
+          y: placementY
+        } as AxisConfig);
+      });
+      break;
+    default:
+      $yScales.forEach((scale, index) => {
+        let newAxis;
+
+        if ('padding' in scale) {
+          newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
+        } else {
+          newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+          if (ticks) {
+            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
-            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-            if (ticks) {
-              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-            } else {
-              newAxis = newAxis.tickSize(0);
-            }
+            newAxis = newAxis.tickSize(0);
           }
+        }
 
-          if (spacingDirection === 'horizontal') {
-            let spacerOffset = Spacer($width, $marginRight, $xScales.length) * index;
-            placementX = $marginLeft + offset + spacerOffset;
-          } else {
-            let spacerOffset = Spacer($height, $marginBottom, $xScales.length) * index;
-            placementY = 0 + offset + spacerOffset;
-          }
-
-          axisGenerator.push({
-            axis: newAxis,
-            x: placementX,
-            y: placementY
-          } as AxisConfig);
-        });
-        break;
-      case 'right':
-        $yScales.forEach((scale, index) => {
-          let newAxis;
-
-          if ('padding' in scale) {
-            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
-          } else {
-            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-            if (ticks) {
-              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-            } else {
-              newAxis = newAxis.tickSize(0);
-            }
-          }
-
-          if (spacingDirection === 'horizontal') {
-            let spacerOffset = Spacer($width, $marginRight, $xScales.length) * index;
-            placementX = $marginRight + offset + spacerOffset;
-          } else {
-            let spacerOffset = Spacer($height, $marginBottom, $xScales.length) * index;
-            placementY = 0 + offset + spacerOffset;
-          }
-          axisGenerator.push({
-            axis: newAxis,
-            x: placementX,
-            y: placementY
-          } as AxisConfig);
-        });
-        break;
-      default:
-        $yScales.forEach((scale, index) => {
-          let newAxis;
-
-          if ('padding' in scale) {
-            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
-          } else {
-            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-            if (ticks) {
-              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-            } else {
-              newAxis = newAxis.tickSize(0);
-            }
-          }
-
-          if (spacingDirection === 'horizontal') {
-            let spacerOffset = Spacer($width, $marginRight, $xScales.length) * index;
-            placementX = $marginBottom + offset + spacerOffset;
-          } else {
-            let spacerOffset = Spacer($height, $marginBottom, $xScales.length) * index;
-            placementY = 0 + offset + spacerOffset;
-          }
-          axisGenerator.push({
-            axis: newAxis,
-            x: placementX,
-            y: placementY
-          } as AxisConfig);
-        });
-    }
-
-    // Set the tick size and number of ticks
-
-    // d3.select(generator.element)
-    // .call(generator.axis)
-    // .selectAll('text')
-    // .style('font-size', `${fontSize}px`)
-    // .style('color', color);
-
-    // Render the axis
+        if (spacingDirection === 'horizontal') {
+          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
+          placementX = $marginBottom + offset + spacerOffset;
+        } else {
+          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
+          placementY = 0 + offset + spacerOffset;
+        }
+        axisGenerator.push({
+          axis: newAxis,
+          x: placementX,
+          y: placementY
+        } as AxisConfig);
+      });
   }
+
+  onMount(() => {
+    // Render the axis
+    axisGenerator.forEach((axis) => {
+      d3.select(axis.element)
+        .call(axis.axis)
+        .selectAll('text')
+        .style('font-size', `${fontSize}px`)
+        .style('color', color);
+    });
+  });
+
+  // }
 </script>
 
 <!--
@@ -212,7 +215,7 @@ You can use this component to render the axis on the top, bottom, left, or right
 -->
 
 {#each axisGenerator as axis}
-  <g class="axis" transform="translate({axis.x}, {axis.y})"></g>
+  <g class="axis" bind:this={axis.element} transform="translate({axis.x}, {axis.y})"></g>
 {/each}
 
 <style>

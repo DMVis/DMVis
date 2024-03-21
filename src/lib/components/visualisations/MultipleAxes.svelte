@@ -10,12 +10,17 @@
   export let height: number;
   export let data: (number | string)[][];
 
+  export let marginLeft: number = 40;
+
   const visualisationStore = new VisualisationStore();
 
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
   visualisationStore.data.set(data);
+  visualisationStore.marginLeft.set(marginLeft);
   setContext('store', visualisationStore);
+
+  let anyLineHovered: boolean = false;
 </script>
 
 <!--
@@ -30,20 +35,10 @@ A small description of the graph.
 * attribute: type  - Description. Default is 'default'.
 -->
 <svg class="graph" {width} {height}>
+  {#each data as p, i (i)}
+    <HoverLine lineWidth={2} id={i} />
+  {/each}
   <AxisExperimental position={'left'} />
-  <!-- {#each data as p, i (i)}
-    <HoverLine
-      points={p}
-      width={2}
-      {anyLineHovered}
-      id={i}
-      on:mouseenter={() => {
-        anyLineHovered = true;
-      }}
-      on:mouseleave={() => {
-        anyLineHovered = false;
-      }} />
-  {/each} -->
 </svg>
 
 <style>

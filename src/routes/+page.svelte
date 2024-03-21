@@ -82,8 +82,9 @@
 <BarChartVertical {width} {height} data={barData} minY={0} maxY={500} />
 <BarChartHorizontal {width} {height} data={barData} minX={0} maxX={500} />
 <br />
-<MultiLineChart marginLeft={50} marginBottom={40} {width} {height} data={largeData} />
+<MultiLineChart marginLeft={20} marginBottom={40} {width} {height} data={largeData} />
 <MultipleAxes
+  marginLeft={70}
   data={[
     ['label', 'gewicht', 'hoogte'],
     ['Jesper', 67, 173],

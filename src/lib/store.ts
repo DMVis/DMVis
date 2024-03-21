@@ -181,7 +181,7 @@ export class VisualisationStore {
         } else {
           scales.push(
             scaleLinear()
-              .domain([domain[0], domain[1]])
+              .domain([domain[1], domain[0]])
               .range([marginLow, dimension - marginHigh])
               .nice()
           );
