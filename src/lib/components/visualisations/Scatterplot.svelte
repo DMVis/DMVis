@@ -1,8 +1,10 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { setContext } from 'svelte';
 
   import { GraphStore } from '$lib/store.js';
+  import { setContext } from 'svelte';
+  import { get } from 'svelte/store';
+
   import Point from '$lib/components/base/Point.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
 
@@ -11,10 +13,11 @@
   export let height: number;
   export let data: Map<string, number>[] | { x: number; y: number }[];
 
-  //Optional exports
+  //Semi-mandatory exports
   export let xAxis: string = 'x';
   export let yAxis: string = 'y';
 
+  //Optional exports
   export let minX: number | 'auto' = 0;
   export let minY: number | 'auto' = 0;
   export let maxX: number | 'auto' = 'auto';
@@ -39,7 +42,8 @@
   graphStore.width.set(width);
 
   let formattedData: Map<string, number>[];
-
+  let xScaleLocal: d3.ScaleLinear<number, number>;
+  let yScaleLocal: d3.ScaleLinear<number, number>;
   $: {
     //Check if data is of type Map, if not convert to Map
     if (!(data[0] instanceof Map)) {
@@ -78,6 +82,10 @@
       maxY === 'auto' ? (d3.max(formattedData, (d) => d.get(yAxis)) as number) : maxY ?? 0
     );
 
+    const { yScale, xScale } = graphStore;
+    xScaleLocal = get(xScale) as d3.ScaleLinear<number, number>;
+    yScaleLocal = get(yScale) as d3.ScaleLinear<number, number>;
+
     setContext('store', graphStore);
   }
 </script>
@@ -110,14 +118,14 @@ These attributes are required when using the Map datatype
 
   * showAxis: bool - Whether or not the axis should be drawn
 -->
-<svg {width} {height}>
+<svg {width} {height} class="visualisation">
   {#key data}
     {#if showAxis}
       <Axis position="left" />
       <Axis position="bottom" />
     {/if}
     {#each formattedData as p}
-      <Point x={p.get(xAxis) ?? 0} y={p.get(yAxis) ?? 0} />
+      <Point x={xScaleLocal(p.get(xAxis) ?? 0)} y={yScaleLocal(p.get(yAxis) ?? 0)} />
     {/each}
   {/key}
 </svg>

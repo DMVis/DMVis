@@ -106,7 +106,7 @@ Minimal value of the horizontal axis. When set to `'auto'` it will find the lowe
 - Type: `number` | `'auto'`
 - Default: `'auto'`
 
-Maximal value of the horizontal axis. When set to `auto` it will find the highest y-value in the input data, and round up to create rounded ticks
+Maximal value of the horizontal axis. When set to `'auto'` it will find the highest y-value in the input data, and round up to create rounded ticks
 
 > Note: If you already know the maximal value `y` can take, it will save a significant amount of computing time if you fill this in yourself.
 

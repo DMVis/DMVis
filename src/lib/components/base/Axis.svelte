@@ -104,7 +104,7 @@ You can use this component to render the axis on the top, bottom, left, or right
   * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to 'bottom'.
 -->
 
-<g bind:this={axisElement} transform="translate({placementX}, {placementY})"></g>
+<g class="axis" bind:this={axisElement} transform="translate({placementX}, {placementY})"></g>
 
 <style>
 </style>

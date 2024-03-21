@@ -10,13 +10,13 @@ The point component is meant to be used in visualisations like a scatterplot. It
 
 - Type: `number`
 
-Non-scaled x-coordinate of the point.
+Scaled x-coordinate of the point.
 
 ## y
 
 -Type: `number`
 
-Non-scaled y-coordinate of the point.
+Scaled y-coordinate of the point.
 
 # Optional Attributes
 
