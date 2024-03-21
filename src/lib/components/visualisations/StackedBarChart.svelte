@@ -60,6 +60,6 @@ The y-axis represents the categories of the data.
 <svg class="visualisation" {width} {height}>
   {#key data}
     <StackedBar {opacity} />
-    <DynamicAxis position="left" axisCount={1} />
+    <DynamicAxis position="left" endColumn={1} />
   {/key}
 </svg>

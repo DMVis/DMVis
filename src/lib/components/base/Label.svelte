@@ -23,6 +23,8 @@
   export let fontWeight: string = 'normal';
   export let fontFamily: string = 'Arial';
   export let hasBackground: boolean = true;
+  export let rectOpacity: number | string = -1;
+  export let name: string = '';
 
   // Private attributes
   let rectWidth: number = 50;
@@ -30,6 +32,9 @@
   let textBlock: SVGTextElement;
   let rectBlock: SVGRectElement;
 
+  if (rectOpacity === -1) {
+    rectOpacity = opacity;
+  }
   onMount(() => {
     // Set attributes for the text
     d3.select(textBlock)
@@ -91,9 +96,14 @@ The default origin is the middle of the rectangle.
 * fontWeight: string       - Font weight of the text in the label.
 * fontFamily: string       - Font family of the text in the label.
 * hasBackground: bool      - Whether the label has a background or not.
+* rectOpacity: number      - Opacity of only the rectangle behind the label, defaults to same as normal opacity
+* name: string             - What class to give to the label, default to '' making the default class 'label-'
 -->
 
-<g transform="rotate({rotationDegrees}, {x}, {y})" style="pointer-events: none;">
+<g
+  transform="rotate({rotationDegrees}, {x}, {y})"
+  class={name ? `label-${name}` : undefined}
+  style="pointer-events: none;">
   {#if hasBackground}
     <rect
       bind:this={rectBlock}
@@ -104,7 +114,7 @@ The default origin is the middle of the rectangle.
       width={rectWidth}
       height={rectHeight}
       fill={color}
-      fill-opacity={opacity} />
+      fill-opacity={rectOpacity} />
   {/if}
   <text
     bind:this={textBlock}

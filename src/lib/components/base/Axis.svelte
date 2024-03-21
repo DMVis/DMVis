@@ -4,7 +4,7 @@
   import type { GraphStore } from '$lib/store.js';
 
   // Get store information
-  const { xScale, yScale, height, marginBottom, marginLeft, marginTop, marginRight } =
+  const { xScale, yScale, height, width, marginBottom, marginLeft, marginTop, marginRight } =
     getContext<GraphStore>('store');
 
   // Public variables
@@ -29,8 +29,8 @@
     // Decide the placement and axis-type of the axis based on the position
     switch (position) {
       case 'top':
-        placementY = Number(marginTop) + Number(offset);
-        if (scale instanceof d3.scaleBand) {
+        placementY = Number($marginTop) + Number(offset);
+        if (!isScaleLinear(scale)) {
           axisGenerator = d3.axisTop(scale as d3.ScaleBand<string>);
         } else {
           axisGenerator = d3.axisTop(scale as d3.ScaleLinear<number, number>);

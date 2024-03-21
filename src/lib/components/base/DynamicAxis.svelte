@@ -16,8 +16,9 @@
   export let ticksNumber: number = 10;
   export let position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
   export let spacingDirection: 'vertical' | 'horizontal' = 'horizontal';
-  export let axisCount: number =
-    position === 'top' || position === 'bottom' ? $xScales.length : $yScales.length;
+  export let hasPadding: boolean = false;
+  export let startColumn: number = 0;
+  export let endColumn: number = $xScales.length;
 
   // Private variables
   let placementX: number = 0;
@@ -31,36 +32,55 @@
     y: number;
   }
 
-  // Decide the amount of axis we need to render
-  let scales;
-  if (position === 'top' || position === 'bottom') {
-    scales = $xScales.slice(0, axisCount);
-  } else {
-    scales = $yScales.slice(0, axisCount);
-  }
+  let verticalPadding = hasPadding
+    ? ($height -
+        $marginTop -
+        $marginBottom -
+        Spacer($height, $marginBottom, $marginTop, $xScales.length) * ($xScales.length - 1)) /
+      ($xScales.length - 2)
+    : 0;
+  let horizontalPadding = hasPadding
+    ? ($width -
+        $marginLeft -
+        $marginRight -
+        Spacer($width, $marginLeft, $marginRight, $yScales.length) * ($yScales.length - 1)) /
+      ($yScales.length - 2)
+    : 0;
 
   switch (position) {
     case 'top':
-      scales.forEach((scale, index) => {
+      $xScales.slice(startColumn, endColumn).forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
           newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
         } else {
-          newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+          if (spacingDirection === 'vertical') {
+            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+          } else {
+            newAxis = d3.axisTop(
+              scale.range([
+                Spacer($height, $marginBottom, $marginTop, $xScales.length),
+                0
+              ]) as d3.ScaleLinear<number, number>
+            );
+          }
           if (ticks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
             newAxis = newAxis.tickSize(0);
           }
         }
-
+        placementY = $marginTop + Number(offset) - 5;
         if (spacingDirection === 'horizontal') {
-          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
-          placementX = offset + spacerOffset;
+          let spacerOffset =
+            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
+            index;
+          placementX = $marginLeft + offset + spacerOffset;
         } else {
-          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
-          placementY = $marginTop + offset + spacerOffset;
+          let spacerOffset =
+            (Spacer($height, $marginTop, $marginBottom, $xScales.length) + verticalPadding) * index;
+          placementY = $marginBottom + offset + spacerOffset;
         }
 
         axisGenerator.push({
@@ -71,13 +91,21 @@
       });
       break;
     case 'bottom':
-      scales.forEach((scale, index) => {
+      $xScales.slice(startColumn, endColumn).forEach((scale, index) => {
         let newAxis;
-
         if ('padding' in scale) {
           newAxis = d3.axisBottom(scale as d3.ScaleBand<string>);
         } else {
-          newAxis = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
+          if (spacingDirection === 'vertical') {
+            newAxis = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
+          } else {
+            newAxis = d3.axisBottom(
+              scale.range([
+                Spacer($height, $marginBottom, $marginTop, $xScales.length),
+                0
+              ]) as d3.ScaleLinear<number, number>
+            );
+          }
           if (ticks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
@@ -85,43 +113,56 @@
           }
         }
 
-        placementY = $marginTop + Number(offset);
-
+        placementY = $height - $marginBottom - Number(offset) + 5;
         if (spacingDirection === 'horizontal') {
-          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
-          placementX = offset + spacerOffset;
+          let spacerOffset =
+            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
+            index;
+          placementX = $marginLeft + offset + spacerOffset;
         } else {
-          let spacerOffset = Spacer($height, $marginTop, $marginBottom, $xScales.length) * index;
-          placementY = $marginBottom + offset + spacerOffset;
+          let spacerOffset =
+            (Spacer($height, $marginTop, $marginBottom, $xScales.length) + verticalPadding) * index;
+          placementY = $height - $marginBottom - offset - spacerOffset + 5;
         }
         axisGenerator.push({
           axis: newAxis,
-          x: placementX * index,
-          y: placementY * index
+          x: placementX,
+          y: placementY
         } as AxisConfig);
       });
       break;
     case 'left':
-      scales.forEach((scale, index) => {
+      $yScales.slice(startColumn, endColumn).forEach((scale, index) => {
         let newAxis;
-
         if ('padding' in scale) {
           newAxis = d3.axisLeft(scale as d3.ScaleBand<string>);
         } else {
-          newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+          if (spacingDirection === 'horizontal') {
+            newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+          } else {
+            newAxis = d3.axisLeft(
+              scale.range([
+                0,
+                Spacer($height, $marginBottom, $marginTop, $xScales.length)
+              ]) as d3.ScaleLinear<number, number>
+            );
+          }
           if (ticks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
             newAxis = newAxis.tickSize(0);
           }
         }
-
         if (spacingDirection === 'horizontal') {
-          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
+          let spacerOffset =
+            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
+            index;
           placementX = $marginLeft + offset + spacerOffset;
         } else {
-          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
-          placementY = 0 + offset + spacerOffset;
+          placementX = $marginLeft - 5;
+          let spacerOffset =
+            (Spacer($height, $marginBottom, $marginTop, $xScales.length) + verticalPadding) * index;
+          placementY = $marginTop + offset + spacerOffset;
         }
 
         axisGenerator.push({
@@ -132,13 +173,22 @@
       });
       break;
     case 'right':
-      scales.forEach((scale, index) => {
+      $yScales.slice(startColumn, endColumn).forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
           newAxis = d3.axisRight(scale as d3.ScaleBand<string>);
         } else {
-          newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+          if (spacingDirection === 'horizontal') {
+            newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+          } else {
+            newAxis = d3.axisRight(
+              scale.range([
+                0,
+                Spacer($height, $marginBottom, $marginTop, $xScales.length)
+              ]) as d3.ScaleLinear<number, number>
+            );
+          }
           if (ticks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
@@ -147,11 +197,15 @@
         }
 
         if (spacingDirection === 'horizontal') {
-          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
-          placementX = $marginRight + offset + spacerOffset;
+          let spacerOffset =
+            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
+            index;
+          placementX = $width - $marginRight - offset - spacerOffset;
         } else {
-          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
-          placementY = 0 + offset + spacerOffset;
+          placementX = $width - $marginRight + 5;
+          let spacerOffset =
+            (Spacer($height, $marginBottom, $marginTop, $xScales.length) + verticalPadding) * index;
+          placementY = $marginTop + offset + spacerOffset;
         }
         axisGenerator.push({
           axis: newAxis,
@@ -161,33 +215,7 @@
       });
       break;
     default:
-      scales.forEach((scale, index) => {
-        let newAxis;
-
-        if ('padding' in scale) {
-          newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
-        } else {
-          newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-          if (ticks) {
-            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-          } else {
-            newAxis = newAxis.tickSize(0);
-          }
-        }
-
-        if (spacingDirection === 'horizontal') {
-          let spacerOffset = Spacer($width, $marginLeft, $marginRight, $xScales.length) * index;
-          placementX = $marginBottom + offset + spacerOffset;
-        } else {
-          let spacerOffset = Spacer($height, $marginBottom, $marginTop, $xScales.length) * index;
-          placementY = 0 + offset + spacerOffset;
-        }
-        axisGenerator.push({
-          axis: newAxis,
-          x: placementX,
-          y: placementY
-        } as AxisConfig);
-      });
+      throw new Error('Invalid axis position');
   }
 
   onMount(() => {
@@ -217,6 +245,9 @@ You can use this component to render the axis on the top, bottom, left, or right
   * ticksNumber: number                             - The number of ticks you want displayed on the axes, defaults to 10
   * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to 'bottom'.
   * spacerDirection: 'horizontal' | 'vertical' | 'left' | 'right'   - The direction to space the axes. Defaults to 'horizontal'.
+  * hasPadding: boolean                             - Does the visualisation include padding
+  * startColumn: number                             - Index of first column that is drawn, starting from 0
+  * endColumn: number                               - Index of last column that is drawn, defaults to last one
 -->
 
 {#each axisGenerator as axis}

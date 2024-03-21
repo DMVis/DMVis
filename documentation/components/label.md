@@ -39,6 +39,13 @@ Color of the rectangle behind the label.
 
 Opacity of the label.
 
+## rectOpacity
+
+- Type: `number`
+- Default: Same as `opacity`
+
+Opacity of the rectangle behind the label.
+
 ## originX
 
 - Type: `OriginX`
@@ -121,6 +128,13 @@ Font family of the text in the label.
 - Default: `true`
 
 Whether the label has a background or not.
+
+## name
+
+- Type: `string`
+- Default: `undefined`
+
+A possible class name for the label. If defined the label will get the class `label-{name}`. If left undefined the label will get no class.
 
 # Example usage
 

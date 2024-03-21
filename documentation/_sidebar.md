@@ -8,6 +8,7 @@
   - [ParallelCoordinates](visualisations/ParallelCoordinates.md)
   - [Scatterplot](visualisations/Scatterplot.md)
   - [StackedBarChart](visualisations/StackedBarChart.md)
+  - [Scatterplot Matrix](visualisations/ScatterplotMatrix.md)
 
 - Components
 
@@ -24,3 +25,4 @@
   - [DataUtils](utils/dataUtils.md)
   - [Origin](utils/origin.md)
   - [Spacer](utils/spacer.md)
+  - [Data](utils/data.md)

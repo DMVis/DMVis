@@ -36,7 +36,7 @@ describe('Html test', () => {
     const config = {
       width: 438,
       height: 942,
-      data: createMapData(),
+      data: createNewData(),
       xAxis: 'weight',
       yAxis: 'age'
     };
@@ -60,7 +60,7 @@ describe('Html test', () => {
     const config = {
       width: 438,
       height: 942,
-      data: createMapData(),
+      data: createNewData(),
       xAxis: 'weight',
       yAxis: 'age',
       showAxis: false
@@ -77,7 +77,7 @@ describe('Error checking', () => {
     const config = {
       width: 438,
       height: 942,
-      data: createMapData(),
+      data: createNewData(),
       xAxis: 'something',
       yAxis: 'age'
     };
@@ -90,7 +90,7 @@ describe('Error checking', () => {
     const config = {
       width: 438,
       height: 942,
-      data: createMapData(),
+      data: createNewData(),
       xAxis: 'age',
       yAxis: 'something'
     };
@@ -212,39 +212,15 @@ function createSimpleData(): { x: number; y: number }[] {
   ];
 }
 
-function createMapData(): Map<string, number>[] {
-  // 6 points
+function createNewData(): Array<Array<string | number>> {
   return [
-    new Map([
-      ['weight', 0],
-      ['size', 0],
-      ['age', 0]
-    ]),
-    new Map([
-      ['weight', 98],
-      ['size', 295],
-      ['age', 52]
-    ]),
-    new Map([
-      ['weight', 152],
-      ['size', 350],
-      ['age', 61]
-    ]),
-    new Map([
-      ['weight', 73],
-      ['size', 213],
-      ['age', 43]
-    ]),
-    new Map([
-      ['weight', 43],
-      ['size', 112],
-      ['age', 16]
-    ]),
-    new Map([
-      ['weight', 359],
-      ['size', 429],
-      ['age', 75]
-    ])
+    ['Name', 'weight', 'size', 'age'],
+    ['Piet', 0, 0, 0],
+    ['Jaap', 98, 295, 52],
+    ['Klara', 152, 350, 61],
+    ['Sarah', 73, 213, 43],
+    ['Henk', 43, 112, 16],
+    ['Pieter', 359, 429, 75]
   ];
 }
 

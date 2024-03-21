@@ -1,4 +1,8 @@
 <script lang="ts">
+  import Label from './Label.svelte';
+  import { selectedPoint, anyPointClicked } from '$lib/selectedPoint.js';
+  import { tick } from 'svelte';
+
   export let x: number;
   export let y: number;
   export let radius: number = 5;
@@ -6,6 +10,36 @@
   export let borderColor: string = '#000';
   export let borderWidth: number = 1;
   export let opacity: number = 1;
+  export let name: string = '';
+
+  let thisPointClicked = false;
+  let thisPointHighlighted = false;
+  let highlighted = false;
+  anyPointClicked.subscribe((anyClick) => {
+    highlighted = $selectedPoint == name;
+  });
+  selectedPoint.subscribe((value) => {
+    highlighted = value == name;
+  });
+
+  if (name == '') {
+    name = `(${x},${y})`;
+  } else {
+    name = `${name}`;
+  }
+  async function redrawPointAndLabel() {
+    await tick();
+    const points = document.getElementsByClassName(name);
+    for (let i = 0; i < points.length; i++) {
+      const point = points[i];
+      const container = point.parentNode!;
+      const labels = document.getElementsByClassName(`label-${name}`);
+      if (labels.length > 0) {
+        if (container === labels[0].parentNode) container.appendChild(labels[0]);
+      }
+      container.appendChild(point);
+    }
+  }
 </script>
 
 <!--
@@ -25,13 +59,47 @@ It is used in combination with other components to create a chart.
   * borderColor: string   - Color of the border of the point, defaulted to Black. Can be any hex-code, rgb or plain string colors
   * borderWidth: number   - Width of the border, defaulted to 1
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
+  * name: string          - Name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
 -->
+
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <circle
   cx={x}
   cy={y}
   r={radius}
   stroke={borderColor}
   fill={color}
-  stroke-width={borderWidth}
-  {opacity}
-  class="point" />
+  stroke-width={highlighted ? 2 : borderWidth}
+  opacity={highlighted ? 1 : opacity}
+  class={'point ' + name}
+  on:mouseenter={() => {
+    if (!$anyPointClicked) {
+      thisPointHighlighted = true;
+      selectedPoint.set(name);
+      redrawPointAndLabel();
+    }
+  }}
+  on:mouseleave={() => {
+    if (!$anyPointClicked) {
+      thisPointHighlighted = false;
+      selectedPoint.set('');
+    }
+  }}
+  on:mousedown={() => {
+    thisPointClicked = !thisPointClicked;
+    anyPointClicked.set(thisPointClicked);
+    redrawPointAndLabel();
+  }} />
+
+{#if thisPointHighlighted}
+  <Label
+    x={x - 10}
+    y={y - 10}
+    text={name}
+    color={'#FFF'}
+    hasBackground={true}
+    fontSize={'14'}
+    fontWeight={'bold'}
+    rectOpacity={0.7}
+    {name} />
+{/if}

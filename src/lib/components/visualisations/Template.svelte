@@ -14,7 +14,7 @@
 <!--
 @component
 ### Visualisation Name
-A small description of the graph.
+A small description of the visualisation.
 
 #### Required attributes
 * attribute: type  - Description.
@@ -24,10 +24,10 @@ A small description of the graph.
 -->
 <svg class="visualisation">
   {#key data}
-    <!-- Insert graph -->
+    <!-- Insert visualisation -->
   {/key}
 </svg>
 
 <style>
-  /* Insert graph styling  */
+  /* Insert visualisation styling  */
 </style>

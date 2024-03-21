@@ -9,6 +9,6 @@ export function Spacer(
   } else if (length === 1) {
     return (dimension - marginLow - marginHigh - 1) / 1;
   } else {
-    return (dimension - marginLow - marginHigh - 1) / (length - 1);
+    return (dimension - marginLow - marginHigh - 1) / length;
   }
 }
