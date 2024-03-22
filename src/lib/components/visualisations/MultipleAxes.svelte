@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
-  import { VisualisationStore } from '$lib/store.js';
+  import { GraphStore, VisualisationStore } from '$lib/store.js';
 
   import HoverLine from '$lib/components/base/HoverLine.svelte';
   import AxisExperimental from '$lib/components/base/AxisExperimental.svelte';
@@ -11,6 +11,9 @@
   export let data: (number | string)[][];
 
   export let marginLeft: number = 40;
+  export let marginRight: number = 40;
+  export let marginTop: number = 40;
+  export let marginBottom: number = 40;
 
   const visualisationStore = new VisualisationStore();
 
@@ -18,9 +21,10 @@
   visualisationStore.height.set(height);
   visualisationStore.data.set(data);
   visualisationStore.marginLeft.set(marginLeft);
+  visualisationStore.marginRight.set(marginRight);
+  visualisationStore.marginTop.set(marginTop);
+  visualisationStore.marginBottom.set(marginBottom);
   setContext('store', visualisationStore);
-
-  let anyLineHovered: boolean = false;
 </script>
 
 <!--
@@ -35,9 +39,7 @@ A small description of the graph.
 * attribute: type  - Description. Default is 'default'.
 -->
 <svg class="graph" {width} {height}>
-  {#each data as p, i (i)}
-    <HoverLine lineWidth={2} id={i} />
-  {/each}
+  <HoverLine lineWidth={2} />
   <AxisExperimental position={'left'} />
 </svg>
 

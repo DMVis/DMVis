@@ -1,42 +1,61 @@
 <script lang="ts">
   import * as d3 from 'd3';
   import type { GraphStore, VisualisationStore } from '$lib/store.js';
-  import { getContext, createEventDispatcher } from 'svelte';
+  import { getContext, createEventDispatcher, tick } from 'svelte';
   import Label from './Label.svelte';
   import { Spacer } from '$lib/utils/Spacer.js';
+  import { scale } from 'svelte/transition';
+  import { OriginX } from '$lib/Enums.js';
 
-  export let color: string = '#944';
+  export let color: string = '#977';
   export let focusColor: string = '#F44';
   export let notFocusColor: string = '#BBB';
   export let lineWidth: number = 1;
-  export let id: number = 0;
 
-  let hoveredLine: number;
-
+  let hoveredLine: number = -1;
+  interface LineConfig {
+    path: string;
+    xPos: number[];
+    yPos: number[];
+  }
   const { yScales, width, marginLeft, marginRight, data } = getContext<VisualisationStore>('store');
-
-  let paths: string[] = [];
+  let paths: LineConfig[] = [];
   $: {
-    console.log($yScales[0]);
     $data.slice(1).forEach((row) => {
-      console.log(paths);
-      paths.push(
-        `M${row
-          .map(
-            (value, index) =>
-              `${$marginLeft + Spacer($width, $marginLeft, $marginRight, $data[0].length) * index},${$yScales[
-                index
-              ](value as any)}`
-          )
-          .join('L')}`
-      );
+      let xPos: number[] = [];
+      let yPos: number[] = [];
+      let path: string = 'M';
+
+      row.forEach((value, index) => {
+        let yBandOffset = 0;
+        if (typeof value === 'string' && 'bandwidth' in $yScales[index]) {
+          const yScaleBand = $yScales[index] as d3.ScaleBand<string>;
+          yBandOffset = yScaleBand.bandwidth() * 0.5;
+        }
+        xPos.push($marginLeft + Spacer($width, $marginLeft, $marginRight, $data[0].length) * index);
+        yPos.push($yScales[index](value as any)! + yBandOffset);
+        path =
+          path +
+          `${$marginLeft + Spacer($width, $marginLeft, $marginRight, $data[0].length) * index},${
+            $yScales[index](value as any)! + yBandOffset
+          }` +
+          'L';
+      });
+      paths.push({
+        xPos: xPos,
+        yPos: yPos,
+        path: path.slice(0, -1)
+      } as LineConfig);
     });
   }
 
-  function redrawHoveredLine(id: number) {
-    const lineElement = document.getElementById('line-' + id)!;
-    const container = lineElement.parentNode;
-    container?.appendChild(lineElement);
+  async function redrawHoveredLine(id: number) {
+    await tick();
+    const lineElement = document.getElementById(`line-${id}`)!;
+    const pointElements = document.getElementById(`line-${id}-points`)!;
+    const container = lineElement.parentNode!;
+    container.appendChild(lineElement);
+    container.appendChild(pointElements);
   }
 </script>
 
@@ -64,8 +83,8 @@ It is used in combination with other components to create a chart.
   {#each paths as path, i}
     <path
       id={`line-${i}`}
-      d={path}
-      stroke={hoveredLine === i ? focusColor : notFocusColor}
+      d={path.path}
+      stroke={hoveredLine !== -1 ? (hoveredLine === i ? focusColor : notFocusColor) : color}
       stroke-width={lineWidth}
       fill="none"
       on:mouseenter={() => {
@@ -75,16 +94,22 @@ It is used in combination with other components to create a chart.
       on:mouseleave={() => {
         hoveredLine = -1;
       }} />
-
-    <!-- {#if thisHovered}
-      {#each values as p}
-        <Label
-          x={xScaleLocal(Number(p)) - 10}
-          y={yScaleLocal(Number(p)) - 10}
-          text={p.toString()}
-          color={'#777'}
-          hasBackground={false} />
-      {/each}
-    {/if} -->
+    {#if hoveredLine === i}
+      <g id={`line-${i}-points`}>
+        {#each $data[i + 1] as p, j}
+          {#if typeof p === 'number'}
+            <Label
+              x={path.xPos[j]}
+              y={path.yPos[j]}
+              text={p.toString()}
+              color={'#777'}
+              fontSize={'20'}
+              fontWeight={'bold'}
+              originX={OriginX.Left}
+              hasBackground={false} />
+          {/if}
+        {/each}
+      </g>
+    {/if}
   {/each}
 </g>
