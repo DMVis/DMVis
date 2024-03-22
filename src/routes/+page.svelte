@@ -208,5 +208,5 @@
   marginTop={40}
   marginRight={50}
   data={tabularDataLarge}
-  width={2000}
+  width={1500}
   height={1500} />

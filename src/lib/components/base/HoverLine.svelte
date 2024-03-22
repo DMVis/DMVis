@@ -1,10 +1,9 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import type { GraphStore, VisualisationStore } from '$lib/store.js';
-  import { getContext, createEventDispatcher, tick } from 'svelte';
+  import type { VisualisationStore } from '$lib/store.js';
+  import { getContext, tick } from 'svelte';
   import Label from './Label.svelte';
   import { Spacer } from '$lib/utils/Spacer.js';
-  import { scale } from 'svelte/transition';
   import { OriginX } from '$lib/Enums.js';
 
   export let color: string = '#977';
@@ -12,14 +11,17 @@
   export let notFocusColor: string = '#BBB';
   export let lineWidth: number = 1;
 
+  const { yScales, width, marginLeft, marginRight, data } = getContext<VisualisationStore>('store');
+
+  // line id belonging to current hovered line, -1 represents no line hovered
   let hoveredLine: number = -1;
   interface LineConfig {
     path: string;
     xPos: number[];
     yPos: number[];
   }
-  const { yScales, width, marginLeft, marginRight, data } = getContext<VisualisationStore>('store');
-  let paths: LineConfig[] = [];
+
+  let rows: LineConfig[] = [];
   $: {
     $data.slice(1).forEach((row) => {
       let xPos: number[] = [];
@@ -41,7 +43,7 @@
           }` +
           'L';
       });
-      paths.push({
+      rows.push({
         xPos: xPos,
         yPos: yPos,
         path: path.slice(0, -1)
@@ -68,22 +70,20 @@ It can also be greyed out when any other line is hovered, if the parent passes t
 It is used in combination with other components to create a chart.
 
 #### Required attributes
-  * points: [{ x: number; y: number }]  - List of non-scaled points on the graph
+None
 
 #### Optional attributes
   * color: number                       - Color of the line, defaulted to red. Can be any hex-code, rgb or plain string colors
   * focusColor: number                  - Color of the line, when it is hovered. Defaulted to light red.
-  * notFocusColor: number               - Color of the line, when `anyLineHovered === true`. Defaulted to grey.
+  * notFocusColor: number               - Color of the line, when any other line is hovered. Defaulted to grey.
   * lineWidth: string                   - Width of the line, defaulted to 1
-  * anyLineHovered: boolean             - Whether any line in the graph is hovered. Defaulted to false.
-  * id: number                          - Unique ID given to one instance of this line, used to redraw the line. Defaulted to 0.
 -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <g>
-  {#each paths as path, i}
+  {#each rows as row, i}
     <path
       id={`line-${i}`}
-      d={path.path}
+      d={row.path}
       stroke={hoveredLine !== -1 ? (hoveredLine === i ? focusColor : notFocusColor) : color}
       stroke-width={lineWidth}
       fill="none"
@@ -99,11 +99,10 @@ It is used in combination with other components to create a chart.
         {#each $data[i + 1] as p, j}
           {#if typeof p === 'number'}
             <Label
-              x={path.xPos[j]}
-              y={path.yPos[j]}
+              x={row.xPos[j]}
+              y={row.yPos[j]}
               text={p.toString()}
-              color={'#777'}
-              fontSize={'20'}
+              fontSize={'14'}
               fontWeight={'bold'}
               originX={OriginX.Left}
               hasBackground={false} />

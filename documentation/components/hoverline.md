@@ -6,18 +6,14 @@ The hoverable line component is meant to be used in charts like a linechart. It 
 
 # Required Attributes
 
-## points
-
-- Type: `{ x: number; y: number }[]`
-
-List of points containing an x and y value.
+None
 
 # Optional Attributes
 
 ## color
 
 - Type: `string`
-- Default: `#944`
+- Default: `#977`
 
 Color of the line when no lines are hovered.
 
@@ -42,34 +38,17 @@ Color of the line when any other line is hovered.
 
 Width of the line that is drawn.
 
-## anyLineHovered
-
-- Type: `boolean`
-- Default: `false`
-
-Should be true if a line in the visualisation is being hovered.
-
-## id
-
-- Type: `number`
-- Default: `0`
-
-Unique ID for an instance of the line. This is used to redraw the line when it is hovered, so it is on top.
-
 ## Sample usage
 
 ```svelte
+<script lang="ts">
+  const visualisationStore = new VisualisationStore();
+  visualisationStore.width.set(width);
+  visualisationStore.height.set(height);
+  visualisationStore.data.set(data);
+</script>
+
 <svg {width} {height}>
-  <HoverLine
-    points={p}
-    width={2}
-    {anyLineHovered}
-    id={i}
-    on:mouseenter={() => {
-      anyLineHovered = true;
-    }}
-    on:mouseleave={() => {
-      anyLineHovered = false;
-    }} />
+  <HoverLine />
 </svg>
 ```
