@@ -3,7 +3,7 @@
   import { VisualisationStore } from '$lib/store.js';
 
   import HoverLine from '$lib/components/base/HoverLine.svelte';
-  import AxisExperimental from '$lib/components/base/AxisExperimental.svelte';
+  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
 
   // Insert exports
@@ -31,18 +31,25 @@
 
 <!--
 @component
-### Visualisation Name
-A small description of the graph.
+### MultipleAxes
+This is a visualisation that is capable of visualising multi-dimensional data.
+It creates an axis for each column in the supplied table with data
+  and draws a line through each axis for each row in the table.
 
 #### Required attributes
-* attribute: type  - Description.
+* width: number;                        - Width of the visualisation.
+* height: number;                       - Height of the visualisation.
+* dataUtil: DataUtils;                  - Class holding all the data, see documentation.
 
 #### Optional attributes
-* attribute: type  - Description. Default is 'default'.
+* marginLeft: number  - Margin to the left of the visualisation, defaults to 40
+* marginRight: number  - Margin to the right of the visualisation, defaults to 40
+* marginTop: number  - Margin to the top of the visualisation, defaults to 40
+* marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
 -->
 <svg class="visualisation" {width} {height}>
   <HoverLine lineWidth={2} />
-  <AxisExperimental position={'left'} />
+  <DynamicAxis position={'left'} />
 </svg>
 
 <style>

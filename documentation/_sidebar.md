@@ -5,8 +5,8 @@
   - [BarChartHorizontal](visualisations/BarChartHorizontal.md.md)
   - [BarChartVertical](visualisations/BarChartVertical.md.md)
   - [LineChart](visualisations/LineChart.md)
-  - [MultiLineChart](visualisations/MultiLineChart.md)
   - [Scatterplot](visualisations/Scatterplot.md)
+  - [MultipleAxes](visualisations/MultipleAxes.md)
 
 - Components
 

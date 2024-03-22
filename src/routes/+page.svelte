@@ -2,7 +2,7 @@
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import LineChart from '$lib/components/visualisations/LineChart.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
-  import MultipleAxes from '$lib/components/visualisations/MultipleAxes.svelte';
+  import ParallelCoordinates from '$lib/components/visualisations/ParallelCoordinates.svelte';
   import BarChartVertical from '$lib/components/visualisations/BarChartVertical.svelte';
   import BarChartHorizontal from '$lib/components/visualisations/BarChartHorizontal.svelte';
 
@@ -77,7 +77,7 @@
 <BarChartHorizontal {width} {height} data={barData} minX={0} maxX={500} />
 <br />
 {#await load then}
-  <MultipleAxes
+  <ParallelCoordinates
     marginLeft={100}
     marginTop={40}
     marginRight={50}
