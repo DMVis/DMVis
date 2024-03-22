@@ -1,8 +1,8 @@
 <script lang="ts">
   import * as d3 from 'd3';
   import { getContext, onMount } from 'svelte';
-  import { VisualisationStore } from '$lib/store.js';
   import { Spacer } from '$lib/utils/Spacer.js';
+  import { VisualisationStore } from '$lib/store.js';
 
   // Get store information
   const { xScales, yScales, width, height, marginTop, marginRight, marginBottom, marginLeft } =
@@ -10,7 +10,7 @@
 
   // Public variables
   export let ticks: boolean = true;
-  export let fontSize: number = 17;
+  export let fontSize: number = 10;
   export let color: string = 'black';
   export let offset: number = 0;
   export let ticksNumber: number = 10;
@@ -30,9 +30,6 @@
     y: number;
   }
 
-  // Update the axis using reactive statements
-  // $: {
-  // Decide the placement and axis-type of the axis based on the position
   switch (position) {
     case 'top':
       $xScales.forEach((scale, index) => {
@@ -194,16 +191,14 @@
         .style('color', color);
     });
   });
-
-  // }
 </script>
 
 <!--
 @component
-### Axis
-The Axis component renders the axis of a chart with the tick on the bottom.
+### AxisExperimental
+The AxisExperimental component renders the axes based on the data.
 It displays tick marks and labels based on provided data.
-You can use this component to render the axis on the top, bottom, left, or right side of the graph.
+You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
 
 #### Optional attributes
   * fontSize: number                                - The font size of the tick labels. Defaults to 17.
@@ -212,6 +207,7 @@ You can use this component to render the axis on the top, bottom, left, or right
   * offset: number                                  - The offset of the axis from the side of the graph. Defaults to 0.
   * ticksNumber: number                             - The number of ticks you want displayed on the axes, defaults to 10
   * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to 'bottom'.
+  * spacerDirection: 'horizontal' | 'vertical' | 'left' | 'right'   - The direction to space the axes. Defaults to 'horizontal'.
 -->
 
 {#each axisGenerator as axis}

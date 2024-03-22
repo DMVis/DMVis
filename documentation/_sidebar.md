@@ -11,6 +11,7 @@
 - Components
 
   - [Axis](components/axis.md)
+  - [AxisExperimental](components/axisexperimental.md)
   - [Bar](components/Bar.md)
   - [HoverLine](components/hoverline.md)
   - [Label](components/label.md)
@@ -20,3 +21,4 @@
 - Utilities
   - [DataUtils](utils/dataUtils.md)
   - [Origin](utils/origin.md)
+  - [Spacer](utils/spacer.md)

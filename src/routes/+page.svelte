@@ -204,9 +204,9 @@
 <MultiLineChart marginLeft={20} marginBottom={40} {width} {height} data={largeData} />
 <br />
 <MultipleAxes
-  marginLeft={70}
+  marginLeft={100}
   marginTop={40}
   marginRight={50}
   data={tabularDataLarge}
-  width={1500}
+  width={1750}
   height={1500} />
