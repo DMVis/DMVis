@@ -108,6 +108,7 @@ export class VisualisationStore {
   public height: Writable<number>;
   public padding: Writable<number>;
   public data: Writable<Array<Array<number | string>>>;
+  public columns: Writable<Array<string>>;
 
   constructor() {
     this.marginTop = writable(40);
@@ -118,34 +119,30 @@ export class VisualisationStore {
     this.height = writable(400);
     this.padding = writable(0.1);
     this.data = writable([]);
-  }
-
-  get columnNames() {
-    return derived([this.data], ([$data]) => {
-      return $data[0];
-    });
+    this.columns = writable([]);
   }
 
   get xScales() {
     return derived(
-      [this.data, this.marginLeft, this.marginRight, this.width, this.padding],
-      ([$data, $marginLeft, $marginRight, $width, $padding]) => {
-        return this.getScales($data, $marginLeft, $marginRight, $width, $padding);
+      [this.data, this.columns, this.marginLeft, this.marginRight, this.width, this.padding],
+      ([$data, $columns, $marginLeft, $marginRight, $width, $padding]) => {
+        return this.getScales($data, $columns, $marginLeft, $marginRight, $width, $padding);
       }
     );
   }
 
   get yScales() {
     return derived(
-      [this.data, this.marginBottom, this.marginTop, this.height, this.padding],
-      ([$data, $marginBottom, $marginTop, $height, $padding]) => {
-        return this.getScales($data, $marginBottom, $marginTop, $height, $padding);
+      [this.data, this.columns, this.marginBottom, this.marginTop, this.height, this.padding],
+      ([$data, $columns, $marginBottom, $marginTop, $height, $padding]) => {
+        return this.getScales($data, $columns, $marginBottom, $marginTop, $height, $padding);
       }
     );
   }
 
   getScales = (
     data: Array<Array<number | string>>,
+    columns: Array<string>,
     marginLow: number,
     marginHigh: number,
     dimension: number,
@@ -157,10 +154,10 @@ export class VisualisationStore {
 
     const scales: Array<d3.ScaleLinear<number, number> | d3.ScaleBand<string>> = [];
 
-    for (let i = 0; i < data[0].length; i++) {
+    for (let i = 0; i < columns.length; i++) {
       const columnData: Array<number | string> = [];
 
-      data.slice(1).forEach((row) => {
+      data.forEach((row) => {
         columnData.push(row[i]);
       });
 

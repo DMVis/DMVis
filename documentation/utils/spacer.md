@@ -11,3 +11,9 @@ The `Spacer` function takes in the following parameters:
 - `marginHigh`: The margin furthest from the origin
 
 The function returns a number that represents the needed gap between elements to space them between the given dimension.
+
+You can see an example of how `Spacer` works below:
+
+```javascript
+Spacer($width, $marginLeft, $marginRight, data[0].length);
+```

@@ -32,11 +32,13 @@
           yBandOffset = yScaleBand.bandwidth() * 0.5;
         }
         xPos.push($marginLeft + Spacer($width, $marginLeft, $marginRight, $data[0].length) * index);
-        yPos.push($yScales[index](value as any)! + yBandOffset);
+        // @ts-expect-error Safe because we guarantee string for scaleband and number for scalelinear
+        yPos.push($yScales[index](value as unknown)! + yBandOffset);
         path =
           path +
           `${$marginLeft + Spacer($width, $marginLeft, $marginRight, $data[0].length) * index},${
-            $yScales[index](value as any)! + yBandOffset
+            // @ts-expect-error Safe because we guarantee string for scaleband and number for scalelinear
+            $yScales[index](value as unknown)! + yBandOffset
           }` +
           'L';
       });

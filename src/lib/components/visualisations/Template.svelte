@@ -22,7 +22,7 @@ A small description of the graph.
 #### Optional attributes
 * attribute: type  - Description. Default is 'default'.
 -->
-<svg class="graph">
+<svg class="visualisation">
   {#key data}
     <!-- Insert graph -->
   {/key}

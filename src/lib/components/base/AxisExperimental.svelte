@@ -21,7 +21,6 @@
   let placementX: number = 0;
   let placementY: number = 0;
   let axisGenerator: AxisConfig[] = [];
-  let axisRefs: SVGGElement[] = [];
 
   interface AxisConfig {
     axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
