@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
+  import { setContext, type ComponentType } from 'svelte';
   import { GraphStore } from '$lib/store.js';
 
   // Exports
-  export let Component: any;
+  export let Component: ComponentType;
   export let config = {};
 
   // Import GraphStore and use defaults for mocking

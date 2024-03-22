@@ -19,10 +19,10 @@ export class DataUtils {
    * @returns {Promise<Array<Array<String | Number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the CSV file.
    * Each row's values are automatically typed based on their content, thanks to d3.autoType.
    */
-  async parseCSV(csvData: File | string): Promise<Array<Array<string | number>>> {
+  async parseCSV(csvData: string): Promise<Array<Array<string | number>>> {
     let text: string;
-    if (csvData instanceof File) {
-      text = await d3.text(URL.createObjectURL(csvData));
+    if (csvData.includes('\n')) {
+      text = csvData;
     } else {
       text = await d3.text(csvData);
     }

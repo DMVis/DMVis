@@ -18,4 +18,5 @@
   - [Point](components/point.md)
 
 - Utilities
+  - [DataUtils](utils/dataUtils.md)
   - [Origin](utils/origin.md)
