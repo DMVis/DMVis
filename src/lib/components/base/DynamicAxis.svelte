@@ -16,6 +16,8 @@
   export let ticksNumber: number = 10;
   export let position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
   export let spacingDirection: 'vertical' | 'horizontal' = 'horizontal';
+  export let axisCount: number =
+    position === 'top' || position === 'bottom' ? $xScales.length : $yScales.length;
 
   // Private variables
   let placementX: number = 0;
@@ -29,9 +31,17 @@
     y: number;
   }
 
+  // Decide the amount of axis we need to render
+  let scales;
+  if (position === 'top' || position === 'bottom') {
+    scales = $xScales.slice(0, axisCount);
+  } else {
+    scales = $yScales.slice(0, axisCount);
+  }
+
   switch (position) {
     case 'top':
-      $xScales.forEach((scale, index) => {
+      scales.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
@@ -61,7 +71,7 @@
       });
       break;
     case 'bottom':
-      $xScales.forEach((scale, index) => {
+      scales.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
@@ -92,7 +102,7 @@
       });
       break;
     case 'left':
-      $yScales.forEach((scale, index) => {
+      scales.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
@@ -122,7 +132,7 @@
       });
       break;
     case 'right':
-      $yScales.forEach((scale, index) => {
+      scales.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
@@ -151,7 +161,7 @@
       });
       break;
     default:
-      $yScales.forEach((scale, index) => {
+      scales.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {

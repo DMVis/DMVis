@@ -5,6 +5,7 @@
   import ParallelCoordinates from '$lib/components/visualisations/ParallelCoordinates.svelte';
   import BarChartVertical from '$lib/components/visualisations/BarChartVertical.svelte';
   import BarChartHorizontal from '$lib/components/visualisations/BarChartHorizontal.svelte';
+  import StackedBarChart from '$lib/components/visualisations/StackedBarChart.svelte';
 
   const height: number = 500;
   const width: number = 500;
@@ -69,6 +70,11 @@
     { label: 'g', value: 500 }
   ];
 </script>
+
+{#await load then}
+  <StackedBarChart width={1750} height={1500} data={dataUtil} />
+{/await}
+<br />
 
 <Scatterplot data={mapData} {height} {width} xAxis="age" yAxis="size" />
 <LineChart marginLeft={40} marginBottom={40} {width} {height} {data} />
