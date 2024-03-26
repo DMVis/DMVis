@@ -4,3 +4,4 @@ export { default as BarChartVertical } from '$lib/components/visualisations/BarC
 export { default as LineChart } from '$lib/components/visualisations/LineChart.svelte';
 export { default as Scatterplot } from '$lib/components/visualisations/Scatterplot.svelte';
 export { default as ParallelCoordinates } from '$lib/components/visualisations/ParallelCoordinates.svelte';
+export { default as StackedBarChart } from '$lib/components/visualisations/StackedBarChart.svelte';

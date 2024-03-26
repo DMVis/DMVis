@@ -1,4 +1,4 @@
-# MultipleAxes
+# Parallel Coordinates
 
 This is a visualisation that is capable of visualising multi-dimensional data.
 It creates an axis for each column in the supplied table with data
@@ -67,7 +67,7 @@ Margin under of the visualisation
 </script>
 
 {#await load then}
-  <MultipleAxes
+  <ParallelCoordinates
     marginLeft={100}
     marginTop={40}
     marginRight={50}

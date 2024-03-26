@@ -5,8 +5,9 @@
   - [BarChartHorizontal](visualisations/BarChartHorizontal.md.md)
   - [BarChartVertical](visualisations/BarChartVertical.md.md)
   - [LineChart](visualisations/LineChart.md)
+  - [ParallelCoordinates](visualisations/ParallelCoordinates.md)
   - [Scatterplot](visualisations/Scatterplot.md)
-  - [MultipleAxes](visualisations/MultipleAxes.md)
+  - [StackedBarChart](visualisations/StackedBarChart.md)
 
 - Components
 
@@ -17,6 +18,7 @@
   - [Label](components/label.md)
   - [Line](components/line.md)
   - [Point](components/point.md)
+  - [StackedBar](components/stackedbar.md)
 
 - Utilities
   - [DataUtils](utils/dataUtils.md)

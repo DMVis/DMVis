@@ -12,19 +12,19 @@
   export let data: DataUtils;
 
   // Optional attributes
-  export let marginLeft: number | null = null;
-  export let marginRight: number | null = null;
-  export let marginBottom: number | null = null;
-  export let marginTop: number | null = null;
+  export let marginLeft: number = 40;
+  export let marginRight: number = 40;
+  export let marginBottom: number = 40;
+  export let marginTop: number = 40;
   export let padding: number = 0.2;
   export let opacity: number | string = 1;
 
   // Set store values
   const visStore = new VisualisationStore();
-  marginLeft ? visStore.marginLeft.set(marginLeft) : null;
-  marginRight ? visStore.marginRight.set(marginRight) : null;
-  marginBottom ? visStore.marginBottom.set(marginBottom) : null;
-  marginTop ? visStore.marginTop.set(marginTop) : null;
+  visStore.marginLeft.set(marginLeft);
+  visStore.marginRight.set(marginRight);
+  visStore.marginBottom.set(marginBottom);
+  visStore.marginTop.set(marginTop);
   visStore.padding.set(padding);
   visStore.width.set(width);
   visStore.height.set(height);

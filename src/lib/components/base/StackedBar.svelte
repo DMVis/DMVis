@@ -33,6 +33,19 @@
   const numericalCols = $columns.slice(1);
 </script>
 
+<!--
+@component
+### StackedBar
+The StackedBar is used for visualising data in a
+stacked bar format. It is a wrapper around the Bar
+component that allows for multiple bars to be stacked
+on top of each other.
+
+#### Optional attributes
+* opacity: number | string - Opacity of each bar as a number in range [0..1] or
+                             a percentage string formatted as '{number}%'.
+* colors: string[]         - Array of colors to use for each bar.
+-->
 <g>
   {#each numericalData as rows, rowIndex}
     {#each numericalCols as column, colIndex}
