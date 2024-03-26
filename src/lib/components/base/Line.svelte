@@ -27,4 +27,4 @@ It is used in combination with other components to create a chart.
   * color: number                       - Color of the line(s), defaulted to blue. Can be any hex-code, rgb or plain string colors
   * width: string                       - Width of the line(s), defaulted to 1
 -->
-<path stroke={color} fill="none" stroke-width={width} d={path} />
+<path stroke={color} fill="none" stroke-width={width} d={path} class="line" />
