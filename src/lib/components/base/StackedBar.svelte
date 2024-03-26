@@ -29,13 +29,13 @@
 
   // Prepare data for rendering
   const labels = $data.map((row) => row[0]);
-  const numericalData: Array<Array<Number>> = $data.map((row) => row.slice(1) as Array<Number>);
+  const numericalData: Array<Array<number>> = $data.map((row) => row.slice(1) as Array<number>);
   const numericalCols = $columns.slice(1);
 </script>
 
 <g>
   {#each numericalData as rows, rowIndex}
-    {#each numericalCols as _, colIndex}
+    {#each numericalCols as column, colIndex}
       <Bar
         x={$marginLeft + d3.sum(rows.slice(0, colIndex))}
         y={Number(yScale(String(labels[rowIndex])))}
@@ -45,6 +45,7 @@
         color={colors[colIndex % colors.length]}
         originX={OriginX.Left}
         originY={OriginY.Top}
+        label={column}
         {opacity} />
     {/each}
   {/each}

@@ -93,7 +93,7 @@ The default origin is the middle of the rectangle.
 * hasBackground: bool      - Whether the label has a background or not.
 -->
 
-<g transform="rotate({rotationDegrees}, {x}, {y})">
+<g transform="rotate({rotationDegrees}, {x}, {y})" style="pointer-events: none;">
   {#if hasBackground}
     <rect
       bind:this={rectBlock}

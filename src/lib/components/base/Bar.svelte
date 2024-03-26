@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { OriginX, OriginY } from '$lib/Enums.js';
-  import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
-  import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import { onMount } from 'svelte';
+
+  import { OriginX, OriginY } from '$lib/Enums.js';
+  import Label from '$lib/components/base/Label.svelte';
+  import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
 
   // Required attributes
   export let x: number;
@@ -12,6 +14,7 @@
   export let isValueAlongYAxis: boolean;
 
   // Optional attributes
+  export let label: string = '';
   export let color: string = 'red';
   export let opacity: number | string = '100%';
   export let originX: OriginX = OriginX.Middle;
@@ -22,6 +25,7 @@
 
   // Private attributes
   let rectBlock: SVGRectElement;
+  let showLabel: boolean = false;
 
   if (!isValueAlongYAxis) {
     // Swap width and height
@@ -97,4 +101,31 @@ The default origin is the bottom middle of the bar.
   {width}
   height={value}
   fill={color}
-  fill-opacity={opacity} />
+  fill-opacity={opacity}
+  role="treeitem"
+  tabindex="0"
+  aria-selected="false"
+  on:mouseenter={() => {
+    showLabel = true;
+  }}
+  on:focus={() => {
+    showLabel = true;
+  }}
+  on:mouseleave={() => {
+    showLabel = false;
+  }}
+  on:blur={() => {
+    showLabel = false;
+  }} />
+
+{#if showLabel}
+  <Label
+    {x}
+    {y}
+    text={`${label != '' ? label + ': ' : ''} ${isValueAlongYAxis ? value : width}`}
+    color={'#000000bb'}
+    textColor={'#ffffff'}
+    originX={OriginX.Left}
+    originY={OriginY.Bottom}
+    {rotationDegrees} />
+{/if}

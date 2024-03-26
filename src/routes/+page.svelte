@@ -71,11 +71,6 @@
   ];
 </script>
 
-{#await load then}
-  <StackedBarChart width={1750} height={1500} data={dataUtil} />
-{/await}
-<br />
-
 <Scatterplot data={mapData} {height} {width} xAxis="age" yAxis="size" />
 <LineChart marginLeft={40} marginBottom={40} {width} {height} {data} />
 <br />
@@ -90,4 +85,8 @@
     {dataUtil}
     width={1750}
     height={1500} />
+{/await}
+<br />
+{#await load then}
+  <StackedBarChart marginLeft={100} width={1750} height={1500} data={dataUtil} />
 {/await}
