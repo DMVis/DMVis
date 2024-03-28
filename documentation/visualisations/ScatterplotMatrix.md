@@ -1,4 +1,4 @@
-# Scatterplot Matrix
+# ScatterplotMatrix
 
 This is a visualisation that consists of multiple scatterplots in a matrix. It can be used to quickly find relations between attributes in a large dataset.
 
@@ -72,3 +72,21 @@ Margin above of the visualisation
 - Default: `40`
 
 Margin under of the visualisation
+
+# Sample usage
+
+```svelte
+<script>
+  const dataUrl = '/datasets/holidays-20.csv';
+  const dataUtil = new DataUtils();
+
+  // Load promising
+  $: load = (async () => {
+    await dataUtil.parseCSV(dataUrl);
+  })();
+</script>
+
+{#await load then}
+  <ScatterplotMatrix {dataUtil} {height} {width} pointColor="red" pointOpacity={0.3} />
+{/await}
+```

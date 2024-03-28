@@ -5,7 +5,7 @@
   import { VisualisationStore } from '$lib/store.js';
 
   import * as d3 from 'd3';
-  import { setContext, getContext } from 'svelte';
+  import { setContext } from 'svelte';
   import DynamicAxis from '../base/DynamicAxis.svelte';
 
   export let height: number;

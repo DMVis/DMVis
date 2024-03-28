@@ -30,7 +30,7 @@
     switch (position) {
       case 'top':
         placementY = Number($marginTop) + Number(offset);
-        if (!isScaleLinear(scale)) {
+        if ('padding' in scale) {
           axisGenerator = d3.axisTop(scale as d3.ScaleBand<string>);
         } else {
           axisGenerator = d3.axisTop(scale as d3.ScaleLinear<number, number>);
@@ -61,7 +61,7 @@
         }
         break;
       default:
-        placementX = Number($height) - Number($marginBottom) + Number(offset);
+        placementX = Number($width) - Number($marginBottom) + Number(offset);
         if ('padding' in scale) {
           axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
         } else {

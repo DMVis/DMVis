@@ -46,10 +46,12 @@
         Spacer($width, $marginLeft, $marginRight, $yScales.length) * ($yScales.length - 1)) /
       ($yScales.length - 2)
     : 0;
+  let xScalesToDraw = $xScales.slice(startColumn, endColumn);
+  let yScalesToDraw = $yScales.slice(startColumn, endColumn);
 
   switch (position) {
     case 'top':
-      $xScales.slice(startColumn, endColumn).forEach((scale, index) => {
+      xScalesToDraw.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
@@ -91,7 +93,7 @@
       });
       break;
     case 'bottom':
-      $xScales.slice(startColumn, endColumn).forEach((scale, index) => {
+      xScalesToDraw.forEach((scale, index) => {
         let newAxis;
         if ('padding' in scale) {
           newAxis = d3.axisBottom(scale as d3.ScaleBand<string>);
@@ -132,7 +134,7 @@
       });
       break;
     case 'left':
-      $yScales.slice(startColumn, endColumn).forEach((scale, index) => {
+      yScalesToDraw.forEach((scale, index) => {
         let newAxis;
         if ('padding' in scale) {
           newAxis = d3.axisLeft(scale as d3.ScaleBand<string>);
@@ -143,7 +145,7 @@
             newAxis = d3.axisLeft(
               scale.range([
                 0,
-                Spacer($height, $marginBottom, $marginTop, $xScales.length)
+                Spacer($height, $marginBottom, $marginTop, $yScales.length)
               ]) as d3.ScaleLinear<number, number>
             );
           }
@@ -155,13 +157,13 @@
         }
         if (spacingDirection === 'horizontal') {
           let spacerOffset =
-            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
+            (Spacer($width, $marginLeft, $marginRight, $yScales.length) + horizontalPadding) *
             index;
           placementX = $marginLeft + offset + spacerOffset;
         } else {
           placementX = $marginLeft - 5;
           let spacerOffset =
-            (Spacer($height, $marginBottom, $marginTop, $xScales.length) + verticalPadding) * index;
+            (Spacer($height, $marginBottom, $marginTop, $yScales.length) + verticalPadding) * index;
           placementY = $marginTop + offset + spacerOffset;
         }
 
@@ -173,7 +175,7 @@
       });
       break;
     case 'right':
-      $yScales.slice(startColumn, endColumn).forEach((scale, index) => {
+      yScalesToDraw.forEach((scale, index) => {
         let newAxis;
 
         if ('padding' in scale) {
@@ -185,7 +187,7 @@
             newAxis = d3.axisRight(
               scale.range([
                 0,
-                Spacer($height, $marginBottom, $marginTop, $xScales.length)
+                Spacer($height, $marginBottom, $marginTop, $yScales.length)
               ]) as d3.ScaleLinear<number, number>
             );
           }

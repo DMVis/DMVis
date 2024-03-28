@@ -10,23 +10,19 @@
   export let borderColor: string = '#000';
   export let borderWidth: number = 1;
   export let opacity: number = 1;
-  export let name: string = '';
+  export let name: string = `(${x},${y})`;
 
   let thisPointClicked = false;
   let thisPointHighlighted = false;
   let highlighted = false;
-  anyPointClicked.subscribe((anyClick) => {
+
+  anyPointClicked.subscribe(() => {
     highlighted = $selectedPoint == name;
   });
   selectedPoint.subscribe((value) => {
     highlighted = value == name;
   });
 
-  if (name == '') {
-    name = `(${x},${y})`;
-  } else {
-    name = `${name}`;
-  }
   async function redrawPointAndLabel() {
     await tick();
     const points = document.getElementsByClassName(name);
@@ -61,7 +57,6 @@ It is used in combination with other components to create a chart.
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
   * name: string          - Name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
 -->
-
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <circle
   cx={x}

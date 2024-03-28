@@ -1,11 +1,10 @@
 <script lang="ts">
   import * as d3 from 'd3';
-
   import { getContext } from 'svelte';
   import { VisualisationStore } from '$lib/store.js';
 
   import Point from '$lib/components/base/Point.svelte';
-  import Axis from '$lib/components/base/Axis.svelte';
+  import DynamicAxis from '../base/DynamicAxis.svelte';
 
   //Mandatory exports
   export let width: number;
@@ -22,24 +21,24 @@
   export let pointColor: string = '#CCCCFF';
   export let pointOpacity: number = 1;
 
-  //Fill visualisationstore
-  const { yScales, xScales, data, columns } = getContext<VisualisationStore>('store');
-
+  //Get from visualisationstore
+  const { columns } = getContext<VisualisationStore>('store');
+  if (!$columns.includes(xAxis)) {
+    throw new Error('xAxis is not recognised, you may need to set the xAxis parameter');
+  }
+  if (!$columns.includes(yAxis)) {
+    throw new Error('yAxis is not recognised, you may need to set the yAxis parameter');
+  }
+  const { yScales, xScales, data } = getContext<VisualisationStore>('store');
   let xScaleLocal: d3.ScaleLinear<number, number>;
   let yScaleLocal: d3.ScaleLinear<number, number>;
   let xIndex: number;
   let yIndex: number;
   $: {
-    if (!$columns.includes(xAxis)) {
-      throw new Error('xAxis is not recognised, you may need to set the xAxis parameter');
-    }
-    if (!$columns.includes(yAxis)) {
-      throw new Error('yAxis is not recognised, you may need to set the yAxis parameter');
-    }
     xIndex = $columns.indexOf(xAxis);
     yIndex = $columns.indexOf(yAxis);
     xScaleLocal = $xScales[xIndex] as d3.ScaleLinear<number, number>;
-    xScaleLocal.range([0, width]);
+    xScaleLocal.range([width, 0]);
     yScaleLocal = $yScales[yIndex] as d3.ScaleLinear<number, number>;
     yScaleLocal.range([0, height]);
   }
@@ -77,8 +76,16 @@ These attributes are required when using the Map datatype
 <svg {width} {height} class="visualisation">
   {#key data}
     {#if showAxis}
-      <Axis position="bottom" ticksNumber={numTicks} />
-      <Axis position="left" ticksNumber={numTicks} />
+      <DynamicAxis
+        position="bottom"
+        ticksNumber={numTicks}
+        startColumn={xIndex}
+        endColumn={xIndex + 1} />
+      <DynamicAxis
+        position="left"
+        ticksNumber={numTicks}
+        startColumn={yIndex}
+        endColumn={yIndex + 1} />
     {/if}
     {#each $data as p}
       <Point

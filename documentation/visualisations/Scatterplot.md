@@ -18,8 +18,6 @@ Height of the visualisation
 
 # Semi-Required Attributes
 
-These attributes are required when making use of the AoA datatype for the data
-
 ## xAxis
 
 - Type: `string`
@@ -66,30 +64,10 @@ Fill color of the points of the scatterplot.
 
 Opacity of the points of the scatterplot.
 
-## Sample usage
-
-An example of the 'simple' data input
+# Sample usage
 
 ```svelte
 <script lang="ts">
-  const width: number = 500;
-  const heigth: number = 500;
-  const data: { x: number; y: number }[] = [
-    { x: 130, y: 50 },
-    { x: 49, y: 432 },
-    { x: 150, y: 385 },
-    { x: 483, y: 245 },
-    { x: 287, y: 174 }
-  ];
-</script>
-
-<Scatterplot {width} {height} {data} />
-```
-
-An example of the AoA data input
-
-```svelte
-<script>
   const width: number = 500;
   const heigth: number = 500;
   const data: Array<Array<string | number>> = [
@@ -101,7 +79,21 @@ An example of the AoA data input
     ['Henk', 43, 112, 16],
     ['Pieter', 359, 429, 75]
   ];
+
+  const store = new VisualisationStore();
+
+  store.marginLeft.set(0);
+  store.marginRight.set(0);
+  store.marginTop.set(0);
+  store.marginBottom.set(0);
+
+  store.data.set(data.slice(1));
+  store.columns.set(data[0] as string[]);
+  store.height.set(height);
+  store.width.set(width);
+
+  setContext('store', store);
 </script>
 
-<Scatterplot {data} {height} {width} xAxis="age" yAxis="size" />
+<Scatterplot {height} {width} xAxis="age" yAxis="size" />
 ```
