@@ -1,6 +1,6 @@
 <script lang="ts">
   import Label from './Label.svelte';
-  import { selectedPoint, anyPointClicked } from '$lib/selectedPoint.js';
+  import { selectedPoint, anyPointClicked } from '$lib/selected.js';
   import { tick } from 'svelte';
 
   export let x: number;
@@ -95,6 +95,6 @@ It is used in combination with other components to create a chart.
     hasBackground={true}
     fontSize={'14'}
     fontWeight={'bold'}
-    rectOpacity={0.7}
+    backgroundOpacity={0.7}
     {name} />
 {/if}

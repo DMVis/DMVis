@@ -3,6 +3,7 @@
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { VisualisationStore } from '$lib/store.js';
+  import { hoveredXLabel, hoveredYLabel } from '$lib/selected.js';
 
   import * as d3 from 'd3';
   import { setContext } from 'svelte';
@@ -51,6 +52,15 @@
       .paddingInner(padding);
   }
   setContext('store', visualisationStore);
+
+  function mouseOver(xAxis: string, yAxis: string) {
+    hoveredXLabel.set(xAxis);
+    hoveredYLabel.set(yAxis);
+  }
+  function mouseOut() {
+    hoveredXLabel.set('');
+    hoveredYLabel.set('');
+  }
 </script>
 
 <!--
@@ -82,7 +92,32 @@ A matrix of scatterplots that can be used to quickly find relations between attr
       {#each axisNames as xAxis}
         {#each axisNames as yAxis}
           {#if xAxis != yAxis}
-            <g transform="translate({xScale(xAxis)},{yScale(yAxis)})">
+            <g
+              transform="translate({xScale(xAxis)},{yScale(yAxis)})"
+              on:mouseover={() => {
+                mouseOver(xAxis, yAxis);
+              }}
+              on:mouseout={() => {
+                mouseOut();
+              }}
+              on:focus={() => {
+                mouseOver(xAxis, yAxis);
+              }}
+              on:blur={() => {
+                mouseOut();
+              }}
+              role="treeitem"
+              aria-selected="false"
+              tabindex={0}>
+              <!--The rect will function as a border around the scatterplot  -->
+              <rect
+                width={xScale.bandwidth()}
+                height={yScale.bandwidth()}
+                x={0}
+                y={0}
+                stroke="black"
+                fill="white">
+              </rect>
               <Scatterplot
                 {xAxis}
                 {yAxis}
@@ -91,15 +126,6 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 showAxis={false}
                 {pointColor}
                 {pointOpacity} />
-              <!--The rect will function as a border around the scatterplot  -->
-              <rect
-                width={xScale.bandwidth()}
-                height={yScale.bandwidth()}
-                x={0}
-                y={0}
-                stroke="black"
-                fill="none">
-              </rect>
             </g>
           {:else}
             <g transform="translate({xScale(xAxis)},{yScale(yAxis)})">
@@ -107,17 +133,11 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 x={xScale.bandwidth() / 2}
                 y={yScale.bandwidth() / 2}
                 text={xAxis}
-                hasBackground={false} />
-
-              <!--The rect will function as a border around the label  -->
-              <rect
+                hasBackground={true}
+                name={xAxis + '-attr'}
                 width={xScale.bandwidth()}
                 height={yScale.bandwidth()}
-                x={0}
-                y={0}
-                stroke="black"
-                fill="none">
-              </rect>
+                color="white" />
             </g>
           {/if}
         {/each}

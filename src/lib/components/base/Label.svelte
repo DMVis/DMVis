@@ -3,6 +3,7 @@
   import { getOrigin } from '$lib/utils/OriginMapper.js';
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
+  import { hoveredXLabel, hoveredYLabel } from '$lib/selected.js';
 
   // Required attributes
   export let x: number;
@@ -23,8 +24,10 @@
   export let fontWeight: string = 'normal';
   export let fontFamily: string = 'Arial';
   export let hasBackground: boolean = true;
-  export let rectOpacity: number | string = -1;
+  export let backgroundOpacity: number | string = opacity;
   export let name: string = '';
+  export let width: number | 'auto' = 'auto';
+  export let height: number | 'auto' = 'auto';
 
   // Private attributes
   let rectWidth: number = 50;
@@ -32,22 +35,40 @@
   let textBlock: SVGTextElement;
   let rectBlock: SVGRectElement;
 
-  if (rectOpacity === -1) {
-    rectOpacity = opacity;
+  let highlighted = false;
+  hoveredXLabel.subscribe(() => {
+    highlighted = text === $hoveredXLabel || text === $hoveredYLabel;
+  });
+  hoveredYLabel.subscribe(() => {
+    highlighted = text === $hoveredXLabel || text === $hoveredYLabel;
+  });
+
+  //COde that should change if highlighted changes
+  $: {
+    d3.select(textBlock).attr('font-weight', highlighted ? 'bold' : fontWeight);
+    d3.select(rectBlock).attr('stroke-width', highlighted ? 3 : 1);
   }
   onMount(() => {
     // Set attributes for the text
     d3.select(textBlock)
       .attr('fill', textColor)
       .attr('font-size', fontSize)
-      .attr('font-weight', fontWeight)
+      .attr('font-weight', highlighted ? 'bold' : fontWeight)
       .attr('font-family', fontFamily);
 
     // Calculate the width and height of the text
-    const textLen = d3.select(textBlock)?.node()?.getComputedTextLength() || 0;
-    const textHeight = d3.select(textBlock)?.node()?.getBBox()?.height || 0;
-    rectWidth = textLen + padding;
-    rectHeight = textHeight + padding;
+    if (width == 'auto') {
+      const textLen = d3.select(textBlock)?.node()?.getComputedTextLength() || 0;
+      rectWidth = textLen + padding;
+    } else {
+      rectWidth = width;
+    }
+    if (height == 'auto') {
+      const textHeight = d3.select(textBlock)?.node()?.getBBox()?.height || 0;
+      rectHeight = textHeight + padding;
+    } else {
+      rectHeight = height;
+    }
 
     // Update the text
     d3.select(textBlock)
@@ -59,7 +80,8 @@
       .attr('x', x + getOrigin(rectWidth, OriginX.Left, originX))
       .attr('y', y + getOrigin(rectHeight, OriginY.Top, originY))
       .attr('width', rectWidth)
-      .attr('height', rectHeight);
+      .attr('height', rectHeight)
+      .attr('stroke', 'black');
   });
 </script>
 
@@ -96,8 +118,10 @@ The default origin is the middle of the rectangle.
 * fontWeight: string       - Font weight of the text in the label.
 * fontFamily: string       - Font family of the text in the label.
 * hasBackground: bool      - Whether the label has a background or not.
-* rectOpacity: number      - Opacity of only the rectangle behind the label, defaults to same as normal opacity
+* backgroundOpacity: number - Opacity of the background behind the label, defaults to same as normal opacity
 * name: string             - What class to give to the label, default to '' making the default class 'label-'
+* width: number|'auto'     - Width of the rectangle of the label, defaults to 'fit-text'
+* height: number|'auto'    - Height of the rectangle of the label, defaults to 'fit-text'
 -->
 
 <g
@@ -114,7 +138,7 @@ The default origin is the middle of the rectangle.
       width={rectWidth}
       height={rectHeight}
       fill={color}
-      fill-opacity={rectOpacity} />
+      fill-opacity={backgroundOpacity} />
   {/if}
   <text
     bind:this={textBlock}

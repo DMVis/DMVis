@@ -39,12 +39,12 @@ Color of the rectangle behind the label.
 
 Opacity of the label.
 
-## rectOpacity
+## backgroundOpacity
 
 - Type: `number`
 - Default: Same as `opacity`
 
-Opacity of the rectangle behind the label.
+Opacity of the background of the label.
 
 ## originX
 
@@ -129,12 +129,33 @@ Font family of the text in the label.
 
 Whether the label has a background or not.
 
+## rectOpacity
+
+- Type: `number | string`
+- Defaults: `opacity`
+
+The opacity of the background of the label. Defaults to the same opacity of the whole label.
+
 ## name
 
 - Type: `string`
 - Default: `undefined`
 
 A possible class name for the label. If defined the label will get the class `label-{name}`. If left undefined the label will get no class.
+
+## width
+
+- Type: `number | 'auto'`
+- Default: `'auto'`
+
+The width of the whole label, defaults to the width of the text
+
+## height
+
+- Type: `number | 'auto'`
+- Default: `'auto'`
+
+The height of the whole label, defaults to the height of the text
 
 # Example usage
 
@@ -158,7 +179,11 @@ Label with all properties set.
     fontSize={'12px'}
     fontWeight={'normal'}
     fontFamily={'Arial'}
-    hasBackground={true} />
+    hasBackground={true}
+    rectOpactiy={0.3}
+    name={'label'}
+    width={100}
+    height={300} />
 </svg>
 ```
 
