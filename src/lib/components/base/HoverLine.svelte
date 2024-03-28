@@ -11,7 +11,8 @@
   export let notFocusColor: string = '#BBB';
   export let lineWidth: number = 1;
 
-  let hoveredLine: number = -1;
+  let highlightedLine: number = -1;
+  let clickedLine: boolean = false;
   interface LineConfig {
     path: string;
     xPos: number[];
@@ -85,17 +86,34 @@ It is used in combination with other components to create a chart.
     <path
       id={`line-${i}`}
       d={path.path}
-      stroke={hoveredLine !== -1 ? (hoveredLine === i ? focusColor : notFocusColor) : notFocusColor}
+      stroke={highlightedLine !== -1
+        ? highlightedLine === i
+          ? focusColor
+          : notFocusColor
+        : notFocusColor}
       stroke-width={lineWidth}
       fill="none"
       on:mouseenter={() => {
-        hoveredLine = i;
-        redrawHoveredLine(i);
+        if (!clickedLine) {
+          highlightedLine = i;
+          redrawHoveredLine(i);
+        }
       }}
       on:mouseleave={() => {
-        hoveredLine = -1;
+        if (!clickedLine) {
+          highlightedLine = -1;
+        }
+      }}
+      on:mousedown={() => {
+        if (clickedLine && highlightedLine !== i) {
+          highlightedLine = i;
+          redrawHoveredLine(i);
+        } else {
+          clickedLine = !clickedLine;
+          highlightedLine = clickedLine ? highlightedLine : -1;
+        }
       }} />
-    {#if hoveredLine === i}
+    {#if highlightedLine === i}
       <g id={`line-${i}-points`}>
         {#each $data[i + 1] as p, j}
           {#if typeof p === 'number'}
