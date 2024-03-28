@@ -1,10 +1,11 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
 
   import { VisualisationStore } from '$lib/store.js';
   import BarColumn from '$lib/components/base/BarColumn.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
+  import DynamicAxis from '../base/DynamicAxis.svelte';
 
   // Required attributes
   export let width: number;
@@ -49,6 +50,7 @@
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
   visualisationStore.data.set(dataUtil.data);
+  visualisationStore.padding.set(columnPadding);
   visualisationStore.marginLeft.set(marginLeft);
   visualisationStore.marginRight.set(marginRight);
   visualisationStore.marginTop.set(marginTop);
@@ -66,6 +68,7 @@
     header: string;
     rows: Array<{ label: string; value: number }>;
   };
+
   // Convert array of rows to array of columns (i.e. transpose).
   // Distance between columns is determined by scaleColumns.
   const scaleColumns = d3
@@ -99,6 +102,29 @@
     }
 
     columns.push(barColumns[i]);
+  }
+
+  // On mount, get the axes for the columns.
+  let axes: Array<SVGGElement> = [];
+  setTimeout(() => {
+    axes = getAxes();
+  }, 1000);
+
+  // Function to load the axes
+  function getAxes(): Array<SVGGElement> {
+    const newAxes: Array<SVGGElement> = [];
+    const axesList = document.getElementById('axes');
+    if (axesList && axes.length === 0) {
+      // Get the axes for the columns
+      axesList.childNodes.forEach((element) => {
+        if (element.nodeName !== 'g') {
+          return;
+        }
+        newAxes.push(element as SVGGElement);
+      });
+      axesList.remove();
+    }
+    return newAxes;
   }
 </script>
 
@@ -150,8 +176,12 @@ to adjust `marginTop` or `columnMarginTop`.
 -->
 <svg class="visualisation" {width} {height}>
   {#key dataUtil}
-    {#each columns as column}
+    <g id="axes" style="display: none">
+      <DynamicAxis position="top" offset={20} ticksNumber={3} />
+    </g>
+    {#each columns as column, columnIndex}
       <BarColumn
+        colNumber={columnIndex}
         x={scaleColumns(column.header) ?? 0}
         y={marginTop}
         width={scaleColumns.bandwidth()}
@@ -161,6 +191,7 @@ to adjust `marginTop` or `columnMarginTop`.
         marginRight={columnMarginRight}
         marginTop={columnMarginTop}
         marginBottom={columnMarginBottom}
+        axis={columnIndex != 0 ? axes[columnIndex] : null ?? null}
         {barPadding}
         {barColor}
         {barRadiusX}

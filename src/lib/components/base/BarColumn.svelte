@@ -4,6 +4,8 @@
   import { OriginX, OriginY } from '$lib/Enums.js';
   import Bar from '$lib/components/base/Bar.svelte';
   import Label from './Label.svelte';
+  import { getContext } from 'svelte';
+  import type { VisualisationStore } from '$lib/store.js';
 
   // Required attributes.
   export let x: number;
@@ -16,6 +18,9 @@
     header: string;
     rows: Array<{ label: string }> | Array<{ label: string; value: number }>;
   };
+
+  export let axis: SVGGElement | null = null;
+  export let colNumber: number;
 
   // Optional attributes.
   export let marginLeft: number = 0;
@@ -61,6 +66,10 @@
     .domain(data.rows.map((bar) => bar.label))
     .range([marginTop, height - marginBottom])
     .padding(barPadding);
+
+  const { xScales, yScales } = getContext<VisualisationStore>('store');
+  const localXScale = $xScales[colNumber] as d3.ScaleLinear<number, number>;
+  const localYScale = $yScales[colNumber] as d3.ScaleBand<string>;
 </script>
 
 <!--
@@ -161,6 +170,12 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       hasBackground={false} />
   {/each}
 
+  {#if axis}
+    {#if axis.outerHTML}
+      {@html axis.outerHTML}
+    {/if}
+  {/if}
+
   <!-- Draw header on top of column. -->
   <Label
     x={x + marginLeft + (width - marginLeft - marginRight) / 2}
@@ -179,22 +194,4 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
     fontWeight={headerFontWeight}
     fontFamily={headerFontFamily}
     hasBackground={hasHeaderBackground} />
-  <!-- Draw left vertical line at numerical value of 0 for clarity. -->
-  <line
-    x1={x + marginLeft}
-    y1={y + marginTop}
-    x2={x + marginLeft}
-    y2={y + height - marginBottom}
-    stroke={'black'}
-    stroke-opacity={barOpacity}
-    stroke-width={1} />
-  <!-- Draw right vertical line at numerical value of max for clarity. -->
-  <line
-    x1={x + width - marginRight}
-    y1={y + marginTop}
-    x2={x + width - marginRight}
-    y2={y + height - marginBottom}
-    stroke={'black'}
-    stroke-opacity={barOpacity}
-    stroke-width={1} />
 </g>
