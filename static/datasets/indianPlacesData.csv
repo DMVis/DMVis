@@ -1,0 +1,326 @@
+﻿Name,time needed to visit in hrs,Google review rating,Entrance Fee in INR,Airport with 50km Radius,Number of google review in lakhs
+India Gate,0.5,4.6,0,Yes,2.6
+Humayun's Tomb,2.0,4.5,30,Yes,0.4
+Akshardham Temple,5.0,4.6,60,Yes,0.4
+Waste to Wonder Park,2.0,4.1,50,Yes,0.27
+Jantar Mantar,2.0,4.2,15,Yes,0.31
+Chandni Chowk,3.0,4.2,0,Yes,0.25
+Lotus Temple,1.0,4.5,0,Yes,0.59
+Red Fort,2.0,4.5,35,Yes,1.5
+Agrasen ki Baoli,1.0,4.2,0,Yes,0.41
+Sunder Nursery,2.0,4.6,0,Yes,0.16
+Garden of Five Senses,2.0,4.1,35,Yes,0.23
+Lodhi Garden,1.0,4.5,0,Yes,0.48
+National Gallery of Modern Art,3.0,4.5,20,Yes,0.08
+"National Zoological Park ",3.0,4.1,80,Yes,0.41
+Qutub Minar,1.0,4.5,35,Yes,1.37
+National Science Centre,5.0,4.4,70,Yes,0.23
+Marine Drive,2.0,4.5,0,Yes,1.5
+Gateway of India,1.0,4.6,0,Yes,3.6
+Chhatrapati Shivaji Maharaj Vastu Sangrahalaya,1.0,4.6,500,Yes,0.34
+Sanjay Gandhi National Park,3.0,4.3,50,Yes,0.6
+Siddhivinayak Temple,2.0,4.8,0,Yes,1.05
+Mahalaxmi Temple,1.0,4.7,0,Yes,0.33
+Haji Ali Dargah,2.0,4.4,0,Yes,0.16
+Chowpatty Beach,2.0,4.3,0,Yes,0.05
+Essel World,5.0,4.3,1149,Yes,0.27
+Elephanta Caves,4.0,4.3,550,Yes,0.35
+Imagicaa,5.0,1.4,1149,No,0.95
+Bangalore Palace,2.0,4.2,500,Yes,0.9
+Lalbagh Botanical Garden,1.5,4.4,20,Yes,1.5
+Cubbon Park,1.0,4.4,0,Yes,1.32
+Vidhana Soudha,0.5,4.6,0,Yes,0.8
+ISKCON Temple Bangalore,1.0,4.6,0,Yes,1.14
+Charminar,1.0,4.5,25,Yes,2.1
+Golconda Fort,2.0,4.4,30,Yes,1.2
+Hussain Sagar Lake,1.0,4.3,0,Yes,0.5
+Ramoji Film City,4.0,4.4,1150,Yes,0.45
+Salar Jung Museum,2.0,4.4,20,Yes,0.67
+Qutb Shahi Tombs,1.0,4.4,25,Yes,0.2
+Birla Mandir,1.0,4.7,0,Yes,0.41
+Chowmahalla Palace,1.5,4.4,80,Yes,0.45
+Nehru Zoological Park,3.0,4.2,50,Yes,0.86
+Lumbini Park,1.0,4.1,20,Yes,0.73
+Victoria Memorial,1.5,4.6,30,Yes,0.73
+Howrah Bridge,0.5,4.6,0,Yes,1.2
+Indian Museum,2.0,4.6,50,Yes,0.18
+Dakshineswar Kali Temple,1.0,4.7,0,Yes,0.82
+Kalighat Kali Temple,1.0,4.4,0,Yes,0.5
+Eden Gardens,3.0,4.1,2500,Yes,0.1
+Alipore Zoological Gardens,2.0,4.3,25,Yes,0.66
+Science City Kolkata,3.0,4.4,60,Yes,0.88
+Belur Math,1.5,4.7,0,Yes,0.47
+Marble Palace,1.0,4.4,0,Yes,0.1
+Calangute Beach,2.0,4.4,0,Yes,0.26
+Basilica of Bom Jesus,1.0,4.5,0,Yes,0.59
+Fort Aguada,1.5,4.2,0,Yes,0.95
+Dudhsagar Falls,3.0,4.6,500,Yes,0.3
+Anjuna Beach,2.0,4.4,0,Yes,0.18
+Chapora Fort,1.0,4.2,0,Yes,0.19
+Se Cathedral,1.0,4.5,0,Yes,0.05
+Baga Beach,2.0,4.5,0,Yes,0.35
+Arambol Beach,2.0,4.6,0,Yes,0.1
+Palolem Beach,2.0,4.6,0,Yes,0.27
+Colva Beach,2.0,4.3,0,Yes,0.1
+Miramar Beach,1.5,4.2,0,Yes,0.3
+Aguada Beach,2.0,4.5,0,Yes,0.01
+Dr. Salim Ali Bird Santuary,2.0,3.9,10,Yes,0.03
+Sabarmati Ashram,1.5,4.6,0,Yes,0.35
+Dwarkadhish Temple,2.0,4.7,0,No,0.59
+Gir National Park,3.0,4.5,3500,No,0.08
+White Desert,2.5,4.6,0,Yes,0.12
+Laxmi Vilas Palace,2.0,4.4,200,Yes,0.17
+Somnath Temple,2.0,4.8,0,No,0.39
+Rann Utsav,3.0,4.9,7500,Yes,0.1
+Statue of Unity,3.0,4.6,350,No,0.67
+Dandi Kutir,1.5,4.5,0,No,0.05
+Sabarmati Riverfront,1.0,4.6,0,Yes,0.1
+Manek Chowk,2.0,4.4,0,Yes,0.49
+Kankaria Lake,3.0,4.5,10,Yes,0.3
+Science City,7.0,4.4,500,Yes,0.11
+Hawa Mahal,1.0,4.4,50,Yes,1.3
+City Palace,2.0,4.4,300,Yes,0.51
+Jaisalmer Fort,2.5,4.4,50,No,0.56
+Ranthambore National Park,3.0,4.6,500,No,0.09
+Pushkar Lake,1.5,4.4,0,No,1.6
+Ajmer Sharif Dargah,1.0,4.6,0,Yes,0.35
+Mehrangarh Fort,2.0,4.6,100,Yes,0.64
+Chittorgarh Fort,2.0,4.6,40,No,1.9
+Dilwara Temples,1.0,4.6,0,No,0.05
+Junagarh Fort,2.0,4.5,50,Yes,0.32
+Amber Fort,2.0,4.6,100,Yes,1.5
+Jaigarh Fort,1.5,4.5,35,Yes,0.3
+Lake Pichola,1.0,4.6,0,Yes,0.5
+Golden Temple (Harmandir Sahib),1.5,4.9,0,Yes,1.9
+Jallianwala Bagh,1.0,4.8,0,Yes,0.3
+Wagah Border,2.0,4.8,0,Yes,0.17
+Rock Garden,2.0,4.5,30,Yes,0.5
+Alappuzha Beach,1.5,4.5,0,Yes,0.11
+Munnar Tea Gardens,2.0,4.3,0,No,0.3
+Fort Kochi,1.0,4.4,0,Yes,0.1
+Padmanabhaswamy Temple,1.0,4.7,0,Yes,0.46
+Kozhikode Beach,1.5,3.9,0,Yes,0.059
+Wayanad Wildlife Sanctuary,3.0,4.5,300,No,2.2
+Periyar National Park,3.0,4.3,50,No,0.14
+Kumarakom Bird Sanctuary,2.0,3.8,50,Yes,0.1
+Varkala Beach,2.0,4.6,0,Yes,0.1
+Bekal Fort,1.5,4.5,20,No,0.22
+Kovalam Beach,2.0,4.4,0,Yes,0.68
+St. Angelo Fort,1.0,4.4,20,Yes,0.11
+Seethargundu Viewpoint,1.0,4.5,0,No,0.03
+Kerala Folklore Museum,1.5,4.4,100,Yes,0.1
+Wonderla Amusement Park,5.5,4.6,750,Yes,0.41
+Mysore Palace,2.0,4.6,50,Yes,2.5
+Hampi Archaeological Ruins,3.0,4.7,0,No,0.05
+Abbey Falls,1.0,4.1,0,No,0.03
+Om Beach,2.0,4.5,0,No,0.09
+Mullayanagiri,3.0,4.5,0,No,0.05
+Badami Cave Temples,1.5,4.6,30,No,0.2
+Jog Falls,1.5,4.6,30,No,0.23
+Panambur Beach,1.5,4.5,0,Yes,0.1
+Murudeshwar Temple,1.0,4.7,0,Yes,0.49
+Gol Gumbaz,1.5,4.5,20,No,0.25
+Bandipur National Park,3.0,4.4,300,No,0.15
+Halebidu Hoysaleswara Temple,1.0,4.7,15,No,0.11
+Shaniwar Wada,2.0,4.4,50,Yes,1.2
+Ajanta Caves,3.0,4.6,30,Yes,0.21
+Sula Vineyards,2.0,4.1,300,Yes,0.1
+Sai Baba Temple,1.5,4.7,0,Yes,0.69
+Alibaug Beach,1.5,4.2,0,Yes,0.05
+Ganapatipule Temple,1.0,4.7,0,No,0.1
+Deekshabhoomi,1.0,4.5,0,Yes,0.11
+Mahalakshmi Temple,1.0,4.8,0,Yes,0.9
+Karla Caves,1.5,4.4,25,Yes,0.27
+Tarkarli Beach,2.0,4.6,0,No,0.065
+Kaas Plateau,2.0,4.4,300,No,0.05
+Echo Point,1.5,4.4,0,Yes,0.02
+Ellora Caves,3.0,4.7,30,Yes,0.49
+Khajuraho Group of Monuments,2.0,4.7,40,No,0.09
+Sanchi Stupa,1.5,4.7,30,Yes,0.01
+Rajwada Palace,1.0,4.4,10,Yes,0.63
+Gwalior Fort,2.5,4.5,75,Yes,0.4
+Mahakaleshwar Jyotirlinga,1.5,4.8,0,Yes,1.2
+Dhuandhar Falls,1.0,4.5,0,No,0.01
+Bee Falls,1.5,4.6,15,No,0.065
+Kanha National Park,3.0,4.5,100,No,0.1
+Bandhavgarh National Park,3.0,4.5,50,No,0.05
+Orchha Fort,1.5,4.8,10,No,0.1
+Jahaz Mahal,1.0,3.9,50,No,0.03
+Bhimbetka Rock Shelters,2.0,4.6,25,No,0.07
+Narmada Udgam Temple,1.0,4.4,0,No,0.01
+Chitrakoot Falls,1.5,4.4,0,No,0.1
+The Ridge,1.0,4.7,0,Yes,0.03
+Solang Valley,2.0,4.1,0,No,0.05
+Dalai Lama Temple,1.5,4.7,0,Yes,0.15
+Khajjiar Lake,1.5,4.5,0,No,0.1
+Key Monastery,1.0,4.8,0,No,0.025
+Great Himalayan National Park,3.0,4.5,50,No,0.2
+Chamera Lake,2.0,4.4,0,No,0.01
+Sangla Valley,2.0,4.5,0,No,0.01
+Kangra Fort,2.0,4.4,150,Yes,0.1
+Tea Gardens,1.5,4.6,0,Yes,0.015
+Prashar Lake,1.5,4.6,0,No,0.01
+Paragliding Site,2.0,4.8,2500,No,0.01
+Triund Trek,5.0,4.8,0,Yes,0.01
+Manikaran Sahib,1.0,4.6,0,No,1.3
+Hatu Peak,2.0,4.5,0,Yes,1.1
+Barot Valley,2.0,4.7,0,No,1.2
+Serolsar Lake,2.5,4.4,0,No,0.9
+Kufri Fun World,5.0,3.8,1500,Yes,0.1
+Naini Lake,1.5,4.2,0,Yes,0.01
+Laxman Jhula,1.0,4.4,0,Yes,0.03
+Har Ki Pauri,1.0,4.5,0,Yes,0.025
+Robber's Cave,1.5,4.5,25,Yes,0.01
+Kempty Falls,1.5,4.2,15,Yes,0.55
+Auli Ski Resort,3.0,4.5,0,No,0.01
+Badrinath Temple,1.0,4.8,0,No,0.29
+Binsar Wildlife Sanctuary,2.0,4.3,150,No,0.01
+Chaubatia Gardens,1.0,4.0,50,No,0.025
+Jim Corbett National Park,3.0,4.4,100,Yes,0.3
+Gangotri Temple,1.0,4.8,0,No,0.05
+Tungnath Temple,2.0,4.8,0,No,0.09
+Valley of Flowers,5.0,4.7,150,No,0.035
+Taj Mahal,2.0,4.6,50,Yes,2.25
+Kashi Vishwanath Temple,1.0,4.7,0,Yes,0.9
+Bara Imambara,1.5,4.4,50,Yes,0.45
+Krishna Janmabhoomi,1.0,4.7,0,Yes,0.13
+Ram Janmabhoomi,1.0,4.8,0,Yes,0.025
+Banke Bihari Temple,1.0,4.8,0,Yes,0.37
+Triveni Sangam,1.0,4.5,0,Yes,0.09
+Jhansi Fort,1.5,4.4,15,Yes,0.25
+Dhamek Stupa,1.0,4.6,5,Yes,0.065
+Buland Darwaza,2.0,4.4,40,Yes,0.07
+Okhla Bird Sanctuary,1.5,4.3,30,Yes,0.035
+Aligarh Fort,1.0,4.1,20,Yes,0.0165
+Augarnath Temple,1.0,4.8,0,Yes,0.045
+Allen Forest Zoo,2.0,4.2,150,Yes,0.21
+Dal Lake,2.0,4.6,0,Yes,0.15
+Pangong Tso,2.0,4.9,20,Yes,0.15
+Betaab Valley,2.0,4.6,100,No,0.11
+Vaishno Devi,5.0,4.7,0,Yes,0.55
+Patnitop Height,2.0,4.1,0,No,0.01
+Amarnath Cave,6.0,4.5,0,No,0.11
+Thiksey Monastery,1.5,4.7,20,Yes,0.05
+Nubra Valley,2.0,4.5,0,No,0.1
+Kargil War Memorial,1.0,4.8,0,No,0.011
+Diskit Monastery,1.0,4.7,20,No,0.015
+Kishtwar National Park,3.0,4.3,100,No,0.01
+Hemis National Park,4.0,4.4,20,No,0.02
+Dras War Memorial,1.0,4.8,0,No,0.012
+Magnetic Hill,0.5,3.7,0,Yes,0.1
+Khardung La Pass,1.0,4.5,0,Yes,0.05
+Thiksey Monastery,1.5,4.7,30,Yes,0.05
+Prem Mandir,1.5,4.8,0,Yes,0.49
+Kirti Mandir,1.0,4.8,0,Yes,0.03
+Nand Gaon,1.0,4.1,0,Yes,0.01
+Barsana Mandir,1.0,4.8,0,Yes,0.1
+Tiger Hill,1.0,4.5,0,No,0.025
+Jaldapara National Park,3.0,4.4,250,Yes,0.035
+Sundarbans National Park,4.0,4.4,60,No,0.065
+Digha Beach,1.5,4.5,0,No,0.09
+Hazarduari Palace,1.5,4.5,10,Yes,0.18
+Kankalitala Temple,0.5,4.7,0,Yes,0.045
+Hangseswari Temple,0.5,4.6,0,Yes,0.07
+Gorumara National Park,3.0,4.4,100,Yes,0.07
+Cooch Behar Palace,1.0,4.5,20,Yes,0.09
+Ayodhya Hills,2.5,4.5,0,No,0.15
+Jagannath Temple,2.0,4.7,0,Yes,1.0
+Sun Temple,1.5,4.7,40,Yes,0.83
+Lingaraj Temple,1.0,4.6,0,Yes,0.35
+Khandadhar Waterfall,1.5,4.5,0,No,1.2
+Barabati Fort,1.0,4.5,0,Yes,0.13
+Hirakud Dam,1.0,4.5,0,No,0.01
+Chilika Lake,2.0,3.9,0,Yes,0.1
+Tara Tarini Temple,1.0,4.6,0,Yes,0.01
+Badaghagara Waterfall,1.0,4.3,0,No,0.018
+Chandipur Beach,1.5,4.2,0,Yes,0.014
+Sanaghagara Waterfall,1.0,4.4,0,No,0.055
+Marina Beach,1.5,3.9,0,Yes,0.1
+Meenakshi Amman Temple,2.0,4.7,0,Yes,0.65
+Ramanathaswamy Temple,1.5,4.6,0,No,0.01
+Vivekananda Rock Memorial,1.0,4.6,20,Yes,0.47
+Ooty Lake,1.0,4.1,10,Yes,0.61
+Marudamalai Temple,1.0,4.7,0,Yes,0.3
+Kodaikanal Lake,2.0,3.9,0,No,0.1
+Brihadeeswarar Temple,1.5,4.8,0,Yes,0.35
+Shore Temple,1.0,4.6,40,Yes,0.09
+Yercaud Lake,1.0,4.2,0,No,0.019
+Nellaiappar Temple,1.0,4.6,0,Yes,0.16
+Nataraja Temple,1.0,4.7,0,Yes,0.28
+Kanaka Durga Temple,1.0,4.7,0,Yes,0.44
+Rishikonda Beach,1.5,4.5,0,Yes,0.39
+Mallikarjuna Swamy Temple,1.0,4.7,0,No,0.49
+Papikondalu,2.0,4.3,0,Yes,0.032
+Lepakshi,1.5,4.6,0,No,0.075
+Belum Caves,1.5,4.4,65,Yes,0.11
+Amaravathi Temple,1.0,4.7,0,Yes,0.041
+Uppalapadu Bird Sanctuary,1.0,4.4,10,Yes,0.7
+Gandikota Fort,1.5,4.5,0,No,0.015
+Prasanthi Nilayam,1.0,4.7,0,Yes,0.12
+Simhachalam Temple,1.0,4.7,0,Yes,0.59
+Kailasagiri,2.0,4.5,0,Yes,0.019
+Submarine Museum,1.0,4.6,40,Yes,0.49
+Borra Caves,2.0,4.5,60,No,0.31
+War Memorial,1.0,4.6,0,Yes,0.059
+Indira Gandhi Zoological Park,2.0,4.1,20,Yes,0.25
+Matsyadarshini Aquarium,1.0,3.8,20,Yes,0.03
+Visakha Museum,1.0,4.3,10,Yes,0.065
+Nathula Pass,2.0,4.3,20,Yes,0.15
+Pemayangtse Monastery,1.0,4.6,20,No,0.015
+Char Dham,2.0,4.7,50,Yes,0.12
+Rumtek Monastery,1.0,4.6,10,Yes,0.035
+Buddha Park,1.0,4.8,50,Yes,0.1
+Baba Harbhajan Singh Temple,1.0,4.7,0,Yes,0.075
+Tsomgo Lake,2.0,4.5,0,Yes,0.15
+Kamakhya Temple,2.0,4.6,0,Yes,0.21
+Kaziranga National Park,3.0,4.5,650,No,0.068
+Umananda Island,1.0,4.1,0,Yes,0.01
+Sivasagar Sivadol,1.0,4.7,0,No,0.065
+Majuli Island,2.0,4.7,0,No,0.01
+Manas National Park,3.0,4.6,500,No,0.19
+Hayagriva Madhava Temple,1.0,4.5,0,No,0.9
+Pobitora Wildlife Sanctuary,2.0,4.4,500,Yes,0.037
+Tawang Monastery,2.0,4.7,0,No,0.032
+Ujjayanta Palace,1.5,4.5,10,Yes,0.035
+Dumboor Lake,1.0,4.5,0,No,0.01
+Unakoti Rock Carvings,1.5,4.5,20,No,0.025
+Chitrakote Falls,1.5,4.6,0,No,0.19
+Dzükou Valley,3.0,4.7,0,No,0.01
+Promenade Beach,1.0,4.5,0,Yes,0.09
+Auroville,2.0,4.1,0,Yes,0.035
+Paradise Beach,1.0,4.5,200,Yes,0.015
+Cellular Jail,1.5,4.7,30,Yes,0.12
+Radhanagar Beach,1.0,4.8,0,No,0.09
+Bharatpur Beach,1.0,4.5,0,No,0.04
+Limestone Caves,1.5,4.4,250,No,0.015
+Naida Caves,1.0,4.5,0,No,0.6
+Diu Fort,1.5,4.6,0,No,1.2
+Baba Baidyanath Temple,1.0,4.7,0,Yes,1.8
+Pahari Mandir,1.0,4.6,0,Yes,0.13
+Mahabodhi Temple,1.5,4.7,0,Yes,0.2
+Sanjay Gandhi Biological Park,2.5,4.3,30,Yes,0.5
+Takhat Shri Harimandir Ji Patna Sahib,1.0,4.7,0,Yes,0.25
+Budhha Smriti Park,1.0,4.4,10,Yes,0.31
+Kingdom of Dreams,3.0,4.4,1100,Yes,0.3
+Ambience Mall,2.0,4.6,0,Yes,1.2
+DLF CyberHub,2.0,4.7,0,Yes,0.71
+Gurudwara Bangla Sahib,1.0,4.8,0,Yes,1.05
+Kedarnath,1.5,4.8,0,No,2.0
+DLF Mall of India,2.0,4.6,0,Yes,1.5
+The Grand Venice Mall,2.0,4.2,0,Yes,0.45
+Wonderla Amusement Park,4.0,4.5,890,Yes,0.95
+Nandankanan Zoological Park,3.0,4.4,50,Yes,0.81
+Orion Mall,2.0,4.5,0,Yes,1.8
+Inorbit Mall Cyberabad,2.0,4.5,0,Yes,1.2
+Jama Masjid,1.0,4.5,0,Yes,0.49
+Ramanathaswamy Temple,1.5,4.7,0,Yes,0.1
+Buddh International Circuit,2.0,4.6,1500,Yes,7.4
+Phoenix Palassio,2.0,4.6,0,Yes,0.35
+LuLu International Shopping Mall,3.0,4.6,0,Yes,1.9
+Rail Museum,2.0,4.4,50,Yes,0.24
+Living Root Bridge,2.0,4.6,0,No,0.06
+Akshardham,3.0,4.6,0,Yes,0.18
+Agra Fort,2.0,4.5,40,Yes,1.3
+Madhya Pradesh Tribal Museum,2.0,4.7,10,Yes,0.15
+City Palace,2.0,4.4,200,Yes,0.51
+Albert Hall Museum,2.0,4.5,200,Yes,0.63
