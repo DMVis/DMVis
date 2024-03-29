@@ -191,7 +191,7 @@ to adjust `marginTop` or `columnMarginTop`.
         marginRight={columnMarginRight}
         marginTop={columnMarginTop}
         marginBottom={columnMarginBottom}
-        axis={columnIndex != 0 ? axes[columnIndex] : null ?? null}
+        {showColumnBars}
         {barPadding}
         {barColor}
         {barRadiusX}
