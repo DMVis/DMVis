@@ -2,10 +2,11 @@
   import * as d3 from 'd3';
   import { onMount, setContext } from 'svelte';
 
+  import { Spacer } from '$lib/utils/Spacer.js';
   import { VisualisationStore } from '$lib/store.js';
-  import BarColumn from '$lib/components/base/BarColumn.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
-  import DynamicAxis from '../base/DynamicAxis.svelte';
+  import BarColumn from '$lib/components/base/BarColumn.svelte';
+  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
 
   // Required attributes
   export let width: number;
@@ -13,8 +14,8 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
-  export let marginLeft: number = 50;
-  export let marginRight: number = 50;
+  export let marginLeft: number = 30;
+  export let marginRight: number = 30;
   export let marginTop: number = 50;
   export let marginBottom: number = 50;
 
@@ -22,18 +23,19 @@
   export let columnMarginRight: number = 0;
   export let columnMarginTop: number = 0;
   export let columnMarginBottom: number = 0;
-  export let columnPadding: number = 0.1;
+  export let showColumnBars: boolean = false;
 
-  export let barPadding: number = 0.2;
+  export let barPadding: number = 0.15;
   export let barColor: string = 'red';
   export let barRadiusX: number | string = 0;
   export let barRadiusY: number | string = 0;
 
   export let textColor: string = 'black';
-  export let fontSize: string = '12px';
+  export let fontSize: string = '10px';
   export let fontWeight: string = 'normal';
   export let fontFamily: string = 'Arial';
 
+  export let headerOffsetY: number = -30;
   export let headerColor: string = 'rgb(200,200,200)';
   export let headerOpacity: number | string = 1;
   export let headerRadiusX: number | string = 5;
@@ -49,12 +51,11 @@
   const visualisationStore = new VisualisationStore();
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
-  visualisationStore.data.set(dataUtil.data);
-  visualisationStore.padding.set(columnPadding);
-  visualisationStore.marginLeft.set(marginLeft);
-  visualisationStore.marginRight.set(marginRight);
-  visualisationStore.marginTop.set(marginTop);
-  visualisationStore.marginBottom.set(marginBottom);
+  visualisationStore.data.set(dataUtil.data ?? []);
+  visualisationStore.marginLeft.set(marginLeft + columnMarginLeft);
+  visualisationStore.marginRight.set(marginRight + columnMarginRight);
+  visualisationStore.marginTop.set(marginTop + columnMarginTop);
+  visualisationStore.marginBottom.set(marginBottom + columnMarginBottom);
   visualisationStore.columns.set(dataUtil.columns);
   setContext('store', visualisationStore);
 
@@ -71,11 +72,20 @@
 
   // Convert array of rows to array of columns (i.e. transpose).
   // Distance between columns is determined by scaleColumns.
+  const { xScales } = visualisationStore;
   const scaleColumns = d3
     .scaleBand()
     .domain(dataUtil.columns)
-    .range([marginLeft, width - marginRight])
-    .padding(columnPadding);
+    .range([marginLeft, width - marginRight]);
+
+  // Calculate the distance between each column.
+  const spacerDist = Spacer(
+    width,
+    marginLeft + columnMarginLeft,
+    marginRight + columnMarginRight,
+    $xScales.length
+  );
+
   const columns: Array<LabelColumn | BarColumn> = [];
 
   // Fill labelColumn
@@ -104,28 +114,13 @@
     columns.push(barColumns[i]);
   }
 
-  // On mount, get the axes for the columns.
-  let axes: Array<SVGGElement> = [];
-  setTimeout(() => {
-    axes = getAxes();
-  }, 1000);
-
-  // Function to load the axes
-  function getAxes(): Array<SVGGElement> {
-    const newAxes: Array<SVGGElement> = [];
-    const axesList = document.getElementById('axes');
-    if (axesList && axes.length === 0) {
-      // Get the axes for the columns
-      axesList.childNodes.forEach((element) => {
-        if (element.nodeName !== 'g') {
-          return;
-        }
-        newAxes.push(element as SVGGElement);
-      });
-      axesList.remove();
+  // TEMP: Remove first axis, since it is not needed, find better solution
+  onMount(() => {
+    const axes = document.getElementById('axes');
+    if (axes != null && axes.children.length > 0) {
+      axes.removeChild(axes.children[0]);
     }
-    return newAxes;
-  }
+  });
 </script>
 
 <!--
@@ -176,13 +171,16 @@ to adjust `marginTop` or `columnMarginTop`.
 -->
 <svg class="visualisation" {width} {height}>
   {#key dataUtil}
-    <g id="axes" style="display: none">
-      <DynamicAxis position="top" offset={20} ticksNumber={3} />
+    <g id="axes">
+      <DynamicAxis
+        position="top"
+        ticksNumber={3}
+        hasPadding={false}
+        customPadding={columnMarginLeft + columnMarginRight} />
     </g>
     {#each columns as column, columnIndex}
       <BarColumn
-        colNumber={columnIndex}
-        x={scaleColumns(column.header) ?? 0}
+        x={marginLeft + spacerDist * columnIndex}
         y={marginTop}
         width={scaleColumns.bandwidth()}
         height={height - marginTop - marginBottom}

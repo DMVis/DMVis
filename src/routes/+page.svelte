@@ -19,37 +19,11 @@
 
 {#await load then}
   <TabularVisualisation
-    width={1920}
-    height={1250}
+    width={1400}
+    height={1000}
     {dataUtil}
-    marginLeft={50}
-    marginRight={50}
-    marginTop={50}
-    marginBottom={50}
-    columnMarginLeft={0}
-    columnMarginRight={0}
-    columnMarginTop={20}
-    columnMarginBottom={0}
-    columnPadding={0}
-    barPadding={0.1}
-    barColor={'red'}
-    barRadiusX={0}
-    barRadiusY={0}
-    textColor={'black'}
-    fontSize={'12px'}
-    fontWeight={'normal'}
-    fontFamily={'Arial'}
-    headerOffsetY={-30}
-    headerColor={'rgb(200,200,200)'}
-    headerOpacity={1}
-    headerRadiusX={5}
-    headerRadiusY={5}
-    headerPadding={5}
-    headerTextColor={'black'}
-    headerFontSize={'14px'}
-    headerFontWeight={'normal'}
-    headerFontFamily={'Arial'}
-    hasHeaderBackground={true} />
+    columnMarginLeft={10}
+    columnMarginRight={10} />
 {/await}
 {#await load then}
   <ParallelCoordinates
