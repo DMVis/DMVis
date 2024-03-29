@@ -19,6 +19,7 @@
   export let hasPadding: boolean = false;
   export let startColumn: number = 0;
   export let endColumn: number = $xScales.length;
+  export let customPadding: number = 0;
 
   // Private variables
   let placementX: number = 0;
@@ -62,7 +63,9 @@
           } else {
             newAxis = d3.axisTop(
               scale.range([
-                Spacer($height, $marginBottom, $marginTop, $xScales.length),
+                Spacer($width, $marginLeft, $marginRight, $xScales.length) -
+                  customPadding +
+                  customPadding / $xScales.length,
                 0
               ]) as d3.ScaleLinear<number, number>
             );
@@ -103,7 +106,7 @@
           } else {
             newAxis = d3.axisBottom(
               scale.range([
-                Spacer($height, $marginBottom, $marginTop, $xScales.length),
+                Spacer($width, $marginLeft, $marginRight, $xScales.length),
                 0
               ]) as d3.ScaleLinear<number, number>
             );
@@ -228,6 +231,8 @@
         .selectAll('text')
         .style('font-size', `${fontSize}px`)
         .style('color', color);
+
+      console.log(axis);
     });
   });
 </script>
