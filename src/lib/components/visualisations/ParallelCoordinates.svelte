@@ -2,7 +2,7 @@
   import { setContext } from 'svelte';
   import { VisualisationStore } from '$lib/store.js';
 
-  import HoverLine from '$lib/components/base/HoverLine.svelte';
+  import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
 
@@ -48,7 +48,7 @@ It creates an axis for each column in the supplied table with data
 * marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
 -->
 <svg class="visualisation" {width} {height}>
-  <HoverLine lineWidth={2} />
+  <Line lineWidth={2} hoverable={true} />
   <DynamicAxis position={'left'} />
 </svg>
 

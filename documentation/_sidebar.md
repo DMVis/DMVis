@@ -15,9 +15,9 @@
   - [Axis](components/axis.md)
   - [AxisExperimental](components/axisexperimental.md)
   - [Bar](components/Bar.md)
-  - [HoverLine](components/hoverline.md)
-  - [Label](components/label.md)
   - [Line](components/line.md)
+  - [Label](components/label.md)
+  - [StaticLine](components/staticLine.md)
   - [Point](components/point.md)
   - [StackedBar](components/stackedbar.md)
 
