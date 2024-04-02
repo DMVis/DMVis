@@ -6,7 +6,7 @@
   export let Component: ComponentType;
   export let config = {};
 
-  // Import GraphStore and use defaults for mocking
+  // Import VisualisationStore and use defaults for mocking
   const store = new VisualisationStore();
   store.marginLeft.set(0);
   store.marginRight.set(0);

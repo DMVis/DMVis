@@ -10,13 +10,6 @@ None
 
 # Optional Attributes
 
-## color
-
-- Type: `string`
-- Default: `#977`
-
-Color of the line when no lines are hovered.
-
 ## focusColor
 
 - Type: `string`
@@ -24,12 +17,12 @@ Color of the line when no lines are hovered.
 
 Color of the line when this specific line is hovered.
 
-## notFocusColor
+## color
 
 - Type: `string`
 - Default: `#BBB`
 
-Color of the line when any other line is hovered.
+Color of the line when no lines are hovered.
 
 ## lineWidth
 

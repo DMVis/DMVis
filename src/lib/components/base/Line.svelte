@@ -8,7 +8,7 @@
   import type { VisualisationStore } from '$lib/store.js';
 
   export let focusColor: string = '#F44';
-  export let notFocusColor: string = '#BBB';
+  export let color: string = '#BBB';
   export let lineWidth: number = 1;
   export let hoverable: boolean = false;
 
@@ -22,7 +22,7 @@
   const { yScales, width, marginLeft, marginRight, data } = getContext<VisualisationStore>('store');
   let paths: LineConfig[] = [];
   $: {
-    $data.slice(1).forEach((row) => {
+    $data.forEach((row) => {
       let xPos: number[] = [];
       let yPos: number[] = [];
       let path: string = 'M';
@@ -71,27 +71,27 @@ The line component will pull data out of the visualisation store, and .
 It is used in combination with other components to create a chart.
 
 #### Required attributes
-  * points: [{ x: number; y: number }]  - List of non-scaled points on the graph
+  None
 
 #### Optional attributes
   * hoverable: boolean                  - When set to true, the line will become hoverable and highlightable
-  * color: number                       - Color of the line, defaulted to red. Can be any hex-code, rgb or plain string colors
-  * focusColor: number                  - Color of the line, when it is hovered. Defaulted to light red.
-  * notFocusColor: number               - Color of the line, when `anyLineHovered === true`. Defaulted to grey.
+  * color: string                       - Color of the line, defaulted to grey. Can be any hex-code, rgb or plain string colors
+  * focusColor: string                  - Color of the line, when it is hovered. Defaulted to light red.
   * lineWidth: string                   - Width of the line, defaulted to 1
   * id: number                          - Unique ID given to one instance of this line, used to redraw the line. Defaulted to 0.
 -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<g>
+<g class="line-group">
   {#each paths as path, i}
     <path
       id={`line-${i}`}
+      class="line"
       d={path.path}
       stroke={highlightedLine !== -1 && hoverable
         ? highlightedLine === i
           ? focusColor
-          : notFocusColor
-        : notFocusColor}
+          : color
+        : color}
       stroke-width={lineWidth}
       fill="none"
       on:mouseenter={() => {
