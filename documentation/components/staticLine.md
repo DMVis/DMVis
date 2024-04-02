@@ -21,24 +21,24 @@ List of points containing an x and y value.
 
 Color of the line.
 
-## width
+## lineWidth
 
 - Type: `number`
 - Default: `1`
 
 Width of the line that is drawn.
 
-## dashWidth
+## dashLength
 
 - Type: `string`
 - Default: `'0'`
 
-Width of the strokes of the line. By default this is a normal line. If set to a higher value, it will result in a dotted line
+Length of the strokes of the line. By default this is a normal line. If set to a higher value, it will result in a dotted line
 
 ## Sample usage
 
 ```svelte
 <svg {width} {height}>
-  <StaticLine points={data} color={'#800816'} width={2} />
+  <StaticLine points={data} color={'#800816'} lineWidth={2} />
 </svg>
 ```

@@ -1,6 +1,6 @@
 # Line component
 
-The line component is meant to be used in charts like a linechart. It produces a line between given points of certain color, size and style. It holds the possibility to highlight these lines by hovering over them.
+The line component is used for visualisations that need lines. It produces a line between given points of certain color, size and style. It holds the possibility to highlight these lines by hovering over them.
 
 > Note: This component can handle 2 or multiple points to draw a line through.
 

@@ -68,7 +68,6 @@
 ### Line
 The Line allows you to plot a line between given coordinates.
 The line component will pull data out of the visualisation store, and .
-It can also be greyed out when any other line is hovered, if the parent passes the `anyLineHovered` prop.
 It is used in combination with other components to create a chart.
 
 #### Required attributes
@@ -80,7 +79,6 @@ It is used in combination with other components to create a chart.
   * focusColor: number                  - Color of the line, when it is hovered. Defaulted to light red.
   * notFocusColor: number               - Color of the line, when `anyLineHovered === true`. Defaulted to grey.
   * lineWidth: string                   - Width of the line, defaulted to 1
-  * anyLineHovered: boolean             - Whether any line in the graph is hovered. Defaulted to false.
   * id: number                          - Unique ID given to one instance of this line, used to redraw the line. Defaulted to 0.
 -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
