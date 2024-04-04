@@ -6,8 +6,10 @@
   import { hoveredXLabel, hoveredYLabel } from '$lib/selected.js';
 
   import * as d3 from 'd3';
-  import { setContext } from 'svelte';
+  import { setContext, getContext } from 'svelte';
   import DynamicAxis from '../base/DynamicAxis.svelte';
+  import StaticLine from '../base/StaticLine.svelte';
+  import { OriginX, OriginY } from '$lib/Enums.js';
 
   export let height: number;
   export let width: number;
@@ -22,10 +24,18 @@
   export let pointColor: string = '#CCCCFF';
   export let pointOpacity: number = 0.3;
 
+  let mouseX = 0;
+  let mouseY = 0;
+  let scaledMouseX: number = 0;
+  let scaledMouseY: number = 0;
+  let currentX: string = '';
+  let currentY: string = '';
   let xScale: d3.ScaleBand<string>;
   let yScale: d3.ScaleBand<string>;
   let axisNames: string[];
-
+  let showLines = false;
+  let showTopRightLines = false;
+  let showBottomLeftLines = false;
   const visualisationStore = new VisualisationStore();
 
   $: {
@@ -52,14 +62,41 @@
       .paddingInner(padding);
   }
   setContext('store', visualisationStore);
-
+  const { xScales, yScales } = getContext<VisualisationStore>('store');
   function mouseOver(xAxis: string, yAxis: string) {
+    if (currentX == xAxis && currentY == yAxis) return;
+    currentX = xAxis;
+    currentY = yAxis;
     hoveredXLabel.set(xAxis);
     hoveredYLabel.set(yAxis);
+    showLines = true;
   }
   function mouseOut() {
+    currentX = '';
+    currentY = '';
     hoveredXLabel.set('');
     hoveredYLabel.set('');
+    showLines = false;
+  }
+  function mouseMove(event: MouseEvent, xAxis: string, yAxis: string) {
+    //x and y coordinates inside the scatterplot
+    let scatterX = event.offsetX - (xScale(xAxis) ?? 0);
+    let scatterY = event.offsetY - (yScale(yAxis) ?? 0);
+    let xIndex = dataUtil.columns.indexOf(xAxis);
+    let yIndex = dataUtil.columns.indexOf(yAxis);
+    let xScaleLinear = $xScales[xIndex] as d3.ScaleLinear<number, number>;
+    xScaleLinear.range([xScale.bandwidth(), 0]);
+    let yScaleLinear = $yScales[yIndex] as d3.ScaleLinear<number, number>;
+    yScaleLinear.range([0, yScale.bandwidth()]);
+
+    scaledMouseX = xScaleLinear.invert(scatterX);
+    scaledMouseY = yScaleLinear.invert(scatterY);
+
+    mouseX = event.offsetX;
+    mouseY = event.offsetY;
+
+    showBottomLeftLines = (xScale(yAxis) ?? 0) > mouseX;
+    showTopRightLines = !showBottomLeftLines;
   }
 </script>
 
@@ -93,6 +130,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
         {#each axisNames as yAxis}
           {#if xAxis != yAxis}
             <g
+              style="cursor:crosshair"
               transform="translate({xScale(xAxis)},{yScale(yAxis)})"
               on:mouseover={() => {
                 mouseOver(xAxis, yAxis);
@@ -105,6 +143,9 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               }}
               on:blur={() => {
                 mouseOut();
+              }}
+              on:mousemove={(event) => {
+                mouseMove(event, xAxis, yAxis);
               }}
               role="treeitem"
               aria-selected="false"
@@ -142,6 +183,70 @@ A matrix of scatterplots that can be used to quickly find relations between attr
           {/if}
         {/each}
       {/each}
+      {#if showLines}
+        {#if showTopRightLines}
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: width - marginRight, y: mouseY }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Label
+            x={width - marginRight - 10}
+            y={Math.round(mouseY) + 10}
+            text={`${Math.round(scaledMouseY)}`}
+            fontSize={'14'}
+            fontWeight={'bold'}
+            hasBackground={false} />
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: mouseX, y: marginTop }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Label
+            x={Math.round(mouseX) + 10}
+            y={marginTop + 10}
+            text={`${Math.round(scaledMouseX)}`}
+            fontSize={'14'}
+            fontWeight={'bold'}
+            hasBackground={false} />
+        {/if}
+        {#if showBottomLeftLines}
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: marginLeft, y: mouseY }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Label
+            x={marginLeft + 10}
+            y={Math.round(mouseY) + 10}
+            text={`${Math.round(scaledMouseY)}`}
+            fontSize={'14'}
+            fontWeight={'bold'}
+            originY={OriginY.Top}
+            hasBackground={false} />
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: mouseX, y: height - marginBottom }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Label
+            x={Math.round(mouseX) + 15}
+            y={height - marginBottom - 10}
+            text={`${Math.round(scaledMouseX)}`}
+            fontSize={'14'}
+            fontWeight={'bold'}
+            originX={OriginX.Left}
+            hasBackground={false} />
+        {/if}
+      {/if}
     {/key}
     <DynamicAxis
       position="left"

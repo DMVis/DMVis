@@ -28,6 +28,7 @@
   export let name: string = '';
   export let width: number | 'auto' = 'auto';
   export let height: number | 'auto' = 'auto';
+  export let borderColor: string = 'black';
 
   // Private attributes
   let rectWidth: number = 50;
@@ -122,7 +123,7 @@
       .attr('y', y + getOrigin(rectHeight, OriginY.Top, originY))
       .attr('width', rectWidth)
       .attr('height', rectHeight)
-      .attr('stroke', 'black');
+      .attr('stroke', borderColor);
   });
 </script>
 
@@ -163,6 +164,7 @@ The default origin is the middle of the label.
 * name: string              - What class to give to the label, default to '' making the default class 'label-'
 * width: number | 'auto'    - Width of the rectangle of the label, defaults to 'fit-text'
 * height: number | 'auto'   - Height of the rectangle of the label, defaults to 'fit-text'
+* borderColor: string      - Color of the border around the label, defaults to black. Can be set to `none` for no border
 -->
 
 <g

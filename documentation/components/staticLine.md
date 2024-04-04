@@ -35,6 +35,13 @@ Width of the line that is drawn.
 
 Length of the strokes of the line. By default this is a normal line. If set to a higher value, it will result in a dotted line
 
+## opacity
+
+- Type: `number`
+- Default: `1`
+
+Opacity of the line. Where 1 represents a fully opaque line and 0 a fully transparent line
+
 ## Sample usage
 
 ```svelte

@@ -15,25 +15,35 @@
   let thisPointClicked = false;
   let thisPointHighlighted = false;
   let highlighted = false;
-
-  anyPointClicked.subscribe(() => {
-    highlighted = $selectedPoint == name;
-  });
-  selectedPoint.subscribe((value) => {
-    highlighted = value == name;
-  });
+  $: {
+    if (!$anyPointClicked) {
+      highlighted = $selectedPoint == name;
+    }
+  }
 
   async function redrawPointAndLabel() {
     await tick();
+    const label = document.getElementsByClassName(`label-${name}`)[0] ?? null;
+    if (label) label.parentNode!.appendChild(label);
     const points = document.getElementsByClassName(name);
     for (let i = 0; i < points.length; i++) {
       const point = points[i];
       const container = point.parentNode!;
-      const labels = document.getElementsByClassName(`label-${name}`);
-      if (labels.length > 0) {
-        if (container === labels[0].parentNode) container.appendChild(labels[0]);
-      }
       container.appendChild(point);
+    }
+  }
+
+  function mouseEnter() {
+    if (!$anyPointClicked) {
+      thisPointHighlighted = true;
+      selectedPoint.set(name);
+      redrawPointAndLabel();
+    }
+  }
+  function mouseLeave() {
+    if (!$anyPointClicked) {
+      thisPointHighlighted = false;
+      selectedPoint.set('');
     }
   }
 </script>
@@ -57,7 +67,6 @@ It is used in combination with other components to create a chart.
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
   * name: string          - Name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
 -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <circle
   cx={x}
   cy={y}
@@ -67,24 +76,17 @@ It is used in combination with other components to create a chart.
   stroke-width={highlighted ? 2 : borderWidth}
   opacity={highlighted ? 1 : opacity}
   class={'point ' + name}
-  on:mouseenter={() => {
-    if (!$anyPointClicked) {
-      thisPointHighlighted = true;
-      selectedPoint.set(name);
-      redrawPointAndLabel();
-    }
-  }}
-  on:mouseleave={() => {
-    if (!$anyPointClicked) {
-      thisPointHighlighted = false;
-      selectedPoint.set('');
-    }
-  }}
+  on:mouseenter={mouseEnter}
+  on:focus={mouseEnter}
+  on:mouseleave={mouseLeave}
+  on:blur={mouseLeave}
   on:mousedown={() => {
     thisPointClicked = !thisPointClicked;
     anyPointClicked.set(thisPointClicked);
     redrawPointAndLabel();
-  }} />
+  }}
+  role="button"
+  tabindex="0" />
 
 {#if thisPointHighlighted}
   <Label
@@ -96,5 +98,6 @@ It is used in combination with other components to create a chart.
     fontSize={'14'}
     fontWeight={'bold'}
     backgroundOpacity={0.7}
-    {name} />
+    {name}
+    borderColor="none" />
 {/if}

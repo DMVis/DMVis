@@ -161,6 +161,15 @@ The width of the whole label, defaults to the width of the text
 
 The height of the whole label, defaults to the height of the text
 
+## borderColor
+
+- Type: `string`
+- Default: `'black'`
+
+The color of the border around the label
+
+> Note: Can be set to `'none'` for no border
+
 # Example usage
 
 Label with all properties set.
