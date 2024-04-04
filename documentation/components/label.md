@@ -1,7 +1,9 @@
 # Label component
 
-The label component can be used to add a label to a chart.
-It is a simple text element with a rectangle behind it.
+The label allows you to add text with a background to a visualisation.
+It can be used in combination with other components.
+Coordinates are relative to the parent SVG element.
+The default origin is the middle of the label.
 
 # Required Attributes
 
@@ -22,6 +24,8 @@ Y-coordinate of the label.
 - Type: `string`
 
 Text to display in the label.
+
+?> Words in the text will be automatically placed on a new line if they take up too much horizontal space.
 
 # Optional Attributes
 
@@ -129,12 +133,12 @@ Font family of the text in the label.
 
 Whether the label has a background or not.
 
-## rectOpacity
+## backgroundOpacity
 
 - Type: `number | string`
 - Defaults: `opacity`
 
-The opacity of the background of the label. Defaults to the same opacity of the whole label.
+Opacity of the background behind the label. Defaults to `opacity`.
 
 ## name
 
@@ -180,10 +184,10 @@ Label with all properties set.
     fontWeight={'normal'}
     fontFamily={'Arial'}
     hasBackground={true}
-    rectOpactiy={0.3}
+    backgroundOpacity={0.5}
     name={'label'}
     width={100}
-    height={300} />
+    height={100} />
 </svg>
 ```
 
