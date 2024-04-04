@@ -41,33 +41,19 @@ A header label with a list of labels or a list of pairs of labels and values.
 
 # Optional Attributes
 
-## marginLeft
+## columnSpacing
 
 - Type: `number`
-- Default: `0`
+- Default: `20`
 
-Margin to the left of the bar column.
+Value for the distance between each column. Adds `columnSpacing / 2` to the left and right of each column.
 
-## marginRight
+## showColumnLines
 
-- Type: `number`
-- Default: `0`
+- Type: `boolean`
+- Default: `false`
 
-Margin to the right of the bar column.
-
-## marginTop
-
-- Type: `number`
-- Default: `0`
-
-Margin to the top of the bar column.
-
-## marginBottom
-
-- Type: `number`
-- Default: `0`
-
-Margin to the bottom of the bar column.
+Whether to show lines at the start and end of each column.
 
 ## barPadding
 
@@ -239,19 +225,10 @@ Font family of the text in the header label.
 
 Whether the header label has a background or not.
 
-## Sample usage
+# Sample usage
 
 ```svelte
 <svg {width} {height}>
-  <BarColumn
-    x={0}
-    y={0}
-    width={500}
-    height={1000}
-    {data}
-    marginLeft={50}
-    marginRight={50}
-    marginTop={50}
-    marginBottom={50} />
+  <BarColumn x={0} y={0} width={500} height={1000} {data} columnSpacing={10} />
 </svg>
 ```

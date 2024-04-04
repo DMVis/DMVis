@@ -14,7 +14,7 @@ The Line allows you to plot a line between given coordinates.
 It is used in combination with other components to create a chart.
 
 #### Required attributes
-  * points: [{ x: number; y: number }]  - List of scaled points on the graph
+  * points: [{ x: number; y: number }]  - List of scaled points on the visualisation
 
 #### Optional attributes
   * color: number                       - Color of the line(s), defaulted to blue. Can be any hex-code, rgb or plain string colors

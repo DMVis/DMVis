@@ -51,7 +51,3 @@ It creates an axis for each column in the supplied table with data
   <Line lineWidth={2} hoverable={true} />
   <DynamicAxis position={'left'} />
 </svg>
-
-<style>
-  /* Insert graph styling  */
-</style>

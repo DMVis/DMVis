@@ -19,11 +19,8 @@
   export let marginTop: number = 50;
   export let marginBottom: number = 50;
 
-  export let columnMarginLeft: number = 0;
-  export let columnMarginRight: number = 0;
-  export let columnMarginTop: number = 0;
-  export let columnMarginBottom: number = 0;
-  export let showColumnBars: boolean = false;
+  export let columnSpacing: number = 20;
+  export let showColumnLines: boolean = false;
 
   export let barPadding: number = 0.15;
   export let barColor: string = 'red';
@@ -35,7 +32,6 @@
   export let fontWeight: string = 'normal';
   export let fontFamily: string = 'Arial';
 
-  export let headerOffsetY: number = -30;
   export let headerColor: string = 'rgb(200,200,200)';
   export let headerOpacity: number | string = 1;
   export let headerRadiusX: number | string = 5;
@@ -52,10 +48,10 @@
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
   visualisationStore.data.set(dataUtil.data ?? []);
-  visualisationStore.marginLeft.set(marginLeft + columnMarginLeft);
-  visualisationStore.marginRight.set(marginRight + columnMarginRight);
-  visualisationStore.marginTop.set(marginTop + columnMarginTop);
-  visualisationStore.marginBottom.set(marginBottom + columnMarginBottom);
+  visualisationStore.marginLeft.set(marginLeft + columnSpacing / 2);
+  visualisationStore.marginRight.set(marginRight + columnSpacing / 2);
+  visualisationStore.marginTop.set(marginTop);
+  visualisationStore.marginBottom.set(marginBottom);
   visualisationStore.columns.set(dataUtil.columns);
   setContext('store', visualisationStore);
 
@@ -76,13 +72,13 @@
   const scaleColumns = d3
     .scaleBand()
     .domain(dataUtil.columns)
-    .range([marginLeft, width - marginRight]);
+    .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
 
   // Calculate the distance between each column.
-  const spacerDist = Spacer(
+  const spacerDistance = Spacer(
     width,
-    marginLeft + columnMarginLeft,
-    marginRight + columnMarginRight,
+    marginLeft + columnSpacing / 2,
+    marginRight + columnSpacing / 2,
     $xScales.length
   );
 
@@ -114,7 +110,7 @@
     columns.push(barColumns[i]);
   }
 
-  // TEMP: Remove first axis, since it is not needed, find better solution
+  // // TEMP: Remove first axis, since it is not needed
   onMount(() => {
     const axes = document.getElementById('axes');
     if (axes != null && axes.children.length > 0) {
@@ -141,11 +137,8 @@ to adjust `marginTop` or `columnMarginTop`.
 * marginRight: number                 - Margin to the right of the visualisation.
 * marginTop: number                   - Margin to the top of the visualisation.
 * marginBottom: number                - Margin to the bottom of the visualisation.
-* columnMarginLeft: number            - Margin to the left of each column.
-* columnMarginRight: number           - Margin to the right of each column.
-* columnMarginTop: number             - Margin to the top of each column.
-* columnMarginBottom: number          - Margin to the bottom of each column.
-* columnPadding: number               - Value for the distance between each column in the range [0..1].
+* columnSpacing: number               - Spacing between each column. Adds `columnSpacing / 2` to the left and right of each column.
+* showColumnLines: boolean             - Whether to show lines at the start and end of each column. Defaults to false.
 * barPadding: number                  - Value for the distance between each bar in each column in the range [0..1].
 * barColor: string                    - Color of each bar in each column.
 * barRadiusX: number                  - Horizontal corner radius of each bar in each column as a number
@@ -176,20 +169,17 @@ to adjust `marginTop` or `columnMarginTop`.
         position="top"
         ticksNumber={3}
         hasPadding={false}
-        customPadding={columnMarginLeft + columnMarginRight} />
+        customPadding={columnSpacing} />
     </g>
     {#each columns as column, columnIndex}
       <BarColumn
-        x={marginLeft + spacerDist * columnIndex}
+        x={marginLeft + spacerDistance * columnIndex}
         y={marginTop}
         width={scaleColumns.bandwidth()}
         height={height - marginTop - marginBottom}
         data={column}
-        marginLeft={columnMarginLeft}
-        marginRight={columnMarginRight}
-        marginTop={columnMarginTop}
-        marginBottom={columnMarginBottom}
-        {showColumnBars}
+        {columnSpacing}
+        {showColumnLines}
         {barPadding}
         {barColor}
         {barRadiusX}

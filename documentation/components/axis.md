@@ -1,6 +1,6 @@
 # Axis component
 
-The Axis component is responsible for rendering an axis with labels along the correct side of the graph.
+The Axis component is responsible for rendering an axis with labels along the correct side of the visualisation.
 It displays tick marks and labels based on provided data.
 
 # Optional Attributes

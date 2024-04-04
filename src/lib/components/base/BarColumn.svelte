@@ -17,13 +17,9 @@
     rows: Array<{ label: string }> | Array<{ label: string; value: number }>;
   };
 
-  // Optional attributes.
-  export let marginLeft: number = 0;
-  export let marginRight: number = 0;
-  export let marginTop: number = 0;
-  export let marginBottom: number = 0;
-
-  export let showColumnBars: boolean = false;
+  // Optional attributes
+  export let columnSpacing: number = 20;
+  export let showColumnLines: boolean = false;
   export let barPadding: number = 0.2;
   export let barColor: string = 'red';
   export let barOpacity: number | string = 0.6;
@@ -56,11 +52,11 @@
   const xScale = d3
     .scaleLinear()
     .domain([0, maxX])
-    .range([marginLeft, width - marginRight]);
+    .range([columnSpacing / 2, width - columnSpacing / 2]);
   const yScale = d3
     .scaleBand()
     .domain(data.rows.map((bar) => bar.label))
-    .range([marginTop, height - marginBottom])
+    .range([columnSpacing / 2, height - columnSpacing / 2])
     .padding(barPadding);
 </script>
 
@@ -87,10 +83,8 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
                                    or a list of pairs of labels and values.
 
 #### Optional attributes
-* marginLeft: number             - Margin to the left of the bar column.
-* marginRight: number            - Margin to the right of the bar column.
-* marginTop: number              - Margin to the top of the bar column.
-* marginBottom: number           - Margin to the bottom of the bar column.
+* columnSpacing: number          - Spacing between each column. Adds `columnSpacing / 2` to the left and right of each column.
+* showColumnLines: boolean        - Whether to show lines at the start and end of each column. Defaults to false.
 * barPadding: number             - Value for the distance between each bar in the range [0..1].
 * barColor: string               - Color of each bar.
 * barOpacity: number             - Opacity of each bar as a number in range [0..1] or
@@ -130,7 +124,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
   {#each data.rows as row}
     {#if `value` in row}
       <Bar
-        x={x + marginLeft}
+        x={x + columnSpacing / 2}
         y={y + (yScale(row.label) ?? 0)}
         width={yScale.bandwidth()}
         value={xScale(row.value) - xScale(0)}
@@ -148,7 +142,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       This can be made more customisable for the user if needed.
     -->
     <Label
-      x={x + marginLeft}
+      x={x + columnSpacing / 2}
       y={y + (yScale(row.label) ?? 0) + yScale.bandwidth() / 2}
       text={`value` in row ? `${row.value}` : `${row.label}`}
       opacity={1}
@@ -164,8 +158,8 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 
   <!-- Draw header on top of column. -->
   <Label
-    x={x + marginLeft + (width - marginLeft - marginRight) / 2}
-    y={y + marginTop + headerOffsetY}
+    x={x + width / 2}
+    y={y + headerOffsetY}
     text={data.header}
     color={headerColor}
     opacity={headerOpacity}
@@ -181,20 +175,21 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
     fontFamily={headerFontFamily}
     hasBackground={hasHeaderBackground} />
 
-  {#if showColumnBars}
+  <!-- Add lines at start and end of the bars for clarity -->
+  {#if showColumnLines}
     <line
-      x1={x + marginLeft}
-      y1={y + marginTop}
-      x2={x + marginLeft}
-      y2={y + height - marginBottom}
+      x1={x + columnSpacing / 2}
+      y1={y}
+      x2={x + columnSpacing / 2}
+      y2={y + height}
       stroke={'black'}
       stroke-opacity={barOpacity}
       stroke-width={1} />
     <line
-      x1={x + width - marginRight}
-      y1={y + marginTop}
-      x2={x + width - marginRight}
-      y2={y + height - marginBottom}
+      x1={x + width - columnSpacing / 2}
+      y1={y}
+      x2={x + width - columnSpacing / 2}
+      y2={y + height}
       stroke={'black'}
       stroke-opacity={barOpacity}
       stroke-width={1} />

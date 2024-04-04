@@ -93,13 +93,13 @@
 ### Axis
 The Axis component renders the axis of a chart with the tick on the bottom.
 It displays tick marks and labels based on provided data.
-You can use this component to render the axis on the top, bottom, left, or right side of the graph.
+You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
 
 #### Optional attributes
   * fontSize: number                                - The font size of the tick labels. Defaults to 17.
   * color: string                                   - The color of the axis line. Defaults to 'black'.
   * ticks: boolean                                  - Whether to display tick marks. Defaults to true.
-  * offset: number                                  - The offset of the axis from the side of the graph. Defaults to 0.
+  * offset: number                                  - The offset of the axis from the side of the visualisation. Defaults to 0.
   * ticksNumber: number                             - The number of ticks you want displayed on the axes, defaults to 10
   * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to 'bottom'.
 -->

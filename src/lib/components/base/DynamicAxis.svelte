@@ -9,7 +9,7 @@
     getContext<VisualisationStore>('store');
 
   // Public variables
-  export let ticks: boolean = true;
+  export let hasTicks: boolean = true;
   export let fontSize: number = 10;
   export let color: string = 'black';
   export let offset: number = 0;
@@ -70,7 +70,7 @@
               ]) as d3.ScaleLinear<number, number>
             );
           }
-          if (ticks) {
+          if (hasTicks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
             newAxis = newAxis.tickSize(0);
@@ -111,7 +111,7 @@
               ]) as d3.ScaleLinear<number, number>
             );
           }
-          if (ticks) {
+          if (hasTicks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
             newAxis = newAxis.tickSize(0);
@@ -152,7 +152,7 @@
               ]) as d3.ScaleLinear<number, number>
             );
           }
-          if (ticks) {
+          if (hasTicks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
             newAxis = newAxis.tickSize(0);
@@ -194,7 +194,7 @@
               ]) as d3.ScaleLinear<number, number>
             );
           }
-          if (ticks) {
+          if (hasTicks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
             newAxis = newAxis.tickSize(0);
@@ -231,8 +231,6 @@
         .selectAll('text')
         .style('font-size', `${fontSize}px`)
         .style('color', color);
-
-      console.log(axis);
     });
   });
 </script>
@@ -245,16 +243,18 @@ It displays tick marks and labels based on provided data.
 You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
 
 #### Optional attributes
-  * fontSize: number                                - The font size of the tick labels. Defaults to 17.
+  * fontSize: number                                - The font size of the tick labels. Defaults to 10.
   * color: string                                   - The color of the axis line. Defaults to 'black'.
-  * ticks: boolean                                  - Whether to display tick marks. Defaults to true.
-  * offset: number                                  - The offset of the axis from the side of the graph. Defaults to 0.
+  * hasTicks: boolean                               - Whether to display tick marks. Defaults to true.
+  * offset: number                                  - The offset of the axis from the side of the visualisation. Defaults to 0.
   * ticksNumber: number                             - The number of ticks you want displayed on the axes, defaults to 10
   * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to 'bottom'.
-  * spacerDirection: 'horizontal' | 'vertical' | 'left' | 'right'   - The direction to space the axes. Defaults to 'horizontal'.
+  * spacingDirection: 'horizontal' | 'vertical'
+                    | 'left' | 'right'              - The direction to space the axes. Defaults to 'horizontal'.
   * hasPadding: boolean                             - Does the visualisation include padding
   * startColumn: number                             - Index of first column that is drawn, starting from 0
   * endColumn: number                               - Index of last column that is drawn, defaults to last one
+  * customPadding: number                           - Custom padding between columns, defaults to 0
 -->
 
 {#each axisGenerator as axis}

@@ -14,8 +14,8 @@
 - Components
 
   - [Axis](components/axis.md)
-  - [AxisExperimental](components/axisexperimental.md)
   - [Bar](components/Bar.md)
+  - [DynamicAxis](components/dynamicaxis.md)
   - [Line](components/line.md)
   - [Label](components/label.md)
   - [StaticLine](components/staticLine.md)

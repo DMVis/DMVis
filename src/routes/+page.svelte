@@ -18,14 +18,7 @@
 </script>
 
 {#await load then}
-  <TabularVisualisation
-    width={1400}
-    height={1000}
-    {dataUtil}
-    columnMarginLeft={10}
-    columnMarginRight={10} />
-{/await}
-{#await load then}
+  <TabularVisualisation width={1400} height={1000} {dataUtil} />
   <ParallelCoordinates
     marginLeft={100}
     marginTop={40}
@@ -34,9 +27,5 @@
     width={1750}
     height={1500} />
   <ScatterplotMatrix {dataUtil} {height} {width} pointColor="red" pointOpacity={0.3} />
-{/await}
-<br />
-{#await load then}
   <StackedBarChart marginLeft={100} width={1750} height={1500} data={dataUtil} />
 {/await}
-<br />

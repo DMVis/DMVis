@@ -3,8 +3,7 @@
 This is visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
 
-> Note: Since a header label is added on top of each column, it might be necessary
-> to adjust `marginTop` or `columnMarginTop`.
+> Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop`
 
 # Required Attributes
 
@@ -63,33 +62,19 @@ Margin to the bottom of the visualisation.
 
 Margin to the left of each column.
 
-## columnMarginRight
+## columnSpacing
 
 - Type: `number`
-- Default: `0`
+- Default: `20`
 
-Margin to the right of each column.
+Value for the distance between each column. Adds `columnSpacing / 2` to the left and right of each column.
 
-## columnMarginTop
+## showColumnLines
 
-- Type: `number`
-- Default: `0`
+- Type: `boolean`
+- Default: `false`
 
-Margin to the top of each column.
-
-## columnMarginBottom
-
-- Type: `number`
-- Default: `0`
-
-Margin to the bottom of each column.
-
-## columnPadding
-
-- Type: `number`
-- Default: `0.1`
-
-Value for the distance between each column in the range [0..1].
+Whether to show lines at the start and end of each column.
 
 ## barPadding
 
@@ -220,6 +205,8 @@ Font family of the text in the header label in each column.
 - Default: `true`
 
 Whether the header label has a background or not in each column.
+
+# Sample usage
 
 ```svelte
 <TabularVisualisation width={1500} height={1250} {data} />
