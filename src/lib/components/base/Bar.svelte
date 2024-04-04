@@ -62,7 +62,7 @@
 
 <!--
 @component
-### Component Name
+### Bar
 The bar can be used for bar visualizations.
 It supports negative widths and heights.
 Coordinates are relative to the parent SVG element.
@@ -86,10 +86,10 @@ The default origin is the bottom middle of the bar.
                              Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
                              Which value is useful depends on your positioning logic.
 * rotationDegrees: number  - Rotation of the bar in degrees.
-* radiusX: number | string - Horizontal corner radius of the bar as a number in range [0..1] or
-                             a percentage string formatted as '{number}%'.
-* radiusY: number | string - Vertical corner radius of the bar as a number in range [0..1] or
-                             a percentage string formatted as '{number}%'.
+* radiusX: number | string - Horizontal corner radius of the bar as a number
+                             or a percentage string formatted as '{number}%'.
+* radiusY: number | string - Vertical corner radius of the bar as a number
+                             or a percentage string formatted as '{number}%'.
 -->
 <rect
   bind:this={rectBlock}

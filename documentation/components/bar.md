@@ -89,16 +89,16 @@ Rotation of the bar in degrees.
 - Type: `string`
 - Default: `0`
 
-Horizontal corner radius of the bar as a number in range `[0..1]` or
-a percentage string formatted as `'{number}%'`.
+Horizontal corner radius of the bar as a number
+or a percentage string formatted as `'{number}%'`.
 
 ## radiusY
 
 - Type: `number | string`
 - Default: `0`
 
-Vertical corner radius of the bar as a number in range `[0..1]` or
-a percentage string formatted as `'{number}%'`.
+Vertical corner radius of the bar as a number
+or a percentage string formatted as `'{number}%'`.
 
 ## Sample usage
 

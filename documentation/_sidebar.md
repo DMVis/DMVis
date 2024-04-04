@@ -9,6 +9,7 @@
   - [Scatterplot](visualisations/Scatterplot.md)
   - [StackedBarChart](visualisations/StackedBarChart.md)
   - [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
+  - [TabularVisualisation](visualisations/TabularVisualisation.md)
 
 - Components
 
@@ -20,6 +21,7 @@
   - [StaticLine](components/staticLine.md)
   - [Point](components/point.md)
   - [StackedBar](components/stackedbar.md)
+  - [BarColumn](components/bar-column.md)
 
 - Utilities
   - [DataUtils](utils/dataUtils.md)

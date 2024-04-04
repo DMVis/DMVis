@@ -80,7 +80,7 @@ Rotation of the label in degrees.
 - Type: `number | string`
 - Default: `0`
 
-Horizontal corner radius of the bar as a number in range `[0..1]` or
+Horizontal corner radius of the label as a number in range `[0..1]` or
 a percentage string formatted as `'{number}%'`.
 
 ## radiusY
@@ -88,7 +88,7 @@ a percentage string formatted as `'{number}%'`.
 - Type: `number | string`
 - Default: `0`
 
-Vertical corner radius of the bar as a number in range `[0..1]` or
+Vertical corner radius of the label as a number in range `[0..1]` or
 a percentage string formatted as `'{number}%'`.
 
 ## padding
