@@ -71,12 +71,11 @@
 
   async function redrawHoveredLine(id: number) {
     if (!hoverable) return;
+
     await tick();
-    const lineElement = document.getElementById(`line-${id}`)!;
-    const pointElements = document.getElementById(`line-${id}-points`)!;
-    const container = lineElement.parentNode!;
-    container.appendChild(lineElement);
-    container.appendChild(pointElements);
+
+    d3.select(`#line-${id}`).raise();
+    d3.select(`#line-${id}-points`).raise();
   }
 </script>
 
@@ -101,6 +100,9 @@ It is used in combination with other components to create a chart.
 <g class="line-group">
   {#each paths as path, i}
     <path
+      role="treeitem"
+      aria-selected="false"
+      tabindex="0"
       id={`line-${i}`}
       class="line"
       d={path.path}
@@ -112,12 +114,14 @@ It is used in combination with other components to create a chart.
       stroke-width={lineWidth}
       fill="none"
       on:mouseenter={() => {
+        console.log('in');
         if (!clickedLine && hoverable) {
           highlightedLine = i;
           redrawHoveredLine(i);
         }
       }}
       on:mouseleave={() => {
+        console.log('out');
         if (!clickedLine && hoverable) {
           highlightedLine = -1;
         }
@@ -133,7 +137,7 @@ It is used in combination with other components to create a chart.
       }} />
     {#if highlightedLine === i && hoverable}
       <g id={`line-${i}-points`}>
-        {#each $data[i + 1] as p, j}
+        {#each $data[i] as p, j}
           {#if typeof p === 'number'}
             <Label
               x={path.xPos[j]}
