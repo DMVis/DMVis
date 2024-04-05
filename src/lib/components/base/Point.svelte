@@ -1,7 +1,8 @@
 <script lang="ts">
   import Label from './Label.svelte';
-  import { selectedPoint, anyPointClicked } from '$lib/selected.js';
+  import { anyPointClicked } from '$lib/selected.js';
   import { tick } from 'svelte';
+  import * as d3 from 'd3';
 
   export let x: number;
   export let y: number;
@@ -14,36 +15,24 @@
 
   let thisPointClicked = false;
   let thisPointHighlighted = false;
-  let highlighted = false;
-  $: {
-    if (!$anyPointClicked) {
-      highlighted = $selectedPoint == name;
-    }
-  }
 
-  async function redrawPointAndLabel() {
+  async function redrawLabel() {
     await tick();
     const label = document.getElementsByClassName(`label-${name}`)[0] ?? null;
     if (label) label.parentNode!.appendChild(label);
-    const points = document.getElementsByClassName(name);
-    for (let i = 0; i < points.length; i++) {
-      const point = points[i];
-      const container = point.parentNode!;
-      container.appendChild(point);
-    }
   }
 
   function mouseEnter() {
     if (!$anyPointClicked) {
+      redrawLabel();
       thisPointHighlighted = true;
-      selectedPoint.set(name);
-      redrawPointAndLabel();
+      d3.selectAll(`.${name}`).classed('highlighted', true);
     }
   }
   function mouseLeave() {
     if (!$anyPointClicked) {
       thisPointHighlighted = false;
-      selectedPoint.set('');
+      d3.selectAll('.highlighted').classed('highlighted', false);
     }
   }
 </script>
@@ -73,25 +62,25 @@ It is used in combination with other components to create a chart.
   r={radius}
   stroke={borderColor}
   fill={color}
-  stroke-width={highlighted ? 2 : borderWidth}
-  opacity={highlighted ? 1 : opacity}
+  stroke-width={borderWidth}
+  {opacity}
   class={'point ' + name}
   on:mouseenter={mouseEnter}
   on:focus={mouseEnter}
   on:mouseleave={mouseLeave}
   on:blur={mouseLeave}
   on:mousedown={() => {
+    redrawLabel();
     thisPointClicked = !thisPointClicked;
     anyPointClicked.set(thisPointClicked);
-    redrawPointAndLabel();
   }}
   role="button"
   tabindex="0" />
 
 {#if thisPointHighlighted}
   <Label
-    x={x - 10}
-    y={y - 10}
+    x={x - 15}
+    y={y - 16}
     text={name}
     color={'#FFF'}
     hasBackground={true}
@@ -99,5 +88,13 @@ It is used in combination with other components to create a chart.
     fontWeight={'bold'}
     backgroundOpacity={0.7}
     {name}
-    borderColor="none" />
+    borderColor="none"
+    padding={0} />
 {/if}
+
+<style>
+  .highlighted {
+    opacity: 1;
+    stroke-width: 2;
+  }
+</style>

@@ -6,4 +6,3 @@ export const hoveredYLabel = writable('');
 
 //Used to highlight a point in every single scatterplot in the scartterplot matrix
 export const anyPointClicked = writable(false);
-export const selectedPoint = writable('');
