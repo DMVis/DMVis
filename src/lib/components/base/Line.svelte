@@ -96,7 +96,7 @@ It is used in combination with other components to create a chart.
   * focusColor: string                     - Color of the line, when it is hovered. Defaulted to light red.
   * lineWidth: string                      - Width of the line, defaulted to 1
 -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+
 <g class="line-group">
   {#each paths as path, i}
     <path
@@ -114,14 +114,12 @@ It is used in combination with other components to create a chart.
       stroke-width={lineWidth}
       fill="none"
       on:mouseenter={() => {
-        console.log('in');
-        if (!clickedLine && hoverable) {
+        if (!clickedLine && hoverable && highlightedLine !== i) {
           highlightedLine = i;
           redrawHoveredLine(i);
         }
       }}
       on:mouseleave={() => {
-        console.log('out');
         if (!clickedLine && hoverable) {
           highlightedLine = -1;
         }
