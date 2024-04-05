@@ -97,4 +97,7 @@ It is used in combination with other components to create a chart.
     opacity: 1;
     stroke-width: 2;
   }
+  .greyed {
+    fill: grey;
+  }
 </style>

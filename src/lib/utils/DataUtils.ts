@@ -58,4 +58,52 @@ export class DataUtils {
 
     return sortedData;
   }
+
+  filterData(columnX: string, columnY: string, selection: Array<Array<number>>) {
+    const indexX = this.columns.indexOf(columnX);
+    const indexY = this.columns.indexOf(columnY);
+    if (indexX === -1) {
+      throw new Error(`Column ${columnX} not found.`);
+    }
+    if (indexY === -1) {
+      throw new Error(`Column ${columnY} not found.`);
+    }
+    const [minX, minY] = selection[0];
+    const [maxX, maxY] = selection[1];
+    const filteredData = this.data.filter((p) => {
+      return (
+        (p[indexX] as number) > minX &&
+        (p[indexX] as number) < maxX &&
+        (p[indexY] as number) > minY &&
+        (p[indexY] as number) < maxY
+      );
+    });
+    return filteredData;
+  }
+  excludedData(columnX: string, columnY: string, selection: Array<Array<number>>) {
+    const indexX = this.columns.indexOf(columnX);
+    const indexY = this.columns.indexOf(columnY);
+    if (indexX === -1) {
+      throw new Error(`Column ${columnX} not found.`);
+    }
+    if (indexY === -1) {
+      throw new Error(`Column ${columnY} not found.`);
+    }
+    const [[minX, minY], [maxX, maxY]] = selection;
+    const pointsOutside: string[] = [];
+    for (const row of this.data) {
+      const x = row[indexX] as number;
+      const y = row[indexY] as number;
+      // const [x, y] = point;
+      if (
+        x <= Math.floor(minX) ||
+        x >= Math.ceil(maxX) ||
+        y <= Math.floor(minY) ||
+        y >= Math.ceil(maxY)
+      ) {
+        pointsOutside.push(row[0] as string);
+      }
+    }
+    return pointsOutside;
+  }
 }

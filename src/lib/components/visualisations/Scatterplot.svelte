@@ -73,7 +73,7 @@ These attributes are required when using the Map datatype
   * pointOpacity: number - Opacity of the points of the scatterplot, defaults to 1
 
 -->
-<svg {width} {height} class="visualisation">
+<g {width} {height} class="visualisation scatterplot">
   {#key data}
     {#if showAxis}
       <DynamicAxis
@@ -96,4 +96,4 @@ These attributes are required when using the Map datatype
         name={getName(p)} />
     {/each}
   {/key}
-</svg>
+</g>
