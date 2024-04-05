@@ -5,6 +5,7 @@ export { default as Scatterplot } from '$lib/components/visualisations/Scatterpl
 export { default as ParallelCoordinates } from '$lib/components/visualisations/ParallelCoordinates.svelte';
 export { default as StackedBarChart } from '$lib/components/visualisations/StackedBarChart.svelte';
 export { default as ScatterplotMatrix } from '$lib/components/visualisations/ScatterplotMatrix.svelte';
+export { default as TabularVisualisation } from '$lib/components/visualisations/TabularVisualisation.svelte';
 
 // Export dataUtils
 export * from '$lib/utils/DataUtils.js';
