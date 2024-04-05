@@ -110,7 +110,6 @@
     columns.push(barColumns[i]);
   }
 
-  // // TEMP: Remove first axis, since it is not needed
   onMount(() => {
     const axes = document.getElementById('axes');
     if (axes != null && axes.children.length > 0) {
@@ -169,7 +168,8 @@ to adjust `marginTop` or `columnMarginTop`.
         position="top"
         ticksNumber={3}
         hasPadding={false}
-        customPadding={columnSpacing} />
+        customPadding={columnSpacing}
+        startColumn={0} />
     </g>
     {#each columns as column, columnIndex}
       <BarColumn

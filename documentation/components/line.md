@@ -10,6 +10,14 @@ None
 
 # Optional Attributes
 
+## alignment
+
+- Type: `string`
+- Default: `spaced`
+- Options: `start`, `end`, `spaced`
+
+Alignment of the points on the lines. If using DynamicAxis, choose the same alignment option.
+
 ## focusColor
 
 - Type: `string`

@@ -27,5 +27,8 @@
     width={1750}
     height={1500} />
   <ScatterplotMatrix {dataUtil} {height} {width} pointColor="red" pointOpacity={0.3} />
+{/await}
+<br />
+{#await load then}
   <StackedBarChart marginLeft={100} width={1750} height={1500} data={dataUtil} />
 {/await}

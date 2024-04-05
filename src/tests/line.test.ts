@@ -14,7 +14,7 @@ describe('Html test', () => {
     const lines = lineGroup.getElementsByClassName('line');
     expect(lines.length).equals(5);
 
-    expect(lines[0].getAttribute('d')).toBe(`M0,107.84313725490198L333,1000L666,1000`);
+    expect(lines[0].getAttribute('d')).toBe(`M0,107.84313725490198L500,1000L1000,1000`);
   });
   it('checks if default attributes are filled', () => {
     const lineGroup = prepareLines({});

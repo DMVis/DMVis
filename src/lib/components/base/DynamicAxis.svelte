@@ -1,15 +1,25 @@
 <script lang="ts">
   import * as d3 from 'd3';
   import { getContext, onMount } from 'svelte';
-  import { Spacer } from '$lib/utils/Spacer.js';
+  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import { VisualisationStore } from '$lib/store.js';
 
   // Get store information
-  const { xScales, yScales, width, height, marginTop, marginRight, marginBottom, marginLeft } =
-    getContext<VisualisationStore>('store');
+  const {
+    xScales,
+    yScales,
+    width,
+    height,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    columns
+  } = getContext<VisualisationStore>('store');
 
   // Public variables
   export let hasTicks: boolean = true;
+  export let alignment: 'start' | 'end' | 'spaced' = 'start';
   export let fontSize: number = 10;
   export let color: string = 'black';
   export let offset: number = 0;
@@ -25,6 +35,19 @@
   let placementX: number = 0;
   let placementY: number = 0;
   let axisGenerator: AxisConfig[] = [];
+  let spacer: d3.ScaleBand<string> | d3.ScalePoint<string>;
+  switch (alignment) {
+    case 'start':
+    case 'end':
+      spacer = SpacerSide($width, $marginLeft, $marginRight, $columns, alignment);
+      break;
+    case 'spaced': {
+      spacer = SpacerEqual($width, $marginLeft, $marginRight, $columns);
+      break;
+    }
+    default:
+      throw new Error('Invalid alignment provided.');
+  }
 
   interface AxisConfig {
     axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
@@ -34,18 +57,12 @@
   }
 
   let verticalPadding = hasPadding
-    ? ($height -
-        $marginTop -
-        $marginBottom -
-        Spacer($height, $marginBottom, $marginTop, $xScales.length) * ($xScales.length - 1)) /
-      ($xScales.length - 2)
+    ? ($height - $marginTop - $marginBottom - spacer.step() * ($columns.length - 1)) /
+      ($columns.length - 2)
     : 0;
   let horizontalPadding = hasPadding
-    ? ($width -
-        $marginLeft -
-        $marginRight -
-        Spacer($width, $marginLeft, $marginRight, $yScales.length) * ($yScales.length - 1)) /
-      ($yScales.length - 2)
+    ? ($width - $marginLeft - $marginRight - spacer.step() * ($columns.length - 1)) /
+      ($columns.length - 2)
     : 0;
   let xScalesToDraw = $xScales.slice(startColumn, endColumn);
   let yScalesToDraw = $yScales.slice(startColumn, endColumn);
@@ -63,9 +80,7 @@
           } else {
             newAxis = d3.axisTop(
               scale.range([
-                Spacer($width, $marginLeft, $marginRight, $xScales.length) -
-                  customPadding +
-                  customPadding / $xScales.length,
+                spacer.step() - customPadding + customPadding / $columns.length,
                 0
               ]) as d3.ScaleLinear<number, number>
             );
@@ -78,14 +93,9 @@
         }
         placementY = $marginTop + Number(offset) - 5;
         if (spacingDirection === 'horizontal') {
-          let spacerOffset =
-            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
-            index;
-          placementX = $marginLeft + offset + spacerOffset;
+          placementX = offset + spacer($columns[index])! + horizontalPadding * index;
         } else {
-          let spacerOffset =
-            (Spacer($height, $marginTop, $marginBottom, $xScales.length) + verticalPadding) * index;
-          placementY = $marginBottom + offset + spacerOffset;
+          placementY = offset + spacer($columns[index])! + verticalPadding * index;
         }
 
         axisGenerator.push({
@@ -105,10 +115,7 @@
             newAxis = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
           } else {
             newAxis = d3.axisBottom(
-              scale.range([
-                Spacer($width, $marginLeft, $marginRight, $xScales.length),
-                0
-              ]) as d3.ScaleLinear<number, number>
+              scale.range([spacer.step(), 0]) as d3.ScaleLinear<number, number>
             );
           }
           if (hasTicks) {
@@ -120,14 +127,9 @@
 
         placementY = $height - $marginBottom - Number(offset) + 5;
         if (spacingDirection === 'horizontal') {
-          let spacerOffset =
-            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
-            index;
-          placementX = $marginLeft + offset + spacerOffset;
+          placementX = offset + spacer($columns[index])! + horizontalPadding * index;
         } else {
-          let spacerOffset =
-            (Spacer($height, $marginTop, $marginBottom, $xScales.length) + verticalPadding) * index;
-          placementY = $height - $marginBottom - offset - spacerOffset + 5;
+          placementY = offset - spacer($columns[index])! - verticalPadding * index + 5;
         }
         axisGenerator.push({
           axis: newAxis,
@@ -146,10 +148,7 @@
             newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
           } else {
             newAxis = d3.axisLeft(
-              scale.range([
-                0,
-                Spacer($height, $marginBottom, $marginTop, $yScales.length)
-              ]) as d3.ScaleLinear<number, number>
+              scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
             );
           }
           if (hasTicks) {
@@ -159,17 +158,11 @@
           }
         }
         if (spacingDirection === 'horizontal') {
-          let spacerOffset =
-            (Spacer($width, $marginLeft, $marginRight, $yScales.length) + horizontalPadding) *
-            index;
-          placementX = $marginLeft + offset + spacerOffset;
+          placementX = offset + spacer($columns[index])! + horizontalPadding * index;
         } else {
           placementX = $marginLeft - 5;
-          let spacerOffset =
-            (Spacer($height, $marginBottom, $marginTop, $yScales.length) + verticalPadding) * index;
-          placementY = $marginTop + offset + spacerOffset;
+          placementY = offset + spacer($columns[index])! + verticalPadding * index;
         }
-
         axisGenerator.push({
           axis: newAxis,
           x: placementX,
@@ -180,7 +173,6 @@
     case 'right':
       yScalesToDraw.forEach((scale, index) => {
         let newAxis;
-
         if ('padding' in scale) {
           newAxis = d3.axisRight(scale as d3.ScaleBand<string>);
         } else {
@@ -188,10 +180,7 @@
             newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
           } else {
             newAxis = d3.axisRight(
-              scale.range([
-                0,
-                Spacer($height, $marginBottom, $marginTop, $yScales.length)
-              ]) as d3.ScaleLinear<number, number>
+              scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
             );
           }
           if (hasTicks) {
@@ -202,15 +191,10 @@
         }
 
         if (spacingDirection === 'horizontal') {
-          let spacerOffset =
-            (Spacer($width, $marginLeft, $marginRight, $xScales.length) + horizontalPadding) *
-            index;
-          placementX = $width - $marginRight - offset - spacerOffset;
+          placementX = $width - offset - spacer($columns[index])! - horizontalPadding * index;
         } else {
           placementX = $width - $marginRight + 5;
-          let spacerOffset =
-            (Spacer($height, $marginBottom, $marginTop, $xScales.length) + verticalPadding) * index;
-          placementY = $marginTop + offset + spacerOffset;
+          placementY = offset + spacer($columns[index])! + verticalPadding * index;
         }
         axisGenerator.push({
           axis: newAxis,
@@ -243,6 +227,7 @@ It displays tick marks and labels based on provided data.
 You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
 
 #### Optional attributes
+  * alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (side of the column where the axis is placed). Defaults to 'start'.
   * fontSize: number                                - The font size of the tick labels. Defaults to 10.
   * color: string                                   - The color of the axis line. Defaults to 'black'.
   * hasTicks: boolean                               - Whether to display tick marks. Defaults to true.

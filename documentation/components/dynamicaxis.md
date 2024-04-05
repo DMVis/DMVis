@@ -5,6 +5,14 @@ It displays tick marks and labels based on provided data.
 
 # Optional Attributes
 
+## alignment
+
+- Type: `string`
+- Default: `start`
+- Options: `start`, `end`, `spaced`
+
+Alignment of the axes (side of the column where the axis is placed). Defaults to 'start'.
+
 ## fontSize
 
 - Type: `number`

@@ -49,5 +49,5 @@ It creates an axis for each column in the supplied table with data
 -->
 <svg class="visualisation" {width} {height}>
   <Line lineWidth={2} hoverable={true} />
-  <DynamicAxis position={'left'} />
+  <DynamicAxis position={'left'} alignment={'spaced'} />
 </svg>
