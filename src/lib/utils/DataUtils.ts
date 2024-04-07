@@ -7,11 +7,13 @@ export class DataUtils {
   public rawData: Array<Array<string | number>>;
   public data: Array<Array<string | number>>;
   public columns: Array<string>;
+  public columnInfo: { [key: string]: string };
 
   constructor() {
     this.rawData = [];
     this.data = [];
     this.columns = [];
+    this.columnInfo = {};
   }
 
   /**
@@ -40,6 +42,7 @@ export class DataUtils {
     this.rawData = csv_data;
     this.data = csv_data.slice(1);
     this.columns = csv_data[0].map((d: string | number) => String(d));
+    this.columnInfo = this.inferColumnTypes();
 
     // Return the parsed data
     return this.rawData;
@@ -78,6 +81,9 @@ export class DataUtils {
     } else {
       throw new Error('Could not parse JSON data');
     }
+
+    // Infer column types
+    this.columnInfo = this.inferColumnTypes();
 
     // Return the parsed data
     return this.rawData;
@@ -157,6 +163,20 @@ export class DataUtils {
       //Return whether the point is valid
       return isValidPoint;
     }
+  }
+
+  /**
+   * @returns {{ [key: string]: string }} An object where the keys are the column names and the values are the inferred types of the columns.
+   */
+  inferColumnTypes(): { [key: string]: string } {
+    const columnTypes: { [key: string]: string } = {};
+    for (const column in this.columns) {
+      const values = this.data.map((row) => row[column]);
+      const types = values.map((value) => (typeof value));
+      const uniqueTypes = [...new Set(types)];
+      columnTypes[this.columns[column]] = uniqueTypes.length === 1 ? uniqueTypes[0] : 'string';
+    }
+    return columnTypes;
   }
 
   /**
