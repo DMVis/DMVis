@@ -46,8 +46,45 @@ export class DataUtils {
   }
 
   /**
-   * @param {string} column - The column number to sort by.
-   * @param {boolean} ascending - Whether to sort in ascending order.
+   * @param {string} jsonData - The JSON data to parse. Can be a JSON string or a string URL pointing to the JSON file.
+   * @returns {Promise<Array<Array<String | Number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the JSON file.
+   * Each row's values are automatically typed based on their content, thanks to d3.autoType.
+   * @throws {Error} If the data could not be parsed as JSON.
+   */
+  async parseJson(jsonData: string): Promise<Array<Array<string | number>>> {
+    let text: string;
+    if (jsonData.includes('\n')) {
+      text = jsonData;
+    } else {
+      text = await d3.text(jsonData);
+    }
+
+    // Parse the JSON data
+    const json_data:
+      | Array<{ [key: string]: string | number }>
+      | { [key: string]: Array<string | number> } = JSON.parse(text);
+
+    // Store the parsed data
+    if (Array.isArray(json_data) && typeof json_data[0] === 'object') {
+      // Data should look like | [{col: row1, col2: row1}, {col: row2, col2: row2}]
+      this.columns = Object.keys(json_data[0]);
+      this.data = json_data.map((row) => this.columns.map((col: string) => row[col]));
+      this.rawData = [this.columns, ...this.data];
+    } else if (typeof json_data === 'object' && Object.values(json_data)[0] instanceof Array) {
+      // Data should look like | {col:[row1, row2], col2:[row1, row2]}
+      this.columns = Object.keys(json_data);
+      this.data = Object.values(json_data);
+      this.rawData = [this.columns, ...this.data];
+    } else {
+      throw new Error('Could not parse JSON data');
+    }
+
+    // Return the parsed data
+    return this.rawData;
+  }
+
+  /**
+   * @param {string} jsonData - The JSON data torder.
    * @returns {Array<Array<string | number>>} The sorted data.
    */
   sortData(column: string, ascending: boolean): Array<Array<string | number>> {
