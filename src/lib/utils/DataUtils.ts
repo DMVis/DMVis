@@ -15,7 +15,7 @@ export class DataUtils {
   }
 
   /**
-   * @param {File | string} csvData - The CSV data to parse. Can be a File object or a string URL pointing to the CSV file. URl to static file (\datasets\example.csv) can be passed as string.
+   * @param {string} csvData - The CSV data to parse. Can be a csv string or a string URL pointing to the CSV file. URl to static file (\datasets\example.csv) can be passed as string.
    * @returns {Promise<Array<Array<String | Number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the CSV file.
    * Each row's values are automatically typed based on their content, thanks to d3.autoType.
    */
@@ -27,8 +27,16 @@ export class DataUtils {
       text = await d3.text(csvData);
     }
 
-    // Parse from file, set rawData, data and columns
-    const csv_data = d3.csvParseRows(text, d3.autoType) as Array<Array<string | number>>;
+    // Trim newline characters at the end of the file
+    text = text.trim();
+
+    // Get the separator used in the data and parse it
+    const separator = this.getSeparator(text);
+    const csv_data = d3.dsvFormat(separator).parseRows(text, d3.autoType) as Array<
+      Array<string | number>
+    >;
+
+    // Store the parsed data
     this.rawData = csv_data;
     this.data = csv_data.slice(1);
     this.columns = csv_data[0].map((d: string | number) => String(d));
@@ -112,5 +120,26 @@ export class DataUtils {
       //Return whether the point is valid
       return isValidPoint;
     }
+  }
+
+  /**
+   * @param {string} data - The data to check
+   * @returns {string} The separator used in the data
+   * @throws {Error} If the separator could not be determined
+   */
+  getSeparator(data: string): string {
+    const options = [',', ';', '\t', '|'];
+    const splitData = data.split('\n');
+    const checkData = splitData.slice(0, 5);
+
+    // Check first 5 rows if they contain same length of columns
+    for (const option in options) {
+      const counts = checkData.map((row) => row.split(options[option]).length);
+      if (counts.every((val, i, arr) => val === arr[i] && val != 1)) {
+        return options[option];
+      }
+    }
+
+    throw new Error('Could not determine separator');
   }
 }
