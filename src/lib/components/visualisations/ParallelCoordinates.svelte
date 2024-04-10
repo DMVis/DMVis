@@ -31,7 +31,7 @@
 
 <!--
 @component
-### MultipleAxes
+### Parallel Coordinates
 This is a visualisation that is capable of visualising multi-dimensional data.
 It creates an axis for each column in the supplied table with data
   and draws a line through each axis for each row in the table.

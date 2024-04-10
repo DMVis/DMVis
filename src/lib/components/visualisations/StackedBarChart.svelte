@@ -37,7 +37,7 @@
 
 <!--
 @component
-### StackedBarChart
+### Stacked Bar Chart
 This is visualisation that represents categorical data with rectangular bars.
 The length of each bar corresponds to the numerical value of the data being represented.
 The x-axis represents the numerical values of the data.
