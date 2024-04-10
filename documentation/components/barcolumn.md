@@ -225,7 +225,7 @@ Font family of the text in the header label.
 
 Whether the header label has a background or not.
 
-# Sample usage
+# Example usage
 
 ```svelte
 <svg {width} {height}>

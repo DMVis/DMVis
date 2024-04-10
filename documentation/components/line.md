@@ -46,7 +46,7 @@ Width of the line that is drawn.
 
 Whether or not the line should be hoverable. When set to `true`, the line will become highlighted if the line is hovered, and numbers will be displayed on all the points.
 
-## Sample usage
+# Example usage
 
 ```svelte
 <script lang="ts">

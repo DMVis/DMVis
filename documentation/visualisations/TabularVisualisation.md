@@ -206,7 +206,7 @@ Font family of the text in the header label in each column.
 
 Whether the header label has a background or not in each column.
 
-# Sample usage
+# Example usage
 
 ```svelte
 <TabularVisualisation width={1500} height={1250} {data} />

@@ -64,7 +64,7 @@ Fill color of the points of the scatterplot.
 
 Opacity of the points of the scatterplot.
 
-# Sample usage
+# Example usage
 
 ```svelte
 <script lang="ts">

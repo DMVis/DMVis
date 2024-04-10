@@ -48,7 +48,7 @@ Number of ticks on the axis
 
 Position of the axis along the chart
 
-## Sample usage
+# Example usage
 
 Creating a bottom axis with custom color and no tick marks
 

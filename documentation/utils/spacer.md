@@ -2,7 +2,7 @@
 
 Use the various Spacer functions to space elements depending on the data. These functions work for both horizontal and vertical spacing, using width or height.
 
-## Spacer
+# Spacer
 
 The `Spacer` function takes in the following parameters:
 
@@ -18,7 +18,7 @@ See an example of how `Spacer` works below:
 Spacer($width, $marginLeft, $marginRight, data[0].length);
 ```
 
-## SpacerSide
+# SpacerSide
 
 The `SpacerSide` function takes in the following parameters:
 
@@ -36,7 +36,7 @@ See an example of how `SpacerSide` works below:
 SpacerSide($width, $marginLeft, $marginRight, $columns, 'start');
 ```
 
-## SpacerEqual
+# SpacerEqual
 
 The `SpacerEqual` function takes in the following parameters:
 

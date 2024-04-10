@@ -42,7 +42,7 @@ Length of the strokes of the line. By default this is a normal line. If set to a
 
 Opacity of the line. Where 1 represents a fully opaque line and 0 a fully transparent line
 
-## Sample usage
+# Example usage
 
 ```svelte
 <svg {width} {height}>

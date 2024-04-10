@@ -2,64 +2,64 @@
 
 The stacked BarChart component is a visual representation of data in a stacked bar chart format. It is used to compare the parts to the whole, and show the relationship of individual items to the total.
 
-## Required attributes
+# Required attributes
 
-### dataUtil
+## dataUtil
 
 - Type: `DataUtils`
 
 The `DataUtils` class which contains all the data to be displayed in the chart.
 
-### height
+## height
 
 - Type: `number`
 
 The height of the visualisation.
 
-### width
+## width
 
 - Type: `number`
 
 The width of the visualisation.
 
-## Optional attributes
+# Optional attributes
 
-### marginLeft
+## marginLeft
 
 - Type: `number`
 - Default: `40`
 
 The margin on the left side of the chart.
 
-### marginRight
+## marginRight
 
 - Type: `number`
 - Default: `40`
 
 The margin on the right side of the chart.
 
-### marginTop
+## marginTop
 
 - Type: `number`
 - Default: `40`
 
 The margin on the top side of the chart.
 
-### marginBottom
+## marginBottom
 
 - Type: `number`
 - Default: `40`
 
 The margin on the bottom side of the chart.
 
-### opacity
+## opacity
 
 - Type: `number | string`
 - Default: `1`
 
 Sets the opacity of the bars. Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
 
-## Example
+# Example usage
 
 Create a StackedBarChart with custom opacity.
 

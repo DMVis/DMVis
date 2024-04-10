@@ -92,7 +92,7 @@ Index of last column that is drawn, defaults to last one.
 
 Custom padding between columns, defaults to 0.
 
-# Sample usage
+# Example usage
 
 Creating a bottom axis with custom color and no tick marks.
 

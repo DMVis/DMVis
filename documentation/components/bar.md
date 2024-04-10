@@ -107,7 +107,7 @@ or a percentage string formatted as `'{number}%'`.
 
 Whether the bar flips its orientation when `value` is negative or not.
 
-## Sample usage
+# Example usage
 
 ```svelte
 <svg {width} {height}>

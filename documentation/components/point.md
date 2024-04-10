@@ -66,7 +66,7 @@ Opacity of the point, where 0 represents a completely transparent point and 1 re
 
 Name of the point, is mainly used in identifying the point, or can be used for displaying a point name on hover.
 
-## Sample usage
+# Example usage
 
 ```svelte
 <svg {width} {height}>

@@ -73,7 +73,7 @@ Margin above of the visualisation
 
 Margin under of the visualisation
 
-# Sample usage
+# Example usage
 
 ```svelte
 <script>

@@ -2,16 +2,16 @@
 
 The StackedBar component is a visual representation of data in a stacked bar chart format. It is used to compare the parts to the whole, and show the relationship of individual items to the total.
 
-## Optional Attributes
+# Optional Attributes
 
-### opacity
+## opacity
 
 - Type: `number | string`
 - Default: `1`
 
 Sets the opacity of the bars. Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
 
-### colors
+## colors
 
 - Type: `array`
 - Default:
@@ -35,7 +35,7 @@ Sets the opacity of the bars. Either a number between 0 and 1, or a string repre
 
 Sets the colors of the bars, based on column index. Wraps if there are more columns than colors.
 
-## Example
+# Example
 
 Create a StackedBar with custom opacity. Retrieves data from a store.
 

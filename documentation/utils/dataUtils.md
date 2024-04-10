@@ -1,12 +1,10 @@
-# Handling data in visualisations
+# Handling data in visualisations using `DataUtils`
 
 To make sure that every visualisation is consistent, we have created a set of utility functions that help with data manipulation. These functions are used to transform data into a format that can be easily used by the visualisation components.
 
-## DataUtils
-
 The `DataUtils` class contains a set of utility functions that help with data manipulation. The functions are as follows:
 
-### parseCSV
+# parseCSV
 
 The `parseCSV` function takes in a CSV string or the URL of a CSV file and returns a promise that resolves to an array of arrays containing either strings or numbers. This function then also sets the `data`, `columns`, and `rawData` properties of the class.
 
@@ -30,7 +28,7 @@ onMount(() => {
 
 In the example above, the `parseCSV` function is used to parse a CSV file. The `dataUrl` variable represents the URL of the CSV file. The `dataUtil` variable is an instance of the `DataUtils` class. The `onMount` function is used to call the `parseCSV` function when the component is mounted.
 
-### sortData
+# sortData
 
 The `sortData` function allows you to sort the data based on a specific column. It takes in the following parameters:
 

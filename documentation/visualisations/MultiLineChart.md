@@ -80,7 +80,7 @@ Minimal value of the vertical axis
 
 Maximal value of the vertical axis
 
-## Sample usage
+# Example usage
 
 ```svelte
 <MultiLineChart marginLeft={40} marginBottom={40} {width} {height} {data} />

@@ -28,7 +28,7 @@ Color of the component
 
 Amount of components to be placed
 
-## Sample usage
+# Example usage
 
 ```svelte
 <svg width="{width}," {height}>

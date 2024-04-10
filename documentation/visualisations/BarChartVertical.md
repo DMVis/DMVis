@@ -105,7 +105,7 @@ a percentage string formatted as '{number}%'.
 Vertical corner radius of each bar as a number in range [0..1] or
 a percentage string formatted as '{number}%'.
 
-## Sample usage
+# Example usage
 
 ```svelte
 <BarChartVertical width={500} height={500} data={bars} minY={0} maxY={500} />

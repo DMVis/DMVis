@@ -6,4 +6,3 @@ export { default as Label } from '$lib/components/base/Label.svelte';
 export { default as Line } from '$lib/components/base/Line.svelte';
 export { default as StaticLine } from '$lib/components/base/StaticLine.svelte';
 export { default as Point } from '$lib/components/base/Point.svelte';
-export { default as Template } from '$lib/components/base/Template.svelte';

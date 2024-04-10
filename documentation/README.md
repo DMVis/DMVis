@@ -1,89 +1,21 @@
-# DMVis
+# Welcome to DMVis!
 
-DMVis is a Framework for making complex decision matrix visualizations.
+## Introduction
 
-## Running Docsify locally
+Welcome to the DMVis documentation. DMVis is a framework for interactive Multi-Criteria Decision Making with Data Visualizations. This documentation provides an overview of the project, installation instructions, and guidelines for contributing to the project.
 
-Quite simply run:
+## What is DMVis?
 
-```bash
-docsify serve documentation
-```
+DMVis is a framework for creating complex decision matrix visualizations. It provides a set of components and utilities that can be used to build custom visualizations for decision-making processes. The framework is designed to be flexible and extensible, allowing developers to create a wide range of visualizations to suit their needs. DMVis is built using [Svelte](https://svelte.dev/) and [D3.js](https://d3js.org/), making it easy to integrate with existing web applications.
 
-## Useful docs
+## How to use the library
 
-- [SvelteKit docs](https://kit.svelte.dev/docs).
-- [Packaging docs](https://kit.svelte.dev/docs/packaging).
+To use DMVis in your own project, you can install it as a dependency and import the necessary components and utilities. You can then use these components to create custom decision matrix visualizations in your project. For more information on how to use the library, refer to the [installation guide](INSTALLING.md).
 
-## Prerequisites
+## Contributing to DMVis
 
-We develop inside Visual Studio Code
+We welcome contributions from the community to help improve and grow this project. If you are interested in contributing, please read the [contributing guidelines](CONTRIBUTING.md) to get started. We appreciate your help in making DMVis better!
 
-- [Visual Studio Code](https://code.visualstudio.com/download)
+## License
 
-The recommended extensions for Visual Studio Code can be installed by typing
-`@recommended` in the extensions tab. Install all the recmmended workspace
-extensions.
-
-We have created a `.editorconfig` file to ensure that all developers use the same
-settings for their code editor. This is used by the EditorConfig plugin for
-Visual Studio Code.
-
-## Setting up
-
-You will need to install the following dependencies:
-
-- [Node.js](https://nodejs.org/en/download/)
-- [npm](https://www.npmjs.com/get-npm)
-
-We have pinned our node version in `.nvmrc` so you can use `nvm` to install the
-correct version of node. If you have `nvm` installed (instructions for
-[Linux](https://github.com/nvm-sh/nvm) and
-[Windows](https://github.com/coreybutler/nvm-windows)),
-you can use the following command to install the correct version of node:
-
-```bash
-nvm install
-```
-
-Once you have installed the above dependencies, you can install the packages
-using the following commands:
-
-```bash
-npm install --save-dev husky
-npm install
-```
-
-To maintain code quality, husky is used to run test, linting, and formatting checks
-before commits. To enable this, you need to install the git hooks:
-
-```bash
-npx husky install
-```
-
-## Developing
-
-Start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To build your library:
-
-```bash
-npm run package
-```
-
-To create a production version of your showcase app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
+DMVis will be licensed under a license provided by Utrecht University. By using this library, you agree to the terms of the license. For more information, please refer to the [license file](LICENSE).
