@@ -106,4 +106,34 @@ export class DataUtils {
     }
     return pointsOutside;
   }
+  excludedDataForAll(minMaxPerAttribute: (number[] | null)[]) {
+    const indicesToCheck: number[] = [];
+    minMaxPerAttribute.forEach((range, i) => {
+      if (range !== null) {
+        indicesToCheck.push(i);
+      }
+    });
+    if (indicesToCheck.length == 0) {
+      return [];
+    }
+    return this.data
+      .filter((row) => {
+        let isValidPoint = true;
+        indicesToCheck.forEach((i) => {
+          if (!isValidPoint) return;
+          const [min, max] = minMaxPerAttribute[i] as number[];
+          const value = row[i + 1] as number;
+          if (value >= min && value <= max) {
+            // isValidPoint = false;
+            return;
+          } else {
+            isValidPoint = false;
+          }
+        });
+        return !isValidPoint;
+      })
+      .map((row) => {
+        return row[0] as string;
+      });
+  }
 }

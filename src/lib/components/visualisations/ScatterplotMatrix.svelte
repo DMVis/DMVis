@@ -26,7 +26,6 @@
   export let pointOpacity: number = 0.3;
 
   let currentGreyPoints: string[] = [];
-
   //Current mouse coordinates, used for the tooltip lines
   let mouseX = 0;
   let mouseY = 0;
@@ -142,6 +141,7 @@
     showTopRightLines = !showBottomLeftLines;
   }
 
+  let selectionMatrix: Array<Array<number[][] | null>>;
   onMount(() => {
     d3.selectAll('.scatterplot').call(
       //@ts-ignore Yea idk what type to put here
@@ -151,40 +151,33 @@
           [0, 0],
           [xScale.bandwidth(), yScale.bandwidth()]
         ])
-        .on('brush end', brushing)
+        .on('end brush', brushing)
+    );
+    selectionMatrix = JSON.parse(
+      JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
     );
   });
 
   //Function is called when something happens to the brushed selection
-  function brushing(ap: { selection: Array<Array<number>> }) {
+  function brushing(ap: any) {
+    //Calculate which attributes are being selected
+    let xIndex = calculateAttributeIndex(xScale, ap.sourceEvent.offsetX - marginLeft);
+    let yIndex = calculateAttributeIndex(yScale, ap.sourceEvent.offsetY - marginTop);
+    let xAttr = xScale.domain()[xIndex];
+    let yAttr = yScale.domain()[yIndex];
     //If the scatterplot is not recognised, do nothing
-    if (!currentX || !currentY) return;
+    if (!xAttr || !yAttr || xAttr === yAttr) return;
+    let selection = scale(ap.selection, xIndex, yIndex);
 
-    let selection = ap.selection;
-    //If the selection is empty, put all points back to `normal` again
-    if (selection == null) {
-      currentGreyPoints.forEach((name) => {
-        changeFocus(name, false);
-      });
-      currentGreyPoints = [];
-      //Do not do any of the other code
-      return;
+    if (selection === null) {
+      selectionMatrix[xIndex][yIndex] = null;
+    } else {
+      selectionMatrix[xIndex][yIndex] = selection.slice();
     }
 
-    //Index of the attributes
-    let xIndex = dataUtil.columns.indexOf(currentX);
-    let yIndex = dataUtil.columns.indexOf(currentY);
-    let xScaleLinear = $xScales[xIndex] as d3.ScaleLinear<number, number>;
-    let yScaleLinear = $yScales[yIndex] as d3.ScaleLinear<number, number>;
-    //The old selection is still in raw coordinates, they still need to be scaled
-    let scaledSelection = [
-      [xScaleLinear.invert(selection[0][0]), yScaleLinear.invert(selection[1][1])],
-      [xScaleLinear.invert(selection[1][0]), yScaleLinear.invert(selection[0][1])]
-    ];
-
-    //Get all the points that fall outside of the selection
-    //This array will only hold the names of the points
-    let excludedPoints = dataUtil.excludedData(currentX, currentY, scaledSelection);
+    //Minmaxattr is an array that for each entry it holds [min,max] or null (meaning no filter specified)
+    let minMaxAttr: (number[] | null)[] = calcMinMax();
+    let excludedPoints = dataUtil.excludedDataForAll(minMaxAttr);
 
     //Put all the old grey points back to normal
     currentGreyPoints.forEach((name) => {
@@ -196,11 +189,81 @@
       changeFocus(name, true);
     });
 
-    //Update the current grey points in the scatterplot matrix
+    // //Update the current grey points in the scatterplot matrix
     currentGreyPoints = excludedPoints.slice();
+
+    function calcMinMax() {
+      let res: Array<number[] | null> = [];
+      for (let i = 0; i < axisNames.length; i++) {
+        let rowValues = selectionMatrix[i].filter((selection) => {
+          return selection !== null;
+        });
+        // Get the highest minimum from all the scatterplots on the row
+        let minRow =
+          d3.max(rowValues, (selection) => {
+            return (selection as number[][])[0][0];
+          }) ?? -1;
+        let maxRow =
+          d3.min(rowValues, (selection) => {
+            return (selection as number[][])[1][0];
+          }) ?? -1;
+        let columnValues = selectionMatrix
+          .map((row) => {
+            return row[i];
+          })
+          .filter((selection) => {
+            return selection !== null;
+          });
+        //Get the highest minimum from all scatterplots on the column
+        let minCol =
+          d3.max(columnValues, (selection) => {
+            return (selection as number[][])[0][1] ?? -1;
+          }) ?? -1;
+        let maxCol =
+          d3.min(columnValues, (selection) => {
+            return (selection as number[][])[1][1];
+          }) ?? -1;
+        //If there are no selections on the
+        let min, max;
+        if (minCol < 0 && minRow < 0) {
+          res.push(null);
+        } else {
+          if (maxCol < 0) {
+            max = maxRow;
+          } else if (maxRow < 0) {
+            max = maxCol;
+          } else {
+            max = Math.min(maxCol, maxRow);
+          }
+          min = Math.max(minCol, minRow);
+          res.push([min, max]);
+        }
+      }
+      return res;
+    }
+    //Takes a selection and returns a scaled selection
+    function scale(selection: number[][], xIndex: number, yIndex: number) {
+      //Empty selections don't need scaling
+      if (selection === null) return null;
+      //Get the relevant scales
+      //The +1 is because the columnnames also has a scale, which we are not interested in
+      let xScaleLinear = $xScales[xIndex + 1] as d3.ScaleLinear<number, number>;
+      let yScaleLinear = $yScales[yIndex + 1] as d3.ScaleLinear<number, number>;
+
+      let scaledSelection = [
+        [xScaleLinear.invert(selection[0][0]), yScaleLinear.invert(selection[1][1])],
+        [xScaleLinear.invert(selection[1][0]), yScaleLinear.invert(selection[0][1])]
+      ];
+      return scaledSelection;
+    }
   }
   function changeFocus(pointName: string, needsToBeGrey: boolean) {
     d3.selectAll(`.${pointName}`).classed('greyed', needsToBeGrey);
+  }
+
+  function calculateAttributeIndex(scale: d3.ScaleBand<string>, coordinate: number) {
+    const index = Math.floor(coordinate / scale.step());
+    return index;
   }
 </script>
 
@@ -230,6 +293,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 {:then}
   <svg class="visualisation scatterplotMatrix" {width} {height}>
     {#key dataUtil}
+      <g class="brushes"> </g>
       {#each axisNames as xAxis}
         {#each axisNames as yAxis}
           {#if xAxis != yAxis}
