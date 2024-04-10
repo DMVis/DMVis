@@ -4,7 +4,7 @@ The stacked BarChart component is a visual representation of data in a stacked b
 
 ## Required attributes
 
-### data
+### dataUtil
 
 - Type: `DataUtils`
 
@@ -61,12 +61,11 @@ Sets the opacity of the bars. Either a number between 0 and 1, or a string repre
 
 ## Example
 
-Create a StackedBarChart with custom opacity. Retrieves data from a store.
+Create a StackedBarChart with custom opacity.
 
 ```svelte
 <script>
   // Set variables
-  const visStore = new VisualisationStore();
   const opacity = 0.5;
 
   // Get & set data
@@ -76,9 +75,8 @@ Create a StackedBarChart with custom opacity. Retrieves data from a store.
   // Load promising
   $: load = (async () => {
     await dataUtil.parseCSV(dataUrl);
-    visStore.data.set(dataUtils.data);
   })();
 </script>
 
-<StackedBarChart {data} {height} {width} {opacity} />
+<StackedBarChart {dataUtil} {height} {width} {opacity} />
 ```

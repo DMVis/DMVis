@@ -30,5 +30,5 @@
 {/await}
 <br />
 {#await load then}
-  <StackedBarChart marginLeft={100} width={1750} height={1500} data={dataUtil} />
+  <StackedBarChart marginLeft={100} width={1750} height={1500} {dataUtil} />
 {/await}

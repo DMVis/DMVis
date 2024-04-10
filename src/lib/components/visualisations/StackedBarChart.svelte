@@ -9,7 +9,7 @@
   // Required attributes
   export let width: number;
   export let height: number;
-  export let data: DataUtils;
+  export let dataUtil: DataUtils;
 
   // Optional attributes
   export let marginLeft: number = 40;
@@ -28,8 +28,8 @@
   visStore.padding.set(padding);
   visStore.width.set(width);
   visStore.height.set(height);
-  visStore.data.set(data.data);
-  visStore.columns.set(data.columns);
+  visStore.data.set(dataUtil.data);
+  visStore.columns.set(dataUtil.columns);
 
   // Set graph store
   setContext('store', visStore);
@@ -46,7 +46,7 @@ The y-axis represents the categories of the data.
 #### Required attributes
 * width: number                        - Width of the visualisation.
 * height: number                       - Height of the visualisation.
-* data: Array<Array<string | number>>  - Data to visualise.
+* dataUtil: Array<Array<string | number>>  - Data to visualise.
 
 #### Optional attributes
 * marginLeft: number       - Margin to the left of the visualisation.
@@ -58,7 +58,7 @@ The y-axis represents the categories of the data.
                              a percentage string formatted as '{number}%'.
 -->
 <svg class="visualisation" {width} {height}>
-  {#key data}
+  {#key dataUtil}
     <StackedBar {opacity} />
     <DynamicAxis position="left" endColumn={1} />
   {/key}
