@@ -1,8 +1,5 @@
 <script lang="ts">
-  import Label from './Label.svelte';
-  import { anyPointClicked } from '$lib/selected.js';
-  import { tick } from 'svelte';
-  import * as d3 from 'd3';
+  import { createEventDispatcher } from 'svelte';
 
   export let x: number;
   export let y: number;
@@ -13,27 +10,16 @@
   export let opacity: number = 1;
   export let name: string = `(${x},${y})`;
 
-  let thisPointClicked = false;
-  let thisPointHighlighted = false;
+  const dispatch = createEventDispatcher();
 
-  async function redrawLabel() {
-    await tick();
-    const label = document.getElementsByClassName(`label-${name}`)[0] ?? null;
-    if (label) label.parentNode!.appendChild(label);
+  function onMouseEnter() {
+    dispatch('mousePointEntered', { name: name, x: x, y: y });
   }
-
-  function mouseEnter() {
-    if (!$anyPointClicked) {
-      redrawLabel();
-      thisPointHighlighted = true;
-      d3.selectAll(`.${name}`).classed('highlighted', true);
-    }
+  function onMouseLeave() {
+    dispatch('mousePointLeft', { name: name, x: x, y: y });
   }
-  function mouseLeave() {
-    if (!$anyPointClicked) {
-      thisPointHighlighted = false;
-      d3.selectAll('.highlighted').classed('highlighted', false);
-    }
+  function onMouseDown() {
+    dispatch('pointClicked', { name: name });
   }
 </script>
 
@@ -66,32 +52,13 @@ It is used in combination with other components to create a chart.
   stroke-width={borderWidth}
   {opacity}
   class={'point ' + name}
-  on:mouseenter={mouseEnter}
-  on:focus={mouseEnter}
-  on:mouseleave={mouseLeave}
-  on:blur={mouseLeave}
-  on:mousedown={() => {
-    redrawLabel();
-    thisPointClicked = !thisPointClicked;
-    anyPointClicked.set(thisPointClicked);
-  }}
+  on:mouseenter={onMouseEnter}
+  on:focus={onMouseEnter}
+  on:mouseleave={onMouseLeave}
+  on:blur={onMouseLeave}
+  on:mousedown={onMouseDown}
   role="button"
   tabindex="0" />
-
-{#if thisPointHighlighted}
-  <Label
-    x={x - 15}
-    y={y - 16}
-    text={name}
-    color={'#FFF'}
-    hasBackground={true}
-    fontSize={'14'}
-    fontWeight={'bold'}
-    backgroundOpacity={0.7}
-    {name}
-    borderColor="none"
-    padding={0} />
-{/if}
 
 <style>
   .highlighted {

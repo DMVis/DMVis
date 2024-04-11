@@ -1,4 +1,8 @@
 <script lang="ts">
+  //Import svelte and d3 functions
+  import { setContext, getContext, onMount } from 'svelte';
+  import * as d3 from 'd3';
+
   //Import dmvis components
   import Label from '$lib/components/base/Label.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
@@ -8,12 +12,7 @@
   //Import dmvis utils
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { VisualisationStore } from '$lib/store.js';
-  import { hoveredXLabel, hoveredYLabel } from '$lib/selected.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
-
-  //Other imports
-  import { setContext, getContext, onMount } from 'svelte';
-  import * as d3 from 'd3';
 
   //Mandatory exports
   export let height: number;
@@ -102,21 +101,20 @@
     currentY = yAxis;
 
     //Tell the attribute label to update
-    hoveredXLabel.set(xAxis);
-    hoveredYLabel.set(yAxis);
+    d3.select(`.label-${xAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', true);
+    d3.select(`.label-${yAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', true);
 
     //If the mouse is over a scatterplot, there need to be tooltip lines displayed
     showLines = true;
   }
 
   //This function is called when the mouse leaves a scatterplot
-  function mouseOut() {
+  function mouseOut(xAxis: string, yAxis: string) {
+    d3.select(`.label-${xAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', false);
+    d3.select(`.label-${yAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', false);
     //There no longer are attributes that need to be highlighted
     currentX = '';
     currentY = '';
-
-    hoveredXLabel.set('');
-    hoveredYLabel.set('');
 
     showLines = false;
   }
@@ -204,7 +202,7 @@
     rangePerAttribute[brushX] = calculateRangePerIndex(brushX);
     rangePerAttribute[brushY] = calculateRangePerIndex(brushY);
     //Filter the data
-    let excludedPoints = dataUtil.calculateExcludedPoints(rangePerAttribute);
+    let excludedPoints: string[] = dataUtil.filterData(rangePerAttribute)[1];
 
     //Put all the old grey points calculateExcludedPoints
     currentGreyPoints.forEach((name: string) => {
@@ -313,6 +311,50 @@
     const index = Math.floor(coordinate / scale.step());
     return index;
   }
+  let tooltipData = {
+    visible: false,
+    x: 0,
+    y: 0,
+    text: ''
+  };
+  //Function that fires when the mouse leaves any point
+  function mouseOfPoint(): void {
+    //If there is a point clicked, do not do anything
+    if (clickedPoint != '') return;
+    //Remove the highlight from all points
+    d3.selectAll('.highlighted').classed('highlighted', false);
+    //Tooltip label is no longer visible
+    tooltipData.visible = false;
+  }
+  //Function that fires when the mouse hovers over any point
+  function mouseOnPoint(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+    //If there is a point clicked, do not do anything
+    if (clickedPoint != '') return;
+
+    //Select all the points with the same class name
+    let name = e.detail.name;
+    d3.selectAll(`.${name}`).classed('highlighted', true);
+    //Get the coordinates of this point
+    //Used for the tooltip label
+    let xCoordPoint = e.detail.x + (xScale(currentX) ?? 0);
+    tooltipData.x = xCoordPoint;
+    let yCoordPoint = e.detail.y + (yScale(currentY) ?? 0);
+    tooltipData.y = yCoordPoint;
+    //Tooltip label is now visible
+    tooltipData.visible = true;
+
+    //Update the tooltip text to now show the current point
+    tooltipData.text = name;
+  }
+  let clickedPoint = '';
+  function pointClicked(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+    let name = e.detail.name;
+    if (name === clickedPoint) {
+      clickedPoint = '';
+    } else if (clickedPoint == '') {
+      clickedPoint = name;
+    }
+  }
 </script>
 
 <!--
@@ -351,13 +393,13 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 mouseOver(xAxis, yAxis);
               }}
               on:mouseout={() => {
-                mouseOut();
+                mouseOut(xAxis, yAxis);
               }}
               on:focus={() => {
                 mouseOver(xAxis, yAxis);
               }}
               on:blur={() => {
-                mouseOut();
+                mouseOut(xAxis, yAxis);
               }}
               on:mousemove={(event) => {
                 mouseMove(event, xAxis, yAxis);
@@ -376,6 +418,9 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 style="pointer-events: none">
               </rect>
               <Scatterplot
+                on:mousePointLeft={mouseOfPoint}
+                on:mousePointEntered={mouseOnPoint}
+                on:pointClicked={pointClicked}
                 {xAxis}
                 {yAxis}
                 width={xScale.bandwidth()}
@@ -391,7 +436,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 y={yScale.bandwidth() / 2}
                 text={xAxis}
                 hasBackground={true}
-                name={xAxis + '-attr'}
+                name={xAxis.replace(/[\s()/]/g, '') + '-attr'}
                 width={xScale.bandwidth()}
                 height={yScale.bandwidth()}
                 color="white" />
@@ -462,6 +507,20 @@ A matrix of scatterplots that can be used to quickly find relations between attr
             originX={OriginX.Left}
             hasBackground={false} />
         {/if}
+      {/if}
+      {#if tooltipData.visible}
+        <Label
+          x={tooltipData.x - 15}
+          y={tooltipData.y - 16}
+          text={tooltipData.text}
+          color={'#FFF'}
+          hasBackground={true}
+          fontSize={'14'}
+          fontWeight={'bold'}
+          backgroundOpacity={0.7}
+          name={tooltipData.text}
+          borderColor="none"
+          padding={0} />
       {/if}
     {/key}
     <DynamicAxis

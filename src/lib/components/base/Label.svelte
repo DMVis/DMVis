@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin } from '$lib/utils/OriginMapper.js';
-  import { hoveredXLabel, hoveredYLabel } from '$lib/selected.js';
 
   // Required attributes
   export let x: number;
@@ -35,19 +34,6 @@
   let rectHeight: number = 25;
   let textBlock: SVGTextElement;
   let rectBlock: SVGRectElement;
-
-  let highlighted = false;
-  hoveredXLabel.subscribe(() => {
-    highlighted = text === $hoveredXLabel || text === $hoveredYLabel;
-  });
-  hoveredYLabel.subscribe(() => {
-    highlighted = text === $hoveredXLabel || text === $hoveredYLabel;
-  });
-
-  $: {
-    d3.select(textBlock).attr('font-weight', highlighted ? 'bold' : fontWeight);
-    d3.select(rectBlock).attr('stroke-width', highlighted ? 3 : 1);
-  }
 
   function wrapWords(textSelection: Selection, width: number) {
     //@ts-expect-error a text selection does have the .text() attribute
@@ -92,7 +78,7 @@
     d3.select(textBlock)
       .attr('fill', textColor)
       .attr('font-size', fontSize)
-      .attr('font-weight', highlighted ? 'bold' : fontWeight)
+      .attr('font-weight', fontWeight)
       .attr('font-family', fontFamily);
 
     // Calculate the width of the text.
@@ -197,3 +183,10 @@ The default origin is the middle of the label.
     alignment-baseline="middle"
     dominant-baseline="middle">{text}</text>
 </g>
+
+<style>
+  .highlighted {
+    font-weight: bold;
+    stroke-width: 3;
+  }
+</style>

@@ -87,6 +87,9 @@ This is a visualisation to display a dataset of points
     {/if}
     {#each $data as p}
       <Point
+        on:mousePointLeft
+        on:mousePointEntered
+        on:pointClicked
         x={xScaleLocal(getValue(p, xIndex))}
         y={yScaleLocal(getValue(p, yIndex))}
         opacity={pointOpacity}

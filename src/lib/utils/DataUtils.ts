@@ -59,10 +59,9 @@ export class DataUtils {
     return sortedData;
   }
 
-  //Finds all the points that lie OUTSIDE a given selection
-  //A selection is a list of ranges for every attribute,
-  //if there is no range, the value will be null
-  calculateExcludedPoints(rangePerAttribute: (number[] | null)[]) {
+  //Filters data based on the given ranges for every attribute,
+  //Will return data in the format [Points inside[], Points outside[]]
+  filterData(rangePerAttribute: (number[] | null)[]): string[][] {
     //Find out what indices actually hold a selection and therefore need checking
     const indicesToCheck: number[] = [];
     rangePerAttribute.forEach((range, i) => {
@@ -73,38 +72,45 @@ export class DataUtils {
     //If there are no attributes with a selection, it means no points will be excluded
     //So return an empty array
     if (indicesToCheck.length == 0) {
-      return [];
+      return [
+        this.data.map((row) => {
+          return row[0] as string;
+        }),
+        []
+      ];
     }
-    //Otherwise filter the data
-    return this.data
-      .filter((row) => {
-        //Points start out as a point that is not excluded
-        let isValidPoint = true;
+    const inside: string[] = [];
+    const outside: string[] = [];
+    this.data.forEach((row) => {
+      (filterFunction(row) ? inside : outside).push(row[0] as string);
+    });
 
-        //Loop over all indices
-        indicesToCheck.forEach((i) => {
-          //If this point is already not valid, simply return
-          if (!isValidPoint) return;
-          //Get the selection
-          const [min, max] = rangePerAttribute[i] as number[];
-          //Get the value for the specific attribute from this point
-          //Note that we need to add 1 to the index, since the data also has a label column which we do not need
-          const value = row[i + 1] as number;
-          //If the value is within this range, do nothing
-          if (value >= min && value <= max) {
-            return;
-          } else {
-            //If the value lies outside the range, this point is excluded for the given selections
-            //Meaning it is not valid
-            isValidPoint = false;
-          }
-        });
-        //We look for all the excluded points, so return the inverse of isValid
-        return !isValidPoint;
-      })
-      .map((row) => {
-        //Now only return the name of the points
-        return row[0] as string;
+    return [inside, outside];
+
+    //Filters the data based on the specified ranges
+    function filterFunction(row: (string | number)[]): boolean {
+      let isValidPoint = true;
+
+      //Loop over all indices
+      indicesToCheck.forEach((i) => {
+        //If this point is already not valid, simply return
+        if (!isValidPoint) return;
+        //Get the selection
+        const [min, max] = rangePerAttribute[i] as number[];
+        //Get the value for the specific attribute from this point
+        //Note that we need to add 1 to the index, since the data also has a label column which we do not need
+        const value = row[i + 1] as number;
+        //If the value is within this range, do nothing
+        if (value >= min && value <= max) {
+          return;
+        } else {
+          //If the value lies outside the range, this point is excluded for the given selections
+          //Meaning it is not valid
+          isValidPoint = false;
+        }
       });
+      //Return whether the point is valid
+      return isValidPoint;
+    }
   }
 }
