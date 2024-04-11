@@ -4,10 +4,10 @@ import { render } from '@testing-library/svelte';
 import Label from '$lib/components/base/Label.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
 
-// Make sure that the get methods of SVGElement is mocked
+// Make sure that the get methods of SVGElement is mocked.
 prepareSvgGetter();
 
-// Test cases
+// Test cases.
 describe('Html test', () => {
   it('renders "Hello world!"', () => {
     render(Label, { text: 'Hello world!', x: 5, y: 5 });
@@ -20,20 +20,20 @@ describe('Html test', () => {
   });
 
   it('checks if default attributes are filled', () => {
-    // Prepare the label
+    // Prepare the label.
     const config = { x: 0, y: 0, text: 'Test' };
-    const [group, rect, text] = prepareLabel(config);
+    const [group, rect, text] = createLabel(config);
 
-    // Check if the group has the correct rotation
+    // Check if the group has the correct rotation.
     expect(group.getAttribute('transform')).toBe('rotate(0, 0, 0)');
 
-    // Check if the rectangle is correctly filled
+    // Check if the rectangle is correctly filled.
     expect(rect.getAttribute('rx')).toBe('0');
     expect(rect.getAttribute('ry')).toBe('0');
     expect(rect.getAttribute('fill')).toBe('red');
     expect(rect.getAttribute('fill-opacity')).toBe('1');
 
-    // Check if the label has the default attributes
+    // Check if the label has the default attributes.
     expect(text.textContent).toBe('Test');
     expect(text.getAttribute('fill')).toBe('black');
     expect(text.getAttribute('font-size')).toBe('12px');
@@ -43,7 +43,7 @@ describe('Html test', () => {
   });
 
   it('checks if custom attributes are filled', () => {
-    // Prepare the label
+    // Prepare the label.
     const config = {
       x: 0,
       y: 0,
@@ -59,20 +59,20 @@ describe('Html test', () => {
       fontWeight: 'bold',
       hasBackground: true
     };
-    const [group, rect, text] = prepareLabel(config);
+    const [group, rect, text] = createLabel(config);
 
-    // Check if the group has the correct rotation
+    // Check if the group has the correct rotation.
     expect(group.getAttribute('transform')).toBe(
       `rotate(${config.rotationDegrees}, ${config.x}, ${config.y})`
     );
 
-    // Check if the rectangle is correctly filled
+    // Check if the rectangle is correctly filled.
     expect(rect.getAttribute('rx')).toBe(`${config.radiusX}`);
     expect(rect.getAttribute('ry')).toBe(`${config.radiusY}`);
     expect(rect.getAttribute('fill')).toBe(`${config.color}`);
     expect(rect.getAttribute('fill-opacity')).toBe(`${config.opacity}`);
 
-    // Check if the label has the custom attributes
+    // Check if the label has the custom attributes.
     expect(text.textContent).toBe('Test');
     expect(text.getAttribute('fill')).toBe(`${config.textColor}`);
     expect(text.getAttribute('font-size')).toBe(`${config.fontSize}`);
@@ -82,17 +82,17 @@ describe('Html test', () => {
   });
 
   it('checks if the rect is omitted if hasBackground is false', () => {
-    // Prepare the label
+    // Prepare the label.
     const config = { x: 0, y: 0, text: 'Test', hasBackground: false };
-    const [group, text, empty] = prepareLabel(config);
+    const [group, text, empty] = createLabel(config);
 
-    // Check if the group has the correct rotation
+    // Check if the group has the correct rotation.
     expect(group.getAttribute('transform')).toBe('rotate(0, 0, 0)');
 
-    // Check if the rectangle is omitted
+    // Check if the rectangle is omitted.
     expect(empty).toBeUndefined();
 
-    // Check if the label has the default attributes
+    // Check if the label has the default attributes.
     expect(text.textContent).toBe('Test');
     expect(text.getAttribute('fill')).toBe('black');
     expect(text.getAttribute('font-size')).toBe('12px');
@@ -102,18 +102,23 @@ describe('Html test', () => {
   });
 });
 
-function prepareLabel(config: object): [SVGElement, SVGElement, SVGElement] {
-  // Add svg block to the document
+function createLabel(config: object): [SVGElement, SVGElement, SVGElement] {
+  // Clear document body if anything is in it.
+  if (document.body.children.length > 0) {
+    document.body.innerHTML = '';
+  }
+
+  // Add svg block to the document.
   const svg = document.createElement('svg');
   svg.setAttribute('id', 'svg');
   document.body.appendChild(svg);
 
-  // Add label to svg block
+  // Add label to svg block.
   const { getByText } = render(Label, config);
   const group = getByText('Test').parentNode as SVGElement;
   svg.appendChild(group);
 
-  // Return the group, rect and text
+  // Return the group, rect and text (which form the label together).
   return [
     group as SVGElement,
     group?.childNodes[0] as SVGElement,

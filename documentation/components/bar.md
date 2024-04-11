@@ -100,6 +100,13 @@ or a percentage string formatted as `'{number}%'`.
 Vertical corner radius of the bar as a number
 or a percentage string formatted as `'{number}%'`.
 
+## showsNegativeValue
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the bar flips its orientation when `value` is negative or not.
+
 ## Sample usage
 
 ```svelte

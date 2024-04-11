@@ -52,7 +52,12 @@ describe('Html test', () => {
 });
 
 function preparePoint(config: object): SVGCircleElement {
-  //Render a point and return the circle element
+  // Clear document body if anything is in it.
+  if (document.body.children.length > 0) {
+    document.body.innerHTML = '';
+  }
+
+  // Render a point and return the circle element.
   const { container } = render(Point, config);
   const point = container.getElementsByClassName('point')[0] as SVGCircleElement;
   return point;
