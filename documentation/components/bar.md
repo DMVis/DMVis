@@ -49,12 +49,12 @@ Whether the value is along the x-axis or y-axis (i.e. horizontal or vertical bar
 - Type: `string`
 - Default: `rgb(255, 0, 0)`
 
-Color of the bar
+Color of the bar.
 
 ## opacity
 
 - Type: `number | string`
-- Default: `0`
+- Default: `1`
 
 Opacity of the bar as a number in range [0..1] or
 a percentage string formatted as '{number}%'.
@@ -114,6 +114,14 @@ Whether the bar flips its orientation when `value` is negative or not.
 
 Text to display in the label on hover.
 The resulting text is formatted as '{`hoverText`}{`value`}'.
+
+## name
+
+- Type: `string`
+- Default: `(x,y)`
+
+Name of the bar. It can be used as an identifier.
+Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
 
 # Example usage
 

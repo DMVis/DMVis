@@ -122,7 +122,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 -->
 <g {width} {height}>
   {#each data.rows as row}
-    {#if `value` in row}
+    {#if 'value' in row}
       <Bar
         x={x + columnSpacing / 2}
         y={y + (yScale(row.label) ?? 0)}
@@ -134,7 +134,11 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
         color={barColor}
         opacity={barOpacity}
         radiusX={barRadiusX}
-        radiusY={barRadiusY} />
+        radiusY={barRadiusY}
+        hoverText={`${row.label}: `}
+        name={row.label}
+        on:mouseBarEntered
+        on:mouseBarLeft />
     {/if}
     <!--
       Draw bar value on top of bar
@@ -144,7 +148,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
     <Label
       x={x + columnSpacing / 2}
       y={y + (yScale(row.label) ?? 0) + yScale.bandwidth() / 2}
-      text={`value` in row ? `${row.value}` : `${row.label}`}
+      text={'value' in row ? `${row.value}` : `${row.label}`}
       opacity={1}
       originX={OriginX.Left}
       originY={OriginY.Middle}

@@ -3,7 +3,7 @@
 This is visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
 
-> Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop`
+> Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop`.
 
 # Required Attributes
 
@@ -89,6 +89,16 @@ Value for the distance between each bar in each column in the range [0..1].
 - Default: `'red'`
 
 Color of each bar in each column.
+
+## barOpacity
+
+- Type: number | string
+- Default: `0.6`
+
+Opacity of each bar as a number in range [0..1] or
+a percentage string formatted as '{number}%'.
+
+> Note: A value lower than one is recommended for visible bar highlighting.
 
 ## barRadiusX
 

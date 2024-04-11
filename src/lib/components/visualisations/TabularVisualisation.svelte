@@ -24,6 +24,7 @@
 
   export let barPadding: number = 0.15;
   export let barColor: string = 'red';
+  export let barOpacity: number | string = 0.6;
   export let barRadiusX: number | string = 0;
   export let barRadiusY: number | string = 0;
 
@@ -116,6 +117,18 @@
       axes.removeChild(axes.children[0]);
     }
   });
+
+  function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
+    // Highlight row.
+    d3.selectAll(`.${e.detail.name}`).classed('highlighted', true).attr('fill-opacity', 1);
+  }
+
+  function onMouseBarLeft(e: CustomEvent<{ name: string }>) {
+    // Unhighlight row.
+    d3.selectAll(`.${e.detail.name}`)
+      .classed('highlighted', false)
+      .attr('fill-opacity', barOpacity);
+  }
 </script>
 
 <!--
@@ -137,9 +150,12 @@ to adjust `marginTop` or `columnMarginTop`.
 * marginTop: number                   - Margin to the top of the visualisation.
 * marginBottom: number                - Margin to the bottom of the visualisation.
 * columnSpacing: number               - Spacing between each column. Adds `columnSpacing / 2` to the left and right of each column.
-* showColumnLines: boolean             - Whether to show lines at the start and end of each column. Defaults to false.
+* showColumnLines: boolean            - Whether to show lines at the start and end of each column. Defaults to false.
 * barPadding: number                  - Value for the distance between each bar in each column in the range [0..1].
 * barColor: string                    - Color of each bar in each column.
+* barOpacity: number | string         - Opacity of each bar as a number in range [0..1] or
+                                        a percentage string formatted as '{number}%'. A value
+                                        lower than one is recommended for visible bar highlighting.
 * barRadiusX: number                  - Horizontal corner radius of each bar in each column as a number
                                         or a percentage string formatted as '{number}%'.
 * barRadiusY: number                  - Vertical corner radius of each bar in each column as a number
@@ -182,6 +198,7 @@ to adjust `marginTop` or `columnMarginTop`.
         {showColumnLines}
         {barPadding}
         {barColor}
+        {barOpacity}
         {barRadiusX}
         {barRadiusY}
         {textColor}
@@ -197,7 +214,9 @@ to adjust `marginTop` or `columnMarginTop`.
         {headerFontSize}
         {headerFontWeight}
         {headerFontFamily}
-        {hasHeaderBackground} />
+        {hasHeaderBackground}
+        on:mouseBarEntered={onMouseBarEntered}
+        on:mouseBarLeft={onMouseBarLeft} />
     {/each}
   {/key}
 </svg>

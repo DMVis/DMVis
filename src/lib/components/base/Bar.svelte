@@ -1,9 +1,9 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { onMount } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import Label from '$lib/components/base/Label.svelte';
   import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
+  import Label from '$lib/components/base/Label.svelte';
 
   // Required attributes.
   export let x: number;
@@ -14,7 +14,7 @@
 
   // Optional attributes.
   export let color: string = 'red';
-  export let opacity: number | string = '100%';
+  export let opacity: number | string = 1;
   export let originX: OriginX = OriginX.Middle;
   export let originY: OriginY = OriginY.Bottom;
   export let rotationDegrees: number = 0;
@@ -22,14 +22,13 @@
   export let radiusY: number | string = 0;
   export let showsNegativeValue: boolean = false;
   export let hoverText: string = '';
+  export let name: string = `(${x},${y})`;
 
   // Private attributes.
   let rectBlock: SVGRectElement;
   let isMouseOnBar: boolean = false;
+  const dispatchEvent = createEventDispatcher();
 
-  // This block makes it so that the rest of the code can simply
-  // refer to value for the value and to width for the width
-  // without worrying about `isValueAlongYAxis`.
   if (!isValueAlongYAxis) {
     // Swap width and height if the bar is horizontal.
     const temp: number = width;
@@ -63,12 +62,14 @@
       );
   });
 
-  function showLabel() {
+  function onMouseEnter() {
     isMouseOnBar = true;
+    dispatchEvent('mouseBarEntered', { name: name });
   }
 
-  function unshowLabel() {
+  function onMouseLeave() {
     isMouseOnBar = false;
+    dispatchEvent('mouseBarLeft', { name: name });
   }
 </script>
 
@@ -105,10 +106,12 @@ The default origin is the bottom middle of the bar.
 * showsNegativeValue: boolean - Whether the bar flips its orientation when `value` is negative or not.
 * hoverText: string           - Text to display in the label on hover. The resulting text is
                                 formatted as '{`hoverText`}{`value`}'.
+* name: string                - Name of the bar. It can be used as an identifier.
+                                Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
 -->
 <!-- The bar itself. -->
 <rect
-  class="bar"
+  class={`bar ${name}`}
   bind:this={rectBlock}
   transform="rotate({rotationDegrees}, {x}, {y})"
   {x}
@@ -122,24 +125,16 @@ The default origin is the bottom middle of the bar.
   role="treeitem"
   tabindex="0"
   aria-selected="false"
-  on:mouseenter={() => {
-    showLabel();
-  }}
-  on:mouseleave={() => {
-    unshowLabel();
-  }}
-  on:focus={() => {
-    showLabel();
-  }}
-  on:blur={() => {
-    unshowLabel();
-  }} />
+  on:mouseenter={onMouseEnter}
+  on:mouseleave={onMouseLeave}
+  on:focus={onMouseEnter}
+  on:blur={onMouseLeave} />
 <!-- Label, which shows on hovering over the bar. -->
 {#if isMouseOnBar}
   <Label
     {x}
     {y}
-    text={`${hoverText}${value}`}
+    text={`${hoverText}${isValueAlongYAxis ? value : width}`}
     color={'#000000bb'}
     originX={OriginX.Left}
     originY={OriginY.Bottom}

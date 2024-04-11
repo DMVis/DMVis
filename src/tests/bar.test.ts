@@ -157,7 +157,9 @@ describe('Html test', () => {
   });
 
   it('checks if default attributes are filled', () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    // Note that x and y are intentionally different to
+    // test the default name attribute.
+    const config = { x: 0, y: 1, width: 50, value: 250, isValueAlongYAxis: true };
     const bar = prepareBar(config);
 
     expect(bar.getAttribute('transform')).toBe(`rotate(0, ${config.x}, ${config.y})`);
@@ -165,11 +167,12 @@ describe('Html test', () => {
     expect(bar.getAttribute('rx')).toBe('0');
     expect(bar.getAttribute('ry')).toBe('0');
     expect(bar.getAttribute('fill')).toBe('red');
-    expect(bar.getAttribute('fill-opacity')).toBe('100%');
+    expect(bar.getAttribute('fill-opacity')).toBe('1');
 
     expect(bar.getAttribute('role')).toBe('treeitem');
     expect(bar.getAttribute('tabindex')).toBe('0');
     expect(bar.getAttribute('aria-selected')).toBe('false');
+    expect(bar.getAttribute('class')).toBe(`bar (${config.x},${config.y})`);
   });
 
   it('checks if custom attributes are filled', () => {
@@ -184,7 +187,8 @@ describe('Html test', () => {
       rotationDegrees: 45,
       radiusX: 5,
       radiusY: 5,
-      showsNegativeValue: false
+      showsNegativeValue: false,
+      name: 'test'
     };
     const bar = prepareBar(config);
 
@@ -196,6 +200,7 @@ describe('Html test', () => {
     expect(bar.getAttribute('ry')).toBe(`${config.radiusY}`);
     expect(bar.getAttribute('fill')).toBe(`${config.color}`);
     expect(bar.getAttribute('fill-opacity')).toBe(`${config.opacity}`);
+    expect(bar.getAttribute('class')).toBe(`bar test`);
   });
 });
 
