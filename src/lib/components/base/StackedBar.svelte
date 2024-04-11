@@ -58,7 +58,7 @@ on top of each other.
         color={colors[colIndex % colors.length]}
         originX={OriginX.Left}
         originY={OriginY.Top}
-        label={column}
+        hoverText={`${column}: `}
         {opacity} />
     {/each}
   {/each}

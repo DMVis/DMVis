@@ -13,7 +13,6 @@
   export let isValueAlongYAxis: boolean;
 
   // Optional attributes.
-  export let label: string = '';
   export let color: string = 'red';
   export let opacity: number | string = '100%';
   export let originX: OriginX = OriginX.Middle;
@@ -22,13 +21,17 @@
   export let radiusX: number | string = 0;
   export let radiusY: number | string = 0;
   export let showsNegativeValue: boolean = false;
+  export let hoverText: string = '';
 
   // Private attributes.
   let rectBlock: SVGRectElement;
-  let showLabel: boolean = false;
+  let isMouseOnBar: boolean = false;
 
+  // This block makes it so that the rest of the code can simply
+  // refer to value for the value and to width for the width
+  // without worrying about `isValueAlongYAxis`.
   if (!isValueAlongYAxis) {
-    // Swap width and height.
+    // Swap width and height if the bar is horizontal.
     const temp: number = width;
     width = value;
     value = temp;
@@ -59,6 +62,14 @@
           )
       );
   });
+
+  function showLabel() {
+    isMouseOnBar = true;
+  }
+
+  function unshowLabel() {
+    isMouseOnBar = false;
+  }
 </script>
 
 <!--
@@ -74,7 +85,7 @@ The default origin is the bottom middle of the bar.
 * y: number                   - Y-coordinate of the bar.
 * width: number               - Width of the bar.
 * height: number              - Height of the bar.
-* isValueAlongYAxis           - Whether the value is along the x-axis or y-axis (i.e. horizontal versus vertical bars)
+* isValueAlongYAxis           - Whether the value is along the x-axis or y-axis (i.e. horizontal or vertical bars)
 
 #### Optional attributes
 * color: string               - Color of the bar.
@@ -92,8 +103,10 @@ The default origin is the bottom middle of the bar.
 * radiusY: number | string    - Vertical corner radius of the bar as a number
                                 or a percentage string formatted as '{number}%'.
 * showsNegativeValue: boolean - Whether the bar flips its orientation when `value` is negative or not.
+* hoverText: string           - Text to display in the label on hover. The resulting text is
+                                formatted as '{`hoverText`}{`value`}'.
 -->
-<!-- Bar itself. -->
+<!-- The bar itself. -->
 <rect
   class="bar"
   bind:this={rectBlock}
@@ -110,23 +123,23 @@ The default origin is the bottom middle of the bar.
   tabindex="0"
   aria-selected="false"
   on:mouseenter={() => {
-    showLabel = true;
-  }}
-  on:focus={() => {
-    showLabel = true;
+    showLabel();
   }}
   on:mouseleave={() => {
-    showLabel = false;
+    unshowLabel();
+  }}
+  on:focus={() => {
+    showLabel();
   }}
   on:blur={() => {
-    showLabel = false;
+    unshowLabel();
   }} />
-<!-- Label, which shows on hover. -->
-{#if showLabel}
+<!-- Label, which shows on hovering over the bar. -->
+{#if isMouseOnBar}
   <Label
     {x}
     {y}
-    text={`${label != '' ? label + ': ' : ''} ${isValueAlongYAxis ? value : width}`}
+    text={`${hoverText}${value}`}
     color={'#000000bb'}
     originX={OriginX.Left}
     originY={OriginY.Bottom}

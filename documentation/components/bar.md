@@ -40,7 +40,7 @@ Value of the bar.
 
 - Type: `boolean`
 
-Whether the value is along the x-axis or y-axis (i.e. horizontal versus vertical bars).
+Whether the value is along the x-axis or y-axis (i.e. horizontal or vertical bars).
 
 # Optional Attributes
 
@@ -106,6 +106,14 @@ or a percentage string formatted as `'{number}%'`.
 - Default: `false`
 
 Whether the bar flips its orientation when `value` is negative or not.
+
+## hoverText
+
+- Type: `string`
+- Default: `''`
+
+Text to display in the label on hover.
+The resulting text is formatted as '{`hoverText`}{`value`}'.
 
 # Example usage
 
