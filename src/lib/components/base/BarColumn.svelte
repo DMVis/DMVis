@@ -10,8 +10,8 @@
   export let y: number;
   export let width: number;
   export let height: number;
-  // Every column has a title and either has
-  // categorical values paired with a value (a bar + label) or only the first (just a label).
+  // Every column has a header label and either
+  // categorical values paired with a value (a label + bar) or only the first (just a label).
   export let data: {
     header: string;
     rows: Array<{ label: string }> | Array<{ label: string; value: number }>;
@@ -122,6 +122,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 -->
 <g {width} {height}>
   {#each data.rows as row}
+    <!-- Draw bars if not just labels. -->
     {#if 'value' in row}
       <Bar
         x={x + columnSpacing / 2}
@@ -140,10 +141,11 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
         on:mouseBarEntered
         on:mouseBarLeft />
     {/if}
+
     <!--
       Draw bar value on top of bar
       or just the label depending on the data.
-      This can be made more customisable for the user if needed.
+      This can be made more customisable for users if needed.
     -->
     <Label
       x={x + columnSpacing / 2}
@@ -157,7 +159,8 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       {fontSize}
       {fontWeight}
       {fontFamily}
-      hasBackground={false} />
+      hasBackground={false}
+      name={'value' in row ? '' : `${row.label}`} />
   {/each}
 
   <!-- Draw header on top of column. -->

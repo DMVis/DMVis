@@ -74,7 +74,7 @@ Value for the distance between each column. Adds `columnSpacing / 2` to the left
 - Type: `boolean`
 - Default: `false`
 
-Whether to show lines at the start and end of each column.
+Whether to show lines at the start and end of each column. Defaults to false.
 
 ## barPadding
 
