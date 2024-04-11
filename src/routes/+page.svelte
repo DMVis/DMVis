@@ -13,7 +13,7 @@
 
   // Load promising
   $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
+    await dataUtil.parseData(dataUrl);
   })();
 </script>
 

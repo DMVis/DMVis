@@ -11,13 +11,7 @@ describe('dataUtils tests', () => {
     const parsedData = await dataUtils.parseCSV(csvData);
 
     // Assertions
-    expect(parsedData).toBeDefined();
-    expect(parsedData).toBeInstanceOf(Array);
-    expect(parsedData.length).toBe(4);
-    expect(parsedData[0]).toEqual(['a', 'b', 'c']);
-    expect(parsedData[1]).toEqual([1, 2, 3]);
-    expect(parsedData[2]).toEqual([4, 5, 6]);
-    expect(parsedData[3]).toEqual([7, 8, 9]);
+    testRegularAssertions(parsedData);
   });
 
   it('should set rawData, data and columns', async () => {
@@ -29,13 +23,7 @@ describe('dataUtils tests', () => {
     await dataUtils.parseCSV(csvData);
 
     // Assertions
-    expect(dataUtils.rawData).toBeDefined();
-    expect(dataUtils.rawData).toBeInstanceOf(Array);
-    expect(dataUtils.rawData.length).toBe(4);
-    expect(dataUtils.rawData[0]).toEqual(['a', 'b', 'c']);
-    expect(dataUtils.rawData[1]).toEqual([1, 2, 3]);
-    expect(dataUtils.rawData[2]).toEqual([4, 5, 6]);
-    expect(dataUtils.rawData[3]).toEqual([7, 8, 9]);
+    testRegularAssertions(dataUtils.rawData);
     expect(dataUtils.data).toBeDefined();
     expect(dataUtils.data).toBeInstanceOf(Array);
     expect(dataUtils.data.length).toBe(3);
@@ -98,4 +86,117 @@ describe('dataUtils tests', () => {
     expect(sortedData[1]).toEqual([6, 5, 4]);
     expect(sortedData[2]).toEqual([3, 2, 1]);
   });
+
+  it('should parse CSV data with all supported delimiters', async () => {
+    const csvDataTypes = [
+      'a,b,c\n1,2,3\n4,5,6\n7,8,9',
+      'a;b;c\n1;2;3\n4;5;6\n7;8;9',
+      'a\tb\tc\n1\t2\t3\n4\t5\t6\n7\t8\t9',
+      'a|b|c\n1|2|3\n4|5|6\n7|8|9'
+    ];
+
+    for (const csvData of csvDataTypes) {
+      const dataUtils = new DataUtils();
+      const parsedData = await dataUtils.parseCSV(csvData);
+
+      testRegularAssertions(parsedData);
+    }
+  });
+
+  it('should parse JSON data in style 1', async () => {
+    // Prepare data
+    const jsonData = '[{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]';
+
+    // Test
+    const dataUtils = new DataUtils();
+    const parsedData = await dataUtils.parseJson(jsonData);
+
+    // Assertions
+    testRegularAssertions(parsedData);
+  });
+
+  it('should parse JSON data in style 2', async () => {
+    // Prepare data
+    const jsonData = '{"a":[1,4,7],"b":[2,5,8],"c":[3,6,9]}';
+
+    // Test
+    const dataUtils = new DataUtils();
+    const parsedData = await dataUtils.parseJson(jsonData);
+
+    // Assertions
+    testRegularAssertions(parsedData);
+  });
+
+  it('should parse JSON using the parseData function', async () => {
+    // Prepare data
+    const jsonData = '[{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]';
+
+    // Test
+    const dataUtils = new DataUtils();
+    const parsedData = await dataUtils.parseData(jsonData);
+
+    // Assertions
+    testRegularAssertions(parsedData);
+  });
+
+  it('should parse CSV using the parseData function', async () => {
+    // Prepare data
+    const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
+
+    // Test
+    const dataUtils = new DataUtils();
+    const parsedData = await dataUtils.parseData(csvData);
+
+    // Assertions
+    testRegularAssertions(parsedData);
+  });
+
+  it('should throw an error when parsing invalid data', async () => {
+    // Prepare data
+    const invalidData = 'invalid data';
+
+    // Test
+    const dataUtils = new DataUtils();
+
+    // Assertions
+    await expect(dataUtils.parseData(invalidData)).rejects.toThrowError(
+      'Data could not be parsed as JSON or CSV. Please provide a valid type.'
+    );
+  });
+
+  it('should throw an error when parsing invalid CSV data', async () => {
+    // Prepare data
+    const invalidData = 'invalid data';
+
+    // Test
+    const dataUtils = new DataUtils();
+
+    // Assertions
+    await expect(dataUtils.parseCSV(invalidData)).rejects.toThrowError(
+      'CSV data that was supplied is not in the correct format.'
+    );
+  });
+
+  it('should throw an error when parsing invalid JSON data', async () => {
+    // Prepare data
+    const invalidData = 'invalid data';
+
+    // Test
+    const dataUtils = new DataUtils();
+
+    // Assertions
+    await expect(dataUtils.parseJson(invalidData)).rejects.toThrowError(
+      'JSON data that was supplied is not in the correct format.'
+    );
+  });
 });
+
+function testRegularAssertions(data: Array<Array<string | number>>) {
+  expect(data).toBeDefined();
+  expect(data).toBeInstanceOf(Array);
+  expect(data.length).toBe(4);
+  expect(data[0]).toEqual(['a', 'b', 'c']);
+  expect(data[1]).toEqual([1, 2, 3]);
+  expect(data[2]).toEqual([4, 5, 6]);
+  expect(data[3]).toEqual([7, 8, 9]);
+}
