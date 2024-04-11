@@ -120,7 +120,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 * headerFontFamily: string       - Font family of the text in the header label.
 * hasHeaderBackground: boolean   - Whether the header label has a background or not.
 -->
-<g {width} {height}>
+<g {width} {height} class="bar-column">
   {#each data.rows as row}
     <!-- Draw bars if not just labels. -->
     {#if 'value' in row}

@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as d3 from 'd3';
-  import { onMount, setContext } from 'svelte';
+  import { writable } from 'svelte/store';
+  import { onMount, setContext, afterUpdate } from 'svelte';
 
   import { Spacer } from '$lib/utils/Spacer.js';
   import { VisualisationStore } from '$lib/store.js';
@@ -70,56 +71,113 @@
     rows: Array<{ label: string; value: number }>;
   };
 
+  // Allows rows to be dragged
+  let deltaY: number = 0;
+  let deltaYLabel: number = 0;
+  let draggedRow: string = '';
+  const dragHandler = d3
+    .drag<SVGElement, unknown>()
+    .on('start', function (event) {
+      // Set the element being dragged
+      draggedRow = event.sourceEvent.srcElement.attributes
+        .getNamedItem('class')
+        .value.split(' ')[1];
+      deltaY = parseFloat(d3.select(`.${draggedRow}`).attr('y')) - event.y;
+      deltaYLabel = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y')) - event.y;
+
+      // Raise dragged row to the front
+      d3.selectAll(`.${draggedRow}`).raise();
+      d3.selectAll(`.label-${draggedRow}`).raise();
+    })
+    .on('drag', function (event) {
+      // Update the row its y position
+      d3.selectAll(`.${draggedRow}`).attr('y', event.y + deltaY);
+      d3.selectAll(`.label-${draggedRow} > text`).attr('y', event.y + deltaYLabel);
+    })
+    .on('end', async function () {
+      // Get nearest row to the dragged row
+      const y = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y'));
+      const labelColumn = d3.select('.bar-column');
+      const rows: Array<Element> = labelColumn.selectAll('text').nodes() as Array<Element>;
+      const distances = rows.map((row: Element) => {
+        if (row == null || row.innerHTML == draggedRow) return Infinity;
+        let rowY = row.attributes?.getNamedItem('y')?.value;
+        if (rowY == null) return Infinity;
+        return Math.abs(parseFloat(rowY) - y);
+      });
+
+      // Update the data
+      const minDistanceIndex = distances.indexOf(Math.min(...distances));
+      const nearestRow: Element = rows[minDistanceIndex != -1 ? minDistanceIndex : 0];
+      const nearestLabel = nearestRow ? nearestRow.innerHTML : rows[0].innerHTML;
+      const oldIndex = dataUtil.data.findIndex((row) => row[0] == draggedRow);
+      const newIndex = dataUtil.data.findIndex((row) => row[0] == nearestLabel);
+      const newData = dataUtil.reorderRows('label', oldIndex, newIndex == -1 ? 0 : newIndex);
+
+      // Update the data
+      dataUtil.data = newData;
+      visualisationStore.data.set(newData);
+      updateColumns();
+
+      // Unhighlight and reset row
+      d3.selectAll(`.${draggedRow}`).classed('highlighted', false).attr('fill-opacity', barOpacity);
+      d3.selectAll(`.label-${draggedRow} > text`).classed('highlighted', false);
+      draggedRow = '';
+    });
+
   // Convert array of rows to array of columns (i.e. transpose).
   // Distance between columns is determined by scaleColumns.
   const { xScales } = visualisationStore;
-  const scaleColumns = d3
-    .scaleBand()
-    .domain(dataUtil.columns)
-    .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
+  const columns = writable<Array<LabelColumn | BarColumn>>([]);
+  let scaleColumns: d3.ScaleBand<string>;
+  let spacerDistance: number = 0;
 
-  // Calculate the distance between each column.
-  const spacerDistance = Spacer(
-    width,
-    marginLeft + columnSpacing / 2,
-    marginRight + columnSpacing / 2,
-    $xScales.length
-  );
+  function updateColumns() {
+    scaleColumns = d3
+      .scaleBand()
+      .domain(dataUtil.columns)
+      .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
 
-  const columns: Array<LabelColumn | BarColumn> = [];
+    // Calculate the distance between each column.
+    spacerDistance = Spacer(
+      width,
+      marginLeft + columnSpacing / 2,
+      marginRight + columnSpacing / 2,
+      $xScales.length
+    );
 
-  // Fill labelColumn
-  const transposedData: Array<Array<number | string>> = d3.transpose(dataUtil.data);
-  const labelColumn: LabelColumn = {
-    header: dataUtil.columns[0],
-    rows: transposedData[0].map((label) => {
-      return { label: label as string };
-    })
-  };
-  columns.push(labelColumn);
+    // Fill labelColumn
+    const transposedData: Array<Array<number | string>> = d3.transpose(dataUtil.data);
+    const labelColumn: LabelColumn = {
+      header: dataUtil.columns[0],
+      rows: transposedData[0].map((label) => {
+        return { label: label as string };
+      })
+    };
+    let newColumns = [labelColumn];
 
-  // Fill barColumns
-  const barColumns: Array<BarColumn> = [];
-  // -1 or +1, because we are only interested in the bar columns here.
-  for (let i: number = 0; i < dataUtil.columns.length - 1; ++i) {
-    barColumns[i] = { header: dataUtil.columns[i + 1], rows: [] };
+    // Fill barColumns
+    const barColumns: Array<BarColumn> = [];
+    // -1 or +1, because we are only interested in the bar columns here.
+    for (let i: number = 0; i < dataUtil.columns.length - 1; ++i) {
+      barColumns[i] = { header: dataUtil.columns[i + 1], rows: [] };
 
-    for (let j: number = 0; j < transposedData[i + 1].length; ++j) {
-      barColumns[i].rows.push({
-        label: transposedData[0][j] as string,
-        value: transposedData[i + 1][j] as number
-      });
+      for (let j: number = 0; j < transposedData[i + 1].length; ++j) {
+        barColumns[i].rows.push({
+          label: transposedData[0][j] as string,
+          value: transposedData[i + 1][j] as number
+        });
+      }
+
+      newColumns.push(barColumns[i]);
     }
 
-    columns.push(barColumns[i]);
+    // Update columns store
+    columns.set(newColumns);
+
+    // Add drag handler to all rows
+    dragHandler(d3.selectAll('.bar'));
   }
-
-  onMount(() => {
-    const axes = document.getElementById('axes');
-    if (axes != null && axes.children.length > 0) {
-      axes.removeChild(axes.children[0]);
-    }
-  });
 
   function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
     // Highlight bar row
@@ -138,43 +196,14 @@
     }
   }
 
-  // Allows rows to be dragged
-  let deltaY: number = 0;
-  let deltaYLabel: number = 0;
-  let draggedRow: string = '';
-  const dragHandler = d3
-    .drag()
-    .on('start', function (event) {
-      // Set the element being dragged
-      draggedRow = event.sourceEvent.srcElement.attributes
-        .getNamedItem('class')
-        .value.split(' ')[1];
-      deltaY = parseFloat(d3.select(`.${draggedRow}`).attr('y')) - event.y;
-      deltaYLabel = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y')) - event.y;
-
-      // Raise dragged row to the front
-      d3.selectAll(`.${draggedRow}`).raise();
-      d3.selectAll(`.label-${draggedRow}`).raise();
-    })
-    .on('drag', function (event) {
-      // Update the row its y position
-      d3.selectAll(`.${draggedRow}`).attr('y', event.y + deltaY);
-      d3.selectAll(`.label-${draggedRow} > text`).attr('y', event.y + deltaYLabel);
-    })
-    .on('end', function () {
-      // Check the new position of the row
-      const y = parseFloat(d3.select(`.${draggedRow}`).attr('y'));
-
-      // Unhighlight row
-      d3.selectAll(`.${draggedRow}`).classed('highlighted', false).attr('fill-opacity', barOpacity);
-      d3.selectAll(`.label-${draggedRow} > text`).classed('highlighted', false);
-
-      console.log(`Row '${draggedRow}' is now at y=${y}`);
-    });
-
-  // Add drag handler to all bars.
-  onMount(() => {
+  // Run intial and update functions
+  updateColumns();
+  afterUpdate(() => {
     dragHandler(d3.selectAll('.bar'));
+    const axes = document.getElementById('axes');
+    if (axes != null && axes.children.length > 0) {
+      axes.removeChild(axes.children[0]);
+    }
   });
 </script>
 
@@ -235,7 +264,7 @@ to adjust `marginTop` or `columnMarginTop`.
         customPadding={columnSpacing}
         startColumn={0} />
     </g>
-    {#each columns as column, columnIndex}
+    {#each $columns as column, columnIndex}
       <BarColumn
         x={marginLeft + spacerDistance * columnIndex}
         y={marginTop}

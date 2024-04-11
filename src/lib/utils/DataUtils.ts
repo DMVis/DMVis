@@ -152,6 +152,22 @@ export class DataUtils {
     return sortedData;
   }
 
+  reorderRows(column: string, oldIndex: number, newIndex: number) {
+    const index = this.columns.indexOf(column);
+    if (index === -1) {
+      throw new Error(`Column ${column} not found.`);
+    }
+
+    const reorderedData = [...this.data];
+    const [removed] = reorderedData.splice(oldIndex, 1);
+    reorderedData.splice(newIndex, 0, removed);
+
+    this.data = reorderedData;
+    this.rawData = [this.columns, ...this.data];
+
+    return reorderedData;
+  }
+
   // Filters data based on the given ranges for every attribute,
   // Will return data in the format [Points inside[], Points outside[]]
   filterData(rangePerAttribute: (number[] | null)[]): string[][] {
