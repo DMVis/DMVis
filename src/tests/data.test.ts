@@ -109,7 +109,7 @@ describe('dataUtils tests', () => {
 
     // Test
     const dataUtils = new DataUtils();
-    const parsedData = await dataUtils.parseJson(jsonData);
+    const parsedData = await dataUtils.parseJSON(jsonData);
 
     // Assertions
     testRegularAssertions(parsedData);
@@ -121,7 +121,7 @@ describe('dataUtils tests', () => {
 
     // Test
     const dataUtils = new DataUtils();
-    const parsedData = await dataUtils.parseJson(jsonData);
+    const parsedData = await dataUtils.parseJSON(jsonData);
 
     // Assertions
     testRegularAssertions(parsedData);
@@ -185,7 +185,7 @@ describe('dataUtils tests', () => {
     const dataUtils = new DataUtils();
 
     // Assertions
-    await expect(dataUtils.parseJson(invalidData)).rejects.toThrowError(
+    await expect(dataUtils.parseJSON(invalidData)).rejects.toThrowError(
       'JSON data that was supplied is not in the correct format.'
     );
   });
