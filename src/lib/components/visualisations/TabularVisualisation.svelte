@@ -122,18 +122,60 @@
   });
 
   function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
-    // Highlight bar row.
+    // Highlight bar row
     d3.selectAll(`.${e.detail.name}`).classed('highlighted', true);
-    // Highlight label. '> text' is to refer to the nested text object.
+    // Highlight label. '> text' is to refer to the nested text object
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', true);
   }
 
   function onMouseBarLeft(e: CustomEvent<{ name: string }>) {
-    // Unhighlight bar row.
-    d3.selectAll(`.${e.detail.name}`).classed('highlighted', false);
-    // Unhighlight label. '> text' is to refer to the nested text object.
-    d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);
+    // Unhighlight bar row if not dragging
+    if (draggedRow != e.detail.name) {
+      d3.selectAll(`.${e.detail.name}`).classed('highlighted', false);
+
+      // Unhighlight label
+      d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);
+    }
   }
+
+  // Allows rows to be dragged
+  let deltaY: number = 0;
+  let deltaYLabel: number = 0;
+  let draggedRow: string = '';
+  const dragHandler = d3
+    .drag()
+    .on('start', function (event) {
+      // Set the element being dragged
+      draggedRow = event.sourceEvent.srcElement.attributes
+        .getNamedItem('class')
+        .value.split(' ')[1];
+      deltaY = parseFloat(d3.select(`.${draggedRow}`).attr('y')) - event.y;
+      deltaYLabel = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y')) - event.y;
+
+      // Raise dragged row to the front
+      d3.selectAll(`.${draggedRow}`).raise();
+      d3.selectAll(`.label-${draggedRow}`).raise();
+    })
+    .on('drag', function (event) {
+      // Update the row its y position
+      d3.selectAll(`.${draggedRow}`).attr('y', event.y + deltaY);
+      d3.selectAll(`.label-${draggedRow} > text`).attr('y', event.y + deltaYLabel);
+    })
+    .on('end', function () {
+      // Check the new position of the row
+      const y = parseFloat(d3.select(`.${draggedRow}`).attr('y'));
+
+      // Unhighlight row
+      d3.selectAll(`.${draggedRow}`).classed('highlighted', false).attr('fill-opacity', barOpacity);
+      d3.selectAll(`.label-${draggedRow} > text`).classed('highlighted', false);
+
+      console.log(`Row '${draggedRow}' is now at y=${y}`);
+    });
+
+  // Add drag handler to all bars.
+  onMount(() => {
+    dragHandler(d3.selectAll('.bar'));
+  });
 </script>
 
 <!--
