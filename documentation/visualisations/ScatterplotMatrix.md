@@ -34,7 +34,7 @@ Padding between all of the different scatterplots
 ## pointColor
 
 - Type: `string`
-- Default: `#CCCCFF`
+- Default: `red`
 
 Fill color of the points of the scatterplots.
 

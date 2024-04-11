@@ -16,8 +16,6 @@ Width of the visualisation
 
 Height of the visualisation
 
-# Semi-Required Attributes
-
 ## xAxis
 
 - Type: `string`

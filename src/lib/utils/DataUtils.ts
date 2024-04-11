@@ -59,80 +59,51 @@ export class DataUtils {
     return sortedData;
   }
 
-  filterData(columnX: string, columnY: string, selection: Array<Array<number>>) {
-    const indexX = this.columns.indexOf(columnX);
-    const indexY = this.columns.indexOf(columnY);
-    if (indexX === -1) {
-      throw new Error(`Column ${columnX} not found.`);
-    }
-    if (indexY === -1) {
-      throw new Error(`Column ${columnY} not found.`);
-    }
-    const [minX, minY] = selection[0];
-    const [maxX, maxY] = selection[1];
-    const filteredData = this.data.filter((p) => {
-      return (
-        (p[indexX] as number) > minX &&
-        (p[indexX] as number) < maxX &&
-        (p[indexY] as number) > minY &&
-        (p[indexY] as number) < maxY
-      );
-    });
-    return filteredData;
-  }
-  excludedData(columnX: string, columnY: string, selection: Array<Array<number>>) {
-    const indexX = this.columns.indexOf(columnX);
-    const indexY = this.columns.indexOf(columnY);
-    if (indexX === -1) {
-      throw new Error(`Column ${columnX} not found.`);
-    }
-    if (indexY === -1) {
-      throw new Error(`Column ${columnY} not found.`);
-    }
-    const [[minX, minY], [maxX, maxY]] = selection;
-    const pointsOutside: string[] = [];
-    for (const row of this.data) {
-      const x = row[indexX] as number;
-      const y = row[indexY] as number;
-      // const [x, y] = point;
-      if (
-        x <= Math.floor(minX) ||
-        x >= Math.ceil(maxX) ||
-        y <= Math.floor(minY) ||
-        y >= Math.ceil(maxY)
-      ) {
-        pointsOutside.push(row[0] as string);
-      }
-    }
-    return pointsOutside;
-  }
-  excludedDataForAll(minMaxPerAttribute: (number[] | null)[]) {
+  //Finds all the points that lie OUTSIDE a given selection
+  //A selection is a list of ranges for every attribute,
+  //if there is no range, the value will be null
+  calculateExcludedPoints(rangePerAttribute: (number[] | null)[]) {
+    //Find out what indices actually hold a selection and therefore need checking
     const indicesToCheck: number[] = [];
-    minMaxPerAttribute.forEach((range, i) => {
+    rangePerAttribute.forEach((range, i) => {
       if (range !== null) {
         indicesToCheck.push(i);
       }
     });
+    //If there are no attributes with a selection, it means no points will be excluded
+    //So return an empty array
     if (indicesToCheck.length == 0) {
       return [];
     }
+    //Otherwise filter the data
     return this.data
       .filter((row) => {
+        //Points start out as a point that is not excluded
         let isValidPoint = true;
+
+        //Loop over all indices
         indicesToCheck.forEach((i) => {
+          //If this point is already not valid, simply return
           if (!isValidPoint) return;
-          const [min, max] = minMaxPerAttribute[i] as number[];
+          //Get the selection
+          const [min, max] = rangePerAttribute[i] as number[];
+          //Get the value for the specific attribute from this point
+          //Note that we need to add 1 to the index, since the data also has a label column which we do not need
           const value = row[i + 1] as number;
+          //If the value is within this range, do nothing
           if (value >= min && value <= max) {
-            // isValidPoint = false;
             return;
           } else {
+            //If the value lies outside the range, this point is excluded for the given selections
+            //Meaning it is not valid
             isValidPoint = false;
           }
         });
+        //We look for all the excluded points, so return the inverse of isValid
         return !isValidPoint;
       })
       .map((row) => {
+        //Now only return the name of the points
         return row[0] as string;
       });
   }

@@ -10,9 +10,8 @@
   export let width: number;
   export let height: number;
 
-  //Semi-mandatory exports
-  export let xAxis: string = 'x';
-  export let yAxis: string = 'y';
+  export let xAxis: string;
+  export let yAxis: string;
 
   //Optional exports
   export let showAxis: boolean = true;
@@ -60,8 +59,6 @@ This is a visualisation to display a dataset of points
   * width: number                                                     - Width of the visualisation
   * height: number                                                    - Height of the visualisation
 
-#### Semi-Required attributes
-These attributes are required when using the Map datatype
   * xAxis: string - The name of the attribute that needs to be plotted on the x-axis. This should be the same one that is provided in the data
   * yAxis: string - The name of the attribute that needs to be plotted on the y-axis. This should be the same one that is provided in the data
 
@@ -75,6 +72,7 @@ These attributes are required when using the Map datatype
 -->
 <g {width} {height} class="visualisation scatterplot">
   {#key data}
+    <g class="brush" />
     {#if showAxis}
       <DynamicAxis
         position="bottom"

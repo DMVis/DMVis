@@ -56,6 +56,7 @@ It is used in combination with other components to create a chart.
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
   * name: string          - Name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
 -->
+
 <circle
   cx={x}
   cy={y}
