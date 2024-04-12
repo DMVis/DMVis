@@ -3,6 +3,7 @@ import { render } from '@testing-library/svelte';
 
 import Point from '$lib/components/base/Point.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
+import NewStoreWrapper from './NewStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -21,8 +22,6 @@ describe('Html test', () => {
 
     //Check defaut values
     expect(point.getAttribute('r')).toBe('5');
-    expect(point.getAttribute('stroke')).toBe('#000');
-    expect(point.getAttribute('fill')).toBe('#CCCCFF');
     expect(point.getAttribute('stroke-width')).toBe('1');
     expect(point.getAttribute('opacity')).toBe('1');
   });
@@ -32,8 +31,6 @@ describe('Html test', () => {
       x: 112,
       y: 523,
       radius: 8,
-      color: 'orange',
-      borderColor: 'cyan',
       borderWidth: 2,
       opacity: 0.5
     };
@@ -44,8 +41,6 @@ describe('Html test', () => {
 
     //Check custom values
     expect(point.getAttribute('r')).toBe('8');
-    expect(point.getAttribute('stroke')).toBe('cyan');
-    expect(point.getAttribute('fill')).toBe('orange');
     expect(point.getAttribute('stroke-width')).toBe('2');
     expect(point.getAttribute('opacity')).toBe('0.5');
   });
@@ -58,7 +53,7 @@ function preparePoint(config: object): SVGCircleElement {
   }
 
   // Render a point and return the circle element.
-  const { container } = render(Point, config);
+  const { container } = render(NewStoreWrapper, { props: { Component: Point, config } });
   const point = container.getElementsByClassName('point')[0] as SVGCircleElement;
   return point;
 }

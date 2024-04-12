@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
+  import type { VisualisationStore } from '$lib/store.js';
 
   export let x: number;
   export let y: number;
   export let radius: number = 5;
-  export let color: string = '#CCCCFF';
-  export let borderColor: string = '#000';
   export let borderWidth: number = 1;
   export let opacity: number = 1;
   export let name: string = `(${x},${y})`;
+
+  const { styleUtil } = getContext<VisualisationStore>('store');
 
   const dispatch = createEventDispatcher();
 
@@ -35,9 +36,7 @@ It is used in combination with other components to create a chart.
 
 #### Optional attributes
   * radius: number        - Radius of the point, defaulted to 5
-  * color: string         - Color of the center of the point, defaulted to blue. Can be any hex-code, rgb or plain string colors
   * opacity: string       - Opacity of the circle
-  * borderColor: string   - Color of the border of the point, defaulted to Black. Can be any hex-code, rgb or plain string colors
   * borderWidth: number   - Width of the border, defaulted to 1
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
   * name: string          - Name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
@@ -47,8 +46,8 @@ It is used in combination with other components to create a chart.
   cx={x}
   cy={y}
   r={radius}
-  stroke={borderColor}
-  fill={color}
+  stroke={$styleUtil.colorBorder}
+  fill={$styleUtil.color}
   stroke-width={borderWidth}
   {opacity}
   class={'point ' + name}
@@ -64,6 +63,7 @@ It is used in combination with other components to create a chart.
   .highlighted {
     opacity: 1;
     stroke-width: 2;
+    fill: #f42b03;
   }
   .greyed {
     fill: grey;

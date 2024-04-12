@@ -73,6 +73,13 @@ Margin above of the visualisation
 
 Margin under of the visualisation
 
+## styleUtils
+
+- Type: `StyleUtils`
+- Default: `new StyleUtils()`
+
+Class holding all the style information, see [StyleUtils](utils/styleUtils.md).
+
 # Example usage
 
 ```svelte

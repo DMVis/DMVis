@@ -7,13 +7,11 @@
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import type { VisualisationStore } from '$lib/store.js';
 
-  export let focusColor: string = '#F44';
-  export let color: string = '#BBB';
   export let lineWidth: number = 1;
   export let hoverable: boolean = false;
   export let alignment: 'start' | 'end' | 'spaced' = 'spaced';
 
-  const { yScales, width, marginLeft, marginRight, data, columns } =
+  const { yScales, width, marginLeft, marginRight, data, columns, styleUtil } =
     getContext<VisualisationStore>('store');
 
   let spacer: d3.ScaleBand<string> | d3.ScalePoint<string>;
@@ -108,9 +106,9 @@ It is used in combination with other components to create a chart.
       d={path.path}
       stroke={highlightedLine !== -1 && hoverable
         ? highlightedLine === i
-          ? focusColor
-          : color
-        : color}
+          ? $styleUtil.focusColor
+          : $styleUtil.color
+        : $styleUtil.color}
       stroke-width={lineWidth}
       fill="none"
       on:mouseenter={() => {

@@ -1,5 +1,6 @@
 import { extent, scaleBand, scaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
+import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
 export class GraphStore {
   public marginTop: Writable<number>;
@@ -109,6 +110,7 @@ export class VisualisationStore {
   public padding: Writable<number>;
   public data: Writable<Array<Array<number | string>>>;
   public columns: Writable<Array<string>>;
+  public styleUtil: Writable<StyleUtils>;
 
   constructor() {
     this.marginTop = writable(40);
@@ -120,6 +122,7 @@ export class VisualisationStore {
     this.padding = writable(0.1);
     this.data = writable([]);
     this.columns = writable([]);
+    this.styleUtil = writable(new StyleUtils());
   }
 
   get xScales() {

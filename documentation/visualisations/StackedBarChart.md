@@ -59,6 +59,13 @@ The margin on the bottom side of the chart.
 
 Sets the opacity of the bars. Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
 
+## styleUtils
+
+- Type: `StyleUtils`
+- Default: `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`
+
+The `StyleUtils` class which contains all the style information for the chart.
+
 # Example usage
 
 Create a StackedBarChart with custom opacity.

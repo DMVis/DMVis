@@ -39,3 +39,4 @@
   - [DataUtils](utils/dataUtils.md)
   - [Origin](utils/origin.md)
   - [Spacer](utils/spacer.md)
+  - [StyleUtils](utils/styleUtils.md)

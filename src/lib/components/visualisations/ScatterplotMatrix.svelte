@@ -11,6 +11,7 @@
 
   //Import dmvis utils
   import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { VisualisationStore } from '$lib/store.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
@@ -19,13 +20,14 @@
   export let width: number;
   export let dataUtil: DataUtils;
 
+  export let styleUtil: StyleUtils = new StyleUtils({ color: '#f42b03' });
+
   export let marginLeft: number = 40;
   export let marginRight: number = 40;
   export let marginBottom: number = 40;
   export let marginTop: number = 40;
 
   export let padding: number = 0.1;
-  export let pointColor: string = 'red';
   export let pointOpacity: number = 0.3;
 
   //List that holds all the names of the grey points in the scatterplot matrix
@@ -71,6 +73,7 @@
     visualisationStore.marginBottom.set(marginBottom);
     visualisationStore.width.set(width);
     visualisationStore.height.set(height);
+    visualisationStore.styleUtil.set(styleUtil);
 
     //The first column name is `label`, this is not relevant
     axisNames = dataUtil.columns.slice(1);
@@ -426,7 +429,6 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 width={xScale.bandwidth()}
                 height={yScale.bandwidth()}
                 showAxis={false}
-                {pointColor}
                 {pointOpacity} />
             </g>
           {:else}

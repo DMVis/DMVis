@@ -14,13 +14,14 @@
     marginRight,
     marginBottom,
     marginLeft,
-    columns
+    columns,
+    styleUtil
   } = getContext<VisualisationStore>('store');
 
   // Public variables
   export let hasTicks: boolean = true;
   export let alignment: 'start' | 'end' | 'spaced' = 'start';
-  export let fontSize: number = 10;
+  export let fontSize: number = $styleUtil.fontSize;
   export let color: string = 'black';
   export let offset: number = 0;
   export let ticksNumber: number = 10;

@@ -22,7 +22,7 @@ describe('Html test', () => {
     const line = lineGroup.getElementsByClassName('line')[0];
 
     // Check defaut values.
-    expect(line.getAttribute('stroke')).toBe('#BBB');
+    expect(line.getAttribute('stroke')).toBe('#BBBBBB');
     expect(line.getAttribute('stroke-width')).toBe('1');
   });
 
@@ -45,7 +45,7 @@ describe('Html test', () => {
     });
 
     // Check if line color changes on mouse enter event.
-    expect(lineOne.getAttribute('stroke')).toBe('#F44');
+    expect(lineOne.getAttribute('stroke')).toBe('#FF0000');
 
     // Simulate mouse leave event.
     await waitFor(() => {
@@ -53,7 +53,7 @@ describe('Html test', () => {
     });
 
     // Check if line color resets on mouse leave event.
-    expect(lineOne.getAttribute('stroke')).toBe('#BBB');
+    expect(lineOne.getAttribute('stroke')).toBe('#BBBBBB');
   });
 });
 

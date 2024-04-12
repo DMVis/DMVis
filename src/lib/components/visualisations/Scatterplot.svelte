@@ -17,7 +17,6 @@
   export let showAxis: boolean = true;
   export let numTicks: number = 5;
 
-  export let pointColor: string = '#CCCCFF';
   export let pointOpacity: number = 1;
 
   //Get from visualisationstore
@@ -66,7 +65,6 @@ This is a visualisation to display a dataset of points
   * showAxis: bool - Whether or not the axis should be drawn
   * numTicks: number - Amount of ticks to be displayed on the axis
 
-  * pointColor: string - Color of the points of the scatterplot, defaults to '#CCCCFF'
   * pointOpacity: number - Opacity of the points of the scatterplot, defaults to 1
 
 -->
@@ -93,7 +91,6 @@ This is a visualisation to display a dataset of points
         x={xScaleLocal(getValue(p, xIndex))}
         y={yScaleLocal(getValue(p, yIndex))}
         opacity={pointOpacity}
-        color={pointColor}
         name={getName(p)} />
     {/each}
   {/key}

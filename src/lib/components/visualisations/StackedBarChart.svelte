@@ -3,6 +3,7 @@
 
   import { VisualisationStore } from '$lib/store.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import StackedBar from '$lib/components/base/StackedBar.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
 
@@ -18,6 +19,10 @@
   export let marginTop: number = 40;
   export let padding: number = 0.2;
   export let opacity: number | string = 1;
+  export let styleUtil: StyleUtils = new StyleUtils({
+    colorSet: 'Set1',
+    numColors: dataUtil.columns.length - 1
+  });
 
   // Set store values
   const visStore = new VisualisationStore();
@@ -30,6 +35,7 @@
   visStore.height.set(height);
   visStore.data.set(dataUtil.data);
   visStore.columns.set(dataUtil.columns);
+  visStore.styleUtil.set(styleUtil);
 
   // Set graph store
   setContext('store', visStore);
@@ -56,6 +62,7 @@ The y-axis represents the categories of the data.
 * padding: number          - Value for the distance between each bar in the range [0..1].
 * opacity: number | string - Opacity of each bar as a number in range [0..1] or
                              a percentage string formatted as '{number}%'.
+* styleUtil: StyleUtils     - Class holding all the styling. See documentation.
 -->
 <svg class="visualisation" {width} {height}>
   {#key dataUtil}

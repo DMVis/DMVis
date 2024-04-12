@@ -60,6 +60,8 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/svelte": "^4.1.0",
     "@testing-library/user-event": "^14.5.2",
+    "@types/chroma-js": "^2.4.4",
+    "@types/colorbrewer": "^1.0.32",
     "@types/d3": "^7.4.3",
     "@types/eslint": "8.56.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -87,5 +89,9 @@
   },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "chroma-js": "^2.4.2",
+    "colorbrewer": "^1.5.6"
+  }
 }

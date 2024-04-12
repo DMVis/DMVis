@@ -4,6 +4,7 @@
 
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
 
   // Insert exports
@@ -11,6 +12,7 @@
   export let height: number;
   export let dataUtil: DataUtils;
 
+  export let styleUtil: StyleUtils = new StyleUtils();
   export let marginLeft: number = 40;
   export let marginRight: number = 40;
   export let marginTop: number = 40;
@@ -26,6 +28,7 @@
   visualisationStore.marginRight.set(marginRight);
   visualisationStore.marginTop.set(marginTop);
   visualisationStore.marginBottom.set(marginBottom);
+  visualisationStore.styleUtil.set(styleUtil);
   setContext('store', visualisationStore);
 </script>
 
@@ -46,6 +49,7 @@ It creates an axis for each column in the supplied table with data
 * marginRight: number  - Margin to the right of the visualisation, defaults to 40
 * marginTop: number  - Margin to the top of the visualisation, defaults to 40
 * marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
+* styleUtil: StyleUtils - Class holding all the styling. See documentation.
 -->
 <svg class="visualisation" {width} {height}>
   <Line lineWidth={2} hoverable={true} />

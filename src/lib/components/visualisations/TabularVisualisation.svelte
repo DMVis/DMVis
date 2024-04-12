@@ -5,6 +5,7 @@
   import { Spacer } from '$lib/utils/Spacer.js';
   import { VisualisationStore } from '$lib/store.js';
   import { DataUtils } from '$lib/utils/DataUtils.js';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import BarColumn from '$lib/components/base/BarColumn.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
 
@@ -14,6 +15,8 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
+  export let styleUtil: StyleUtils = new StyleUtils({ color: 'red' });
+
   export let marginLeft: number = 30;
   export let marginRight: number = 30;
   export let marginTop: number = 50;
@@ -23,16 +26,15 @@
   export let showColumnLines: boolean = false;
 
   export let barPadding: number = 0.15;
-  export let barColor: string = 'red';
-  export let barOpacity: number | string = 0.6;
+  export let barColor: string = styleUtil.color;
   export let barRadiusX: number | string = 0;
   export let barRadiusY: number | string = 0;
 
   export let textColor: string = 'black';
   export let fontSize: string = '10px';
   export let fontWeight: string = 'normal';
-  export let fontFamily: string = 'Arial';
-
+  export let fontFamily: string = styleUtil.fontFamily;
+  export let barOpacity: number | string = 0.6;
   export let headerColor: string = 'rgb(200,200,200)';
   export let headerOpacity: number | string = 1;
   export let headerRadiusX: number | string = 5;
@@ -54,6 +56,7 @@
   visualisationStore.marginTop.set(marginTop);
   visualisationStore.marginBottom.set(marginBottom);
   visualisationStore.columns.set(dataUtil.columns);
+  visualisationStore.styleUtil.set(styleUtil);
   setContext('store', visualisationStore);
 
   // Private attributes.
@@ -147,6 +150,7 @@ to adjust `marginTop` or `columnMarginTop`.
 * dataUtil: DataUtils                 - The `DataUtils` class which, contains all the data to be displayed.
 
 #### Optional attributes
+* styleUtil: StyleUtils               - The `StyleUtils` class which, contains all the styling for the visualisation.
 * marginLeft: number                  - Margin to the left of the visualisation.
 * marginRight: number                 - Margin to the right of the visualisation.
 * marginTop: number                   - Margin to the top of the visualisation.
