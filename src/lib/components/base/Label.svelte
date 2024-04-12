@@ -186,3 +186,9 @@ The default origin is the middle of the label.
     alignment-baseline="middle"
     dominant-baseline="middle">{text}</text>
 </g>
+
+<style>
+  .highlighted {
+    font-weight: bold;
+  }
+</style>
