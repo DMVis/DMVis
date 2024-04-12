@@ -318,7 +318,7 @@
     text: ''
   };
   //Function that fires when the mouse leaves any point
-  function mouseOfPoint(): void {
+  function onMousePointLeft(): void {
     //If there is a point clicked, do not do anything
     if (clickedPoint != '') return;
     //Remove the highlight from all points
@@ -327,7 +327,7 @@
     tooltipData.visible = false;
   }
   //Function that fires when the mouse hovers over any point
-  function mouseOnPoint(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+  function onMousePointEntered(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     //If there is a point clicked, do not do anything
     if (clickedPoint != '') return;
 
@@ -347,7 +347,7 @@
     tooltipData.text = name;
   }
   let clickedPoint = '';
-  function pointClicked(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+  function onPointClicked(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     let name = e.detail.name;
     if (name === clickedPoint) {
       clickedPoint = '';
@@ -418,9 +418,9 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 style="pointer-events: none">
               </rect>
               <Scatterplot
-                on:mousePointLeft={mouseOfPoint}
-                on:mousePointEntered={mouseOnPoint}
-                on:pointClicked={pointClicked}
+                on:mousePointLeft={onMousePointLeft}
+                on:mousePointEntered={onMousePointEntered}
+                on:pointClicked={onPointClicked}
                 {xAxis}
                 {yAxis}
                 width={xScale.bandwidth()}

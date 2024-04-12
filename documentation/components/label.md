@@ -145,30 +145,34 @@ Opacity of the background behind the label. Defaults to `opacity`.
 - Type: `string`
 - Default: `undefined`
 
-A possible class name for the label. If defined the label will get the class `label-{name}`. If left undefined the label will get no class.
+Name of the label. It can be used as an identifier.
+Defaults to `''`.
+
+> Note: If set, then the corresponding class becomes 'label-`name`'.
+> Else, there is no class by default.
 
 ## width
 
 - Type: `number | 'auto'`
 - Default: `'auto'`
 
-The width of the whole label, defaults to the width of the text
+Width of the rectangle of the label. Defaults to 'auto'.
 
 ## height
 
 - Type: `number | 'auto'`
 - Default: `'auto'`
 
-The height of the whole label, defaults to the height of the text
+Height of the rectangle of the label. Defaults to 'auto'.
 
 ## borderColor
 
 - Type: `string`
 - Default: `'black'`
 
-The color of the border around the label
+Color of the border around the label. Defaults to black.
 
-> Note: Can be set to `'none'` for no border
+> Note: Can be set to `'none'` for no border.
 
 # Example usage
 

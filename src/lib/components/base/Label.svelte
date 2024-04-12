@@ -147,10 +147,13 @@ The default origin is the middle of the label.
 * fontFamily: string        - Font family of the text in the label.
 * hasBackground: bool       - Whether the label has a background or not.
 * backgroundOpacity: number - Opacity of the background behind the label. Defaults to `opacity`.
-* name: string              - What class to give to the label, default to '' making the default class 'label-'
-* width: number | 'auto'    - Width of the rectangle of the label, defaults to 'fit-text'
-* height: number | 'auto'   - Height of the rectangle of the label, defaults to 'fit-text'
-* borderColor: string      - Color of the border around the label, defaults to black. Can be set to `none` for no border
+* name: string              - Name of the label. It can be used as an identifier.
+                              Defaults to `''`. If set, then the corresponding class becomes 'label-`name`'.
+                              Else, there is no class by default.
+* width: number | 'auto'    - Width of the rectangle of the label. Defaults to 'auto'.
+* height: number | 'auto'   - Height of the rectangle of the label. Defaults to 'auto'.
+* borderColor: string       - Color of the border around the label. Defaults to black.
+                              Can be set to `'none'` for no border.
 -->
 
 <g

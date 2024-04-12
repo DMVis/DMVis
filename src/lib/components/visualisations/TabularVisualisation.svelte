@@ -122,7 +122,7 @@
     // Highlight bar row.
     d3.selectAll(`.${e.detail.name}`).classed('highlighted', true).attr('fill-opacity', 1);
 
-    // Highlight label.
+    // Highlight label. '> text' is to refer to the nested text object.
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', true);
   }
 
@@ -132,7 +132,7 @@
       .classed('highlighted', false)
       .attr('fill-opacity', barOpacity);
 
-    // Unhighlight label.
+    // Unhighlight label. '> text' is to refer to the nested text object.
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);
   }
 </script>
