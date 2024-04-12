@@ -120,18 +120,14 @@
 
   function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
     // Highlight bar row.
-    d3.selectAll(`.${e.detail.name}`).classed('highlighted', true).attr('fill-opacity', 1);
-
+    d3.selectAll(`.${e.detail.name}`).classed('highlighted', true);
     // Highlight label. '> text' is to refer to the nested text object.
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', true);
   }
 
   function onMouseBarLeft(e: CustomEvent<{ name: string }>) {
     // Unhighlight bar row.
-    d3.selectAll(`.${e.detail.name}`)
-      .classed('highlighted', false)
-      .attr('fill-opacity', barOpacity);
-
+    d3.selectAll(`.${e.detail.name}`).classed('highlighted', false);
     // Unhighlight label. '> text' is to refer to the nested text object.
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);
   }

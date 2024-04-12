@@ -142,3 +142,9 @@ The default origin is the bottom middle of the bar.
     textColor={'#ffffff'}
     name={'bar'} />
 {/if}
+
+<style>
+  .highlighted {
+    fill-opacity: 1;
+  }
+</style>

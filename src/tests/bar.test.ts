@@ -172,7 +172,9 @@ describe('Html test', () => {
     expect(bar.getAttribute('role')).toBe('treeitem');
     expect(bar.getAttribute('tabindex')).toBe('0');
     expect(bar.getAttribute('aria-selected')).toBe('false');
-    expect(bar.getAttribute('class')).toBe(`bar (${config.x},${config.y})`);
+    // .contain() instead of .toBe(), because d3 adds odd extra class(es).
+    // For example: s-LxN4m1-JgGU0
+    expect(bar.getAttribute('class')).contain(`bar (${config.x},${config.y})`);
   });
 
   it('checks if custom attributes are filled', () => {
@@ -200,7 +202,9 @@ describe('Html test', () => {
     expect(bar.getAttribute('ry')).toBe(`${config.radiusY}`);
     expect(bar.getAttribute('fill')).toBe(`${config.color}`);
     expect(bar.getAttribute('fill-opacity')).toBe(`${config.opacity}`);
-    expect(bar.getAttribute('class')).toBe(`bar test`);
+    // .contain() instead of .toBe(), because d3 adds odd extra class(es).
+    // For example: s-LxN4m1-JgGU0
+    expect(bar.getAttribute('class')).contain(`bar test`);
   });
 });
 
