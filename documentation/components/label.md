@@ -50,6 +50,13 @@ Opacity of the label.
 
 Opacity of the background of the label.
 
+## pointerEvents
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the label should respond to all pointer events (true) or none (false). Defaults to `none`.
+
 ## originX
 
 - Type: `OriginX`

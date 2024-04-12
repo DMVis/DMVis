@@ -146,3 +146,16 @@ const rangePerAttribute = {
 
 const [filteredData, excludedData] = dataUtil.filterData(rangePerAttribute);
 ```
+
+# reorderRows
+
+The `reorderRows` function allows you to reorder the rows of the data array. It takes in the following parameters:
+
+- `oldIndex`: The index of the row to move
+- `newIndex`: The index to move the row to
+
+Below is an example of how to use the `reorderRows` function:
+
+```javascript
+dataUtil.reorderRows(0, 2);
+```

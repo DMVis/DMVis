@@ -152,19 +152,22 @@ export class DataUtils {
     return sortedData;
   }
 
-  reorderRows(column: string, oldIndex: number, newIndex: number) {
-    const index = this.columns.indexOf(column);
-    if (index === -1) {
-      throw new Error(`Column ${column} not found.`);
-    }
-
+  /**
+   * Reorders the rows of the data based on the given column and the old and new indices.
+   * @param column The column to reorder the rows based on.
+   * @param oldIndex The old index of the row.
+   * @param newIndex The new index of the row.
+   * @returns
+   */
+  reorderRows(oldIndex: number, newIndex: number) {
+    // Reorder data
     const reorderedData = [...this.data];
     const [removed] = reorderedData.splice(oldIndex, 1);
     reorderedData.splice(newIndex, 0, removed);
 
+    // Set the new data
     this.data = reorderedData;
     this.rawData = [this.columns, ...this.data];
-
     return reorderedData;
   }
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as d3 from 'd3';
   import { writable } from 'svelte/store';
-  import { onMount, setContext, afterUpdate } from 'svelte';
+  import { setContext, afterUpdate } from 'svelte';
 
   import { Spacer } from '$lib/utils/Spacer.js';
   import { VisualisationStore } from '$lib/store.js';
@@ -79,9 +79,18 @@
     .drag<SVGElement, unknown>()
     .on('start', function (event) {
       // Set the element being dragged
-      draggedRow = event.sourceEvent.srcElement.attributes
-        .getNamedItem('class')
-        .value.split(' ')[1];
+      if (event.sourceEvent.srcElement.nodeName == 'text') {
+        draggedRow = event.sourceEvent.srcElement.parentElement.attributes
+          .getNamedItem('class')
+          .value.split(' ')[0]
+          .split('-')[1];
+      } else {
+        draggedRow = event.sourceEvent.srcElement.attributes
+          .getNamedItem('class')
+          .value.split(' ')[1];
+      }
+
+      // Store the initial y position of the dragged row
       deltaY = parseFloat(d3.select(`.${draggedRow}`).attr('y')) - event.y;
       deltaYLabel = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y')) - event.y;
 
@@ -108,13 +117,11 @@
 
       // Update the data
       const minDistanceIndex = distances.indexOf(Math.min(...distances));
-      const nearestRow: Element = rows[minDistanceIndex != -1 ? minDistanceIndex : 0];
+      const nearestRow = rows[minDistanceIndex != -1 ? minDistanceIndex : 0];
       const nearestLabel = nearestRow ? nearestRow.innerHTML : rows[0].innerHTML;
       const oldIndex = dataUtil.data.findIndex((row) => row[0] == draggedRow);
       const newIndex = dataUtil.data.findIndex((row) => row[0] == nearestLabel);
-      const newData = dataUtil.reorderRows('label', oldIndex, newIndex == -1 ? 0 : newIndex);
-
-      // Update the data
+      const newData = dataUtil.reorderRows(oldIndex, newIndex == -1 ? 0 : newIndex);
       dataUtil.data = newData;
       visualisationStore.data.set(newData);
       updateColumns();
@@ -177,6 +184,7 @@
 
     // Add drag handler to all rows
     dragHandler(d3.selectAll('.bar'));
+    dragHandler(d3.selectAll('.bar-label'));
   }
 
   function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
@@ -200,6 +208,7 @@
   updateColumns();
   afterUpdate(() => {
     dragHandler(d3.selectAll('.bar'));
+    dragHandler(d3.selectAll('.bar-label'));
     const axes = document.getElementById('axes');
     if (axes != null && axes.children.length > 0) {
       axes.removeChild(axes.children[0]);

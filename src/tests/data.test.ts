@@ -189,6 +189,26 @@ describe('dataUtils tests', () => {
       'JSON data that was supplied is not in the correct format.'
     );
   });
+
+  it('should reorder the rows of the data', async () => {
+    // Prepare data
+    const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
+    const oldIndex = 0;
+    const newIndex = 2;
+
+    // Test
+    const dataUtils = new DataUtils();
+    await dataUtils.parseCSV(csvData);
+    const result = dataUtils.reorderRows(oldIndex, newIndex);
+
+    // Assertions
+    expect(result).toBeDefined();
+    expect(result).toBeInstanceOf(Array);
+    expect(result.length).toBe(3);
+    expect(result[0]).toEqual([4, 5, 6]);
+    expect(result[1]).toEqual([7, 8, 9]);
+    expect(result[2]).toEqual([1, 2, 3]);
+  });
 });
 
 function testRegularAssertions(data: Array<Array<string | number>>) {

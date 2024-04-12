@@ -160,7 +160,8 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       {fontWeight}
       {fontFamily}
       hasBackground={false}
-      name={row.label} />
+      pointerEvents={true}
+      name={`${row.label} bar-label`} />
   {/each}
 
   <!-- Draw header on top of column. -->
