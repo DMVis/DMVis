@@ -87,8 +87,8 @@ The y-axis represents the categories of the data.
         x={$marginLeftBar}
         y={yScaleLocal(bar.label) ?? 0}
         width={yScaleLocal.bandwidth()}
-        value={barScale(bar.value)}
-        isValueAlongYAxis={false}
+        height={barScale(bar.value)}
+        isHeightAlongYAxis={false}
         originX={OriginX.Left}
         originY={OriginY.Top}
         {color}

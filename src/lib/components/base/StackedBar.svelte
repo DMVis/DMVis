@@ -39,12 +39,12 @@ on top of each other.
         x={$marginLeft + d3.sum(rows.slice(0, colIndex))}
         y={Number(yScale(String(labels[rowIndex])))}
         width={yScale.bandwidth()}
-        value={Number(rows[colIndex])}
-        isValueAlongYAxis={false}
+        height={Number(rows[colIndex])}
+        isHeightAlongYAxis={false}
         color={$styleUtil.colorScheme[colIndex % $styleUtil.colorScheme.length]}
         originX={OriginX.Left}
         originY={OriginY.Top}
-        hoverText={`${column}: `}
+        hoverText={`${column}: ${Number(rows[colIndex])}`}
         {opacity} />
     {/each}
   {/each}

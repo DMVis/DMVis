@@ -87,8 +87,8 @@ The y-axis represents the numerical values of the data.
         x={xScaleLocal(bar.label) ?? 0}
         y={height - $marginBottomBar}
         width={xScaleLocal.bandwidth()}
-        value={barScale(bar.value)}
-        isValueAlongYAxis={true}
+        height={barScale(bar.value)}
+        isHeightAlongYAxis={true}
         originX={OriginX.Left}
         originY={OriginY.Bottom}
         {color}

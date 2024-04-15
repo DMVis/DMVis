@@ -5,13 +5,13 @@
   import Bar from '$lib/components/base/Bar.svelte';
   import Label from '$lib/components/base/Label.svelte';
 
-  // Required attributes.
+  // Required attributes
   export let x: number;
   export let y: number;
   export let width: number;
   export let height: number;
   // Every column has a header label and either
-  // categorical values paired with a value (a label + bar) or only the first (just a label).
+  // categorical values paired with a value (a label + bar) or only the first (just a label)
   export let data: {
     header: string;
     rows: Array<{ label: string }> | Array<{ label: string; value: number }>;
@@ -46,7 +46,7 @@
   export let headerFontFamily: string = 'Arial';
   export let hasHeaderBackground: boolean = true;
 
-  // Private attributes.
+  // Private attributes
   const values: Array<number> = data.rows.map((row) => (`value` in row ? row.value : 0));
   const maxX: number = d3.max(values) ?? 0;
   const xScale = d3
@@ -122,21 +122,21 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 -->
 <g {width} {height} class="bar-column">
   {#each data.rows as row}
-    <!-- Draw bars if not just labels. -->
+    <!-- Draw bars if not just labels -->
     {#if 'value' in row}
       <Bar
         x={x + columnSpacing / 2}
         y={y + (yScale(row.label) ?? 0)}
         width={yScale.bandwidth()}
-        value={xScale(row.value) - xScale(0)}
-        isValueAlongYAxis={false}
+        height={xScale(row.value) - xScale(0)}
+        isHeightAlongYAxis={false}
         originX={OriginX.Left}
         originY={OriginY.Top}
         color={barColor}
         opacity={barOpacity}
         radiusX={barRadiusX}
         radiusY={barRadiusY}
-        hoverText={`${row.label}: `}
+        hoverText={`${row.label}: ${row.value}`}
         name={row.label}
         on:mouseBarEntered
         on:mouseBarLeft />
@@ -144,8 +144,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 
     <!--
       Draw bar value on top of bar
-      or just the label depending on the data.
-      This can be made more customisable for users if needed.
+      or just the label depending on the data
     -->
     <Label
       x={x + columnSpacing / 2}
@@ -164,7 +163,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       name={`${row.label} bar-label`} />
   {/each}
 
-  <!-- Draw header on top of column. -->
+  <!-- Draw header on top of column -->
   <Label
     x={x + width / 2}
     y={y + headerOffsetY}

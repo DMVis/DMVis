@@ -7,21 +7,21 @@ prepareSvgGetter();
 
 describe('Html test', () => {
   it('checks if a vertically configured bar is vertical', () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
     // Since the bar is designed to be vertical by default, the
-    // width corresponds to width and the height corresponds to value.
+    // width corresponds to width and the height corresponds to height.
     const expectedWidth = config.width;
-    const expectedHeight = config.value;
+    const expectedHeight = config.height;
     expect(bar.getAttribute('width')).toBe(`${expectedWidth}`);
     expect(bar.getAttribute('height')).toBe(`${expectedHeight}`);
   });
 
   it('checks if a horizontally configured bar is horizontal', () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: false };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: false };
     const bar = prepareBar(config);
     // Note that width and height are now swapped.
-    const expectedWidth = config.value;
+    const expectedWidth = config.height;
     const expectedHeight = config.width;
     expect(bar.getAttribute('width')).toBe(`${expectedWidth}`);
     expect(bar.getAttribute('height')).toBe(`${expectedHeight}`);
@@ -32,72 +32,72 @@ describe('Html test', () => {
   Note that originX and originY are avoided too, because these are tested in isolation.
   */
 
-  it(`checks if a bar with a positive value, configured to
-      not show a negative value, has value for height`, () => {
+  it(`checks if a bar with a positive height, configured to
+      not show a negative height, has 'height' for height`, () => {
     const config = {
       x: 0,
       y: 0,
       width: 50,
-      value: 250,
-      isValueAlongYAxis: true,
-      showsNegativeValue: false
+      height: 250,
+      isHeightAlongYAxis: true,
+      showsNegativeHeight: false
     };
     const bar = prepareBar(config);
-    const expectedHeight = config.value;
+    const expectedHeight = config.height;
     expect(bar.getAttribute('height')).toBe(`${expectedHeight}`);
   });
 
-  it(`checks if a bar with a positive value, configured to
-      show a negative value, has value for height`, () => {
+  it(`checks if a bar with a positive height, configured to
+      show a negative height, has 'height' for height`, () => {
     const config = {
       x: 0,
       y: 0,
       width: 50,
-      value: 250,
-      isValueAlongYAxis: true,
-      showsNegativeValue: true
+      height: 250,
+      isHeightAlongYAxis: true,
+      showsNegativeHeight: true
     };
     const bar = prepareBar(config);
-    const expectedHeight = config.value;
+    const expectedHeight = config.height;
     expect(bar.getAttribute('height')).toBe(`${expectedHeight}`);
   });
 
-  it(`checks if a bar with a negative value, configured to
-      not show a negative value, has value for height`, () => {
+  it(`checks if a bar with a negative height, configured to
+      not show a negative height, has 'height' for height`, () => {
     // A negative height resuls in no visible rendering, so this is fine.
     // Clamping is not needed as a result.
     const config = {
       x: 0,
       y: 0,
       width: 50,
-      value: -250,
-      isValueAlongYAxis: true,
-      showsNegativeValue: false
+      height: -250,
+      isHeightAlongYAxis: true,
+      showsNegativeHeight: false
     };
     const bar = prepareBar(config);
-    const expectedHeight = config.value;
+    const expectedHeight = config.height;
     expect(bar.getAttribute('height')).toBe(`${expectedHeight}`);
   });
 
-  it(`checks if a bar with a negative value, configured to
-      show a negative value, has a positive height`, () => {
+  it(`checks if a bar with a negative height, configured to
+      show a negative height, has a positive height`, () => {
     // Since a negative height results in no visible rendering, the height has to be positive
-    // if the bar is configured to show a negative value.
+    // if the bar is configured to show a negative height.
     const config = {
       x: 0,
       y: 0,
       width: 50,
-      value: -250,
-      isValueAlongYAxis: true,
-      showsNegativeValue: true
+      height: -250,
+      isHeightAlongYAxis: true,
+      showsNegativeHeight: true
     };
     const bar = prepareBar(config);
-    const expectedHeight = -config.value;
+    const expectedHeight = -config.height;
     expect(bar.getAttribute('height')).toBe(`${expectedHeight}`);
   });
 
   it('checks if a bar has no label by default', () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
     const label = document.body.getElementsByClassName('label')[0];
     expect(bar).toBeDefined();
@@ -105,7 +105,7 @@ describe('Html test', () => {
   });
 
   it('checks if a label appears on mouse enter event with the bar', async () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
 
     // Simulate mouse enter event.
@@ -118,7 +118,7 @@ describe('Html test', () => {
   });
 
   it('checks if a label appears on focus event with the bar', async () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
 
     // Simulate focus event.
@@ -131,7 +131,7 @@ describe('Html test', () => {
   });
 
   it('checks if a label disappears on mouse leave event with the bar', async () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
 
     // Simulate mouse leave event.
@@ -144,7 +144,7 @@ describe('Html test', () => {
   });
 
   it('checks if a label disappears on blur event with the bar', async () => {
-    const config = { x: 0, y: 0, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
 
     // Simulate blur event.
@@ -159,7 +159,7 @@ describe('Html test', () => {
   it('checks if default attributes are filled', () => {
     // Note that x and y are intentionally different to
     // test the default name attribute.
-    const config = { x: 0, y: 1, width: 50, value: 250, isValueAlongYAxis: true };
+    const config = { x: 0, y: 1, width: 50, height: 250, isHeightAlongYAxis: true };
     const bar = prepareBar(config);
 
     expect(bar.getAttribute('transform')).toBe(`rotate(0, ${config.x}, ${config.y})`);
@@ -182,14 +182,14 @@ describe('Html test', () => {
       x: 0,
       y: 0,
       width: 50,
-      value: 250,
-      isValueAlongYAxis: true,
+      height: 250,
+      isHeightAlongYAxis: true,
       color: 'blue',
       opacity: 1,
       rotationDegrees: 45,
       radiusX: 5,
       radiusY: 5,
-      showsNegativeValue: false,
+      showsNegativeHeight: false,
       name: 'test'
     };
     const bar = prepareBar(config);

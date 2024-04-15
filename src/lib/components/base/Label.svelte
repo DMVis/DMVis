@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as d3 from 'd3';
   import { onMount } from 'svelte';
+
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin } from '$lib/utils/OriginMapper.js';
 

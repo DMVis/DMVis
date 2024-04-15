@@ -47,7 +47,7 @@
   export let headerFontFamily: string = 'Arial';
   export let hasHeaderBackground: boolean = false;
 
-  // Set store values.
+  // Set store values
   const visualisationStore = new VisualisationStore();
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
@@ -60,8 +60,8 @@
   visualisationStore.styleUtil.set(styleUtil);
   setContext('store', visualisationStore);
 
-  // Private attributes.
-  // A column either just has labels or it has pairs of labels and values.
+  // Private attributes
+  // A column either just has labels or it has pairs of labels and values
   type LabelColumn = {
     header: string;
     rows: Array<{ label: string }>;
@@ -132,8 +132,8 @@
       draggedRow = '';
     });
 
-  // Convert array of rows to array of columns (i.e. transpose).
-  // Distance between columns is determined by scaleColumns.
+  // Convert array of rows to array of columns (i.e. transpose)
+  // Distance between columns is determined by scaleColumns
   const { xScales } = visualisationStore;
   const columns = writable<Array<LabelColumn | BarColumn>>([]);
   let scaleColumns: d3.ScaleBand<string>;
@@ -145,7 +145,7 @@
       .domain(dataUtil.columns)
       .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
 
-    // Calculate the distance between each column.
+    // Calculate the distance between each column
     spacerDistance = Spacer(
       width,
       marginLeft + columnSpacing / 2,
@@ -165,7 +165,7 @@
 
     // Fill barColumns
     const barColumns: Array<BarColumn> = [];
-    // -1 or +1, because we are only interested in the bar columns here.
+    // -1 or +1, because we are only interested in the bar columns here
     for (let i: number = 0; i < dataUtil.columns.length - 1; ++i) {
       barColumns[i] = { header: dataUtil.columns[i + 1], rows: [] };
 

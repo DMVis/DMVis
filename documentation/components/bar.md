@@ -1,14 +1,15 @@
 # Bar component
 
-The bar can be used for bar visualizations.
-Positive values are expected for the width and value, but
-negative values are supported as well.
+A bar that can be used for bar visualizations.
+Coordinates are relative to the parent SVG element.
+Only positive `width` values are visible.
+Both positive and negative `height` values are visible
+depending on `showsNegativeHeight`.
 Since both the width and height could be associated with
 the x-axis or y-axis, one must explicitly mention which
-is the case (i.e. horizontal versus vertical bars).
-Coordinates are relative to the parent SVG element.
+is the case through setting `isHeightAlongYAxis`.
 
-> Note: This component only produces a single bar.
+> Note: The default origin is the bottom middle of the bar.
 
 # Required Attributes
 
@@ -30,17 +31,17 @@ Y-coordinate of the bar.
 
 Width of the bar.
 
-## value
+## height
 
 - Type: `number`
 
-Value of the bar.
+Height of the bar.
 
-## isValueAlongYAxis
+## isHeightAlongYAxis
 
 - Type: `boolean`
 
-Whether the value is along the x-axis or y-axis (i.e. horizontal or vertical bars).
+Whether the height is along the x-axis or y-axis (i.e. horizontal or vertical bar).
 
 # Optional Attributes
 
@@ -100,20 +101,19 @@ or a percentage string formatted as `'{number}%'`.
 Vertical corner radius of the bar as a number
 or a percentage string formatted as `'{number}%'`.
 
-## showsNegativeValue
+## showsNegativeHeight
 
 - Type: `boolean`
 - Default: `false`
 
-Whether the bar flips its orientation when `value` is negative or not.
+Whether the bar flips its orientation when `height` is negative or not.
 
 ## hoverText
 
 - Type: `string`
 - Default: `''`
 
-Text to display in the label on hover.
-The resulting text is formatted as '{`hoverText`}{`value`}'.
+Text to display in the label when the mouse hovers over the bar.
 
 ## name
 
@@ -131,8 +131,8 @@ Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
     x={100}
     y={100}
     width={25}
-    value={64}
-    isValueAlongYAxis={true}
+    height={64}
+    isHeightAlongYAxis={true}
     originX={OriginX.Middle}
     originY={OriginY.Bottom}
     opacity={0.5}
