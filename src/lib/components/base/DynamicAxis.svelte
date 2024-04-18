@@ -5,6 +5,7 @@
 
   // DMVis imports
   import { VisualisationStore } from '$lib/store.js';
+  import { ThrowError } from '$lib/utils/Error.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
   // Get store information
@@ -53,7 +54,7 @@
       break;
     }
     default:
-      throw new Error('Invalid alignment provided.');
+      throw ThrowError('Error', 'Invalid alignment provided.', 'DynamicAxis');
   }
 
   interface AxisConfig {
@@ -263,7 +264,7 @@
     // If this point is reached, the input was not recognised. So throw an error
     // Note that due to TypeScript, this will never happen
     default:
-      throw new Error('Invalid axis position');
+      throw ThrowError('Error', 'Invalid axis position', 'DynamicAxis');
   }
 
   // When the axis is mounted, render the axis

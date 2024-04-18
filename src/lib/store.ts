@@ -1,6 +1,7 @@
 import { extent, scaleBand, scaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
+import { ThrowError } from './utils/Error.js';
 
 export class GraphStore {
   public marginTop: Writable<number>;
@@ -175,8 +176,10 @@ export class VisualisationStore {
       } else {
         const domain = extent(columnData as Array<number>);
         if (domain[0] === undefined) {
-          throw new Error(
-            `Data is incompatable, value range could not be found in column ${data[0][i]}`
+          throw ThrowError(
+            'Error',
+            `Data is incompatable, value range could not be found in column ${data[0][i]}`,
+            'VisualisationStore'
           );
         } else {
           scales.push(
