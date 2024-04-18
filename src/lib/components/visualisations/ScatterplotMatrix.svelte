@@ -31,32 +31,32 @@
   export let padding: number = 0.1;
   export let pointOpacity: number = 0.3;
 
-  //List that holds all the names of the grey points in the scatterplot matrix
+  // List that holds all the names of the grey points in the scatterplot matrix
   let currentGreyPoints: string[] = [];
 
-  //Current mouse coordinates, used for the tooltip lines
+  // Current mouse coordinates, used for the tooltip lines
   let mouseX = 0;
   let mouseY = 0;
 
-  //Scaled mouse coordinates, meaning they hold the actual coordinates of a point inside a scatterplot
+  // Scaled mouse coordinates, meaning they hold the actual coordinates of a point inside a scatterplot
   let scaledMouseX: number = 0;
   let scaledMouseY: number = 0;
 
-  //Current x and y attribute that are hovered, go back to '' if nothing is hovered
+  // Current x and y attribute that are hovered, go back to '' if nothing is hovered
   let currentX: string = '';
   let currentY: string = '';
 
-  //Scales used to space the scatterplots, where you can put in an attribute name and get the starting position back
+  // Scales used to space the scatterplots, where you can put in an attribute name and get the starting position back
   let xScale: d3.ScaleBand<string>;
   let yScale: d3.ScaleBand<string>;
 
-  //Order of the attributes from top-left to bottom-right
+  // Order of the attributes from top-left to bottom-right
   let axisNames: string[];
 
-  //Whether or not to display the tooltip lines
+  // Whether or not to display the tooltip lines
   let showMouseLines = false;
 
-  //Only one of these will be true, whether to draw the tooltip lines to the top-right corner or the bottom-left corner
+  // Only one of these will be true, whether to draw the tooltip lines to the top-right corner or the bottom-left corner
   let showTopRightLines = false;
   let showBottomLeftLines = false;
 
@@ -68,7 +68,7 @@
      For each position it holds the scaled selection of the corresponding scatterplot */
   let selectionMatrix: Array<Array<number[][] | null>>;
 
-  //rangePerAttribute is an array that for each entry it holds [min,max] or null (meaning no filter specified)
+  // rangePerAttribute is an array that for each entry it holds [min,max] or null (meaning no filter specified)
   let rangePerAttribute: (number[] | null)[];
 
   // Data for the tooltip label that shows up when hovering over a point
@@ -129,9 +129,9 @@
     currentX = xAxis;
     currentY = yAxis;
 
-    // Tell the attribute label to update
-    d3.select(`.label-${xAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', true);
-    d3.select(`.label-${yAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', true);
+    // Add highlight to the labels
+    d3.selectAll(`.label-${formatClassName(xAxis)}-attr > *`).classed('highlighted', true);
+    d3.selectAll(`.label-${formatClassName(yAxis)}-attr > *`).classed('highlighted', true);
 
     // If the mouse is over a scatterplot, there need to be tooltip lines displayed
     showMouseLines = true;
@@ -139,12 +139,15 @@
 
   // This function is called when the mouse leaves a scatterplot
   function mouseOut(xAxis: string, yAxis: string) {
-    d3.select(`.label-${xAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', false);
-    d3.select(`.label-${yAxis.replace(/[\s()/]/g, '')}-attr`).classed('highlighted', false);
+    // Remove the highlight from the labels
+    d3.selectAll(`.label-${formatClassName(xAxis)}-attr > *`).classed('highlighted', false);
+    d3.selectAll(`.label-${formatClassName(yAxis)}-attr > *`).classed('highlighted', false);
+
     // There no longer are attributes that need to be highlighted
     currentX = '';
     currentY = '';
 
+    // If the mouse is no longer over a scatterplot, there don't need to be any tooltip lines
     showMouseLines = false;
   }
 
@@ -368,7 +371,7 @@
     // Tooltip label is now visible
     tooltipData.visible = true;
 
-    // Update the tooltip text to now show the current point
+    // Update the tooltip text to show the current point
     tooltipData.text = name;
   }
 
@@ -383,6 +386,11 @@
     else if (clickedPoint == '') {
       clickedPoint = name;
     }
+  }
+
+  // Class names can't accept brackets and other fancy symbols, so remove them
+  function formatClassName(name: string) {
+    return name.replace(/[\s()/]/g, '');
   }
 </script>
 
@@ -439,7 +447,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               }}
               role="treeitem"
               aria-selected="false"
-              tabindex={0}>
+              tabindex={-1}>
               <!--The rect will function as a border around the scatterplot  -->
               <rect
                 width={xScale.bandwidth()}
@@ -469,7 +477,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 y={yScale.bandwidth() / 2}
                 text={xAxis}
                 hasBackground={true}
-                name={xAxis.replace(/[\s()/]/g, '') + '-attr'}
+                name={formatClassName(xAxis) + '-attr'}
                 width={xScale.bandwidth()}
                 height={yScale.bandwidth()}
                 color="white" />

@@ -197,5 +197,6 @@ The default origin is the middle of the label.
 <style>
   .highlighted {
     font-weight: bold;
+    stroke-width: 3px;
   }
 </style>

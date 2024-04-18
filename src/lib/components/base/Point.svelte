@@ -69,7 +69,7 @@ It is used in combination with other components to create a chart.
   on:blur={onMouseLeave}
   on:mousedown={onMouseDown}
   role="button"
-  tabindex="0" />
+  tabindex="-1" />
 
 <style>
   /* Styling for the point, these classes will be set by parent components */
