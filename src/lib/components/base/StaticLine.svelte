@@ -1,10 +1,14 @@
 <script lang="ts">
+  // Required attributes
   export let points: { x: number; y: number }[];
+
+  // Optional attributes
   export let color: string = '#000';
   export let lineWidth: number = 1;
   export let dashLength: string = '0';
   export let opacity: number = 1;
 
+  // Create a path based on the given points
   $: path = `M${points.map((p) => `${p.x},${p.y}`).join('L')}`;
 </script>
 

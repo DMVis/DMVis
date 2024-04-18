@@ -66,6 +66,28 @@ Opacity of the point, where 0 represents a completely transparent point and 1 re
 
 Name of the point, is mainly used in identifying the point, or can be used for displaying a point name on hover.
 
+# Event dispatches
+
+These are all the events that the point component will dispatch to its parent components. Check the example usage on how to use these events.
+
+## mousePointEntered
+
+- Event type: `{ name: string, x: number, y: number }`
+
+Event that fires when the mouse enters the point. The name attribute represents the classname of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
+
+## mousePointLeft
+
+- Event type: `{ name: string, x: number, y: number }`
+
+Event that fires when the mouse leaves the point. The name attribute represents the classname of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
+
+## pointClicked
+
+- Event type: `{name: string}`
+
+Event that fires when the point is clicked. The name attribute represents the classname of the point.
+
 # Example usage
 
 ```svelte
@@ -77,7 +99,8 @@ Name of the point, is mainly used in identifying the point, or can be used for d
       radius={6}
       color="rgb(255,102,255)"
       borderColor="purple"
-      borderWidth={4} />
+      borderWidth={4}
+      on:mousePointEntered={mousePointEnter} />
   {/each}
 </svg>
 ```

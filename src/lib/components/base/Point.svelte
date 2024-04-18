@@ -1,25 +1,38 @@
 <script lang="ts">
+  // Imports
   import { createEventDispatcher, getContext } from 'svelte';
+
+  // DMVis imports
   import type { VisualisationStore } from '$lib/store.js';
 
+  // Required attributes
   export let x: number;
   export let y: number;
+
+  // Optional attributes
   export let radius: number = 5;
   export let borderWidth: number = 1;
   export let opacity: number = 1;
   export let name: string = `(${x},${y})`;
 
+  // Get styles from the store
   const { styleUtil } = getContext<VisualisationStore>('store');
 
   const dispatch = createEventDispatcher();
 
+  // Function that fires when the mouse enters this point
   function onMouseEnter() {
+    // Create a dispatch to be catched by parent components
     dispatch('mousePointEntered', { name: name, x: x, y: y });
   }
+  // Function that fires when the mouse leaves this point
   function onMouseLeave() {
+    // Create a dispatch to be catched by parent components
     dispatch('mousePointLeft', { name: name, x: x, y: y });
   }
+  // Function that fires when this point is clicked
   function onMouseDown() {
+    // Create a dispatch to be catched by parent components
     dispatch('pointClicked', { name: name });
   }
 </script>
@@ -36,10 +49,9 @@ It is used in combination with other components to create a chart.
 
 #### Optional attributes
   * radius: number        - Radius of the point, defaulted to 5
-  * opacity: string       - Opacity of the circle
   * borderWidth: number   - Width of the border, defaulted to 1
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
-  * name: string          - Name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
+  * name: string          - Class name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
 -->
 
 <circle
@@ -60,6 +72,7 @@ It is used in combination with other components to create a chart.
   tabindex="0" />
 
 <style>
+  /* Styling for the point, these classes will be set by parent components */
   .highlighted {
     opacity: 1;
     stroke-width: 2;

@@ -1,30 +1,33 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { setContext } from 'svelte';
-  import { GraphStore } from '$lib/store.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
+
+  // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
+  import { GraphStore } from '$lib/store.js';
+  import { OriginX, OriginY } from '$lib/Enums.js';
 
-  // Required attributes.
+  // Required attributes
   export let width: number;
   export let height: number;
   export let data: { label: string; value: number }[];
   export let minX: number; // Can be made optional?
   export let maxX: number; // Can be made optional?
 
-  // Optional attributes.
+  // Optional attributes
   export let marginLeft: number | null = null;
   export let marginRight: number | null = null;
   export let marginBottom: number | null = null;
   export let marginTop: number | null = null;
   export let padding: number = 0.2;
-  export let color: string = 'blue'; // Store needed?
-  export let opacity: number | string = 1; // Store needed?
+  export let color: string = 'blue';
+  export let opacity: number | string = 1;
   export let radiusX: number | string = 5;
   export let radiusY: number | string = 5;
 
-  // Set store values.
+  // Set store values
   const graphStore = new GraphStore();
   marginLeft ? graphStore.marginLeft.set(marginLeft) : null;
   marginRight ? graphStore.marginRight.set(marginRight) : null;
@@ -39,7 +42,7 @@
   graphStore.padding.set(padding);
   graphStore.yAxisType.set('band');
 
-  // Private attributes.
+  // Private attributes
   const { yScale, marginLeft: marginLeftBar, marginRight: marginRightBar } = graphStore;
   const yScaleLocal = $yScale as d3.ScaleBand<string>;
   const barScale = d3
@@ -47,7 +50,7 @@
     .domain([minX, maxX])
     .range([0, width - $marginLeftBar - $marginRightBar]);
 
-  // Set graph store.
+  // Set graph store
   setContext('store', graphStore);
 </script>
 
@@ -80,8 +83,9 @@ The y-axis represents the categories of the data.
 * radiusY: number | string - Vertical corner radius of each bar as a number in range [0..1] or
                              a percentage string formatted as '{number}%'.
 -->
-<svg class="visualisation" {width} {height}>
+<svg class="visualisation barchart" {width} {height}>
   {#key data}
+    <!-- Loop over all data, and plot a bar for each point -->
     {#each data as bar}
       <Bar
         x={$marginLeftBar}
@@ -96,6 +100,7 @@ The y-axis represents the categories of the data.
         {radiusX}
         {radiusY} />
     {/each}
+    <!-- Draw 2 axes -->
     <Axis position="left" />
     <Axis position="bottom" />
   {/key}

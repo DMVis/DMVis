@@ -1,9 +1,11 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { getContext } from 'svelte';
 
-  import { OriginX, OriginY } from '$lib/Enums.js';
+  // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
+  import { OriginX, OriginY } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
 
   // Optional attributes
@@ -30,11 +32,13 @@ on top of each other.
 #### Optional attributes
 * opacity: number | string - Opacity of each bar as a number in range [0..1] or
                              a percentage string formatted as '{number}%'.
-* colors: string[]         - Array of colors to use for each bar.
 -->
 <g>
+  <!-- Loop over all data points -->
   {#each numericalData as rows, rowIndex}
+    <!-- Loop over all attributes -->
     {#each numericalCols as column, colIndex}
+      <!-- Create a bar for every attribute -->
       <Bar
         x={$marginLeft + d3.sum(rows.slice(0, colIndex))}
         y={Number(yScale(String(labels[rowIndex])))}

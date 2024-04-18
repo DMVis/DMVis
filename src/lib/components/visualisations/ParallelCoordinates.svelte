@@ -1,23 +1,27 @@
 <script lang="ts">
+  // Imports
   import { setContext } from 'svelte';
-  import { VisualisationStore } from '$lib/store.js';
 
+  // DMVis imports
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import { VisualisationStore } from '$lib/store.js';
 
-  // Insert exports
+  // Required attributes
   export let width: number;
   export let height: number;
   export let dataUtil: DataUtils;
 
+  // Optional attributes
   export let styleUtil: StyleUtils = new StyleUtils();
   export let marginLeft: number = 40;
   export let marginRight: number = 40;
   export let marginTop: number = 40;
   export let marginBottom: number = 40;
 
+  // Fill the store
   const visualisationStore = new VisualisationStore();
 
   visualisationStore.width.set(width);
@@ -51,7 +55,9 @@ It creates an axis for each column in the supplied table with data
 * marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
 * styleUtil: StyleUtils - Class holding all the styling. See documentation.
 -->
-<svg class="visualisation" {width} {height}>
+<svg class="visualisation parallelCoordinates" {width} {height}>
+  <!-- Draw all the lines -->
   <Line lineWidth={2} hoverable={true} />
+  <!-- Draw all the axis -->
   <DynamicAxis position={'left'} alignment={'spaced'} />
 </svg>

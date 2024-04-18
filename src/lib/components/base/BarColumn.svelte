@@ -1,17 +1,23 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
 
-  import { OriginX, OriginY } from '$lib/Enums.js';
+  // DMVis Imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Label from '$lib/components/base/Label.svelte';
+  import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
   export let y: number;
   export let width: number;
   export let height: number;
-  // Every column has a header label and either
-  // categorical values paired with a value (a label + bar) or only the first (just a label)
+  /*  Every column has:
+      - Header label
+      - Either:
+          - categorical values paired with a value (a label + bar)
+          - Just a label
+  */
   export let data: {
     header: string;
     rows: Array<{ label: string }> | Array<{ label: string; value: number }>;
@@ -47,8 +53,12 @@
   export let hasHeaderBackground: boolean = true;
 
   // Private attributes
+
+  // Loop over all the data and select only the values
   const values: Array<number> = data.rows.map((row) => (`value` in row ? row.value : 0));
+  // Find the largest value of them all
   const maxX: number = d3.max(values) ?? 0;
+  // Create a xScale based on this maximum value
   const xScale = d3
     .scaleLinear()
     .domain([0, maxX])
@@ -121,8 +131,9 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 * hasHeaderBackground: boolean   - Whether the header label has a background or not.
 -->
 <g {width} {height} class="bar-column">
+  <!-- Loop over all rows -->
   {#each data.rows as row}
-    <!-- Draw bars if not just labels -->
+    <!-- If this row has a value, draw a bar -->
     {#if 'value' in row}
       <Bar
         x={x + columnSpacing / 2}
@@ -161,9 +172,10 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       hasBackground={false}
       pointerEvents={true}
       name={`${row.label} bar-label`} />
+    <!-- End of each loop over rows -->
   {/each}
 
-  <!-- Draw header on top of column -->
+  <!-- Draw the header of this column -->
   <Label
     x={x + width / 2}
     y={y + headerOffsetY}

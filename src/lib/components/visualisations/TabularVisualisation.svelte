@@ -1,14 +1,16 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { writable } from 'svelte/store';
   import { setContext, afterUpdate } from 'svelte';
 
+  // DMVis imports
+  import BarColumn from '$lib/components/base/BarColumn.svelte';
   import { Spacer } from '$lib/utils/Spacer.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
-  import BarColumn from '$lib/components/base/BarColumn.svelte';
-  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
+  import { VisualisationStore } from '$lib/store.js';
 
   // Required attributes
   export let width: number;
@@ -99,7 +101,7 @@
       d3.selectAll(`.label-${draggedRow}`).raise();
     })
     .on('drag', function (event) {
-      // Update the row its y position
+      // Update y position of the row
       d3.selectAll(`.${draggedRow}`).attr('y', event.y + deltaY);
       d3.selectAll(`.label-${draggedRow} > text`).attr('y', event.y + deltaYLabel);
     })
@@ -187,6 +189,7 @@
     dragHandler(d3.selectAll('.bar-label'));
   }
 
+  // Function that fires when the mouse enters any bar that is a child component of the tabular visualisation
   function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
     // Highlight bar row
     d3.selectAll(`.${e.detail.name}`).classed('highlighted', true);
@@ -194,6 +197,7 @@
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', true);
   }
 
+  // Function that fires when the mouse leaves any bar that is a child component of the tabular visualisation
   function onMouseBarLeft(e: CustomEvent<{ name: string }>) {
     // Unhighlight bar row if not dragging
     if (draggedRow != e.detail.name) {
@@ -263,8 +267,10 @@ to adjust `marginTop` or `columnMarginTop`.
 * headerFontFamily: string            - Font family of the text in the header label in each column.
 * hasHeaderBackground: boolean        - Whether the header label in each column has a background or not.
 -->
-<svg class="visualisation" {width} {height}>
+
+<svg class="visualisation tabularVisualisation" {width} {height}>
   {#key dataUtil}
+    <!-- Plot the top axis of the visualisation -->
     <g id="axes">
       <DynamicAxis
         position="top"
@@ -273,6 +279,7 @@ to adjust `marginTop` or `columnMarginTop`.
         customPadding={columnSpacing}
         startColumn={0} />
     </g>
+    <!-- Loop over all the columns and create a barcolumn for each of them -->
     {#each $columns as column, columnIndex}
       <BarColumn
         x={marginLeft + spacerDistance * columnIndex}

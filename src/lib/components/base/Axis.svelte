@@ -1,11 +1,10 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { getContext } from 'svelte';
-  import type { GraphStore } from '$lib/store.js';
 
-  // Get store information
-  const { xScale, yScale, height, width, marginBottom, marginLeft, marginTop, marginRight } =
-    getContext<GraphStore>('store');
+  // DMVis imports
+  import type { GraphStore } from '$lib/store.js';
 
   // Public variables
   export let ticks: boolean = true;
@@ -15,10 +14,16 @@
   export let ticksNumber: number = 10;
   export let position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
 
+  // Get store information
+  const { xScale, yScale, height, width, marginBottom, marginLeft, marginTop, marginRight } =
+    getContext<GraphStore>('store');
+
   // Private variables
   let placementX: number = 0;
   let placementY: number = 0;
   let axisElement: SVGGElement;
+
+  //The scale will be the xScale if the position is top or bottom, otherwise it is yScale
   let scale = position === 'bottom' || position === 'top' ? $xScale : $yScale;
 
   // Update the axis using reactive statements
@@ -70,6 +75,7 @@
     }
 
     // Set the tick size and number of ticks
+    // This if statement checks if the scale is a scaleLinear
     if (!('padding' in scale)) {
       axisGenerator = axisGenerator as d3.Axis<d3.NumberValue>;
       if (ticks) {

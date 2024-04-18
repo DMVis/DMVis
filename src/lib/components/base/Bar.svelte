@@ -1,10 +1,12 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { onMount, createEventDispatcher } from 'svelte';
 
+  // DMVis imports
+  import Label from '$lib/components/base/Label.svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
-  import Label from '$lib/components/base/Label.svelte';
 
   // Required attributes
   export let x: number;
@@ -28,6 +30,7 @@
   // Private attributes
   let rectBlock: SVGRectElement;
   let isMouseOnBar: boolean = false;
+
   const dispatchEvent = createEventDispatcher();
 
   if (!isHeightAlongYAxis) {
@@ -63,13 +66,17 @@
       );
   });
 
+  // Function that fires when the mouse enters this bar
   function onMouseEnter() {
     isMouseOnBar = true;
+    // Fire an event to be picked up by parent components of this bar
     dispatchEvent('mouseBarEntered', { name: name });
   }
 
+  // Function that fires when the mouse leaves this bar
   function onMouseLeave() {
     isMouseOnBar = false;
+    // Fire an event to be picked up by parent components of this bar
     dispatchEvent('mouseBarLeft', { name: name });
   }
 </script>
@@ -116,6 +123,7 @@ The default origin is the bottom middle of the bar.
 * name: string                  - Name of the bar. It can be used as an identifier.
                                   Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
 -->
+
 <!-- The bar -->
 <rect
   class={`bar ${name}`}
@@ -136,6 +144,7 @@ The default origin is the bottom middle of the bar.
   on:mouseleave={onMouseLeave}
   on:focus={onMouseEnter}
   on:blur={onMouseLeave} />
+
 <!-- The bar's label, which shows on hovering over the bar -->
 {#if isMouseOnBar}
   <Label
@@ -151,6 +160,7 @@ The default origin is the bottom middle of the bar.
 {/if}
 
 <style>
+  /* Styling for the bar, this class will be set by parent components of the bar */
   .highlighted {
     fill-opacity: 1;
   }

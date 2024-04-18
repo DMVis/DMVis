@@ -123,6 +123,22 @@ Text to display in the label when the mouse hovers over the bar.
 Name of the bar. It can be used as an identifier.
 Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
 
+# Event dispatches
+
+These are all the events that the bar component will dispatch to its parent components. Check the example usage on how to use these events.
+
+## mouseBarEntered
+
+- Event type: `{ name: string}`
+
+Event that fires when the mouse enters the point. The name attribute represents the classname of the bar.
+
+## mouseBarLeft
+
+- Event type: `{ name: string}`
+
+Event that fires when the mouse leaves the bar. The name attribute represents the classname of the bar.
+
 # Example usage
 
 ```svelte
@@ -137,6 +153,7 @@ Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
     originY={OriginY.Bottom}
     opacity={0.5}
     radiusX={5}
-    radiusY={5} />
+    radiusY={5}
+    on:mouseBarEntered={mouseBarEntered} />
 </svg>
 ```

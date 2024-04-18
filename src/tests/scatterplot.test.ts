@@ -47,7 +47,7 @@ describe('Html test', () => {
 });
 
 describe('Error checking', () => {
-  it('checks if an error is thrown if xAxis is not specified when using mapData', () => {
+  it('checks if an error is thrown if xAxis is not specified correctly', () => {
     const config = {
       width: 438,
       height: 942,
@@ -57,9 +57,9 @@ describe('Error checking', () => {
 
     expect(() => {
       createScatterplot(config);
-    }).toThrow('xAxis is not recognised, you may need to set the xAxis parameter');
+    }).toThrow('xAxis attribute is not recognised');
   });
-  it('checks if an error is thrown if yAxis is not specified when using mapData', () => {
+  it('checks if an error is thrown if yAxis is not specified correctly', () => {
     const config = {
       width: 438,
       height: 942,
@@ -69,7 +69,7 @@ describe('Error checking', () => {
 
     expect(() => {
       createScatterplot(config);
-    }).toThrow('yAxis is not recognised, you may need to set the yAxis parameter');
+    }).toThrow('yAxis attribute is not recognised');
   });
 });
 

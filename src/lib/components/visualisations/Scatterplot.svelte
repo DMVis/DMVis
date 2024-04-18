@@ -1,38 +1,45 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { getContext } from 'svelte';
+
+  // DMVis imports
+  import Point from '$lib/components/base/Point.svelte';
+  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { VisualisationStore } from '$lib/store.js';
 
-  import Point from '$lib/components/base/Point.svelte';
-  import DynamicAxis from '../base/DynamicAxis.svelte';
-
-  //Mandatory exports
+  // Required attributes
   export let width: number;
   export let height: number;
-
   export let xAxis: string;
   export let yAxis: string;
 
-  //Optional exports
+  // Optional attributes
   export let showAxis: boolean = true;
   export let numTicks: number = 5;
-
   export let pointOpacity: number = 1;
 
-  //Get from visualisationstore
+  //Get columns from the store
   const { columns } = getContext<VisualisationStore>('store');
+  /*
+    The attributes xAxis and yAxis specify which columns from the data to plot in this scatterplot.
+    Therefore it is essential to immediately check if these
+   */
   if (!$columns.includes(xAxis)) {
-    throw new Error('xAxis is not recognised, you may need to set the xAxis parameter');
+    throw new Error('xAxis attribute is not recognised');
   }
   if (!$columns.includes(yAxis)) {
-    throw new Error('yAxis is not recognised, you may need to set the yAxis parameter');
+    throw new Error('yAxis attribute is not recognised');
   }
+
+  // Get the rest of the data from the store
   const { yScales, xScales, data } = getContext<VisualisationStore>('store');
   let xScaleLocal: d3.ScaleLinear<number, number>;
   let yScaleLocal: d3.ScaleLinear<number, number>;
   let xIndex: number;
   let yIndex: number;
   $: {
+    // Get the corresponding scales from the store
     xIndex = $columns.indexOf(xAxis);
     yIndex = $columns.indexOf(yAxis);
     xScaleLocal = $xScales[xIndex] as d3.ScaleLinear<number, number>;
@@ -41,11 +48,15 @@
     yScaleLocal.range([0, height]);
   }
 
-  function getValue(data: (string | number)[], index: number): number {
-    return data[index] as number;
+  // Returns the value of the given attribute from a specific row
+  // Done this way, because using `as` is not allowed when creating the component
+  function getValue(row: (string | number)[], index: number): number {
+    return row[index] as number;
   }
-  function getName(data: (string | number)[]): string {
-    return data[0] as string;
+  // Returns the name of the given row
+  // Done this way, because using `as` is not allowed when creating the component
+  function getName(row: (string | number)[]): string {
+    return row[0] as string;
   }
 </script>
 
@@ -55,22 +66,25 @@
 This is a visualisation to display a dataset of points
 
 #### Required attributes
-  * width: number                                                     - Width of the visualisation
-  * height: number                                                    - Height of the visualisation
+  * width: number         - Width of the visualisation
+  * height: number        - Height of the visualisation
 
-  * xAxis: string - The name of the attribute that needs to be plotted on the x-axis. This should be the same one that is provided in the data
-  * yAxis: string - The name of the attribute that needs to be plotted on the y-axis. This should be the same one that is provided in the data
+  * xAxis: string - The name of the attribute that needs to be plotted on the x-axis.
+                          This should be the same one that is provided in the data columns
+  * yAxis: string - The name of the attribute that needs to be plotted on the y-axis.
+                          This should be the same one that is provided in the data columns
 
 #### Optional attributes
   * showAxis: bool - Whether or not the axis should be drawn
   * numTicks: number - Amount of ticks to be displayed on the axis
-
   * pointOpacity: number - Opacity of the points of the scatterplot, defaults to 1
 
 -->
 <g {width} {height} class="visualisation scatterplot">
   {#key data}
+    <!-- Create a brush group at the bottom of this visualisation -->
     <g class="brush" />
+    <!-- If needed, draw the axis -->
     {#if showAxis}
       <DynamicAxis
         position="bottom"
@@ -83,6 +97,7 @@ This is a visualisation to display a dataset of points
         startColumn={yIndex}
         endColumn={yIndex + 1} />
     {/if}
+    <!-- Loop over all the points and draw them -->
     {#each $data as p}
       <Point
         on:mousePointLeft

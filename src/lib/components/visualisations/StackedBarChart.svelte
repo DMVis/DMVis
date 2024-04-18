@@ -1,11 +1,13 @@
 <script lang="ts">
+  // Imports
   import { setContext } from 'svelte';
 
-  import { VisualisationStore } from '$lib/store.js';
-  import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  // DMVis imports
   import StackedBar from '$lib/components/base/StackedBar.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import { VisualisationStore } from '$lib/store.js';
 
   // Required attributes
   export let width: number;
@@ -25,20 +27,19 @@
   });
 
   // Set store values
-  const visStore = new VisualisationStore();
-  visStore.marginLeft.set(marginLeft);
-  visStore.marginRight.set(marginRight);
-  visStore.marginBottom.set(marginBottom);
-  visStore.marginTop.set(marginTop);
-  visStore.padding.set(padding);
-  visStore.width.set(width);
-  visStore.height.set(height);
-  visStore.data.set(dataUtil.data);
-  visStore.columns.set(dataUtil.columns);
-  visStore.styleUtil.set(styleUtil);
+  const visualisationStore = new VisualisationStore();
+  visualisationStore.marginLeft.set(marginLeft);
+  visualisationStore.marginRight.set(marginRight);
+  visualisationStore.marginBottom.set(marginBottom);
+  visualisationStore.marginTop.set(marginTop);
+  visualisationStore.padding.set(padding);
+  visualisationStore.width.set(width);
+  visualisationStore.height.set(height);
+  visualisationStore.data.set(dataUtil.data);
+  visualisationStore.columns.set(dataUtil.columns);
+  visualisationStore.styleUtil.set(styleUtil);
 
-  // Set graph store
-  setContext('store', visStore);
+  setContext('store', visualisationStore);
 </script>
 
 <!--
@@ -64,7 +65,8 @@ The y-axis represents the categories of the data.
                              a percentage string formatted as '{number}%'.
 * styleUtil: StyleUtils     - Class holding all the styling. See documentation.
 -->
-<svg class="visualisation" {width} {height}>
+
+<svg class="visualisation stackedBarchart" {width} {height}>
   {#key dataUtil}
     <StackedBar {opacity} />
     <DynamicAxis position="left" endColumn={1} />

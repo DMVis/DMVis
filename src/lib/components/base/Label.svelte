@@ -1,9 +1,11 @@
 <script lang="ts">
+  // Imports
   import * as d3 from 'd3';
   import { onMount } from 'svelte';
 
-  import { OriginX, OriginY } from '$lib/Enums.js';
+  // DMVis Imports
   import { getOrigin } from '$lib/utils/OriginMapper.js';
+  import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
@@ -37,26 +39,29 @@
   let textBlock: SVGTextElement;
   let rectBlock: SVGRectElement;
 
+  // Function that gets called on a TextElement and will wrap the text based on the given width
   function wrapWords(textSelection: Selection, width: number) {
-    //@ts-expect-error a text selection does have the .text() attribute
+    // @ts-expect-error A text selection does have the .text() attribute
     let selectedWords = textSelection.text().split(/\s+/).reverse();
+    // Cant wrap if there is only 1 word
     if (selectedWords.length == 1) return;
     let selectedWord,
       line = [],
       lineNumber = 0,
       lineHeight = 1.1, // ems
-      //@ts-expect-error a text selection does have the x attribute
+      //@ts-expect-error A text selection does have the x attribute
       selectedX = textSelection.attr('x'),
-      //@ts-expect-error a text selection does have the y attribute
+      //@ts-expect-error A text selection does have the y attribute
       selectedY = textSelection.attr('y'),
       selectedDY = 0,
       tspan = textSelection
-        //@ts-expect-error a text selection does have the .text() attribute
+        //@ts-expect-error A text selection does have the .text() attribute
         .text(null)
         .append('tspan')
         .attr('x', selectedX)
         .attr('y', selectedY)
         .attr('dy', selectedDY + 'em');
+    // Loop over all the words and keep appending them on this line if the maximum width has not been exceeded
     while ((selectedWord = selectedWords.pop())) {
       line.push(selectedWord);
       tspan.text(line.join(' '));
@@ -65,7 +70,7 @@
         tspan.text(line.join(' '));
         line = [selectedWord];
         tspan = textSelection
-          //@ts-expect-error a text selection does have the .append() attribute
+          //@ts-expect-error A text selection does have the .append() attribute
           .append('tspan')
           .attr('x', selectedX)
           .attr('y', selectedY)
@@ -89,7 +94,7 @@
       rectWidth = textLen + padding;
     } else {
       rectWidth = width;
-      //@ts-expect-error I'm assigning a D3 text selection, but Selections only have an interface.
+      // @ts-expect-error I'm assigning a D3 text selection, but Selections only have an interface.
       d3.select(textBlock).call(wrapWords, width);
     }
     // Calculate the height of the text.
@@ -188,6 +193,7 @@ The default origin is the middle of the label.
     dominant-baseline="middle">{text}</text>
 </g>
 
+<!-- Styling to be set by any parent component -->
 <style>
   .highlighted {
     font-weight: bold;
