@@ -10,21 +10,21 @@
   import { VisualisationStore } from '$lib/store.js';
 
   // Required attributes
-  export let width: number;
-  export let height: number;
   export let dataUtil: DataUtils;
 
   // Optional attributes
+  export let styleUtil: StyleUtils = new StyleUtils({
+    colorSet: 'Set1',
+    numColors: dataUtil.columns.length - 1
+  });
+  export let width: number = 1500;
+  export let height: number = calculateHeight(dataUtil.data.length);
   export let marginLeft: number = 40;
   export let marginRight: number = 40;
   export let marginBottom: number = 40;
   export let marginTop: number = 40;
   export let padding: number = 0.2;
   export let opacity: number | string = 1;
-  export let styleUtil: StyleUtils = new StyleUtils({
-    colorSet: 'Set1',
-    numColors: dataUtil.columns.length - 1
-  });
 
   // Set store values
   const visualisationStore = new VisualisationStore();
@@ -40,6 +40,12 @@
   visualisationStore.styleUtil.set(styleUtil);
 
   setContext('store', visualisationStore);
+
+  // Calculate height based on number of rows stackedbarchart
+  // Use the fontsize per row and multiply by 1.5 for padding
+  function calculateHeight(numRows: number): number {
+    return numRows * styleUtil.fontSize * 1.5;
+  }
 </script>
 
 <!--
@@ -51,11 +57,11 @@ The x-axis represents the numerical values of the data.
 The y-axis represents the categories of the data.
 
 #### Required attributes
-* width: number                        - Width of the visualisation.
-* height: number                       - Height of the visualisation.
 * dataUtil: Array<Array<string | number>>  - Data to visualise.
 
 #### Optional attributes
+* width: number            - Width of the visualisation.
+* height: number           - Height of the visualisation.
 * marginLeft: number       - Margin to the left of the visualisation.
 * marginRight: number      - Margin to the right of the visualisation.
 * marginTop: number        - Margin to the top of the visualisation.

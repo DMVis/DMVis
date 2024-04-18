@@ -10,19 +10,21 @@ The stacked BarChart component is a visual representation of data in a stacked b
 
 The `DataUtils` class which contains all the data to be displayed in the chart.
 
+# Optional attributes
+
 ## height
 
 - Type: `number`
+- Default: `numberOfRows * 15`
 
 The height of the visualisation.
 
 ## width
 
 - Type: `number`
+- Default: `1500`
 
 The width of the visualisation.
-
-# Optional attributes
 
 ## marginLeft
 

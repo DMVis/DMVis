@@ -7,18 +7,6 @@ categorical data with labels in a column.
 
 # Required Attributes
 
-## width
-
-- Type: `number`
-
-Width of the visualisation.
-
-## height
-
-- Type: `number`
-
-Height of the visualisation.
-
 ### dataUtil
 
 - Type: `DataUtils`
@@ -26,6 +14,20 @@ Height of the visualisation.
 The `DataUtils` class which, contains all the data to be displayed.
 
 # Optional Attributes
+
+## width
+
+- Type: `number`
+- Default: `numberOfColumns * 175`
+
+Width of the visualisation.
+
+## height
+
+- Type: `number`
+- Default: `numberOfRows * 15`
+
+Height of the visualisation.
 
 ## marginLeft
 

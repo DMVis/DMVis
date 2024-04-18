@@ -4,18 +4,6 @@ This is a visualisation that consists of multiple scatterplots in a matrix. It c
 
 # Required Attributes
 
-## width
-
-- Type: `number`
-
-Width of the visualisation
-
-## height
-
-- Type: `number`
-
-Height of the visualisation
-
 ## dataUtil
 
 - Type: `DataUtils`
@@ -23,6 +11,20 @@ Height of the visualisation
 Class holding all the data, see [DataUtils](utils/dataUtils.md).
 
 # Optional Attributes
+
+## width
+
+- Type: `number`
+- Default: `numberOfAttributes * 150`
+
+Width of the visualisation
+
+## height
+
+- Type: `number`
+- Default: `numberOfAttributes * 150`
+
+Height of the visualisation
 
 ## padding
 

@@ -13,12 +13,13 @@
   import { VisualisationStore } from '$lib/store.js';
 
   // Required attributes
-  export let width: number;
-  export let height: number;
   export let dataUtil: DataUtils;
 
   // Optional attributes
   export let styleUtil: StyleUtils = new StyleUtils({ color: 'red' });
+
+  export let width: number = calculateWidth(dataUtil.columns.length);
+  export let height: number = calculateHeight(dataUtil.data.length);
 
   export let marginLeft: number = 30;
   export let marginRight: number = 30;
@@ -208,6 +209,18 @@
     }
   }
 
+  // Calculate height based on number of rows
+  // Use the fontsize per row and multiply by 1.5 for padding
+  function calculateHeight(numRows: number): number {
+    return numRows * styleUtil.fontSize * 1.5;
+  }
+
+  // Calculate width based on number of columns
+  // Use 200 per column as a default value
+  function calculateWidth(numColumns: number): number {
+    return numColumns * 200;
+  }
+
   // Run intial and update functions
   updateColumns();
   afterUpdate(() => {
@@ -229,12 +242,12 @@ Since a header label is added on top of each column, it might be necessary
 to adjust `marginTop` or `columnMarginTop`.
 
 #### Required attributes
-* width: number                       - Width of the visualisation.
-* height: number                      - Height of the visualisation.
 * dataUtil: DataUtils                 - The `DataUtils` class which, contains all the data to be displayed.
 
 #### Optional attributes
 * styleUtil: StyleUtils               - The `StyleUtils` class which, contains all the styling for the visualisation.
+* width: number                       - Width of the visualisation.
+* height: number                      - Height of the visualisation.
 * marginLeft: number                  - Margin to the left of the visualisation.
 * marginRight: number                 - Margin to the right of the visualisation.
 * marginTop: number                   - Margin to the top of the visualisation.

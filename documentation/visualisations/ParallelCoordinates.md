@@ -6,18 +6,6 @@ and draws a line through each axis for each row in the table.
 
 # Required Attributes
 
-## width
-
-- Type: `number`
-
-Width of the visualisation
-
-## height
-
-- Type: `number`
-
-Height of the visualisation
-
 ## dataUtil
 
 - Type: `DataUtils`
@@ -25,6 +13,20 @@ Height of the visualisation
 Class holding all the data, see [DataUtils](utils/dataUtils.md).
 
 # Optional Attributes
+
+## width
+
+- Type: `number`
+- Default: `numberOfColumns * 175`
+
+Width of the visualisation
+
+## height
+
+- Type: `number`
+- Default: `numberOfRows * 15`
+
+Height of the visualisation
 
 ## marginLeft
 

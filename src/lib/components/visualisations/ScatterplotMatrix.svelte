@@ -16,13 +16,13 @@
   import { VisualisationStore } from '$lib/store.js';
 
   // Required attributes
-  export let height: number;
-  export let width: number;
   export let dataUtil: DataUtils;
 
   // Optional attributes
   export let styleUtil: StyleUtils = new StyleUtils({ color: '#f42b03' });
 
+  export let height: number = calculateDimensions(dataUtil.columns.length);
+  export let width: number = calculateDimensions(dataUtil.columns.length);
   export let marginLeft: number = 40;
   export let marginRight: number = 40;
   export let marginBottom: number = 40;
@@ -114,6 +114,12 @@
 
   // Get the computed scales from the store
   const { xScales, yScales } = getContext<VisualisationStore>('store');
+
+  // Function that calculates the dimension of the scatterplot matrix based on the number of attributes
+  // Used 150 as a base value, because it fits well on the screen for most cases
+  function calculateDimensions(numAttributes: number): number {
+    return numAttributes * 150;
+  }
 
   // This function is called when the mouse is over a scatterplot
   function mouseOver(xAxis: string, yAxis: string) {
@@ -386,15 +392,16 @@
 A matrix of scatterplots that can be used to quickly find relations between attributes in a large dataset.
 
 #### Required attributes
-* height: number                        - Height of the Scatterplot Matrix.
-* width: number                         - Width of the Scatterplot Matrix.
 * dataUtil: DataUtils;                  - Class holding all the data, see documentation.
 
 #### Optional attributes
+* styleUtil: StyleUtils - Class holding all the styling. See documentation.
 * padding: number  - Padding between the different scatterplots. Default is 0.1.
 * pointColor: string - Color of the points in the scatterplots. Default is "red".
 * pointOpacity: number - Default opacity of the points in the scatterplots. Default is 0.3
 
+* height: number   - Height of the Scatterplot Matrix.
+* width: number    - Width of the Scatterplot Matrix.
 * marginLeft: number  - Margin to the left of the visualisation, defaults to 40
 * marginRight: number  - Margin to the right of the visualisation, defaults to 40
 * marginTop: number  - Margin to the top of the visualisation, defaults to 40
