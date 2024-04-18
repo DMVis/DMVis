@@ -1,7 +1,8 @@
 import { extent, scaleBand, scaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
+
+import { ThrowError } from './utils/ThrowError.js';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
-import { ThrowError } from './utils/Error.js';
 
 export class GraphStore {
   public marginTop: Writable<number>;

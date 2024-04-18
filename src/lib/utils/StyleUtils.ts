@@ -1,6 +1,8 @@
 import chroma from 'chroma-js';
 import colorbrewer from 'colorbrewer';
 
+import { ThrowError } from './ThrowError.js';
+
 interface styleOptions {
   fontSize?: number;
   fontFamily?: string;
@@ -48,7 +50,11 @@ export class StyleUtils {
   generateColors(colorSet: string, numberOfColors: number): Array<string> {
     // Check if n is a positive integer
     if (!Number.isInteger(numberOfColors) || numberOfColors <= 0) {
-      throw new Error('Invalid number of colors. Please provide a positive number.');
+      throw ThrowError(
+        'Error',
+        'Invalid number of colors. Please provide a positive number.',
+        'StyleUtils'
+      );
     }
 
     // Assert that colorSet is indeed a keyof typeof colorbrewer
@@ -83,8 +89,10 @@ export class StyleUtils {
       // Generates the colors based on the color set
       this.colorScheme = this.generateColors(scheme, numberOfColors);
     } else {
-      throw new Error(
-        'Invalid color scheme. Look up the available color schemes in ColorBrewer2.org.'
+      throw ThrowError(
+        'Error',
+        'Invalid color scheme. Look up the available color schemes in ColorBrewer2.org.',
+        'StyleUtils'
       );
     }
 

@@ -4,10 +4,11 @@
   import { getContext, tick } from 'svelte';
 
   // DMVis imports
-  import Label from './Label.svelte';
   import { OriginX } from '$lib/Enums.js';
-  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import Label from '$lib/components/base/Label.svelte';
+  import { ThrowError } from '$lib/utils/ThrowError.js';
   import type { VisualisationStore } from '$lib/store.js';
+  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
   // Optional attributes
   export let lineWidth: number = 1;
@@ -46,7 +47,7 @@
     // When this point is reached, it means that the given alignment is not recognised
     // Note that due to Typescript, this should not happen
     default:
-      throw new Error('Invalid alignment provided.');
+      throw ThrowError('Error', 'Invalid alignment provided.', 'Line');
   }
 
   $: {

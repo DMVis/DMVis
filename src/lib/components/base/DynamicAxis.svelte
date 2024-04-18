@@ -5,7 +5,7 @@
 
   // DMVis imports
   import { VisualisationStore } from '$lib/store.js';
-  import { ThrowError } from '$lib/utils/Error.js';
+  import { ThrowError } from '$lib/utils/ThrowError.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
   // Get store information

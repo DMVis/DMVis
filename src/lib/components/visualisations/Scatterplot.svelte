@@ -4,9 +4,10 @@
   import { getContext } from 'svelte';
 
   // DMVis imports
-  import Point from '$lib/components/base/Point.svelte';
-  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { VisualisationStore } from '$lib/store.js';
+  import Point from '$lib/components/base/Point.svelte';
+  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
 
   // Required attributes
   export let width: number;
@@ -26,10 +27,10 @@
     Therefore it is essential to immediately check if these
    */
   if (!$columns.includes(xAxis)) {
-    throw new Error('xAxis attribute is not recognised');
+    throw ThrowError('Error', 'xAxis attribute is not recognised', 'Scatterplot');
   }
   if (!$columns.includes(yAxis)) {
-    throw new Error('yAxis attribute is not recognised');
+    throw ThrowError('Error', 'yAxis attribute is not recognised', 'Scatterplot');
   }
 
   // Get the rest of the data from the store

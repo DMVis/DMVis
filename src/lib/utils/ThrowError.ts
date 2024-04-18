@@ -6,7 +6,7 @@ export function ThrowError(
   // Define stylings that can be applied for every node
   const textStyle = 'color: red; margin: 0; font-family: Verdana, Geneva, sans-serif !important;';
   const containerStyle =
-    'position: absolute; right: 20px; top: 20px; display: flex; flex-direction: column; gap: 8px; border: 2px solid red; padding: 8px; border-radius: 8px; max-width: 400px; flex-wrap: wrap;';
+    'position: absolute; right: 20px; top: 20px; display: flex; flex-direction: column; gap: 8px; border: 2px solid red; padding: 8px; border-radius: 8px; max-width: 400px; flex-wrap: wrap; z-index: 100;';
 
   // All the nodes that need to be added to the DOM together with their textNode
   const containerNode = document.createElement('div');

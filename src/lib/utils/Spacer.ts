@@ -1,5 +1,7 @@
 import { scaleBand, scalePoint } from 'd3-scale';
 
+import { ThrowError } from './ThrowError.js';
+
 export function Spacer(
   dimension: number,
   marginLow: number,
@@ -7,7 +9,7 @@ export function Spacer(
   length: number
 ): number {
   if (length < 1) {
-    throw new Error('Cannot space less than 1 element');
+    throw ThrowError('Error', 'Cannot space less than 1 element', 'Spacer');
   } else if (length === 1) {
     return (dimension - marginLow - marginHigh - 1) / 1;
   } else {
@@ -41,7 +43,7 @@ export function SpacerSide(
         .range([marginLow, dimension - marginHigh]);
     }
     default:
-      throw new Error('Invalid alignment');
+      throw ThrowError('Error', 'Invalid alignment', 'Spacer');
   }
 }
 

@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 
+import { ThrowError } from './ThrowError.js';
+
 /**
  * A class that provides utility functions to work with data.
  */
@@ -34,7 +36,11 @@ export class DataUtils {
         try {
           return await this.parseCSV(data);
         } catch (error) {
-          throw new Error('Data could not be parsed as JSON or CSV. Please provide a valid type.');
+          throw ThrowError(
+            'Error',
+            'Data could not be parsed as JSON or CSV. Please provide a valid type.',
+            'DataUtils'
+          );
         }
       }
     }
@@ -72,7 +78,11 @@ export class DataUtils {
       // Return the parsed data
       return this.rawData;
     } catch (error) {
-      throw new Error('CSV data that was supplied is not in the correct format.');
+      throw ThrowError(
+        'Error',
+        'CSV data that was supplied is not in the correct format.',
+        'DataUtils'
+      );
     }
   }
 
@@ -118,7 +128,7 @@ export class DataUtils {
         });
         this.rawData = [this.columns, ...this.data];
       } else {
-        throw new Error('Could not parse JSON data');
+        throw ThrowError('Error', 'Could not parse JSON data', 'DataUtils');
       }
 
       // Infer column types
@@ -127,7 +137,11 @@ export class DataUtils {
       // Return the parsed data
       return this.rawData;
     } catch (error) {
-      throw new Error('JSON data that was supplied is not in the correct format.');
+      throw ThrowError(
+        'Error',
+        'JSON data that was supplied is not in the correct format.',
+        'DataUtils'
+      );
     }
   }
 
@@ -270,6 +284,6 @@ export class DataUtils {
       }
     }
 
-    throw new Error('Could not determine separator');
+    throw ThrowError('Error', 'Could not determine separator', 'DataUtils');
   }
 }
