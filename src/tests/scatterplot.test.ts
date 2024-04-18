@@ -8,31 +8,35 @@ prepareSvgGetter();
 
 describe('Html test', () => {
   it('renders a scatterplot', () => {
-    // Renders a scatterplot.
-    // Checks if width, height, amount of points, and axis are all correct.
+    // Arrange
     const config = {
       width: 438,
       height: 942,
       xAxis: 'Inhabitants',
       yAxis: 'gdp'
     };
+
+    // Act
+    // Render a scatterplot
     const scatterplot = createScatterplot(config);
 
-    // Check width and height.
+    // Assert
+    // Check if width, height, amount of points, and axis are all correct
+    // Check width and height
     expect(scatterplot.getAttribute('width')).toBe('438');
     expect(scatterplot.getAttribute('height')).toBe('942');
 
-    // Check number of points.
+    // Check number of points
     const numPoints = scatterplot.getElementsByClassName('point').length;
     expect(numPoints).toBe(5);
 
-    // Check axis.
+    // Check axis
     const numAxis = scatterplot.getElementsByClassName('axis').length;
     expect(numAxis).toBe(2);
   });
 
   it('checks if showAxis omits the axis', () => {
-    // Checks if there are no components with a class 'axis'.
+    // Arrange
     const config = {
       width: 438,
       height: 942,
@@ -40,14 +44,20 @@ describe('Html test', () => {
       yAxis: 'gdp',
       showAxis: false
     };
+
+    // Act
     const scatterplot = createScatterplot(config);
     const numAxis = scatterplot.getElementsByClassName('axis').length;
+
+    // Assert
+    // Check if there are no components with a class 'axis'
     expect(numAxis).toBe(0);
   });
 });
 
 describe('Error checking', () => {
   it('checks if an error is thrown if xAxis is not specified correctly', () => {
+    // Arrange
     const config = {
       width: 438,
       height: 942,
@@ -55,11 +65,15 @@ describe('Error checking', () => {
       yAxis: 'gdp'
     };
 
-    expect(() => {
-      createScatterplot(config);
-    }).toThrow('xAxis attribute is not recognised');
+    // Act
+    const createScatterplotWithInvalidXAxis = () => createScatterplot(config);
+
+    // Assert
+    expect(createScatterplotWithInvalidXAxis).toThrow('xAxis attribute is not recognised');
   });
+
   it('checks if an error is thrown if yAxis is not specified correctly', () => {
+    // Arrange
     const config = {
       width: 438,
       height: 942,
@@ -67,58 +81,95 @@ describe('Error checking', () => {
       yAxis: 'something'
     };
 
-    expect(() => {
-      createScatterplot(config);
-    }).toThrow('yAxis attribute is not recognised');
+    // Act
+    const createScatterplotWithInvalidYAxis = () => createScatterplot(config);
+
+    // Assert
+    expect(createScatterplotWithInvalidYAxis).toThrow('yAxis attribute is not recognised');
   });
 });
 
 describe('Scaling test', () => {
-  // Points should scale properly.
-  const config = {
-    width: 200,
-    height: 200,
-    xAxis: 'Inhabitants',
-    yAxis: 'gdp'
-  };
+  // Points should scale properly
 
   it('checks the dimensions of the scatterplot', () => {
-    // Check dimensions.
+    // Arrange
+    const config = {
+      width: 200,
+      height: 200,
+      xAxis: 'Inhabitants',
+      yAxis: 'gdp'
+    };
+
+    // Act
     const scalingScatter = createScatterplot(config);
+
+    // Assert
+    // Check dimensions
     expect(scalingScatter.getAttribute('width')).toBe('200');
     expect(scalingScatter.getAttribute('height')).toBe('200');
   });
 
   it('checks if a point at (0,0) is scaled to the proper spot', () => {
+    // Arrange
+    const config = {
+      width: 200,
+      height: 200,
+      xAxis: 'Inhabitants',
+      yAxis: 'gdp'
+    };
+
+    // Act
     const scalingScatter = createScatterplot(config);
     const points = scalingScatter.getElementsByClassName('point');
 
-    // Point (0,0).
+    // Assert
+    // Point (0,0)
     const point = points[0] as SVGCircleElement;
     expect(point.getAttribute('cx')).toBe('0');
     expect(point.getAttribute('cy')).toBe('200');
   });
 
   it('checks if a point at (maxX,maxY) is scaled to the proper spot', () => {
+    // Arrange
+    const config = {
+      width: 200,
+      height: 200,
+      xAxis: 'Inhabitants',
+      yAxis: 'gdp'
+    };
+
+    // Act
     const scalingScatter = createScatterplot(config);
     const points = scalingScatter.getElementsByClassName('point');
 
-    // Point (10,10).
+    // Assert
+    // Point (10,10)
     const point = points[4] as SVGCircleElement;
     expect(point.getAttribute('cx')).toBe('200');
     expect(point.getAttribute('cy')).toBe('0');
   });
 
   it('checks if a point is scaled to the proper spot', () => {
+    // Arrange
+    const config = {
+      width: 200,
+      height: 200,
+      xAxis: 'Inhabitants',
+      yAxis: 'gdp'
+    };
+
+    // Act
     const scalingScatter = createScatterplot(config);
     const points = scalingScatter.getElementsByClassName('point');
 
-    // Point (3,8).
+    // Assert
+    // Point (3,8)
     let point = points[1] as SVGCircleElement;
     expect(Math.round(parseFloat(point.getAttribute('cx') ?? '0'))).toBe(60);
     expect(Math.round(parseFloat(point.getAttribute('cy') ?? '0'))).toBe(40);
 
-    // Point (6,6).
+    // Point (6,6)
     point = points[2] as SVGCircleElement;
     expect(Math.round(parseFloat(point.getAttribute('cx') ?? '0'))).toBe(120);
     expect(Math.round(parseFloat(point.getAttribute('cy') ?? '0'))).toBe(80);
@@ -131,11 +182,6 @@ describe('Scaling test', () => {
 });
 
 function createScatterplot(config: object): SVGElement {
-  // Clear document body if anything is in it.
-  if (document.body.children.length > 0) {
-    document.body.innerHTML = '';
-  }
-
   const { container } = render(NewStoreWrapper, { props: { Component: Scatterplot, config } });
   const scatterplot = container.getElementsByClassName('visualisation')[0] as SVGElement;
   return scatterplot;

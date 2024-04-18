@@ -50,7 +50,7 @@ Opacity of the label.
 
 Opacity of the background of the label.
 
-## pointerEvents
+## hasPointerEvents
 
 - Type: `boolean`
 - Default: `false`

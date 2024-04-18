@@ -62,7 +62,7 @@ It is used in combination with other components to create a chart.
   fill={$styleUtil.color}
   stroke-width={borderWidth}
   {opacity}
-  class={'point ' + name}
+  class={`point ${name}`}
   on:mouseenter={onMouseEnter}
   on:focus={onMouseEnter}
   on:mouseleave={onMouseLeave}

@@ -1,28 +1,29 @@
 import { describe, it, expect } from 'vitest';
+
 import { DataUtils } from '$lib/utils/DataUtils.js';
 
 describe('dataUtils tests', () => {
   it('should parse CSV data', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     const parsedData = await dataUtils.parseCSV(csvData);
 
-    // Assertions
+    // Assert
     testRegularAssertions(parsedData);
   });
 
   it('should set rawData, data and columns', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     await dataUtils.parseCSV(csvData);
 
-    // Assertions
+    // Assert
     testRegularAssertions(dataUtils.rawData);
     expect(dataUtils.data).toBeDefined();
     expect(dataUtils.data).toBeInstanceOf(Array);
@@ -34,17 +35,17 @@ describe('dataUtils tests', () => {
   });
 
   it('should sort data', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n3,2,1\n6,5,4\n9,8,7';
     const column = 'a';
     const ascending = true;
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     await dataUtils.parseCSV(csvData);
     const sortedData = dataUtils.sortData(column, ascending);
 
-    // Assertions
+    // Assert
     expect(sortedData).toBeDefined();
     expect(sortedData).toBeInstanceOf(Array);
     expect(sortedData.length).toBe(3);
@@ -54,31 +55,31 @@ describe('dataUtils tests', () => {
   });
 
   it('should throw an error when sorting by a non-existent column', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n3,2,1\n6,5,4\n9,8,7';
     const column = 'd';
     const ascending = true;
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     await dataUtils.parseCSV(csvData);
 
-    // Assertions
+    // Assert
     expect(() => dataUtils.sortData(column, ascending)).toThrowError('Column d not found.');
   });
 
   it('should sort data in descending order', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n3,2,1\n6,5,4\n9,8,7';
     const column = 'a';
     const ascending = false;
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     await dataUtils.parseCSV(csvData);
     const sortedData = dataUtils.sortData(column, ascending);
 
-    // Assertions
+    // Assert
     expect(sortedData).toBeDefined();
     expect(sortedData).toBeInstanceOf(Array);
     expect(sortedData.length).toBe(3);
@@ -88,120 +89,126 @@ describe('dataUtils tests', () => {
   });
 
   it('should parse CSV data with all supported delimiters', async () => {
+    // Arrange
     const csvDataTypes = [
       'a,b,c\n1,2,3\n4,5,6\n7,8,9',
       'a;b;c\n1;2;3\n4;5;6\n7;8;9',
       'a\tb\tc\n1\t2\t3\n4\t5\t6\n7\t8\t9',
       'a|b|c\n1|2|3\n4|5|6\n7|8|9'
     ];
+    const dataUtils = new DataUtils();
 
     for (const csvData of csvDataTypes) {
-      const dataUtils = new DataUtils();
+      // Act
       const parsedData = await dataUtils.parseCSV(csvData);
 
+      // Assert
       testRegularAssertions(parsedData);
     }
   });
 
   it('should parse JSON data in style 1', async () => {
-    // Prepare data
+    // Arrange
     const jsonData = '[{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]';
 
-    // Test
+    // Act
     const dataUtils = new DataUtils();
     const parsedData = await dataUtils.parseJSON(jsonData);
 
-    // Assertions
+    // Assert
     testRegularAssertions(parsedData);
   });
 
   it('should parse JSON data in style 2', async () => {
-    // Prepare data
+    // Arrange
     const jsonData = '{"a":[1,4,7],"b":[2,5,8],"c":[3,6,9]}';
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     const parsedData = await dataUtils.parseJSON(jsonData);
 
-    // Assertions
+    // Assert
     testRegularAssertions(parsedData);
   });
 
   it('should parse JSON using the parseData function', async () => {
-    // Prepare data
+    // Arrange
     const jsonData = '[{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]';
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     const parsedData = await dataUtils.parseData(jsonData);
 
-    // Assertions
+    // Assert
     testRegularAssertions(parsedData);
   });
 
   it('should parse CSV using the parseData function', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     const parsedData = await dataUtils.parseData(csvData);
 
-    // Assertions
+    // Assert
     testRegularAssertions(parsedData);
   });
 
   it('should throw an error when parsing invalid data', async () => {
-    // Prepare data
+    // Arrange
     const invalidData = 'invalid data';
-
-    // Test
     const dataUtils = new DataUtils();
 
-    // Assertions
-    await expect(dataUtils.parseData(invalidData)).rejects.toThrowError(
+    // Act
+    const parseInvalidData = dataUtils.parseData(invalidData);
+
+    // Assert
+    await expect(parseInvalidData).rejects.toThrowError(
       'Data could not be parsed as JSON or CSV. Please provide a valid type.'
     );
   });
 
   it('should throw an error when parsing invalid CSV data', async () => {
-    // Prepare data
+    // Arrange
     const invalidData = 'invalid data';
-
-    // Test
     const dataUtils = new DataUtils();
 
+    // Act
+    const parseInvalidCSVData = dataUtils.parseCSV(invalidData);
+
     // Assertions
-    await expect(dataUtils.parseCSV(invalidData)).rejects.toThrowError(
+    await expect(parseInvalidCSVData).rejects.toThrowError(
       'CSV data that was supplied is not in the correct format.'
     );
   });
 
   it('should throw an error when parsing invalid JSON data', async () => {
-    // Prepare data
+    // Arrange
     const invalidData = 'invalid data';
-
-    // Test
     const dataUtils = new DataUtils();
 
-    // Assertions
-    await expect(dataUtils.parseJSON(invalidData)).rejects.toThrowError(
+    // Act
+    const parseInvalidJSONData = dataUtils.parseJSON(invalidData);
+
+    // Assert
+    await expect(parseInvalidJSONData).rejects.toThrowError(
       'JSON data that was supplied is not in the correct format.'
     );
   });
 
   it('should reorder the rows of the data', async () => {
-    // Prepare data
+    // Arrange
     const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
     const oldIndex = 0;
     const newIndex = 2;
-
-    // Test
     const dataUtils = new DataUtils();
+
+    // Act
     await dataUtils.parseCSV(csvData);
     const result = dataUtils.reorderRows(oldIndex, newIndex);
 
-    // Assertions
+    // Assert
     expect(result).toBeDefined();
     expect(result).toBeInstanceOf(Array);
     expect(result.length).toBe(3);

@@ -27,7 +27,7 @@
   export let fontFamily: string = 'Arial';
   export let hasBackground: boolean = true;
   export let backgroundOpacity: number | string = opacity;
-  export let pointerEvents: boolean = false;
+  export let hasPointerEvents: boolean = false;
   export let name: string = '';
   export let width: number | 'auto' = 'auto';
   export let height: number | 'auto' = 'auto';
@@ -154,7 +154,7 @@ The default origin is the middle of the label.
 * fontFamily: string        - Font family of the text in the label.
 * hasBackground: bool       - Whether the label has a background or not.
 * backgroundOpacity: number - Opacity of the background behind the label. Defaults to `opacity`.
-* pointerEvents             - Whether the label should respond to all pointer events (true) or none (false). Defaults to `none`.
+* hasPointerEvents          - Whether the label should respond to all pointer events (true) or none (false). Defaults to `none`.
 * name: string              - What class to give to the label, default to `''`.
                               If set, then the corresponding class becomes `label-name`. Else, there is no class by default.
 * width: number | 'auto'    - Width of the rectangle of the label, defaults to 'fit-text'
@@ -165,7 +165,7 @@ The default origin is the middle of the label.
 <g
   transform="rotate({rotationDegrees}, {x}, {y})"
   class={name ? `label-${name}` : undefined}
-  style="pointer-events: {pointerEvents ? 'all' : 'none'};">
+  style="pointer-events: {hasPointerEvents ? 'all' : 'none'}">
   <!-- Draw background behind text. -->
   {#if hasBackground}
     <rect

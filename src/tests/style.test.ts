@@ -1,18 +1,21 @@
 import { describe, it, expect } from 'vitest';
-import { StyleUtils } from '$lib/utils/StyleUtils.js';
 import chroma from 'chroma-js';
+
+import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
 describe('StyleUtils tests', () => {
   it('should generate a color scheme', () => {
-    // Prepare
-    const colorSet = 'qualitative'; // Using a ColorBrewer color set as an example
-    const n = 5; // Number of colors to generate
-
-    // Test
+    // Arrange
+    // Using a ColorBrewer color set as an example
+    const colorSet = 'qualitative';
+    // Number of colors to generate
+    const n = 5;
     const colorUtils = new StyleUtils();
+
+    // Act
     const colors = colorUtils.generateColors(colorSet, n);
 
-    // Assertions
+    // Assert
     expect(colors).toBeDefined();
     expect(colors).toBeInstanceOf(Array);
     expect(colors.length).toBe(n);
@@ -23,15 +26,17 @@ describe('StyleUtils tests', () => {
   });
 
   it('should generate the correct color set', () => {
-    // Prepare
-    const colorSet = 'Set1'; // Using a ColorBrewer color set as an example
-    const n = 5; // Number of colors to generate
-
-    // Test
+    // Arrange
+    // Using a ColorBrewer color set as an example
+    const colorSet = 'Set1';
+    // Number of colors to generate
+    const n = 5;
     const colorUtils = new StyleUtils();
+
+    // Act
     const colors = colorUtils.generateColors(colorSet, n);
 
-    // Assertions
+    // Assert
     expect(colors).toBeDefined();
     expect(colors).toBeInstanceOf(Array);
     expect(colors.length).toBe(n);
@@ -40,16 +45,16 @@ describe('StyleUtils tests', () => {
   });
 
   it('should darken the generated colors', () => {
-    // Prepare
+    // Arrange
     const colorSet = 'OrRd';
     const n = 5;
-
-    // Test
     const colorUtils = new StyleUtils();
+
+    // Act
     colorUtils.generateColors(colorSet, n);
     const { colorScheme, colorSchemeDark } = colorUtils;
 
-    // Assertions
+    // Assert
     expect(colorSchemeDark).toBeDefined();
     expect(colorSchemeDark).toBeInstanceOf(Array);
     expect(colorSchemeDark.length).toBe(n);
@@ -62,72 +67,65 @@ describe('StyleUtils tests', () => {
   });
 
   it('should maintain the same number of colors in both light and dark arrays', () => {
-    // Prepare
+    // Arrange
     const colorSet = 'OrRd';
     const n = 5;
-
-    // Test
     const colorUtils = new StyleUtils();
+
+    // Act
     colorUtils.generateColors(colorSet, n);
     const { colorScheme, colorSchemeDark } = colorUtils;
 
-    // Assertions
+    // Assert
     expect(colorScheme.length).toBe(colorSchemeDark.length);
   });
 
   it('should return the highest n of a color set', () => {
-    // Prepare
+    // Arrange
     const colorSet = 'Set3';
-
-    // Test
     const colorUtils = new StyleUtils();
+
+    // Act
     const highestN = colorUtils.findMaximumColorCount(colorSet);
 
-    // Assertions
+    // Assert
     expect(highestN).toBe(12);
   });
 
   it('should return the scheme group of a color set', () => {
-    // Prepare
+    // Arrange
     const colorSet = 'Spectral';
-
-    // Test
     const colorUtils = new StyleUtils();
+
+    // Act
     const schemeGroup = colorUtils.findSchemeGroup(colorSet);
 
-    // Assertions
+    // Assert
     expect(schemeGroup).toBe('diverging');
   });
 
   it('should throw an error for an invalid color scheme', () => {
-    // Prepare
+    // Arrange
     const colorSet = 'InvalidScheme';
     const n = 5;
-
-    // Test
     const colorUtils = new StyleUtils();
 
-    // Assertions
-    expect(() => colorUtils.generateColors(colorSet, n)).toThrowError(
+    // Act
+    const generateInvalidColorScheme = () => colorUtils.generateColors(colorSet, n);
+
+    // Assert
+    expect(generateInvalidColorScheme).toThrowError(
       'Invalid color scheme. Look up the available color schemes in ColorBrewer2.org.'
     );
   });
 
   it('should wrap around the color set if the number of colors exceeds the maximum', () => {
-    // Prepare
+    // Arrange
     const scheme = 'Set1';
     const colorSet = 'OrRd';
     const n = 10;
-
-    // Test
     const colorUtils = new StyleUtils();
-    const wrappedColors = colorUtils.wrapColorSet(scheme, colorSet, n);
-
-    // Assertions
-    expect(wrappedColors).toBeDefined();
-    expect(wrappedColors).toBeInstanceOf(Array);
-    expect(wrappedColors.length).toBe(n);
-    expect(wrappedColors).toEqual([
+    const expectedWrappedColors = [
       '#e41a1c',
       '#377eb8',
       '#4daf4a',
@@ -138,36 +136,46 @@ describe('StyleUtils tests', () => {
       '#f781bf',
       '#999999',
       '#e41a1c'
-    ]);
+    ];
+
+    // Act
+    const wrappedColors = colorUtils.wrapColorSet(scheme, colorSet, n);
+
+    // Assert
+    expect(wrappedColors).toBeDefined();
+    expect(wrappedColors).toBeInstanceOf(Array);
+    expect(wrappedColors.length).toBe(n);
+    expect(wrappedColors).toEqual(expectedWrappedColors);
   });
 
   it('should throw an error if n is not a number or negative', () => {
-    // Prepare
+    // Arrange
     const colorSet = 'OrRd';
     const n = -5;
-
-    // Test
     const colorUtils = new StyleUtils();
 
-    // Assertions
-    expect(() => colorUtils.generateColors(colorSet, n)).toThrowError(
+    // Act
+    const generateColors = () => colorUtils.generateColors(colorSet, n);
+
+    // Assert
+    expect(generateColors).toThrowError(
       'Invalid number of colors. Please provide a positive number.'
     );
   });
 
   it('should change only the values that are passed', () => {
-    // Prepare
+    // Arrange
     const options = {
       fontSize: 15,
       color: 'red'
     };
 
-    // Test
+    // Act
     const colorUtils = new StyleUtils(options);
 
-    // Assertions
-    expect(colorUtils.fontSize).toBe(15);
-    expect(colorUtils.color).toBe('red');
+    // Assert
+    expect(colorUtils.fontSize).toBe(options.fontSize);
+    expect(colorUtils.color).toBe(options.color);
     expect(colorUtils.fontFamily).toBe('Arial');
     expect(colorUtils.colorBorder).toBe('#8C8C8C');
     expect(colorUtils.focusColor).toBe('#FF0000');
