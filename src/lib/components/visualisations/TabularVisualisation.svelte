@@ -193,7 +193,7 @@
   // Function that fires when the mouse enters any bar that is a child component of the tabular visualisation
   function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
     // Highlight bar row
-    d3.selectAll(`.${e.detail.name}`).classed('highlighted', true);
+    d3.selectAll(`.bar-${e.detail.name}`).classed('highlighted', true);
     // Highlight label. '> text' is to refer to the nested text object
     d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', true);
   }
@@ -202,7 +202,7 @@
   function onMouseBarLeft(e: CustomEvent<{ name: string }>) {
     // Unhighlight bar row if not dragging
     if (draggedRow != e.detail.name) {
-      d3.selectAll(`.${e.detail.name}`).classed('highlighted', false);
+      d3.selectAll(`.bar-${e.detail.name}`).classed('highlighted', false);
 
       // Unhighlight label
       d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);

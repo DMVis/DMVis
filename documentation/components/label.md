@@ -150,13 +150,9 @@ Opacity of the background behind the label. Defaults to `opacity`.
 ## name
 
 - Type: `string`
-- Default: `undefined`
+- Default: `'label'`
 
-Name of the label. It can be used as an identifier.
-Defaults to `''`.
-
-> Note: If set, then the corresponding class becomes 'label-`name`'.
-> Else, there is no class by default.
+Class name of the label. It can be used as an identifier. Defaults to only `'label'`. If set, the class names will be `'label'` and `'label-name'`.
 
 ## width
 

@@ -13,7 +13,7 @@
   export let radius: number = 5;
   export let borderWidth: number = 1;
   export let opacity: number = 1;
-  export let name: string = `(${x},${y})`;
+  export let name: string | undefined = undefined;
 
   // Get styles from the store
   const { styleUtil } = getContext<VisualisationStore>('store');
@@ -51,7 +51,8 @@ It is used in combination with other components to create a chart.
   * radius: number        - Radius of the point, defaulted to 5
   * borderWidth: number   - Width of the border, defaulted to 1
   * opacity: number       - Opacity of the point where 0 is completely transparent and 1 is completely opaque, defaulted to 1
-  * name: string          - Class name of the point, is used as identifier. Defaults to (x-coordinate,y-coordinate)
+  * name: string          - Class name of the point. It can be used as an identifier. Defaults to only `point`.
+                                  If set, the class names will be `point` and `point-name`.
 -->
 
 <circle
@@ -62,7 +63,7 @@ It is used in combination with other components to create a chart.
   fill={$styleUtil.color}
   stroke-width={borderWidth}
   {opacity}
-  class={`point ${name}`}
+  class={`point` + `${name === undefined ? '' : ' point-' + name}`}
   on:mouseenter={onMouseEnter}
   on:focus={onMouseEnter}
   on:mouseleave={onMouseLeave}

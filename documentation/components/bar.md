@@ -118,10 +118,9 @@ Text to display in the label when the mouse hovers over the bar.
 ## name
 
 - Type: `string`
-- Default: `(x,y)`
+- Default: `'bar'`
 
-Name of the bar. It can be used as an identifier.
-Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
+Class name of the bar. It can be used as an identifier. Defaults to only `'bar'`. If set, the class names will be `'bar'` and `'bar-name'`.
 
 # Event dispatches
 

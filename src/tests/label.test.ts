@@ -45,7 +45,7 @@ describe('Html test', () => {
     const expectedRectHeight = (text: SVGElement): number => {
       return text.getBBox().height + padding;
     };
-    const expectedClasses = '';
+    const expectedClasses = 'label';
 
     // Act
     const [group, rect, text] = createLabel(config);
@@ -102,7 +102,7 @@ describe('Html test', () => {
       borderColor: 'red'
     };
     // Note that the width and height are explicitly set and not 'auto' here
-    const expectedClasses = `label-${config.name}`;
+    const expectedClasses = `label label-${config.name}`;
 
     // Act
     const [group, rect, text] = createLabel(config);

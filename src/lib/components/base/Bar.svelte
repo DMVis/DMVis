@@ -25,7 +25,7 @@
   export let radiusY: number | string = 0;
   export let showsNegativeHeight: boolean = false;
   export let hoverText: string = '';
-  export let name: string = `(${x},${y})`;
+  export let name: string | undefined = undefined;
 
   // Private attributes
   let rectBlock: SVGRectElement;
@@ -120,13 +120,13 @@ The default origin is the bottom middle of the bar.
                                   or a percentage string formatted as '{number}%'.
 * showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative or not.
 * hoverText: string             - Text to display in the label when the mouse hovers over the bar.
-* name: string                  - Name of the bar. It can be used as an identifier.
-                                  Defaults to '(`x`,`y`)', which contains the actual values of `x` and `y`.
+* name: string                  - Class name of the bar. It can be used as an identifier. Defaults to only `bar`.
+                                  If set, the class names will be `bar` and `bar-name`.
 -->
 
 <!-- The bar -->
 <rect
-  class={`bar ${name}`}
+  class={`bar` + `${name === undefined ? '' : ' bar-' + name}`}
   bind:this={rectBlock}
   transform="rotate({rotationDegrees}, {x}, {y})"
   {x}
@@ -156,7 +156,7 @@ The default origin is the bottom middle of the bar.
     originY={OriginY.Bottom}
     {rotationDegrees}
     textColor={'#ffffff'}
-    name={'bar'} />
+    name={'bar-hover'} />
 {/if}
 
 <style>

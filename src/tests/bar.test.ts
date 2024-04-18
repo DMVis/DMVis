@@ -152,7 +152,7 @@ describe('Html test', () => {
       return fireEvent.mouseEnter(bar);
     });
 
-    const label = document.body.getElementsByClassName('label-bar')[0];
+    const label = document.body.getElementsByClassName('label-bar-hover')[0];
 
     // Assert
     expect(bar).toBeDefined();
@@ -171,7 +171,7 @@ describe('Html test', () => {
       return fireEvent.focus(bar);
     });
 
-    const label = document.body.getElementsByClassName('label-bar')[0];
+    const label = document.body.getElementsByClassName('label-bar-hover')[0];
 
     // Assert
     expect(bar).toBeDefined();
@@ -220,7 +220,7 @@ describe('Html test', () => {
     // Arrange
     // Note that x and y are intentionally different to test the default name attribute
     const config = { x: 0, y: 1, width: 50, height: 250, isHeightAlongYAxis: true };
-    const expectedClasses = `bar (${config.x},${config.y})`;
+    const expectedClasses = `bar`;
 
     // Act
     const bar = createBar(config);
@@ -257,7 +257,7 @@ describe('Html test', () => {
       showsNegativeHeight: false,
       name: 'test'
     };
-    const expectedClasses = `bar ${config.name}`;
+    const expectedClasses = `bar bar-${config.name}`;
 
     // Act
     const bar = createBar(config);

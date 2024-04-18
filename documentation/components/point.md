@@ -62,9 +62,9 @@ Opacity of the point, where 0 represents a completely transparent point and 1 re
 ## name
 
 - Type: `string`
-- Default: `(x-coordinate, y-coordinate)`
+- Default: `'point'`
 
-Name of the point, is mainly used in identifying the point, or can be used for displaying a point name on hover.
+Class name of the point. It can be used as an identifier. Defaults to only `'point'`. If set, the class names will be `'point'` and `'point-name'`.
 
 # Event dispatches
 

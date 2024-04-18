@@ -28,7 +28,7 @@
   export let hasBackground: boolean = true;
   export let backgroundOpacity: number | string = opacity;
   export let hasPointerEvents: boolean = false;
-  export let name: string = '';
+  export let name: string | undefined = undefined;
   export let width: number | 'auto' = 'auto';
   export let height: number | 'auto' = 'auto';
   export let borderColor: string = 'black';
@@ -155,8 +155,8 @@ The default origin is the middle of the label.
 * hasBackground: bool       - Whether the label has a background or not.
 * backgroundOpacity: number - Opacity of the background behind the label. Defaults to `opacity`.
 * hasPointerEvents          - Whether the label should respond to all pointer events (true) or none (false). Defaults to `none`.
-* name: string              - What class to give to the label, default to `''`.
-                              If set, then the corresponding class becomes `label-name`. Else, there is no class by default.
+* name: string              - Class name of the label. It can be used as an identifier. Defaults to only `label`.
+                                  If set, the class names will be `label` and `label-name`.
 * width: number | 'auto'    - Width of the rectangle of the label, defaults to 'fit-text'
 * height: number | 'auto'   - Height of the rectangle of the label, defaults to 'fit-text'
 * borderColor: string      - Color of the border around the label, defaults to black. Can be set to `none` for no border
@@ -164,7 +164,7 @@ The default origin is the middle of the label.
 
 <g
   transform="rotate({rotationDegrees}, {x}, {y})"
-  class={name ? `label-${name}` : undefined}
+  class={name !== undefined ? `label label-${name}` : 'label'}
   style="pointer-events: {hasPointerEvents ? 'all' : 'none'}">
   <!-- Draw background behind text. -->
   {#if hasBackground}

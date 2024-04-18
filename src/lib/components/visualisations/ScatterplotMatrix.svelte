@@ -333,7 +333,7 @@
     /* Toggles the focus of all the points with a given classname
        If the bool is true the point will be grey, if false it will not be grey */
     function changeFocus(pointName: string, needsToBeGrey: boolean) {
-      d3.selectAll(`.${pointName}`).classed('greyed', needsToBeGrey);
+      d3.selectAll(`.point-${pointName}`).classed('greyed', needsToBeGrey);
     }
   }
 
@@ -346,11 +346,12 @@
   }
 
   // Function that fires when the mouse leaves any point
-  function onMousePointLeft(): void {
+  function onMousePointLeft(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     // If there is a point clicked, do not do anything
     if (clickedPoint != '') return;
     // Remove the highlight from all points
-    d3.selectAll('.highlighted').classed('highlighted', false);
+    let name = e.detail.name;
+    d3.selectAll(`.point-${name}`).classed('highlighted', false);
     // Tooltip label is no longer visible
     tooltipData.visible = false;
   }
@@ -361,7 +362,7 @@
 
     // Select all the points with the same class name
     let name = e.detail.name;
-    d3.selectAll(`.${name}`).classed('highlighted', true);
+    d3.selectAll(`.point-${name}`).classed('highlighted', true);
     // Get the coordinates of this point
     // Used for the tooltip label
     let xCoordPoint = e.detail.x + (xScale(currentX) ?? 0);

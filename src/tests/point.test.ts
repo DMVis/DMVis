@@ -24,7 +24,7 @@ describe('Html test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     const config = { x: 100, y: 150 };
-    const expectedClasses = `point (${config.x},${config.y})`;
+    const expectedClasses = `point`;
 
     // Act
     const point = createPoint(config);
@@ -56,7 +56,7 @@ describe('Html test', () => {
       opacity: 0.5,
       name: 'test'
     };
-    const expectedClasses = `point ${config.name}`;
+    const expectedClasses = `point point-${config.name}`;
 
     // Act
     const point = createPoint(config);
