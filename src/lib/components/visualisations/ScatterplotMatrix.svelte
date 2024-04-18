@@ -604,3 +604,10 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 {:catch}
   <p>Loading visualisation failed</p>
 {/await}
+
+<!-- This gets rid of the outlines that are added because of ARIA across all exported components -->
+<style>
+  :global(:focus) {
+    outline: none;
+  }
+</style>
