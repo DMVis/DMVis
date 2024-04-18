@@ -78,6 +78,7 @@
   let deltaY: number = 0;
   let deltaYLabel: number = 0;
   let draggedRow: string = '';
+  let draggedItem: string = '';
   const dragHandler = d3
     .drag<SVGElement, unknown>()
     .on('start', function (event) {
@@ -85,34 +86,34 @@
       if (event.sourceEvent.srcElement.nodeName == 'text') {
         draggedRow = event.sourceEvent.srcElement.parentElement.attributes
           .getNamedItem('class')
-          .value.split(' ')[0]
-          .split('-')[1];
+          .value.split(' ')[1];
+        draggedItem = draggedRow.split('-')[1];
       } else {
         draggedRow = event.sourceEvent.srcElement.attributes
           .getNamedItem('class')
           .value.split(' ')[1];
+        draggedItem = draggedRow.split('-')[1];
       }
-
       // Store the initial y position of the dragged row
-      deltaY = parseFloat(d3.select(`.${draggedRow}`).attr('y')) - event.y;
-      deltaYLabel = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y')) - event.y;
+      deltaY = parseFloat(d3.select(`.bar-${draggedItem}`).attr('y')) - event.y;
+      deltaYLabel = parseFloat(d3.select(`.label-${draggedItem} > text`).attr('y')) - event.y;
 
       // Raise dragged row to the front
-      d3.selectAll(`.${draggedRow}`).raise();
-      d3.selectAll(`.label-${draggedRow}`).raise();
+      d3.selectAll(`.bar-${draggedItem}`).raise();
+      d3.selectAll(`.label-${draggedItem}`).raise();
     })
     .on('drag', function (event) {
       // Update y position of the row
-      d3.selectAll(`.${draggedRow}`).attr('y', event.y + deltaY);
-      d3.selectAll(`.label-${draggedRow} > text`).attr('y', event.y + deltaYLabel);
+      d3.selectAll(`.bar-${draggedItem}`).attr('y', event.y + deltaY);
+      d3.selectAll(`.label-${draggedItem} > text`).attr('y', event.y + deltaYLabel);
     })
     .on('end', async function () {
       // Get nearest row to the dragged row
-      const y = parseFloat(d3.select(`.label-${draggedRow} > text`).attr('y'));
+      const y = parseFloat(d3.select(`.label-${draggedItem} > text`).attr('y'));
       const labelColumn = d3.select('.bar-column');
       const rows: Array<Element> = labelColumn.selectAll('text').nodes() as Array<Element>;
       const distances = rows.map((row: Element) => {
-        if (row == null || row.innerHTML == draggedRow) return Infinity;
+        if (row == null || row.innerHTML == draggedItem) return Infinity;
         let rowY = row.attributes?.getNamedItem('y')?.value;
         if (rowY == null) return Infinity;
         return Math.abs(parseFloat(rowY) - y);
@@ -122,7 +123,7 @@
       const minDistanceIndex = distances.indexOf(Math.min(...distances));
       const nearestRow = rows[minDistanceIndex != -1 ? minDistanceIndex : 0];
       const nearestLabel = nearestRow ? nearestRow.innerHTML : rows[0].innerHTML;
-      const oldIndex = dataUtil.data.findIndex((row) => row[0] == draggedRow);
+      const oldIndex = dataUtil.data.findIndex((row) => row[0] == draggedItem);
       const newIndex = dataUtil.data.findIndex((row) => row[0] == nearestLabel);
       const newData = dataUtil.reorderRows(oldIndex, newIndex == -1 ? 0 : newIndex);
       dataUtil.data = newData;
@@ -130,8 +131,11 @@
       updateColumns();
 
       // Unhighlight and reset row
-      d3.selectAll(`.${draggedRow}`).classed('highlighted', false).attr('fill-opacity', barOpacity);
-      d3.selectAll(`.label-${draggedRow} > text`).classed('highlighted', false);
+      d3.selectAll(`.${draggedItem}`)
+        .classed('highlighted', false)
+        .attr('fill-opacity', barOpacity);
+      d3.selectAll(`.label-${draggedItem} > text`).classed('highlighted', false);
+      draggedItem = '';
       draggedRow = '';
     });
 

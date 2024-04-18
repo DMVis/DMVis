@@ -170,7 +170,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       {fontWeight}
       {fontFamily}
       hasBackground={false}
-      hasPointerEvents={false}
+      hasPointerEvents={true}
       name={`${row.label} bar-label`} />
     <!-- End of each loop over rows -->
   {/each}
