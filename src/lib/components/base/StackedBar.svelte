@@ -10,15 +10,21 @@
 
   // Optional attributes
   export let opacity: number | string = 1;
+  export let width = 100;
 
   // Get store info
-  const { data, columns, yScales, marginLeft, styleUtil } = getContext<VisualisationStore>('store');
+  const { data, columns, yScales, marginLeft, marginRight, styleUtil } =
+    getContext<VisualisationStore>('store');
   const yScale = $yScales[0] as d3.ScaleBand<string>;
-
   // Prepare data for rendering
   const labels = $data.map((row) => row[0]);
   const numericalData: Array<Array<number>> = $data.map((row) => row.slice(1) as Array<number>);
   const numericalCols = $columns.slice(1);
+  const maxValue = d3.max(numericalData.map((row) => d3.sum(row)));
+  const xScale = d3
+    .scaleLinear()
+    .domain([0, Number(maxValue)])
+    .range([0, width - $marginLeft - $marginRight]);
 </script>
 
 <!--
@@ -40,10 +46,10 @@ on top of each other.
     {#each numericalCols as column, colIndex}
       <!-- Create a bar for every attribute -->
       <Bar
-        x={$marginLeft + d3.sum(rows.slice(0, colIndex))}
+        x={$marginLeft + xScale(d3.sum(rows.slice(0, colIndex)))}
         y={Number(yScale(String(labels[rowIndex])))}
         width={yScale.bandwidth()}
-        height={Number(rows[colIndex])}
+        height={xScale(Number(rows[colIndex]))}
         isHeightAlongYAxis={false}
         color={$styleUtil.colorScheme[colIndex % $styleUtil.colorScheme.length]}
         originX={OriginX.Left}
