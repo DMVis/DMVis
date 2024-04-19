@@ -13,9 +13,9 @@
   export let y: number;
   export let width: number;
   export let height: number;
-  export let isHeightAlongYAxis: boolean;
 
   // Optional attributes
+  export let isVertical: boolean = true;
   export let color: string = 'red';
   export let opacity: number | string = 1;
   export let originX: OriginX = OriginX.Middle;
@@ -33,7 +33,7 @@
 
   const dispatchEvent = createEventDispatcher();
 
-  if (!isHeightAlongYAxis) {
+  if (!isVertical) {
     // Swap width and height if the bar is horizontal
     const temp: number = width;
     width = height;
@@ -84,44 +84,49 @@
 <!--
 @component
 ### Bar
-A single bar that can be used for bar visualizations.
+A bar that can be used for bar visualizations.
+Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
 Both positive and negative `height` values are visible
-depending on whether `showsNegativeHeight` is toggled.
-Since both the width and height could be associated with
-the x-axis or y-axis, one must explicitly mention which
-is the case through toggling `isHeightAlongYAxis`
-(i.e. horizontal versus vertical bar).
-Coordinates are relative to the parent SVG element.
-The default origin is the bottom middle of the bar.
+depending on `showsNegativeHeight`.
+By default, the bar is vertical and its origin is the bottom middle.
 
 #### Required attributes
 * x: number                     - X-coordinate of the bar.
 * y: number                     - Y-coordinate of the bar.
 * width: number                 - Width of the bar.
 * height: number                - Height of the bar.
-* isHeightAlongYAxis            - Whether the height is along the x-axis or y-axis
-                                  (i.e. horizontal or vertical bar).
 
 #### Optional attributes
+* isVertical                    - Whether the bar is vertical bar or horizontal. Defaults to `true`.
 * color: string                 - Color of the bar.
 * opacity: string               - Opacity of the bar as a number in range [0..1] or
                                   a percentage string formatted as '{number}%'.
+                                  Defaults to `1`.
 * originX: OriginX              - Horizontal origin of the bar.
                                   Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
                                   Which value is useful depends on one's positioning logic.
+                                  Defaults to `OriginX.Middle`.
 * originY: OriginY              - Vertical origin of the label.
                                   Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
                                   Which value is useful depends on one's positioning logic.
-* rotationDegrees: number       - Rotation of the bar in degrees.
+                                  Defaults to `OriginY.Bottom`.
+* rotationDegrees: number       - Rotation of the bar in degrees. Defaults to `0`.
 * radiusX: number | string      - Horizontal corner radius of the bar as a number
                                   or a percentage string formatted as '{number}%'.
+                                  Defaults to `0`.
 * radiusY: number | string      - Vertical corner radius of the bar as a number
                                   or a percentage string formatted as '{number}%'.
-* showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative or not.
+                                  Defaults to `0`.
+* showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative.
+                                  Defaults to `false`.
 * hoverText: string             - Text to display in the label when the mouse hovers over the bar.
+                                  Defaults to `''`.
 * name: string                  - Class name of the bar. It can be used as an identifier. Defaults to only `bar`.
                                   If set, the class names will be `bar` and `bar-name`.
+
+#### Event dispatch
+* For detailed information about dispatches, check the documentation
 -->
 
 <!-- The bar -->

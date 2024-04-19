@@ -194,7 +194,7 @@
             );
           }
 
-          //Set the correct amount of ticks for the scaleLinear axis
+          // Set the correct amount of ticks for the scaleLinear axis
           if (hasTicks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
@@ -237,7 +237,7 @@
             );
           }
 
-          //Set the correct amount of ticks for the scaleLinear axis
+          // Set the correct amount of ticks for the scaleLinear axis
           if (hasTicks) {
             newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
           } else {
@@ -288,19 +288,20 @@ It displays tick marks and labels based on provided data.
 You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
 
 #### Optional attributes
-  * alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (side of the column where the axis is placed). Defaults to 'start'.
-  * fontSize: number                                - The font size of the tick labels. Defaults to 10.
-  * color: string                                   - The color of the axis line. Defaults to 'black'.
-  * hasTicks: boolean                               - Whether to display tick marks. Defaults to true.
-  * offset: number                                  - The offset of the axis from the side of the visualisation. Defaults to 0.
-  * ticksNumber: number                             - The number of ticks you want displayed on the axes, defaults to 10
-  * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to 'bottom'.
+  * alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (i.e. the side of the column where the axis is placed).
+                                                      Defaults to `'start'`.
+  * fontSize: number                                - Font size of the tick labels. Defaults to `10`.
+  * color: string                                   - Color of the axis line. Defaults to `'black'`.
+  * hasTicks: boolean                               - Whether to display tick marks. Defaults to `true`.
+  * offset: number                                  - The offset of the axis from the side of the visualisation. Defaults to `0`.
+  * ticksNumber: number                             - The number of ticks you want displayed on the axes. Defaults to `10`.
+  * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to `'bottom'`.
   * spacingDirection: 'horizontal' | 'vertical'
-                    | 'left' | 'right'              - The direction to space the axes. Defaults to 'horizontal'.
-  * hasPadding: boolean                             - Does the visualisation include padding
-  * startColumn: number                             - Index of first column that is drawn, starting from 0
-  * endColumn: number                               - Index of last column that is drawn, defaults to last one
-  * customPadding: number                           - Custom padding between columns, defaults to 0
+                    | 'left' | 'right'              - The direction to space the axes. Defaults to `'horizontal'`.
+  * hasPadding: boolean                             - Whether the visualisation includes padding. Defaults to `true`.
+  * startColumn: number                             - Index of first column that is drawn, starting from 0. Defaults to `0`.
+  * endColumn: number                               - Index of last column that is drawn. Defaults to the last column.
+  * customPadding: number                           - Custom padding between columns. Defaults to `0`.
 -->
 
 <!-- Loop over all the axis and draw them at their corresponding position -->

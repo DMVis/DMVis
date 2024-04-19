@@ -9,7 +9,7 @@ prepareSvgGetter();
 describe('Html test', () => {
   it('checks if a vertically configured bar is vertical', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250 };
     // Since the bar is designed to be vertical by default, the
     // width corresponds to width and the height corresponds to height
     const expectedWidth = config.width;
@@ -25,7 +25,7 @@ describe('Html test', () => {
 
   it('checks if a horizontally configured bar is horizontal', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: false };
+    const config = { x: 0, y: 0, width: 50, height: 250, isVertical: false };
     // Note that width and height are now swapped
     const expectedWidth = config.height;
     const expectedHeight = config.width;
@@ -129,7 +129,7 @@ describe('Html test', () => {
 
   it('checks if a bar has no label by default', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
@@ -142,7 +142,7 @@ describe('Html test', () => {
 
   it('checks if a label appears on mouse enter event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
@@ -161,7 +161,7 @@ describe('Html test', () => {
 
   it('checks if a label appears on focus event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
@@ -180,7 +180,7 @@ describe('Html test', () => {
 
   it('checks if a label disappears on mouse leave event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
@@ -199,7 +199,7 @@ describe('Html test', () => {
 
   it('checks if a label disappears on blur event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
@@ -219,7 +219,7 @@ describe('Html test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     // Note that x and y are intentionally different to test the default name attribute
-    const config = { x: 0, y: 1, width: 50, height: 250, isHeightAlongYAxis: true };
+    const config = { x: 0, y: 1, width: 50, height: 250 };
     const expectedClasses = `bar`;
 
     // Act
@@ -248,7 +248,7 @@ describe('Html test', () => {
       y: 0,
       width: 50,
       height: 250,
-      isHeightAlongYAxis: true,
+      isVertical: true,
       color: 'blue',
       opacity: 1,
       rotationDegrees: 45,

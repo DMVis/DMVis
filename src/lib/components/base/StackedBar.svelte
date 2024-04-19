@@ -36,8 +36,9 @@ component that allows for multiple bars to be stacked
 on top of each other.
 
 #### Optional attributes
-* opacity: number | string - Opacity of each bar as a number in range [0..1] or
-                             a percentage string formatted as '{number}%'.
+* opacity: number | string - Sets the opacity of the bars.
+                             Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
+                             Defaults to `1`.
 -->
 <g>
   <!-- Loop over all data points -->
@@ -50,7 +51,7 @@ on top of each other.
         y={Number(yScale(String(labels[rowIndex])))}
         width={yScale.bandwidth()}
         height={xScale(Number(rows[colIndex]))}
-        isHeightAlongYAxis={false}
+        isVertical={false}
         color={$styleUtil.colorScheme[colIndex % $styleUtil.colorScheme.length]}
         originX={OriginX.Left}
         originY={OriginY.Top}

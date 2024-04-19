@@ -67,18 +67,18 @@
 This is a visualisation to display a dataset of points
 
 #### Required attributes
-  * width: number         - Width of the visualisation
-  * height: number        - Height of the visualisation
+  * width: number         - Width of the visualisation.
+  * height: number        - Height of the visualisation.
 
-  * xAxis: string - The name of the attribute that needs to be plotted on the x-axis.
-                          This should be the same one that is provided in the data columns
-  * yAxis: string - The name of the attribute that needs to be plotted on the y-axis.
-                          This should be the same one that is provided in the data columns
+  * xAxis: string         - The name of the attribute that needs to be plotted on the x-axis.
+                            This should be the same one that is provided in the data columns
+  * yAxis: string         - The name of the attribute that needs to be plotted on the y-axis.
+                            This should be the same one that is provided in the data columns
 
 #### Optional attributes
-  * showAxis: bool - Whether or not the axis should be drawn
-  * numTicks: number - Amount of ticks to be displayed on the axis
-  * pointOpacity: number - Opacity of the points of the scatterplot, defaults to 1
+  * showAxis: bool        - Whether or not the axis should be drawn. Defaults to `true`.
+  * numTicks: number      - Amount of ticks to be displayed on the axis. Defaults to `5`.
+  * pointOpacity: number  - Opacity of the points of the scatterplot. Defaults to `1`.
 
 -->
 <g {width} {height} class="visualisation scatterplot">

@@ -8,13 +8,13 @@ This is a visualisation to display a dataset of points
 
 - Type: `number`
 
-Width of the visualisation
+Width of the visualisation.
 
 ## height
 
 - Type: `number`
 
-Height of the visualisation
+Height of the visualisation.
 
 ## xAxis
 
@@ -22,7 +22,7 @@ Height of the visualisation
 
 The name of the attribute that should be plotted along the x-axis.
 
-> Note: This should be the same name as the one that is provided in the input data
+> Note: This should be the same name as the one that is provided in the input data.
 
 ## yAxis
 
@@ -30,7 +30,7 @@ The name of the attribute that should be plotted along the x-axis.
 
 The name of the attribute that should be plotted along the y-axis.
 
-> Note: This should be the same name as the one that is provided in the input data
+> Note: This should be the same name as the one that is provided in the input data.
 
 # Optional Attributes
 
@@ -47,13 +47,6 @@ Whether or not to display the Left- and Bottom-axis.
 - Default: `5`
 
 Amount of ticks to display on each of the axis.
-
-## pointColor
-
-- Type: `string`
-- Default: `#CCCCFF`
-
-Fill color of the points of the scatterplot.
 
 ## pointOpacity
 

@@ -76,20 +76,23 @@ Value for the distance between each bar in the range [0..1].
 
 ## color
 
-- Type `string`
+- Type: `string`
+- Default: `'blue'`
 
 Color of each bar.
 
 ## opacity
 
-- Type `number | string`
+- Type: `number | string`
+- Default: `1`
 
 Opacity of each bar as a number in range [0..1] or
 a percentage string formatted as '{number}%'.
 
 ## radiusX
 
-- Type `number | string`
+- Type: `number | string`
+- Default: `5`
 
 Horizontal corner radius of each bar as a number in range [0..1] or
 a percentage string formatted as '{number}%'.
@@ -97,6 +100,7 @@ a percentage string formatted as '{number}%'.
 ## radiusY
 
 - Type `number | string`
+- Default: `5`
 
 Vertical corner radius of each bar as a number in range [0..1] or
 a percentage string formatted as '{number}%'.

@@ -401,20 +401,20 @@
 A matrix of scatterplots that can be used to quickly find relations between attributes in a large dataset.
 
 #### Required attributes
-* dataUtil: DataUtils;                  - Class holding all the data, see documentation.
+* dataUtil: DataUtils    - Class holding all the data, see documentation.
 
 #### Optional attributes
-* styleUtil: StyleUtils - Class holding all the styling. See documentation.
-* padding: number  - Padding between the different scatterplots. Default is 0.1.
-* pointColor: string - Color of the points in the scatterplots. Default is "red".
-* pointOpacity: number - Default opacity of the points in the scatterplots. Default is 0.3
+* styleUtil: StyleUtils  - Class holding all the styling. See its documentation.
+* padding: number        - Padding between the different scatterplots. Default is `0.1`.
+* pointColor: string     - Color of the points in the scatterplots. Default is `'red'`.
+* pointOpacity: number   - Default opacity of the points in the scatterplots. Default is `0.3`.
 
-* height: number   - Height of the Scatterplot Matrix.
-* width: number    - Width of the Scatterplot Matrix.
-* marginLeft: number  - Margin to the left of the visualisation, defaults to 40
-* marginRight: number  - Margin to the right of the visualisation, defaults to 40
-* marginTop: number  - Margin to the top of the visualisation, defaults to 40
-* marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
+* height: number         - Height of the Scatterplot Matrix. Defaults to `numberOfAttributes * 150`.
+* width: number          - Width of the Scatterplot Matrix. Defaults to `numberOfAttributes * 150`.
+* marginLeft: number     - Margin to the left of the visualisation. Defaults to `40`.
+* marginRight: number    - Margin to the right of the visualisation. Defaults to `40`.
+* marginTop: number      - Margin to the top of the visualisation. Defaults to `40`.
+* marginBottom: number   - Margin to the bottom of the visualisation. Defaults to `40`.
 -->
 
 {#await xScale}

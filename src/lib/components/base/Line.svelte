@@ -105,11 +105,15 @@ It is used in combination with other components to create a chart.
   None
 
 #### Optional attributes
-  * alignment: 'start' | 'end' | 'spaced'  - Alignment of the points on the lines. If using DynamicAxis, choose the same alignment option. Defaults to 'spaced'.
-  * hoverable: boolean                     - When set to true, the line will become hoverable and highlightable
-  * color: string                          - Color of the line, defaulted to grey. Can be any hex-code, rgb or plain string colors
-  * focusColor: string                     - Color of the line, when it is hovered. Defaulted to light red.
-  * lineWidth: string                      - Width of the line, defaulted to 1
+  * alignment: 'start' | 'end' | 'spaced'  - Alignment of the points on the lines.
+                                             If using DynamicAxis, choose the same alignment option.
+                                             Defaults to `'spaced'`.
+  * hoverable: boolean                     - Whether or not the line should be hoverable.
+                                             When set to `true`, the line will become highlighted if the line is hovered, and
+                                             numbers will be displayed on all the points. Defaults to `false`.
+  * color: string                          - Color of the line when no lines are hovered. Defaults to `'#BBB'` (i.e. grey).
+  * focusColor: string                     - Color of the line when it is hovered. Defaults to `'#F44'` (i.e. light red).
+  * lineWidth: string                      - Width of the line. Defaults to `1`.
 -->
 
 <g class="line-group">

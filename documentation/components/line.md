@@ -13,8 +13,8 @@ None
 ## alignment
 
 - Type: `string`
-- Default: `spaced`
-- Options: `start`, `end`, `spaced`
+- Default: `'spaced'`
+- Options: `'start'`, `'end'`, `'spaced'`
 
 Alignment of the points on the lines. If using DynamicAxis, choose the same alignment option.
 
@@ -23,7 +23,7 @@ Alignment of the points on the lines. If using DynamicAxis, choose the same alig
 - Type: `string`
 - Default: `#F44`
 
-Color of the line when this specific line is hovered.
+Color of the line when it is hovered.
 
 ## color
 

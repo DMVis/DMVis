@@ -56,16 +56,16 @@ It creates an axis for each column in the supplied table with data
   and draws a line through each axis for each row in the table.
 
 #### Required attributes
-* dataUtil: DataUtils;                  - Class holding all the data, see documentation.
+* dataUtil: DataUtils    - Class holding all the data, see documentation.
 
 #### Optional attributes
-* styleUtil: StyleUtils - Class holding all the styling. See documentation.
-* width: number;        - Width of the visualisation.
-* height: number;       - Height of the visualisation.
-* marginLeft: number  - Margin to the left of the visualisation, defaults to 40
-* marginRight: number  - Margin to the right of the visualisation, defaults to 40
-* marginTop: number  - Margin to the top of the visualisation, defaults to 40
-* marginBottom: number  - Margin to the bottom of the visualisation, defaults to 40
+* styleUtil: StyleUtils  - Class holding all the styling. See its documentation.
+* width: number;         - Width of the visualisation. Defaults to `numberOfColumns * 175`.
+* height: number;        - Height of the visualisation. Defaults to `numberOfRows * 15`.
+* marginLeft: number     - Margin to the left of the visualisation. Defaults to `40`.
+* marginRight: number    - Margin to the right of the visualisation. Defaults to `40`.
+* marginTop: number      - Margin to the top of the visualisation. Defaults to `40`.
+* marginBottom: number   - Margin to the bottom of the visualisation. Defaults to `40`.
 -->
 <svg class="visualisation parallelCoordinates" {width} {height}>
   <!-- Draw all the lines -->

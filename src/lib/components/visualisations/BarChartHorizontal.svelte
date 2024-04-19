@@ -70,18 +70,22 @@ The y-axis represents the categories of the data.
 * maxX: number                             - Maximum value of the numerical x-axis.
 
 #### Optional attributes
-* marginLeft: number       - Margin to the left of the visualisation.
-* marginRight: number      - Margin to the right of the visualisation.
-* marginTop: number        - Margin to the top of the visualisation.
-* marginBottom: number     - Margin to the bottom of the visualisation.
+* marginLeft: number       - Margin to the left of the visualisation. Defaults to `40`.
+* marginRight: number      - Margin to the right of the visualisation. Defaults to `40`.
+* marginTop: number        - Margin to the top of the visualisation. Defaults to `40`.
+* marginBottom: number     - Margin to the bottom of the visualisation. Defaults to `40`.
 * padding: number          - Value for the distance between each bar in the range [0..1].
-* color: string = 'blue'   - Color of each bar.
+                             Defaults to `0.2`.
+* color: string = 'blue'   - Color of each bar. Defaults to `'blue'`.
 * opacity: number | string - Opacity of each bar as a number in range [0..1] or
                              a percentage string formatted as '{number}%'.
+                             Defaults to `1`.
 * radiusX: number | string - Horizontal corner radius of each bar as a number in range [0..1] or
                              a percentage string formatted as '{number}%'.
+                             Defaults to `5`.
 * radiusY: number | string - Vertical corner radius of each bar as a number in range [0..1] or
                              a percentage string formatted as '{number}%'.
+                             Defaults to `5`.
 -->
 <svg class="visualisation barchart" {width} {height}>
   {#key data}
@@ -92,7 +96,7 @@ The y-axis represents the categories of the data.
         y={yScaleLocal(bar.label) ?? 0}
         width={yScaleLocal.bandwidth()}
         height={barScale(bar.value)}
-        isHeightAlongYAxis={false}
+        isVertical={false}
         originX={OriginX.Left}
         originY={OriginY.Top}
         {color}

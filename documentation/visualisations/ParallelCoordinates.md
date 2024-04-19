@@ -10,7 +10,7 @@ and draws a line through each axis for each row in the table.
 
 - Type: `DataUtils`
 
-Class holding all the data, see [DataUtils](utils/dataUtils.md).
+Class holding all the data. See [DataUtils](utils/dataUtils.md).
 
 # Optional Attributes
 
@@ -19,42 +19,42 @@ Class holding all the data, see [DataUtils](utils/dataUtils.md).
 - Type: `number`
 - Default: `numberOfColumns * 175`
 
-Width of the visualisation
+Width of the visualisation.
 
 ## height
 
 - Type: `number`
 - Default: `numberOfRows * 15`
 
-Height of the visualisation
+Height of the visualisation.
 
 ## marginLeft
 
 - Type: `number`
 - Default: `40`
 
-Margin left of the visualisation
+Margin left of the visualisation.
 
 ## marginRight
 
 - Type: `number`
 - Default: `40`
 
-Margin right of the visualisation
+Margin right of the visualisation.
 
 ## marginTop
 
 - Type: `number`
 - Default: `40`
 
-Margin above of the visualisation
+Margin above of the visualisation.
 
 ## marginBottom
 
 - Type: `number`
 - Default: `40`
 
-Margin under of the visualisation
+Margin under of the visualisation.
 
 ## styleUtils
 

@@ -5,52 +5,52 @@ It displays tick marks and labels based on provided data.
 
 # Optional Attributes
 
+## fontSize
+
+- Type: `number`
+- Default: `17`
+
+Font size of the tick labels.
+
 ## color
 
 - Type: `string`
-- Default: `#000000`
+- Default: `black`
 
-Color of axis
-
-## offset
-
-- Type: `number`
-- Default: `0`
-
-Offset of axis from the edge of the chart
+Color of the axis.
 
 ## ticks
 
 - Type: `boolean`
 - Default: `true`
 
-Whether to display tick marks
+Whether to display tick marks.
 
-## fontSize
+## offset
 
 - Type: `number`
-- Default: `17`
+- Default: `0`
 
-Font size of labels
+Offset of the axis from the side of the visualisation.
 
 ## ticksNumber
 
 - Type: `number`
 - Default: `10`
 
-Number of ticks on the axis
+Number of ticks to display on the axis.
 
 ## position
 
 - Type: `string`
-- Default: `bottom`
-- Options: `bottom`, `top`, `left`, `right`
+- Default: `'bottom'`
+- Options: `'bottom'`, `'top'`, `'left'`, `'right'`
 
-Position of the axis along the chart
+Position of the axis.
 
 # Example usage
 
-Creating a bottom axis with custom color and no tick marks
+Create a bottom axis with custom color and no tick marks.
 
 ```svelte
 <svg {width} {height}>
@@ -58,7 +58,7 @@ Creating a bottom axis with custom color and no tick marks
 </svg>
 ```
 
-Creating a left axis with custom font size and 5 ticks
+Create a left axis with custom font size and five ticks.
 
 ```svelte
 <svg {width} {height}>

@@ -20,28 +20,12 @@ Scaled y-coordinate of the point.
 
 # Optional Attributes
 
-## color
-
-- Type: `string`
-- Default: `#CCCCFF`
-
-Fill color of the point
-
-> Note: can be set to `none`, to give it no fill.
-
 ## radius
 
 - Type: `number`
 - Default: `5`
 
 Radius of circle that represents the point.
-
-## borderColor
-
-- Type: `string`
-- Default: `#000`
-
-Color of the border around the point.
 
 ## borderWidth
 

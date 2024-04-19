@@ -32,14 +32,14 @@ Height of the visualisation.
 ## marginLeft
 
 - Type: `number`
-- Default: `50`
+- Default: `30`
 
 Margin to the left of the visualisation.
 
 ## marginRight
 
 - Type: `number`
-- Default: `50`
+- Default: `30`
 
 Margin to the right of the visualisation.
 
@@ -53,7 +53,7 @@ Margin to the top of the visualisation.
 ## marginBottom
 
 - Type: `number`
-- Default: `50`
+- Default: `30`
 
 Margin to the bottom of the visualisation.
 
@@ -81,7 +81,7 @@ Whether to show lines at the start and end of each column. Defaults to false.
 ## barPadding
 
 - Type: `number`
-- Default: `0.2`
+- Default: `0.15`
 
 Value for the distance between each bar in each column in the range [0..1].
 
@@ -193,7 +193,7 @@ Color of the text in the header label in each column.
 ## headerFontSize
 
 - Type: `string`
-- Default: `'14px'`
+- Default: `'12px'`
 
 Font size of the text in the header label in each column.
 
@@ -214,7 +214,7 @@ Font family of the text in the header label in each column.
 ## hasHeaderBackground
 
 - Type: `boolean`
-- Default: `true`
+- Default: `false`
 
 Whether the header label has a background or not in each column.
 

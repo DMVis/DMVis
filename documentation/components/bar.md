@@ -5,11 +5,8 @@ Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
 Both positive and negative `height` values are visible
 depending on `showsNegativeHeight`.
-Since both the width and height could be associated with
-the x-axis or y-axis, one must explicitly mention which
-is the case through setting `isHeightAlongYAxis`.
 
-> Note: The default origin is the bottom middle of the bar.
+> Note: By default, the bar is vertical and its origin is the bottom middle.
 
 # Required Attributes
 
@@ -37,18 +34,19 @@ Width of the bar.
 
 Height of the bar.
 
-## isHeightAlongYAxis
+# Optional Attributes
+
+## isVertical
 
 - Type: `boolean`
+- Default: `true`
 
-Whether the height is along the x-axis or y-axis (i.e. horizontal or vertical bar).
-
-# Optional Attributes
+Whether the bar is vertical bar or horizontal.
 
 ## color
 
 - Type: `string`
-- Default: `rgb(255, 0, 0)`
+- Default: `'red'`
 
 Color of the bar.
 
@@ -106,7 +104,7 @@ or a percentage string formatted as `'{number}%'`.
 - Type: `boolean`
 - Default: `false`
 
-Whether the bar flips its orientation when `height` is negative or not.
+Whether the bar flips its orientation when `height` is negative.
 
 ## hoverText
 
@@ -120,23 +118,28 @@ Text to display in the label when the mouse hovers over the bar.
 - Type: `string`
 - Default: `'bar'`
 
-Class name of the bar. It can be used as an identifier. Defaults to only `'bar'`. If set, the class names will be `'bar'` and `'bar-name'`.
+Class name of the bar. It can be used as an identifier.
+Defaults to only `'bar'`.
+If set, the class names will be `'bar'` and `'bar-name'`.
 
 # Event dispatches
 
-These are all the events that the bar component will dispatch to its parent components. Check the example usage on how to use these events.
+These are all the events that the bar component will dispatch to its parent components.
+Check the example usage on how to use these events.
 
 ## mouseBarEntered
 
 - Event type: `{ name: string}`
 
-Event that fires when the mouse enters the point. The name attribute represents the classname of the bar.
+Event that fires when the mouse enters the point.
+The name attribute represents the class name of the bar.
 
 ## mouseBarLeft
 
 - Event type: `{ name: string}`
 
-Event that fires when the mouse leaves the bar. The name attribute represents the classname of the bar.
+Event that fires when the mouse leaves the bar.
+The name attribute represents the class name of the bar.
 
 # Example usage
 
@@ -147,7 +150,7 @@ Event that fires when the mouse leaves the bar. The name attribute represents th
     y={100}
     width={25}
     height={64}
-    isHeightAlongYAxis={true}
+    isVertical={true}
     originX={OriginX.Middle}
     originY={OriginY.Bottom}
     opacity={0.5}

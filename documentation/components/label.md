@@ -25,14 +25,14 @@ Y-coordinate of the label.
 
 Text to display in the label.
 
-?> Words in the text will be automatically placed on a new line if they take up too much horizontal space.
+?> Words in the text will be automatically placed on a new line if they take up too much horizontal space depending on `width`.
 
 # Optional Attributes
 
 ## color
 
 - Type: `string`
-- Default: `#fe7215`
+- Default: `'red'`
 
 Color of the rectangle behind the label.
 
@@ -42,20 +42,6 @@ Color of the rectangle behind the label.
 - Default: `1`
 
 Opacity of the label.
-
-## backgroundOpacity
-
-- Type: `number`
-- Default: Same as `opacity`
-
-Opacity of the background of the label.
-
-## hasPointerEvents
-
-- Type: `boolean`
-- Default: `false`
-
-Whether the label should respond to all pointer events (true) or none (false). Defaults to `none`.
 
 ## originX
 
@@ -108,28 +94,28 @@ Padding around the text in the label.
 ## textColor
 
 - Type: `string`
-- Default: `black`
+- Default: `'black'`
 
 Color of the text in the label.
 
 ## fontSize
 
 - Type: `string`
-- Default: `12px`
+- Default: `'12px'`
 
 Font size of the text in the label.
 
 ## fontWeight
 
 - Type: `string`
-- Default: `normal`
+- Default: `'normal'`
 
 Font weight of the text in the label.
 
 ## fontFamily
 
 - Type: `string`
-- Default: `Arial`
+- Default: `'Arial'`
 
 Font family of the text in the label.
 
@@ -138,7 +124,7 @@ Font family of the text in the label.
 - Type: `bool`
 - Default: `true`
 
-Whether the label has a background or not.
+Whether the label has a background.
 
 ## backgroundOpacity
 
@@ -147,33 +133,41 @@ Whether the label has a background or not.
 
 Opacity of the background behind the label. Defaults to `opacity`.
 
+## hasPointerEvents
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the label should respond to all pointer events (`true`) or none (`false`).
+
 ## name
 
 - Type: `string`
 - Default: `'label'`
 
-Class name of the label. It can be used as an identifier. Defaults to only `'label'`. If set, the class names will be `'label'` and `'label-name'`.
+Class name of the label. It can be used as an identifier.
+Defaults to only `'label'`. If set, the class names will be `'label'` and `'label-name'`.
 
 ## width
 
 - Type: `number | 'auto'`
 - Default: `'auto'`
 
-Width of the rectangle of the label. Defaults to 'auto'.
+Width of the rectangle of the label.
 
 ## height
 
 - Type: `number | 'auto'`
 - Default: `'auto'`
 
-Height of the rectangle of the label. Defaults to 'auto'.
+Height of the rectangle of the label.
 
 ## borderColor
 
 - Type: `string`
 - Default: `'black'`
 
-Color of the border around the label. Defaults to black.
+Color of the border around the label.
 
 > Note: Can be set to `'none'` for no border.
 
@@ -201,6 +195,7 @@ Label with all properties set.
     fontFamily={'Arial'}
     hasBackground={true}
     backgroundOpacity={0.5}
+    hasPointerEvents={true}
     name={'label'}
     width={100}
     height={100} />

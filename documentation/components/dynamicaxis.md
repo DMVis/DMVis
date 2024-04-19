@@ -1,6 +1,7 @@
 # DynamicAxis component
 
-The DynamicAxis component is responsible for rendering axes based on the data with labels along the correct side of the visualisation.
+The DynamicAxis component is responsible for rendering axes
+based on the data with labels along the correct side of the visualisation.
 It displays tick marks and labels based on provided data.
 
 # Optional Attributes
@@ -8,24 +9,24 @@ It displays tick marks and labels based on provided data.
 ## alignment
 
 - Type: `string`
-- Default: `start`
-- Options: `start`, `end`, `spaced`
+- Default: `'start'`
+- Options: `'start'`, `'end'`, `'spaced'`
 
-Alignment of the axes (side of the column where the axis is placed). Defaults to 'start'.
+Alignment of the axes (i.e. the side of the column where the axis is placed).
 
 ## fontSize
 
 - Type: `number`
 - Default: `10`
 
-The font size of the tick labels.
+Font size of the tick labels.
 
 ## color
 
 - Type: `string`
 - Default: `#000000`
 
-The color of the axis line.
+Color of the axis line.
 
 ## hasTicks
 
@@ -83,7 +84,7 @@ Index of first column that is drawn, starting from 0.
 - Type: `number`
 - Default: `$xScales.length`
 
-Index of last column that is drawn, defaults to last one.
+Index of last column that is drawn. Defaults to last column.
 
 ## customPadding
 

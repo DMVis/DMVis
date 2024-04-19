@@ -54,12 +54,20 @@ The margin on the top side of the chart.
 
 The margin on the bottom side of the chart.
 
+## padding
+
+- Type: `number`
+- Default: `0.2`
+
+Value for the distance between each bar in the range [0..1].
+
 ## opacity
 
 - Type: `number | string`
 - Default: `1`
 
-Sets the opacity of the bars. Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
+Sets the opacity of the bars.
+Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
 
 ## styleUtils
 

@@ -223,7 +223,7 @@ Font family of the text in the header label.
 - Type: `boolean`
 - Default: `true`
 
-Whether the header label has a background or not.
+Whether the header label has a background.
 
 # Example usage
 
