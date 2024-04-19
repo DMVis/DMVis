@@ -3,6 +3,7 @@
   import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
+  import { ColumnType } from '$lib/Enums.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import Icon from '$lib/components/base/Icon.svelte';
   import Label from '$lib/components/base/Label.svelte';
@@ -12,16 +13,33 @@
   export let x: number;
   export let width: number;
   export let height: number;
+  export let type: ColumnType;
 
   // Optional attributes
   export let name: string = 'Column';
   export let padding: number = 10;
+
+  // Set column specific values
   const paddingSide: number = padding / 2;
+  const columnTitle: string = type in [ColumnType.Rank, ColumnType.Select] ? type : name;
 
   // Ready the column
+  const dispatch = createEventDispatcher();
   const { styleUtil } = getContext<VisualisationStore>('store');
   $styleUtil.color = '#000000';
-  const dispatch = createEventDispatcher();
+
+  // Define the icons for the column
+  let icons: string[];
+  if (type == ColumnType.Rank) {
+    icons = ['more'];
+  } else if (type == ColumnType.Separator) {
+    icons = ['item', 'band'];
+  } else if (type == ColumnType.Select) {
+    icons = ['sort', 'group', 'filter', 'more'];
+  } else {
+    icons = ['sort', 'search', 'filter', 'more'];
+  }
+  const iconStart = width / 2 - (icons.length * 25) / 2;
 
   // Check if we are highlighting the current column
   let highlighted: boolean = false;
@@ -84,7 +102,7 @@ Each columns contains a top part with information about the column and a bottom 
     <Label
       x={x + width / 2}
       y={10}
-      text={name}
+      text={columnTitle}
       width={width - padding}
       textColor={$styleUtil.color}
       fontSize={`${$styleUtil.fontSize}px`}
@@ -92,34 +110,18 @@ Each columns contains a top part with information about the column and a bottom 
       originX={OriginX.Middle}
       originY={OriginY.Middle}
       hasBackground={false} />
-    <g class="column-options">
-      <Icon
-        x={x + 25}
-        y={30}
-        icon="sort"
-        color={$styleUtil.colorBorder}
-        on:mousePointClicked={handleOptions('sort', name)} />
-      <Icon
-        x={x + 50}
-        y={30}
-        icon="search"
-        color={$styleUtil.colorBorder}
-        on:mousePointClicked={handleOptions('search', name)} />
-      <Icon
-        x={x + 75}
-        y={30}
-        icon="filter"
-        color={$styleUtil.colorBorder}
-        on:mousePointClicked={handleOptions('filter', name)} />
-      <Icon
-        x={x + 100}
-        y={30}
-        icon="more"
-        color={$styleUtil.colorBorder}
-        on:mousePointClicked={handleOptions('more', name)} />
-    </g>
-    <g class="column-top-preview">
-      <!-- Display a preview of the data using a barchart, if applicable -->
+    <svg class="column-options" {width} height="25px" {x} y="30">
+      {#each icons as icon, i}
+        <Icon
+          x={iconStart + 25 * i}
+          y={0}
+          {icon}
+          color={$styleUtil.colorBorder}
+          on:mousePointClicked={handleOptions(icon, name)} />
+      {/each}
+    </svg>
+    <g class="column-top-overview">
+      <slot name="overview" />
     </g>
     <line
       x1={x + paddingSide}
@@ -138,9 +140,6 @@ Each columns contains a top part with information about the column and a bottom 
       fill="#FFFFFF"
       fill-opacity="100%"
       role="gridcell" />
-    <slot />
+    <slot name="data" />
   </g>
 </g>
-
-<style>
-</style>
