@@ -65,7 +65,9 @@
     while ((selectedWord = selectedWords.pop())) {
       line.push(selectedWord);
       tspan.text(line.join(' '));
-      if (tspan.node().getComputedTextLength() > width) {
+      /* Add 5 to the length to give the label some sort of padding,
+        this prevents text from going too close to the border of the label */
+      if (tspan.node().getComputedTextLength() + 5 > width) {
         line.pop();
         tspan.text(line.join(' '));
         line = [selectedWord];

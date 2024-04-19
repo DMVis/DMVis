@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { setContext, getContext, onMount } from 'svelte';
+  import { setContext, getContext, onMount, afterUpdate } from 'svelte';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -51,10 +51,10 @@
   let yScale: d3.ScaleBand<string>;
 
   // Order of the attributes from top-left to bottom-right
-  let axisNames: string[];
+  let axisNames: string[] = [];
 
   // Whether or not to display the tooltip lines
-  let showMouseLines = false;
+  let showMouseLines = true;
 
   // Only one of these will be true, whether to draw the tooltip lines to the top-right corner or the bottom-left corner
   let showTopRightLines = false;
@@ -82,6 +82,16 @@
   // Holds the name of the point that is currently clicked
   let clickedPoint = '';
 
+  // Used to force a reload of the scatterplot matrix
+  let reloadKey = false;
+
+  // Drag related variables
+  let dragElementName = '';
+  let dragElement = '';
+  let dragElementX = 0;
+  let dragElementY = 0;
+  let isCurrentlyDragging = false;
+
   // Fill the store
   const visualisationStore = new VisualisationStore();
   $: {
@@ -96,8 +106,10 @@
     visualisationStore.styleUtil.set(styleUtil);
 
     // The first column name is `label`, this is not relevant
-    axisNames = dataUtil.columns.slice(1);
-
+    // Only needed the first time this component is loaded
+    if (axisNames.length === 0) {
+      axisNames = dataUtil.columns.slice(1);
+    }
     // Create scalebands to get the positioning of all the scatterplots correct, and also include padding
     yScale = d3
       .scaleBand()
@@ -122,9 +134,9 @@
   }
 
   // This function is called when the mouse is over a scatterplot
-  function mouseOver(xAxis: string, yAxis: string) {
+  function onMouseOver(xAxis: string, yAxis: string) {
     // If both the xAxis and yAxis have not changed, then there is no need to update anything, so return
-    if (currentX == xAxis && currentY == yAxis) return;
+    if ((currentX === xAxis && currentY === yAxis) || isCurrentlyDragging) return;
     // Update the global variables
     currentX = xAxis;
     currentY = yAxis;
@@ -133,12 +145,11 @@
     d3.selectAll(`.label-${formatClassName(xAxis)}-attr > *`).classed('highlighted', true);
     d3.selectAll(`.label-${formatClassName(yAxis)}-attr > *`).classed('highlighted', true);
 
-    // If the mouse is over a scatterplot, there need to be tooltip lines displayed
     showMouseLines = true;
   }
 
   // This function is called when the mouse leaves a scatterplot
-  function mouseOut(xAxis: string, yAxis: string) {
+  function onMouseOut(xAxis: string, yAxis: string) {
     // Remove the highlight from the labels
     d3.selectAll(`.label-${formatClassName(xAxis)}-attr > *`).classed('highlighted', false);
     d3.selectAll(`.label-${formatClassName(yAxis)}-attr > *`).classed('highlighted', false);
@@ -147,12 +158,11 @@
     currentX = '';
     currentY = '';
 
-    // If the mouse is no longer over a scatterplot, there don't need to be any tooltip lines
     showMouseLines = false;
   }
 
   // This function is called when the mouse moves over the scatterplot
-  function mouseMove(event: MouseEvent, xAxis: string, yAxis: string) {
+  function onMouseMove(event: MouseEvent, xAxis: string, yAxis: string) {
     // Update global variables
     mouseX = event.offsetX;
     mouseY = event.offsetY;
@@ -179,29 +189,6 @@
     showBottomLeftLines = (xScale(yAxis) ?? 0) > mouseX;
     showTopRightLines = !showBottomLeftLines;
   }
-
-  onMount(() => {
-    /* Select all brush elements, these are already created in the scatterplot component
-       Add a d3 brush to them and set the brush size to a size that corresponds with the scatterplot size
-       Finally, add eventhandlers to brushing
-    */
-    d3.selectAll<SVGGElement, unknown>('.brush').call(
-      d3
-        .brush()
-        .extent([
-          [0, 0],
-          [xScale.bandwidth(), yScale.bandwidth()]
-        ])
-        .on('brush end', brushing)
-        .on('start', brushStart)
-    );
-    // Create an empty selectionMatrix, filled with all null values
-    selectionMatrix = JSON.parse(
-      JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
-    );
-    // Set the ranges to be null
-    rangePerAttribute = Array(axisNames.length).fill(null);
-  });
 
   // Function that fires when the user starts brushing
   function brushStart(ap: { sourceEvent: { offsetX: number; offsetY: number } }) {
@@ -231,8 +218,8 @@
     }
 
     // Update the ranges for the 2 attributes that the scatterplot is about
-    rangePerAttribute[brushX] = calculateRangePerIndex(brushX);
-    rangePerAttribute[brushY] = calculateRangePerIndex(brushY);
+    rangePerAttribute[getDataUtilIndex(brushX)] = calculateRangePerIndex(brushX);
+    rangePerAttribute[getDataUtilIndex(brushY)] = calculateRangePerIndex(brushY);
     // Filter the data
     let excludedPoints: string[] = dataUtil.filterData(rangePerAttribute)[1];
 
@@ -320,8 +307,8 @@
 
       /* Get the relevant scales
          The +1 is because the columnnames also has a scale, which we are not interested in */
-      let xScaleLinear = $xScales[xIndex + 1] as d3.ScaleLinear<number, number>;
-      let yScaleLinear = $yScales[yIndex + 1] as d3.ScaleLinear<number, number>;
+      let xScaleLinear = $xScales[getDataUtilIndex(xIndex) + 1] as d3.ScaleLinear<number, number>;
+      let yScaleLinear = $yScales[getDataUtilIndex(yIndex) + 1] as d3.ScaleLinear<number, number>;
 
       let scaledSelection = [
         [xScaleLinear.invert(selection[0][0]), yScaleLinear.invert(selection[1][1])],
@@ -348,7 +335,7 @@
   // Function that fires when the mouse leaves any point
   function onMousePointLeft(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     // If there is a point clicked, do not do anything
-    if (clickedPoint != '') return;
+    if (clickedPoint !== '') return;
     // Remove the highlight from all points
     let name = e.detail.name;
     d3.selectAll(`.point-${name}`).classed('highlighted', false);
@@ -358,7 +345,7 @@
   // Function that fires when the mouse hovers over any point
   function onMousePointEntered(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     // If there is a point clicked, do not do anything
-    if (clickedPoint != '') return;
+    if (clickedPoint !== '') return;
 
     // Select all the points with the same class name
     let name = e.detail.name;
@@ -384,7 +371,7 @@
       clickedPoint = '';
     }
     // If no point is currently clicked, then this point will be the clicked point
-    else if (clickedPoint == '') {
+    else if (clickedPoint === '') {
       clickedPoint = name;
     }
   }
@@ -393,6 +380,114 @@
   function formatClassName(name: string) {
     return name.replace(/[\s()/]/g, '');
   }
+
+  function getDataUtilIndex(attributeIndex: number) {
+    let res = dataUtil.columns.indexOf(axisNames[attributeIndex]) - 1;
+    return res;
+  }
+
+  // This fires everytime something is dragged
+  const dragHandler = d3
+    .drag()
+    .on('start', function (event) {
+      // Get the class name of the dragged element
+      dragElementName = xScale.domain()[calculateAttributeIndex(xScale, event.x - marginLeft)];
+      dragElement = event.sourceEvent.srcElement.parentNode.className.baseVal.split('-')[1];
+      // If the dragged element is a text element, change the dragElement variable
+      if (
+        axisNames
+          .map((k) => {
+            return formatClassName(k);
+          })
+          .indexOf(dragElement) === -1
+      ) {
+        dragElement = formatClassName(dragElementName);
+      }
+      //Get the position of the element
+      dragElementX = xScale(dragElementName) ?? 0;
+      dragElementY = yScale(dragElementName) ?? 0;
+      isCurrentlyDragging = true;
+    })
+    .on('drag', function (event) {
+      // Move the label and text
+      d3.selectAll(`.label-${dragElement}-attr > text > tspan`)
+        .attr('x', event.x - dragElementX)
+        .attr('y', event.y - dragElementY);
+      d3.select(`.label-${dragElement}-attr > rect`)
+        .attr('x', event.x - xScale.bandwidth() / 2 - dragElementX)
+        .attr('y', event.y - yScale.bandwidth() / 2 - dragElementY);
+      d3.selectAll(`.attr-drag.${dragElement}`).raise();
+    })
+    .on('end', function (event) {
+      // Calculate the new position of the label
+      const newPos = xScale.domain()[calculateAttributeIndex(xScale, event.x - marginLeft)];
+      let oldIndex = axisNames.indexOf(dragElementName);
+      let newIndex = axisNames.indexOf(newPos);
+
+      // If the end location is a valid one, change the axisnames
+      if (oldIndex !== newIndex && oldIndex !== -1 && newIndex !== -1) {
+        const temp = axisNames[oldIndex];
+        axisNames[oldIndex] = axisNames[newIndex];
+        axisNames[newIndex] = temp;
+      }
+      // Switch the scales
+      xScale.domain(axisNames);
+      yScale.domain(axisNames);
+      axisNames = [...axisNames];
+      // Update all the global variabes and update the scatterplot
+      reloadKey = !reloadKey;
+      isCurrentlyDragging = false;
+      selectionMatrix = JSON.parse(
+        JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
+      );
+      rangePerAttribute = Array(axisNames.length).fill(null);
+
+      tooltipData.visible = false;
+    });
+
+  afterUpdate(() => {
+    // After each update, reapply the brush and drag event
+    dragHandler(d3.selectAll('.attr-drag'));
+    d3.selectAll<SVGGElement, unknown>('.brush').call(
+      d3
+        .brush()
+        .extent([
+          [0, 0],
+          [xScale.bandwidth(), yScale.bandwidth()]
+        ])
+        .on('brush end', brushing)
+        .on('start', brushStart)
+    );
+  });
+
+  onMount(() => {
+    /* Select all brush elements, these are already created in the scatterplot component
+       Add a d3 brush to them and set the brush size to a size that corresponds with the scatterplot size
+       Finally, add eventhandlers to brushing
+    */
+    d3.selectAll<SVGGElement, unknown>('.brush').call(
+      d3
+        .brush()
+        .extent([
+          [0, 0],
+          [xScale.bandwidth(), yScale.bandwidth()]
+        ])
+        .on('brush end', brushing)
+        .on('start', brushStart)
+    );
+    // Add the drag to all the labels
+    dragHandler(d3.selectAll('.attr-drag'));
+
+    // Create an empty selectionMatrix, filled with all null values
+    selectionMatrix = JSON.parse(
+      JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
+    );
+    // Set the ranges to be null
+    rangePerAttribute = Array(axisNames.length).fill(null);
+
+    //The first column name is `label`, this is not relevant
+    axisNames = dataUtil.columns.slice(1);
+  });
 </script>
 
 <!--
@@ -421,185 +516,190 @@ A matrix of scatterplots that can be used to quickly find relations between attr
   <p>Loading visualisation, please wait...</p>
 {:then}
   <svg class="visualisation scatterplotMatrix" {width} {height}>
-    {#key dataUtil}
-      <!-- Loop over all the attributes on the xAxis -->
-      {#each axisNames as xAxis}
-        <!-- Loop over all the attributes on the yAxis -->
-        {#each axisNames as yAxis}
-          <!-- If they are not the same, draw a scatterplot -->
-          {#if xAxis != yAxis}
-            <g
-              style="cursor:crosshair"
-              transform="translate({xScale(xAxis)},{yScale(yAxis)})"
-              on:mouseover={() => {
-                mouseOver(xAxis, yAxis);
-              }}
-              on:mouseout={() => {
-                mouseOut(xAxis, yAxis);
-              }}
-              on:focus={() => {
-                mouseOver(xAxis, yAxis);
-              }}
-              on:blur={() => {
-                mouseOut(xAxis, yAxis);
-              }}
-              on:mousemove={(event) => {
-                mouseMove(event, xAxis, yAxis);
-              }}
-              role="treeitem"
-              aria-selected="false"
-              tabindex={-1}>
-              <!--The rect will function as a border around the scatterplot  -->
-              <rect
-                width={xScale.bandwidth()}
-                height={yScale.bandwidth()}
-                x={0}
-                y={0}
-                stroke="black"
-                fill="none"
-                style="pointer-events: none">
-              </rect>
-              <Scatterplot
-                on:mousePointLeft={onMousePointLeft}
-                on:mousePointEntered={onMousePointEntered}
-                on:pointClicked={onPointClicked}
-                {xAxis}
-                {yAxis}
-                width={xScale.bandwidth()}
-                height={yScale.bandwidth()}
-                showAxis={false}
-                {pointOpacity} />
-            </g>
-            <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
-          {:else}
-            <g transform="translate({xScale(xAxis)},{yScale(yAxis)})">
-              <Label
-                x={xScale.bandwidth() / 2}
-                y={yScale.bandwidth() / 2}
-                text={xAxis}
-                hasBackground={true}
-                name={formatClassName(xAxis) + '-attr'}
-                width={xScale.bandwidth()}
-                height={yScale.bandwidth()}
-                color="white" />
-            </g>
-          {/if}
-          <!-- End of looping over yAxis -->
+    {#key reloadKey}
+      {#key dataUtil}
+        <!-- Loop over all the attributes on the xAxis -->
+        {#each axisNames as xAxis}
+          <!-- Loop over all the attributes on the yAxis -->
+          {#each axisNames as yAxis}
+            <!-- If they are not the same, draw a scatterplot -->
+            {#if xAxis !== yAxis}
+              <g
+                style="cursor:crosshair"
+                transform="translate({xScale(xAxis)},{yScale(yAxis)})"
+                on:mouseover={() => {
+                  onMouseOver(xAxis, yAxis);
+                }}
+                on:mouseout={() => {
+                  onMouseOut(xAxis, yAxis);
+                }}
+                on:focus={() => {
+                  onMouseOver(xAxis, yAxis);
+                }}
+                on:blur={() => {
+                  onMouseOut(xAxis, yAxis);
+                }}
+                on:mousemove={(event) => {
+                  onMouseMove(event, xAxis, yAxis);
+                }}
+                role="treeitem"
+                aria-selected="false"
+                tabindex={-1}>
+                <Scatterplot
+                  on:mousePointLeft={onMousePointLeft}
+                  on:mousePointEntered={onMousePointEntered}
+                  on:pointClicked={onPointClicked}
+                  {xAxis}
+                  {yAxis}
+                  width={xScale.bandwidth()}
+                  height={yScale.bandwidth()}
+                  showAxis={false}
+                  {pointOpacity} />
+                <!--The rect will function as a border around the scatterplot  -->
+                <rect
+                  width={xScale.bandwidth()}
+                  height={yScale.bandwidth()}
+                  x={0}
+                  y={0}
+                  stroke="black"
+                  fill="none"
+                  style="pointer-events: none">
+                </rect>
+              </g>
+              <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
+            {:else}
+              <g
+                transform="translate({xScale(xAxis)},{yScale(yAxis)})"
+                class="attr-drag {formatClassName(xAxis)}">
+                <Label
+                  x={xScale.bandwidth() / 2}
+                  y={yScale.bandwidth() / 2}
+                  text={xAxis}
+                  hasBackground={true}
+                  name={formatClassName(xAxis) + '-attr'}
+                  width={xScale.bandwidth()}
+                  height={yScale.bandwidth()}
+                  color="white"
+                  hasPointerEvents={true} />
+              </g>
+            {/if}
+            <!-- End of looping over yAxis -->
+          {/each}
+          <!-- End of looping over xAxis -->
         {/each}
-        <!-- End of looping over xAxis -->
-      {/each}
-      <!-- Draw the lines that go from the mouse coordinates to the appropiate axis, only if necessary -->
-      {#if showMouseLines}
-        <!-- Either draw lines to the top- and right-axis, or draw them to the bottom- and left-axis -->
-        {#if showTopRightLines}
-          <!-- Draw a line to the right axis, and a label displaying the scaled y position of the mouse -->
-          <StaticLine
-            points={[
-              { x: mouseX, y: mouseY },
-              { x: width - marginRight, y: mouseY }
-            ]}
-            opacity={0.5}
-            dashLength="5" />
-          <Label
-            x={width - marginRight - 10}
-            y={Math.round(mouseY) + 10}
-            text={`${Math.round(scaledMouseY)}`}
-            fontSize={'14'}
-            fontWeight={'bold'}
-            hasBackground={false} />
-          <!-- Draw a line to the top axis, and a label displaying the scaled x position of the mouse -->
-          <StaticLine
-            points={[
-              { x: mouseX, y: mouseY },
-              { x: mouseX, y: marginTop }
-            ]}
-            opacity={0.5}
-            dashLength="5" />
-          <Label
-            x={Math.round(mouseX) + 10}
-            y={marginTop + 10}
-            text={`${Math.round(scaledMouseX)}`}
-            fontSize={'14'}
-            fontWeight={'bold'}
-            hasBackground={false} />
+        <!-- Draw the lines that go from the mouse coordinates to the appropiate axis, only if necessary -->
+        {#if showMouseLines}
+          <!-- Either draw lines to the top- and right-axis, or draw them to the bottom- and left-axis -->
+          {#if showTopRightLines}
+            <!-- Draw a line to the right axis, and a label displaying the scaled y position of the mouse -->
+            <StaticLine
+              points={[
+                { x: mouseX, y: mouseY },
+                { x: width - marginRight, y: mouseY }
+              ]}
+              opacity={0.5}
+              dashLength="5" />
+            <Label
+              x={width - marginRight - 10}
+              y={Math.round(mouseY) + 10}
+              text={`${Math.round(scaledMouseY)}`}
+              fontSize={'14'}
+              fontWeight={'bold'}
+              hasBackground={false} />
+            <!-- Draw a line to the top axis, and a label displaying the scaled x position of the mouse -->
+            <StaticLine
+              points={[
+                { x: mouseX, y: mouseY },
+                { x: mouseX, y: marginTop }
+              ]}
+              opacity={0.5}
+              dashLength="5" />
+            <Label
+              x={Math.round(mouseX) + 10}
+              y={marginTop + 10}
+              text={`${Math.round(scaledMouseX)}`}
+              fontSize={'14'}
+              fontWeight={'bold'}
+              hasBackground={false} />
+          {/if}
+          {#if showBottomLeftLines}
+            <!-- Draw a line to the left axis, and a label displaying the scaled y position of the mouse -->
+            <StaticLine
+              points={[
+                { x: mouseX, y: mouseY },
+                { x: marginLeft, y: mouseY }
+              ]}
+              opacity={0.5}
+              dashLength="5" />
+            <Label
+              x={marginLeft + 10}
+              y={Math.round(mouseY) + 10}
+              text={`${Math.round(scaledMouseY)}`}
+              fontSize={'14'}
+              fontWeight={'bold'}
+              originY={OriginY.Top}
+              hasBackground={false} />
+            <!-- Draw a line to the bottom axis, and a label displaying the scaled x position of the mouse -->
+            <StaticLine
+              points={[
+                { x: mouseX, y: mouseY },
+                { x: mouseX, y: height - marginBottom }
+              ]}
+              opacity={0.5}
+              dashLength="5" />
+            <Label
+              x={Math.round(mouseX) + 15}
+              y={height - marginBottom - 10}
+              text={`${Math.round(scaledMouseX)}`}
+              fontSize={'14'}
+              fontWeight={'bold'}
+              originX={OriginX.Left}
+              hasBackground={false} />
+          {/if}
+          <!-- End of if-statement about the mouselines-->
         {/if}
-        {#if showBottomLeftLines}
-          <!-- Draw a line to the left axis, and a label displaying the scaled y position of the mouse -->
-          <StaticLine
-            points={[
-              { x: mouseX, y: mouseY },
-              { x: marginLeft, y: mouseY }
-            ]}
-            opacity={0.5}
-            dashLength="5" />
+        <!-- Draw the tooltip if a point is hovered over or clicked -->
+        {#if tooltipData.visible}
           <Label
-            x={marginLeft + 10}
-            y={Math.round(mouseY) + 10}
-            text={`${Math.round(scaledMouseY)}`}
+            x={tooltipData.x - 15}
+            y={tooltipData.y - 16}
+            text={tooltipData.text}
+            color={'#FFF'}
+            hasBackground={true}
             fontSize={'14'}
             fontWeight={'bold'}
-            originY={OriginY.Top}
-            hasBackground={false} />
-          <!-- Draw a line to the bottom axis, and a label displaying the scaled x position of the mouse -->
-          <StaticLine
-            points={[
-              { x: mouseX, y: mouseY },
-              { x: mouseX, y: height - marginBottom }
-            ]}
-            opacity={0.5}
-            dashLength="5" />
-          <Label
-            x={Math.round(mouseX) + 15}
-            y={height - marginBottom - 10}
-            text={`${Math.round(scaledMouseX)}`}
-            fontSize={'14'}
-            fontWeight={'bold'}
-            originX={OriginX.Left}
-            hasBackground={false} />
+            backgroundOpacity={0.7}
+            name={tooltipData.text}
+            borderColor="none"
+            padding={0} />
         {/if}
-        <!-- End of if-statement about the mouselines-->
-      {/if}
-      <!-- Draw the tooltip if a point is hovered over or clicked -->
-      {#if tooltipData.visible}
-        <Label
-          x={tooltipData.x - 15}
-          y={tooltipData.y - 16}
-          text={tooltipData.text}
-          color={'#FFF'}
-          hasBackground={true}
-          fontSize={'14'}
-          fontWeight={'bold'}
-          backgroundOpacity={0.7}
-          name={tooltipData.text}
-          borderColor="none"
-          padding={0} />
-      {/if}
+      {/key}
+      <!-- Draw the axis on all 4 sides of the Scatterplot matrix -->
+      <DynamicAxis
+        position="left"
+        spacingDirection="vertical"
+        ticksNumber={4}
+        hasPadding={true}
+        startColumn={1} />
+      <DynamicAxis
+        position="right"
+        spacingDirection="vertical"
+        ticksNumber={4}
+        hasPadding={true}
+        startColumn={1} />
+      <DynamicAxis
+        position="bottom"
+        spacingDirection="horizontal"
+        ticksNumber={4}
+        hasPadding={true}
+        startColumn={1} />
+      <DynamicAxis
+        position="top"
+        spacingDirection="horizontal"
+        ticksNumber={4}
+        hasPadding={true}
+        startColumn={1} />
     {/key}
-    <!-- Draw the axis on all 4 sides of the Scatterplot matrix -->
-    <DynamicAxis
-      position="left"
-      spacingDirection="vertical"
-      ticksNumber={4}
-      hasPadding={true}
-      startColumn={1} />
-    <DynamicAxis
-      position="right"
-      spacingDirection="vertical"
-      ticksNumber={4}
-      hasPadding={true}
-      startColumn={1} />
-    <DynamicAxis
-      position="bottom"
-      spacingDirection="horizontal"
-      ticksNumber={4}
-      hasPadding={true}
-      startColumn={1} />
-    <DynamicAxis
-      position="top"
-      spacingDirection="horizontal"
-      ticksNumber={4}
-      hasPadding={true}
-      startColumn={1} />
   </svg>
 {:catch}
   <p>Loading visualisation failed</p>
