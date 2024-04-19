@@ -5,7 +5,7 @@
   import ScatterplotMatrix from '$lib/components/visualisations/ScatterplotMatrix.svelte';
   import TabularVisualisation from '$lib/components/visualisations/TabularVisualisation.svelte';
 
-  const dataUrl = '/datasets/holidays-20.csv';
+  const dataUrl = '/datasets/holidays-20_v1.json';
   const dataUtil = new DataUtils();
 
   // Load promising
