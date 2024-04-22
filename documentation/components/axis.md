@@ -15,7 +15,7 @@ Font size of the tick labels.
 ## color
 
 - Type: `string`
-- Default: `black`
+- Default: `'black'`
 
 Color of the axis.
 

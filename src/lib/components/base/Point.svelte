@@ -55,8 +55,8 @@ It is used in combination with other components to create a chart.
   * name: string          - Class name of the point. It can be used as an identifier. Defaults to only `point`.
                             If set, the class names will be `point` and `point-name`.
 
-#### Event dispatch
-* For detailed information about dispatches, check the documentation
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <circle

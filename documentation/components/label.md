@@ -1,6 +1,6 @@
 # Label component
 
-The label allows you to add text with a background to a visualisation.
+The label allows you to add text with a background.
 It can be used in combination with other components.
 Coordinates are relative to the parent SVG element.
 The default origin is the middle of the label.
@@ -41,7 +41,7 @@ Color of the rectangle behind the label.
 - Type: `number | string`
 - Default: `1`
 
-Opacity of the label.
+Opacity of the text of the label.
 
 ## originX
 

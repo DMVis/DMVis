@@ -125,8 +125,8 @@ By default, the bar is vertical and its origin is the bottom middle.
 * name: string                  - Class name of the bar. It can be used as an identifier. Defaults to only `bar`.
                                   If set, the class names will be `bar` and `bar-name`.
 
-#### Event dispatch
-* For detailed information about dispatches, check the documentation
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <!-- The bar -->
