@@ -580,7 +580,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                   name={formatClassName(xAxis) + '-attr'}
                   width={xScale.bandwidth()}
                   height={yScale.bandwidth()}
-                  color="white"
+                  backgroundColor={'white'}
                   hasPointerEvents={true} />
               </g>
             {/if}

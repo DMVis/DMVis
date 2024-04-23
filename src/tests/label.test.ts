@@ -83,8 +83,8 @@ describe('Html test', () => {
       x: 0,
       y: 0,
       text: 'Test',
-      color: 'orange',
-      opacity: 0.5,
+      backgroundColor: 'orange',
+      textOpacity: 0.5,
       rotationDegrees: 15,
       radiusX: 10,
       radiusY: 20,
@@ -123,7 +123,7 @@ describe('Html test', () => {
     expect(rect.getAttribute('ry')).toBe(`${config.radiusY}`);
     expect(rect.getAttribute('width')).toBe(`${config.width}`);
     expect(rect.getAttribute('height')).toBe(`${config.height}`);
-    expect(rect.getAttribute('fill')).toBe(`${config.color}`);
+    expect(rect.getAttribute('fill')).toBe(`${config.backgroundColor}`);
     expect(rect.getAttribute('fill-opacity')).toBe(`${config.backgroundOpacity}`);
     expect(rect.getAttribute('stroke')).toBe(`${config.borderColor}`);
 
@@ -133,7 +133,7 @@ describe('Html test', () => {
     expect(text.getAttribute('font-size')).toBe(`${config.fontSize}`);
     expect(text.getAttribute('font-weight')).toBe(`${config.fontWeight}`);
     expect(text.getAttribute('font-family')).toBe(`${config.fontFamily}`);
-    expect(text.getAttribute('opacity')).toBe(`${config.opacity}`);
+    expect(text.getAttribute('opacity')).toBe(`${config.textOpacity}`);
   });
 
   it('checks if the rect is omitted if hasBackground is false', () => {

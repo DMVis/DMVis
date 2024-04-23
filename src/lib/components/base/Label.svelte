@@ -13,8 +13,8 @@
   export let text: string;
 
   // Optional attributes
-  export let color: string = 'red';
-  export let opacity: number | string = 1;
+  export let backgroundColor: string = 'red';
+  export let textOpacity: number | string = 1;
   export let originX: OriginX = OriginX.Middle;
   export let originY: OriginY = OriginY.Middle;
   export let rotationDegrees: number = 0;
@@ -26,7 +26,7 @@
   export let fontWeight: string = 'normal';
   export let fontFamily: string = 'Arial';
   export let hasBackground: boolean = true;
-  export let backgroundOpacity: number | string = opacity;
+  export let backgroundOpacity: number | string = textOpacity;
   export let hasPointerEvents: boolean = false;
   export let name: string | undefined = undefined;
   export let width: number | 'auto' = 'auto';
@@ -131,41 +131,41 @@ Coordinates are relative to the parent SVG element.
 The default origin is the middle of the label.
 
 #### Required attributes
-* x: number                 - X-coordinate of the label.
-* y: number                 - Y-coordinate of the label.
-* text: string              - Text to display in the label.
+* x: number                     - X-coordinate of the label.
+* y: number                     - Y-coordinate of the label.
+* text: string                  - Text to display in the label.
 
 #### Optional attributes
-* color: string             - Color of the rectangle behind the label. Defaults to `'red'`.
-* opacity: number | string  - Opacity of the text of the label. Defaults to `1`.
-* originX: OriginX          - Horizontal origin of the label.
-                              Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-                              Which value is useful depends on your positioning logic.
-                              Defauls to `OriginX.Middle`.
-* originY: OriginY          - Vertical origin of the label.
-                              Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-                              Which value is useful depends on your positioning logic.
-                              Defaults to `OriginX.Middle`.
-* rotationDegrees: number   - Rotation of the label in degrees. Defaults to `1`.
-* radiusX: number | string  - Horizontal corner radius of the bar as a number in range [0..1] or
-                              a percentage string formatted as '{number}%'. Defaults to `0`.
-* radiusY: number | string  - Vertical corner radius of the bar as a number in range [0..1] or
-                              a percentage string formatted as '{number}%'. Defaults to `0`.
-* padding: number           - Padding around the text in the label. Defaults to `20`.
-* textColor: string         - Color of the text in the label. Defaults to `'black'`.
-* fontSize: string          - Font size of the text in the label. Defaults to `'12px'`.
-* fontWeight: string        - Font weight of the text in the label. Defaults to `'normal'`.
-* fontFamily: string        - Font family of the text in the label. Defaults to `'Arial'`.
-* hasBackground: bool       - Whether the label has a background. Defaults to `true`.
-* backgroundOpacity: number - Opacity of the background behind the label. Defaults to `opacity`.
-* hasPointerEvents          - Whether the label should respond to all pointer events (`true`) or none (`false`).
-                              Defaults to `false`.
-* name: string              - Class name of the label. It can be used as an identifier. Defaults to only `'label'`.
-                              If set, the class names will be `'label'` and `'label-name'`.
-* width: number | 'auto'    - Width of the rectangle of the label. Defaults to `'fit-text'`.
-* height: number | 'auto'   - Height of the rectangle of the label. Defaults to `'fit-text'`.
-* borderColor: string       - Color of the border around the label.
-                              Defaults to `'black'`. Can be set to `none` for no border.
+* backgroundColor: string       - Color of the rectangle behind the label. Defaults to `'red'`.
+* textOpacity: number | string  - Opacity of the text of the label. Defaults to `1`.
+* originX: OriginX              - Horizontal origin of the label.
+                                  Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
+                                  Which value is useful depends on your positioning logic.
+                                  Defauls to `OriginX.Middle`.
+* originY: OriginY              - Vertical origin of the label.
+                                  Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
+                                  Which value is useful depends on your positioning logic.
+                                  Defaults to `OriginX.Middle`.
+* rotationDegrees: number       - Rotation of the label in degrees. Defaults to `1`.
+* radiusX: number | string      - Horizontal corner radius of the bar as a number in range [0..1] or
+                                  a percentage string formatted as '{number}%'. Defaults to `0`.
+* radiusY: number | string      - Vertical corner radius of the bar as a number in range [0..1] or
+                                  a percentage string formatted as '{number}%'. Defaults to `0`.
+* padding: number               - Padding around the text in the label. Defaults to `20`.
+* textColor: string             - Color of the text in the label. Defaults to `'black'`.
+* fontSize: string              - Font size of the text in the label. Defaults to `'12px'`.
+* fontWeight: string            - Font weight of the text in the label. Defaults to `'normal'`.
+* fontFamily: string            - Font family of the text in the label. Defaults to `'Arial'`.
+* hasBackground: bool           - Whether the label has a background. Defaults to `true`.
+* backgroundOpacity: number     - Opacity of the background behind the label. Defaults to `textOpacity`.
+* hasPointerEvents              - Whether the label should respond to all pointer events (`true`) or none (`false`).
+                                  Defaults to `false`.
+* name: string                  - Class name of the label. It can be used as an identifier. Defaults to only `'label'`.
+                                  If set to `'name'`, for example, the class names will be `'label'` and `'label-name'`.
+* width: number | 'auto'        - Width of the rectangle of the label. Defaults to `'auto'`.
+* height: number | 'auto'       - Height of the rectangle of the label. Defaults to `'auto'`.
+* borderColor: string           - Color of the border around the background of the label.
+                                  Defaults to `'black'`. Can be set to `none` for no border.
 -->
 
 <g
@@ -182,7 +182,7 @@ The default origin is the middle of the label.
       ry={radiusY}
       width={rectWidth}
       height={rectHeight}
-      fill={color}
+      fill={backgroundColor}
       fill-opacity={backgroundOpacity} />
   {/if}
   <!--
@@ -193,7 +193,7 @@ The default origin is the middle of the label.
     bind:this={textBlock}
     {x}
     {y}
-    {opacity}
+    opacity={textOpacity}
     text-anchor="middle"
     alignment-baseline="middle"
     dominant-baseline="middle">{text}</text>

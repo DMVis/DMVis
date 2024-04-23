@@ -170,7 +170,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       x={x + columnSpacing / 2}
       y={y + (yScale(row.label) ?? 0) + yScale.bandwidth() / 2}
       text={'value' in row ? `${row.value}` : `${row.label}`}
-      opacity={1}
+      textOpacity={1}
       originX={OriginX.Left}
       originY={OriginY.Middle}
       padding={10}
@@ -189,8 +189,8 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
     x={x + width / 2}
     y={y + headerOffsetY}
     text={data.header}
-    color={headerColor}
-    opacity={headerOpacity}
+    backgroundColor={headerColor}
+    textOpacity={headerOpacity}
     originX={headerOriginX}
     originY={headerOriginY}
     rotationDegrees={headerRotationDegrees}

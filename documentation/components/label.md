@@ -29,14 +29,14 @@ Text to display in the label.
 
 # Optional Attributes
 
-## color
+## backgroundColor
 
 - Type: `string`
 - Default: `'red'`
 
 Color of the rectangle behind the label.
 
-## opacity
+## textOpacity
 
 - Type: `number | string`
 - Default: `1`
@@ -129,9 +129,9 @@ Whether the label has a background.
 ## backgroundOpacity
 
 - Type: `number | string`
-- Defaults: `opacity`
+- Defaults: `textOpacity`
 
-Opacity of the background behind the label. Defaults to `opacity`.
+Opacity of the background behind the label.
 
 ## hasPointerEvents
 
@@ -146,7 +146,7 @@ Whether the label should respond to all pointer events (`true`) or none (`false`
 - Default: `'label'`
 
 Class name of the label. It can be used as an identifier.
-Defaults to only `'label'`. If set, the class names will be `'label'` and `'label-name'`.
+If set to `'name'`, for example, the class names will be `'label'` and `'label-name'`.
 
 ## width
 
@@ -167,7 +167,7 @@ Height of the rectangle of the label.
 - Type: `string`
 - Default: `'black'`
 
-Color of the border around the label.
+Color of the border around the background of the label.
 
 > Note: Can be set to `'none'` for no border.
 
