@@ -5,6 +5,7 @@
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
+  import Tooltip from '$lib/components/base/Tooltip.svelte';
   import StaticLine from '$lib/components/base/StaticLine.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
@@ -599,13 +600,12 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               ]}
               opacity={0.5}
               dashLength="5" />
-            <Label
-              x={width - marginRight - 10}
+            <Tooltip
+              x={width - marginRight - 5}
               y={Math.round(mouseY) + 10}
               text={`${Math.round(scaledMouseY)}`}
-              fontSize={'14'}
-              fontWeight={'bold'}
-              hasBackground={false} />
+              originX={OriginX.Right}
+              originY={OriginY.Top} />
             <!-- Draw a line to the top axis, and a label displaying the scaled x position of the mouse -->
             <StaticLine
               points={[
@@ -614,13 +614,12 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               ]}
               opacity={0.5}
               dashLength="5" />
-            <Label
+            <Tooltip
               x={Math.round(mouseX) + 10}
-              y={marginTop + 10}
+              y={marginTop + 5}
               text={`${Math.round(scaledMouseX)}`}
-              fontSize={'14'}
-              fontWeight={'bold'}
-              hasBackground={false} />
+              originX={OriginX.Left}
+              originY={OriginY.Top} />
           {/if}
           {#if showBottomLeftLines}
             <!-- Draw a line to the left axis, and a label displaying the scaled y position of the mouse -->
@@ -631,14 +630,13 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               ]}
               opacity={0.5}
               dashLength="5" />
-            <Label
-              x={marginLeft + 10}
+            <Tooltip
+              x={marginLeft + 5}
               y={Math.round(mouseY) + 10}
               text={`${Math.round(scaledMouseY)}`}
-              fontSize={'14'}
-              fontWeight={'bold'}
               originY={OriginY.Top}
-              hasBackground={false} />
+              originX={OriginX.Left} />
+
             <!-- Draw a line to the bottom axis, and a label displaying the scaled x position of the mouse -->
             <StaticLine
               points={[
@@ -647,31 +645,24 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               ]}
               opacity={0.5}
               dashLength="5" />
-            <Label
-              x={Math.round(mouseX) + 15}
-              y={height - marginBottom - 10}
+            <Tooltip
+              x={Math.round(mouseX) + 10}
+              y={height - marginBottom}
               text={`${Math.round(scaledMouseX)}`}
-              fontSize={'14'}
-              fontWeight={'bold'}
               originX={OriginX.Left}
-              hasBackground={false} />
+              originY={OriginY.Bottom} />
           {/if}
           <!-- End of if-statement about the mouselines-->
         {/if}
         <!-- Draw the tooltip if a point is hovered over or clicked -->
         {#if tooltipData.visible}
-          <Label
-            x={tooltipData.x - 15}
-            y={tooltipData.y - 16}
+          <Tooltip
+            x={tooltipData.x - 5}
+            y={tooltipData.y - 5}
             text={tooltipData.text}
-            color={'#FFF'}
             hasBackground={true}
-            fontSize={'14'}
-            fontWeight={'bold'}
-            backgroundOpacity={0.7}
-            name={tooltipData.text}
-            borderColor="none"
-            padding={0} />
+            originX={OriginX.Right}
+            originY={OriginY.Bottom} />
         {/if}
       {/key}
       <!-- Draw the axis on all 4 sides of the Scatterplot matrix -->

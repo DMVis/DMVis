@@ -4,7 +4,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import Label from '$lib/components/base/Label.svelte';
+  import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
 
@@ -152,16 +152,14 @@ By default, the bar is vertical and its origin is the bottom middle.
 
 <!-- The bar's label, which shows on hovering over the bar -->
 {#if isMouseOnBar}
-  <Label
+  <Tooltip
     {x}
     {y}
     text={hoverText}
-    color={'#000000bb'}
     originX={OriginX.Left}
     originY={OriginY.Bottom}
-    {rotationDegrees}
-    textColor={'#ffffff'}
-    name={'bar-hover'} />
+    hasBackground={true}
+    theme={'dark'} />
 {/if}
 
 <style>

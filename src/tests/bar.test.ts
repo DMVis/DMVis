@@ -152,7 +152,7 @@ describe('Html test', () => {
       return fireEvent.mouseEnter(bar);
     });
 
-    const label = document.body.getElementsByClassName('label-bar-hover')[0];
+    const label = document.body.getElementsByClassName('label-tooltip')[0];
 
     // Assert
     expect(bar).toBeDefined();
@@ -171,7 +171,7 @@ describe('Html test', () => {
       return fireEvent.focus(bar);
     });
 
-    const label = document.body.getElementsByClassName('label-bar-hover')[0];
+    const label = document.body.getElementsByClassName('label-tooltip')[0];
 
     // Assert
     expect(bar).toBeDefined();

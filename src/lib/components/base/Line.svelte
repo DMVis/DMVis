@@ -4,9 +4,9 @@
   import { getContext, tick } from 'svelte';
 
   // DMVis imports
-  import { OriginX } from '$lib/Enums.js';
-  import Label from '$lib/components/base/Label.svelte';
+  import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { OriginX, OriginY } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
@@ -179,14 +179,12 @@ It is used in combination with other components to create a chart.
         <!-- Loop over all attributes and place a label holding the value of the point at this attribute -->
         {#each $data[i] as p, j}
           {#if typeof p === 'number'}
-            <Label
-              x={path.xPos[j]}
+            <Tooltip
+              x={path.xPos[j] + 10}
               y={path.yPos[j]}
               text={p.toString()}
-              fontSize={'14'}
-              fontWeight={'bold'}
               originX={OriginX.Left}
-              hasBackground={false} />
+              originY={OriginY.Middle} />
           {/if}
           <!-- End of loop over all attributes -->
         {/each}

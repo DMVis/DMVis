@@ -15,8 +15,8 @@
   - [LineChart](visualisations/LineChart.md)
   - [ParallelCoordinates](visualisations/ParallelCoordinates.md)
   - [Scatterplot](visualisations/Scatterplot.md)
-  - [StackedBarChart](visualisations/StackedBarChart.md)
   - [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
+  - [StackedBarChart](visualisations/StackedBarChart.md)
   - [TabularVisualisation](visualisations/TabularVisualisation.md)
 
 ---
@@ -25,13 +25,14 @@
 
   - [Axis](components/axis.md)
   - [Bar](components/bar.md)
+  - [BarColumn](components/barcolumn.md)
   - [DynamicAxis](components/dynamicaxis.md)
   - [Line](components/line.md)
   - [Label](components/label.md)
-  - [StaticLine](components/staticLine.md)
   - [Point](components/point.md)
   - [StackedBar](components/stackedbar.md)
-  - [BarColumn](components/barcolumn.md)
+  - [StaticLine](components/staticLine.md)
+  - [Tooltip](components/tooltip.md)
 
 ---
 
