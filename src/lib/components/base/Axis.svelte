@@ -58,7 +58,7 @@
         }
         break;
       case 'right':
-        placementX = Number($marginRight) + Number(offset);
+        placementX = Number($width - $marginRight) + Number(offset);
         if ('padding' in scale) {
           axisGenerator = d3.axisRight(scale as d3.ScaleBand<string>);
         } else {

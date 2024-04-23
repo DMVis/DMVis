@@ -86,8 +86,104 @@ describe('Rendering tests', () => {
     const domain = axis.querySelector('.domain');
     expect(domain).not.toBeNull();
   });
+});
+describe('Placement tests', () => {
+  it('checks the default placement of the axis', () => {
+    // Default placement is bottom placement
 
-  // [TO-DO]: Add tests for the placements of the axis
+    // Arrange
+    const config = {};
+
+    // These magic numbers are the default margins from the graphStore
+    const defaultHeight = 400;
+    const defaultMargin = 40;
+
+    const expectedX = 0;
+    const expectedY = defaultHeight - defaultMargin;
+
+    // Act
+    const axis = createAxis(config);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
+
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the bottom placement of the axis', () => {
+    // Arrange
+    const config = { position: 'bottom' };
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
+    const defaultHeight = 400;
+
+    const expectedX = 0;
+    const expectedY = defaultHeight - defaultMargin;
+
+    // Act
+    const axis = createAxis(config);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
+
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the top placement of the axis', () => {
+    // Arrange
+    const config = { position: 'top' };
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
+
+    const expectedX = 0;
+    const expectedY = defaultMargin;
+
+    // Act
+    const axis = createAxis(config);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
+
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the left placement of the axis', () => {
+    // Arrange
+    const config = { position: 'left' };
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
+
+    const expectedX = defaultMargin;
+    const expectedY = 0;
+
+    // Act
+    const axis = createAxis(config);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
+
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the right placement of the axis', () => {
+    // Arrange
+    const config = { position: 'right' };
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
+    const defaultWidth = 640;
+
+    const expectedX = defaultWidth - defaultMargin;
+    const expectedY = 0;
+
+    // Act
+    const axis = createAxis(config);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
+
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
 });
 
 function createAxis(config: object): SVGElement {
@@ -102,4 +198,13 @@ function createAxis(config: object): SVGElement {
   svg.appendChild(axis);
 
   return axis as SVGElement;
+}
+
+function formatTranslateAttr(attr: string): string[] {
+  // Function that takes the translate attribute of a SVGGElement,
+  // and returns an array in the form [x,y]
+  const translate = attr.split(',');
+  const translateX = translate[0].split('(')[1].split(' ')[0];
+  const translateY = translate[1].split(' ')[1].split(')')[0];
+  return [translateX, translateY];
 }
