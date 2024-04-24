@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import { getContext, createEventDispatcher } from 'svelte';
+  // import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
   import { ColumnType } from '$lib/Enums.js';
@@ -17,6 +17,18 @@
   // Column standards
   const type = ColumnType.Rank;
 </script>
+
+<!--
+@component
+### RankColumn
+Work in progress
+
+#### Required attributes
+  * T.B.D.
+
+#### Optional attributes
+  * T.B.D.
+-->
 
 <Column {type} {x} {height} {width} {padding} name="Rank">
   <g slot="data">

@@ -77,9 +77,12 @@ Each columns contains a top part with information about the column and a bottom 
 #### Required attributes
   * x: number             - Scaled x-coordinate of the column, which is the starting point of the column
   * width: number         - Width of the column
+  * height: number        - Height of the column
+  * type: ColumnType      - Type of the column. See the ColumnType enum for more information.
 
 #### Optional attributes
-  * ???
+  * name: string          - Name of the column. Set this to the name of the attribute. Default is 'Column'.
+  * padding: number       - Padding of the column. Default is 10.
 -->
 
 <g class="column">
