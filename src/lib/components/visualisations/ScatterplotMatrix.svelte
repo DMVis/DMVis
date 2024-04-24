@@ -221,20 +221,19 @@
     // Update the ranges for the 2 attributes that the scatterplot is about
     rangePerAttribute[getDataUtilIndex(brushX)] = calculateRangePerIndex(brushX);
     rangePerAttribute[getDataUtilIndex(brushY)] = calculateRangePerIndex(brushY);
+
     // Filter the data
     let excludedPoints: string[] = dataUtil.filterData(rangePerAttribute)[1];
 
-    // Put all the old grey points calculateExcludedPoints
-    currentGreyPoints.forEach((name: string) => {
+    let pointsTurningRed: string[] = Array.from(setMinus(currentGreyPoints, excludedPoints));
+    pointsTurningRed.forEach((name: string) => {
+      changeFocus(name, true);
+    });
+    let pointsTurningGrey: string[] = Array.from(setMinus(excludedPoints, currentGreyPoints));
+    pointsTurningGrey.forEach((name: string) => {
       changeFocus(name, false);
     });
 
-    // Put the points outside of the selection to grey
-    excludedPoints.forEach((name) => {
-      changeFocus(name, true);
-    });
-
-    // Update the current grey points in the scatterplot matrix
     currentGreyPoints = excludedPoints.slice();
 
     /* Given an index (and therefore an attribute), it calculates the range
@@ -322,6 +321,17 @@
        If the bool is true the point will be grey, if false it will not be grey */
     function changeFocus(pointName: string, needsToBeGrey: boolean) {
       d3.selectAll(`.point-${pointName}`).classed('greyed', needsToBeGrey);
+    }
+
+    function* setMinus(A: string[], B: string[]) {
+      const setA = new Set(A);
+      const setB = new Set(B);
+
+      for (const value of setB.values()) {
+        if (!setA.delete(value)) {
+          yield value;
+        }
+      }
     }
   }
 
