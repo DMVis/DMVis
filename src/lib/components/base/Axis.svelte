@@ -86,6 +86,8 @@ of adding a label on any side of the axis.
   * placementX: number                                  - Horizontal start position of the axis.
   * placementY: number                                  - Vertical start position of the axis.
   * axis: d3.Axis<string> | d3.Axis<d3.NumberValue>     - D3 Axis component.
+                                                            See [d3 documentation](https://d3js.org/d3-axis)
+                                                            for the different kinds of axes you can create.
 
 #### Optional attributes
   * renderLabel: boolean                                - Renders a label next to the axis. Defaults to `false`.
@@ -93,10 +95,10 @@ of adding a label on any side of the axis.
   * labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. Defaults to `'top'`.
   * labelOffset: number                             - Distance from the label to the axis. Defaults to `'20'`.
   * fontSize: number                                    - Font size of the tick labels. Defaults to `12`.
-  * color: string                                       - Color of the axis line. Defaults to `'black'`.
+  * color: string                                       - Color of the axis line and label. Defaults to `'black'`.
 -->
 
-<g class="">
+<g class="axis">
   {#if renderLabel}
     <Label
       x={placementX + labelOffsetX}
@@ -105,9 +107,10 @@ of adding a label on any side of the axis.
       originX={labelOriginX}
       originY={labelOriginY}
       hasBackground={false}
-      rotationDegrees={labelRotationDegrees} />
+      rotationDegrees={labelRotationDegrees}
+      textColor={color} />
   {/if}
-  <g class="axis" bind:this={element} transform="translate({placementX}, {placementY})"></g>
+  <g class="axisElement" bind:this={element} transform="translate({placementX}, {placementY})"></g>
 </g>
 
 <style>

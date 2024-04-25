@@ -24,6 +24,8 @@ Vertical start position of the axis.
 
 D3 Axis component. See example usage on how to create the d3 axis.
 
+> Note: See [d3 documentation](https://d3js.org/d3-axis) for the different kinds of axes you can create.
+
 # Optional Attributes
 
 ## renderLabel
@@ -67,7 +69,7 @@ Font size of the tick labels.
 - Type: `string`
 - Default: `'#000000'`
 
-Color of the axis line.
+Color of the axis line, and label.
 
 # Example usage
 

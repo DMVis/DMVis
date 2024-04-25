@@ -1,224 +1,295 @@
+import * as d3 from 'd3';
+import { render } from '@testing-library/svelte';
+import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
-// import { render } from '@testing-library/svelte';
 
-describe('sum test', () => {
-  it('adds 1 + 2 to equal 3', () => {
+import Axis from '$lib/components/base/Axis.svelte';
+import NewStoreWrapper from './NewStoreWrapper.svelte';
+
+prepareSvgGetter();
+
+describe('Rendering tests', () => {
+  it('renders a default axis', () => {
     // Arrange
-    const one = 1;
-    const two = 2;
-    const expectedSum = 3;
+    const scale = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const configAxis = d3.axisBottom(scale);
+    const config = {
+      placementX: 50,
+      placementY: 50,
+      axis: configAxis
+    };
 
     // Act
-    const sum = one + two;
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
+    const label = axisGroup[1];
+
+    // Get the transform attribute from the axis, and format it
+    const translate: string = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
+    // Select all the ticks of the axis
+    const ticks = axis.querySelectorAll('.tick');
 
     // Assert
-    expect(sum).toBe(expectedSum);
+    // Check if the axis is rendered
+    expect(axis).not.toBeNull();
+    expect(axis.getAttribute('class')).contains('axis');
+
+    // Check if the axis has the default 10 ticks, this is the default value for d3
+    expect(ticks.length).toBe(10 + 1);
+
+    // Check if the axis has a path element for the domain
+    const domain = axis.querySelector('.domain');
+    expect(domain).not.toBeNull();
+
+    // Check if the styling of text elements is correct
+    expect(axis.style).not.toBeNull();
+    expect(axis.style.color).toBe('black');
+    expect(axis.style.fontSize).toBe('12px');
+
+    // Check if the position of the axis is correct
+    expect(translateX).toBe(config.placementX.toString());
+    expect(translateY).toBe(config.placementY.toString());
+
+    // Check if no label is drawn
+    expect(label).toBe(null);
+  });
+  it('checks if a label is drawn if renderLabel is true', () => {
+    // Arrange
+    const scale = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const configAxis = d3.axisBottom(scale);
+    const config = {
+      placementX: 50,
+      placementY: 50,
+      axis: configAxis,
+      renderLabel: true
+    };
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
+    const label = axisGroup[1];
+
+    // Assert
+    // Check if the axis is rendered
+    expect(axis).not.toBeNull();
+    expect(axis.getAttribute('class')).contains('axis');
+
+    // Check if the label is drawn
+    expect(label).not.toBe(null);
+    const labelText = label?.querySelector('text')?.textContent;
+    expect(labelText).toBe('default');
+  });
+  it('renders a custom axis', () => {
+    // Arrange
+    const ticksNumber = 5;
+    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const config = {
+      placementX: 0,
+      placementY: 0,
+      axis: d3axis,
+      fontSize: 20,
+      color: 'white',
+      renderLabel: true,
+      labelText: 'test'
+    };
+
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
+    const label = axisGroup[1];
+
+    // Assert
+    // Check if the axis is rendered
+    expect(axis).not.toBeNull();
+    expect(axis.getAttribute('class')).contains('axis');
+
+    // Check if the axis has the custom 5 ticks
+    const ticks = axis.querySelectorAll('.tick');
+    expect(ticks.length).toBe(ticksNumber + 1);
+
+    // Check if the axis has a path element for the domain
+    const domain = axis.querySelector('.domain');
+    expect(domain).not.toBeNull();
+
+    // Check if the styling of axis elements is correct
+    expect(axis.style).not.toBeNull();
+    expect(axis.style.color).toBe(config.color);
+    expect(axis.style.fontSize).toBe(`${config.fontSize}px`);
+
+    // Check if label styles are correct
+    expect(label).not.toBe(null);
+    const labelText = label?.querySelector('text');
+    expect(labelText?.getAttribute('fill')).toBe(config.color);
+    // Check if the correct text is displayed
+    expect(labelText?.textContent).toBe(config.labelText);
+  });
+  it('renders an axis without ticks', () => {
+    // Arrange
+    const ticksNumber = 0;
+    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const config = {
+      placementX: 0,
+      placementY: 0,
+      axis: d3axis
+    };
+
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
+
+    // Assert
+    // Check if the axis is rendered
+    expect(axis).not.toBeNull();
+    expect(axis.getAttribute('class')).contains('axis');
+
+    // Check if the axis has no ticks
+    const ticks = axis.querySelectorAll('.tick');
+    expect(ticks.length).toBe(0);
+
+    // Check if the axis has a path element for the domain
+    const domain = axis.querySelector('.domain');
+    expect(domain).not.toBeNull();
   });
 });
-// import Axis from '$lib/components/base/Axis.svelte';
-// import StoreWrapper from './StoreWrapper.svelte';
+describe('Axis placement tests', () => {
+  it('checks the bottom placement of the axis', () => {
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
+    const defaultHeight = 400;
 
-// describe('Rendering tests', () => {
-//   it('renders a default axis', () => {
-//     // Arrange
-//     const config = {};
+    const expectedX = 0;
+    const expectedY = defaultHeight - defaultMargin;
 
-//     // Act
-//     const axis = createAxis(config);
+    // Arrange
+    const ticksNumber = 0;
+    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = d3.axisBottom(scale).ticks(ticksNumber);
+    const config = {
+      placementX: 0,
+      placementY: defaultHeight - defaultMargin,
+      axis: d3axis
+    };
 
-//     // Assert
-//     // Check if the axis is rendered
-//     expect(axis).not.toBeNull();
-//     expect(axis.getAttribute('class')).contains('axis');
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
 
-//     // Check if the axis has the default 10 ticks
-//     const ticks = axis.querySelectorAll('.tick');
-//     expect(ticks.length).toBe(10 + 1);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
 
-//     // Check if the axis has a path element for the domain
-//     const domain = axis.querySelector('.domain');
-//     expect(domain).not.toBeNull();
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the top placement of the axis', () => {
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
 
-//     // Check if the styling of text elements is correct
-//     const text = axis.querySelector('text');
-//     expect(text?.style).not.toBeNull();
-//     expect(text?.style.color).toBe('black');
-//     expect(text?.style.fontSize).toBe('17px');
-//   });
+    const expectedX = 0;
+    const expectedY = defaultMargin;
 
-//   it('renders a custom axis', () => {
-//     // Arrange
-//     const config = {
-//       ticks: true,
-//       fontSize: 20,
-//       color: 'white',
-//       ticksNumber: 5
-//     };
+    // Arrange
+    const ticksNumber = 0;
+    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = d3.axisTop(scale).ticks(ticksNumber);
+    const config = {
+      placementX: 0,
+      placementY: defaultMargin,
+      axis: d3axis
+    };
 
-//     // Act
-//     const axis = createAxis(config);
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
 
-//     // Assert
-//     // Check if the axis is rendered
-//     expect(axis).not.toBeNull();
-//     expect(axis.getAttribute('class')).contains('axis');
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
 
-//     // Check if the axis has the custom 5 ticks
-//     const ticks = axis.querySelectorAll('.tick');
-//     expect(ticks.length).toBe(config.ticksNumber + 1);
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the left placement of the axis', () => {
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
 
-//     // Check if the axis has a path element for the domain
-//     const domain = axis.querySelector('.domain');
-//     expect(domain).not.toBeNull();
+    const expectedX = defaultMargin;
+    const expectedY = 0;
 
-//     // Check if the styling of text elements is correct
-//     const text = axis.querySelector('text');
-//     expect(text?.style).not.toBeNull();
-//     expect(text?.style.color).toBe(config.color);
-//     expect(text?.style.fontSize).toBe(`${config.fontSize}px`);
-//   });
+    // Arrange
+    const ticksNumber = 0;
+    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const config = {
+      placementX: defaultMargin,
+      placementY: 0,
+      axis: d3axis
+    };
 
-//   it('renders an axis without ticks', () => {
-//     // Arrange
-//     const config = {
-//       ticksNumber: 0
-//     };
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
 
-//     // Act
-//     const axis = createAxis(config);
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
 
-//     // Assert
-//     // Check if the axis is rendered
-//     expect(axis).not.toBeNull();
-//     expect(axis.getAttribute('class')).contains('axis');
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+  it('checks the right placement of the axis', () => {
+    // These magic numbers are the default margins from the graphStore
+    const defaultMargin = 40;
+    const defaultWidth = 640;
 
-//     // Check if the axis has no ticks
-//     const ticks = axis.querySelectorAll('.tick');
-//     expect(ticks.length).toBe(0);
+    const expectedX = defaultWidth - defaultMargin;
+    const expectedY = 0;
 
-//     // Check if the axis has a path element for the domain
-//     const domain = axis.querySelector('.domain');
-//     expect(domain).not.toBeNull();
-//   });
-// });
-// describe('Placement tests', () => {
-//   it('checks the default placement of the axis', () => {
-//     // Default placement is bottom placement
+    // Arrange
+    const ticksNumber = 0;
+    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const config = {
+      placementX: defaultWidth - defaultMargin,
+      placementY: 0,
+      axis: d3axis
+    };
 
-//     // Arrange
-//     const config = {};
+    // Act
+    const axisGroup = createAxis(config);
+    const axis = axisGroup[0] as SVGGElement;
 
-//     // These magic numbers are the default margins from the graphStore
-//     const defaultHeight = 400;
-//     const defaultMargin = 40;
+    const translate = axis.getAttribute('transform') ?? '';
+    const [translateX, translateY] = formatTranslateAttr(translate);
 
-//     const expectedX = 0;
-//     const expectedY = defaultHeight - defaultMargin;
+    // Assert
+    expect(translateX).toBe(expectedX.toString());
+    expect(translateY).toBe(expectedY.toString());
+  });
+});
 
-//     // Act
-//     const axis = createAxis(config);
-//     const translate = axis.getAttribute('transform') ?? '';
-//     const [translateX, translateY] = formatTranslateAttr(translate);
+function createAxis(config: object): (SVGElement | null)[] {
+  // Add svg block to the document
+  const svg = document.createElement('svg');
+  svg.setAttribute('id', 'svg');
+  document.body.appendChild(svg);
 
-//     // Assert
-//     expect(translateX).toBe(expectedX.toString());
-//     expect(translateY).toBe(expectedY.toString());
-//   });
-//   it('checks the bottom placement of the axis', () => {
-//     // Arrange
-//     const config = { position: 'bottom' };
-//     // These magic numbers are the default margins from the graphStore
-//     const defaultMargin = 40;
-//     const defaultHeight = 400;
+  // Add axis to svg block
+  const { container } = render(NewStoreWrapper, { props: { Component: Axis, config } });
+  const completeAxis = container.getElementsByClassName('axis')[0] as SVGElement;
+  const axis = container.getElementsByClassName('axisElement')[0] as SVGElement;
+  const label = container.getElementsByClassName('label')[0] ?? null;
+  svg.appendChild(completeAxis);
+  return [axis as SVGGElement, label as SVGGElement | null];
+}
 
-//     const expectedX = 0;
-//     const expectedY = defaultHeight - defaultMargin;
-
-//     // Act
-//     const axis = createAxis(config);
-//     const translate = axis.getAttribute('transform') ?? '';
-//     const [translateX, translateY] = formatTranslateAttr(translate);
-
-//     // Assert
-//     expect(translateX).toBe(expectedX.toString());
-//     expect(translateY).toBe(expectedY.toString());
-//   });
-//   it('checks the top placement of the axis', () => {
-//     // Arrange
-//     const config = { position: 'top' };
-//     // These magic numbers are the default margins from the graphStore
-//     const defaultMargin = 40;
-
-//     const expectedX = 0;
-//     const expectedY = defaultMargin;
-
-//     // Act
-//     const axis = createAxis(config);
-//     const translate = axis.getAttribute('transform') ?? '';
-//     const [translateX, translateY] = formatTranslateAttr(translate);
-
-//     // Assert
-//     expect(translateX).toBe(expectedX.toString());
-//     expect(translateY).toBe(expectedY.toString());
-//   });
-//   it('checks the left placement of the axis', () => {
-//     // Arrange
-//     const config = { position: 'left' };
-//     // These magic numbers are the default margins from the graphStore
-//     const defaultMargin = 40;
-
-//     const expectedX = defaultMargin;
-//     const expectedY = 0;
-
-//     // Act
-//     const axis = createAxis(config);
-//     const translate = axis.getAttribute('transform') ?? '';
-//     const [translateX, translateY] = formatTranslateAttr(translate);
-
-//     // Assert
-//     expect(translateX).toBe(expectedX.toString());
-//     expect(translateY).toBe(expectedY.toString());
-//   });
-//   it('checks the right placement of the axis', () => {
-//     // Arrange
-//     const config = { position: 'right' };
-//     // These magic numbers are the default margins from the graphStore
-//     const defaultMargin = 40;
-//     const defaultWidth = 640;
-
-//     const expectedX = defaultWidth - defaultMargin;
-//     const expectedY = 0;
-
-//     // Act
-//     const axis = createAxis(config);
-//     const translate = axis.getAttribute('transform') ?? '';
-//     const [translateX, translateY] = formatTranslateAttr(translate);
-
-//     // Assert
-//     expect(translateX).toBe(expectedX.toString());
-//     expect(translateY).toBe(expectedY.toString());
-//   });
-// });
-
-// function createAxis(config: object): SVGElement {
-//   // Add svg block to the document
-//   const svg = document.createElement('svg');
-//   svg.setAttribute('id', 'svg');
-//   document.body.appendChild(svg);
-
-//   // Add axis to svg block
-//   const { container } = render(StoreWrapper, { props: { Component: Axis, config } });
-//   const axis = container.getElementsByClassName('axis')[0] as SVGElement;
-//   svg.appendChild(axis);
-
-//   return axis as SVGElement;
-// }
-
-// function formatTranslateAttr(attr: string): string[] {
-//   // Function that takes the translate attribute of a SVGGElement,
-//   // and returns an array in the form [x,y]
-//   const translate = attr.split(',');
-//   const translateX = translate[0].split('(')[1].split(' ')[0];
-//   const translateY = translate[1].split(' ')[1].split(')')[0];
-//   return [translateX, translateY];
-// }
+function formatTranslateAttr(attr: string): string[] {
+  // Function that takes the translate attribute of a SVGGElement,
+  // and returns an array in the form [x,y]
+  const translate = attr.split(',');
+  const translateX = translate[0].split('(')[1].split(' ')[0];
+  const translateY = translate[1].split(' ')[1].split(')')[0];
+  return [translateX, translateY];
+}
