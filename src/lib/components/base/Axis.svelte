@@ -1,116 +1,114 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { getContext } from 'svelte';
+  import { onMount } from 'svelte';
 
-  // DMVis imports
-  import type { GraphStore } from '$lib/store.js';
+  import Label from '$lib/components/base/Label.svelte';
+  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { OriginX, OriginY } from '$lib/Enums.js';
 
-  // Public variables
-  export let ticks: boolean = true;
-  export let fontSize: number = 17;
+  // Required Attributes
+  export let placementX: number;
+  export let placementY: number;
+  export let axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+
+  // Optional attributes
+  export let renderLabel: boolean = false;
+  export let labelText: string = 'default';
+  export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
+  export let labelOffset: number = 20;
+  export let fontSize: number = 12;
   export let color: string = 'black';
-  export let offset: number = 0;
-  export let ticksNumber: number = 10;
-  export let position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
 
-  // Get store information
-  const { xScale, yScale, height, width, marginBottom, marginLeft, marginTop, marginRight } =
-    getContext<GraphStore>('store');
+  let element: SVGGElement;
 
-  // Private variables
-  let placementX: number = 0;
-  let placementY: number = 0;
-  let axisElement: SVGGElement;
+  let labelOffsetY = 0;
+  let labelOffsetX = 0;
+  let labelOriginX: OriginX = OriginX.Middle;
+  let labelOriginY: OriginY = OriginY.Middle;
+  let labelRotationDegrees: number = 0;
 
-  //The scale will be the xScale if the position is top or bottom, otherwise it is yScale
-  let scale = position === 'bottom' || position === 'top' ? $xScale : $yScale;
-
-  // Update the axis using reactive statements
-  $: {
-    // Create the axis generator
-    let axisGenerator: d3.Axis<string> | d3.Axis<d3.NumberValue>;
-
-    // Decide the placement and axis-type of the axis based on the position
-    switch (position) {
-      case 'top':
-        placementY = Number($marginTop) + Number(offset);
-        if ('padding' in scale) {
-          axisGenerator = d3.axisTop(scale as d3.ScaleBand<string>);
-        } else {
-          axisGenerator = d3.axisTop(scale as d3.ScaleLinear<number, number>);
-        }
-        break;
-      case 'bottom':
-        placementY = Number($height) - Number($marginBottom) + Number(offset);
-        if ('padding' in scale) {
-          axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
-        } else {
-          axisGenerator = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
-        }
-        break;
-      case 'left':
-        placementX = Number($marginLeft) + Number(offset);
-        if ('padding' in scale) {
-          axisGenerator = d3.axisLeft(scale as d3.ScaleBand<string>);
-        } else {
-          axisGenerator = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
-        }
-        break;
-      case 'right':
-        placementX = Number($width - $marginRight) + Number(offset);
-        if ('padding' in scale) {
-          axisGenerator = d3.axisRight(scale as d3.ScaleBand<string>);
-        } else {
-          axisGenerator = d3.axisRight(scale as d3.ScaleLinear<number, number>);
-        }
-        break;
-      default:
-        placementX = Number($width) - Number($marginBottom) + Number(offset);
-        if ('padding' in scale) {
-          axisGenerator = d3.axisBottom(scale as d3.ScaleBand<string>);
-        } else {
-          axisGenerator = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
-        }
+  onMount(() => {
+    if (element !== undefined) {
+      // Render the axis
+      d3.select(element).call(axis).style('font-size', `${fontSize}px`).style('color', color);
     }
+    // Render the label
+    if (renderLabel) {
+      // Retrieve axis bounding box
+      let axisRef = d3.select(element);
+      let lineNode = axisRef.select('.domain').node()! as SVGGElement;
+      let axisWidth = lineNode.getBBox().width;
+      let axisHeight = lineNode.getBBox().height;
+      let axisX = lineNode.getBBox().x;
+      let axisY = lineNode.getBBox().y;
 
-    // Set the tick size and number of ticks
-    // This if statement checks if the scale is a scaleLinear
-    if (!('padding' in scale)) {
-      axisGenerator = axisGenerator as d3.Axis<d3.NumberValue>;
-      if (ticks) {
-        axisGenerator = axisGenerator.tickSizeOuter(0).ticks(ticksNumber);
-      } else {
-        axisGenerator = axisGenerator.tickSize(0);
+      // Calculate label position
+      switch (labelPosition) {
+        case 'left':
+          labelRotationDegrees = 270;
+          labelOffsetY = axisY + axisHeight / 2;
+          labelOffsetX = axisX - labelOffset;
+          labelOriginX = OriginX.Right;
+          break;
+        case 'right':
+          labelRotationDegrees = 90;
+          labelOffsetY = axisY + axisHeight / 2;
+          labelOffsetX = axisX + axisWidth + labelOffset;
+          labelOriginX = OriginX.Left;
+          break;
+        case 'top':
+          labelOffsetX = axisX + axisWidth / 2;
+          labelOffsetY = axisY - labelOffset;
+          labelOriginY = OriginY.Bottom;
+          break;
+        case 'bottom':
+          labelOffsetX = axisX + axisWidth / 2;
+          labelOffsetY = axisY + axisHeight + labelOffset;
+          labelOriginY = OriginY.Top;
+          break;
+        default:
+          throw ThrowError('Error', 'Incorrect labelPosition assignment.', 'Axis');
       }
     }
-
-    // Render the axis
-    d3.select(axisElement)
-      .call(axisGenerator)
-      .selectAll('text')
-      .style('font-size', `${fontSize}px`)
-      .style('color', color);
-  }
+  });
 </script>
 
 <!--
 @component
+@component
 ### Axis
-The Axis component renders the axis of a chart with the tick on the bottom.
-It displays tick marks and labels based on provided data.
-You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
+The Axis component renders a single axis based on a single, provided d3.axis element.
+You can use this component to render an axis on any side of a visualisation, with the option
+of adding a label on any side of the axis.
+
+### Required attributes
+  * placementX: number                                  - Horizontal start position of the axis.
+  * placementY: number                                  - Vertical start position of the axis.
+  * axis: d3.Axis<string> | d3.Axis<d3.NumberValue>     - D3 Axis component.
 
 #### Optional attributes
-  * fontSize: number                                - Font size of the tick labels. Defaults to `17`.
-  * color: string                                   - Color of the axis. Defaults to `'black'`.
-  * ticks: boolean                                  - Whether to display tick marks. Defaults to `true`.
-  * offset: number                                  - Offset of the axis from the side of the visualisation. Defaults to `0`.
-  * ticksNumber: number                             - Number of ticks to display on the axis. Defaults to `10`.
-  * position: 'bottom' | 'top' | 'left' | 'right'   - Position of the axis. Defaults to `'bottom'`.
+  * renderLabel: boolean                                - Renders a label next to the axis. Defaults to `false`.
+  * labelText: string                                   - Text for the label. Defaults to `'default'`.
+  * labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. Defaults to `'top'`.
+  * labelOffset: number                             - Distance from the label to the axis. Defaults to `'20'`.
+  * fontSize: number                                    - Font size of the tick labels. Defaults to `12`.
+  * color: string                                       - Color of the axis line. Defaults to `'black'`.
 -->
 
-<g class="axis" bind:this={axisElement} transform="translate({placementX}, {placementY})"></g>
+<g class="">
+  {#if renderLabel}
+    <Label
+      x={placementX + labelOffsetX}
+      y={placementY + labelOffsetY}
+      text={labelText}
+      originX={labelOriginX}
+      originY={labelOriginY}
+      hasBackground={false}
+      rotationDegrees={labelRotationDegrees} />
+  {/if}
+  <g class="axis" bind:this={element} transform="translate({placementX}, {placementY})"></g>
+</g>
 
 <style>
 </style>

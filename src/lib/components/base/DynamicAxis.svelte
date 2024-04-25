@@ -1,12 +1,13 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
 
   // DMVis imports
   import { VisualisationStore } from '$lib/store.js';
   import { ThrowError } from '$lib/utils/ThrowError.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import Axis from '$lib/components/base/Axis.svelte';
 
   // Get store information
   const {
@@ -23,6 +24,9 @@
   } = getContext<VisualisationStore>('store');
 
   // Public variables
+  export let renderLabel: boolean = false;
+  export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
+  export let labelOffset: number = 20;
   export let hasTicks: boolean = true;
   export let alignment: 'start' | 'end' | 'spaced' = 'start';
   export let fontSize: number = $styleUtil.fontSize;
@@ -58,8 +62,8 @@
   }
 
   interface AxisConfig {
+    column: string;
     axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
-    element: SVGGElement;
     x: number;
     y: number;
   }
@@ -82,202 +86,196 @@
   let yScalesToDraw = $yScales.slice(startColumn, endColumn);
 
   // Every different position will require a different axis to be drawn
-  switch (position) {
-    case 'top':
-      // For the top axis, loop over all the xScales and draw an axis for each of them
-      xScalesToDraw.forEach((scale, index) => {
-        let newAxis;
+  $: {
+    switch (position) {
+      case 'top':
+        // For the top axis, loop over all the xScales and draw an axis for each of them
+        xScalesToDraw.forEach((scale, index) => {
+          let newAxis;
 
-        if ('padding' in scale) {
-          // If the scale is a scaleband
-          newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
-        } else {
-          // If the scale is a scaleLinear
-          if (spacingDirection === 'vertical') {
-            newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+          if ('padding' in scale) {
+            // If the scale is a scaleband
+            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
           } else {
-            // If the spacing direction is horizontal, re-calculate the lEngth of the axis
-            newAxis = d3.axisTop(
-              scale.range([
-                spacer.step() - customPadding + customPadding / $columns.length,
-                0
-              ]) as d3.ScaleLinear<number, number>
-            );
-          }
-          // Set the ticks of the scaleLinear axis
-          if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-          } else {
-            newAxis = newAxis.tickSize(0);
-          }
-        } // End of if-else statement about scaleBand vs scaleLinear
+            // If the scale is a scaleLinear
+            if (spacingDirection === 'vertical') {
+              newAxis = d3.axisTop(scale as d3.ScaleLinear<number, number>);
+            } else {
+              // If the spacing direction is horizontal, re-calculate the lEngth of the axis
+              newAxis = d3.axisTop(
+                scale.range([
+                  spacer.step() - customPadding + customPadding / $columns.length,
+                  0
+                ]) as d3.ScaleLinear<number, number>
+              );
+            }
+            // Set the ticks of the scaleLinear axis
+            if (hasTicks) {
+              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
+            } else {
+              newAxis = newAxis.tickSize(0);
+            }
+          } // End of if-else statement about scaleBand vs scaleLinear
 
-        // Place the top-axis at the top margin plus some offset to make it not overlap with the visualisation
-        placementY = $marginTop + Number(offset) - 5;
+          // Place the top-axis at the top margin plus some offset to make it not overlap with the visualisation
+          placementY = $marginTop + Number(offset) - 5;
 
-        // Edit the placement depending on the spacing direction
-        if (spacingDirection === 'horizontal') {
-          placementX = offset + spacer($columns[index])! + horizontalPadding * index;
-        } else {
-          placementY = offset + spacer($columns[index])! + verticalPadding * index;
-        }
-
-        axisGenerator.push({
-          axis: newAxis,
-          x: placementX,
-          y: placementY
-        } as AxisConfig);
-      });
-      break;
-
-    case 'bottom':
-      // For the bottom axis, loop over all the xScales and draw an axis for each of them
-      xScalesToDraw.forEach((scale, index) => {
-        let newAxis;
-
-        if ('padding' in scale) {
-          // If the scale is a scaleBand
-          newAxis = d3.axisBottom(scale as d3.ScaleBand<string>);
-        } else {
-          // If the scale is a scaleLinear
-          if (spacingDirection === 'vertical') {
-            newAxis = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
-          } else {
-            // If the spacing direction is horizontal, re-calculate the length of the axis
-            newAxis = d3.axisBottom(
-              scale.range([spacer.step(), 0]) as d3.ScaleLinear<number, number>
-            );
-          }
-
-          // Set the correct amount of ticks on the scaleLinear axis
-          if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
-          } else {
-            newAxis = newAxis.tickSize(0);
-          }
-        } // End of if-else statement about scaleBand vs scaleLinear
-
-        // Place the bottom axis at the bottom margin + some offset
-        placementY = $height - $marginBottom - Number(offset) + 5;
-
-        // Edit the placement based on the spacing direction
-        if (spacingDirection === 'horizontal') {
-          placementX = offset + spacer($columns[index])! + horizontalPadding * index;
-        } else {
-          placementY = offset - spacer($columns[index])! - verticalPadding * index + 5;
-        }
-
-        axisGenerator.push({
-          axis: newAxis,
-          x: placementX,
-          y: placementY
-        } as AxisConfig);
-      });
-      break;
-
-    case 'left':
-      // For the left axis, loop over all the yScales and draw an axis for each of them
-      yScalesToDraw.forEach((scale, index) => {
-        let newAxis;
-
-        if ('padding' in scale) {
-          // If the scale is a scaleBand
-          newAxis = d3.axisLeft(scale as d3.ScaleBand<string>);
-        } else {
-          // If the scale is a scaleLinear
+          // Edit the placement depending on the spacing direction
           if (spacingDirection === 'horizontal') {
-            newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+            placementX = offset + spacer($columns[index])! + horizontalPadding * index;
           } else {
-            // If the spacing direction is vertical , re-calculate the length of the axis
-            newAxis = d3.axisLeft(
-              scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
-            );
+            placementY = offset + spacer($columns[index])! + verticalPadding * index;
           }
 
-          // Set the correct amount of ticks for the scaleLinear axis
-          if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
+          axisGenerator.push({
+            column: $columns[startColumn + index],
+            axis: newAxis,
+            x: placementX,
+            y: placementY
+          } as AxisConfig);
+        });
+        break;
+
+      case 'bottom':
+        // For the bottom axis, loop over all the xScales and draw an axis for each of them
+        xScalesToDraw.forEach((scale, index) => {
+          let newAxis;
+
+          if ('padding' in scale) {
+            // If the scale is a scaleBand
+            newAxis = d3.axisBottom(scale as d3.ScaleBand<string>);
           } else {
-            newAxis = newAxis.tickSize(0);
-          }
-        } // End of if-else statement about scaleBand vs scaleLinear
+            // If the scale is a scaleLinear
+            if (spacingDirection === 'vertical') {
+              newAxis = d3.axisBottom(scale as d3.ScaleLinear<number, number>);
+            } else {
+              // If the spacing direction is horizontal, re-calculate the length of the axis
+              newAxis = d3.axisBottom(
+                scale.range([spacer.step(), 0]) as d3.ScaleLinear<number, number>
+              );
+            }
 
-        // Depending on the spacing directions, modify the placement
-        if (spacingDirection === 'horizontal') {
-          placementX = offset + spacer($columns[index])! + horizontalPadding * index;
-        } else {
-          placementX = $marginLeft - 5;
-          placementY = offset + spacer($columns[index])! + verticalPadding * index;
-        }
+            // Set the correct amount of ticks on the scaleLinear axis
+            if (hasTicks) {
+              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
+            } else {
+              newAxis = newAxis.tickSize(0);
+            }
+          } // End of if-else statement about scaleBand vs scaleLinear
 
-        axisGenerator.push({
-          axis: newAxis,
-          x: placementX,
-          y: placementY
-        } as AxisConfig);
-      });
-      break;
+          // Place the bottom axis at the bottom margin + some offset
+          placementY = $height - $marginBottom - Number(offset) + 5;
 
-    case 'right':
-      // For the right axis, loop over all the yScales and draw an axis for each of them
-      yScalesToDraw.forEach((scale, index) => {
-        let newAxis;
-
-        if ('padding' in scale) {
-          // If the scale is a scaleBand
-          newAxis = d3.axisRight(scale as d3.ScaleBand<string>);
-        } else {
-          // If the scale is a scaleLinear
+          // Edit the placement based on the spacing direction
           if (spacingDirection === 'horizontal') {
-            newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+            placementX = offset + spacer($columns[index])! + horizontalPadding * index;
           } else {
-            // If the spacing direction is vertical , re-calculate the length of the axis
-            newAxis = d3.axisRight(
-              scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
-            );
+            placementY = offset - spacer($columns[index])! - verticalPadding * index + 5;
           }
 
-          // Set the correct amount of ticks for the scaleLinear axis
-          if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
+          axisGenerator.push({
+            column: $columns[startColumn + index],
+            axis: newAxis,
+            x: placementX,
+            y: placementY
+          } as AxisConfig);
+        });
+        break;
+
+      case 'left':
+        // For the left axis, loop over all the yScales and draw an axis for each of them
+        yScalesToDraw.forEach((scale, index) => {
+          let newAxis;
+
+          if ('padding' in scale) {
+            // If the scale is a scaleBand
+            newAxis = d3.axisLeft(scale as d3.ScaleBand<string>);
           } else {
-            newAxis = newAxis.tickSize(0);
+            // If the scale is a scaleLinear
+            if (spacingDirection === 'horizontal') {
+              newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+            } else {
+              // If the spacing direction is vertical , re-calculate the length of the axis
+              newAxis = d3.axisLeft(
+                scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
+              );
+            }
+
+            // Set the correct amount of ticks for the scaleLinear axis
+            if (hasTicks) {
+              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
+            } else {
+              newAxis = newAxis.tickSize(0);
+            }
+          } // End of if-else statement about scaleBand vs scaleLinear
+
+          // Depending on the spacing directions, modify the placement
+          if (spacingDirection === 'horizontal') {
+            placementX = offset + spacer($columns[index])! + horizontalPadding * index;
+          } else {
+            placementX = $marginLeft - 5;
+            placementY = offset + spacer($columns[index])! + verticalPadding * index;
           }
-        } // End of if-else statement about scaleBand vs scaleLinear
 
-        // Depending on the spacing directions, modify the placement
-        if (spacingDirection === 'horizontal') {
-          placementX = $width - offset - spacer($columns[index])! - horizontalPadding * index;
-        } else {
-          placementX = $width - $marginRight + 5;
-          placementY = offset + spacer($columns[index])! + verticalPadding * index;
-        }
+          axisGenerator.push({
+            column: $columns[startColumn + index],
+            axis: newAxis,
+            x: placementX,
+            y: placementY
+          } as AxisConfig);
+        });
+        break;
 
-        axisGenerator.push({
-          axis: newAxis,
-          x: placementX,
-          y: placementY
-        } as AxisConfig);
-      });
-      break;
+      case 'right':
+        // For the right axis, loop over all the yScales and draw an axis for each of them
+        yScalesToDraw.forEach((scale, index) => {
+          let newAxis;
 
-    // If this point is reached, the input was not recognised. So throw an error
-    // Note that due to TypeScript, this will never happen
-    default:
-      throw ThrowError('Error', 'Invalid axis position', 'DynamicAxis');
+          if ('padding' in scale) {
+            // If the scale is a scaleBand
+            newAxis = d3.axisRight(scale as d3.ScaleBand<string>);
+          } else {
+            // If the scale is a scaleLinear
+            if (spacingDirection === 'horizontal') {
+              newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+            } else {
+              // If the spacing direction is vertical , re-calculate the length of the axis
+              newAxis = d3.axisRight(
+                scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
+              );
+            }
+
+            // Set the correct amount of ticks for the scaleLinear axis
+            if (hasTicks) {
+              newAxis = newAxis.tickSizeOuter(0).ticks(ticksNumber);
+            } else {
+              newAxis = newAxis.tickSize(0);
+            }
+          } // End of if-else statement about scaleBand vs scaleLinear
+
+          // Depending on the spacing directions, modify the placement
+          if (spacingDirection === 'horizontal') {
+            placementX = $width - offset - spacer($columns[index])! - horizontalPadding * index;
+          } else {
+            placementX = $width - $marginRight + 5;
+            placementY = offset + spacer($columns[index])! + verticalPadding * index;
+          }
+
+          axisGenerator.push({
+            column: $columns[startColumn + index],
+            axis: newAxis,
+            x: placementX,
+            y: placementY
+          } as AxisConfig);
+        });
+        break;
+
+      // If this point is reached, the input was not recognised. So throw an error
+      // Note that due to TypeScript, this will never happen
+      default:
+        throw ThrowError('Error', 'Invalid axis position', 'DynamicAxis');
+    }
   }
-
-  // When the axis is mounted, render the axis
-  onMount(() => {
-    // Render the axis
-    axisGenerator.forEach((axis) => {
-      d3.select(axis.element)
-        .call(axis.axis)
-        .selectAll('text')
-        .style('font-size', `${fontSize}px`)
-        .style('color', color);
-    });
-  });
 </script>
 
 <!--
@@ -290,8 +288,11 @@ You can use this component to render the axis on the top, bottom, left, or right
 #### Optional attributes
   * alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (i.e. the side of the column where the axis is placed).
                                                       Defaults to `'start'`.
-  * fontSize: number                                - Font size of the tick labels. Defaults to `10`.
+  * fontSize: number                                - Font size of the tick labels. Defaults to `12`.
   * color: string                                   - Color of the axis line. Defaults to `'black'`.
+  * renderLabel: boolean                            - Renders a label next to the axis. Defaults to `false`.
+  * labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. Defaults to `'top'`.
+  * labelOffset: number                             - Distance from the label to the axis. Defaults to `'20'`.
   * hasTicks: boolean                               - Whether to display tick marks. Defaults to `true`.
   * offset: number                                  - The offset of the axis from the side of the visualisation. Defaults to `0`.
   * ticksNumber: number                             - The number of ticks you want displayed on the axes. Defaults to `10`.
@@ -306,5 +307,14 @@ You can use this component to render the axis on the top, bottom, left, or right
 
 <!-- Loop over all the axis and draw them at their corresponding position -->
 {#each axisGenerator as axis}
-  <g class="axis" bind:this={axis.element} transform="translate({axis.x}, {axis.y})"></g>
+  <Axis
+    placementX={axis.x}
+    placementY={axis.y}
+    axis={axis.axis}
+    {renderLabel}
+    {labelPosition}
+    labelText={axis.column}
+    {labelOffset}
+    {fontSize}
+    {color} />
 {/each}

@@ -1,67 +1,91 @@
 # Axis component
 
-The Axis component is responsible for rendering an axis with labels along the correct side of the visualisation.
-It displays tick marks and labels based on provided data.
+The Axis component renders a single axis based on a single, provided d3.axis element.
+You can use this component to render an axis on any side of a visualisation, with the option
+of adding a label on any side of the axis.
+
+# Required attributes
+
+## placementX
+
+- Type: `number`
+
+Horizontal start position of the axis.
+
+## placementY
+
+- Type: `number`
+
+Vertical start position of the axis.
+
+## axis
+
+- Type: `d3.Axis<string>` | `d3.Axis<d3.NumberValue>`
+
+D3 Axis component. See example usage on how to create the d3 axis.
 
 # Optional Attributes
+
+## renderLabel
+
+- Type: `boolean`
+- Default: `false`
+
+Renders a label next to the axis.
+
+## labelText
+
+- Type: `string`
+- Default: `'default'`
+
+Text for the label.
+
+## labelPosition:
+
+- Type: `string`
+- Default: `'top'`
+- Options: `'left'`, `'right'`, `'top'`, `'bottom'`
+
+Position of the label relative to the axis.
+
+## labelOffset
+
+- Type: `number`
+- Default: `20`
+
+Distance from the label to the axis.
 
 ## fontSize
 
 - Type: `number`
-- Default: `17`
+- Default: `12`
 
 Font size of the tick labels.
 
 ## color
 
 - Type: `string`
-- Default: `'black'`
+- Default: `'#000000'`
 
-Color of the axis.
-
-## ticks
-
-- Type: `boolean`
-- Default: `true`
-
-Whether to display tick marks.
-
-## offset
-
-- Type: `number`
-- Default: `0`
-
-Offset of the axis from the side of the visualisation.
-
-## ticksNumber
-
-- Type: `number`
-- Default: `10`
-
-Number of ticks to display on the axis.
-
-## position
-
-- Type: `string`
-- Default: `'bottom'`
-- Options: `'bottom'`, `'top'`, `'left'`, `'right'`
-
-Position of the axis.
+Color of the axis line.
 
 # Example usage
 
-Create a bottom axis with custom color and no tick marks.
+Creating a left axis with a label at the bottom.
 
 ```svelte
-<svg {width} {height}>
-  <Axis fontSize={12} color={'#FF0000'} ticks={false} position="bottom" />
-</svg>
-```
+<script>
+  let scale = scaleLinear().domain([0, 100]).range([40, 460]).nice();
+  let newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+</script>
 
-Create a left axis with custom font size and five ticks.
-
-```svelte
 <svg {width} {height}>
-  <Axis fontSize={12} ticksNumber={5} position="left" />
+  <Axis
+    placementX={axisX}
+    placementY={axisY}
+    axis={d3Axis}
+    renderLabel={true}
+    labelPosition={'bottom'}
+    labelText={axisName} />
 </svg>
 ```

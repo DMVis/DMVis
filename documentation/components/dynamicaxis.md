@@ -24,9 +24,31 @@ Font size of the tick labels.
 ## color
 
 - Type: `string`
-- Default: `#000000`
+- Default: `'#000000'`
 
 Color of the axis line.
+
+## renderLabel
+
+- Type: `boolean`
+- Default: `false`
+
+Renders a label next to the axis.
+
+## labelPosition:
+
+- Type: `string`
+- Default: `'top'`
+- Options: `'left'`, `'right'`, `'top'`, `'bottom'`
+
+Position of the label relative to the axis.
+
+## labelOffset
+
+- Type: `number`
+- Default: `20`
+
+Distance from the label to the axis.
 
 ## hasTicks
 
@@ -52,16 +74,16 @@ The number of ticks to display on the axes.
 ## position
 
 - Type: `string`
-- Default: `bottom`
-- Options: `bottom`, `top`, `left`, `right`
+- Default: `'bottom'`
+- Options: `'bottom'`, `'top'`, `'left'`, `'right'`
 
 The position of the axis.
 
 ## spacingDirection
 
 - Type: `string`
-- Default: `horizontal`
-- Options: `horizontal`, `vertical`
+- Default: `'horizontal'`
+- Options: `'horizontal'`, `'vertical'`
 
 The direction to space the axes.
 

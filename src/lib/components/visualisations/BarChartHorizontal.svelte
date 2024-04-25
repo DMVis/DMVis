@@ -5,7 +5,6 @@
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
-  import Axis from '$lib/components/base/Axis.svelte';
   import { GraphStore } from '$lib/store.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
@@ -104,8 +103,5 @@ The y-axis represents the categories of the data.
         {radiusX}
         {radiusY} />
     {/each}
-    <!-- Draw 2 axes -->
-    <Axis position="left" />
-    <Axis position="bottom" />
   {/key}
 </svg>

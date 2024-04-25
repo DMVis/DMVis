@@ -71,5 +71,5 @@ It creates an axis for each column in the supplied table with data
   <!-- Draw all the lines -->
   <Line lineWidth={2} hoverable={true} />
   <!-- Draw all the axis -->
-  <DynamicAxis position={'left'} alignment={'spaced'} />
+  <DynamicAxis position={'left'} alignment={'spaced'} renderLabel={true} labelPosition={'top'} />
 </svg>
