@@ -1,4 +1,4 @@
-# Select Column
+# SelectColumn
 
 The SelectColumn is a column allowing you to select a row using a checkbox.
 
@@ -39,6 +39,6 @@ Padding around the column.
 
 ## Example usage
 
-```javascript
+```svelte
 <SelectColumn x={0} width={100} height={200} length={10} />
 ```

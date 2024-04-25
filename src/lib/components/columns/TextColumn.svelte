@@ -8,7 +8,7 @@
   import { ColumnType } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;
@@ -23,6 +23,12 @@
   const paddingSide: number = padding / 2;
   let showFilter: boolean = false;
   let showSearch: boolean = false;
+
+  // Get the y position of the column
+  function getY(index: number) {
+    // 20 = height of row, 105 = height of top part
+    return index * 20 + 105 + $styleUtil.fontSize;
+  }
 
   // Get store values
   const { styleUtil } = getContext<VisualisationStore>('store');
@@ -40,14 +46,14 @@
 TextColumn is a Column component that displays text for each value in the data array.
 
 #### Required attributes
-  * `x` - The x-coordinate of the column.
-  * `width` - The width of the column.
-  * `height` - The height of the column.
-  * `data` - The data to display as text.
+  * x - X-coordinate of the column.
+  * width - The width of the column.
+  * height - The height of the column.
+  * data - The data to display as text.
 
 #### Optional attributes
-  * `name` - The name of the column. Usually the attribute name.
-  * `padding` - The padding of the column.
+  * name - The name of the column. Usually the attribute name.
+  * padding - The padding of the column.
 -->
 
 <Column
@@ -96,7 +102,7 @@ TextColumn is a Column component that displays text for each value in the data a
     {#each data as value, i}
       <Label
         x={x + width / 2}
-        y={i * 20 + 105 + $styleUtil.fontSize}
+        y={getY(i)}
         width={10}
         height={20}
         {padding}

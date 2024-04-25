@@ -44,12 +44,12 @@ Color of the icon.
 
 If you want to create a stock sorting icon you can use the following code:
 
-```javascript
+```svelte
 <Icon x={10} y={10} icon="sort" />
 ```
 
 If you want to create a custom icon you can use the following code:
 
-```javascript
+```svelte
 <Icon x={10} y={10} icon="M0,0 L10,10 L0,10 Z" />
 ```

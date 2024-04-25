@@ -3,7 +3,7 @@
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;
@@ -22,13 +22,13 @@
 SumColumn is a Column component that displays the StackedBar for the given attributes in the data array.
 
 #### Required attributes
-  * `x` - The x-coordinate of the column.
-  * `width` - The width of the column.
-  * `height` - The height of the column.
+  * x - X-coordinate of the column.
+  * width - The width of the column.
+  * height - The height of the column.
 
 #### Optional attributes
-  * `padding` - The padding of the column.
-  * `name` - The name of the column. Usually the attribute name.
+  * padding - The padding of the column.
+  * name - The name of the column. Usually the attribute name.
 -->
 
 <Column {type} {x} {height} {width} {padding} {name} on:sortData on:groupData>

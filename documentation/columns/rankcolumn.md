@@ -1,4 +1,4 @@
-# Rank Column
+# RankColumn
 
 RankColumn is a column that shows the index of the row in the table.
 
@@ -39,6 +39,6 @@ Padding around the column.
 
 ## Example usage
 
-```javascript
+```svelte
 <RankColumn x={0} width={100} height={200} length={10} />
 ```

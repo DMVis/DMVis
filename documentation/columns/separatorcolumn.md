@@ -1,4 +1,4 @@
-# Separator Column
+# SeparatorColumn
 
 SeparatorColumn is a column that shows lines, connecting rows the other rows in the table. This is used to order the same row in different ways.
 
@@ -33,6 +33,6 @@ Padding around the column.
 
 ## Example usage
 
-```javascript
+```svelte
 <SeparatorColumn x={0} width={100} height={200} />
 ```

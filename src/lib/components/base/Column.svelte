@@ -9,7 +9,7 @@
   import { OriginX, OriginY } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;

@@ -1,6 +1,6 @@
-# Bar Column
+# BarColumn
 
-BarColumn is a column that displays a bar chart. It is useful for visualizing the relative size of values in a column.
+BarColumn is a column that displays a bar chart. It is useful for visualising the relative size of values in a column.
 
 ## Required Attributes
 
@@ -26,7 +26,7 @@ Height of the column.
 
 - Type: `number[]`
 
-Data to be displayed as bar in the column.
+Data to be displayed as bars in the column.
 
 ## Optional Attributes
 
@@ -46,6 +46,6 @@ Padding around the column.
 
 ## Example usage
 
-```javascript
+```svelte
 <BarColumn x={0} width={100} height={200} data={[10, 20, 30, 40]} />
 ```

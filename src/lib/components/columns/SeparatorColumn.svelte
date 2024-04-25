@@ -3,7 +3,7 @@
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;
@@ -21,12 +21,12 @@
 SeparatorColumn is a Column component that displays lines connecting rows in the data array.
 
 #### Required attributes
-  * `x` - The x-coordinate of the column.
-  * `width` - The width of the column.
-  * `height` - The height of the column.
+  * x - X-coordinate of the column.
+  * width - The width of the column.
+  * height - The height of the column.
 
 #### Optional attributes
-  * `padding` - The padding of the column.
+  * padding - The padding of the column.
 -->
 
 <Column {type} {x} {height} {width} {padding} name="">

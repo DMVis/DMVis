@@ -61,7 +61,7 @@
 
   function sortData(event: CustomEvent) {
     // TODO: Make sure that we can disable sorting as well, not just ascending and descending
-    dataUtil.sortData(event.detail.column, event.detail.sorting == 'ascending');
+    console.log('sort', event.detail.column, event.detail.sorting);
   }
 </script>
 

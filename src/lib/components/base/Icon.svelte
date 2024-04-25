@@ -2,7 +2,7 @@
   // Imports
   import { createEventDispatcher } from 'svelte';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let y: number;
   export let icon: string;

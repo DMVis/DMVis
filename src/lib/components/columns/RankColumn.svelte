@@ -8,7 +8,7 @@
   import type { VisualisationStore } from '$lib/store.js';
   import Label from '../base/Label.svelte';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;
@@ -20,6 +20,12 @@
   // Column standards
   const type = ColumnType.Rank;
 
+  // Get the y position of the column
+  function getY(index: number) {
+    // 20 = height of row, 105 = height of top part
+    return index * 20 + 105 + $styleUtil.fontSize;
+  }
+
   // Get store values
   const { styleUtil } = getContext<VisualisationStore>('store');
 </script>
@@ -30,13 +36,13 @@
 RankColumn is a Column component that displays the rank of each value in the data array.
 
 #### Required attributes
-  * `x` - The x-coordinate of the column.
-  * `width` - The width of the column.
-  * `height` - The height of the column.
-  * `length` - The number of ranks to display.
+  * x - X-coordinate of the column.
+  * width - The width of the column.
+  * height - The height of the column.
+  * length - The number of ranks to display.
 
 #### Optional attributes
-  * `padding` - The padding of the column.
+  * padding - The padding of the column.
 -->
 
 <Column {type} {x} {height} {width} {padding} name="Rank">
@@ -45,7 +51,7 @@ RankColumn is a Column component that displays the rank of each value in the dat
     {#each Array.from({ length }) as _, i}
       <Label
         x={x + width / 2}
-        y={i * 20 + 105 + $styleUtil.fontSize}
+        y={getY(i)}
         width={10}
         height={20}
         {padding}

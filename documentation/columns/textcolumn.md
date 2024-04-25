@@ -1,4 +1,4 @@
-# Text Column
+# TextColumn
 
 TextColumn is a column that shows the text of the given column.
 
@@ -40,12 +40,12 @@ Padding around the column.
 ### name
 
 - Type: `string`
-- Default: `"Column"`
+- Default: `'Column'`
 
 Name of the column. Should contain the name of the attribute you're displaying.
 
 ## Example usage
 
-```javascript
+```svelte
 <TextColumn x={0} width={100} height={200} data={['A', 'B', 'C']} />
 ```

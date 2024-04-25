@@ -59,7 +59,7 @@ The padding around the column.
 
 Creating columns for each of the attributes in the data:
 
-```javascript
+```svelte
 <script lang="ts">
   const width: number = 100;
   const height: number = 1000;
@@ -68,13 +68,12 @@ Creating columns for each of the attributes in the data:
 <svg>
   {#each columns as column, i}
     <Column
-      x={i * (column.width)}
+      x={i * column.width}
       {width}
       {height}
       type={column.type}
       name={column.name}
-      padding={column.padding}
-    />
+      padding={column.padding} />
   {/each}
 </svg>
 ```

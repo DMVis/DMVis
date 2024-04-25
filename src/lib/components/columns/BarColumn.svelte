@@ -8,7 +8,7 @@
   import { Bar } from '$lib/components.js';
   import { ColumnType, OriginX, OriginY } from '$lib/Enums.js';
 
-  // Mandatory attributes
+  // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;
@@ -23,6 +23,12 @@
   const type = ColumnType.Bar;
   const paddingSide: number = padding / 2;
   let showFilter = false;
+
+  // Get the y position of the column
+  function getY(index: number) {
+    // 20 = height of row, 105 = height of top part, 1 = padding
+    return index * 20 + 105 + 1;
+  }
 
   // Scale for the width of each bar
   const scale = d3
@@ -43,15 +49,15 @@
 BarColumn is a Column component that displays bars for each value in the data array.
 
 #### Required attributes
-  * `x` - The x-coordinate of the column.
-  * `width` - The width of the column.
-  * `height` - The height of the column.
-  * `data` - The data to display as bars.
+  * x - X-coordinate of the column.
+  * width - The width of the column.
+  * height - The height of the column.
+  * data - The data to display as bars.
 
 #### Optional attributes
-  * `name` - The name of the column. Usually the attribute name.
-  * `padding` - The padding of the column.
-  * `barColor` - The color of the bars.
+  * name - The name of the column. Usually the attribute name.
+  * padding - The padding of the column.
+  * barColor - The color of the bars.
 -->
 
 <Column
@@ -78,13 +84,13 @@ BarColumn is a Column component that displays bars for each value in the data ar
     {/if}
   </g>
   <g slot="overview">
-    <!-- Insert histogram using barchart -->
+    <!-- Insert histogram using bar chart -->
   </g>
   <g slot="data">
     {#each data as value, i}
       <Bar
         x={x + paddingSide}
-        y={i * 20 + 105 + 1}
+        y={getY(i)}
         width={scale(value)}
         height={18}
         originX={OriginX.Left}
