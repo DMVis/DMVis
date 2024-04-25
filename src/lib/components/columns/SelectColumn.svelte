@@ -1,7 +1,4 @@
 <script lang="ts">
-  // Imports
-  // import { getContext, createEventDispatcher } from 'svelte';
-
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
@@ -22,13 +19,16 @@
 <!--
 @component
 ### SelectColumn
-Work in progress
+SelectColumn is a Column component that displays checkboxes for each value in the data array.
 
 #### Required attributes
-  * T.B.D.
+  * `x` - The x-coordinate of the column.
+  * `width` - The width of the column.
+  * `height` - The height of the column.
+  * `length` - The number of checkboxes to display.
 
 #### Optional attributes
-  * T.B.D.
+  * `padding` - The padding of the column.
 -->
 
 <Column {type} {x} {height} {width} {padding} name="Select" on:groupData on:sortData>
@@ -38,6 +38,7 @@ Work in progress
     </foreignObject>
   </g>
   <g slot="data">
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
     {#each Array.from({ length }) as _, i}
       <foreignObject x={x + (width - 20) / 2} y={i * 20 + 105} width="20px" height="20px">
         <input type="checkbox" id={`select-${i}`} />

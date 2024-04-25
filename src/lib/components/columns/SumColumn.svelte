@@ -1,7 +1,4 @@
 <script lang="ts">
-  // Imports
-  // import { getContext, createEventDispatcher } from 'svelte';
-
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
@@ -22,13 +19,16 @@
 <!--
 @component
 ### SumColumn
-Work in progress
+SumColumn is a Column component that displays the StackedBar for the given attributes in the data array.
 
 #### Required attributes
-  * T.B.D.
+  * `x` - The x-coordinate of the column.
+  * `width` - The width of the column.
+  * `height` - The height of the column.
 
 #### Optional attributes
-  * T.B.D.
+  * `padding` - The padding of the column.
+  * `name` - The name of the column. Usually the attribute name.
 -->
 
 <Column {type} {x} {height} {width} {padding} {name} on:sortData on:groupData>

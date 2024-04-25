@@ -32,7 +32,7 @@
 
   // Dispatch filter
   const dispatch = createEventDispatcher();
-  const dispatchFilter = (event: Event) => {
+  const dispatchFilter = () => {
     dispatch('filterData', { column: name, min: 0, max: 200 });
   };
 </script>
@@ -40,13 +40,18 @@
 <!--
 @component
 ### BarColumn
-Work in progress
+BarColumn is a Column component that displays bars for each value in the data array.
 
 #### Required attributes
-  * T.B.D.
+  * `x` - The x-coordinate of the column.
+  * `width` - The width of the column.
+  * `height` - The height of the column.
+  * `data` - The data to display as bars.
 
 #### Optional attributes
-  * T.B.D.
+  * `name` - The name of the column. Usually the attribute name.
+  * `padding` - The padding of the column.
+  * `barColor` - The color of the bars.
 -->
 
 <Column
@@ -68,7 +73,7 @@ Work in progress
         height={100}
         role="gridcell" />
       <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={100}>
-        <button on:click={(e) => dispatchFilter(e)}>Filter on range</button>
+        <button on:click={() => dispatchFilter()}>Filter on range</button>
       </foreignObject>
     {/if}
   </g>

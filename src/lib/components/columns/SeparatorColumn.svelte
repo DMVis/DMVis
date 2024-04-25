@@ -1,7 +1,4 @@
 <script lang="ts">
-  // Imports
-  // import { getContext, createEventDispatcher } from 'svelte';
-
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
@@ -13,7 +10,6 @@
 
   // Optional attributes
   export let padding: number = 10;
-  export let name: string = 'Column';
 
   // Column standards
   const type = ColumnType.Separator;
@@ -22,16 +18,18 @@
 <!--
 @component
 ### SeparatorColumn
-Work in progress
+SeparatorColumn is a Column component that displays lines connecting rows in the data array.
 
 #### Required attributes
-  * T.B.D.
+  * `x` - The x-coordinate of the column.
+  * `width` - The width of the column.
+  * `height` - The height of the column.
 
 #### Optional attributes
-  * T.B.D.
+  * `padding` - The padding of the column.
 -->
 
-<Column {type} {x} {height} {width} {padding} {name}>
+<Column {type} {x} {height} {width} {padding} name="">
   <g slot="data">
     <!-- Insert lines connecting rows -->
   </g>

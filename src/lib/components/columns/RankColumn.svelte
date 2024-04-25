@@ -27,17 +27,21 @@
 <!--
 @component
 ### RankColumn
-Work in progress
+RankColumn is a Column component that displays the rank of each value in the data array.
 
 #### Required attributes
-  * T.B.D.
+  * `x` - The x-coordinate of the column.
+  * `width` - The width of the column.
+  * `height` - The height of the column.
+  * `length` - The number of ranks to display.
 
 #### Optional attributes
-  * T.B.D.
+  * `padding` - The padding of the column.
 -->
 
 <Column {type} {x} {height} {width} {padding} name="Rank">
   <g slot="data">
+    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
     {#each Array.from({ length }) as _, i}
       <Label
         x={x + width / 2}

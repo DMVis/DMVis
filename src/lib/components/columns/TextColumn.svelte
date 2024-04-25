@@ -37,13 +37,17 @@
 <!--
 @component
 ### TextColumn
-Work in progress
+TextColumn is a Column component that displays text for each value in the data array.
 
 #### Required attributes
-  * T.B.D.
+  * `x` - The x-coordinate of the column.
+  * `width` - The width of the column.
+  * `height` - The height of the column.
+  * `data` - The data to display as text.
 
 #### Optional attributes
-  * T.B.D.
+  * `name` - The name of the column. Usually the attribute name.
+  * `padding` - The padding of the column.
 -->
 
 <Column

@@ -1,6 +1,6 @@
 # Column
 
-Column is a ....
+Column is a component that represents a column in a table. It can be used to display data in a table, or to create a visual representation of data.
 
 ## Required Attributes
 
