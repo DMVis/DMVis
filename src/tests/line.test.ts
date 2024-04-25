@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/svelte';
 
 import Line from '$lib/components/base/Line.svelte';
+import StoreWrapper from './StoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
-import NewStoreWrapper from './NewStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -79,7 +79,7 @@ describe('Html test', () => {
 
 function createLines(config: object): SVGGElement {
   // Render lines and return the respective element
-  const { container } = render(NewStoreWrapper, { props: { Component: Line, config } });
+  const { container } = render(StoreWrapper, { props: { Component: Line, config } });
   const hoverlines = container.getElementsByClassName('line-group')[0] as SVGGElement;
   return hoverlines;
 }

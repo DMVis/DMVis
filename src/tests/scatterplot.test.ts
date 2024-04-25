@@ -1,8 +1,9 @@
-import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+
 import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
+import StoreWrapper from './StoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
-import NewStoreWrapper from './NewStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -182,7 +183,7 @@ describe('Scaling test', () => {
 });
 
 function createScatterplot(config: object): SVGElement {
-  const { container } = render(NewStoreWrapper, { props: { Component: Scatterplot, config } });
+  const { container } = render(StoreWrapper, { props: { Component: Scatterplot, config } });
   const scatterplot = container.getElementsByClassName('visualisation')[0] as SVGElement;
   return scatterplot;
 }
