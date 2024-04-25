@@ -31,7 +31,7 @@ Work in progress
   * T.B.D.
 -->
 
-<Column {type} {x} {height} {width} {padding} {name}>
+<Column {type} {x} {height} {width} {padding} {name} on:sortData on:groupData>
   <g slot="overlay">
     <!-- Insert overlay for editing weights -->
   </g>

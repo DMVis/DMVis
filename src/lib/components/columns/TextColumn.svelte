@@ -1,15 +1,18 @@
 <script lang="ts">
   // Imports
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
 
   // DMVis imports
+  import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
+  import type { VisualisationStore } from '$lib/store.js';
 
   // Mandatory attributes
   export let x: number;
   export let width: number;
   export let height: number;
+  export let data: Array<string>;
 
   // Optional attributes
   export let padding: number = 10;
@@ -20,6 +23,9 @@
   const paddingSide: number = padding / 2;
   let showFilter: boolean = false;
   let showSearch: boolean = false;
+
+  // Get store values
+  const { styleUtil } = getContext<VisualisationStore>('store');
 
   // Dispatch search data
   const dispatch = createEventDispatcher();
@@ -47,6 +53,7 @@ Work in progress
   {width}
   {padding}
   {name}
+  on:sortData
   on:filter={() => {
     showFilter = !showFilter;
     showSearch = false;
@@ -82,7 +89,17 @@ Work in progress
     {/if}
   </g>
   <g slot="data">
-    <!-- Insert the text values of the column -->
+    {#each data as value, i}
+      <Label
+        x={x + width / 2}
+        y={i * 20 + 105 + $styleUtil.fontSize}
+        width={10}
+        height={20}
+        {padding}
+        hasPointerEvents={true}
+        hasBackground={false}
+        text={value} />
+    {/each}
   </g>
 </Column>
 
