@@ -4,7 +4,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 import Axis from '$lib/components/base/Axis.svelte';
-import NewStoreWrapper from './NewStoreWrapper.svelte';
+import StoreWrapper from './StoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -24,7 +24,7 @@ describe('Rendering tests', () => {
     const axis = axisGroup[0] as SVGGElement;
     const label = axisGroup[1];
 
-    // Get the transform attribute from the axis, and format it
+    // Get the transform attribute from the axis and format it
     const translate: string = axis.getAttribute('transform') ?? '';
     const [translateX, translateY] = formatTranslateAttr(translate);
     // Select all the ticks of the axis
@@ -155,7 +155,7 @@ describe('Rendering tests', () => {
 });
 describe('Axis placement tests', () => {
   it('checks the bottom placement of the axis', () => {
-    // These magic numbers are the default margins from the graphStore
+    // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;
     const defaultHeight = 400;
 
@@ -184,7 +184,7 @@ describe('Axis placement tests', () => {
     expect(translateY).toBe(expectedY.toString());
   });
   it('checks the top placement of the axis', () => {
-    // These magic numbers are the default margins from the graphStore
+    // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;
 
     const expectedX = 0;
@@ -212,7 +212,7 @@ describe('Axis placement tests', () => {
     expect(translateY).toBe(expectedY.toString());
   });
   it('checks the left placement of the axis', () => {
-    // These magic numbers are the default margins from the graphStore
+    // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;
 
     const expectedX = defaultMargin;
@@ -240,7 +240,7 @@ describe('Axis placement tests', () => {
     expect(translateY).toBe(expectedY.toString());
   });
   it('checks the right placement of the axis', () => {
-    // These magic numbers are the default margins from the graphStore
+    // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;
     const defaultWidth = 640;
 
@@ -277,7 +277,7 @@ function createAxis(config: object): (SVGElement | null)[] {
   document.body.appendChild(svg);
 
   // Add axis to svg block
-  const { container } = render(NewStoreWrapper, { props: { Component: Axis, config } });
+  const { container } = render(StoreWrapper, { props: { Component: Axis, config } });
   const completeAxis = container.getElementsByClassName('axis')[0] as SVGElement;
   const axis = container.getElementsByClassName('axisElement')[0] as SVGElement;
   const label = container.getElementsByClassName('label')[0] ?? null;
@@ -286,7 +286,7 @@ function createAxis(config: object): (SVGElement | null)[] {
 }
 
 function formatTranslateAttr(attr: string): string[] {
-  // Function that takes the translate attribute of a SVGGElement,
+  // Function that takes the translate attribute of a SVGGElement
   // and returns an array in the form [x,y]
   const translate = attr.split(',');
   const translateX = translate[0].split('(')[1].split(' ')[0];

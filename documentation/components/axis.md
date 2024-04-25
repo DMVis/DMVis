@@ -69,7 +69,7 @@ Font size of the tick labels.
 - Type: `string`
 - Default: `'#000000'`
 
-Color of the axis line, and label.
+Color of the axis line and label.
 
 # Example usage
 
