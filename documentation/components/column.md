@@ -8,7 +8,7 @@ Column is a ....
 
 - Type: `number`
 
-x-coordinate of the column.
+X-coordinate of the column.
 
 ### width
 
@@ -30,14 +30,14 @@ Signifies the type of the column. Influences the rendering of the column.
 
 #### ColumnType
 
-An enum, containing the following types:
+An enum, containing types of columns. Can be selected by importing `ColumnType` and using it as the type of the `type` attribute. The types are:
 
-- `Rank`
-- `Select`
-- `Text`
-- `Bar`
-- `Sum`
-- `Separator`
+- `'Bar'`
+- `'Rank'`
+- `'Select'`
+- `'Separator'`
+- `'Sum'`
+- `'Text'`
 
 ## Optional Attributes
 

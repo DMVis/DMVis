@@ -59,8 +59,18 @@
 
       // Sort the data
       dispatch('sortData', { column, sorting });
-    } else {
-      // TODO: Display small dropdown with options
+    } else if (option === 'search') {
+      // TODO: Display input box
+    } else if (option === 'filter') {
+      // TODO: Display input box, with only options that are available
+    } else if (option === 'group') {
+      // TODO: Group the select column
+    } else if (option === 'more') {
+      // TODO: Show box with delete row options, more in the future
+    } else if (option === 'item') {
+      // TODO: Separator feature, requires more research
+    } else if (option === 'band') {
+      // TODO: Separator feature, requires more research
     }
     return () => {
       console.log(`Option: ${option} for column: ${column}`);

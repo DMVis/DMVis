@@ -11,10 +11,10 @@ export enum OriginY {
 }
 
 export enum ColumnType {
+  Bar = 'Bar',
   Rank = 'Rank',
   Select = 'Select',
-  Text = 'Text',
-  Bar = 'Bar',
+  Separator = 'Separator',
   Sum = 'Sum',
-  Separator = 'Separator'
+  Text = 'Text'
 }
