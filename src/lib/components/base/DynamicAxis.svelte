@@ -127,7 +127,7 @@
           if (spacingDirection === 'horizontal') {
             placementX = offset + spacerHorizontal($columns[index])! + horizontalPadding * index;
           } else {
-            placementY = offset + spacerHorizontal($columns[index])! + verticalPadding * index;
+            placementY = offset + spacerVertical($columns[index])! + verticalPadding * index;
           }
 
           axisGenerator.push({
@@ -173,7 +173,7 @@
           if (spacingDirection === 'horizontal') {
             placementX = offset + spacerHorizontal($columns[index])! + horizontalPadding * index;
           } else {
-            placementY = offset - spacerHorizontal($columns[index])! - verticalPadding * index + 5;
+            placementY = offset - spacerVertical($columns[index])! - verticalPadding * index + 5;
           }
 
           axisGenerator.push({
@@ -214,7 +214,7 @@
 
           // Depending on the spacing directions, modify the placement
           if (spacingDirection === 'horizontal') {
-            placementX = offset + spacerVertical($columns[index])! + horizontalPadding * index;
+            placementX = offset + spacerHorizontal($columns[index])! + horizontalPadding * index;
           } else {
             placementX = $marginLeft - 5;
             placementY = offset + spacerVertical($columns[index])! + verticalPadding * index;
@@ -259,7 +259,7 @@
           // Depending on the spacing directions, modify the placement
           if (spacingDirection === 'horizontal') {
             placementX =
-              $width - offset - spacerVertical($columns[index])! - horizontalPadding * index;
+              $width - offset - spacerHorizontal($columns[index])! - horizontalPadding * index;
           } else {
             placementX = $width - $marginRight + 5;
             placementY = offset + spacerVertical($columns[index])! + verticalPadding * index;
