@@ -3,8 +3,8 @@
   // import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { ColumnType } from '$lib/Enums.js';
   import Column from '$lib/components/base/Column.svelte';
+  import { ColumnType } from '$lib/Enums.js';
 
   // Mandatory attributes
   export let x: number;
@@ -17,6 +17,8 @@
 
   // Column standards
   const type = ColumnType.Bar;
+  const paddingSide: number = padding / 2;
+  let showFilter = false;
 </script>
 
 <!--
@@ -31,7 +33,21 @@ Work in progress
   * T.B.D.
 -->
 
-<Column {type} {x} {height} {width} {padding} {name}>
+<Column {type} {x} {height} {width} {padding} {name} on:filter={() => (showFilter = !showFilter)}>
+  <g slot="overlay">
+    {#if showFilter}
+      <rect
+        class="column-overlay"
+        x={x + paddingSide}
+        y={60}
+        width={width - padding}
+        height={100}
+        role="gridcell" />
+      <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={100}>
+        <span>Filter on range</span>
+      </foreignObject>
+    {/if}
+  </g>
   <g slot="overview">
     <!-- Insert histogram using barchart -->
   </g>
@@ -39,3 +55,12 @@ Work in progress
     <!-- Insert a bar for each row -->
   </g>
 </Column>
+
+<style>
+  .column-overlay {
+    fill: #ffffff;
+    fill-opacity: 100%;
+    stroke: black;
+    stroke-width: 1;
+  }
+</style>

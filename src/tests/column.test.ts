@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/svelte';
 
-import { ColumnType } from '$lib/Enums.js';
-import prepareSvgGetter from '../vitest/svgMock.js';
-import NewStoreWrapper from './NewStoreWrapper.svelte';
 import Column from '$lib/components/base/Column.svelte';
+import { ColumnType } from '$lib/Enums.js';
+import StoreWrapper from './StoreWrapper.svelte';
+import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
@@ -15,11 +15,11 @@ describe('Base column tests', () => {
       x: 0,
       width: 150,
       height: 1000,
-      type: ColumnType.Bar
+      type: ColumnType.Text
     };
 
     // Act
-    const { container } = render(NewStoreWrapper, { props: { Component: Column, config } });
+    const { container } = render(StoreWrapper, { props: { Component: Column, config } });
     const column = container.querySelector('.column');
     const options = container.querySelector('.column-options');
     const columnTop = container.querySelector('.column-top > rect');
@@ -47,27 +47,32 @@ describe('Base column tests', () => {
     };
 
     // Act
-    let { container } = render(NewStoreWrapper, {
+    let { container } = render(StoreWrapper, {
       props: { Component: Column, config: { ...config, type: ColumnType.Bar } }
     });
     const barOptions = container.querySelector('.column-options');
-    container = render(NewStoreWrapper, {
+    container = render(StoreWrapper, {
       props: { Component: Column, config: { ...config, type: ColumnType.Rank } }
     }).container;
     const rankOptions = container.querySelectorAll('.column-options')[1];
-    container = render(NewStoreWrapper, {
+    container = render(StoreWrapper, {
       props: { Component: Column, config: { ...config, type: ColumnType.Separator } }
     }).container;
     const separatorOptions = container.querySelectorAll('.column-options')[2];
-    container = render(NewStoreWrapper, {
+    container = render(StoreWrapper, {
       props: { Component: Column, config: { ...config, type: ColumnType.Select } }
     }).container;
     const selectOptions = container.querySelectorAll('.column-options')[3];
+    container = render(StoreWrapper, {
+      props: { Component: Column, config: { ...config, type: ColumnType.Text } }
+    }).container;
+    const textOptions = container.querySelectorAll('.column-options')[4];
 
     // Assert
-    expect(barOptions?.childNodes.length).toBe(4 * 2);
+    expect(barOptions?.childNodes.length).toBe(3 * 2);
     expect(rankOptions?.childNodes.length).toBe(1 * 2);
     expect(separatorOptions?.childNodes.length).toBe(2 * 2);
-    expect(selectOptions?.childNodes.length).toBe(4 * 2);
+    expect(selectOptions?.childNodes.length).toBe(3 * 2);
+    expect(textOptions?.childNodes.length).toBe(4 * 2);
   });
 });

@@ -3,8 +3,8 @@
   // import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { ColumnType } from '$lib/Enums.js';
   import Column from '$lib/components/base/Column.svelte';
+  import { ColumnType } from '$lib/Enums.js';
 
   // Mandatory attributes
   export let x: number;

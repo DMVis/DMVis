@@ -3,10 +3,10 @@
   import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { ColumnType } from '$lib/Enums.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import Icon from '$lib/components/base/Icon.svelte';
   import Label from '$lib/components/base/Label.svelte';
+  import { ColumnType } from '$lib/Enums.js';
+  import { OriginX, OriginY } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
 
   // Mandatory attributes
@@ -34,17 +34,21 @@
     icons = ['more'];
   } else if (type == ColumnType.Separator) {
     icons = ['item', 'band'];
+  } else if (type == ColumnType.Bar) {
+    icons = ['sort', 'filter', 'more'];
   } else if (type == ColumnType.Select) {
-    icons = ['sort', 'group', 'filter', 'more'];
+    icons = ['sort', 'group', 'more'];
+  } else if (type == ColumnType.Sum) {
+    icons = ['sort', 'group', 'weights', 'more'];
   } else {
     icons = ['sort', 'search', 'filter', 'more'];
   }
   const iconStart = width / 2 - (icons.length * 25) / 2;
 
-  // Check if we are highlighting the current column
-  let highlighted: boolean = false;
-
   // Handle options for the column
+  let group: boolean = false;
+  let showMore: boolean = false;
+  let highlighted: boolean = false;
   let sorting: 'ascend' | 'descend' | 'none' = 'none';
   const handleOptions = (option: string, column: string) => {
     if (option === 'sort') {
@@ -60,21 +64,19 @@
       // Sort the data
       dispatch('sortData', { column, sorting });
     } else if (option === 'search') {
-      // TODO: Display input box
+      dispatch('search', { column });
     } else if (option === 'filter') {
-      // TODO: Display input box, with only options that are available
+      dispatch('filter', { column });
     } else if (option === 'group') {
-      // TODO: Group the select column
+      group = !group;
+      dispatch('groupData', { column, group });
     } else if (option === 'more') {
-      // TODO: Show box with delete row options, more in the future
+      showMore = !showMore;
     } else if (option === 'item') {
       // TODO: Separator feature, requires more research
     } else if (option === 'band') {
       // TODO: Separator feature, requires more research
     }
-    return () => {
-      console.log(`Option: ${option} for column: ${column}`);
-    };
   };
 </script>
 
@@ -96,6 +98,17 @@ Each columns contains a top part with information about the column and a bottom 
 -->
 
 <g class="column">
+  <g class="column-bottom">
+    <rect
+      x={x + paddingSide}
+      y={100}
+      width={width - padding}
+      height={height - 100}
+      fill="#FFFFFF"
+      fill-opacity="100%"
+      role="gridcell" />
+    <slot name="data" />
+  </g>
   <g class="column-top">
     <rect
       x={x + paddingSide}
@@ -130,7 +143,7 @@ Each columns contains a top part with information about the column and a bottom 
           y={0}
           {icon}
           color={$styleUtil.colorBorder}
-          on:mousePointClicked={handleOptions(icon, name)} />
+          on:mousePointClicked={() => handleOptions(icon, name)} />
       {/each}
     </svg>
     <g class="column-top-overview">
@@ -143,16 +156,40 @@ Each columns contains a top part with information about the column and a bottom 
       y2={100}
       stroke={$styleUtil.colorBorder}
       stroke-width="1" />
-  </g>
-  <g class="column-bottom">
-    <rect
-      x={x + paddingSide}
-      y={100}
-      width={width - padding}
-      height={height - 100}
-      fill="#FFFFFF"
-      fill-opacity="100%"
-      role="gridcell" />
-    <slot name="data" />
+
+    <!-- Overlays for columns -->
+    <g class="column-top-overlay">
+      {#if showMore}
+        <g class="column-top-more">
+          <rect
+            class="column-overlay"
+            x={x + paddingSide}
+            y={60}
+            width={width - padding}
+            height={30}
+            role="gridcell" />
+          <Label
+            x={x + width / 2}
+            y={75}
+            text="Remove column"
+            width={width - padding}
+            textColor={$styleUtil.color}
+            fontSize={`${$styleUtil.fontSize}px`}
+            fontFamily={$styleUtil.fontFamily}
+            hasPointerEvents={true}
+            hasBackground={false} />
+        </g>
+      {/if}
+      <slot name="overlay" />
+    </g>
   </g>
 </g>
+
+<style>
+  .column-overlay {
+    fill: #ffffff;
+    fill-opacity: 100%;
+    stroke: black;
+    stroke-width: 1;
+  }
+</style>

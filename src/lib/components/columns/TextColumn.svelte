@@ -1,10 +1,10 @@
 <script lang="ts">
   // Imports
-  // import { getContext, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { ColumnType } from '$lib/Enums.js';
   import Column from '$lib/components/base/Column.svelte';
+  import { ColumnType } from '$lib/Enums.js';
 
   // Mandatory attributes
   export let x: number;
@@ -17,6 +17,15 @@
 
   // Column standards
   const type = ColumnType.Text;
+  const paddingSide: number = padding / 2;
+  let showFilter: boolean = false;
+  let showSearch: boolean = false;
+
+  // Dispatch search data
+  const dispatch = createEventDispatcher();
+  const dispatchSearchData = (event: Event) => {
+    dispatch('searchData', { column: name, search: (event.target as HTMLInputElement).value });
+  };
 </script>
 
 <!--
@@ -31,8 +40,57 @@ Work in progress
   * T.B.D.
 -->
 
-<Column {type} {x} {height} {width} {padding} {name}>
+<Column
+  {type}
+  {x}
+  {height}
+  {width}
+  {padding}
+  {name}
+  on:filter={() => {
+    showFilter = !showFilter;
+    showSearch = false;
+  }}
+  on:search={() => {
+    showSearch = !showSearch;
+    showFilter = false;
+  }}>
+  <g slot="overlay">
+    {#if showSearch || showFilter}
+      <rect
+        class="column-overlay"
+        x={x + paddingSide}
+        y={60}
+        width={width - padding}
+        height={100}
+        role="gridcell" />
+      <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={100}>
+        <input
+          type="text"
+          placeholder={showSearch ? 'Search...' : 'Filter...'}
+          list="filter-data"
+          style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;"
+          on:input={(e) => dispatchSearchData(e)} />
+        {#if showFilter}
+          <datalist id="filter-data">
+            {#each ['Option 1', 'Option 2', 'Option 3'] as option}
+              <option value={option} />
+            {/each}
+          </datalist>
+        {/if}
+      </foreignObject>
+    {/if}
+  </g>
   <g slot="data">
     <!-- Insert the text values of the column -->
   </g>
 </Column>
+
+<style>
+  .column-overlay {
+    fill: #ffffff;
+    fill-opacity: 100%;
+    stroke: black;
+    stroke-width: 1;
+  }
+</style>

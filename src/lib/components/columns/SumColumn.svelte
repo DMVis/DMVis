@@ -3,8 +3,8 @@
   // import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { ColumnType } from '$lib/Enums.js';
   import Column from '$lib/components/base/Column.svelte';
+  import { ColumnType } from '$lib/Enums.js';
 
   // Mandatory attributes
   export let x: number;
@@ -32,6 +32,12 @@ Work in progress
 -->
 
 <Column {type} {x} {height} {width} {padding} {name}>
+  <g slot="overlay">
+    <!-- Insert overlay for editing weights -->
+  </g>
+  <g slot="overview">
+    <!-- Insert the sum overview of the column -->
+  </g>
   <g slot="data">
     <!-- Insert the stacked bar chart -->
   </g>
