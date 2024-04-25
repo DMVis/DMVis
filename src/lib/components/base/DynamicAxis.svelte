@@ -4,10 +4,10 @@
   import { getContext } from 'svelte';
 
   // DMVis imports
-  import { VisualisationStore } from '$lib/store.js';
-  import { ThrowError } from '$lib/utils/ThrowError.js';
-  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import Axis from '$lib/components/base/Axis.svelte';
+  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { VisualisationStore } from '$lib/store.js';
+  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
   // Get store information
   const {
@@ -44,17 +44,20 @@
   let placementX: number = 0;
   let placementY: number = 0;
   let axisGenerator: AxisConfig[] = [];
-  let spacer: d3.ScaleBand<string> | d3.ScalePoint<string>;
+  let spacerVertical: d3.ScaleBand<string> | d3.ScalePoint<string>;
+  let spacerHorizontal: d3.ScaleBand<string> | d3.ScalePoint<string>;
 
   // Create a spacer, which is a scaleBand or scalePoint, which will handle the positions for all the axis
   switch (alignment) {
     // For alignment 'start' and 'end', the spacer is the same
     case 'start':
     case 'end':
-      spacer = SpacerSide($width, $marginLeft, $marginRight, $columns, alignment);
+      spacerHorizontal = SpacerSide($width, $marginLeft, $marginRight, $columns, alignment);
+      spacerVertical = SpacerSide($height, $marginTop, $marginBottom, $columns, alignment);
       break;
     case 'spaced': {
-      spacer = SpacerEqual($width, $marginLeft, $marginRight, $columns);
+      spacerHorizontal = SpacerEqual($width, $marginLeft, $marginRight, $columns);
+      spacerVertical = SpacerEqual($height, $marginTop, $marginBottom, $columns);
       break;
     }
     default:
@@ -71,13 +74,13 @@
   // Calculate vertical padding based on the total height and the height of all the axis
   // If hasPadding is false, this will be 0
   let verticalPadding = hasPadding
-    ? ($height - $marginTop - $marginBottom - spacer.step() * ($columns.length - 1)) /
+    ? ($height - $marginTop - $marginBottom - spacerVertical.step() * ($columns.length - 1)) /
       ($columns.length - 2)
     : 0;
   // Calculate horizontal padding based on the total width and the width of all the axis
   // If hasPadding is false, this will be 0
   let horizontalPadding = hasPadding
-    ? ($width - $marginLeft - $marginRight - spacer.step() * ($columns.length - 1)) /
+    ? ($width - $marginLeft - $marginRight - spacerHorizontal.step() * ($columns.length - 1)) /
       ($columns.length - 2)
     : 0;
 
@@ -104,7 +107,7 @@
               // If the spacing direction is horizontal, re-calculate the lEngth of the axis
               newAxis = d3.axisTop(
                 scale.range([
-                  spacer.step() - customPadding + customPadding / $columns.length,
+                  spacerHorizontal.step() - customPadding + customPadding / $columns.length,
                   0
                 ]) as d3.ScaleLinear<number, number>
               );
@@ -122,9 +125,9 @@
 
           // Edit the placement depending on the spacing direction
           if (spacingDirection === 'horizontal') {
-            placementX = offset + spacer($columns[index])! + horizontalPadding * index;
+            placementX = offset + spacerHorizontal($columns[index])! + horizontalPadding * index;
           } else {
-            placementY = offset + spacer($columns[index])! + verticalPadding * index;
+            placementY = offset + spacerHorizontal($columns[index])! + verticalPadding * index;
           }
 
           axisGenerator.push({
@@ -151,7 +154,7 @@
             } else {
               // If the spacing direction is horizontal, re-calculate the length of the axis
               newAxis = d3.axisBottom(
-                scale.range([spacer.step(), 0]) as d3.ScaleLinear<number, number>
+                scale.range([spacerHorizontal.step(), 0]) as d3.ScaleLinear<number, number>
               );
             }
 
@@ -168,9 +171,9 @@
 
           // Edit the placement based on the spacing direction
           if (spacingDirection === 'horizontal') {
-            placementX = offset + spacer($columns[index])! + horizontalPadding * index;
+            placementX = offset + spacerHorizontal($columns[index])! + horizontalPadding * index;
           } else {
-            placementY = offset - spacer($columns[index])! - verticalPadding * index + 5;
+            placementY = offset - spacerHorizontal($columns[index])! - verticalPadding * index + 5;
           }
 
           axisGenerator.push({
@@ -197,7 +200,7 @@
             } else {
               // If the spacing direction is vertical , re-calculate the length of the axis
               newAxis = d3.axisLeft(
-                scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
+                scale.range([0, spacerVertical.step()]) as d3.ScaleLinear<number, number>
               );
             }
 
@@ -211,10 +214,10 @@
 
           // Depending on the spacing directions, modify the placement
           if (spacingDirection === 'horizontal') {
-            placementX = offset + spacer($columns[index])! + horizontalPadding * index;
+            placementX = offset + spacerVertical($columns[index])! + horizontalPadding * index;
           } else {
             placementX = $marginLeft - 5;
-            placementY = offset + spacer($columns[index])! + verticalPadding * index;
+            placementY = offset + spacerVertical($columns[index])! + verticalPadding * index;
           }
 
           axisGenerator.push({
@@ -241,7 +244,7 @@
             } else {
               // If the spacing direction is vertical , re-calculate the length of the axis
               newAxis = d3.axisRight(
-                scale.range([0, spacer.step()]) as d3.ScaleLinear<number, number>
+                scale.range([0, spacerVertical.step()]) as d3.ScaleLinear<number, number>
               );
             }
 
@@ -255,10 +258,11 @@
 
           // Depending on the spacing directions, modify the placement
           if (spacingDirection === 'horizontal') {
-            placementX = $width - offset - spacer($columns[index])! - horizontalPadding * index;
+            placementX =
+              $width - offset - spacerVertical($columns[index])! - horizontalPadding * index;
           } else {
             placementX = $width - $marginRight + 5;
-            placementY = offset + spacer($columns[index])! + verticalPadding * index;
+            placementY = offset + spacerVertical($columns[index])! + verticalPadding * index;
           }
 
           axisGenerator.push({
