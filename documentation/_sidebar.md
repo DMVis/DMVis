@@ -10,6 +10,7 @@
 
 - Visualisations
 
+  - [BarChart](Visualisations/BarChart.md)
   - [BarChartHorizontal](visualisations/BarChartHorizontal.md)
   - [BarChartVertical](visualisations/BarChartVertical.md)
   - [LineChart](visualisations/LineChart.md)

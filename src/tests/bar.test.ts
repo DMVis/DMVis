@@ -51,7 +51,7 @@ describe('Html test', () => {
       y: 0,
       width: 50,
       height: 250,
-      isHeightAlongYAxis: true,
+      isVertical: true,
       showsNegativeHeight: false
     };
     const expectedHeight = config.height;
@@ -71,7 +71,7 @@ describe('Html test', () => {
       y: 0,
       width: 50,
       height: 250,
-      isHeightAlongYAxis: true,
+      isVertical: true,
       showsNegativeHeight: true
     };
     const expectedHeight = config.height;
@@ -91,7 +91,7 @@ describe('Html test', () => {
       y: 0,
       width: 50,
       height: -250,
-      isHeightAlongYAxis: true,
+      isVertical: true,
       showsNegativeHeight: false
     };
     // A negative height resuls in no visible rendering, so this is fine
@@ -113,7 +113,7 @@ describe('Html test', () => {
       y: 0,
       width: 50,
       height: -250,
-      isHeightAlongYAxis: true,
+      isVertical: true,
       showsNegativeHeight: true
     };
     // Since a negative height results in no visible rendering, the height has to be positive

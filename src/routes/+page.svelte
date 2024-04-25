@@ -8,7 +8,7 @@
   const dataUrl = '/datasets/holidays-20_v1.json';
   const dataUtil = new DataUtils();
 
-  // Load promising
+  // Load promise
   $: load = (async () => {
     await dataUtil.parseData(dataUrl);
   })();
