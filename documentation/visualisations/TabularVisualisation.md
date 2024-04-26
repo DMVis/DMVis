@@ -1,6 +1,6 @@
 # TabularVisualisation
 
-This is visualisation that represents numerical data with rectangular bars or
+This is a visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
 
 > Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop`.

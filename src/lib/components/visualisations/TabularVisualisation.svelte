@@ -73,16 +73,17 @@
     rows: Array<{ label: string; value: number }>;
   };
 
-  // Allows rows to be dragged
+  // Set by dragHandler
   let deltaY: number = 0;
   let deltaYLabel: number = 0;
   let draggedRow: string = '';
   let draggedItem: string = '';
+  // Allows for rows to be dragged
   const dragHandler = d3
     .drag<SVGElement, unknown>()
     .on('start', function (event) {
       // Set the element being dragged
-      if (event.sourceEvent.srcElement.nodeName == 'text') {
+      if (event.sourceEvent.srcElement.nodeName === 'text') {
         draggedRow = event.sourceEvent.srcElement.parentElement.attributes
           .getNamedItem('class')
           .value.split(' ')[1];
@@ -112,19 +113,26 @@
       const labelColumn = d3.select('.bar-column');
       const rows: Array<Element> = labelColumn.selectAll('text').nodes() as Array<Element>;
       const distances = rows.map((row: Element) => {
-        if (row == null || row.innerHTML == draggedItem) return Infinity;
-        let rowY = row.attributes?.getNamedItem('y')?.value;
-        if (rowY == null) return Infinity;
-        return Math.abs(parseFloat(rowY) - y);
+        if (row === null || row.innerHTML === draggedItem) {
+          return Infinity;
+        }
+
+        const rowY: string | undefined = row.attributes?.getNamedItem('y')?.value;
+
+        if (rowY === null) {
+          return Infinity;
+        }
+
+        return Math.abs(parseFloat(rowY as string) - y);
       });
 
       // Update the data
       const minDistanceIndex = distances.indexOf(Math.min(...distances));
-      const nearestRow = rows[minDistanceIndex != -1 ? minDistanceIndex : 0];
+      const nearestRow = rows[minDistanceIndex !== -1 ? minDistanceIndex : 0];
       const nearestLabel = nearestRow ? nearestRow.innerHTML : rows[0].innerHTML;
-      const oldIndex = dataUtil.data.findIndex((row) => row[0] == draggedItem);
-      const newIndex = dataUtil.data.findIndex((row) => row[0] == nearestLabel);
-      const newData = dataUtil.reorderRows(oldIndex, newIndex == -1 ? 0 : newIndex);
+      const oldIndex = dataUtil.data.findIndex((row) => row[0] === draggedItem);
+      const newIndex = dataUtil.data.findIndex((row) => row[0] === nearestLabel);
+      const newData = dataUtil.reorderRows(oldIndex, newIndex === -1 ? 0 : newIndex);
       dataUtil.data = newData;
       visualisationStore.data.set(newData);
       updateColumns();
@@ -137,6 +145,7 @@
       draggedItem = '';
       draggedRow = '';
     });
+  // End of assignment to dragHandler
 
   // Convert array of rows to array of columns (i.e. transpose)
   // Distance between columns is determined by scaleColumns
@@ -159,7 +168,7 @@
     };
     let newColumns = [labelColumn];
 
-    // Fill barColumns
+    // Fill bar columns
     const barColumns: Array<BarColumn> = [];
     // -1 or +1, because we are only interested in the bar columns here
     for (let i: number = 0; i < dataUtil.columns.length - 1; ++i) {
@@ -214,13 +223,14 @@
     return numColumns * 200;
   }
 
-  // Run intial and update functions
+  // Run initial and update functions
   updateColumns();
   afterUpdate(() => {
     dragHandler(d3.selectAll('.bar'));
     dragHandler(d3.selectAll('.bar-label'));
     const axes = document.getElementById('axes');
-    if (axes != null && axes.children.length > 0) {
+
+    if (axes !== null && axes.children.length > 0) {
       axes.removeChild(axes.children[0]);
     }
   });
@@ -229,7 +239,7 @@
 <!--
 @component
 ### Tabular Visualisation
-This is visualisation that represents numerical data with rectangular bars or
+This is a visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
 Since a header label is added on top of each column, it might be necessary
 to adjust `marginTop` or `columnMarginTop`.

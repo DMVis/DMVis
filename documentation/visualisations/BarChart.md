@@ -1,10 +1,10 @@
 # BarChart
 
-This is visualisation that represents categorical data with rectangular bars.
+This is a visualisation that represents categorical data with rectangular bars.
 The length of each bar corresponds to the numerical value of the data being represented.
-Depending on if the `BarChart` should be horizontal or vertical, the axes can have different meanings.
-One axis has the categorical data, which represents a data entry.
-The other axis goes in the direction of the length of the bars and has the numerical values.
+The axes have different meanings depending on `isVertical`.
+One axis has categorical data, which represents a data entry, whereas
+the other axis goes in the direction of the length of the bars and has numerical values.
 
 # Required Attributes
 
@@ -33,28 +33,28 @@ List of bars.
 - Type: `number`
 - Default: `0`
 
-Minimum value of the numerical length of bar.
+Minimum value of the numerical length of each bar.
 
 ## maxValue
 
 - Type: `number`
 - Default: `Highest value in the dataset`
 
-Maximum value of the numerical length of bar.
+Maximum value of the numerical length of each bar.
 
 ## isVertical
 
 - Type: `boolean`
 - Default: `false`
 
-Orients the barchart Vertically when true.
+Orients the bar chart vertically as opposed to horizontally if true.
 
 ## ticks
 
 - Type: `number`
 - Default: `10`
 
-Specifies the number of ticks for the value axis.
+Number of ticks on the value axis.
 
 ## showLeftAxis
 

@@ -34,7 +34,7 @@
   let positionScale: d3.ScaleBand<string>;
   let barScale: d3.ScaleLinear<number, number>;
 
-  // Horizontal BarChart
+  // Horizontal bar chart
   if (!isVertical) {
     positionScale = d3
       .scaleBand()
@@ -45,8 +45,7 @@
       .scaleLinear()
       .domain([minValue, maxValue])
       .range([0, width - marginLeft - marginRight]);
-
-    // Vertical BarChart
+    // Vertical bar chart
   } else {
     positionScale = d3
       .scaleBand()
@@ -63,11 +62,11 @@
 <!--
 @component
 ### BarChart
-This is visualisation that represents categorical data with rectangular bars.
+This is a visualisation that represents categorical data with rectangular bars.
 The length of each bar corresponds to the numerical value of the data being represented.
-Depending on if the `BarChart` should be horizontal or vertical, the axes can have different meanings.
-One axis has the categorical data, which represents a data entry.
-The other axis should go in the diraction of the length of the bars and have the numerical values.
+The axes have different meanings depending on `isVertical`.
+One axis has categorical data, which represents a data entry, whereas
+the other axis goes in the direction of the length of the bars and has numerical values.
 
 #### Required attributes
 * width: number                            - Width of the visualisation.
@@ -75,12 +74,12 @@ The other axis should go in the diraction of the length of the bars and have the
 * data: { label: string; value: number }[] - List of bars.
 
 #### Optional attributes
-* minValue: number                 - Minimum value of the numerical length of bar.
-* maxValue: number                 - Maximum value of the numerical length of bar.
-* isVertical: boolean              - Orients the BarChart Vertically when true.
-* ticks: number = 10;              - Specifies the number of ticks for the value axis.
-* showLeftAxis: boolean = true;    - Toggle left axis.
-* showBottomAxis: boolean = true;  - Toggle bottom axis.
+* minValue: number                 - Minimum value of the numerical length of each bar.
+* maxValue: number                 - Maximum value of the numerical length of each bar.
+* isVertical: boolean              - Orients the bar chart vertically as opposed to horizontally if true.
+* ticks: number = 10;              - Number of ticks on the value axis.
+* showLeftAxis: boolean = true;    - Whether the left axis is visible.
+* showBottomAxis: boolean = true;  - Whether the bottom axis is visible.
 * marginLeft: number               - Margin to the left of the visualisation.
 * marginRight: number              - Margin to the right of the visualisation.
 * marginTop: number                - Margin to the top of the visualisation.
@@ -128,7 +127,7 @@ The other axis should go in the diraction of the length of the bars and have the
     {/each}
   {/key}
 
-  <!-- Axis orientation for Horizontal BarChart -->
+  <!-- Axis orientation for horizontal bar chart -->
   {#if !isVertical}
     <!-- Horizontal Axis -->
     {#if showBottomAxis}
@@ -139,18 +138,18 @@ The other axis should go in the diraction of the length of the bars and have the
     {/if}
 
     {#if showLeftAxis}
-      <!-- Vertical Axis -->
+      <!-- Vertical axis -->
       <Axis placementX={marginLeft} placementY={0} axis={d3.axisLeft(positionScale)} />
     {/if}
 
-    <!-- Axis orientation for Vertical BarChart -->
+    <!-- Axis orientation for vertical bar chart -->
   {:else}
-    <!-- Horizontal Axis -->
+    <!-- Horizontal axis -->
     {#if showBottomAxis}
       <Axis placementX={0} placementY={height - marginBottom} axis={d3.axisBottom(positionScale)} />
     {/if}
 
-    <!-- Vertical Axis -->
+    <!-- Vertical axis -->
     {#if showLeftAxis}
       <Axis
         placementX={marginLeft}
