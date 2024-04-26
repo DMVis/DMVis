@@ -26,7 +26,6 @@ describe('Base column tests', () => {
     const columnBottom = container.querySelector('.column-bottom > rect');
 
     // Assert
-    console.log(columnTop?.outerHTML);
     expect(column).toBeDefined();
     expect(options).toBeDefined();
     expect(columnTop).toBeDefined();
@@ -34,7 +33,7 @@ describe('Base column tests', () => {
     expect(Number(columnTop?.getAttribute('width'))).toBe(config.width - 10);
     expect(Number(columnTop?.getAttribute('height'))).toBe(100);
     expect(Number(columnBottom?.getAttribute('width'))).toBe(config.width - 10);
-    expect(Number(columnBottom?.getAttribute('height'))).toBe(config.height - 100);
+    expect(Number(columnBottom?.getAttribute('height'))).toBe(config.height);
   });
 
   it('Renders the correct amoount of options', () => {

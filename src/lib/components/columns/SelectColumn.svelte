@@ -61,7 +61,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   * padding - The padding of the column.
 -->
 
-<Column {type} {x} {height} {width} {padding} name="Select" on:groupData on:sortData>
+<Column {type} {x} {height} {width} {padding} name="Select" on:groupData on:mouseHover on:sortData>
   <g slot="overview">
     <foreignObject x={x + (width - 20) / 2} y="60" width="20px" height="20px">
       <input type="checkbox" on:change={(e) => toggleAllRows(e)} />

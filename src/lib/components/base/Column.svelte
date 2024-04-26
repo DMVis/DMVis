@@ -12,7 +12,7 @@
   // Required attributes
   export let x: number;
   export let width: number;
-  export let height: number; // DEPRECATED, NO LONGER NEEDED
+  export let height: number;
   export let type: ColumnType;
 
   // Optional attributes
@@ -79,9 +79,25 @@
     }
   };
 
-  function highlightRow(e) {
-    const row = Math.floor(e.screenY / 20);
-    console.log(row, e.screenX, e.screenY);
+  function highlightRow(e: MouseEvent | null) {
+    if (e === null) {
+      dispatch('mouseHover', { row: -1 });
+      return;
+    }
+
+    let columnRect = e.target as HTMLElement;
+    if ((columnRect as HTMLElement)?.classList?.value !== 'column-bottom-background') {
+      // If we're hovering an element, get the background of the column
+      columnRect = columnRect?.closest('.column-bottom')?.firstElementChild as HTMLElement;
+    }
+
+    // Get the position inside the background of the column
+    const rect = (columnRect as HTMLElement)?.getBoundingClientRect();
+    const y = e.clientY - rect.top - 105;
+
+    // Get the row and highlight it
+    const row = Math.floor(y / 20);
+    dispatch('mouseHover', { row });
   }
 </script>
 
@@ -103,7 +119,21 @@ Each columns contains a top part with information about the column and a bottom 
 -->
 
 <g class="column" role="tablist" tabindex={-1}>
-  <g class="column-bottom">
+  <g
+    class="column-bottom"
+    role="grid"
+    tabindex="-1"
+    on:mouseleave={() => highlightRow(null)}
+    on:mousemove={(e) => highlightRow(e)}>
+    <rect
+      class="column-bottom-background"
+      x={x + paddingSide}
+      y={0}
+      width={width - padding}
+      {height}
+      fill="none"
+      pointer-events="all"
+      role="cell" />
     <slot name="data" />
   </g>
   <g class="column-top">

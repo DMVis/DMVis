@@ -33,6 +33,7 @@
   setContext('store', visualisationStore);
   const columnData = dataUtil.data.map((_, colIndex) => dataUtil.data.map((row) => row[colIndex]));
   const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
+  let highlightRow: number = -1;
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
@@ -45,8 +46,6 @@
   }
 
   // Handle events
-  let highlightRow: number;
-
   let selectRows: Set<number> = new Set();
   function selectRow(event: CustomEvent) {
     const row = Number(event.detail.row);
@@ -109,6 +108,15 @@ displays different types of columns such as text, bar, and rank columns. This is
 <svg class="visualisation lineUp" {width} {height}>
   {#key dataUtil}
     <g class="lineUp-highlights">
+      {#if highlightRow !== -1}
+        <rect
+          x={0}
+          y={highlightRow * 20 + 105}
+          {width}
+          height="20"
+          fill={styleUtil.focusColor}
+          fill-opacity="10%" />
+      {/if}
       {#each selectRows as row}
         <rect
           x={0}
@@ -119,7 +127,13 @@ displays different types of columns such as text, bar, and rank columns. This is
           fill-opacity="25%" />
       {/each}
     </g>
-    <RankColumn x={0} width={columnWidth} {height} {padding} length={dataUtil.data.length} />
+    <RankColumn
+      x={0}
+      width={columnWidth}
+      {height}
+      {padding}
+      length={dataUtil.data.length}
+      on:mouseHover={(e) => (highlightRow = e.detail.row)} />
     <SelectColumn
       x={columnWidth}
       width={columnWidth}
@@ -129,6 +143,7 @@ displays different types of columns such as text, bar, and rank columns. This is
       on:check={(e) => selectRow(e)}
       on:toggleAll={(e) => selectAll(e)}
       on:groupData={(e) => groupData(e)}
+      on:mouseHover={(e) => (highlightRow = e.detail.row)}
       on:sortData={(e) => sortData(e)} />
     {#each dataUtil.columns as column, i}
       {#if dataUtil.columnInfo[column] === 'string'}
@@ -139,6 +154,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           {padding}
           name={column}
           data={columnData[i].map(String)}
+          on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:searchData={(e) => searchData(e)}
           on:sortData={(e) => sortData(e)} />
       {:else if dataUtil.columnInfo[column] === 'number'}
@@ -151,6 +167,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           name={column}
           data={columnData[i].map(Number)}
           on:filterData={(e) => filterData(e)}
+          on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:sortData={(e) => sortData(e)} />
       {/if}
     {/each}

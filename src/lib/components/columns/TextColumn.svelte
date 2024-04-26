@@ -68,6 +68,7 @@ TextColumn is a Column component that displays text for each value in the data a
     showFilter = !showFilter;
     showSearch = false;
   }}
+  on:mouseHover
   on:search={() => {
     showSearch = !showSearch;
     showFilter = false;
