@@ -15,9 +15,9 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
+  export let columnWidth: number = 150;
   export let width: number = calculateWidth(dataUtil.columns.length);
   export let height: number = calculateHeight(dataUtil.data.length);
-  export let columnWidth: number = 150;
   export let styleUtil: StyleUtils = new StyleUtils();
   export let padding: number = 10;
 
@@ -32,18 +32,42 @@
   // Set context of the visualisation
   setContext('store', visualisationStore);
   const columnData = dataUtil.data.map((_, colIndex) => dataUtil.data.map((row) => row[colIndex]));
+  const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
-    return numRows * styleUtil.fontSize * 1.5;
+    return numRows * 20;
   }
 
   // Calculate width based on number of columns
   function calculateWidth(numColumns: number): number {
-    return numColumns * columnWidth;
+    return (numColumns + 2) * columnWidth;
   }
 
   // Handle events
+  let highlightRow: number;
+
+  let selectRows: Set<number> = new Set();
+  function selectRow(event: CustomEvent) {
+    const row = Number(event.detail.row);
+    if (event.detail.checked) {
+      selectRows.add(row);
+    } else {
+      selectRows.delete(row);
+    }
+
+    // Update the selected rows
+    selectRows = selectRows;
+  }
+
+  function selectAll(event: CustomEvent) {
+    if (event.detail.checked) {
+      selectRows = new Set([...Array(dataUtil.data.length).keys()]);
+    } else {
+      selectRows = new Set();
+    }
+  }
+
   function filterData(event: CustomEvent) {
     // TODO: Implement filtering functionality in DataUtils
     console.log('filter', event.detail.column, event.detail.min, event.detail.max);
@@ -84,6 +108,17 @@ displays different types of columns such as text, bar, and rank columns. This is
 
 <svg class="visualisation lineUp" {width} {height}>
   {#key dataUtil}
+    <g class="lineUp-highlights">
+      {#each selectRows as row}
+        <rect
+          x={0}
+          y={row * 20 + 105}
+          {width}
+          height="20"
+          fill={styleUtil.focusColor}
+          fill-opacity="25%" />
+      {/each}
+    </g>
     <RankColumn x={0} width={columnWidth} {height} {padding} length={dataUtil.data.length} />
     <SelectColumn
       x={columnWidth}
@@ -91,6 +126,8 @@ displays different types of columns such as text, bar, and rank columns. This is
       {height}
       {padding}
       length={dataUtil.data.length}
+      on:check={(e) => selectRow(e)}
+      on:toggleAll={(e) => selectAll(e)}
       on:groupData={(e) => groupData(e)}
       on:sortData={(e) => sortData(e)} />
     {#each dataUtil.columns as column, i}
@@ -110,6 +147,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           width={columnWidth}
           {height}
           {padding}
+          barColor={barColors[i]}
           name={column}
           data={columnData[i].map(Number)}
           on:filterData={(e) => filterData(e)}

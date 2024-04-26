@@ -12,7 +12,7 @@
   // Required attributes
   export let x: number;
   export let width: number;
-  export let height: number;
+  export let height: number; // DEPRECATED, NO LONGER NEEDED
   export let type: ColumnType;
 
   // Optional attributes
@@ -78,6 +78,11 @@
       // TODO: Separator feature, requires more research
     }
   };
+
+  function highlightRow(e) {
+    const row = Math.floor(e.screenY / 20);
+    console.log(row, e.screenX, e.screenY);
+  }
 </script>
 
 <!--
@@ -97,16 +102,8 @@ Each columns contains a top part with information about the column and a bottom 
   * padding: number       - Padding of the column. Default is 10.
 -->
 
-<g class="column">
+<g class="column" role="tablist" tabindex={-1}>
   <g class="column-bottom">
-    <rect
-      x={x + paddingSide}
-      y={100}
-      width={width - padding}
-      height={height - 100}
-      fill="#FFFFFF"
-      fill-opacity="100%"
-      role="gridcell" />
     <slot name="data" />
   </g>
   <g class="column-top">

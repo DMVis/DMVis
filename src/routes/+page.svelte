@@ -16,7 +16,7 @@
 </script>
 
 {#await load then}
-  <LineUp width={1920} height={1080} {dataUtil} />
+  <LineUp {dataUtil} />
   <TabularVisualisation {dataUtil} />
   <ParallelCoordinates marginLeft={100} marginTop={40} marginRight={50} {dataUtil} />
   <ScatterplotMatrix {dataUtil} />
