@@ -69,6 +69,13 @@ Value for the distance between each bar in the range [0..1].
 Sets the opacity of the bars.
 Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
 
+## showTotals
+
+- Type: `boolean`
+- Default: `false`
+
+Whether or not to display the sum of all bars at the end as a number.
+
 ## styleUtils
 
 - Type: `StyleUtils`

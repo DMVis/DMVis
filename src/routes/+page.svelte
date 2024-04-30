@@ -20,5 +20,5 @@
   <TabularVisualisation {dataUtil} />
   <ParallelCoordinates marginLeft={100} marginTop={40} marginRight={50} {dataUtil} />
   <ScatterplotMatrix {dataUtil} />
-  <StackedBarChart marginLeft={100} {dataUtil} />
+  <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} />
 {/await}

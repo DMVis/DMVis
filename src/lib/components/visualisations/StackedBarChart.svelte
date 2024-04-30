@@ -25,6 +25,7 @@
   export let marginTop: number = 40;
   export let padding: number = 0.2;
   export let opacity: number | string = 1;
+  export let showTotals: boolean = false;
 
   // Set store values
   const visualisationStore = new VisualisationStore();
@@ -72,11 +73,12 @@ The y-axis represents the categories of the data.
                               a percentage string formatted as '{number}%'. Defaults to `1`.
 * styleUtil: StyleUtils     - Class holding all the styling. See its documentation.
                               Defaults to `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`.
+* showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number, defaults to false.
 -->
 
 <svg class="visualisation stackedBarchart" {width} {height}>
   {#key dataUtil}
-    <StackedBar {opacity} {width} />
+    <StackedBar {opacity} {width} {showTotals} />
     <DynamicAxis position="left" endColumn={1} />
   {/key}
 </svg>

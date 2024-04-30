@@ -7,10 +7,14 @@
   import Bar from '$lib/components/base/Bar.svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
+  import Label from '$lib/components/base/Label.svelte';
+
+  // Required attributes
+  export let width: number;
 
   // Optional attributes
   export let opacity: number | string = 1;
-  export let width = 100;
+  export let showTotals: boolean = false;
 
   // Get store info
   const { data, columns, yScales, marginLeft, marginRight, styleUtil } =
@@ -35,28 +39,41 @@ stacked bar format. It is a wrapper around the Bar
 component that allows for multiple bars to be stacked
 on top of each other.
 
+#### Required attributes
+* width: number           - Maximum width of the largest bar
 #### Optional attributes
 * opacity: number | string - Sets the opacity of the bars.
                              Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
                              Defaults to `1`.
+* showTotals: boolean      - Whether or not to display the sum of all bars at the end as a number, defaults to false.
 -->
 <g>
   <!-- Loop over all data points -->
-  {#each numericalData as rows, rowIndex}
+  {#each numericalData as row, rowIndex}
     <!-- Loop over all attributes -->
     {#each numericalCols as column, colIndex}
       <!-- Create a bar for every attribute -->
       <Bar
-        x={$marginLeft + xScale(d3.sum(rows.slice(0, colIndex)))}
+        x={$marginLeft + xScale(d3.sum(row.slice(0, colIndex)))}
         y={Number(yScale(String(labels[rowIndex])))}
         width={yScale.bandwidth()}
-        height={xScale(Number(rows[colIndex]))}
+        height={xScale(Number(row[colIndex]))}
         isVertical={false}
         color={$styleUtil.colorScheme[colIndex % $styleUtil.colorScheme.length]}
         originX={OriginX.Left}
         originY={OriginY.Top}
-        hoverText={`${column}: ${Number(rows[colIndex])}`}
+        hoverText={`${column}: ${Number(row[colIndex])}`}
         {opacity} />
     {/each}
+    {#if showTotals}
+      <Label
+        x={xScale(d3.sum(row)) + $marginLeft}
+        y={Number((yScale(String(labels[rowIndex])) ?? 0) + yScale.bandwidth() / 2)}
+        text={Math.round(d3.sum(row)).toString()}
+        originX={OriginX.Left}
+        originY={OriginY.Middle}
+        hasBackground={false}
+        fontSize={`${10}px`} />
+    {/if}
   {/each}
 </g>
