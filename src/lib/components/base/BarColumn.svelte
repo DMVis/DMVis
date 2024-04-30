@@ -158,8 +158,8 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
         radiusY={barRadiusY}
         hoverText={`${row.label}: ${row.value}`}
         name={row.label}
-        on:mouseBarEntered
-        on:mouseBarLeft />
+        on:mouseBarEnter
+        on:mouseBarLeave />
     {/if}
 
     <!--
@@ -180,7 +180,9 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
       {fontFamily}
       hasBackground={false}
       hasPointerEvents={true}
-      name={`${row.label} bar-label`} />
+      name={`${row.label} bar-label`}
+      on:mouseLabelEnter
+      on:mouseLabelLeave />
     <!-- End of each loop over rows -->
   {/each}
 

@@ -127,16 +127,16 @@ If set, the class names will be `'bar'` and `'bar-name'`.
 These are all the events that the bar component will dispatch to its parent components.
 Check the example usage on how to use these events.
 
-## mouseBarEntered
+## mouseBarEnter
 
-- Event type: `{ name: string}`
+- Event type: `{ name: string }`
 
 Event that fires when the mouse enters the point.
 The name attribute represents the class name of the bar.
 
-## mouseBarLeft
+## mouseBarLeave
 
-- Event type: `{ name: string}`
+- Event type: `{ name: string }`
 
 Event that fires when the mouse leaves the bar.
 The name attribute represents the class name of the bar.
@@ -156,6 +156,6 @@ The name attribute represents the class name of the bar.
     opacity={0.5}
     radiusX={5}
     radiusY={5}
-    on:mouseBarEntered={mouseBarEntered} />
+    on:mouseBarEnter={onMouseBarEnter} />
 </svg>
 ```

@@ -143,7 +143,7 @@ Each columns contains a top part with information about the column and a bottom 
           y={0}
           {icon}
           color={$styleUtil.colorBorder}
-          on:mousePointClicked={() => handleOptions(icon, name)} />
+          on:mousePointClick={() => handleOptions(icon, name)} />
       {/each}
     </svg>
     <g class="column-top-overview">

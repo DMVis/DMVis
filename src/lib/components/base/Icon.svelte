@@ -31,13 +31,13 @@
   // Handle mouse events
   const dispatch = createEventDispatcher();
   function onMouseEnter() {
-    dispatch('mousePointEntered', { x: x, y: y });
+    dispatch('mousePointEnter', { x: x, y: y });
   }
   function onMouseLeave() {
-    dispatch('mousePointLeft', { x: x, y: y });
+    dispatch('mousePointLeave', { x: x, y: y });
   }
   function onClick() {
-    dispatch('mousePointClicked', { x: x, y: y });
+    dispatch('mousePointClick', { x: x, y: y });
   }
 </script>
 

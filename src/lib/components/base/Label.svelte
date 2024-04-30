@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { onMount } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
 
   // DMVis Imports
   import { getOrigin } from '$lib/utils/OriginMapper.js';
@@ -39,12 +39,14 @@
   let textBlock: SVGTextElement;
   let rectBlock: SVGRectElement;
 
+  const dispatch = createEventDispatcher();
+
   // Function that gets called on a TextElement and will wrap the text based on the given width
   function wrapWords(textSelection: Selection, width: number) {
     // @ts-expect-error A text selection does have the .text() attribute
     let selectedWords = textSelection.text().split(/\s+/).reverse();
     // Cant wrap if there is only 1 word
-    if (selectedWords.length == 1) return;
+    if (selectedWords.length === 1) return;
     let selectedWord,
       line = [],
       lineNumber = 0,
@@ -120,6 +122,18 @@
       .attr('height', rectHeight)
       .attr('stroke', borderColor);
   });
+
+  // Function that fires when the mouse enters this label
+  function onMouseEnter() {
+    // Fire an event to be picked up by parent components of this label
+    dispatch('mouseLabelEnter', { name: name });
+  }
+
+  // Function that fires when the mouse leaves this label
+  function onMouseLeave() {
+    // Fire an event to be picked up by parent components of this label
+    dispatch('mouseLabelLeave', { name: name });
+  }
 </script>
 
 <!--
@@ -166,12 +180,22 @@ The default origin is the middle of the label.
 * height: number | 'auto'       - Height of the rectangle of the label. Defaults to `'auto'`.
 * borderColor: string           - Color of the border around the background of the label.
                                   Defaults to `'black'`. Can be set to `none` for no border.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <g
   transform="rotate({rotationDegrees}, {x}, {y})"
   class={name !== undefined ? `label label-${name}` : 'label'}
-  style="pointer-events: {hasPointerEvents ? 'all' : 'none'}">
+  style="pointer-events: {hasPointerEvents ? 'all' : 'none'}"
+  role="treeitem"
+  tabindex="0"
+  aria-selected="false"
+  on:mouseenter={onMouseEnter}
+  on:mouseleave={onMouseLeave}
+  on:focus={onMouseEnter}
+  on:blur={onMouseLeave}>
   <!-- Draw background behind text. -->
   {#if hasBackground}
     <rect

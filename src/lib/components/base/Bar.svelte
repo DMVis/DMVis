@@ -31,7 +31,7 @@
   let rectBlock: SVGRectElement;
   let isMouseOnBar: boolean = false;
 
-  const dispatchEvent = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
   if (!isVertical) {
     // Swap width and height if the bar is horizontal
@@ -70,14 +70,14 @@
   function onMouseEnter() {
     isMouseOnBar = true;
     // Fire an event to be picked up by parent components of this bar
-    dispatchEvent('mouseBarEntered', { name: name });
+    dispatch('mouseBarEnter', { name: name });
   }
 
   // Function that fires when the mouse leaves this bar
   function onMouseLeave() {
     isMouseOnBar = false;
     // Fire an event to be picked up by parent components of this bar
-    dispatchEvent('mouseBarLeft', { name: name });
+    dispatch('mouseBarLeave', { name: name });
   }
 </script>
 

@@ -54,21 +54,21 @@ Class name of the point. It can be used as an identifier. Defaults to only `'poi
 
 These are all the events that the point component will dispatch to its parent components. Check the example usage on how to use these events.
 
-## mousePointEntered
+## mousePointEnter
 
 - Event type: `{ name: string, x: number, y: number }`
 
 Event that fires when the mouse enters the point. The name attribute represents the classname of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
 
-## mousePointLeft
+## mousePointLeave
 
 - Event type: `{ name: string, x: number, y: number }`
 
 Event that fires when the mouse leaves the point. The name attribute represents the classname of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
 
-## pointClicked
+## mousePointClick
 
-- Event type: `{name: string}`
+- Event type: `{ name: string }`
 
 Event that fires when the point is clicked. The name attribute represents the classname of the point.
 
@@ -84,7 +84,7 @@ Event that fires when the point is clicked. The name attribute represents the cl
       color="rgb(255,102,255)"
       borderColor="purple"
       borderWidth={4}
-      on:mousePointEntered={mousePointEnter} />
+      on:mousePointEnter={onMousePointEnter} />
   {/each}
 </svg>
 ```

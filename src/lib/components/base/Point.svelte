@@ -23,17 +23,17 @@
   // Function that fires when the mouse enters this point
   function onMouseEnter() {
     // Create a dispatch to be catched by parent components
-    dispatch('mousePointEntered', { name: name, x: x, y: y });
+    dispatch('mousePointEnter', { name: name, x: x, y: y });
   }
   // Function that fires when the mouse leaves this point
   function onMouseLeave() {
     // Create a dispatch to be catched by parent components
-    dispatch('mousePointLeft', { name: name, x: x, y: y });
+    dispatch('mousePointLeave', { name: name, x: x, y: y });
   }
   // Function that fires when this point is clicked
   function onMouseDown() {
     // Create a dispatch to be catched by parent components
-    dispatch('pointClicked', { name: name });
+    dispatch('mousePointClick', { name: name });
   }
 </script>
 

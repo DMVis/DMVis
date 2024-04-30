@@ -98,8 +98,8 @@ BarColumn is a Column component that displays bars for each value in the data ar
         isVertical={true}
         color={barColor}
         hoverText={value.toString()}
-        on:mouseBarEntered
-        on:mouseBarLeft />
+        on:mouseBarEnter
+        on:mouseBarLeave />
     {/each}
   </g>
 </Column>

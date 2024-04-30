@@ -193,7 +193,7 @@
   }
 
   // Function that fires when the mouse enters any bar that is a child component of the tabular visualisation
-  function onMouseBarEntered(e: CustomEvent<{ name: string }>) {
+  function onMouseBarEnter(e: CustomEvent<{ name: string }>) {
     // Highlight bar row
     d3.selectAll(`.bar-${e.detail.name}`).classed('highlighted', true);
     // Highlight label. '> text' is to refer to the nested text object
@@ -201,14 +201,24 @@
   }
 
   // Function that fires when the mouse leaves any bar that is a child component of the tabular visualisation
-  function onMouseBarLeft(e: CustomEvent<{ name: string }>) {
+  function onMouseBarLeave(e: CustomEvent<{ name: string }>) {
     // Unhighlight bar row if not dragging
-    if (draggedRow != e.detail.name) {
+    if (draggedRow !== e.detail.name) {
       d3.selectAll(`.bar-${e.detail.name}`).classed('highlighted', false);
 
       // Unhighlight label
       d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);
     }
+  }
+
+  // Function that fires when the mouse enters any label that is a child component of the tabular visualisation
+  function onMouseLabelEnter(e: CustomEvent<{ name: string }>) {
+    //
+  }
+
+  // Function that fires when the mouse leaves any label that is a child component of the tabular visualisation
+  function onMouseLabelLeave(e: CustomEvent<{ name: string }>) {
+    //
   }
 
   // Calculate height based on number of rows
@@ -336,8 +346,10 @@ to adjust `marginTop` or `columnMarginTop`.
         {headerFontWeight}
         {headerFontFamily}
         {hasHeaderBackground}
-        on:mouseBarEntered={onMouseBarEntered}
-        on:mouseBarLeft={onMouseBarLeft} />
+        on:mouseBarEnter={onMouseBarEnter}
+        on:mouseBarLeave={onMouseBarLeave}
+        on:mouseLabelEnter={onMouseLabelEnter}
+        on:mouseLabelLeave={onMouseLabelLeave} />
     {/each}
   {/key}
 </svg>

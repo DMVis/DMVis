@@ -171,6 +171,25 @@ Color of the border around the background of the label.
 
 > Note: Can be set to `'none'` for no border.
 
+# Event dispatches
+
+These are all the events that the bar component will dispatch to its parent components.
+Check the example usage on how to use these events.
+
+## mouseLabelEnter
+
+- Event type: `{ name: string }`
+
+Event that fires when the mouse enters the label.
+The name attribute represents the class name of the label.
+
+## mouseLabelLeave
+
+- Event type: `{ name: string }`
+
+Event that fires when the mouse leaves the label.
+The name attribute represents the class name of the label.
+
 # Example usage
 
 Label with all properties set.
@@ -186,7 +205,7 @@ Label with all properties set.
     originX={OriginX.Middle}
     originY={OriginY.Middle}
     rotationDegrees={0}
-    opacity={1}
+    textOpacity={1}
     radiusX={5}
     radiusY={5}
     padding={20}
@@ -198,7 +217,9 @@ Label with all properties set.
     hasPointerEvents={true}
     name={'label'}
     width={100}
-    height={100} />
+    height={100}
+    on:mouseLabelEnter={onMouseLabelEnter}
+    on:mouseLabelLeave={onMouseLabelLeave} />
 </svg>
 ```
 

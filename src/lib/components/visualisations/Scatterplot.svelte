@@ -93,9 +93,9 @@ This is a visualisation to display a dataset of points
     <!-- Loop over all the points and draw them -->
     {#each $data as point}
       <Point
-        on:mousePointLeft
-        on:mousePointEntered
-        on:pointClicked
+        on:mousePointLeave
+        on:mousePointEnter
+        on:mousePointClick
         x={xScaleLocal(getValue(point, xIndex))}
         y={yScaleLocal(getValue(point, yIndex))}
         opacity={pointOpacity}
