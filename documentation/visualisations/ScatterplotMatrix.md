@@ -41,6 +41,14 @@ Padding between all of the different scatterplots.
 
 Default opacity of the points of the scatterplots.
 
+## display
+
+- Type: `string`
+- Default: `'full'`
+- Options: `'full'`,`'top'`, `'bottom'`
+
+Whether to draw the entire Scatterplot Matrix, or only the top, or only the bottom half.
+
 ## marginLeft
 
 - Type: `number`

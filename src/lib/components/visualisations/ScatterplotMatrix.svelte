@@ -20,6 +20,7 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
+  export let display: 'full' | 'top' | 'bottom' = 'full';
   export let styleUtil: StyleUtils = new StyleUtils({ color: '#f42b03' });
 
   export let height: number = calculateDimensions(dataUtil.columns.length);
@@ -510,10 +511,12 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 * dataUtil: DataUtils    - Class holding all the data, see documentation.
 
 #### Optional attributes
-* styleUtil: StyleUtils  - Class holding all the styling. See its documentation.
-* padding: number        - Padding between the different scatterplots. Default is `0.1`.
-* pointColor: string     - Color of the points in the scatterplots. Default is `'red'`.
-* pointOpacity: number   - Default opacity of the points in the scatterplots. Default is `0.3`.
+* styleUtil: StyleUtils               - Class holding all the styling. See its documentation.
+* padding: number                     - Padding between the different scatterplots. Default is `0.1`.
+* pointColor: string                  - Color of the points in the scatterplots. Default is `'red'`.
+* pointOpacity: number                - Default opacity of the points in the scatterplots. Default is `0.3`.
+* display: 'full'|'top'|'bottom'      - Whether to draw the entire Scatterplot Matrix, or only the top,
+                                          or only the bottom half. Defaults to `'full'`.
 
 * height: number         - Height of the Scatterplot Matrix. Defaults to `numberOfAttributes * 150`.
 * width: number          - Width of the Scatterplot Matrix. Defaults to `numberOfAttributes * 150`.
@@ -530,11 +533,12 @@ A matrix of scatterplots that can be used to quickly find relations between attr
     {#key reloadKey}
       {#key dataUtil}
         <!-- Loop over all the attributes on the xAxis -->
-        {#each axisNames as xAxis}
+        {#each axisNames as xAxis, i}
           <!-- Loop over all the attributes on the yAxis -->
-          {#each axisNames as yAxis}
-            <!-- If they are not the same, draw a scatterplot -->
-            {#if xAxis !== yAxis}
+          {#each axisNames as yAxis, j}
+            <!-- If they are not the same, draw a scatterplot
+            Also check if this scatterplot needs to be drawn if only half of the SM is drawn -->
+            {#if xAxis !== yAxis && (display !== 'top' || j < i) && (display !== 'bottom' || j > i)}
               <g
                 style="cursor:crosshair"
                 transform="translate({xScale(xAxis)},{yScale(yAxis)})"
@@ -578,7 +582,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                 </rect>
               </g>
               <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
-            {:else}
+            {:else if xAxis === yAxis}
               <g
                 transform="translate({xScale(xAxis)},{yScale(yAxis)})"
                 class="attr-drag {formatClassName(xAxis)}">
@@ -676,30 +680,36 @@ A matrix of scatterplots that can be used to quickly find relations between attr
         {/if}
       {/key}
       <!-- Draw the axis on all 4 sides of the Scatterplot matrix -->
-      <DynamicAxis
-        position="left"
-        spacingDirection="vertical"
-        ticksNumber={4}
-        hasPadding={true}
-        startColumn={1} />
-      <DynamicAxis
-        position="right"
-        spacingDirection="vertical"
-        ticksNumber={4}
-        hasPadding={true}
-        startColumn={1} />
-      <DynamicAxis
-        position="bottom"
-        spacingDirection="horizontal"
-        ticksNumber={4}
-        hasPadding={true}
-        startColumn={1} />
-      <DynamicAxis
-        position="top"
-        spacingDirection="horizontal"
-        ticksNumber={4}
-        hasPadding={true}
-        startColumn={1} />
+      <!-- The top and right axis are not needed if only the bottom of the SM is drawn -->
+      {#if display !== 'bottom'}
+        <DynamicAxis
+          position="right"
+          spacingDirection="vertical"
+          ticksNumber={4}
+          hasPadding={true}
+          startColumn={1} />
+        <DynamicAxis
+          position="top"
+          spacingDirection="horizontal"
+          ticksNumber={4}
+          hasPadding={true}
+          startColumn={1} />
+      {/if}
+      <!-- The bottom and left axis are not needed if only the top of the SM is drawn -->
+      {#if display !== 'top'}
+        <DynamicAxis
+          position="left"
+          spacingDirection="vertical"
+          ticksNumber={4}
+          hasPadding={true}
+          startColumn={1} />
+        <DynamicAxis
+          position="bottom"
+          spacingDirection="horizontal"
+          ticksNumber={4}
+          hasPadding={true}
+          startColumn={1} />
+      {/if}
     {/key}
   </svg>
 {:catch}
