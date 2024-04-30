@@ -71,6 +71,15 @@ Font size of the tick labels.
 
 Color of the axis line and label.
 
+## isDraggable:
+
+- Type: `boolean`
+- Default: `false`
+
+Sets whether the axis is draggable. For this to work, the `renderLabel` parameter should be set to `true`.
+
+> Note: Logic for displacement of the axis should be handled outside this component.
+
 # Example usage
 
 Creating a left axis with a label at the bottom.
@@ -91,3 +100,21 @@ Creating a left axis with a label at the bottom.
     labelText={axisName} />
 </svg>
 ```
+
+Creating a draggable axis (excl. any reordering logic)
+
+```svelte
+<svg {width} {height}>
+  <Axis
+    placementX={axis.column === draggedAxis ? axis.x + draggingOffset : axis.x}
+    placementY={axis.y}
+    axis={axis.axis}
+    renderLabel={true}
+    labelText={axis.column}
+    isDraggable={true}
+    on:draggingElement={onDraggingElement}
+    on:stoppedDragging={onStoppedDragging} />
+</svg>
+```
+
+> Note: `onDraggingElement` and `onStoppedDragging` should be functions that handle the logic for dragging the axis (or axes). In this example, `draggedAxis` keeps track of the name of the axis that is being dragged and `draggingOffset` keeps track of how much the axis has been dragged.

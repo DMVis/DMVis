@@ -686,14 +686,16 @@ A matrix of scatterplots that can be used to quickly find relations between attr
           position="right"
           spacingDirection="vertical"
           ticksNumber={4}
-          hasPadding={true}
-          startColumn={1} />
+          {padding}
+          axisOrder={axisNames}
+          offset={5} />
         <DynamicAxis
           position="top"
           spacingDirection="horizontal"
           ticksNumber={4}
-          hasPadding={true}
-          startColumn={1} />
+          {padding}
+          axisOrder={axisNames}
+          offset={5} />
       {/if}
       <!-- The bottom and left axis are not needed if only the top of the SM is drawn -->
       {#if display !== 'top'}
@@ -701,14 +703,16 @@ A matrix of scatterplots that can be used to quickly find relations between attr
           position="left"
           spacingDirection="vertical"
           ticksNumber={4}
-          hasPadding={true}
-          startColumn={1} />
+          {padding}
+          axisOrder={axisNames}
+          offset={5} />
         <DynamicAxis
           position="bottom"
           spacingDirection="horizontal"
           ticksNumber={4}
-          hasPadding={true}
-          startColumn={1} />
+          {padding}
+          axisOrder={axisNames}
+          offset={5} />
       {/if}
     {/key}
   </svg>

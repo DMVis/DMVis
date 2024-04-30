@@ -87,27 +87,19 @@ This is a visualisation to display a dataset of points
     <g class="brush" />
     <!-- If needed, draw the axis -->
     {#if showAxis}
-      <DynamicAxis
-        position="bottom"
-        ticksNumber={numTicks}
-        startColumn={xIndex}
-        endColumn={xIndex + 1} />
-      <DynamicAxis
-        position="left"
-        ticksNumber={numTicks}
-        startColumn={yIndex}
-        endColumn={yIndex + 1} />
+      <DynamicAxis position="bottom" ticksNumber={numTicks} axisOrder={[$columns[xIndex]]} />
+      <DynamicAxis position="left" ticksNumber={numTicks} axisOrder={[$columns[yIndex]]} />
     {/if}
     <!-- Loop over all the points and draw them -->
-    {#each $data as p}
+    {#each $data as point}
       <Point
         on:mousePointLeft
         on:mousePointEntered
         on:pointClicked
-        x={xScaleLocal(getValue(p, xIndex))}
-        y={yScaleLocal(getValue(p, yIndex))}
+        x={xScaleLocal(getValue(point, xIndex))}
+        y={yScaleLocal(getValue(point, yIndex))}
         opacity={pointOpacity}
-        name={getName(p)} />
+        name={getName(point)} />
     {/each}
   {/key}
 </g>

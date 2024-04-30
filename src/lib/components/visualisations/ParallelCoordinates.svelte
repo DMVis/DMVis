@@ -21,6 +21,9 @@
   export let marginTop: number = 40;
   export let marginBottom: number = 40;
 
+  let draggedAxis: string | null = null;
+  let draggingOffset: number = 0;
+
   // Fill the store
   const visualisationStore = new VisualisationStore();
 
@@ -46,6 +49,29 @@
   function calculateWidth(numColumns: number): number {
     return numColumns * 175;
   }
+
+  // Locally keeping track of the order of the axes
+  let axisOrder: string[] = dataUtil.columns.slice();
+
+  // Function that handles updating the position of the axis that is being dragged
+  function onDraggingElement(e: CustomEvent) {
+    let elementName = e.detail.elementName;
+    let movementX = e.detail.movementX;
+    draggedAxis = elementName;
+    draggingOffset += movementX;
+  }
+
+  // Reset local dragging variables when we stop dragging
+  function onStoppedDragging() {
+    draggedAxis = null;
+    draggingOffset = 0;
+  }
+
+  // Update the order of the axes; the actual logic for this is handled in DynamicAxis
+  function onAxisOrderChanged(e: CustomEvent) {
+    axisOrder = e.detail.axisOrder;
+    draggingOffset = 0;
+  }
 </script>
 
 <!--
@@ -69,7 +95,16 @@ It creates an axis for each column in the supplied table with data
 -->
 <svg class="visualisation parallelCoordinates" {width} {height}>
   <!-- Draw all the lines -->
-  <Line lineWidth={2} hoverable={true} />
+  <Line lineWidth={2} hoverable={true} {axisOrder} {draggedAxis} {draggingOffset} />
   <!-- Draw all the axis -->
-  <DynamicAxis position={'left'} alignment={'spaced'} renderLabel={true} labelPosition={'top'} />
+  <DynamicAxis
+    position={'left'}
+    alignment={'spaced'}
+    renderLabel={true}
+    labelPosition={'top'}
+    {axisOrder}
+    isDraggable={true}
+    on:draggingElement={onDraggingElement}
+    on:stoppedDragging={onStoppedDragging}
+    on:axisOrderChanged={onAxisOrderChanged} />
 </svg>

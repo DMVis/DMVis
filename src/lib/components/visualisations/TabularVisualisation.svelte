@@ -6,7 +6,6 @@
 
   // DMVis imports
   import BarColumn from '$lib/components/base/BarColumn.svelte';
-  import { Spacer } from '$lib/utils/Spacer.js';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
@@ -141,24 +140,14 @@
 
   // Convert array of rows to array of columns (i.e. transpose)
   // Distance between columns is determined by scaleColumns
-  const { xScales } = visualisationStore;
   const columns = writable<Array<LabelColumn | BarColumn>>([]);
   let scaleColumns: d3.ScaleBand<string>;
-  let spacerDistance: number = 0;
 
   function updateColumns() {
     scaleColumns = d3
       .scaleBand()
       .domain(dataUtil.columns)
       .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
-
-    // Calculate the distance between each column
-    spacerDistance = Spacer(
-      width,
-      marginLeft + columnSpacing / 2,
-      marginRight + columnSpacing / 2,
-      $xScales.length
-    );
 
     // Fill labelColumn
     const transposedData: Array<Array<number | string>> = d3.transpose(dataUtil.data);
@@ -306,14 +295,12 @@ to adjust `marginTop` or `columnMarginTop`.
       <DynamicAxis
         position="top"
         ticksNumber={3}
-        hasPadding={false}
-        customPadding={columnSpacing}
-        startColumn={0} />
+        padding={columnSpacing / scaleColumns.bandwidth()} />
     </g>
     <!-- Loop over all the columns and create a barcolumn for each of them -->
     {#each $columns as column, columnIndex}
       <BarColumn
-        x={marginLeft + spacerDistance * columnIndex}
+        x={marginLeft + scaleColumns.bandwidth() * columnIndex}
         y={marginTop}
         width={scaleColumns.bandwidth()}
         height={height - marginTop - marginBottom}

@@ -57,6 +57,7 @@ describe('Rendering vertical axes with horizontal spacing', () => {
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders vertical axes with horizontal spacing and start alignment', () => {
     // Arrange
     const config = {
@@ -106,6 +107,7 @@ describe('Rendering vertical axes with horizontal spacing', () => {
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders vertical axes with horizontal spacing and end alignment', () => {
     // Arrange
     const config = {
@@ -155,6 +157,7 @@ describe('Rendering vertical axes with horizontal spacing', () => {
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders vertical axes with horizontal spacing and spaced alignment', () => {
     // Arrange
     const config = {
@@ -248,12 +251,13 @@ describe('Rendering horizontal axes with horizontal spacing', () => {
 
       // Check if the position of the axis is correct
       expect(translateX).toBe(spacer(columns[index + 1])?.toString());
-      expect(translateY).toBe('1005');
+      expect(translateY).toBe('1000');
 
       // Check if no labels are drawn
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders horizontal axes with horizontal spacing and start alignment', () => {
     // Arrange
     const config = {
@@ -297,12 +301,13 @@ describe('Rendering horizontal axes with horizontal spacing', () => {
 
       // Check if the position of the axis is correct
       expect(translateX).toBe(spacer(columns[index + 1])?.toString());
-      expect(translateY).toBe('1005');
+      expect(translateY).toBe('1000');
 
       // Check if no labels is drawn
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders horizontal axes with horizontal spacing and end alignment', () => {
     // Arrange
     const config = {
@@ -346,12 +351,13 @@ describe('Rendering horizontal axes with horizontal spacing', () => {
 
       // Check if the position of the axis is correct
       expect(translateX).toBe(spacer(columns[index + 1])?.toString());
-      expect(translateY).toBe('1005');
+      expect(translateY).toBe('1000');
 
       // Check if no labels is drawn
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders horizontal axes with horizontal spacing and spaced alignment', () => {
     // Arrange
     const config = {
@@ -395,7 +401,7 @@ describe('Rendering horizontal axes with horizontal spacing', () => {
 
       // Check if the position of the axis is correct
       expect(translateX).toBe(spacer(columns[index + 1])?.toString());
-      expect(translateY).toBe('1005');
+      expect(translateY).toBe('1000');
 
       // Check if no labels is drawn
       expect(labels).toStrictEqual([]);
@@ -445,13 +451,14 @@ describe('Rendering vertical axes with vertical spacing', () => {
       expect(axis.style.fontSize).toBe('12px');
 
       // Check if the position of the axis is correct
-      expect(translateX).toBe('-5');
+      expect(translateX).toBe('0');
       expect(translateY).toBe(spacer(columns[index + 1])?.toString());
 
       // Check if no labels are drawn
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders vertical axes with vertical spacing and start alignment', () => {
     // Arrange
     const config = {
@@ -494,13 +501,14 @@ describe('Rendering vertical axes with vertical spacing', () => {
       expect(axis.style.fontSize).toBe('12px');
 
       // Check if the position of the axis is correct
-      expect(translateX).toBe('-5');
+      expect(translateX).toBe('0');
       expect(translateY).toBe(spacer(columns[index + 1])?.toString());
 
       // Check if no labels is drawn
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders vertical axes with vertical spacing and end alignment', () => {
     // Arrange
     const config = {
@@ -543,13 +551,14 @@ describe('Rendering vertical axes with vertical spacing', () => {
       expect(axis.style.fontSize).toBe('12px');
 
       // Check if the position of the axis is correct
-      expect(translateX).toBe('-5');
+      expect(translateX).toBe('0');
       expect(translateY).toBe(spacer(columns[index + 1])?.toString());
 
       // Check if no labels is drawn
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders vertical axes with vertical spacing and spaced alignment', () => {
     // Arrange
     const config = {
@@ -592,7 +601,7 @@ describe('Rendering vertical axes with vertical spacing', () => {
       expect(axis.style.fontSize).toBe('12px');
 
       // Check if the position of the axis is correct
-      expect(translateX).toBe('-5');
+      expect(translateX).toBe('0');
       expect(translateY).toBe(spacer(columns[index + 1])?.toString());
 
       // Check if no labels is drawn
@@ -649,6 +658,7 @@ describe('Rendering horizontal axes with vertical spacing', () => {
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders horizontal axes with vertical spacing and start alignment', () => {
     // Arrange
     const config = {
@@ -698,6 +708,7 @@ describe('Rendering horizontal axes with vertical spacing', () => {
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders horizontal axes with vertical spacing and end alignment', () => {
     // Arrange
     const config = {
@@ -747,6 +758,7 @@ describe('Rendering horizontal axes with vertical spacing', () => {
       expect(labels).toStrictEqual([]);
     });
   });
+
   it('renders horizontal axes with vertical spacing and spaced alignment', () => {
     // Arrange
     const config = {

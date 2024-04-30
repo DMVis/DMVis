@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
 
   import Label from '$lib/components/base/Label.svelte';
+  import Draggable from './Draggable.svelte';
   import { ThrowError } from '$lib/utils/ThrowError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
@@ -19,6 +20,7 @@
   export let labelOffset: number = 20;
   export let fontSize: number = 12;
   export let color: string = 'black';
+  export let isDraggable: boolean = false;
 
   let element: SVGGElement;
 
@@ -27,6 +29,10 @@
   let labelOriginX: OriginX = OriginX.Middle;
   let labelOriginY: OriginY = OriginY.Middle;
   let labelRotationDegrees: number = 0;
+
+  $: if (isDraggable && !renderLabel) {
+    throw ThrowError('Error', "'renderLabel' must be enabled to make the Axis draggable.", 'Axis');
+  }
 
   onMount(() => {
     if (element !== undefined) {
@@ -93,22 +99,41 @@ of adding a label on any side of the axis.
   * renderLabel: boolean                                - Renders a label next to the axis. Defaults to `false`.
   * labelText: string                                   - Text for the label. Defaults to `'default'`.
   * labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. Defaults to `'top'`.
-  * labelOffset: number                             - Distance from the label to the axis. Defaults to `'20'`.
+  * labelOffset: number                                 - Distance from the label to the axis. Defaults to `'20'`.
   * fontSize: number                                    - Font size of the tick labels. Defaults to `12`.
   * color: string                                       - Color of the axis line and label. Defaults to `'black'`.
+  * isDraggable: boolean                                - Sets whether the axis is draggable. Logic for displacement of
+                                                          the axis should be handled outside this component.  For this
+                                                          to work, the renderLabel parameter should be set to true.
+                                                          Defaults to false.
 -->
 
 <g class="axis">
   {#if renderLabel}
-    <Label
-      x={placementX + labelOffsetX}
-      y={placementY + labelOffsetY}
-      text={labelText}
-      originX={labelOriginX}
-      originY={labelOriginY}
-      hasBackground={false}
-      rotationDegrees={labelRotationDegrees}
-      textColor={color} />
+    {#if isDraggable}
+      <Draggable elementName={labelText} on:draggingElement on:stoppedDragging>
+        <Label
+          x={placementX + labelOffsetX}
+          y={placementY + labelOffsetY}
+          text={labelText}
+          originX={labelOriginX}
+          originY={labelOriginY}
+          hasBackground={false}
+          rotationDegrees={labelRotationDegrees}
+          textColor={color}
+          hasPointerEvents={true} />
+      </Draggable>
+    {:else}
+      <Label
+        x={placementX + labelOffsetX}
+        y={placementY + labelOffsetY}
+        text={labelText}
+        originX={labelOriginX}
+        originY={labelOriginY}
+        hasBackground={false}
+        rotationDegrees={labelRotationDegrees}
+        textColor={color} />
+    {/if}
   {/if}
   <g class="axisElement" bind:this={element} transform="translate({placementX}, {placementY})"></g>
 </g>

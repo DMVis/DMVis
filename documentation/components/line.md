@@ -16,21 +16,7 @@ None
 - Default: `'spaced'`
 - Options: `'start'`, `'end'`, `'spaced'`
 
-Alignment of the points on the lines. If using DynamicAxis, choose the same alignment option.
-
-## focusColor
-
-- Type: `string`
-- Default: `#F44`
-
-Color of the line when it is hovered.
-
-## color
-
-- Type: `string`
-- Default: `#BBB`
-
-Color of the line when no lines are hovered.
+Alignment of the points on the lines. If using `DynamicAxis`, choose the same alignment option.
 
 ## lineWidth
 
@@ -45,6 +31,27 @@ Width of the line that is drawn.
 - Default: `false`
 
 Whether or not the line should be hoverable. When set to `true`, the line will become highlighted if the line is hovered, and numbers will be displayed on all the points.
+
+## axisOrder
+
+- Type: `string[]`
+- Default: `[]`
+
+Order of the attributes, which determines the placement of points on each line.
+
+## draggedAxis:
+
+- Type: `string | null`
+- Default: `null`
+
+The name of the axis that is being dragged, used in visualisations that use draggable axes.
+
+## draggingOffset
+
+- Type: `number`
+- Default: `0`
+
+The offset of the axis that is being dragged.
 
 # Example usage
 

@@ -27,6 +27,8 @@ The `SpacerSide` function takes in the following parameters:
 - `marginHigh`: number - The margin furthest from the origin.
 - `columns`: string[] - List of column names.
 - `alignment`: 'start' | 'end' - Alignment of the spacing, if each given column is one 'box', then start gives the coordinate at the start of the box and end gives the coordinate at the end of the box.
+- `paddingInner`: number - The padding between each step in the spacer (relating to one element in the domain). Defaults to 0.
+- `paddingOuter`: number - The padding on the outside of the spacer (before the first element and after the last element in the domain). Defaults to 0.
 
 The function returns a function, which (given a column name as a string) returns a number that represents the position of where the component that corresponds with the given column name should be placed.
 
@@ -44,6 +46,7 @@ The `SpacerEqual` function takes in the following parameters:
 - `marginLow`: number - The margin closest to the origin.
 - `marginHigh`: number - The margin furthest from the origin.
 - `columns`: string[] - List of column names.
+- `paddingOuter`: number - The padding on the outside of the spacer (before the first element and after the last element in the domain). Defaults to 0.
 
 The function returns a function, which (given a column name as a string) returns a number that represents the position of where the component that corresponds with the given column name should be placed.
 

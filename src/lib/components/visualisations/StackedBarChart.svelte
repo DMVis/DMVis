@@ -79,6 +79,6 @@ The y-axis represents the categories of the data.
 <svg class="visualisation stackedBarchart" {width} {height}>
   {#key dataUtil}
     <StackedBar {opacity} {width} {showTotals} />
-    <DynamicAxis position="left" endColumn={1} />
+    <DynamicAxis position="left" axisOrder={dataUtil.columns.slice(0, 1)} />
   {/key}
 </svg>

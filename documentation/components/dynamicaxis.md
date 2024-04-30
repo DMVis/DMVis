@@ -6,6 +6,13 @@ It displays tick marks and labels based on provided data.
 
 # Optional Attributes
 
+## axisOrder
+
+- Type: `string[]`
+- Default: `[]`
+
+The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. Defaults to `[]`, which draws axes in the order that they appear in the dataset.
+
 ## alignment
 
 - Type: `string`
@@ -87,33 +94,12 @@ The position of the axis.
 
 The direction to space the axes.
 
-## hasPadding
-
-- Type: `boolean`
-- Default: `false`
-
-Does the visualisation include padding.
-
-## startColumn
+## padding
 
 - Type: `number`
 - Default: `0`
 
-Index of first column that is drawn, starting from 0.
-
-## endColumn
-
-- Type: `number`
-- Default: `$xScales.length`
-
-Index of last column that is drawn. Defaults to last column.
-
-## customPadding
-
-- Type: `number`
-- Default: `0`
-
-Custom padding between columns, defaults to 0.
+The amount of padding between axes, which is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
 
 # Example usage
 
