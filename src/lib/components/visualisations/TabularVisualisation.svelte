@@ -213,12 +213,27 @@
 
   // Function that fires when the mouse enters any label that is a child component of the tabular visualisation
   function onMouseLabelEnter(e: CustomEvent<{ name: string }>) {
-    //
+    // Split, because of multiple classes
+    const name = e.detail.name.split(' ')[0];
+
+    // Highlight bar row
+    d3.selectAll(`.bar-${name}`).classed('highlighted', true);
+    // Highlight label. '> text' is to refer to the nested text object
+    d3.selectAll(`.label-${name} > text`).classed('highlighted', true);
   }
 
   // Function that fires when the mouse leaves any label that is a child component of the tabular visualisation
   function onMouseLabelLeave(e: CustomEvent<{ name: string }>) {
-    //
+    // Split, because of multiple classes
+    const name = e.detail.name.split(' ')[0];
+
+    // Unhighlight bar row if not dragging
+    if (draggedRow !== name) {
+      d3.selectAll(`.bar-${name}`).classed('highlighted', false);
+
+      // Unhighlight label
+      d3.selectAll(`.label-${name} > text`).classed('highlighted', false);
+    }
   }
 
   // Calculate height based on number of rows
