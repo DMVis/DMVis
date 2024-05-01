@@ -32,7 +32,7 @@ describe('Base column tests', () => {
     expect(options?.childNodes.length).toBe(4 * 2); // Icon + Comment, 4 times
     expect(Number(columnTop?.getAttribute('width'))).toBe(config.width - 10);
     expect(Number(columnTop?.getAttribute('height'))).toBe(100);
-    expect(Number(columnBottom?.getAttribute('width'))).toBe(config.width - 10);
+    expect(Number(columnBottom?.getAttribute('width'))).toBe(config.width);
     expect(Number(columnBottom?.getAttribute('height'))).toBe(config.height);
   });
 

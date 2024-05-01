@@ -31,7 +31,17 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   * name - The name of the column. Usually the attribute name.
 -->
 
-<Column {type} {x} {height} {width} {padding} {name} on:sortData on:mouseHover on:groupData>
+<Column
+  {type}
+  {x}
+  {height}
+  {width}
+  {padding}
+  {name}
+  on:sortData
+  on:mouseHover
+  on:groupData
+  on:mousePointClicked>
   <g slot="overlay">
     <!-- Insert overlay for editing weights -->
   </g>

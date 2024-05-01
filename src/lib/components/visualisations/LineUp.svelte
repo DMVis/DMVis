@@ -34,6 +34,7 @@
   const columnData = dataUtil.data.map((_, colIndex) => dataUtil.data.map((row) => row[colIndex]));
   const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
   let highlightRow: number = -1;
+  let shift: boolean = false;
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
@@ -49,7 +50,15 @@
   let selectRows: Set<number> = new Set();
   function selectRow(event: CustomEvent) {
     const row = Number(event.detail.row);
-    if (event.detail.checked) {
+
+    // Select the checkbox if the row was clicked outside the checkbox
+    if (event.detail.checked === undefined) {
+      document
+        .getElementById(`select-${row}`)
+        ?.setAttribute('checked', selectRows.has(row) ? 'true' : 'false');
+    }
+
+    if (event.detail.checked || !selectRows.has(row)) {
       selectRows.add(row);
     } else {
       selectRows.delete(row);
@@ -57,6 +66,31 @@
 
     // Update the selected rows
     selectRows = selectRows;
+  }
+
+  function shiftSelectRows(event: CustomEvent) {
+    // Get the row ranges that need to be selected
+    const row = Number(event.detail.row);
+    const rowArray = Array.from(selectRows);
+    const min = Math.min(...rowArray);
+    const max = Math.max(...rowArray);
+
+    // Select the rows based on the range
+    if (min === -Infinity || max === Infinity || min === Infinity || max === -Infinity) {
+      selectRow(event);
+    } else if (row < min) {
+      for (let i = row; i < min; i++) {
+        selectRow({ detail: { row: i } } as CustomEvent);
+      }
+    } else if (row > max) {
+      for (let i = max + 1; i <= row; i++) {
+        selectRow({ detail: { row: i } } as CustomEvent);
+      }
+    } else {
+      for (let i = min; i <= row; i++) {
+        selectRow({ detail: { row: i } } as CustomEvent);
+      }
+    }
   }
 
   function selectAll(event: CustomEvent) {
@@ -105,7 +139,22 @@ displays different types of columns such as text, bar, and rank columns. This is
 * padding: number                      - The padding between columns. Default value is 10.
 -->
 
-<svg class="visualisation lineUp" {width} {height}>
+<svg
+  class="visualisation lineUp"
+  {width}
+  {height}
+  role="cell"
+  tabindex="-1"
+  on:keydown={(e) => {
+    if (e.key === 'Shift') {
+      shift = true;
+    }
+  }}
+  on:keyup={(e) => {
+    if (e.key === 'Shift') {
+      shift = false;
+    }
+  }}>
   {#key dataUtil}
     <g class="lineUp-highlights">
       {#if highlightRow !== -1}
@@ -133,17 +182,19 @@ displays different types of columns such as text, bar, and rank columns. This is
       {height}
       {padding}
       length={dataUtil.data.length}
-      on:mouseHover={(e) => (highlightRow = e.detail.row)} />
+      on:mouseHover={(e) => (highlightRow = e.detail.row)}
+      on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
     <SelectColumn
       x={columnWidth}
       width={columnWidth}
       {height}
       {padding}
       length={dataUtil.data.length}
-      on:check={(e) => selectRow(e)}
+      on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
       on:toggleAll={(e) => selectAll(e)}
       on:groupData={(e) => groupData(e)}
       on:mouseHover={(e) => (highlightRow = e.detail.row)}
+      on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
       on:sortData={(e) => sortData(e)} />
     {#each dataUtil.columns as column, i}
       {#if dataUtil.columnInfo[column] === 'string'}
@@ -155,6 +206,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           name={column}
           data={columnData[i].map(String)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
+          on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
           on:searchData={(e) => searchData(e)}
           on:sortData={(e) => sortData(e)} />
       {:else if dataUtil.columnInfo[column] === 'number'}
@@ -168,6 +220,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           data={columnData[i].map(Number)}
           on:filterData={(e) => filterData(e)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
+          on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
           on:sortData={(e) => sortData(e)} />
       {/if}
     {/each}

@@ -85,9 +85,19 @@
       return;
     }
 
+    const row = getRow(e);
+    dispatch('mouseHover', { row });
+  }
+
+  function selectRow(e: MouseEvent) {
+    const row = getRow(e);
+    dispatch('mousePointClicked', { row });
+  }
+
+  function getRow(e: MouseEvent): number {
     let columnRect = e.target as HTMLElement;
     if ((columnRect as HTMLElement)?.classList?.value !== 'column-bottom-background') {
-      // If we're hovering an element, get the background of the column
+      // If we're interacting with an element, get the background of the column
       columnRect = columnRect?.closest('.column-bottom')?.firstElementChild as HTMLElement;
     }
 
@@ -95,9 +105,9 @@
     const rect = (columnRect as HTMLElement)?.getBoundingClientRect();
     const y = e.clientY - rect.top - 105;
 
-    // Get the row and highlight it
+    // Get the row and return it
     const row = Math.floor(y / 20);
-    dispatch('mouseHover', { row });
+    return row;
   }
 </script>
 
@@ -125,15 +135,18 @@ Each columns contains a top part with information about the column and a bottom 
     tabindex="-1"
     on:mouseleave={() => highlightRow(null)}
     on:mousemove={(e) => highlightRow(e)}>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <rect
       class="column-bottom-background"
-      x={x + paddingSide}
+      {x}
       y={0}
-      width={width - padding}
+      {width}
       {height}
       fill="none"
       pointer-events="all"
-      role="cell" />
+      tabindex="0"
+      role="cell"
+      on:click={(e) => selectRow(e)} />
     <slot name="data" />
   </g>
   <g class="column-top">

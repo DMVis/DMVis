@@ -45,7 +45,7 @@ RankColumn is a Column component that displays the rank of each value in the dat
   * padding - The padding of the column.
 -->
 
-<Column {type} {x} {height} {width} {padding} name="Rank" on:mouseHover>
+<Column {type} {x} {height} {width} {padding} name="Rank" on:mouseHover on:mousePointClicked>
   <g slot="data">
     <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
     {#each Array.from({ length }) as _, i}
