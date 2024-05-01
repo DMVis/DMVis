@@ -47,7 +47,7 @@ Maximum value of the numerical length of each bar.
 - Type: `boolean`
 - Default: `false`
 
-Orients the bar chart vertically as opposed to horizontally if true.
+Orients `BarChart` vertically as opposed to horizontally if `true`.
 
 ## ticks
 

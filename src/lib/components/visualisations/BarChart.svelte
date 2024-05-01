@@ -34,7 +34,7 @@
   let positionScale: d3.ScaleBand<string>;
   let barScale: d3.ScaleLinear<number, number>;
 
-  // Horizontal bar chart
+  // Horizontal BarChart
   if (!isVertical) {
     positionScale = d3
       .scaleBand()
@@ -45,7 +45,7 @@
       .scaleLinear()
       .domain([minValue, maxValue])
       .range([0, width - marginLeft - marginRight]);
-    // Vertical bar chart
+    // Vertical BarChart
   } else {
     positionScale = d3
       .scaleBand()
@@ -76,7 +76,7 @@ the other axis goes in the direction of the length of the bars and has numerical
 #### Optional attributes
 * minValue: number                 - Minimum value of the numerical length of each bar.
 * maxValue: number                 - Maximum value of the numerical length of each bar.
-* isVertical: boolean              - Orients the bar chart vertically as opposed to horizontally if true.
+* isVertical: boolean              - Orients `BarChart` vertically as opposed to horizontally if `true`.
 * ticks: number = 10;              - Number of ticks on the value axis.
 * showLeftAxis: boolean = true;    - Whether the left axis is visible.
 * showBottomAxis: boolean = true;  - Whether the bottom axis is visible.
@@ -127,7 +127,7 @@ the other axis goes in the direction of the length of the bars and has numerical
     {/each}
   {/key}
 
-  <!-- Axis orientation for horizontal bar chart -->
+  <!-- Axis orientation for horizontal BarChart -->
   {#if !isVertical}
     <!-- Horizontal Axis -->
     {#if showBottomAxis}
@@ -138,18 +138,18 @@ the other axis goes in the direction of the length of the bars and has numerical
     {/if}
 
     {#if showLeftAxis}
-      <!-- Vertical axis -->
+      <!-- Vertical Axis -->
       <Axis placementX={marginLeft} placementY={0} axis={d3.axisLeft(positionScale)} />
     {/if}
 
-    <!-- Axis orientation for vertical bar chart -->
+    <!-- Axis orientation for vertical BarChart -->
   {:else}
-    <!-- Horizontal axis -->
+    <!-- Horizontal Axis -->
     {#if showBottomAxis}
       <Axis placementX={0} placementY={height - marginBottom} axis={d3.axisBottom(positionScale)} />
     {/if}
 
-    <!-- Vertical axis -->
+    <!-- Vertical Axis -->
     {#if showLeftAxis}
       <Axis
         placementX={marginLeft}

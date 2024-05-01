@@ -41,7 +41,7 @@
 
   const dispatch = createEventDispatcher();
 
-  // Function that gets called on a TextElement and will wrap the text based on the given width
+  /** Function that gets called on a TextElement, which wraps the text based on the given width */
   function wrapWords(textSelection: Selection, width: number) {
     // @ts-expect-error A text selection does have the .text() attribute
     let selectedWords = textSelection.text().split(/\s+/).reverse();
@@ -123,13 +123,13 @@
       .attr('stroke', borderColor);
   });
 
-  // Function that fires when the mouse enters this label
+  /** Function that fires when the mouse enters this label if `hasPointerEvents` is `true`. */
   function onMouseEnter() {
     // Fire an event to be picked up by parent components of this label
     dispatch('mouseLabelEnter', { name: name });
   }
 
-  // Function that fires when the mouse leaves this label
+  /** Function that fires when the mouse leaves this label if `hasPointerEvents` is `true` */
   function onMouseLeave() {
     // Fire an event to be picked up by parent components of this label
     dispatch('mouseLabelLeave', { name: name });
@@ -179,7 +179,7 @@ The default origin is the middle of the label.
 * width: number | 'auto'        - Width of the rectangle of the label. Defaults to `'auto'`.
 * height: number | 'auto'       - Height of the rectangle of the label. Defaults to `'auto'`.
 * borderColor: string           - Color of the border around the background of the label.
-                                  Defaults to `'black'`. Can be set to `none` for no border.
+                                  Defaults to `'black'`. Can be set to `'none'` for no border.
 
 #### Events
 * For detailed information about dispatches, check the documentation.

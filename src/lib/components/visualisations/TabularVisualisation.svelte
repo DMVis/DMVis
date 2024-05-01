@@ -215,7 +215,6 @@
   function onMouseLabelEnter(e: CustomEvent<{ name: string }>) {
     // Split, because of multiple classes
     const name = e.detail.name.split(' ')[0];
-
     // Highlight bar row
     d3.selectAll(`.bar-${name}`).classed('highlighted', true);
     // Highlight label. '> text' is to refer to the nested text object

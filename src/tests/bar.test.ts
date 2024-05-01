@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, fireEvent, waitFor } from '@testing-library/svelte';
+import { render, fireEvent } from '@testing-library/svelte';
 
 import Bar from '$lib/components/base/Bar.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
@@ -148,10 +148,7 @@ describe('Html test', () => {
     const bar = createBar(config);
 
     // Simulate mouseEnter event
-    await waitFor(() => {
-      return fireEvent.mouseEnter(bar);
-    });
-
+    await fireEvent.mouseEnter(bar);
     const label = document.body.getElementsByClassName('label-tooltip')[0];
 
     // Assert
@@ -167,10 +164,7 @@ describe('Html test', () => {
     const bar = createBar(config);
 
     // Simulate focus event
-    await waitFor(() => {
-      return fireEvent.focus(bar);
-    });
-
+    await fireEvent.focus(bar);
     const label = document.body.getElementsByClassName('label-tooltip')[0];
 
     // Assert
@@ -186,10 +180,7 @@ describe('Html test', () => {
     const bar = createBar(config);
 
     // Simulate mouseLeave event
-    await waitFor(() => {
-      return fireEvent.mouseLeave(bar);
-    });
-
+    await fireEvent.mouseLeave(bar);
     const label = document.body.getElementsByClassName('label-bar')[0];
 
     // Assert
@@ -205,10 +196,7 @@ describe('Html test', () => {
     const bar = createBar(config);
 
     // Simulate blur event
-    await waitFor(() => {
-      return fireEvent.blur(bar);
-    });
-
+    await fireEvent.blur(bar);
     const label = document.body.getElementsByClassName('label')[0];
 
     // Assert

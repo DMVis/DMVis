@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render } from '@testing-library/svelte';
+import { render, fireEvent } from '@testing-library/svelte';
 
 import Label from '$lib/components/base/Label.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
@@ -10,7 +10,7 @@ prepareSvgGetter();
 describe('Html test', () => {
   it('renders "Hello world!"', () => {
     // Arrange
-    const config = { text: 'Hello world!', x: 5, y: 5 };
+    const config = { x: 5, y: 5, text: 'Hello world!' };
 
     // Act
     render(Label, config);
@@ -21,7 +21,7 @@ describe('Html test', () => {
 
   it('renders "Test"', () => {
     // Arrange
-    const config = { text: 'Test', x: 5, y: 5 };
+    const config = { x: 5, y: 5, text: 'Test' };
 
     // Act
     render(Label, config);
@@ -55,9 +55,13 @@ describe('Html test', () => {
       .join(' ');
 
     // Assert
+    // Check group attributes
     expect(group.getAttribute('transform')).toBe('rotate(0, 0, 0)');
     expect(classes).toBe(expectedClasses);
     expect(group.getAttribute('style')).toBe('pointer-events: none;');
+    expect(group.getAttribute('role')).toBe('treeitem');
+    expect(group.getAttribute('tabindex')).toBe('0');
+    expect(group.getAttribute('aria-selected')).toBe('false');
 
     // Check if the rectangle is correctly filled
     expect(rect.getAttribute('rx')).toBe('0');
@@ -112,6 +116,7 @@ describe('Html test', () => {
       .join(' ');
 
     // Assert
+    // Check group attributes
     expect(group.getAttribute('transform')).toBe(
       `rotate(${config.rotationDegrees}, ${config.x}, ${config.y})`
     );
@@ -159,6 +164,72 @@ describe('Html test', () => {
     expect(text.getAttribute('font-weight')).toBe('normal');
     expect(text.getAttribute('font-family')).toBe('Arial');
     expect(text.getAttribute('opacity')).toBe('1');
+  });
+
+  it('checks if pointer events can be dispatched if hasPointerEvents is true', async () => {
+    // Arrange
+    const config = { x: 0, y: 0, text: 'Test', hasPointerEvents: true };
+    const expectedStyle = 'pointer-events: all;';
+
+    // Act
+    // Index 0 for group, as index 1 and 2 (text and rect) are unneeded
+    const group = createLabel(config)[0];
+
+    // Only check for mouse events that are actually used in Label
+    // Simulate mouseEnter event
+    await fireEvent.mouseEnter(group);
+    const styleAfterMouseEnter = group.getAttribute('style');
+
+    // Simulate mouseLeave event
+    await fireEvent.mouseEnter(group);
+    const styleAfterMouseLeave = group.getAttribute('style');
+
+    // Simulate focus event
+    await fireEvent.focus(group);
+    const styleAfterFocus = group.getAttribute('style');
+
+    // Simulate blur event
+    await fireEvent.blur(group);
+    const styleAfterBlur = group.getAttribute('style');
+
+    // Assert
+    expect(styleAfterMouseEnter).toContain(expectedStyle);
+    expect(styleAfterMouseLeave).toContain(expectedStyle);
+    expect(styleAfterFocus).toContain(expectedStyle);
+    expect(styleAfterBlur).toContain(expectedStyle);
+  });
+
+  it('checks if pointer events cannot be dispatched if hasPointerEvents is false', async () => {
+    // Arrange
+    const config = { x: 0, y: 0, text: 'Test', hasPointerEvents: false };
+    const expectedStyle = 'pointer-events: none;';
+
+    // Act
+    // Index 0 for group, as index 1 and 2 (text and rect) are unneeded
+    const group = createLabel(config)[0];
+
+    // Only check for mouse events that are actually used in Label
+    // Simulate mouseEnter event
+    await fireEvent.mouseEnter(group);
+    const styleAfterMouseEnter = group.getAttribute('style');
+
+    // Simulate mouseLeave event
+    await fireEvent.mouseEnter(group);
+    const styleAfterMouseLeave = group.getAttribute('style');
+
+    // Simulate focus event
+    await fireEvent.focus(group);
+    const styleAfterFocus = group.getAttribute('style');
+
+    // Simulate blur event
+    await fireEvent.blur(group);
+    const styleAfterBlur = group.getAttribute('style');
+
+    // Assert
+    expect(styleAfterMouseEnter).toContain(expectedStyle);
+    expect(styleAfterMouseLeave).toContain(expectedStyle);
+    expect(styleAfterFocus).toContain(expectedStyle);
+    expect(styleAfterBlur).toContain(expectedStyle);
   });
 });
 
