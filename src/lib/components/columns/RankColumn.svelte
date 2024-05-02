@@ -19,6 +19,7 @@
 
   // Column standards
   const type = ColumnType.Rank;
+  const rowArray: Array<number> = Array.from({ length }, (_, index) => index);
 
   // Get the y position of the column
   function getY(index: number) {
@@ -45,19 +46,18 @@ RankColumn is a Column component that displays the rank of each value in the dat
   * padding - The padding of the column.
 -->
 
-<Column {type} {x} {height} {width} {padding} name="Rank" on:mouseHover on:mousePointClicked>
+<Column {type} {x} {height} {width} {padding} name="Rank" on:mouseHover on:mouseRowClick>
   <g slot="data">
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-    {#each Array.from({ length }) as _, i}
+    {#each rowArray as row}
       <Label
         x={x + width / 2}
-        y={getY(i)}
+        y={getY(row)}
         width={10}
         height={20}
         {padding}
         hasPointerEvents={true}
         hasBackground={false}
-        text={(i + 1).toString()} />
+        text={(row + 1).toString()} />
     {/each}
   </g>
 </Column>

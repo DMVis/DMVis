@@ -69,7 +69,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   {name}
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
-  on:mousePointClicked
+  on:mouseRowClick
   on:sortData>
   <g slot="overlay">
     {#if showFilter}
@@ -99,9 +99,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
         originY={OriginY.Top}
         isVertical={true}
         color={barColor}
-        hoverText={value.toString()}
-        on:mouseBarEnter
-        on:mouseBarLeave />
+        hoverText={value.toString()} />
     {/each}
   </g>
 </Column>

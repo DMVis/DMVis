@@ -17,6 +17,7 @@
 
   // Column standards
   const type = ColumnType.Select;
+  const rowArray: Array<number> = Array.from({ length }, (_, index) => index);
 
   // Get the y position of the column
   function getY(index: number) {
@@ -70,21 +71,20 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   name="Select"
   on:groupData
   on:mouseHover
-  on:mousePointClicked
+  on:mouseRowClick
   on:sortData>
   <g slot="overview">
     <foreignObject x={x + (width - 20) / 2} y="60" width="20px" height="20px">
-      <input type="checkbox" on:change={(e) => toggleAllRows(e)} />
+      <input id="column-select-all" type="checkbox" on:change={(e) => toggleAllRows(e)} />
     </foreignObject>
   </g>
   <g slot="data">
-    <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-    {#each Array.from({ length }) as _, i}
-      <foreignObject x={x + (width - 20) / 2} y={`${getY(i)}px`} width="20px" height="20px">
+    {#each rowArray as row}
+      <foreignObject x={x + (width - 20) / 2} y={`${getY(row)}px`} width="20px" height="20px">
         <input
           class="column-select"
           type="checkbox"
-          id={`select-${i}`}
+          id={`select-${row}`}
           on:change={(e) => dispatchCheck(e)} />
       </foreignObject>
     {/each}

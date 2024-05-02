@@ -91,7 +91,7 @@
 
   function selectRow(e: MouseEvent) {
     const row = getRow(e);
-    dispatch('mousePointClicked', { row });
+    dispatch('mouseRowClick', { row });
   }
 
   function getRow(e: MouseEvent): number {
@@ -135,7 +135,6 @@ Each columns contains a top part with information about the column and a bottom 
     tabindex="-1"
     on:mouseleave={() => highlightRow(null)}
     on:mousemove={(e) => highlightRow(e)}>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <rect
       class="column-bottom-background"
       {x}
@@ -146,7 +145,8 @@ Each columns contains a top part with information about the column and a bottom 
       pointer-events="all"
       tabindex="0"
       role="cell"
-      on:click={(e) => selectRow(e)} />
+      on:click={(e) => selectRow(e)}
+      on:keydown />
     <slot name="data" />
   </g>
   <g class="column-top">
@@ -183,7 +183,7 @@ Each columns contains a top part with information about the column and a bottom 
           y={0}
           {icon}
           color={$styleUtil.colorBorder}
-          on:mousePointClick={() => handleOptions(icon, name)} />
+          on:mouseIconClick={() => handleOptions(icon, name)} />
       {/each}
     </svg>
     <g class="column-top-overview">

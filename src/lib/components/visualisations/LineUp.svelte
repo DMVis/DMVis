@@ -38,7 +38,7 @@
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
-    return numRows * 20;
+    return numRows * 20 + 105;
   }
 
   // Calculate width based on number of columns
@@ -48,24 +48,57 @@
 
   // Handle events
   let selectRows: Set<number> = new Set();
-  function selectRow(event: CustomEvent) {
+  function selectRow(event: CustomEvent, single: boolean = true) {
+    // Get the row that was clicked, if it is a valid row
     const row = Number(event.detail.row);
+    if (row < 0) {
+      return;
+    }
+
+    // Add selected row to the set, based on normal of shift click
+    if (single) {
+      // With a normal click, only select one row, deselect others
+      selectRows.forEach((deselect) => {
+        const checkbox = document.getElementById(`select-${deselect}`) as HTMLInputElement;
+        checkbox.checked = false;
+      });
+
+      // If the row was already selected, deselect it
+      if (!selectRows.has(row)) {
+        selectRows = new Set([row]);
+      } else {
+        selectRows = new Set();
+      }
+    } else {
+      // With a shift click, we want to be able to have more than one row selected
+      if (event.detail.checked || !selectRows.has(row)) {
+        selectRows.add(row);
+      } else {
+        selectRows.delete(row);
+      }
+    }
 
     // Select the checkbox if the row was clicked outside the checkbox
     if (event.detail.checked === undefined) {
-      document
-        .getElementById(`select-${row}`)
-        ?.setAttribute('checked', selectRows.has(row) ? 'true' : 'false');
-    }
-
-    if (event.detail.checked || !selectRows.has(row)) {
-      selectRows.add(row);
-    } else {
-      selectRows.delete(row);
+      const checkbox = document.getElementById(`select-${row}`) as HTMLInputElement;
+      checkbox.checked = selectRows.has(row);
     }
 
     // Update the selected rows
     selectRows = selectRows;
+
+    // Set the column checkbox based on selectRows state
+    const allCheckbox = document.getElementById('column-select-all') as HTMLInputElement;
+    if (selectRows.size === dataUtil.data.length) {
+      allCheckbox.indeterminate = false;
+      allCheckbox.checked = true;
+    } else if (selectRows.size === 0) {
+      allCheckbox.indeterminate = false;
+      allCheckbox.checked = false;
+    } else {
+      allCheckbox.checked = false;
+      allCheckbox.indeterminate = true;
+    }
   }
 
   function shiftSelectRows(event: CustomEvent) {
@@ -80,15 +113,15 @@
       selectRow(event);
     } else if (row < min) {
       for (let i = row; i < min; i++) {
-        selectRow({ detail: { row: i } } as CustomEvent);
+        selectRow({ detail: { row: i } } as CustomEvent, false);
       }
     } else if (row > max) {
       for (let i = max + 1; i <= row; i++) {
-        selectRow({ detail: { row: i } } as CustomEvent);
+        selectRow({ detail: { row: i } } as CustomEvent, false);
       }
     } else {
       for (let i = min; i <= row; i++) {
-        selectRow({ detail: { row: i } } as CustomEvent);
+        selectRow({ detail: { row: i } } as CustomEvent, false);
       }
     }
   }
@@ -157,7 +190,7 @@ displays different types of columns such as text, bar, and rank columns. This is
   }}>
   {#key dataUtil}
     <g class="lineUp-highlights">
-      {#if highlightRow !== -1}
+      {#if highlightRow >= 0}
         <rect
           x={0}
           y={highlightRow * 20 + 105}
@@ -183,7 +216,7 @@ displays different types of columns such as text, bar, and rank columns. This is
       {padding}
       length={dataUtil.data.length}
       on:mouseHover={(e) => (highlightRow = e.detail.row)}
-      on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
+      on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
     <SelectColumn
       x={columnWidth}
       width={columnWidth}
@@ -194,7 +227,7 @@ displays different types of columns such as text, bar, and rank columns. This is
       on:toggleAll={(e) => selectAll(e)}
       on:groupData={(e) => groupData(e)}
       on:mouseHover={(e) => (highlightRow = e.detail.row)}
-      on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+      on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
       on:sortData={(e) => sortData(e)} />
     {#each dataUtil.columns as column, i}
       {#if dataUtil.columnInfo[column] === 'string'}
@@ -206,7 +239,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           name={column}
           data={columnData[i].map(String)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
           on:searchData={(e) => searchData(e)}
           on:sortData={(e) => sortData(e)} />
       {:else if dataUtil.columnInfo[column] === 'number'}
@@ -220,7 +253,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           data={columnData[i].map(Number)}
           on:filterData={(e) => filterData(e)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mousePointClicked={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
           on:sortData={(e) => sortData(e)} />
       {/if}
     {/each}
