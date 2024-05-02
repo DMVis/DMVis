@@ -47,6 +47,7 @@
 - Utilities
   - [DataUtils](utils/dataUtils.md)
   - [Origin](utils/origin.md)
+  - [Performance](utils/performance.md)
   - [Spacer](utils/spacer.md)
   - [StyleUtils](utils/styleUtils.md)
   - [ThrowError](utils/throwError.md)
