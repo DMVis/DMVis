@@ -38,6 +38,8 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   {width}
   {padding}
   {name}
+  on:draggingElement
+  on:stoppedDragging
   on:sortData
   on:mouseHover
   on:groupData

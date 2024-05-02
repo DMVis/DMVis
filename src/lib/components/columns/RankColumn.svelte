@@ -46,7 +46,17 @@ RankColumn is a Column component that displays the rank of each value in the dat
   * padding - The padding of the column.
 -->
 
-<Column {type} {x} {height} {width} {padding} name="Rank" on:mouseHover on:mouseRowClick>
+<Column
+  {type}
+  {x}
+  {height}
+  {width}
+  {padding}
+  name="LineUp_Rank"
+  on:draggingElement
+  on:stoppedDragging
+  on:mouseHover
+  on:mouseRowClick>
   <g slot="data">
     {#each rowArray as row}
       <Label

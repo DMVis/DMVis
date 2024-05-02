@@ -63,6 +63,8 @@ TextColumn is a Column component that displays text for each value in the data a
   {width}
   {padding}
   {name}
+  on:draggingElement
+  on:stoppedDragging
   on:sortData
   on:filter={() => {
     showFilter = !showFilter;

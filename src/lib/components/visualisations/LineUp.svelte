@@ -29,25 +29,46 @@
   $: {
     visualisationStore.data.set($visualisationData);
     height = calculateHeight($visualisationData.length);
-    columnData = $visualisationData.map((_, colIndex) => [
-      ...$visualisationData.map((row) => row[colIndex])
-    ]);
+    // columnData = $visualisationData.map((_, colIndex) => [
+    //   ...$visualisationData.map((row) => row[colIndex])
+    // ]);
   }
 
+  // Set context of the visualisation
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
   visualisationStore.data.set(dataUtil.data);
   visualisationStore.columns.set(dataUtil.columns);
   visualisationStore.styleUtil.set(styleUtil);
-
-  // Set context of the visualisation
   setContext('store', visualisationStore);
-  let columnData = $visualisationData.map((_, colIndex) =>
-    $visualisationData.map((row) => row[colIndex])
-  );
-  const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
+
+  // Set variables for data and highlighting
+  const columnInfo: { [key: string]: string } = {
+    LineUp_Rank: 'rank',
+    LineUp_Select: 'select',
+    ...dataUtil.columnInfo
+  };
+  let columns = ['LineUp_Rank', 'LineUp_Select', ...dataUtil.columns];
   let highlightRow: number = -1;
   let shift: boolean = false;
+
+  // Create a dictionary for all the data that needs to be displayed
+  const transposedData = $visualisationData.map((_, colIndex) =>
+    $visualisationData.map((row) => row[colIndex])
+  );
+  const barColors = styleUtil.generateColors('Dark2', columns.length);
+  let columnData: { [key: string]: Array<number | string> } = {};
+  let columnColors: { [key: string]: string } = {};
+  columns.forEach((column, index) => {
+    if (column === 'LineUp_Rank') {
+      columnData[column] = [$visualisationData.length];
+    } else if (column === 'LineUp_Select') {
+      columnData[column] = [$visualisationData.length];
+    } else {
+      columnData[column] = transposedData[index - 2];
+    }
+    columnColors[column] = barColors[index];
+  });
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
@@ -166,6 +187,33 @@
     // TODO: Make sure that we can disable sorting as well, not just ascending and descending
     console.log('sort', event.detail.column, event.detail.sorting);
   }
+
+  // Handle columns being dragged
+  let draggingElement: string | null = null;
+  let draggingElementX: number = 0;
+
+  function onDraggingElement(event: CustomEvent) {
+    draggingElement = event.detail.elementName;
+    draggingElementX += event.detail.movementX;
+  }
+
+  function onStoppedDragging() {
+    if (draggingElement === null) {
+      return;
+    }
+
+    // Update the columns array with the new order
+    const oldIndex = columns.indexOf(draggingElement);
+    const newIndexOffset = Math.floor(draggingElementX / columnWidth);
+    const newIndex = Math.max(0, Math.min(columns.length - 1, oldIndex + newIndexOffset));
+    columns = columns.filter((_, i) => i !== oldIndex);
+    columns.splice(newIndex, 0, draggingElement);
+    columns = columns;
+
+    // Reset the element that is being dragged
+    draggingElement = null;
+    draggingElementX = 0;
+  }
 </script>
 
 <!--
@@ -222,53 +270,65 @@ displays different types of columns such as text, bar, and rank columns. This is
           fill-opacity="25%" />
       {/each}
     </g>
-    <RankColumn
-      x={0}
-      width={columnWidth}
-      {height}
-      {padding}
-      length={$visualisationData.length}
-      on:mouseHover={(e) => (highlightRow = e.detail.row)}
-      on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
-    <SelectColumn
-      x={columnWidth}
-      width={columnWidth}
-      {height}
-      {padding}
-      length={$visualisationData.length}
-      on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-      on:toggleAll={(e) => selectAll(e)}
-      on:groupData={(e) => groupData(e)}
-      on:mouseHover={(e) => (highlightRow = e.detail.row)}
-      on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-      on:sortData={(e) => sortData(e)} />
-    {#each dataUtil.columns as column, i}
-      {#if dataUtil.columnInfo[column] === 'string'}
-        <TextColumn
-          x={(i + 2) * columnWidth}
-          width={columnWidth}
-          {height}
-          {padding}
-          name={column}
-          data={columnData[i].map(String)}
-          on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-          on:searchData={(e) => searchData(e)}
-          on:sortData={(e) => sortData(e)} />
-      {:else if dataUtil.columnInfo[column] === 'number'}
-        <BarColumn
-          x={(i + 2) * columnWidth}
-          width={columnWidth}
-          {height}
-          {padding}
-          barColor={barColors[i]}
-          name={column}
-          data={columnData[i].map(Number)}
-          on:filterData={(e) => filterData(e)}
-          on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-          on:sortData={(e) => sortData(e)} />
-      {/if}
-    {/each}
+    {#key columns}
+      {#each columns as column, i}
+        {#if columnInfo[column] === 'string'}
+          <TextColumn
+            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+            width={columnWidth}
+            {height}
+            {padding}
+            name={column}
+            data={columnData[column].map(String)}
+            on:draggingElement={onDraggingElement}
+            on:stoppedDragging={onStoppedDragging}
+            on:mouseHover={(e) => (highlightRow = e.detail.row)}
+            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+            on:searchData={(e) => searchData(e)}
+            on:sortData={(e) => sortData(e)} />
+        {:else if columnInfo[column] === 'rank'}
+          <RankColumn
+            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+            width={columnWidth}
+            {height}
+            {padding}
+            length={Number(columnData[column][0])}
+            on:draggingElement={onDraggingElement}
+            on:stoppedDragging={onStoppedDragging}
+            on:mouseHover={(e) => (highlightRow = e.detail.row)}
+            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
+        {:else if columnInfo[column] === 'select'}
+          <SelectColumn
+            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+            width={columnWidth}
+            {height}
+            {padding}
+            length={Number(columnData[column][0])}
+            on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+            on:draggingElement={onDraggingElement}
+            on:stoppedDragging={onStoppedDragging}
+            on:toggleAll={(e) => selectAll(e)}
+            on:groupData={(e) => groupData(e)}
+            on:mouseHover={(e) => (highlightRow = e.detail.row)}
+            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+            on:sortData={(e) => sortData(e)} />
+        {:else if columnInfo[column] === 'number'}
+          <BarColumn
+            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+            width={columnWidth}
+            {height}
+            {padding}
+            barColor={columnColors[column]}
+            name={column}
+            data={columnData[column].map(Number)}
+            on:draggingElement={onDraggingElement}
+            on:stoppedDragging={onStoppedDragging}
+            on:filterData={(e) => filterData(e)}
+            on:mouseHover={(e) => (highlightRow = e.detail.row)}
+            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+            on:sortData={(e) => sortData(e)} />
+        {/if}
+      {/each}
+    {/key}
   {/key}
 </svg>

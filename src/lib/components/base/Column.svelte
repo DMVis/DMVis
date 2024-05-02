@@ -5,6 +5,7 @@
   // DMVis imports
   import Icon from '$lib/components/base/Icon.svelte';
   import Label from '$lib/components/base/Label.svelte';
+  import Draggable from '$lib/components/base/Draggable.svelte';
   import { ColumnType } from '$lib/Enums.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
@@ -151,82 +152,83 @@ Each columns contains a top part with information about the column and a bottom 
       on:keydown />
     <slot name="data" />
   </g>
-  <g class="column-top">
-    <rect
-      x={x + paddingSide}
-      y={y - 100}
-      width={width - padding}
-      height={100}
-      fill={highlighted ? $styleUtil.focusColor : '#FFFFFF'}
-      tabindex="0"
-      fill-opacity="10%"
-      role="cell"
-      on:mouseenter={() => {
-        highlighted = true;
-      }}
-      on:mouseleave={() => {
-        highlighted = false;
-      }} />
-    <Label
-      x={x + width / 2}
-      y={y - 90}
-      text={columnTitle}
-      width={width - padding}
-      textColor={$styleUtil.color}
-      fontSize={`${$styleUtil.fontSize}px`}
-      fontFamily={$styleUtil.fontFamily}
-      originX={OriginX.Middle}
-      originY={OriginY.Middle}
-      hasBackground={false} />
-    <svg class="column-options" {width} height="25px" {x} y={y - 70}>
-      {#each icons as icon, i}
-        <Icon
-          x={iconStart + 25 * i}
-          y={0}
-          {icon}
-          color={$styleUtil.colorBorder}
-          on:mouseIconClick={() => handleOptions(icon, name)} />
-      {/each}
-    </svg>
-    <g class="column-top-overview">
-      <slot name="overview" />
-    </g>
-    <line
-      x1={x + paddingSide}
-      y1={y}
-      x2={x + width - paddingSide}
-      y2={y}
-      stroke={$styleUtil.colorBorder}
-      stroke-width="1" />
+  <Draggable elementName={name} on:draggingElement on:stoppedDragging>
+    <g class="column-top">
+      <rect
+        x={x + paddingSide}
+        y={y - 100}
+        width={width - padding}
+        height={100}
+        fill={highlighted ? $styleUtil.focusColor : '#FFFFFF'}
+        tabindex="0"
+        fill-opacity="10%"
+        role="cell"
+        on:mouseenter={() => {
+          highlighted = true;
+        }}
+        on:mouseleave={() => {
+          highlighted = false;
+        }} />
+      <Label
+        x={x + width / 2}
+        y={y - 90}
+        text={columnTitle.includes('LineUp') ? columnTitle.split('_')[1] : columnTitle}
+        width={width - padding}
+        textColor={$styleUtil.color}
+        fontSize={`${$styleUtil.fontSize}px`}
+        fontFamily={$styleUtil.fontFamily}
+        originX={OriginX.Middle}
+        originY={OriginY.Middle}
+        hasPointerEvents={true}
+        hasBackground={false} />
+      <svg class="column-options" {width} height="25px" {x} y="{y - 70}">
+        {#each icons as icon, i}
+          <Icon
+            x={iconStart + 25 * i}
+            y={0}
+            {icon}
+            color={$styleUtil.colorBorder}
+            on:mouseIconClick={() => handleOptions(icon, name)} />
+        {/each}
+      </svg>
+      <g class="column-top-overview">
+        <slot name="overview" />
+      </g>
+      <line
+        x1={x + paddingSide}
+        y1={y}
+        x2={x + width - paddingSide}
+        y2={y}
+        stroke={$styleUtil.colorBorder}
+        stroke-width="1" />
 
-    <!-- Overlays for columns -->
-    <g class="column-top-overlay">
-      {#if showMore}
-        <g class="column-top-more">
-          <rect
-            class="column-overlay"
-            x={x + paddingSide}
-            y={y - 40}
-            width={width - padding}
-            height={100}
-            fill="#f8f8f8"
-            fill-opacity="0"
-            role="gridcell" />
-          <Label
-            x={x + width / 2}
-            y={y - 25}
-            text="Remove column"
-            width={width - padding}
-            textColor={$styleUtil.color}
-            fontSize={`${$styleUtil.fontSize}px`}
-            fontFamily={$styleUtil.fontFamily}
-            hasPointerEvents={true}
-            hasBackground={false} />
-        </g>
-      {/if}
-      <slot name="overlay" />
+      <!-- Overlays for columns -->
+      <g class="column-top-overlay">
+        {#if showMore}
+          <g class="column-top-more">
+            <rect
+              class="column-overlay"
+              x={x + paddingSide}
+              y={y - 40}
+              width={width - padding}
+              height={30}
+              role="gridcell" />
+            <Label
+              x={x + width / 2}
+              y={y - 25}
+              text="Remove column"
+              width={width - padding}
+              textColor={$styleUtil.color}
+              fontSize={`${$styleUtil.fontSize}px`}
+              fontFamily={$styleUtil.fontFamily}
+              hasPointerEvents={true}
+              hasBackground={false} />
+          </g>
+        {/if}
+        <slot name="overlay" />
+      </g>
     </g>
-  </g>
+  </Draggable>
 </g>
 
 <style>

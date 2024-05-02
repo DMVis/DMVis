@@ -67,6 +67,8 @@ BarColumn is a Column component that displays bars for each value in the data ar
   {width}
   {padding}
   {name}
+  on:draggingElement
+  on:stoppedDragging
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
   on:mouseRowClick
@@ -93,11 +95,11 @@ BarColumn is a Column component that displays bars for each value in the data ar
       <Bar
         x={x + paddingSide}
         y={getY(i)}
-        width={scale(value)}
-        height={18}
+        width={18}
+        height={scale(value)}
         originX={OriginX.Left}
         originY={OriginY.Top}
-        isVertical={true}
+        isVertical={false}
         color={barColor}
         hoverText={value.toString()} />
     {/each}
