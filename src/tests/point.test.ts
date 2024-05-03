@@ -7,20 +7,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Html test', () => {
-  it('renders a point', () => {
-    // Arrange
-    const config = { x: 5, y: 10 };
-
-    // Act
-    const point = createPoint(config);
-
-    // Assert
-    expect(point).toBeDefined();
-    expect(point.getAttribute('cx')).toBe(`${config.x}`);
-    expect(point.getAttribute('cy')).toBe(`${config.y}`);
-  });
-
+describe('Attribute tests', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     const config = { x: 100, y: 150 };
@@ -34,6 +21,8 @@ describe('Html test', () => {
       .join(' ');
 
     // Assert
+    expect(point).toBeDefined();
+
     expect(classes).toBe(expectedClasses);
 
     // Check position
@@ -66,6 +55,8 @@ describe('Html test', () => {
       .join(' ');
 
     // Assert
+    expect(point).toBeDefined();
+
     expect(classes).toBe(expectedClasses);
 
     // Check position
