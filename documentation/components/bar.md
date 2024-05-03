@@ -6,7 +6,8 @@ Only positive `width` values are visible.
 Both positive and negative `height` values are visible
 depending on `showsNegativeHeight`.
 
-> Note: By default, the bar is vertical and its origin is the bottom middle.
+> Note: By default, the bar is vertical (i.e. `isVertical` is `true`)
+> and its origin is the bottom middle (see defaults for `originX` and `originY`).
 
 # Required Attributes
 

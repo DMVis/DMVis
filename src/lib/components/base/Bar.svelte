@@ -66,14 +66,14 @@
       );
   });
 
-  // Function that fires when the mouse enters this bar
+  /** Fires when the mouse enters the bar. */
   function onMouseEnter() {
     isMouseOnBar = true;
     // Fire an event to be picked up by parent components of this bar
     dispatch('mouseBarEnter', { name: name });
   }
 
-  // Function that fires when the mouse leaves this bar
+  /** Fires when the mouse leaves the bar. */
   function onMouseLeave() {
     isMouseOnBar = false;
     // Fire an event to be picked up by parent components of this bar
@@ -89,7 +89,8 @@ Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
 Both positive and negative `height` values are visible
 depending on `showsNegativeHeight`.
-By default, the bar is vertical and its origin is the bottom middle.
+By default, the bar is vertical (i.e. `isVertical` is `true`)
+and its origin is the bottom middle (see defaults for `originX` and `originY`).
 
 #### Required attributes
 * x: number                     - X-coordinate of the bar.
