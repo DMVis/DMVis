@@ -1,5 +1,7 @@
+// Imports
 import * as d3 from 'd3';
 
+// DMVis imports
 import { ThrowError } from './ThrowError.js';
 
 /**

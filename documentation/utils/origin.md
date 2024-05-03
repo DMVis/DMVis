@@ -24,9 +24,9 @@ export enum OriginY {
 
 The `getOrigin` function takes in the following parameters:
 
-- `dimension`: The dimension of the element
-- `sourceOrigin`: The origin of the element
-- `destinationOrigin`: The origin of the destination
+- `dimension`: The dimension of the element.
+- `sourceOrigin`: The origin of the element.
+- `destinationOrigin`: The origin of the destination.
 
 The function returns a number that represents the new origin of the element.
 
@@ -54,8 +54,8 @@ The `getOrigin` function uses the following helper functions to calculate the ne
 
 This function maps the start of the element to the destination origin. It takes in the following parameters:
 
-- `dimension`: The dimension of the element
-- `destinationOrigin`: The origin of the destination
+- `dimension`: The dimension of the element.
+- `destinationOrigin`: The origin of the destination.
 
 The function returns a number that represents the new origin of the element.
 
@@ -63,8 +63,8 @@ The function returns a number that represents the new origin of the element.
 
 This function maps the middle of the element to the destination origin. It takes in the following parameters:
 
-- `dimension`: The dimension of the element
-- `destinationOrigin`: The origin of the destination
+- `dimension`: The dimension of the element.
+- `destinationOrigin`: The origin of the destination.
 
 The function returns a number that represents the new origin of the element.
 
@@ -72,8 +72,8 @@ The function returns a number that represents the new origin of the element.
 
 This function maps the end of the element to the destination origin. It takes in the following parameters:
 
-- `dimension`: The dimension of the element
-- `destinationOrigin`: The origin of the destination
+- `dimension`: The dimension of the element.
+- `destinationOrigin`: The origin of the destination.
 
 The function returns a number that represents the new origin of the element.
 
@@ -81,7 +81,7 @@ The function returns a number that represents the new origin of the element.
 
 The `getFlippedOrigin` function takes in the following parameter:
 
-- `origin`: An origin
+- `origin`: An origin.
 
 The function returns the opposite origin enum value. The mappings are as follows:
 

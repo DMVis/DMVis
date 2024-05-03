@@ -1,7 +1,9 @@
+// Imports
 import chroma from 'chroma-js';
 import colorbrewer from 'colorbrewer';
 
-import { ThrowError } from './ThrowError.js';
+// DMVis Imports
+import { ThrowError } from '$lib/utils/ThrowError.js';
 
 interface styleOptions {
   fontSize?: number;

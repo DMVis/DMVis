@@ -3,6 +3,7 @@
   import * as d3 from 'd3';
   import { onMount } from 'svelte';
 
+  // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Draggable from './Draggable.svelte';
   import { ThrowError } from '$lib/utils/ThrowError.js';

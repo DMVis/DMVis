@@ -1,7 +1,9 @@
+// Imports
 import { extent, scaleBand, scaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
 
-import { ThrowError } from './utils/ThrowError.js';
+// DMVis Imports
+import { ThrowError } from '$lib/utils/ThrowError.js';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
 export class VisualisationStore {

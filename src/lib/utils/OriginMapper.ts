@@ -1,12 +1,22 @@
+// DMVis imports
 import { OriginX, OriginY } from '$lib/Enums.js';
+import { ThrowError } from '$lib/utils/ThrowError.js';
 
+// Also see origin.md for more information about these functions
+
+// Error are for completeness, but in practice, the errors can never happen (type safety)
+
+/**
+Calculates and returns a new origin (i.e. how much to shift a coordinate)
+given a dimension, a source origin, and destination origin.
+*/
 export function getOrigin(
   dimension: number,
   sourceOrigin: OriginX | OriginY,
   destinationOrigin: OriginX | OriginY
 ): number {
   // Users are expected to add (+) the result, which
-  // is why the result is made negative.
+  // is why the result is made negative
   switch (sourceOrigin) {
     case OriginX.Left || OriginY.Top:
       return -mapStartToDestination(dimension, destinationOrigin);
@@ -15,28 +25,35 @@ export function getOrigin(
     case OriginX.Right || OriginY.Bottom:
       return -mapEndToDestination(dimension, destinationOrigin);
     default:
-      return 0;
+      throw ThrowError('Error', `${sourceOrigin} is not a valid source origin`, 'OriginMapper');
   }
 }
 
+/**
+Returns the opposite origin of a given origin.
+*/
 export function getFlippedOrigin(origin: OriginX | OriginY): OriginX | OriginY {
   switch (origin) {
-    // Horizontals.
+    // Horizontals
     case OriginX.Left:
       return OriginX.Right;
     case OriginX.Middle:
       return OriginX.Middle;
     case OriginX.Right:
       return OriginX.Left;
-    // Verticals.
+    // Verticals
     case OriginY.Top:
       return OriginY.Bottom;
     case OriginY.Middle:
       return OriginY.Middle;
     case OriginY.Bottom:
       return OriginY.Top;
+    default:
+      throw ThrowError('Error', `${origin} is not a valid origin`, 'OriginMapper');
   }
 }
+
+// Helper functions for shifting origins (i.e. mapping one to another)
 
 function mapStartToDestination(dimension: number, destinationOrigin: OriginX | OriginY): number {
   switch (destinationOrigin) {
@@ -47,7 +64,11 @@ function mapStartToDestination(dimension: number, destinationOrigin: OriginX | O
     case OriginX.Right || OriginY.Bottom:
       return dimension;
     default:
-      return 0;
+      throw ThrowError(
+        'Error',
+        `${destinationOrigin} is not a valid destination origin`,
+        'OriginMapper'
+      );
   }
 }
 
@@ -60,7 +81,11 @@ function mapMiddleToDestination(dimension: number, destinationOrigin: OriginX | 
     case OriginX.Right || OriginY.Bottom:
       return dimension / 2;
     default:
-      return 0;
+      throw ThrowError(
+        'Error',
+        `${destinationOrigin} is not a valid destination origin`,
+        'OriginMapper'
+      );
   }
 }
 
@@ -73,6 +98,10 @@ function mapEndToDestination(dimension: number, destinationOrigin: OriginX | Ori
     case OriginX.Right || OriginY.Bottom:
       return 0;
     default:
-      return 0;
+      throw ThrowError(
+        'Error',
+        `${destinationOrigin} is not a valid destination origin`,
+        'OriginMapper'
+      );
   }
 }

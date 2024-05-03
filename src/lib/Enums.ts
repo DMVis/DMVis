@@ -1,3 +1,5 @@
+// Defined enums for increased type safety
+
 export enum OriginX {
   Left,
   Middle,

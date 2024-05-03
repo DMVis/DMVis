@@ -54,6 +54,7 @@ describe('Rendering tests', () => {
     // Check if no label is drawn
     expect(label).toBe(null);
   });
+
   it('checks if a label is drawn if renderLabel is true', () => {
     // Arrange
     const scale = d3.scaleLinear().domain([0, 100]).range([0, 100]);
@@ -79,6 +80,7 @@ describe('Rendering tests', () => {
     const labelText = label?.querySelector('text')?.textContent;
     expect(labelText).toBe('default');
   });
+
   it('renders a custom axis', () => {
     // Arrange
     const ticksNumber = 5;
@@ -124,6 +126,7 @@ describe('Rendering tests', () => {
     // Check if the correct text is displayed
     expect(labelText?.textContent).toBe(config.labelText);
   });
+
   it('renders an axis without ticks', () => {
     // Arrange
     const ticksNumber = 0;
@@ -153,6 +156,7 @@ describe('Rendering tests', () => {
     expect(domain).not.toBeNull();
   });
 });
+
 describe('Axis placement tests', () => {
   it('checks the bottom placement of the axis', () => {
     // These magic numbers are the default margins from the visualisationStore
@@ -183,6 +187,7 @@ describe('Axis placement tests', () => {
     expect(translateX).toBe(expectedX.toString());
     expect(translateY).toBe(expectedY.toString());
   });
+
   it('checks the top placement of the axis', () => {
     // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;
@@ -211,6 +216,7 @@ describe('Axis placement tests', () => {
     expect(translateX).toBe(expectedX.toString());
     expect(translateY).toBe(expectedY.toString());
   });
+
   it('checks the left placement of the axis', () => {
     // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;
@@ -239,6 +245,7 @@ describe('Axis placement tests', () => {
     expect(translateX).toBe(expectedX.toString());
     expect(translateY).toBe(expectedY.toString());
   });
+
   it('checks the right placement of the axis', () => {
     // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;

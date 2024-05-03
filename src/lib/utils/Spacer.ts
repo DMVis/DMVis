@@ -1,6 +1,6 @@
 import { scaleBand, scalePoint } from 'd3-scale';
 
-import { ThrowError } from './ThrowError.js';
+import { ThrowError } from '$lib/utils/ThrowError.js';
 
 export function Spacer(
   dimension: number,
