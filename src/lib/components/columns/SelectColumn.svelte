@@ -11,6 +11,7 @@
   export let width: number;
   export let height: number;
   export let length: number;
+  export let selected: Set<number>;
 
   // Optional attributes
   export let padding: number = 10;
@@ -57,6 +58,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   * width - The width of the column.
   * height - The height of the column.
   * length - The number of checkboxes to display.
+  * selected - List of rows which are currently selected
 
 #### Optional attributes
   * padding - The padding of the column.
@@ -87,6 +89,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
           class="column-select"
           type="checkbox"
           id={`select-${row}`}
+          checked={selected.has(row)}
           on:change={(e) => dispatchCheck(e)} />
       </foreignObject>
     {/each}

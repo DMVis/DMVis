@@ -91,18 +91,20 @@ BarColumn is a Column component that displays bars for each value in the data ar
     <!-- Insert histogram using bar chart -->
   </g>
   <g slot="data">
-    {#each data as value, i}
-      <Bar
-        x={x + paddingSide}
-        y={getY(i)}
-        width={18}
-        height={scale(value)}
-        originX={OriginX.Left}
-        originY={OriginY.Top}
-        isVertical={false}
-        color={barColor}
-        hoverText={value.toString()} />
-    {/each}
+    {#key data}
+      {#each data as value, i}
+        <Bar
+          x={x + paddingSide}
+          y={getY(i)}
+          width={18}
+          height={scale(value)}
+          originX={OriginX.Left}
+          originY={OriginY.Top}
+          isVertical={false}
+          color={barColor}
+          hoverText={value.toString()} />
+      {/each}
+    {/key}
   </g>
 </Column>
 

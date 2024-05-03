@@ -56,6 +56,8 @@
   const transposedData = $visualisationData.map((_, colIndex) =>
     $visualisationData.map((row) => row[colIndex])
   );
+
+  // Create the data and colors for each column
   const barColors = styleUtil.generateColors('Dark2', columns.length);
   let columnData: { [key: string]: Array<number | string> } = {};
   let columnColors: { [key: string]: string } = {};
@@ -110,12 +112,6 @@
       } else {
         selectRows.delete(row);
       }
-    }
-
-    // Select the checkbox if the row was clicked outside the checkbox
-    if (event.detail.checked === undefined) {
-      const checkbox = document.getElementById(`select-${row}`) as HTMLInputElement;
-      checkbox.checked = selectRows.has(row);
     }
 
     // Update the selected rows
@@ -270,49 +266,50 @@ displays different types of columns such as text, bar, and rank columns. This is
           fill-opacity="25%" />
       {/each}
     </g>
-    {#key columns}
-      {#each columns as column, i}
-        {#if columnInfo[column] === 'string'}
-          <TextColumn
-            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
-            width={columnWidth}
-            {height}
-            {padding}
-            name={column}
-            data={columnData[column].map(String)}
-            on:draggingElement={onDraggingElement}
-            on:stoppedDragging={onStoppedDragging}
-            on:mouseHover={(e) => (highlightRow = e.detail.row)}
-            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-            on:searchData={(e) => searchData(e)}
-            on:sortData={(e) => sortData(e)} />
-        {:else if columnInfo[column] === 'rank'}
-          <RankColumn
-            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
-            width={columnWidth}
-            {height}
-            {padding}
-            length={Number(columnData[column][0])}
-            on:draggingElement={onDraggingElement}
-            on:stoppedDragging={onStoppedDragging}
-            on:mouseHover={(e) => (highlightRow = e.detail.row)}
-            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
-        {:else if columnInfo[column] === 'select'}
-          <SelectColumn
-            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
-            width={columnWidth}
-            {height}
-            {padding}
-            length={Number(columnData[column][0])}
-            on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-            on:draggingElement={onDraggingElement}
-            on:stoppedDragging={onStoppedDragging}
-            on:toggleAll={(e) => selectAll(e)}
-            on:groupData={(e) => groupData(e)}
-            on:mouseHover={(e) => (highlightRow = e.detail.row)}
-            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-            on:sortData={(e) => sortData(e)} />
-        {:else if columnInfo[column] === 'number'}
+    {#each columns as column, i}
+      {#if columnInfo[column] === 'string'}
+        <TextColumn
+          x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+          width={columnWidth}
+          {height}
+          {padding}
+          name={column}
+          data={columnData[column].map(String)}
+          on:draggingElement={onDraggingElement}
+          on:stoppedDragging={onStoppedDragging}
+          on:mouseHover={(e) => (highlightRow = e.detail.row)}
+          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:searchData={(e) => searchData(e)}
+          on:sortData={(e) => sortData(e)} />
+      {:else if columnInfo[column] === 'rank'}
+        <RankColumn
+          x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+          width={columnWidth}
+          {height}
+          {padding}
+          length={Number(columnData[column][0])}
+          on:draggingElement={onDraggingElement}
+          on:stoppedDragging={onStoppedDragging}
+          on:mouseHover={(e) => (highlightRow = e.detail.row)}
+          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
+      {:else if columnInfo[column] === 'select'}
+        <SelectColumn
+          x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+          width={columnWidth}
+          {height}
+          {padding}
+          selected={selectRows}
+          length={Number(columnData[column][0])}
+          on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:draggingElement={onDraggingElement}
+          on:stoppedDragging={onStoppedDragging}
+          on:toggleAll={(e) => selectAll(e)}
+          on:groupData={(e) => groupData(e)}
+          on:mouseHover={(e) => (highlightRow = e.detail.row)}
+          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:sortData={(e) => sortData(e)} />
+      {:else if columnInfo[column] === 'number'}
+        {#key column}
           <BarColumn
             x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
             width={columnWidth}
@@ -327,8 +324,8 @@ displays different types of columns such as text, bar, and rank columns. This is
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
             on:sortData={(e) => sortData(e)} />
-        {/if}
-      {/each}
-    {/key}
+        {/key}
+      {/if}
+    {/each}
   {/key}
 </svg>
