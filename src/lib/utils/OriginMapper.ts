@@ -2,9 +2,9 @@
 import { OriginX, OriginY } from '$lib/Enums.js';
 import { ThrowError } from '$lib/utils/ThrowError.js';
 
-// Also see origin.md for more information about these functions
+// See origin.md for more information about these functions
 
-// Error are for completeness, but in practice, the errors can never happen (type safety)
+// The error are for completeness, but the errors never happen in practice (because of type safety)
 
 /**
 Calculates and returns a new origin (i.e. how much to shift a coordinate)

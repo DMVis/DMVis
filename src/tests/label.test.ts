@@ -7,7 +7,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 // Make sure that the get methods of SVGElement is mocked
 prepareSvgGetter();
 
-describe('Html test', () => {
+describe('Html tests', () => {
   it('renders "Hello world!"', () => {
     // Arrange
     const config = { x: 5, y: 5, text: 'Hello world!' };
@@ -16,7 +16,7 @@ describe('Html test', () => {
     render(Label, config);
 
     // Assert
-    expect(document.body.textContent).toBe('Hello world!');
+    expect(document.body.textContent).toBe(config.text);
   });
 
   it('renders "Test"', () => {
@@ -27,9 +27,11 @@ describe('Html test', () => {
     render(Label, config);
 
     // Assert
-    expect(document.body.textContent).toBe('Test');
+    expect(document.body.textContent).toBe(config.text);
   });
+});
 
+describe('Attribute tests', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test' };
@@ -140,7 +142,9 @@ describe('Html test', () => {
     expect(text.getAttribute('font-family')).toBe(`${config.fontFamily}`);
     expect(text.getAttribute('opacity')).toBe(`${config.textOpacity}`);
   });
+});
 
+describe('background tests', () => {
   it('checks if the rect is omitted if hasBackground is false', () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test', hasBackground: false };
@@ -165,7 +169,9 @@ describe('Html test', () => {
     expect(text.getAttribute('font-family')).toBe('Arial');
     expect(text.getAttribute('opacity')).toBe('1');
   });
+});
 
+describe('Event dispatching tests', () => {
   it('checks if pointer events can be dispatched if hasPointerEvents is true', async () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test', hasPointerEvents: true };
@@ -245,6 +251,7 @@ function createLabel(config: object): [SVGElement, SVGElement, SVGElement] {
   svg.appendChild(group);
 
   // Return the group, rect and text (which form the label together)
+  // If there is no rect, then return group, text, and undefined
   return [
     group as SVGElement,
     group?.childNodes[0] as SVGElement,

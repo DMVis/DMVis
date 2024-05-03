@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import { OriginX, OriginY } from '$lib/Enums.js';
 import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
 
