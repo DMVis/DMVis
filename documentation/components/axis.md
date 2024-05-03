@@ -112,9 +112,9 @@ Creating a draggable axis (excl. any reordering logic)
     renderLabel={true}
     labelText={axis.column}
     isDraggable={true}
-    on:draggingElement={onDraggingElement}
-    on:stoppedDragging={onStoppedDragging} />
+    on:dragMove={onDragMove}
+    on:dragStop={onDragStop} />
 </svg>
 ```
 
-> Note: `onDraggingElement` and `onStoppedDragging` should be functions that handle the logic for dragging the axis (or axes). In this example, `draggedAxis` keeps track of the name of the axis that is being dragged and `draggingOffset` keeps track of how much the axis has been dragged.
+> Note: `onDragMove` and `onDragStop` should be functions that handle the logic for dragging the axis (or axes). In this example, `draggedAxis` keeps track of the name of the axis that is being dragged and `draggingOffset` keeps track of how much the axis has been dragged.

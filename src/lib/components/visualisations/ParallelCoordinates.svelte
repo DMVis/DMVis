@@ -61,7 +61,7 @@
   let axisOrder: string[] = dataUtil.columns.slice();
 
   // Function that handles updating the position of the axis that is being dragged
-  function onDraggingElement(e: CustomEvent) {
+  function onDragMove(e: CustomEvent) {
     let elementName = e.detail.elementName;
     let movementX = e.detail.movementX;
     draggedAxis = elementName;
@@ -69,7 +69,7 @@
   }
 
   // Reset local dragging variables when we stop dragging
-  function onStoppedDragging() {
+  function onDragStop() {
     draggedAxis = null;
     draggingOffset = 0;
   }
@@ -112,8 +112,8 @@ It creates an axis for each column in the supplied table with data
       labelPosition={'top'}
       {axisOrder}
       isDraggable={true}
-      on:draggingElement={onDraggingElement}
-      on:stoppedDragging={onStoppedDragging}
+      on:dragMove={onDragMove}
+      on:dragStop={onDragStop}
       on:axisOrderChanged={onAxisOrderChanged} />
   {/key}
 </svg>

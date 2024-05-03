@@ -53,8 +53,9 @@ RankColumn is a Column component that displays the rank of each value in the dat
   {width}
   {padding}
   name="LineUp_Rank"
-  on:draggingElement
-  on:stoppedDragging
+  on:dragStart
+  on:dragMove
+  on:dragStop
   on:mouseHover
   on:mouseRowClick>
   <g slot="data">

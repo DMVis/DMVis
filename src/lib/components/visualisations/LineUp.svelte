@@ -1,6 +1,7 @@
 <script lang="ts">
   // Imports
   import { setContext } from 'svelte';
+  import * as d3 from 'd3';
 
   // DMVis imports
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
@@ -15,10 +16,10 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
-  export let styleUtil: StyleUtils = new StyleUtils();
+  export let columnWidth: number = 150;
   export let width: number = calculateWidth(dataUtil.columns.length);
   export let height: number = calculateHeight(dataUtil.data.length);
-  export let columnWidth: number = 150;
+  export let styleUtil: StyleUtils = new StyleUtils();
   export let padding: number = 10;
 
   const { visualisationData } = dataUtil;
@@ -29,9 +30,7 @@
   $: {
     visualisationStore.data.set($visualisationData);
     height = calculateHeight($visualisationData.length);
-    // columnData = $visualisationData.map((_, colIndex) => [
-    //   ...$visualisationData.map((row) => row[colIndex])
-    // ]);
+    [columnData, columnColors] = setColumnData($visualisationData);
   }
 
   // Set context of the visualisation
@@ -52,25 +51,33 @@
   let highlightRow: number = -1;
   let shift: boolean = false;
 
-  // Create a dictionary for all the data that needs to be displayed
-  const transposedData = $visualisationData.map((_, colIndex) =>
-    $visualisationData.map((row) => row[colIndex])
-  );
-
   // Create the data and colors for each column
   const barColors = styleUtil.generateColors('Dark2', columns.length);
-  let columnData: { [key: string]: Array<number | string> } = {};
-  let columnColors: { [key: string]: string } = {};
-  columns.forEach((column, index) => {
-    if (column === 'LineUp_Rank') {
-      columnData[column] = [$visualisationData.length];
-    } else if (column === 'LineUp_Select') {
-      columnData[column] = [$visualisationData.length];
-    } else {
-      columnData[column] = transposedData[index - 2];
-    }
-    columnColors[column] = barColors[index];
-  });
+  let columnData: { [key: string]: Array<number | string> };
+  let columnColors: { [key: string]: string };
+  [columnData, columnColors] = setColumnData($visualisationData);
+
+  function setColumnData(data: Array<Array<number | string>>) {
+    let newColumnData: { [key: string]: Array<number | string> } = {};
+    let newColumnColors: { [key: string]: string } = {};
+    const transposedData = data.map((_, colIndex) => data.map((row) => row[colIndex]));
+
+    columns.forEach((column, index) => {
+      if (column === 'LineUp_Rank') {
+        newColumnData[column] = [data.length];
+      } else if (column === 'LineUp_Select') {
+        newColumnData[column] = [data.length];
+      } else {
+        newColumnData[column] = transposedData[index - 2];
+      }
+      newColumnColors[column] = barColors[index];
+    });
+
+    return [newColumnData, newColumnColors] as [
+      { [key: string]: Array<number | string> },
+      { [key: string]: string }
+    ];
+  }
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
@@ -185,30 +192,35 @@
   }
 
   // Handle columns being dragged
-  let draggingElement: string | null = null;
-  let draggingElementX: number = 0;
+  let dragMove: string | null = null;
+  let dragMoveX: number = 0;
 
-  function onDraggingElement(event: CustomEvent) {
-    draggingElement = event.detail.elementName;
-    draggingElementX += event.detail.movementX;
+  function onDraggingStart(event: CustomEvent) {
+    dragMove = event.detail.elementName as string;
+    d3.select(`#${dragMove.replace(/[\s()/]/g, '')}-column`).raise();
   }
 
-  function onStoppedDragging() {
-    if (draggingElement === null) {
+  function onDragMove(event: CustomEvent) {
+    dragMoveX += event.detail.movementX;
+  }
+
+  function onDragStop() {
+    if (dragMove === null) {
       return;
     }
 
     // Update the columns array with the new order
-    const oldIndex = columns.indexOf(draggingElement);
-    const newIndexOffset = Math.floor(draggingElementX / columnWidth);
+    const oldIndex = columns.indexOf(dragMove);
+    const newIndexOffset =
+      dragMoveX > 0 ? Math.floor(dragMoveX / columnWidth) : Math.ceil(dragMoveX / columnWidth);
     const newIndex = Math.max(0, Math.min(columns.length - 1, oldIndex + newIndexOffset));
     columns = columns.filter((_, i) => i !== oldIndex);
-    columns.splice(newIndex, 0, draggingElement);
+    columns.splice(newIndex, 0, dragMove);
     columns = columns;
 
     // Reset the element that is being dragged
-    draggingElement = null;
-    draggingElementX = 0;
+    dragMove = null;
+    dragMoveX = 0;
   }
 </script>
 
@@ -222,9 +234,9 @@ displays different types of columns such as text, bar, and rank columns. This is
 * dataUtil: DataUtils                 - The `DataUtils` class which, contains all the data to be displayed.
 
 #### Optional attributes
+* columnWidth: number                  - The width of each column. Default value is 150.
 * width: number                        - The width of the visualisation. Default value is calculated based on the number of columns and the column width.
 * height: number                       - The height of the visualisation. Default value is calculated based on the number of rows and the font size.
-* columnWidth: number                  - The width of each column. Default value is 150.
 * styleUtil: StyleUtils                - The `StyleUtils` class which, contains all the styling information. Default value is a new instance of `StyleUtils`.
 * padding: number                      - The padding between columns. Default value is 10.
 -->
@@ -269,40 +281,43 @@ displays different types of columns such as text, bar, and rank columns. This is
     {#each columns as column, i}
       {#if columnInfo[column] === 'string'}
         <TextColumn
-          x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+          x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
           width={columnWidth}
           {height}
           {padding}
           name={column}
           data={columnData[column].map(String)}
-          on:draggingElement={onDraggingElement}
-          on:stoppedDragging={onStoppedDragging}
+          on:dragStart={onDraggingStart}
+          on:dragMove={onDragMove}
+          on:dragStop={onDragStop}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
           on:searchData={(e) => searchData(e)}
           on:sortData={(e) => sortData(e)} />
       {:else if columnInfo[column] === 'rank'}
         <RankColumn
-          x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+          x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
           width={columnWidth}
           {height}
           {padding}
           length={Number(columnData[column][0])}
-          on:draggingElement={onDraggingElement}
-          on:stoppedDragging={onStoppedDragging}
+          on:dragStart={onDraggingStart}
+          on:dragMove={onDragMove}
+          on:dragStop={onDragStop}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
       {:else if columnInfo[column] === 'select'}
         <SelectColumn
-          x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+          x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
           width={columnWidth}
           {height}
           {padding}
           selected={selectRows}
           length={Number(columnData[column][0])}
           on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-          on:draggingElement={onDraggingElement}
-          on:stoppedDragging={onStoppedDragging}
+          on:dragStart={onDraggingStart}
+          on:dragMove={onDragMove}
+          on:dragStop={onDragStop}
           on:toggleAll={(e) => selectAll(e)}
           on:groupData={(e) => groupData(e)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
@@ -311,15 +326,16 @@ displays different types of columns such as text, bar, and rank columns. This is
       {:else if columnInfo[column] === 'number'}
         {#key column}
           <BarColumn
-            x={draggingElement === column ? draggingElementX + i * columnWidth : i * columnWidth}
+            x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
             width={columnWidth}
             {height}
             {padding}
             barColor={columnColors[column]}
             name={column}
             data={columnData[column].map(Number)}
-            on:draggingElement={onDraggingElement}
-            on:stoppedDragging={onStoppedDragging}
+            on:dragStart={onDraggingStart}
+            on:dragMove={onDragMove}
+            on:dragStop={onDragStop}
             on:filterData={(e) => filterData(e)}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}

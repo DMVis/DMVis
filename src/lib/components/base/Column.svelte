@@ -32,18 +32,25 @@
 
   // Define the icons for the column
   let icons: string[];
-  if (type == ColumnType.Rank) {
-    icons = ['more'];
-  } else if (type == ColumnType.Separator) {
-    icons = ['item', 'band'];
-  } else if (type == ColumnType.Bar) {
-    icons = ['sort', 'filter', 'more'];
-  } else if (type == ColumnType.Select) {
-    icons = ['sort', 'group', 'more'];
-  } else if (type == ColumnType.Sum) {
-    icons = ['sort', 'group', 'weights', 'more'];
-  } else {
-    icons = ['sort', 'search', 'filter', 'more'];
+  switch (type) {
+    case ColumnType.Rank:
+      icons = ['more'];
+      break;
+    case ColumnType.Separator:
+      icons = ['item', 'band'];
+      break;
+    case ColumnType.Bar:
+      icons = ['sort', 'filter', 'more'];
+      break;
+    case ColumnType.Select:
+      icons = ['sort', 'group', 'more'];
+      break;
+    case ColumnType.Sum:
+      icons = ['sort', 'group', 'weights', 'more'];
+      break;
+    default:
+      icons = ['sort', 'search', 'filter', 'more'];
+      break;
   }
   const iconStart = width / 2 - (icons.length * 25) / 2;
 
@@ -105,7 +112,7 @@
 
     // Get the position inside the background of the column
     const rect = (columnRect as HTMLElement)?.getBoundingClientRect();
-    const y = e.clientY - rect.top - 105;
+    const y = e.clientY - rect.top - 5;
 
     // Get the row and return it
     const row = Math.floor(y / 20);
@@ -131,7 +138,7 @@ Each columns contains a top part with information about the column and a bottom 
   * padding: number       - Padding of the column. Default is 10.
 -->
 
-<g class="column" role="tablist" tabindex={-1}>
+<g class="column" id={`${name.replace(/[\s()/]/g, '')}-column`} role="tablist" tabindex={-1}>
   <g
     class="column-bottom"
     role="grid"
@@ -152,82 +159,84 @@ Each columns contains a top part with information about the column and a bottom 
       on:keydown />
     <slot name="data" />
   </g>
-  <Draggable elementName={name} on:draggingElement on:stoppedDragging>
-    <g class="column-top">
-      <rect
-        x={x + paddingSide}
-        y={y - 100}
-        width={width - padding}
-        height={100}
-        fill={highlighted ? $styleUtil.focusColor : '#FFFFFF'}
-        tabindex="0"
-        fill-opacity="10%"
-        role="cell"
-        on:mouseenter={() => {
-          highlighted = true;
-        }}
-        on:mouseleave={() => {
-          highlighted = false;
-        }} />
-      <Label
-        x={x + width / 2}
-        y={y - 90}
-        text={columnTitle.includes('LineUp') ? columnTitle.split('_')[1] : columnTitle}
-        width={width - padding}
-        textColor={$styleUtil.color}
-        fontSize={`${$styleUtil.fontSize}px`}
-        fontFamily={$styleUtil.fontFamily}
-        originX={OriginX.Middle}
-        originY={OriginY.Middle}
-        hasPointerEvents={true}
-        hasBackground={false} />
-      <svg class="column-options" {width} height="25px" {x} y="{y - 70}">
-        {#each icons as icon, i}
-          <Icon
-            x={iconStart + 25 * i}
-            y={0}
-            {icon}
-            color={$styleUtil.colorBorder}
-            on:mouseIconClick={() => handleOptions(icon, name)} />
-        {/each}
-      </svg>
-      <g class="column-top-overview">
-        <slot name="overview" />
-      </g>
-      <line
-        x1={x + paddingSide}
-        y1={y}
-        x2={x + width - paddingSide}
-        y2={y}
-        stroke={$styleUtil.colorBorder}
-        stroke-width="1" />
+  <Draggable elementName={name} on:dragStart on:dragMove on:dragStop>
+    {#key x}
+      <g class="column-top">
+        <rect
+          x={x + paddingSide}
+          y={y - 100}
+          width={width - padding}
+          height={100}
+          fill={highlighted ? $styleUtil.focusColor : '#FFFFFF'}
+          tabindex="0"
+          fill-opacity="10%"
+          role="cell"
+          on:mouseenter={() => {
+            highlighted = true;
+          }}
+          on:mouseleave={() => {
+            highlighted = false;
+          }} />
+        <Label
+          x={x + width / 2}
+          y={y - 90}
+          text={columnTitle.includes('LineUp') ? columnTitle.split('_')[1] : columnTitle}
+          width={width - padding}
+          textColor={$styleUtil.color}
+          fontSize={`${$styleUtil.fontSize}px`}
+          fontFamily={$styleUtil.fontFamily}
+          originX={OriginX.Middle}
+          originY={OriginY.Middle}
+          hasPointerEvents={true}
+          hasBackground={false} />
+        <svg class="column-options" {width} height="25px" {x} y={y - 70}>
+          {#each icons as icon, i}
+            <Icon
+              x={iconStart + 25 * i}
+              y={0}
+              {icon}
+              color={$styleUtil.colorBorder}
+              on:mouseIconClick={() => handleOptions(icon, name)} />
+          {/each}
+        </svg>
+        <g class="column-top-overview">
+          <slot name="overview" />
+        </g>
+        <line
+          x1={x + paddingSide}
+          y1={y}
+          x2={x + width - paddingSide}
+          y2={y}
+          stroke={$styleUtil.colorBorder}
+          stroke-width="1" />
 
-      <!-- Overlays for columns -->
-      <g class="column-top-overlay">
-        {#if showMore}
-          <g class="column-top-more">
-            <rect
-              class="column-overlay"
-              x={x + paddingSide}
-              y={y - 40}
-              width={width - padding}
-              height={30}
-              role="gridcell" />
-            <Label
-              x={x + width / 2}
-              y={y - 25}
-              text="Remove column"
-              width={width - padding}
-              textColor={$styleUtil.color}
-              fontSize={`${$styleUtil.fontSize}px`}
-              fontFamily={$styleUtil.fontFamily}
-              hasPointerEvents={true}
-              hasBackground={false} />
-          </g>
-        {/if}
-        <slot name="overlay" />
+        <!-- Overlays for columns -->
+        <g class="column-top-overlay">
+          {#if showMore}
+            <g class="column-top-more">
+              <rect
+                class="column-overlay"
+                x={x + paddingSide}
+                y={y - 40}
+                width={width - padding}
+                height={30}
+                role="gridcell" />
+              <Label
+                x={x + width / 2}
+                y={y - 25}
+                text="Remove column"
+                width={width - padding}
+                textColor={$styleUtil.color}
+                fontSize={`${$styleUtil.fontSize}px`}
+                fontFamily={$styleUtil.fontFamily}
+                hasPointerEvents={true}
+                hasBackground={false} />
+            </g>
+          {/if}
+          <slot name="overlay" />
+        </g>
       </g>
-    </g>
+    {/key}
   </Draggable>
 </g>
 

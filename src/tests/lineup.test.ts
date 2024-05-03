@@ -18,7 +18,6 @@ describe('Html test', () => {
 
     // Assert
     expect(container).not.toBeNull();
-    console.log(container.outerHTML);
     expect(Number(container.getAttribute('width'))).toBe(150 * (3 + 2)); // Default column width * (amount of columns + rank & select columns)
     expect(Number(container.getAttribute('height'))).toBe(105 + 3 * 20); // Column top height + (amount of rows * row height)
     expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns

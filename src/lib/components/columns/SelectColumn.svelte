@@ -71,8 +71,9 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   {width}
   {padding}
   name="LineUp_Select"
-  on:draggingElement
-  on:stoppedDragging
+  on:dragStart
+  on:dragMove
+  on:dragStop
   on:groupData
   on:mouseHover
   on:mouseRowClick

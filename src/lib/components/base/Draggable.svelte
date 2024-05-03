@@ -11,12 +11,13 @@
   // Set the status of this component to being dragged
   function onMouseDown() {
     isMoving = true;
+    dispatch('dragStart', { elementName: elementName });
   }
 
   // Dispatch events that detail where the user is trying to move the component
   function onMouseMove(e: MouseEvent) {
     if (isMoving) {
-      dispatch('draggingElement', {
+      dispatch('dragMove', {
         elementName: elementName,
         movementX: e.movementX,
         movementY: e.movementY
@@ -28,7 +29,7 @@
   function onMouseUp() {
     if (isMoving) {
       isMoving = false;
-      dispatch('stoppedDragging', { elementName: elementName });
+      dispatch('dragStop', { elementName: elementName });
     }
   }
 </script>

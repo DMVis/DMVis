@@ -67,8 +67,9 @@ BarColumn is a Column component that displays bars for each value in the data ar
   {width}
   {padding}
   {name}
-  on:draggingElement
-  on:stoppedDragging
+  on:dragStart
+  on:dragMove
+  on:dragStop
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
   on:mouseRowClick

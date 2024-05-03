@@ -380,7 +380,7 @@
   }
 
   // Handle the axis movement logic while the user is dragging an axis
-  function onDraggingElement(e: CustomEvent) {
+  function onDragMove(e: CustomEvent) {
     let elementName = e.detail.elementName;
     let movementX = e.detail.movementX;
     draggedAxis = elementName;
@@ -388,7 +388,7 @@
   }
 
   // Handle the logic when the user stops dragging an axis
-  function onStoppedDragging() {
+  function onDragStop() {
     swapAxes();
     draggedAxis = null;
     draggingOffset = 0;
@@ -463,9 +463,9 @@ You can use this component to render the axis on the top, bottom, left, or right
       {fontSize}
       {color}
       {isDraggable}
-      on:draggingElement
-      on:draggingElement={onDraggingElement}
-      on:stoppedDragging
-      on:stoppedDragging={onStoppedDragging} />
+      on:dragMove
+      on:dragMove={onDragMove}
+      on:dragStop
+      on:dragStop={onDragStop} />
   {/each}
 {/key}

@@ -6,7 +6,14 @@ Some visualisations require elements that are draggable. This wrapper makes it e
 
 > Note: To access variables from a CustomEvent, your function should take as a parameter some event (here 'event') of type `CustomEvent`. The variables that are passed can then be accessed through: `event.detail.someVariable` (with 'someVariable' being the name of the variable).
 
-## on:draggingElement
+## on:dragStart
+
+This event is called when the user starts dragging the component inside the `Draggable` wrapper. Specifically, this means: if the user has clicked on the component, this event will fire the first time the mouse is moved.
+
+- Passes: `CustomEvent` with variables:
+  - elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.
+
+## on:dragMove
 
 This event is called while the user is dragging the component inside the `Draggable` wrapper. Specifically, this means: if the user has clicked on the component, the events will fire as long as the user keeps their mousebutton down. The event fires every time the mouse is moved.
 
@@ -15,7 +22,7 @@ This event is called while the user is dragging the component inside the `Dragga
   - movementX: `number` - The amount of pixels that the mouse moved in the horizontal direction.
   - movementY `number` - The amount of pixels that the mouse moved in the vertical direction.
 
-## on:stoppedDragging
+## on:dragStop
 
 This event is called when the user stops dragging the component inside the `Draggable` wrapper. Specifically, this means: if the user has clicked on the component, this event will fire the next time the user lets the mousebutton go.
 
@@ -51,20 +58,17 @@ Create a draggable SVG circle element that resets to its original location when 
 
 ```svelte
 <script lang="ts">
-  function onDraggingElement(e: CustomEvent) {
+  function onDragMove(e: CustomEvent) {
     offsetX += e.detail.movementX;
   }
 
-  function onStoppedDragging(e: CustomEvent) {
+  function onDragStop(e: CustomEvent) {
     offsetX = 0;
   }
 </script>
 
 <svg width={500} height={500}>
-  <Draggable
-    {offsetX}
-    on:draggingElement={onDraggingElement}
-    on:stoppedDragging={onStoppedDragging}>
+  <Draggable {offsetX} on:dragMove={onDragMove} on:dragStop={onDragStop}>
     <circle cx={100} cy={100} r={10} />
   </Draggable>
 </svg>

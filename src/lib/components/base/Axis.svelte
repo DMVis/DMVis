@@ -112,7 +112,7 @@ of adding a label on any side of the axis.
 <g class="axis">
   {#if renderLabel}
     {#if isDraggable}
-      <Draggable elementName={labelText} on:draggingElement on:stoppedDragging>
+      <Draggable elementName={labelText} on:dragMove on:dragStop>
         <Label
           x={placementX + labelOffsetX}
           y={placementY + labelOffsetY}
