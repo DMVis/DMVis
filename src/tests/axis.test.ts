@@ -8,7 +8,7 @@ import StoreWrapper from './StoreWrapper.svelte';
 
 prepareSvgGetter();
 
-describe('Rendering tests', () => {
+describe('Rendering test', () => {
   it('renders a default axis', () => {
     // Arrange
     const scale = d3.scaleLinear().domain([0, 100]).range([0, 100]);
@@ -157,7 +157,7 @@ describe('Rendering tests', () => {
   });
 });
 
-describe('Axis placement tests', () => {
+describe('Axis placement test', () => {
   it('checks the bottom placement of the axis', () => {
     // These magic numbers are the default margins from the visualisationStore
     const defaultMargin = 40;

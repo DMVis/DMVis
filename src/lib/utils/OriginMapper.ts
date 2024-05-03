@@ -4,7 +4,7 @@ import { ThrowError } from '$lib/utils/ThrowError.js';
 
 // See origin.md for more information about these functions
 
-// The error are for completeness, but the errors never happen in practice (because of type safety)
+// The errors are for completeness, but they never happen in practice (because of type safety)
 
 /**
 Calculates and returns a new origin (i.e. how much to shift a coordinate)

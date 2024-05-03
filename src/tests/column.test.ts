@@ -8,7 +8,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Base column tests', () => {
+describe('Base column test', () => {
   it('renders a default column', () => {
     // Arrange
     const config = {

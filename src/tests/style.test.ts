@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
-describe('StyleUtils tests', () => {
+describe('StyleUtils functionality test', () => {
   it('should generate a color scheme', () => {
     // Arrange
     // Using a ColorBrewer color set as an example

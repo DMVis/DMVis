@@ -6,22 +6,22 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Bucket tests', () => {
+describe('Bucket test', () => {
   it('checks the number of categorical buckets', () => {
-    //Arrange
+    // Arrange
     const config = {
       width: 100,
-      height: 100,
+      height: 150,
       data: createCategoricalData()
     };
 
     const expectedBuckets = 4;
 
-    //Act
+    // Act
     const histogram = createHistogram(config);
     const bars = histogram.getElementsByClassName('bar');
 
-    //Assert
+    // Assert
     expect(bars.length).toBe(expectedBuckets);
   });
 });

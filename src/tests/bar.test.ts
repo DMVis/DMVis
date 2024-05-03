@@ -6,7 +6,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('isVertical tests', () => {
+describe('isVertical test', () => {
   it('checks if a vertically configured bar is vertical', () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
@@ -42,7 +42,7 @@ describe('isVertical tests', () => {
 // From now on, we avoid checking the width and height again and assume a vertical bar
 // Note that originX and originY are avoided too, because these are tested in isolation
 
-describe('Height configuration tests', () => {
+describe('Height configuration test', () => {
   it(`checks if a bar with a positive height, configured to
       not show a negative height, has 'height' for height`, () => {
     // Arrange
@@ -128,7 +128,7 @@ describe('Height configuration tests', () => {
   });
 });
 
-describe('Mouse interactivity tests', () => {
+describe('Mouse interactivity test', () => {
   it('checks if a bar has no label by default', () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
@@ -207,7 +207,7 @@ describe('Mouse interactivity tests', () => {
   });
 });
 
-describe('Attribute tests', () => {
+describe('Attribute test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     // Note that x and y are intentionally different to test the default name attribute

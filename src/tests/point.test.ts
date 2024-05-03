@@ -7,7 +7,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Attribute tests', () => {
+describe('Attribute test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     const config = { x: 100, y: 150 };

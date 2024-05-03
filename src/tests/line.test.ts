@@ -7,7 +7,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Html test', () => {
+describe('Render test', () => {
   it('renders lines in accordance to the test data', () => {
     // Arrange
     const config = {};
@@ -20,33 +20,9 @@ describe('Html test', () => {
     expect(lines.length).equals(5);
     expect(lines[0].getAttribute('d')).toBe(`M0,107.84313725490198L500,1000L1000,1000`);
   });
+});
 
-  it('checks if default attributes are filled', () => {
-    // Arrange
-    const config = {};
-
-    // Act
-    const lineGroup = createLines(config);
-    const line = lineGroup.getElementsByClassName('line')[0];
-
-    // Assert
-    // Check defaut values
-    expect(line.getAttribute('stroke')).toBe('#BBBBBB');
-    expect(line.getAttribute('stroke-width')).toBe('1');
-  });
-
-  it('checks if custom attributes are filled', () => {
-    // Arrange
-    const config = { hoverable: true, lineWidth: 2 };
-
-    // Act
-    const lineGroup = createLines(config);
-    const line = lineGroup.getElementsByClassName('line')[0];
-
-    // Assert
-    expect(line.getAttribute('stroke-width')).toBe('2');
-  });
-
+describe('Event test', () => {
   it('checks if the events on the lines work', async () => {
     // Note that this test simulates a sequence of events
     // Arrange
@@ -74,6 +50,34 @@ describe('Html test', () => {
     // Assert again
     // Check if line color resets on mouse leave event
     expect(lineOne.getAttribute('stroke')).toBe('#BBBBBB');
+  });
+});
+
+describe('Attribute test', () => {
+  it('checks if default attributes are filled', () => {
+    // Arrange
+    const config = {};
+
+    // Act
+    const lineGroup = createLines(config);
+    const line = lineGroup.getElementsByClassName('line')[0];
+
+    // Assert
+    // Check defaut values
+    expect(line.getAttribute('stroke')).toBe('#BBBBBB');
+    expect(line.getAttribute('stroke-width')).toBe('1');
+  });
+
+  it('checks if custom attributes are filled', () => {
+    // Arrange
+    const config = { hoverable: true, lineWidth: 2 };
+
+    // Act
+    const lineGroup = createLines(config);
+    const line = lineGroup.getElementsByClassName('line')[0];
+
+    // Assert
+    expect(line.getAttribute('stroke-width')).toBe('2');
   });
 });
 

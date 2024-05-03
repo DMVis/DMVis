@@ -8,7 +8,7 @@ import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
 prepareSvgGetter();
 
-describe('Rendering vertical axes with horizontal spacing', () => {
+describe('Rendering vertical axes with horizontal spacing test', () => {
   it('renders vertical axes with horizontal spacing and default alignment', () => {
     // Arrange
     const config = {
@@ -208,7 +208,8 @@ describe('Rendering vertical axes with horizontal spacing', () => {
     });
   });
 });
-describe('Rendering horizontal axes with horizontal spacing', () => {
+
+describe('Rendering horizontal axes with horizontal spacing test', () => {
   it('renders horizontal axes with horizontal spacing and default alignment', () => {
     // Arrange
     const config = {
@@ -409,7 +410,7 @@ describe('Rendering horizontal axes with horizontal spacing', () => {
   });
 });
 
-describe('Rendering vertical axes with vertical spacing', () => {
+describe('Rendering vertical axes with vertical spacing test', () => {
   it('renders vertical axes with vertical spacing and default alignment', () => {
     // Arrange
     const config = {
@@ -609,7 +610,8 @@ describe('Rendering vertical axes with vertical spacing', () => {
     });
   });
 });
-describe('Rendering horizontal axes with vertical spacing', () => {
+
+describe('Rendering horizontal axes with vertical spacing test', () => {
   it('renders horizontal axes with vertical spacing and default alignment', () => {
     // Arrange
     const config = {

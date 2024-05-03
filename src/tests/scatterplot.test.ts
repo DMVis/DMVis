@@ -7,7 +7,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Html test', () => {
+describe('Render test', () => {
   it('renders a scatterplot', () => {
     // Arrange
     const config = {
@@ -56,7 +56,7 @@ describe('Html test', () => {
   });
 });
 
-describe('Error checking', () => {
+describe('Error checking test', () => {
   it('checks if an error is thrown if xAxis is not specified correctly', () => {
     // Arrange
     const config = {

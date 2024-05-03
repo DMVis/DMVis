@@ -27,7 +27,7 @@
     backgroundColor = 'black';
     textColor = 'white';
   } else {
-    // Error are for completeness, but never happens in practice (because of type safety)
+    // Error is for completeness, but never happens in practice (because of type safety)
     throw ThrowError('Error', 'theme attribute not recognised', 'Tooltip');
   }
 </script>

@@ -2,8 +2,8 @@ import { describe, it, expect, expectTypeOf } from 'vitest';
 import { SpacerSide, SpacerEqual } from '$lib/utils/Spacer.js';
 import * as d3 from 'd3';
 
-describe('SpacerSide Placement Tests', () => {
-  it(`Creates a SpacerSide and checks the type`, () => {
+describe('SpacerSide placement test', () => {
+  it(`creates a SpacerSide and checks the type`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 0;
@@ -18,7 +18,7 @@ describe('SpacerSide Placement Tests', () => {
     expectTypeOf(spacer).toEqualTypeOf<d3.ScaleBand<string>>();
   });
 
-  it(`Creates a SpacerSide and checks the positions with 'start' alignment with zero margins`, () => {
+  it(`creates a SpacerSide and checks the positions with 'start' alignment with zero margins`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 0;
@@ -38,7 +38,7 @@ describe('SpacerSide Placement Tests', () => {
     expect(spacer.bandwidth()).toBe(250);
   });
 
-  it(`Creates a SpacerSide and checks the positions with 'end' alignment with zero margins`, () => {
+  it(`creates a SpacerSide and checks the positions with 'end' alignment with zero margins`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 0;
@@ -58,7 +58,7 @@ describe('SpacerSide Placement Tests', () => {
     expect(spacer.bandwidth()).toBe(250);
   });
 
-  it(`Creates a SpacerSide and checks the positions with 'start' alignment with margins`, () => {
+  it(`creates a SpacerSide and checks the positions with 'start' alignment with margins`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 100;
@@ -78,7 +78,7 @@ describe('SpacerSide Placement Tests', () => {
     expect(spacer.bandwidth()).toBe(200);
   });
 
-  it(`Creates a SpacerSide and checks the positions with 'end' alignment with margins`, () => {
+  it(`creates a SpacerSide and checks the positions with 'end' alignment with margins`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 100;
@@ -98,7 +98,7 @@ describe('SpacerSide Placement Tests', () => {
     expect(spacer.bandwidth()).toBe(200);
   });
 
-  it(`Creates a SpacerSide and checks the positions with 'start' alignment with margins and padding`, () => {
+  it(`creates a SpacerSide and checks the positions with 'start' alignment with margins and padding`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 100;
@@ -120,7 +120,7 @@ describe('SpacerSide Placement Tests', () => {
     expect(spacer.bandwidth()).toBe(184.61538461538464);
   });
 
-  it(`Creates a SpacerSide and checks the positions with 'end' alignment with margins and padding`, () => {
+  it(`creates a SpacerSide and checks the positions with 'end' alignment with margins and padding`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 100;
@@ -143,8 +143,8 @@ describe('SpacerSide Placement Tests', () => {
   });
 });
 
-describe('SpacerEqual Placement Tests', () => {
-  it(`Creates a SpacerEqual and checks the type`, () => {
+describe('SpacerEqual placement test', () => {
+  it(`creates a SpacerEqual and checks the type`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 0;
@@ -158,7 +158,7 @@ describe('SpacerEqual Placement Tests', () => {
     expectTypeOf(spacer).toEqualTypeOf<d3.ScalePoint<string>>();
   });
 
-  it(`Creates a SpacerEqual and checks the positions with zero margins`, () => {
+  it(`creates a SpacerEqual and checks the positions with zero margins`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 0;
@@ -176,7 +176,7 @@ describe('SpacerEqual Placement Tests', () => {
     expect(spacer.step()).toBe(333.3333333333333);
   });
 
-  it(`Creates a SpacerEqual and checks the positions with margins`, () => {
+  it(`creates a SpacerEqual and checks the positions with margins`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 50;
@@ -194,7 +194,7 @@ describe('SpacerEqual Placement Tests', () => {
     expect(spacer.step()).toBe(300);
   });
 
-  it(`Creates a SpacerEqual and checks the positions with margins and outer padding`, () => {
+  it(`creates a SpacerEqual and checks the positions with margins and outer padding`, () => {
     // Arrange
     const dimension = 1000;
     const marginLow = 50;

@@ -12,7 +12,7 @@ Used settings in Tooltip that differ from Label defaults are tested here basical
 
 prepareSvgGetter();
 
-describe('Html tests', () => {
+describe('Html test', () => {
   it('renders "This is a tooltip!"', () => {
     // Arrange
     const config = { x: 5, y: 5, text: 'This is a tooltip!' };
@@ -36,7 +36,7 @@ describe('Html tests', () => {
   });
 });
 
-describe('Attribute tests', () => {
+describe('Attribute test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test' };

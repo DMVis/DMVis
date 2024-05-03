@@ -6,7 +6,7 @@ import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
 // Note that the code coverage will never reach
 // the lines that throw errors, because of type safety
 
-describe('horizontal getOrigin tests 1/3', () => {
+describe('Horizontal getOrigin test 1/3', () => {
   it(`maps a source origin (left) to a destination origin (middle) given
       an x-coordinate (0) and a width (10) to check whether the
       x-coordinate becomes -5`, () => {
@@ -44,7 +44,7 @@ describe('horizontal getOrigin tests 1/3', () => {
   });
 });
 
-describe('horizontal getOrigin tests 2/3', () => {
+describe('Horizontal getOrigin test 2/3', () => {
   it(`maps a source origin (middle) to a destination origin (left) given
       an x-coordinate (0) and a width (10) to check whether the
       x-coordinate becomes 5`, () => {
@@ -82,7 +82,7 @@ describe('horizontal getOrigin tests 2/3', () => {
   });
 });
 
-describe('horizontal getOrigin tests 3/3', () => {
+describe('Horizontal getOrigin test 3/3', () => {
   it(`maps a source origin (right) to a destination origin (left) given
       an x-coordinate (0) and a width (10) to check whether the
       x-coordinate becomes 10`, () => {
@@ -234,7 +234,7 @@ describe('Vertical getOrigin test 3/3', () => {
   });
 });
 
-describe('getFlippedOrigin x tests', () => {
+describe('getFlippedOrigin x test', () => {
   it('checks whether OriginX.Right is returned for OriginX.Left', () => {
     // Arrange
     const origin = OriginX.Left;
@@ -272,7 +272,7 @@ describe('getFlippedOrigin x tests', () => {
   });
 });
 
-describe('getFlippedOrigin y tests', () => {
+describe('getFlippedOrigin y test', () => {
   it('checks whether OriginY.Bottom is returned for OriginY.Top', () => {
     // Arrange
     const origin = OriginY.Top;

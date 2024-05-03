@@ -6,12 +6,12 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Html test', () => {
-  it("checks if BarChart's width is correct", () => {
+describe('Size test', () => {
+  it('checks if the width is correct', () => {
     // Arrange
     const config = {
       width: 100,
-      height: 100,
+      height: 150,
       data: createData()
     };
 
@@ -38,6 +38,7 @@ function createBarChart(config: object): SVGElement {
   return barChart;
 }
 
+// Simple data prepared for tests
 function createData() {
   return [
     { label: 'a', value: 100 },

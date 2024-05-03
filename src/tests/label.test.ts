@@ -7,7 +7,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 // Make sure that the get methods of SVGElement is mocked
 prepareSvgGetter();
 
-describe('Html tests', () => {
+describe('Html test', () => {
   it('renders "Hello world!"', () => {
     // Arrange
     const config = { x: 5, y: 5, text: 'Hello world!' };
@@ -31,7 +31,7 @@ describe('Html tests', () => {
   });
 });
 
-describe('Attribute tests', () => {
+describe('Attribute test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test' };
@@ -144,7 +144,7 @@ describe('Attribute tests', () => {
   });
 });
 
-describe('background tests', () => {
+describe('Background test', () => {
   it('checks if the rect is omitted if hasBackground is false', () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test', hasBackground: false };
@@ -171,7 +171,7 @@ describe('background tests', () => {
   });
 });
 
-describe('Event dispatching tests', () => {
+describe('Event dispatching test', () => {
   it('checks if pointer events can be dispatched if hasPointerEvents is true', async () => {
     // Arrange
     const config = { x: 0, y: 0, text: 'Test', hasPointerEvents: true };

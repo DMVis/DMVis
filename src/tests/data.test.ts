@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 
 import { DataUtils } from '$lib/utils/DataUtils.js';
 
-describe('dataUtils tests', () => {
+describe('dataUtils functionality test', () => {
   it('should parse CSV data', async () => {
     // Arrange
     const csvData = 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
