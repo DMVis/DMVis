@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => ({
     reporter: 'verbose',
     restoreMocks: true,
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'cobertura'],
       exclude: [
         '**/documentation/**',
         '**/routes/+page.svelte',

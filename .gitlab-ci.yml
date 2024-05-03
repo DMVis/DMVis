@@ -23,11 +23,17 @@ check-typescript:
 run-tests:
   stage: check
   script:
-    - npm run test
+    - npm run coverage
   needs:
     - check-typescript
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  coverage: '/All files\s+\|\s+\d+\.\d+\s+\|\s+\d+\.\d+\s+\|\s+\d+\.\d+\s+\|\s+(\d+\.\d+)\s+.*/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
 
 # Global settings
 before_script:
