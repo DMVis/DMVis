@@ -49,11 +49,21 @@
   export let headerFontFamily: string = 'Arial';
   export let hasHeaderBackground: boolean = false;
 
+  const { visualisationData } = dataUtil;
+
   // Set store values
   const visualisationStore = new VisualisationStore();
+
+  // Set reactive store values
+  $: {
+    visualisationStore.data.set($visualisationData);
+    height = calculateHeight($visualisationData.length);
+    updateColumns();
+  }
+
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
-  visualisationStore.data.set(dataUtil.data ?? []);
+  visualisationStore.data.set($visualisationData);
   visualisationStore.marginLeft.set(marginLeft + columnSpacing / 2);
   visualisationStore.marginRight.set(marginRight + columnSpacing / 2);
   visualisationStore.marginTop.set(marginTop);
@@ -130,10 +140,14 @@
       const minDistanceIndex = distances.indexOf(Math.min(...distances));
       const nearestRow = rows[minDistanceIndex !== -1 ? minDistanceIndex : 0];
       const nearestLabel = nearestRow ? nearestRow.innerHTML : rows[0].innerHTML;
-      const oldIndex = dataUtil.data.findIndex((row) => row[0] === draggedItem);
-      const newIndex = dataUtil.data.findIndex((row) => row[0] === nearestLabel);
-      const newData = dataUtil.reorderRows(oldIndex, newIndex === -1 ? 0 : newIndex);
-      dataUtil.data = newData;
+      const oldIndex = $visualisationData.findIndex((row) => row[0] === draggedItem);
+      const newIndex = $visualisationData.findIndex((row) => row[0] === nearestLabel);
+      const newData = dataUtil.reorderRows(
+        oldIndex,
+        newIndex === -1 ? 0 : newIndex,
+        $visualisationData
+      );
+      $visualisationData = newData;
       visualisationStore.data.set(newData);
       updateColumns();
 
@@ -159,13 +173,14 @@
       .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
 
     // Fill labelColumn
-    const transposedData: Array<Array<number | string>> = d3.transpose(dataUtil.data);
+    const transposedData: Array<Array<number | string>> = d3.transpose($visualisationData);
     const labelColumn: LabelColumn = {
       header: dataUtil.columns[0],
       rows: transposedData[0].map((label) => {
         return { label: label as string };
       })
     };
+
     let newColumns = [labelColumn];
 
     // Fill bar columns
@@ -238,7 +253,7 @@
   // Calculate height based on number of rows
   // Use the fontsize per row and multiply by 1.5 for padding
   function calculateHeight(numRows: number): number {
-    return numRows * styleUtil.fontSize * 1.5;
+    return numRows * styleUtil.fontSize + 150;
   }
 
   // Calculate width based on number of columns
@@ -323,7 +338,7 @@ to adjust `marginTop` or `columnMarginTop`.
 -->
 
 <svg class="visualisation tabularVisualisation" {width} {height}>
-  {#key dataUtil}
+  {#key dataUtil || $visualisationData}
     <!-- Plot the top axis of the visualisation -->
     <g id="axes">
       <DynamicAxis

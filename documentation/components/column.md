@@ -41,6 +41,13 @@ An enum, containing types of columns. Can be selected by importing `ColumnType` 
 
 ## Optional Attributes
 
+### y
+
+- Type: `number`
+- Default: `100`
+
+Y-coordinate of the column.
+
 ### name
 
 - Type: `string`

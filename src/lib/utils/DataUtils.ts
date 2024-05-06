@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 
 // DMVis imports
 import { ThrowError } from './ThrowError.js';
+import { writable, type Writable } from 'svelte/store';
 
 /**
  * A class that provides utility functions to work with data.
@@ -12,12 +13,14 @@ export class DataUtils {
   public data: Array<Array<string | number>>;
   public columns: Array<string>;
   public columnInfo: { [key: string]: string };
+  public visualisationData: Writable<Array<Array<string | number>>>;
 
   constructor() {
     this.rawData = [];
     this.data = [];
     this.columns = [];
     this.columnInfo = {};
+    this.visualisationData = writable([]);
   }
 
   /**
@@ -76,6 +79,9 @@ export class DataUtils {
       this.data = csv_data.slice(1);
       this.columns = csv_data[0].map((d: string | number) => String(d));
       this.columnInfo = this.#inferColumnTypes();
+
+      // Set the visualisation data
+      this.visualisationData.set(this.data);
 
       // Return the parsed data
       return this.rawData;
@@ -136,6 +142,9 @@ export class DataUtils {
       // Infer column types
       this.columnInfo = this.#inferColumnTypes();
 
+      // Set the visualisation data
+      this.visualisationData.set(this.data);
+
       // Return the parsed data
       return this.rawData;
     } catch (error) {
@@ -148,7 +157,7 @@ export class DataUtils {
   }
 
   /**
-   * @param {string} jsonData - The JSON data torder.
+   * @param {string} jsonData - The JSON data to order.
    * @returns {Array<Array<string | number>>} The sorted data.
    */
   sortData(column: string, ascending: boolean): Array<Array<string | number>> {
@@ -157,13 +166,19 @@ export class DataUtils {
       throw new Error(`Column ${column} not found.`);
     }
 
+    // Sort the data based on the given column
     const sortedData = this.data.sort((a, b) => {
       if (ascending) {
-        return a[index] > b[index] ? 1 : -1;
+        // Sort in ascending order
+        return a[index] > b[index] ? 1 : a[index] < b[index] ? -1 : 0;
       } else {
-        return a[index] < b[index] ? 1 : -1;
+        // Sort in descending order
+        return a[index] < b[index] ? 1 : a[index] > b[index] ? -1 : 0;
       }
     });
+
+    // Set the visualisation data
+    this.visualisationData.set(sortedData);
 
     return sortedData;
   }
@@ -175,14 +190,21 @@ export class DataUtils {
    * @param newIndex The new index of the row.
    * @returns
    */
-  reorderRows(oldIndex: number, newIndex: number) {
+  reorderRows(
+    oldIndex: number,
+    newIndex: number,
+    visData: Array<Array<string | number>>
+  ): Array<Array<string | number>> {
     // Reorder data
-    const reorderedData = [...this.data];
+    const reorderedData = visData;
     const [removed] = reorderedData.splice(oldIndex, 1);
     reorderedData.splice(newIndex, 0, removed);
 
     // Set the new data
     this.data = reorderedData;
+    // Set the visualisation data
+    this.visualisationData.set(this.data);
+
     this.rawData = [this.columns, ...this.data];
     return reorderedData;
   }
@@ -218,6 +240,56 @@ export class DataUtils {
     });
 
     return [inside, outside];
+  }
+
+  applyFilters(filters: { [key: string]: string | { min: number; max: number } }): void {
+    // Convert column names to indices for easier filtering
+    const columnIndexMap = this.columns.reduce(
+      (acc, column, index) => {
+        acc[column] = index;
+        return acc;
+      },
+      {} as { [key: string]: number }
+    );
+
+    // Filter rawData based on filters
+    const filteredData = this.data.filter((row) => {
+      return Object.entries(filters).every(([column, filterValue]) => {
+        // Get the index of the column
+        const index = columnIndexMap[column];
+        if (filterValue === '' || filterValue == null) {
+          // No filter applied for this column
+          return true;
+        } else if (typeof filterValue === 'string') {
+          // Apply string filter
+          return row[index].toString().toLowerCase().includes(filterValue.toLowerCase());
+        } else {
+          // Apply numeric range filter
+          const numericValue = +row[index]; // Ensure the value is treated as a number
+          const min = filterValue.min !== null ? filterValue.min : -Infinity;
+          const max = filterValue.max !== null ? filterValue.max : Infinity;
+          return numericValue >= min && numericValue <= max;
+        }
+      });
+    });
+
+    // If no data is filtered, set the visualisation data to the original data
+    if (filteredData.length === 0) {
+      this.resetVisualisationData();
+      return;
+    }
+
+    // Update the data
+    this.visualisationData.set(filteredData);
+  }
+
+  // Resets the visualisation data to the original data
+  resetVisualisationData() {
+    this.visualisationData.set(this.data);
+  }
+
+  setVisualisationData(data: Array<Array<string | number>>) {
+    this.visualisationData.set(data);
   }
 
   // Filters the data based on the specified ranges

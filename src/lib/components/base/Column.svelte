@@ -16,6 +16,7 @@
   export let type: ColumnType;
 
   // Optional attributes
+  export let y: number = 100;
   export let name: string = 'Column';
   export let padding: number = 10;
 
@@ -124,6 +125,7 @@ Each columns contains a top part with information about the column and a bottom 
   * type: ColumnType      - Type of the column. See the ColumnType enum for more information.
 
 #### Optional attributes
+  * y: number             - Scaled y-coordinate of the column. Default is `100`.
   * name: string          - Name of the column. Set this to the name of the attribute. Default is 'Column'.
   * padding: number       - Padding of the column. Default is 10.
 -->
@@ -138,7 +140,7 @@ Each columns contains a top part with information about the column and a bottom 
     <rect
       class="column-bottom-background"
       {x}
-      y={0}
+      {y}
       {width}
       {height}
       fill="none"
@@ -152,7 +154,7 @@ Each columns contains a top part with information about the column and a bottom 
   <g class="column-top">
     <rect
       x={x + paddingSide}
-      y={0}
+      y={y - 100}
       width={width - padding}
       height={100}
       fill={highlighted ? $styleUtil.focusColor : '#FFFFFF'}
@@ -167,7 +169,7 @@ Each columns contains a top part with information about the column and a bottom 
       }} />
     <Label
       x={x + width / 2}
-      y={10}
+      y={y - 90}
       text={columnTitle}
       width={width - padding}
       textColor={$styleUtil.color}
@@ -176,7 +178,7 @@ Each columns contains a top part with information about the column and a bottom 
       originX={OriginX.Middle}
       originY={OriginY.Middle}
       hasBackground={false} />
-    <svg class="column-options" {width} height="25px" {x} y="30">
+    <svg class="column-options" {width} height="25px" {x} y={y - 70}>
       {#each icons as icon, i}
         <Icon
           x={iconStart + 25 * i}
@@ -191,9 +193,9 @@ Each columns contains a top part with information about the column and a bottom 
     </g>
     <line
       x1={x + paddingSide}
-      y1={100}
+      y1={y}
       x2={x + width - paddingSide}
-      y2={100}
+      y2={y}
       stroke={$styleUtil.colorBorder}
       stroke-width="1" />
 
@@ -204,13 +206,15 @@ Each columns contains a top part with information about the column and a bottom 
           <rect
             class="column-overlay"
             x={x + paddingSide}
-            y={60}
+            y={y - 40}
             width={width - padding}
-            height={30}
+            height={100}
+            fill="#f8f8f8"
+            fill-opacity="0"
             role="gridcell" />
           <Label
             x={x + width / 2}
-            y={75}
+            y={y - 25}
             text="Remove column"
             width={width - padding}
             textColor={$styleUtil.color}

@@ -2,12 +2,13 @@
 
 To make sure that every visualisation is consistent, we have created a set of utility functions that help with data manipulation. These functions are used to transform data into a format that can be easily used by the visualisation components.
 
-Each instance of this class has four attributes available
+Each instance of this class has five attributes available
 
-- `data`: The parsed data in the form of an array of arrays
+- `data`: The original parsed data in the form of an array of arrays
 - `columns`: The column names of the data
 - `columnInfo`: An object containing the type of each column
 - `rawData`: An array of arrays with the columns prepended before the data
+- `visualisationData`: The parsed data in a writable store, used to update the data in the visualisation
 
 The `DataUtils` class contains a set of utility functions that help with data manipulation. The functions are as follows:
 
@@ -119,7 +120,7 @@ The `sortData` function allows you to sort the data based on a specific column. 
 - `column`: The column to sort the data by
 - `ascending`: A boolean that determines whether the data should be sorted in ascending order
 
-The function returns a sorted array of arrays.
+The function returns a sorted array of arrays. And also sets the `visualisationData` store to the sorted data.
 
 Below is an example of how to use the `sortData` function:
 
@@ -145,6 +146,26 @@ const rangePerAttribute = {
 };
 
 const [filteredData, excludedData] = dataUtil.filterData(rangePerAttribute);
+```
+
+# applyFilters
+
+The `applyFilters` function allows you to apply filters to the data based on the given filters. It takes in the following parameter:
+
+- `filters`: An object of filters where the key is the column name. With either a string for textual data or and object with `min` and `max` for numerical data.
+
+This function changes the `visualisationData` store to the filtered data.
+
+Below is an example of how to use the `applyFilters` function:
+
+```javascript
+const filters = {
+  country: '',
+  gpd: { min: 10, max: 20 },
+  population: { min: 1000, max: 2000 }
+};
+
+dataUtil.applyFilters(filters);
 ```
 
 # reorderRows

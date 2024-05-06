@@ -27,8 +27,18 @@
   export let opacity: number | string = 1;
   export let showTotals: boolean = false;
 
+  const { visualisationData } = dataUtil;
+
   // Set store values
   const visualisationStore = new VisualisationStore();
+
+  // Set reactive store values
+  $: {
+    visualisationStore.data.set($visualisationData);
+    height = calculateHeight($visualisationData.length);
+    visualisationStore.height.set(height);
+  }
+
   visualisationStore.marginLeft.set(marginLeft);
   visualisationStore.marginRight.set(marginRight);
   visualisationStore.marginBottom.set(marginBottom);
@@ -36,7 +46,6 @@
   visualisationStore.padding.set(padding);
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
-  visualisationStore.data.set(dataUtil.data);
   visualisationStore.columns.set(dataUtil.columns);
   visualisationStore.styleUtil.set(styleUtil);
 
@@ -45,7 +54,7 @@
   // Calculate height based on number of rows stackedbarchart
   // Use the fontsize per row and multiply by 1.5 for padding
   function calculateHeight(numRows: number): number {
-    return numRows * styleUtil.fontSize * 1.5;
+    return numRows * styleUtil.fontSize * 1.5 + 100;
   }
 </script>
 
@@ -77,7 +86,7 @@ The y-axis represents the categories of the data.
 -->
 
 <svg class="visualisation stackedBarchart" {width} {height}>
-  {#key dataUtil}
+  {#key dataUtil || $visualisationData}
     <StackedBar {opacity} {width} {showTotals} />
     <DynamicAxis position="left" axisOrder={dataUtil.columns.slice(0, 1)} />
   {/key}

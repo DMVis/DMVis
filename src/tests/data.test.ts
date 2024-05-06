@@ -206,7 +206,7 @@ describe('dataUtils functionality test', () => {
 
     // Act
     await dataUtils.parseCSV(csvData);
-    const result = dataUtils.reorderRows(oldIndex, newIndex);
+    const result = dataUtils.reorderRows(oldIndex, newIndex, dataUtils.data);
 
     // Assert
     expect(result).toBeDefined();

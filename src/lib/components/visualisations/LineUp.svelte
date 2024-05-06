@@ -15,14 +15,25 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
-  export let columnWidth: number = 150;
+  export let styleUtil: StyleUtils = new StyleUtils();
   export let width: number = calculateWidth(dataUtil.columns.length);
   export let height: number = calculateHeight(dataUtil.data.length);
-  export let styleUtil: StyleUtils = new StyleUtils();
+  export let columnWidth: number = 150;
   export let padding: number = 10;
+
+  const { visualisationData } = dataUtil;
 
   // Set store values
   const visualisationStore = new VisualisationStore();
+
+  $: {
+    visualisationStore.data.set($visualisationData);
+    height = calculateHeight($visualisationData.length);
+    columnData = $visualisationData.map((_, colIndex) => [
+      ...$visualisationData.map((row) => row[colIndex])
+    ]);
+  }
+
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
   visualisationStore.data.set(dataUtil.data);
@@ -31,7 +42,9 @@
 
   // Set context of the visualisation
   setContext('store', visualisationStore);
-  const columnData = dataUtil.data.map((_, colIndex) => dataUtil.data.map((row) => row[colIndex]));
+  let columnData = $visualisationData.map((_, colIndex) =>
+    $visualisationData.map((row) => row[colIndex])
+  );
   const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
   let highlightRow: number = -1;
   let shift: boolean = false;
@@ -188,7 +201,7 @@ displays different types of columns such as text, bar, and rank columns. This is
       shift = false;
     }
   }}>
-  {#key dataUtil}
+  {#key dataUtil || $visualisationData}
     <g class="lineUp-highlights">
       {#if highlightRow >= 0}
         <rect
@@ -214,7 +227,7 @@ displays different types of columns such as text, bar, and rank columns. This is
       width={columnWidth}
       {height}
       {padding}
-      length={dataUtil.data.length}
+      length={$visualisationData.length}
       on:mouseHover={(e) => (highlightRow = e.detail.row)}
       on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
     <SelectColumn
@@ -222,7 +235,7 @@ displays different types of columns such as text, bar, and rank columns. This is
       width={columnWidth}
       {height}
       {padding}
-      length={dataUtil.data.length}
+      length={$visualisationData.length}
       on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
       on:toggleAll={(e) => selectAll(e)}
       on:groupData={(e) => groupData(e)}

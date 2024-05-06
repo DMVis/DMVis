@@ -67,6 +67,7 @@ Out of the box, it supports the following icons:
   height="25px"
   role="button"
   tabindex="0"
+  aria-label={icon}
   on:mouseenter={onMouseEnter}
   on:focus={onMouseEnter}
   on:mouseleave={onMouseLeave}

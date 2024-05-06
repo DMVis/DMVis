@@ -94,10 +94,12 @@
   let dragElementY = 0;
   let isCurrentlyDragging = false;
 
+  const { visualisationData } = dataUtil;
+
   // Fill the store
   const visualisationStore = new VisualisationStore();
   $: {
-    visualisationStore.data.set(dataUtil.data);
+    visualisationStore.data.set($visualisationData);
     visualisationStore.columns.set(dataUtil.columns);
     visualisationStore.marginLeft.set(marginLeft);
     visualisationStore.marginRight.set(marginRight);
@@ -531,7 +533,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 {:then}
   <svg class="visualisation scatterplotMatrix" {width} {height}>
     {#key reloadKey}
-      {#key dataUtil}
+      {#key dataUtil || $visualisationData}
         <!-- Loop over all the attributes on the xAxis -->
         {#each axisNames as xAxis, i}
           <!-- Loop over all the attributes on the yAxis -->

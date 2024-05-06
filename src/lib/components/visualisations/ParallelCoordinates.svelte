@@ -24,12 +24,19 @@
   let draggedAxis: string | null = null;
   let draggingOffset: number = 0;
 
+  const { visualisationData } = dataUtil;
+
   // Fill the store
   const visualisationStore = new VisualisationStore();
 
+  // Set reactive store values
+  $: {
+    visualisationStore.data.set($visualisationData);
+  }
+
   visualisationStore.width.set(width);
   visualisationStore.height.set(height);
-  visualisationStore.data.set(dataUtil.data);
+  visualisationStore.data.set($visualisationData);
   visualisationStore.columns.set(dataUtil.columns);
   visualisationStore.marginLeft.set(marginLeft);
   visualisationStore.marginRight.set(marginRight);
@@ -94,17 +101,19 @@ It creates an axis for each column in the supplied table with data
 * marginBottom: number   - Margin to the bottom of the visualisation. Defaults to `40`.
 -->
 <svg class="visualisation parallelCoordinates" {width} {height}>
-  <!-- Draw all the lines -->
-  <Line lineWidth={2} hoverable={true} {axisOrder} {draggedAxis} {draggingOffset} />
-  <!-- Draw all the axis -->
-  <DynamicAxis
-    position={'left'}
-    alignment={'spaced'}
-    renderLabel={true}
-    labelPosition={'top'}
-    {axisOrder}
-    isDraggable={true}
-    on:draggingElement={onDraggingElement}
-    on:stoppedDragging={onStoppedDragging}
-    on:axisOrderChanged={onAxisOrderChanged} />
+  {#key $visualisationData}
+    <!-- Draw all the lines -->
+    <Line lineWidth={2} hoverable={true} {axisOrder} {draggedAxis} {draggingOffset} />
+    <!-- Draw all the axes -->
+    <DynamicAxis
+      position={'left'}
+      alignment={'spaced'}
+      renderLabel={true}
+      labelPosition={'top'}
+      {axisOrder}
+      isDraggable={true}
+      on:draggingElement={onDraggingElement}
+      on:stoppedDragging={onStoppedDragging}
+      on:axisOrderChanged={onAxisOrderChanged} />
+  {/key}
 </svg>
