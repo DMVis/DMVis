@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { setContext, getContext, onMount, afterUpdate } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -14,7 +14,11 @@
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import {
+    getVisualisationContext,
+    setVisualisationContext,
+    updateVisualisationContext
+  } from '$lib/context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -97,17 +101,20 @@
   const { visualisationData } = dataUtil;
 
   // Fill the store
-  const visualisationStore = new VisualisationStore();
+  setVisualisationContext({});
+
   $: {
-    visualisationStore.data.set($visualisationData);
-    visualisationStore.columns.set(dataUtil.columns);
-    visualisationStore.marginLeft.set(marginLeft);
-    visualisationStore.marginRight.set(marginRight);
-    visualisationStore.marginTop.set(marginTop);
-    visualisationStore.marginBottom.set(marginBottom);
-    visualisationStore.width.set(width);
-    visualisationStore.height.set(height);
-    visualisationStore.styleUtil.set(styleUtil);
+    updateVisualisationContext({
+      data: $visualisationData,
+      columns: dataUtil.columns,
+      marginLeft,
+      marginRight,
+      marginTop,
+      marginBottom,
+      width,
+      height,
+      styleUtil
+    });
 
     // The first column name is `label`, this is not relevant
     // Only needed the first time this component is loaded
@@ -126,10 +133,9 @@
       .range([marginLeft, width - marginRight])
       .paddingInner(padding);
   }
-  setContext('store', visualisationStore);
 
   // Get the computed scales from the store
-  const { xScales, yScales } = getContext<VisualisationStore>('store');
+  const { xScales, yScales } = getVisualisationContext();
 
   // Function that calculates the dimension of the scatterplot matrix based on the number of attributes
   // Used 150 as a base value, because it fits well on the screen for most cases

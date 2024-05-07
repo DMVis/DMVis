@@ -1,14 +1,17 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { getContext, setContext } from 'svelte';
 
   // DMVis imports
   import StackedBar from '$lib/components/base/StackedBar.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import {
+    setVisualisationContext,
+    updateVisualisationContext,
+    getVisualisationContext
+  } from '$lib/context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -31,29 +34,26 @@
   const { visualisationData } = dataUtil;
 
   // Set store values
-  const visualisationStore = new VisualisationStore();
+  setVisualisationContext({
+    width,
+    height,
+    data: $visualisationData,
+    columns: dataUtil.columns,
+    styleUtil,
+    marginLeft,
+    marginRight,
+    marginBottom,
+    marginTop,
+    padding
+  });
 
-  visualisationStore.data.set($visualisationData);
+  const { yScales } = getVisualisationContext();
+
   // Set reactive store values
   $: {
-    visualisationStore.data.set($visualisationData);
     height = calculateHeight($visualisationData.length);
-    visualisationStore.height.set(height);
+    updateVisualisationContext({ data: $visualisationData, height });
   }
-
-  visualisationStore.marginLeft.set(marginLeft);
-  visualisationStore.marginRight.set(marginRight);
-  visualisationStore.marginBottom.set(marginBottom);
-  visualisationStore.marginTop.set(marginTop);
-  visualisationStore.padding.set(padding);
-  visualisationStore.width.set(width);
-  visualisationStore.height.set(height);
-  visualisationStore.columns.set(dataUtil.columns);
-  visualisationStore.styleUtil.set(styleUtil);
-
-  setContext('store', visualisationStore);
-
-  const { yScales } = getContext<VisualisationStore>('store');
 
   // Calculate height based on number of rows stackedbarchart
   // Use the fontsize per row and multiply by 1.5 for padding

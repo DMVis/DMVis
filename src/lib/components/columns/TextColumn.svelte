@@ -1,12 +1,12 @@
 <script lang="ts">
   // Imports
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
-  import type { VisualisationStore } from '$lib/store.js';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let x: number;
@@ -31,7 +31,7 @@
   }
 
   // Get store values
-  const { styleUtil } = getContext<VisualisationStore>('store');
+  const { styleUtil } = getVisualisationContext();
 
   // Dispatch search data
   const dispatch = createEventDispatcher();

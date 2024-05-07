@@ -1,13 +1,13 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
   import Axis from '$lib/components/base/Axis.svelte';
   import { ThrowError } from '$lib/utils/ThrowError.js';
-  import { VisualisationStore } from '$lib/store.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Get store information
   const {
@@ -21,7 +21,7 @@
     marginLeft,
     columns,
     styleUtil
-  } = getContext<VisualisationStore>('store');
+  } = getVisualisationContext();
 
   // Public variables
   export let axisOrder: string[] = [];

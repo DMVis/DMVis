@@ -1,6 +1,5 @@
 <script lang="ts">
   // Imports
-  import { setContext } from 'svelte';
   import * as d3 from 'd3';
 
   // DMVis imports
@@ -10,7 +9,7 @@
   import SelectColumn from '$lib/components/columns/SelectColumn.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -25,21 +24,20 @@
   const { visualisationData } = dataUtil;
 
   // Set store values
-  const visualisationStore = new VisualisationStore();
+  setVisualisationContext({
+    width,
+    height,
+    data: $visualisationData,
+    columns: dataUtil.columns,
+    styleUtil
+  });
 
   $: {
-    visualisationStore.data.set($visualisationData);
+    //visualisationStore.data.set($visualisationData);
+    updateVisualisationContext({ data: $visualisationData });
     height = calculateHeight($visualisationData.length);
     [columnData, columnColors] = setColumnData($visualisationData);
   }
-
-  // Set context of the visualisation
-  visualisationStore.width.set(width);
-  visualisationStore.height.set(height);
-  visualisationStore.data.set(dataUtil.data);
-  visualisationStore.columns.set(dataUtil.columns);
-  visualisationStore.styleUtil.set(styleUtil);
-  setContext('store', visualisationStore);
 
   // Set variables for data and highlighting
   const columnInfo: { [key: string]: string } = {

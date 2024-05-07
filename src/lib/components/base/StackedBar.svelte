@@ -1,7 +1,6 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { getContext } from 'svelte';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -9,7 +8,7 @@
 
   // DMVis util import
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import type { VisualisationStore } from '$lib/store.js';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let y: number;
@@ -22,7 +21,7 @@
   export let showTotals: boolean = false;
 
   // Get store info
-  const { columns, marginLeft, styleUtil } = getContext<VisualisationStore>('store');
+  const { columns, marginLeft, styleUtil } = getVisualisationContext();
   // Prepare data for rendering
   const numericalCols = $columns.slice(1);
   const rowData = row.slice(1) as number[];

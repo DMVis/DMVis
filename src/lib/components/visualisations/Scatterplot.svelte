@@ -1,13 +1,12 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { getContext } from 'svelte';
 
   // DMVis imports
-  import { VisualisationStore } from '$lib/store.js';
   import Point from '$lib/components/base/Point.svelte';
   import { ThrowError } from '$lib/utils/ThrowError.js';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let width: number;
@@ -21,7 +20,7 @@
   export let pointOpacity: number = 1;
 
   //Get columns from the store
-  const { columns } = getContext<VisualisationStore>('store');
+  const { columns } = getVisualisationContext();
   /*
     The attributes xAxis and yAxis specify which columns from the data to plot in this scatterplot.
     Therefore it is essential to immediately check if these
@@ -34,7 +33,7 @@
   }
 
   // Get the rest of the data from the store
-  const { yScales, xScales, data } = getContext<VisualisationStore>('store');
+  const { yScales, xScales, data } = getVisualisationContext();
   let xScaleLocal: d3.ScaleLinear<number, number>;
   let yScaleLocal: d3.ScaleLinear<number, number>;
   let xIndex: number;

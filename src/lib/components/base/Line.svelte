@@ -1,14 +1,14 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { getContext, tick } from 'svelte';
+  import { tick } from 'svelte';
 
   // DMVis imports
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { ThrowError } from '$lib/utils/ThrowError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import type { VisualisationStore } from '$lib/store.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Optional attributes
   export let axisOrder: string[] = [];
@@ -35,7 +35,7 @@
 
   // Get store information
   const { yScales, width, marginLeft, marginRight, data, columns, styleUtil } =
-    getContext<VisualisationStore>('store');
+    getVisualisationContext();
 
   // Create a spacer, which is a scaleBand or scalePoint, which will handle the positions for all the axis
   // Non-null assertion because we call the createSpacer function immediately which assigns spacer

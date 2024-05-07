@@ -2,14 +2,14 @@
   // Imports
   import * as d3 from 'd3';
   import { writable } from 'svelte/store';
-  import { setContext, afterUpdate } from 'svelte';
+  import { afterUpdate } from 'svelte';
 
   // DMVis imports
   import BarColumn from '$lib/components/base/BarColumn.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -52,25 +52,24 @@
   const { visualisationData } = dataUtil;
 
   // Set store values
-  const visualisationStore = new VisualisationStore();
+  setVisualisationContext({
+    width,
+    height,
+    data: $visualisationData,
+    columns: dataUtil.columns,
+    styleUtil,
+    marginLeft: marginLeft + columnSpacing / 2,
+    marginRight: marginRight + columnSpacing / 2,
+    marginTop,
+    marginBottom
+  });
 
   // Set reactive store values
   $: {
-    visualisationStore.data.set($visualisationData);
+    updateVisualisationContext({ data: $visualisationData });
     height = calculateHeight($visualisationData.length);
     updateColumns();
   }
-
-  visualisationStore.width.set(width);
-  visualisationStore.height.set(height);
-  visualisationStore.data.set($visualisationData);
-  visualisationStore.marginLeft.set(marginLeft + columnSpacing / 2);
-  visualisationStore.marginRight.set(marginRight + columnSpacing / 2);
-  visualisationStore.marginTop.set(marginTop);
-  visualisationStore.marginBottom.set(marginBottom);
-  visualisationStore.columns.set(dataUtil.columns);
-  visualisationStore.styleUtil.set(styleUtil);
-  setContext('store', visualisationStore);
 
   // Private attributes
   // A column either just has labels or it has pairs of labels and values
@@ -148,7 +147,7 @@
         $visualisationData
       );
       $visualisationData = newData;
-      visualisationStore.data.set(newData);
+      updateVisualisationContext({ data: $visualisationData });
       updateColumns();
 
       // Unhighlight and reset row

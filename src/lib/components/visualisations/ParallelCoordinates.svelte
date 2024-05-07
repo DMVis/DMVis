@@ -1,13 +1,10 @@
 <script lang="ts">
-  // Imports
-  import { setContext } from 'svelte';
-
   // DMVis imports
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -27,23 +24,22 @@
   const { visualisationData } = dataUtil;
 
   // Fill the store
-  const visualisationStore = new VisualisationStore();
+  setVisualisationContext({
+    width,
+    height,
+    data: $visualisationData,
+    columns: dataUtil.columns,
+    styleUtil,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginBottom
+  });
 
   // Set reactive store values
   $: {
-    visualisationStore.data.set($visualisationData);
+    updateVisualisationContext({ data: $visualisationData });
   }
-
-  visualisationStore.width.set(width);
-  visualisationStore.height.set(height);
-  visualisationStore.data.set($visualisationData);
-  visualisationStore.columns.set(dataUtil.columns);
-  visualisationStore.marginLeft.set(marginLeft);
-  visualisationStore.marginRight.set(marginRight);
-  visualisationStore.marginTop.set(marginTop);
-  visualisationStore.marginBottom.set(marginBottom);
-  visualisationStore.styleUtil.set(styleUtil);
-  setContext('store', visualisationStore);
 
   // Calculate height based on number of rows
   // Use the fontsize per row and multiply by 1.5 for padding

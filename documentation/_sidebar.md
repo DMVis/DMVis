@@ -10,9 +10,8 @@
 
 - Visualisations
 
-  - [BarChart](Visualisations/BarChart.md)
+  - [BarChart](visualisations/BarChart.md)
   - [Histogram](visualisations/Histogram.md)
-  - [LineChart](visualisations/LineChart.md)
   - [ParallelCoordinates](visualisations/ParallelCoordinates.md)
   - [Scatterplot](visualisations/Scatterplot.md)
   - [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
@@ -46,6 +45,7 @@
 ---
 
 - Utilities
+  - [Context](utils/context.md)
   - [DataUtils](utils/dataUtils.md)
   - [Origin](utils/origin.md)
   - [Performance](utils/performance.md)

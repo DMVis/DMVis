@@ -1,9 +1,9 @@
 <script lang="ts">
   // Imports
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import type { VisualisationStore } from '$lib/store.js';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let x: number;
@@ -16,7 +16,7 @@
   export let name: string | undefined = undefined;
 
   // Get styles from the store
-  const { styleUtil } = getContext<VisualisationStore>('store');
+  const { styleUtil } = getVisualisationContext();
 
   const dispatch = createEventDispatcher();
 

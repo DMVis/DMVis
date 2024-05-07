@@ -1,12 +1,9 @@
 <script lang="ts">
-  // Imports
-  import { getContext } from 'svelte';
-
   // DMVis imports
+  import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType } from '$lib/Enums.js';
-  import type { VisualisationStore } from '$lib/store.js';
-  import Label from '../base/Label.svelte';
+  import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
   export let x: number;
@@ -28,7 +25,7 @@
   }
 
   // Get store values
-  const { styleUtil } = getContext<VisualisationStore>('store');
+  const { styleUtil } = getVisualisationContext();
 </script>
 
 <!--
