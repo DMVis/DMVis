@@ -108,7 +108,7 @@ TextColumn is a Column component that displays text for each value in the data a
       <Label
         x={x + width / 2}
         y={getY(i)}
-        width={10}
+        width={width - padding}
         height={20}
         {padding}
         hasPointerEvents={true}
