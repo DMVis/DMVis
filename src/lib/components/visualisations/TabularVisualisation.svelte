@@ -87,6 +87,7 @@
   let deltaYLabel: number = 0;
   let draggedRow: string = '';
   let draggedItem: string = '';
+  let startingDraggedY: number = 0;
   // Allows for rows to be dragged
   const dragHandler = d3
     .drag<SVGElement, unknown>()
@@ -104,6 +105,7 @@
         draggedItem = draggedRow.split('-')[1];
       }
       // Store the initial y position of the dragged row
+      startingDraggedY = parseFloat(d3.select(`.bar-${draggedItem}`).attr('y'));
       deltaY = parseFloat(d3.select(`.bar-${draggedItem}`).attr('y')) - event.y;
       deltaYLabel = parseFloat(d3.select(`.label-${draggedItem} > text`).attr('y')) - event.y;
 
@@ -122,16 +124,19 @@
       const labelColumn = d3.select('.bar-column');
       const rows: Array<Element> = labelColumn.selectAll('text').nodes() as Array<Element>;
       const distances = rows.map((row: Element) => {
-        if (row === null || row.innerHTML === draggedItem) {
+        if (row === null) {
           return Infinity;
         }
-
         const rowY: string | undefined = row.attributes?.getNamedItem('y')?.value;
-
-        if (rowY === null) {
+        if (rowY === null || rowY === undefined) {
           return Infinity;
         }
-
+        if (row.innerHTML === draggedItem) {
+          // Dragging less than 10 pixels means draggedItem is closest
+          if (Math.abs(startingDraggedY - y) > 10) {
+            return Infinity;
+          }
+        }
         return Math.abs(parseFloat(rowY as string) - y);
       });
 
