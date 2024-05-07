@@ -193,15 +193,18 @@
   let dragMove: string | null = null;
   let dragMoveX: number = 0;
 
+  // Raise the column when dragging so its displayed over the other ones
   function onDraggingStart(event: CustomEvent) {
     dragMove = event.detail.elementName as string;
-    d3.select(`#${dragMove.replace(/[\s()/]/g, '')}-column`).raise();
+    d3.select(`.lineUp > #${dragMove.replace(/[\s()/]/g, '')}-column`).raise();
   }
 
+  // Set the new position of the column when dragging
   function onDragMove(event: CustomEvent) {
     dragMoveX += event.detail.movementX;
   }
 
+  // Update the columns array with the new order
   function onDragStop() {
     if (dragMove === null) {
       return;
