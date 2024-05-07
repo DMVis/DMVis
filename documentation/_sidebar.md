@@ -18,6 +18,7 @@
   - [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
   - [StackedBarChart](visualisations/StackedBarChart.md)
   - [TabularVisualisation](visualisations/TabularVisualisation.md)
+  - [ValueChart](visualisations/ValueChart.md)
 
 ---
 

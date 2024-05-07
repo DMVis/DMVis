@@ -532,155 +532,153 @@ A matrix of scatterplots that can be used to quickly find relations between attr
   <p>Loading visualisation, please wait...</p>
 {:then}
   <svg class="visualisation scatterplotMatrix" {width} {height}>
-    {#key reloadKey}
-      {#key dataUtil || $visualisationData}
-        <!-- Loop over all the attributes on the xAxis -->
-        {#each axisNames as xAxis, i}
-          <!-- Loop over all the attributes on the yAxis -->
-          {#each axisNames as yAxis, j}
-            <!-- If they are not the same, draw a scatterplot
+    {#key reloadKey || $visualisationData}
+      <!-- Loop over all the attributes on the xAxis -->
+      {#each axisNames as xAxis, i}
+        <!-- Loop over all the attributes on the yAxis -->
+        {#each axisNames as yAxis, j}
+          <!-- If they are not the same, draw a scatterplot
             Also check if this scatterplot needs to be drawn if only half of the SM is drawn -->
-            {#if xAxis !== yAxis && (display !== 'top' || j < i) && (display !== 'bottom' || j > i)}
-              <g
-                style="cursor:crosshair"
-                transform="translate({xScale(xAxis)},{yScale(yAxis)})"
-                on:mouseover={() => {
-                  onMouseOver(xAxis, yAxis);
-                }}
-                on:mouseout={() => {
-                  onMouseOut(xAxis, yAxis);
-                }}
-                on:focus={() => {
-                  onMouseOver(xAxis, yAxis);
-                }}
-                on:blur={() => {
-                  onMouseOut(xAxis, yAxis);
-                }}
-                on:mousemove={(event) => {
-                  onMouseMove(event, xAxis, yAxis);
-                }}
-                role="treeitem"
-                aria-selected="false"
-                tabindex={-1}>
-                <Scatterplot
-                  on:mousePointLeave={onMousePointLeave}
-                  on:mousePointEnter={onMousePointEnter}
-                  on:mousePointClick={onMousePointClick}
-                  {xAxis}
-                  {yAxis}
-                  width={xScale.bandwidth()}
-                  height={yScale.bandwidth()}
-                  showAxis={false}
-                  {pointOpacity} />
-                <!--The rect will function as a border around the scatterplot  -->
-                <rect
-                  width={xScale.bandwidth()}
-                  height={yScale.bandwidth()}
-                  x={0}
-                  y={0}
-                  stroke="black"
-                  fill="none"
-                  style="pointer-events: none">
-                </rect>
-              </g>
-              <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
-            {:else if xAxis === yAxis}
-              <g
-                transform="translate({xScale(xAxis)},{yScale(yAxis)})"
-                class="attr-drag {formatClassName(xAxis)}">
-                <Label
-                  x={xScale.bandwidth() / 2}
-                  y={yScale.bandwidth() / 2}
-                  text={xAxis}
-                  hasBackground={true}
-                  name={formatClassName(xAxis) + '-attr'}
-                  width={xScale.bandwidth()}
-                  height={yScale.bandwidth()}
-                  backgroundColor={'white'}
-                  hasPointerEvents={true} />
-              </g>
-            {/if}
-            <!-- End of looping over yAxis -->
-          {/each}
-          <!-- End of looping over xAxis -->
+          {#if xAxis !== yAxis && (display !== 'top' || j < i) && (display !== 'bottom' || j > i)}
+            <g
+              style="cursor:crosshair"
+              transform="translate({xScale(xAxis)},{yScale(yAxis)})"
+              on:mouseover={() => {
+                onMouseOver(xAxis, yAxis);
+              }}
+              on:mouseout={() => {
+                onMouseOut(xAxis, yAxis);
+              }}
+              on:focus={() => {
+                onMouseOver(xAxis, yAxis);
+              }}
+              on:blur={() => {
+                onMouseOut(xAxis, yAxis);
+              }}
+              on:mousemove={(event) => {
+                onMouseMove(event, xAxis, yAxis);
+              }}
+              role="treeitem"
+              aria-selected="false"
+              tabindex={-1}>
+              <Scatterplot
+                on:mousePointLeave={onMousePointLeave}
+                on:mousePointEnter={onMousePointEnter}
+                on:mousePointClick={onMousePointClick}
+                {xAxis}
+                {yAxis}
+                width={xScale.bandwidth()}
+                height={yScale.bandwidth()}
+                showAxis={false}
+                {pointOpacity} />
+              <!--The rect will function as a border around the scatterplot  -->
+              <rect
+                width={xScale.bandwidth()}
+                height={yScale.bandwidth()}
+                x={0}
+                y={0}
+                stroke="black"
+                fill="none"
+                style="pointer-events: none">
+              </rect>
+            </g>
+            <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
+          {:else if xAxis === yAxis}
+            <g
+              transform="translate({xScale(xAxis)},{yScale(yAxis)})"
+              class="attr-drag {formatClassName(xAxis)}">
+              <Label
+                x={xScale.bandwidth() / 2}
+                y={yScale.bandwidth() / 2}
+                text={xAxis}
+                hasBackground={true}
+                name={formatClassName(xAxis) + '-attr'}
+                width={xScale.bandwidth()}
+                height={yScale.bandwidth()}
+                backgroundColor={'white'}
+                hasPointerEvents={true} />
+            </g>
+          {/if}
+          <!-- End of looping over yAxis -->
         {/each}
-        <!-- Draw the lines that go from the mouse coordinates to the appropiate axis, only if necessary -->
-        {#if showMouseLines}
-          <!-- Either draw lines to the top- and right-axis, or draw them to the bottom- and left-axis -->
-          {#if showTopRightLines}
-            <!-- Draw a line to the right axis, and a label displaying the scaled y position of the mouse -->
-            <StaticLine
-              points={[
-                { x: mouseX, y: mouseY },
-                { x: width - marginRight, y: mouseY }
-              ]}
-              opacity={0.5}
-              dashLength="5" />
-            <Tooltip
-              x={width - marginRight - 5}
-              y={Math.round(mouseY) + 10}
-              text={`${Math.round(scaledMouseY)}`}
-              originX={OriginX.Right}
-              originY={OriginY.Top} />
-            <!-- Draw a line to the top axis, and a label displaying the scaled x position of the mouse -->
-            <StaticLine
-              points={[
-                { x: mouseX, y: mouseY },
-                { x: mouseX, y: marginTop }
-              ]}
-              opacity={0.5}
-              dashLength="5" />
-            <Tooltip
-              x={Math.round(mouseX) + 10}
-              y={marginTop + 5}
-              text={`${Math.round(scaledMouseX)}`}
-              originX={OriginX.Left}
-              originY={OriginY.Top} />
-          {/if}
-          {#if showBottomLeftLines}
-            <!-- Draw a line to the left axis, and a label displaying the scaled y position of the mouse -->
-            <StaticLine
-              points={[
-                { x: mouseX, y: mouseY },
-                { x: marginLeft, y: mouseY }
-              ]}
-              opacity={0.5}
-              dashLength="5" />
-            <Tooltip
-              x={marginLeft + 5}
-              y={Math.round(mouseY) + 10}
-              text={`${Math.round(scaledMouseY)}`}
-              originY={OriginY.Top}
-              originX={OriginX.Left} />
-
-            <!-- Draw a line to the bottom axis, and a label displaying the scaled x position of the mouse -->
-            <StaticLine
-              points={[
-                { x: mouseX, y: mouseY },
-                { x: mouseX, y: height - marginBottom }
-              ]}
-              opacity={0.5}
-              dashLength="5" />
-            <Tooltip
-              x={Math.round(mouseX) + 10}
-              y={height - marginBottom}
-              text={`${Math.round(scaledMouseX)}`}
-              originX={OriginX.Left}
-              originY={OriginY.Bottom} />
-          {/if}
-          <!-- End of if-statement about the mouselines-->
-        {/if}
-        <!-- Draw the tooltip if a point is hovered over or clicked -->
-        {#if tooltipData.visible}
+        <!-- End of looping over xAxis -->
+      {/each}
+      <!-- Draw the lines that go from the mouse coordinates to the appropiate axis, only if necessary -->
+      {#if showMouseLines}
+        <!-- Either draw lines to the top- and right-axis, or draw them to the bottom- and left-axis -->
+        {#if showTopRightLines}
+          <!-- Draw a line to the right axis, and a label displaying the scaled y position of the mouse -->
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: width - marginRight, y: mouseY }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
           <Tooltip
-            x={tooltipData.x - 5}
-            y={tooltipData.y - 5}
-            text={tooltipData.text}
-            hasBackground={true}
+            x={width - marginRight - 5}
+            y={Math.round(mouseY) + 10}
+            text={`${Math.round(scaledMouseY)}`}
             originX={OriginX.Right}
+            originY={OriginY.Top} />
+          <!-- Draw a line to the top axis, and a label displaying the scaled x position of the mouse -->
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: mouseX, y: marginTop }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Tooltip
+            x={Math.round(mouseX) + 10}
+            y={marginTop + 5}
+            text={`${Math.round(scaledMouseX)}`}
+            originX={OriginX.Left}
+            originY={OriginY.Top} />
+        {/if}
+        {#if showBottomLeftLines}
+          <!-- Draw a line to the left axis, and a label displaying the scaled y position of the mouse -->
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: marginLeft, y: mouseY }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Tooltip
+            x={marginLeft + 5}
+            y={Math.round(mouseY) + 10}
+            text={`${Math.round(scaledMouseY)}`}
+            originY={OriginY.Top}
+            originX={OriginX.Left} />
+
+          <!-- Draw a line to the bottom axis, and a label displaying the scaled x position of the mouse -->
+          <StaticLine
+            points={[
+              { x: mouseX, y: mouseY },
+              { x: mouseX, y: height - marginBottom }
+            ]}
+            opacity={0.5}
+            dashLength="5" />
+          <Tooltip
+            x={Math.round(mouseX) + 10}
+            y={height - marginBottom}
+            text={`${Math.round(scaledMouseX)}`}
+            originX={OriginX.Left}
             originY={OriginY.Bottom} />
         {/if}
-      {/key}
+        <!-- End of if-statement about the mouselines-->
+      {/if}
+      <!-- Draw the tooltip if a point is hovered over or clicked -->
+      {#if tooltipData.visible}
+        <Tooltip
+          x={tooltipData.x - 5}
+          y={tooltipData.y - 5}
+          text={tooltipData.text}
+          hasBackground={true}
+          originX={OriginX.Right}
+          originY={OriginY.Bottom} />
+      {/if}
       <!-- Draw the axis on all 4 sides of the Scatterplot matrix -->
       <!-- The top and right axis are not needed if only the bottom of the SM is drawn -->
       {#if display !== 'bottom'}

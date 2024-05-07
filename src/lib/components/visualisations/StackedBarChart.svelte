@@ -1,6 +1,7 @@
 <script lang="ts">
   // Imports
-  import { setContext } from 'svelte';
+  import * as d3 from 'd3';
+  import { getContext, setContext } from 'svelte';
 
   // DMVis imports
   import StackedBar from '$lib/components/base/StackedBar.svelte';
@@ -32,6 +33,7 @@
   // Set store values
   const visualisationStore = new VisualisationStore();
 
+  visualisationStore.data.set($visualisationData);
   // Set reactive store values
   $: {
     visualisationStore.data.set($visualisationData);
@@ -51,11 +53,28 @@
 
   setContext('store', visualisationStore);
 
+  const { yScales } = getContext<VisualisationStore>('store');
+
   // Calculate height based on number of rows stackedbarchart
   // Use the fontsize per row and multiply by 1.5 for padding
   function calculateHeight(numRows: number): number {
     return numRows * styleUtil.fontSize * 1.5 + 100;
   }
+  // Yscale is a scaleband that is based on all the row names
+  const yScale = $yScales[0] as d3.ScaleBand<string>;
+  // Maximum value of all the sums, used for scaling all bars properly
+  const maxValue = d3.max(dataUtil.data.map((row) => d3.sum(row.slice(1) as number[])));
+
+  // Function that gets the y value for a given row
+  function getY(rowName: string | number): number {
+    return yScale(rowName as string) as number;
+  }
+
+  // Create a scale to be used for all stacked bars
+  const barXScale = d3
+    .scaleLinear()
+    .domain([0, Number(maxValue)])
+    .range([0, width - marginLeft - marginRight]);
 </script>
 
 <!--
@@ -87,7 +106,15 @@ The y-axis represents the categories of the data.
 
 <svg class="visualisation stackedBarchart" {width} {height}>
   {#key dataUtil || $visualisationData}
-    <StackedBar {opacity} {width} {showTotals} />
+    {#each dataUtil.data as row}
+      <StackedBar
+        {opacity}
+        {showTotals}
+        y={getY(row[0])}
+        {row}
+        xScale={barXScale}
+        barWidth={yScale.bandwidth()} />
+    {/each}
     <DynamicAxis position="left" axisOrder={dataUtil.columns.slice(0, 1)} />
   {/key}
 </svg>

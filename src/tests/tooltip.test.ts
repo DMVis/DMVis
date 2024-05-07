@@ -47,7 +47,6 @@ describe('Attribute test', () => {
 
     // Act
     const [group, text, rect] = createTooltip(config);
-    console.log(document.body.outerHTML);
     // Note that the last class is always auto-generated and can be ignored
     const classes = Array.from(group.classList)
       .slice(0, group.classList.length - 1)
@@ -99,7 +98,6 @@ describe('Attribute test', () => {
 
     // Act
     const [group, rect, text] = createTooltip(config);
-    console.log(document.body.outerHTML);
     // Note that the last class is always auto-generated and can be ignored
     const classes = Array.from(group.classList)
       .slice(0, group.classList.length - 1)
