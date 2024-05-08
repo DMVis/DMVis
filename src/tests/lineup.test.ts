@@ -8,13 +8,13 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
 
-describe('Html test', () => {
-  it('renders a LineUp', () => {
+describe('Html test', async () => {
+  it('renders a LineUp', async () => {
     // Arrange
     const config = {};
 
     // Act
-    const container = generateLineUp(config);
+    const container = await generateLineUp(config);
 
     // Assert
     expect(container).not.toBeNull();
@@ -22,15 +22,64 @@ describe('Html test', () => {
     expect(Number(container.getAttribute('height'))).toBe(105 + 3 * 20); // Column top height + (amount of rows * row height)
     expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns
   });
+
+  it('renders a LineUp with zero rows', async () => {
+    // Arrange
+    const config = {};
+
+    // Act
+    const container = await generateLineUp(config, 'a,b,c');
+
+    // Assert
+    expect(container).not.toBeNull();
+    expect(Number(container.getAttribute('width'))).toBe(150 * (3 + 2)); // Default column width * (amount of columns + rank & select columns)
+    expect(Number(container.getAttribute('height'))).toBe(105); // Column top height
+    expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns
+  });
+
+  it('renders a LineUp with no data', async () => {
+    // Arrange
+    const config = {};
+
+    // Act
+    const container = await generateLineUp(config, '');
+
+    // Assert
+    expect(container).not.toBeNull();
+    expect(Number(container.getAttribute('width'))).toBe(150 * 2); // Default column width * rank & select columns
+    expect(Number(container.getAttribute('height'))).toBe(105); // Column top height
+    expect(container.getElementsByClassName('column').length).toBe(2); // Rank & select columns
+  });
+
+  it('renders a LineUp with custom column width', async () => {
+    // Arrange
+    const config = { columnWidth: 100 };
+
+    // Act
+    const container = await generateLineUp(config);
+
+    // Assert
+    expect(container).not.toBeNull();
+    expect(Number(container.getAttribute('width'))).toBe(config.columnWidth * (3 + 2)); // Custom column width * (amount of columns + rank & select columns)
+    expect(Number(container.getAttribute('height'))).toBe(105 + 3 * 20); // Column top height + (amount of rows * row height)
+    expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns
+  });
 });
 
-function generateLineUp(customConfig: object, customData: string | null = null) {
+async function generateLineUp(customConfig: object, customData: string | null = null) {
   // Prepare data
-  const data = customData
-    ? customData
-    : '[{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]';
+  const data = customData != null ? customData : 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
   const dataUtil = new DataUtils();
-  dataUtil.parseJSON(data);
+
+  if (data === '') {
+    await expect(
+      (async () => {
+        await dataUtil.parseCSV(data);
+      })()
+    ).rejects.toThrowError();
+  } else {
+    dataUtil.parseCSV(data);
+  }
 
   // Setup LineUp component and render it
   const config = { dataUtil, ...customConfig };

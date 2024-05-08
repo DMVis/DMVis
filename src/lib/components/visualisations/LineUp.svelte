@@ -58,7 +58,20 @@
   function setColumnData(data: Array<Array<number | string>>) {
     let newColumnData: { [key: string]: Array<number | string> } = {};
     let newColumnColors: { [key: string]: string } = {};
-    const transposedData = data.map((_, colIndex) => data.map((row) => row[colIndex]));
+
+    // Transpose rows to columns
+    let transposedData = data.reduce(
+      (acc, currentRow) => {
+        currentRow.forEach((value, index) => {
+          if (acc[index] === undefined) {
+            acc[index] = [] as Array<number | string>;
+          }
+          acc[index].push(value);
+        });
+        return acc;
+      },
+      [[]] as Array<Array<number | string>>
+    );
 
     columns.forEach((column, index) => {
       if (column === 'LineUp_Rank') {
@@ -66,7 +79,10 @@
       } else if (column === 'LineUp_Select') {
         newColumnData[column] = [data.length];
       } else {
-        newColumnData[column] = transposedData[index - 2];
+        // Skipping the first two columns, since they are rank and select columns which
+        // do not hold any data from the data array. Defaulting to an empty array if no
+        // values are present for the column.
+        newColumnData[column] = transposedData[index - 2] || [];
       }
       newColumnColors[column] = barColors[index];
     });
