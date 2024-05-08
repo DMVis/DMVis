@@ -200,12 +200,9 @@ export class DataUtils {
     const [removed] = reorderedData.splice(oldIndex, 1);
     reorderedData.splice(newIndex, 0, removed);
 
-    // Set the new data
-    this.data = reorderedData;
     // Set the visualisation data
-    this.visualisationData.set(this.data);
+    this.visualisationData.set(reorderedData);
 
-    this.rawData = [this.columns, ...this.data];
     return reorderedData;
   }
 

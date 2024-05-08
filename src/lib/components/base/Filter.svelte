@@ -172,7 +172,7 @@ Filter is a component that allows users to filter data based on the column value
     right: 0; /* Aligns the right of the element with the viewport */
     width: 200px; /* Set a specific width for the filter component */
     height: 100vh; /* Set the height to take full viewport height */
-    overflow-y: auto; /* Adds scroll to the filter if content exceeds the viewport height */
+    overflow-y: scroll; /* Adds scroll to the filter if content exceeds the viewport height */
     padding: 20px;
     background-color: #f9f9f9; /* Optional background color */
     z-index: 1000; /* Ensures the filter appears above other content */

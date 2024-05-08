@@ -41,6 +41,7 @@
   - [StackedBar](components/stackedbar.md)
   - [StaticLine](components/staticLine.md)
   - [Tooltip](components/tooltip.md)
+  - [Filter](components/filter.md)
 
 ---
 
