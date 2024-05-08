@@ -406,8 +406,8 @@
           : Math.ceil(draggingOffset / spacerHorizontal.step());
       let newIndex = axisIndex + positionsToSwap;
       // Clamp newIndex so it does not go out of bounds in the array
-      if (newIndex < 0 || newIndex > axisOrder.length) {
-        newIndex = newIndex < 0 ? 0 : axisOrder.length;
+      if (newIndex < 0 || newIndex > axisOrder.length - 1) {
+        newIndex = newIndex < 0 ? 0 : axisOrder.length - 1;
       }
       axisOrder.splice(axisIndex, 1)[0];
       axisOrder.splice(newIndex, 0, draggedAxis!);

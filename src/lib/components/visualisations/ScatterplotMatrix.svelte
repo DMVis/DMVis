@@ -6,6 +6,7 @@
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Tooltip from '$lib/components/base/Tooltip.svelte';
+  import Draggable from '$lib/components/base/Draggable.svelte';
   import StaticLine from '$lib/components/base/StaticLine.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
@@ -92,11 +93,9 @@
   let reloadKey = false;
 
   // Drag related variables
-  let dragElementName = '';
-  let dragElement = '';
-  let dragElementX = 0;
-  let dragElementY = 0;
-  let isCurrentlyDragging = false;
+  let draggingLabelOffsetX: number = 0;
+  let draggingLabelOffsetY: number = 0;
+  let draggedAttribute: string | null = null;
 
   const { visualisationData } = dataUtil;
 
@@ -146,7 +145,7 @@
   // This function is called when the mouse is over a scatterplot
   function onMouseOver(xAxis: string, yAxis: string) {
     // If both the xAxis and yAxis have not changed, then there is no need to update anything, so return
-    if ((currentX === xAxis && currentY === yAxis) || isCurrentlyDragging) return;
+    if (currentX === xAxis && currentY === yAxis) return;
     // Update the global variables
     currentX = xAxis;
     currentY = yAxis;
@@ -406,68 +405,8 @@
     return res;
   }
 
-  // This fires everytime something is dragged
-  const dragHandler = d3
-    .drag()
-    .on('start', function (event) {
-      // Get the class name of the dragged element
-      dragElementName = xScale.domain()[calculateAttributeIndex(xScale, event.x - marginLeft)];
-      dragElement = event.sourceEvent.srcElement.parentNode.className.baseVal.split('-')[1];
-      // If the dragged element is a text element, change the dragElement variable
-      if (
-        axisNames
-          .map((k) => {
-            return formatClassName(k);
-          })
-          .indexOf(dragElement) === -1
-      ) {
-        dragElement = formatClassName(dragElementName);
-      }
-      //Get the position of the element
-      dragElementX = xScale(dragElementName) ?? 0;
-      dragElementY = yScale(dragElementName) ?? 0;
-      isCurrentlyDragging = true;
-    })
-    .on('drag', function (event) {
-      // Move the label and text
-      d3.selectAll(`.label-${dragElement}-attr > text > tspan`)
-        .attr('x', event.x - dragElementX)
-        .attr('y', event.y - dragElementY);
-      d3.select(`.label-${dragElement}-attr > rect`)
-        .attr('x', event.x - xScale.bandwidth() / 2 - dragElementX)
-        .attr('y', event.y - yScale.bandwidth() / 2 - dragElementY);
-      d3.selectAll(`.attr-drag.${dragElement}`).raise();
-    })
-    .on('end', function (event) {
-      // Calculate the new position of the label
-      const newPos = xScale.domain()[calculateAttributeIndex(xScale, event.x - marginLeft)];
-      let oldIndex = axisNames.indexOf(dragElementName);
-      let newIndex = axisNames.indexOf(newPos);
-
-      // If the end location is a valid one, change the axisnames
-      if (oldIndex !== newIndex && oldIndex !== -1 && newIndex !== -1) {
-        const temp = axisNames[oldIndex];
-        axisNames[oldIndex] = axisNames[newIndex];
-        axisNames[newIndex] = temp;
-      }
-      // Switch the scales
-      xScale.domain(axisNames);
-      yScale.domain(axisNames);
-      axisNames = [...axisNames];
-      // Update all the global variabes and update the scatterplot
-      reloadKey = !reloadKey;
-      isCurrentlyDragging = false;
-      selectionMatrix = JSON.parse(
-        JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
-      );
-      rangePerAttribute = Array(axisNames.length).fill(null);
-
-      tooltipData.visible = false;
-    });
-
   afterUpdate(() => {
-    // After each update, reapply the brush and drag event
-    dragHandler(d3.selectAll('.attr-drag'));
+    // After each update, reapply the brush
     d3.selectAll<SVGGElement, unknown>('.brush').call(
       d3
         .brush()
@@ -495,8 +434,6 @@
         .on('brush end', brushing)
         .on('start', brushStart)
     );
-    // Add the drag to all the labels
-    dragHandler(d3.selectAll('.attr-drag'));
 
     // Create an empty selectionMatrix, filled with all null values
     selectionMatrix = JSON.parse(
@@ -508,6 +445,61 @@
     //The first column name is `label`, this is not relevant
     axisNames = dataUtil.columns.slice(1);
   });
+
+  // Function that handles updating the position of the axis that is being dragged
+  function onDragMove(e: CustomEvent) {
+    let elementName = e.detail.elementName;
+    let movementX = e.detail.movementX;
+    let movementY = e.detail.movementY;
+    draggedAttribute = elementName;
+    draggingLabelOffsetX += movementX;
+    draggingLabelOffsetY += movementY;
+  }
+
+  // Reset local dragging variables when we stop dragging
+  function onDragStop() {
+    swapLabels();
+    draggedAttribute = null;
+    draggingLabelOffsetX = 0;
+    draggingLabelOffsetY = 0;
+  }
+
+  // Raise the label when we start dragging
+  function onDragStart(e: CustomEvent) {
+    d3.selectAll(`.${formatClassName(e.detail.elementName)}`).raise();
+  }
+
+  // After dragging, find which label the dragged label should be swapped with and swap them
+  function swapLabels() {
+    // Enforced type because it will always exist
+    const axisIndex = axisNames.indexOf(draggedAttribute as string);
+    let newIndex =
+      draggingLabelOffsetX > 0
+        ? Math.floor((draggingLabelOffsetX + xScale.bandwidth() / 2) / xScale.step())
+        : Math.ceil((draggingLabelOffsetX - xScale.bandwidth() / 2) / xScale.step());
+    newIndex = axisIndex + newIndex;
+    // Clamp newIndex so it does not go out of bounds in the array
+    if (newIndex < 0 || newIndex > axisNames.length - 1) {
+      newIndex = newIndex < 0 ? 0 : axisNames.length - 1;
+    }
+    if (axisNames[newIndex] === draggedAttribute) return;
+    axisNames.splice(axisNames.indexOf(draggedAttribute as string), 1);
+    axisNames.splice(newIndex, 0, draggedAttribute!);
+    resetScatterplotMatrix();
+  }
+  function resetScatterplotMatrix() {
+    xScale.domain(axisNames);
+    yScale.domain(axisNames);
+    axisNames = [...axisNames];
+    // Update all the global variabes and update the scatterplot
+    reloadKey = !reloadKey;
+    selectionMatrix = JSON.parse(
+      JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
+    );
+    rangePerAttribute = Array(axisNames.length).fill(null);
+
+    tooltipData.visible = false;
+  }
 </script>
 
 <!--
@@ -592,17 +584,25 @@ A matrix of scatterplots that can be used to quickly find relations between attr
           {:else if xAxis === yAxis}
             <g
               transform="translate({xScale(xAxis)},{yScale(yAxis)})"
-              class="attr-drag {formatClassName(xAxis)}">
-              <Label
-                x={xScale.bandwidth() / 2}
-                y={yScale.bandwidth() / 2}
-                text={xAxis}
-                hasBackground={true}
-                name={formatClassName(xAxis) + '-attr'}
-                width={xScale.bandwidth()}
-                height={yScale.bandwidth()}
-                backgroundColor={'white'}
-                hasPointerEvents={true} />
+              class={formatClassName(xAxis)}>
+              <Draggable
+                offsetX={xAxis === draggedAttribute ? draggingLabelOffsetX : 0}
+                offsetY={xAxis === draggedAttribute ? draggingLabelOffsetY : 0}
+                elementName={xAxis}
+                on:dragStart={onDragStart}
+                on:dragMove={onDragMove}
+                on:dragStop={onDragStop}>
+                <Label
+                  x={xScale.bandwidth() / 2}
+                  y={yScale.bandwidth() / 2}
+                  text={xAxis}
+                  hasBackground={true}
+                  name={formatClassName(xAxis) + '-attr'}
+                  width={xScale.bandwidth()}
+                  height={yScale.bandwidth()}
+                  backgroundColor={'white'}
+                  hasPointerEvents={true} />
+              </Draggable>
             </g>
           {/if}
           <!-- End of looping over yAxis -->
