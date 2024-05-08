@@ -15,10 +15,10 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
+  export let styleUtil: StyleUtils = new StyleUtils();
   export let columnWidth: number = 150;
   export let width: number = calculateWidth(dataUtil.columns.length);
   export let height: number = calculateHeight(dataUtil.data.length);
-  export let styleUtil: StyleUtils = new StyleUtils();
   export let padding: number = 10;
 
   const { visualisationData } = dataUtil;
@@ -251,10 +251,10 @@ displays different types of columns such as text, bar, and rank columns. This is
 * dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed.
 
 #### Optional attributes
-* columnWidth: number                  - The width of each column. The default value is 150.
-* width: number                        - The width of the visualisation. The default value is calculated based on the number of columns and the column width.
-* height: number                       - The height of the visualisation. The default value is calculated based on the number of rows and the font size.
 * styleUtil: StyleUtils                - The `StyleUtils` class contains all the styling information. The default value is a new instance of `StyleUtils`.
+* columnWidth: number                  - The width of each column. The default value is 150.
+* width: number                        - The width of the visualisation. The default value is calculated based on the number of columns and `columnWidth`.
+* height: number                       - The height of the visualisation. The default value is calculated based on the number of rows and the row height.
 * padding: number                      - The padding between columns. The default value is 10.
 -->
 
