@@ -48,11 +48,13 @@
   });
 
   const { yScales } = getVisualisationContext();
+  let yScale = $yScales[0] as d3.ScaleBand<string>;
 
   // Set reactive store values
   $: {
     height = calculateHeight($visualisationData.length);
     updateVisualisationContext({ data: $visualisationData, height });
+    yScale = $yScales[0] as d3.ScaleBand<string>;
   }
 
   // Calculate height based on number of rows stackedbarchart
@@ -60,10 +62,9 @@
   function calculateHeight(numRows: number): number {
     return numRows * styleUtil.fontSize * 1.5 + 100;
   }
-  // Yscale is a scaleband that is based on all the row names
-  const yScale = $yScales[0] as d3.ScaleBand<string>;
+
   // Maximum value of all the sums, used for scaling all bars properly
-  const maxValue = d3.max(dataUtil.data.map((row) => d3.sum(row.slice(1) as number[])));
+  const maxValue = d3.max($visualisationData.map((row) => d3.sum(row.slice(1) as number[])));
 
   // Function that gets the y value for a given row
   function getY(rowName: string | number): number {
@@ -106,7 +107,7 @@ The y-axis represents the categories of the data.
 
 <svg class="visualisation stackedBarchart" {width} {height}>
   {#key dataUtil || $visualisationData}
-    {#each dataUtil.data as row}
+    {#each $visualisationData as row}
       <StackedBar
         {opacity}
         {showTotals}
