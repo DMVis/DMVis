@@ -47,7 +47,18 @@
   };
   let columns = ['LineUp_Rank', 'LineUp_Select', ...dataUtil.columns];
   let highlightRow: number = -1;
+
+  // Booleans to track whether a special key is being held for selection
   let shift: boolean = false;
+  let ctrl: boolean = false;
+  function setCurrentKey(event: KeyboardEvent) {
+    // Only checking Shift and Control for multi-select
+    if (event.key === 'Shift') {
+      shift = event.type === 'keydown';
+    } else if (event.key === 'Control') {
+      ctrl = event.type === 'keydown';
+    }
+  }
 
   // Create the data and colors for each column
   const barColors = styleUtil.generateColors('Dark2', columns.length);
@@ -104,7 +115,17 @@
   }
 
   // Handle events
-  let selectRows: Set<number> = new Set();
+  let selectedRows: Set<number> = new Set();
+  function selectRows(event: CustomEvent) {
+    if (shift) {
+      shiftselectedRows(event);
+    } else if (ctrl) {
+      selectRow(event, false);
+    } else {
+      selectRow(event);
+    }
+  }
+
   function selectRow(event: CustomEvent, single: boolean = true) {
     // Get the row that was clicked, if it is a valid row
     const row = Number(event.detail.row);
@@ -115,35 +136,35 @@
     // Add selected row to the set, based on normal of shift click
     if (single) {
       // With a normal click, only select one row, deselect others
-      selectRows.forEach((deselect) => {
+      selectedRows.forEach((deselect) => {
         const checkbox = document.getElementById(`select-${deselect}`) as HTMLInputElement;
         checkbox.checked = false;
       });
 
       // If the row was already selected, deselect it
-      if (!selectRows.has(row)) {
-        selectRows = new Set([row]);
+      if (!selectedRows.has(row)) {
+        selectedRows = new Set([row]);
       } else {
-        selectRows = new Set();
+        selectedRows = new Set();
       }
     } else {
       // With a shift click, we want to be able to have more than one row selected
-      if (event.detail.checked || !selectRows.has(row)) {
-        selectRows.add(row);
+      if (event.detail.checked || !selectedRows.has(row)) {
+        selectedRows.add(row);
       } else {
-        selectRows.delete(row);
+        selectedRows.delete(row);
       }
     }
 
     // Update the selected rows
-    selectRows = selectRows;
+    selectedRows = selectedRows;
 
-    // Set the column checkbox based on selectRows state
+    // Set the column checkbox based on selectedRows state
     const allCheckbox = document.getElementById('column-select-all') as HTMLInputElement;
-    if (selectRows.size === dataUtil.data.length) {
+    if (selectedRows.size === dataUtil.data.length) {
       allCheckbox.indeterminate = false;
       allCheckbox.checked = true;
-    } else if (selectRows.size === 0) {
+    } else if (selectedRows.size === 0) {
       allCheckbox.indeterminate = false;
       allCheckbox.checked = false;
     } else {
@@ -152,22 +173,25 @@
     }
   }
 
-  function shiftSelectRows(event: CustomEvent) {
+  function shiftselectedRows(event: CustomEvent) {
     // Get the row ranges that need to be selected
     const row = Number(event.detail.row);
-    const rowArray = Array.from(selectRows);
+    const rowArray = Array.from(selectedRows);
     const min = Math.min(...rowArray);
     const max = Math.max(...rowArray);
+
+    // Reset the selected rows
+    selectedRows = new Set();
 
     // Select the rows based on the range
     if (min === -Infinity || max === Infinity || min === Infinity || max === -Infinity) {
       selectRow(event);
     } else if (row < min) {
-      for (let i = row; i < min; i++) {
+      for (let i = row; i <= min; i++) {
         selectRow({ detail: { row: i } } as CustomEvent, false);
       }
     } else if (row > max) {
-      for (let i = max + 1; i <= row; i++) {
+      for (let i = max; i <= row; i++) {
         selectRow({ detail: { row: i } } as CustomEvent, false);
       }
     } else {
@@ -179,9 +203,9 @@
 
   function selectAll(event: CustomEvent) {
     if (event.detail.checked) {
-      selectRows = new Set([...Array(dataUtil.data.length).keys()]);
+      selectedRows = new Set([...Array(dataUtil.data.length).keys()]);
     } else {
-      selectRows = new Set();
+      selectedRows = new Set();
     }
   }
 
@@ -264,16 +288,8 @@ displays different types of columns such as text, bar, and rank columns. This is
   {height}
   role="cell"
   tabindex="-1"
-  on:keydown={(e) => {
-    if (e.key === 'Shift') {
-      shift = true;
-    }
-  }}
-  on:keyup={(e) => {
-    if (e.key === 'Shift') {
-      shift = false;
-    }
-  }}>
+  on:keydown={setCurrentKey}
+  on:keyup={setCurrentKey}>
   {#key dataUtil || $visualisationData}
     <g class="lineUp-highlights">
       {#if highlightRow >= 0}
@@ -285,7 +301,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           fill={styleUtil.focusColor}
           fill-opacity="10%" />
       {/if}
-      {#each selectRows as row}
+      {#each selectedRows as row}
         <rect
           x={0}
           y={row * 20 + 105}
@@ -308,7 +324,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           on:dragMove={onDragMove}
           on:dragStop={onDragStop}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:mouseRowClick={selectRows}
           on:search={(e) => searchData(e)}
           on:sort={(e) => sortData(e)} />
       {:else if columnInfo[column] === 'rank'}
@@ -322,23 +338,23 @@ displays different types of columns such as text, bar, and rank columns. This is
           on:dragMove={onDragMove}
           on:dragStop={onDragStop}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))} />
+          on:mouseRowClick={selectRows} />
       {:else if columnInfo[column] === 'select'}
         <SelectColumn
           x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
           width={columnWidth}
           {height}
           {padding}
-          selected={selectRows}
+          selected={selectedRows}
           length={Number(columnData[column][0])}
-          on:check={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:check={selectRows}
           on:dragStart={onDraggingStart}
           on:dragMove={onDragMove}
           on:dragStop={onDragStop}
           on:checkAll={(e) => selectAll(e)}
           on:group={(e) => groupData(e)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+          on:mouseRowClick={selectRows}
           on:sort={(e) => sortData(e)} />
       {:else if columnInfo[column] === 'number'}
         {#key column}
@@ -355,7 +371,7 @@ displays different types of columns such as text, bar, and rank columns. This is
             on:dragStop={onDragStop}
             on:filter={(e) => filterData(e)}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
-            on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
+            on:mouseRowClick={selectRows}
             on:sort={(e) => sortData(e)} />
         {/key}
       {/if}
