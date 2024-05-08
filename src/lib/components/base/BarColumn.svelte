@@ -96,9 +96,9 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 * columnSpacing: number          - Spacing between each column.
                                    Adds `columnSpacing / 2` to the left and right of each column.
                                    Defaults to `20`.
-* showColumnLines: boolean       - Whether to show lines at the start and end of each column. Defaults to `false`.
-* barPadding: number             - Value for the distance between each bar in the range [0..1]. Defaults to `0.2`.
-* barColor: string               - Color of each bar. Defaults to `'red'`.
+* showColumnLines: boolean       - Whether to show lines at the start and end of each column. This defaults to `false`.
+* barPadding: number             - Value for the distance between each bar in the range [0..1]. This defaults to `0.2`.
+* barColor: string               - Color of each bar. This defaults to `'red'`.
 * barOpacity: number             - Opacity of each bar as a number in range [0..1] or
                                    a percentage string formatted as '{number}%'.
                                    Defaults to `0.6`.
@@ -108,12 +108,12 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
 * barRadiusY: number             - Vertical corner radius of each bar as a number in range [0..1] or
                                    a percentage string formatted as '{number}%'.
                                    Defaults to `0`.
-* textColor: string              - Color of the text in each bar. Defaults to `'black'`.
-* fontSize: string               - Font size of the text in each bar. Defaults to `'12px'`.
-* fontWeight: string             - Font weight of the text in each bar. Defaults to `'normal'`.
-* fontFamily: string             - Font family of the text in each bar. Defaults to `'Arial'`.
-* headerOffsetY: number          - Vertical offset of the header label. Defaults to `-20`.
-* headerColor: string            - Color of the rectangle behind the header label. Defaults to `'rgb(200,200,200)'`.
+* textColor: string              - Color of the text in each bar. This defaults to `'black'`.
+* fontSize: string               - Font size of the text in each bar. This defaults to `'12px'`.
+* fontWeight: string             - Font weight of the text in each bar. This defaults to `'normal'`.
+* fontFamily: string             - Font family of the text in each bar. This defaults to `'Arial'`.
+* headerOffsetY: number          - Vertical offset of the header label. This defaults to `-20`.
+* headerColor: string            - Color of the rectangle behind the header label. This defaults to `'rgb(200,200,200)'`.
 * headerOpacity: number | string - Opacity of the header label. Defauls to `1`.
 * headerOriginX: OriginX         - Horizontal origin of the header label.
                                    Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
@@ -123,7 +123,7 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
                                    Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
                                    Which value is useful depends on your positioning logic.
                                    Defaults to `OriginY.Bottom`.
-* headerRotationDegrees: number  - Rotation of the header label in degrees. Defaults to `0`.
+* headerRotationDegrees: number  - Rotation of the header label in degrees. This defaults to `0`.
 * headerRadiusX: number | string - Horizontal corner radius of the header label as
                                    a number in range [0..1] or
                                    a percentage string formatted as '{number}%'.
@@ -132,12 +132,12 @@ necessary to adjust `marginTop` depending on its positioning in an SVG element.
                                    a number in range [0..1] or
                                    a percentage string formatted as '{number}%'.
                                    Defaults to `5`.
-* headerPadding: number          - Padding around the text in the header label. Defaults to `5`.
-* headerTextColor: string        - Color of the text in the header label. Defaults to `'black'`.
-* headerFontSize: string         - Font size of the text in the header label. Defaults to `'14px'`.
-* headerFontWeight: string       - Font weight of the text in the header label. Defaults to `'normal'`.
-* headerFontFamily: string       - Font family of the text in the header label. Defaults to `'Arial'`.
-* hasHeaderBackground: boolean   - Whether the header label has a background. Defaults to `true`.
+* headerPadding: number          - Padding around the text in the header label. This defaults to `5`.
+* headerTextColor: string        - Color of the text in the header label. This defaults to `'black'`.
+* headerFontSize: string         - Font size of the text in the header label. This defaults to `'14px'`.
+* headerFontWeight: string       - Font weight of the text in the header label. This defaults to `'normal'`.
+* headerFontFamily: string       - Font family of the text in the header label. This defaults to `'Arial'`.
+* hasHeaderBackground: boolean   - Whether the header label has a background. This defaults to `true`.
 -->
 <g {width} {height} class="bar-column">
   <!-- Loop over all rows -->

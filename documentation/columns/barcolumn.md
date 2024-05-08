@@ -26,7 +26,7 @@ Height of the column.
 
 - Type: `number[]`
 
-Data to be displayed as bars in the column.
+Data that is to be displayed as bars in the column.
 
 ## Optional Attributes
 

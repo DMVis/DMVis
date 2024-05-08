@@ -71,14 +71,14 @@
       }
 
       // Sort the data
-      dispatch('sortData', { column, sorting });
+      dispatch('sort=', { column, sorting });
     } else if (option === 'search') {
       dispatch('search', { column });
     } else if (option === 'filter') {
       dispatch('filter', { column });
     } else if (option === 'group') {
       group = !group;
-      dispatch('groupData', { column, group });
+      dispatch('group=', { column, group });
     } else if (option === 'more') {
       showMore = !showMore;
     } else if (option === 'item') {
@@ -127,15 +127,23 @@ Columns are required for visualisations such as Tabular Visualisation and LineUp
 Each columns contains a top part with information about the column and a bottom part with the actual data.
 
 #### Required attributes
-  * x: number             - Scaled x-coordinate of the column, which is the starting point of the column
-  * width: number         - Width of the column
-  * height: number        - Height of the column
-  * type: ColumnType      - Type of the column. See the ColumnType enum for more information.
+* x: number             - Scaled x-coordinate of the column, which is the starting point of the column
+* width: number         - Width of the column
+* height: number        - Height of the column
+* type: ColumnType      - Type of the column. See the ColumnType enum for more information.
 
 #### Optional attributes
-  * y: number             - Scaled y-coordinate of the column. Default is `100`.
-  * name: string          - Name of the column. Set this to the name of the attribute. Default is 'Column'.
-  * padding: number       - Padding of the column. Default is 10.
+* y: number             - Scaled y-coordinate of the column. The default is `100`.
+* name: string          - Name of the column. Set this to the name of the attribute. The default is 'Column'.
+* padding: number       - Padding of the column. The default is 10.
+
+#### Slots
+* data                  - Slot for the data of the column.
+* overview              - Slot for the overview at the top of the column.
+* overlay               - Slot for the menu overlay at the top of the column. Only required if an overview is specified.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <g class="column" id={`${name.replace(/[\s()/]/g, '')}-column`} role="tablist" tabindex={-1}>

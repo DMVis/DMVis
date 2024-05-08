@@ -232,14 +232,14 @@ LineUp is a visualisation that displays multiple columns of data in a tabular fo
 displays different types of columns such as text, bar, and rank columns. This is based on the type of the supplied data.
 
 #### Required attributes
-* dataUtil: DataUtils                 - The `DataUtils` class which, contains all the data to be displayed.
+* dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed.
 
 #### Optional attributes
-* columnWidth: number                  - The width of each column. Default value is 150.
-* width: number                        - The width of the visualisation. Default value is calculated based on the number of columns and the column width.
-* height: number                       - The height of the visualisation. Default value is calculated based on the number of rows and the font size.
-* styleUtil: StyleUtils                - The `StyleUtils` class which, contains all the styling information. Default value is a new instance of `StyleUtils`.
-* padding: number                      - The padding between columns. Default value is 10.
+* columnWidth: number                  - The width of each column. The default value is 150.
+* width: number                        - The width of the visualisation. The default value is calculated based on the number of columns and the column width.
+* height: number                       - The height of the visualisation. The default value is calculated based on the number of rows and the font size.
+* styleUtil: StyleUtils                - The `StyleUtils` class contains all the styling information. The default value is a new instance of `StyleUtils`.
+* padding: number                      - The padding between columns. The default value is 10.
 -->
 
 <svg
@@ -293,8 +293,8 @@ displays different types of columns such as text, bar, and rank columns. This is
           on:dragStop={onDragStop}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-          on:searchData={(e) => searchData(e)}
-          on:sortData={(e) => sortData(e)} />
+          on:search={(e) => searchData(e)}
+          on:sort={(e) => sortData(e)} />
       {:else if columnInfo[column] === 'rank'}
         <RankColumn
           x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
@@ -319,8 +319,8 @@ displays different types of columns such as text, bar, and rank columns. This is
           on:dragStart={onDraggingStart}
           on:dragMove={onDragMove}
           on:dragStop={onDragStop}
-          on:toggleAll={(e) => selectAll(e)}
-          on:groupData={(e) => groupData(e)}
+          on:checkAll={(e) => selectAll(e)}
+          on:group={(e) => groupData(e)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
           on:sortData={(e) => sortData(e)} />
@@ -337,10 +337,10 @@ displays different types of columns such as text, bar, and rank columns. This is
             on:dragStart={onDraggingStart}
             on:dragMove={onDragMove}
             on:dragStop={onDragStop}
-            on:filterData={(e) => filterData(e)}
+            on:filter={(e) => filterData(e)}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-            on:sortData={(e) => sortData(e)} />
+            on:sort={(e) => sortData(e)} />
         {/key}
       {/if}
     {/each}

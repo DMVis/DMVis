@@ -1,6 +1,6 @@
 # ValueChart
 
-ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision making, depending on how important the user thinks the attribute is. The visualisation exists of two major components; at the top, there are `BarColumn` components (one for each numerical attribute). These same bars are shown at the bottom as well, except for each row entry in the dataset, there is a `SumColumn`.
+ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision-making, depending on how important the user thinks the attribute is. The visualisation exists of two major components; at the top, there are `BarColumn` components (one for each numerical attribute). These same bars are shown at the bottom as well, except for each row entry in the dataset, there is a `SumColumn`.
 Both parts of the visualisation are scrollable, to allow for visualising large datasets in a compact window.
 
 # Required Attributes
@@ -21,7 +21,7 @@ Height of the visualisation.
 
 - Type: `DataUtils`
 
-Class holding all the data, see documentation.
+Class holding all the data. See [DataUtils](utils/dataUtils.md).
 
 # Optional Attributes
 

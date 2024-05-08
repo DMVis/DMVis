@@ -42,7 +42,7 @@ Padding around the column.
 - Type: `string`
 - Default: `'Column'`
 
-Name of the column. Should contain the name of the attribute you're displaying.
+Name of the column. It should contain the name of the attribute you're displaying.
 
 ## Example usage
 

@@ -1,6 +1,6 @@
 # Line component
 
-The line component is used for visualisations that need lines. It produces a line between given points of certain color, size and style. It holds the possibility to highlight these lines by hovering over them.
+The line component is used for visualisations that need lines. It produces a line between the points with a certain colour, size and style. It holds the possibility to highlight these lines by hovering over them.
 
 > Note: This component can handle 2 or multiple points to draw a line through.
 
@@ -44,7 +44,7 @@ Order of the attributes, which determines the placement of points on each line.
 - Type: `string | null`
 - Default: `null`
 
-The name of the axis that is being dragged, used in visualisations that use draggable axes.
+The name of the axis that is being dragged, is used in visualisations that use draggable axes.
 
 ## draggingOffset
 

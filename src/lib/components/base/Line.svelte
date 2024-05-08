@@ -131,22 +131,19 @@ The Line allows you to plot a line between given coordinates.
 The line component will pull data out of the visualisation store, and create a line for each row.
 It is used in combination with other components to create a chart.
 
-#### Required attributes
-  None
-
 #### Optional attributes
-  * alignment: 'start' | 'end' | 'spaced'  - Alignment of the points on the lines.
-                                             If using DynamicAxis, choose the same alignment option.
-                                             Defaults to `'spaced'`.
-  * hoverable: boolean                     - Whether or not the line should be hoverable.
-                                             When set to `true`, the line will become highlighted if the line is hovered, and
-                                             numbers will be displayed on all the points. Defaults to `false`.
-  * lineWidth: string                      - Width of the line. Defaults to `1`.
-  * axisOrder: string[]                    - Order ofthe attributes, determines the placement of points on each line.
-                                             Defaults to `[]`.
-  * draggedAxis: string | null             - The name of the axis that is being dragged, used in visualisations that
-                                             use draggable axes. Defaults to `null`.
-  * draggingOffset: number                 - The offset of the axis that is being dragged. Defaults to `0`.
+* alignment: 'start' | 'end' | 'spaced'  - Alignment of the points on the lines.
+                                           If using DynamicAxis, choose the same alignment option.
+                                           Defaults to `'spaced'`.
+* hoverable: boolean                     - Whether or not the line should be hoverable.
+                                           When set to `true`, the line will become highlighted if the line is hovered, and
+                                           numbers will be displayed on all the points. This defaults to `false`.
+* lineWidth: string                      - Width of the line. This defaults to `1`.
+* axisOrder: string[]                    - Order ofthe attributes, determines the placement of points on each line.
+                                           Defaults to `[]`.
+* draggedAxis: string | null             - The name of the axis that is being dragged, used in visualisations that
+                                           use draggable axes. This defaults to `null`.
+* draggingOffset: number                 - The offset of the axis that is being dragged. This defaults to `0`.
 -->
 
 {#key axisOrder}

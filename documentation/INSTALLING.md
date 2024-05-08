@@ -1,6 +1,6 @@
-# How to use DMVis in your own project
+# How to use DMVis in your project
 
-To use DMVis in your own project, you will first need to setup a new project using the Svelte framework. Once you have a Svelte project set up, you can follow these steps to integrate DMVis components and utilities into your project.
+To use DMVis in your project, you will first need to set up a new project using the Svelte framework. Once you have a Svelte project, you can follow these steps to integrate DMVis components and utilities into your project.
 
 1. Install DMVis as a dependency in your project:
 
@@ -36,4 +36,4 @@ $: load = (async () => {
 
 6. Run your project to see the DMVis component in action.
 
-By following these steps, you can easily integrate DMVis components into your own project and create complex decision matrix visualizations. For more information on using specific components and utilities, refer to the DMVis documentation.
+By following these steps, you can easily integrate DMVis components into your own project and create complex decision matrix visualisations. For more information on using specific components and utilities, refer to the DMVis documentation.

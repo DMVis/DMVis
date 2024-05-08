@@ -36,7 +36,7 @@
   // Dispatch search data
   const dispatch = createEventDispatcher();
   const dispatchSearchData = (event: Event) => {
-    dispatch('searchData', { column: name, search: (event.target as HTMLInputElement).value });
+    dispatch('search', { column: name, search: (event.target as HTMLInputElement).value });
   };
 </script>
 
@@ -46,14 +46,17 @@
 TextColumn is a Column component that displays text for each value in the data array.
 
 #### Required attributes
-  * x - X-coordinate of the column.
-  * width - The width of the column.
-  * height - The height of the column.
-  * data - The data to display as text.
+* x - X-coordinate of the column.
+* width - The width of the column.
+* height - The height of the column.
+* data - The data to display as text.
 
 #### Optional attributes
-  * name - The name of the column. Usually the attribute name.
-  * padding - The padding of the column.
+* name - The name of the column. Usually the attribute name.
+* padding - The padding of the column.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <Column
@@ -66,7 +69,7 @@ TextColumn is a Column component that displays text for each value in the data a
   on:dragStart
   on:dragMove
   on:dragStop
-  on:sortData
+  on:sort
   on:filter={() => {
     showFilter = !showFilter;
     showSearch = false;

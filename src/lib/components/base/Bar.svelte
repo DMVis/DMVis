@@ -84,7 +84,7 @@
 <!--
 @component
 ### Bar
-A bar that can be used for bar visualizations.
+A bar that can be used for bar visualisations.
 Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
 Both positive and negative `height` values are visible
@@ -99,9 +99,9 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * height: number                - Height of the bar.
 
 #### Optional attributes
-* isVertical                    - Whether the bar is vertical bar or horizontal. Defaults to `true`.
+* isVertical                    - Whether the bar is vertical bar or horizontal. This defaults to `true`.
 * color: string                 - Color of the bar.
-* opacity: string               - Opacity of the bar as a number in range [0..1] or
+* opacity: string               - Opacity of the bar as a number in the range [0..1] or
                                   a percentage string formatted as '{number}%'.
                                   Defaults to `1`.
 * originX: OriginX              - Horizontal origin of the bar.
@@ -112,7 +112,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
                                   Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
                                   Which value is useful depends on one's positioning logic.
                                   Defaults to `OriginY.Bottom`.
-* rotationDegrees: number       - Rotation of the bar in degrees. Defaults to `0`.
+* rotationDegrees: number       - Rotation of the bar in degrees. This defaults to `0`.
 * radiusX: number | string      - Horizontal corner radius of the bar as a number
                                   or a percentage string formatted as '{number}%'.
                                   Defaults to `0`.
@@ -123,7 +123,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
                                   Defaults to `false`.
 * hoverText: string             - Text to display in the label when the mouse hovers over the bar.
                                   Defaults to `''`.
-* name: string                  - Class name of the bar. It can be used as an identifier. Defaults to only `bar`.
+* name: string                  - Class name of the bar. It can be used as an identifier. This defaults to only `bar`.
                                   If set, the class names will be `bar` and `bar-name`.
 
 #### Events

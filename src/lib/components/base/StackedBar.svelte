@@ -46,7 +46,7 @@ on top of each other.
 
 #### Required attributes
 * barWidth: number           - The width of the bar.
-* y: number                  - The y position at which to place the stacked bar.
+* y: number                  - The y position to place the stacked bar.
 * row: (string|number)[]     - A single row of the dataUtil, which to plot as a stacked bar.
 * xScale: d3.scaleLinear<number,number> - Scale for all of the bars.
                                             This holds a domain depending on the maximum value, and the range.

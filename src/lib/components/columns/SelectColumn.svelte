@@ -44,7 +44,7 @@
       (checkboxes[i] as HTMLInputElement).checked = selectAll;
     }
 
-    dispatch('toggleAll', { checked: selectAll });
+    dispatch('checkAll', { checked: selectAll });
   };
 </script>
 
@@ -54,14 +54,17 @@
 SelectColumn is a Column component that displays checkboxes for each value in the data array.
 
 #### Required attributes
-  * x - X-coordinate of the column.
-  * width - The width of the column.
-  * height - The height of the column.
-  * length - The number of checkboxes to display.
-  * selected - List of rows which are currently selected
+* x - X-coordinate of the column.
+* width - The width of the column.
+* height - The height of the column.
+* length - The number of checkboxes to display.
+* selected - List of rows which are currently selected
 
 #### Optional attributes
-  * padding - The padding of the column.
+* padding - The padding of the column.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <Column
@@ -74,10 +77,10 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   on:dragStart
   on:dragMove
   on:dragStop
-  on:groupData
+  on:group
   on:mouseHover
   on:mouseRowClick
-  on:sortData>
+  on:sort>
   <g slot="overview">
     <foreignObject x={x + (width - 20) / 2} y="60" width="20px" height="20px">
       <input id="column-select-all" type="checkbox" on:change={(e) => toggleAllRows(e)} />

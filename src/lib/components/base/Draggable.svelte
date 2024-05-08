@@ -37,20 +37,23 @@
 <!--
 @component
 ### Draggable
-Some visualisations require elements that are draggable.
+Some visualisations require draggable elements.
 This wrapper makes it easier to drag components and execute
-  some logic based on where the component is being dragged.
+some logic based on where the component is dragged.
 
 #### Optional Attributes
-  * offsetX: number                     - The horizontal offset that the component within the `Draggable` should have. This
-                                          should be handled by the parent component, because the exact offset (and
-                                          when the offset should be reset) is dependent on the specific visualisation.
-                                          Defaults to `0`.
-  * offsetY: number                     - The vertical offset that the component within the `Draggable` should have.
-                                          Defaults to `0`.
-  * elementName: string                 - The name of the element within the Draggable. This is returned in the dispatched
-                                          events, so the parent component can tell which component is being dragged. Defaults
-                                          to `'default'`.
+* offsetX: number                     - The horizontal offset the component within the `Draggable` should have. This
+                                        should be handled by the parent component because the exact offset (and
+                                        when the offset should be reset) is dependent on the specific visualisation.
+                                        Defaults to `0`.
+* offsetY: number                     - The vertical offset the component within the `Draggable` should have.
+                                        Defaults to `0`.
+* elementName: string                 - The name of the element within the Draggable. This is returned in the dispatched
+                                        events, so the parent component can tell which component is being dragged. Defaults
+                                        to `'default'`.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <g

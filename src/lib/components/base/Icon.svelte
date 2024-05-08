@@ -57,7 +57,10 @@ Out of the box, it supports the following icons:
 * icon: string - Type of icon to display. It can be either one of the supported icons or a custom SVG path
 
 #### Optional attributes
-* color: string - Color of the icon, defaults to #000000
+* color: string - The color of the icon, defaults to #000000
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <svg

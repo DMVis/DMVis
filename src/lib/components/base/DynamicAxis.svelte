@@ -411,7 +411,7 @@
       }
       axisOrder.splice(axisIndex, 1)[0];
       axisOrder.splice(newIndex, 0, draggedAxis!);
-      dispatch('axisOrderChanged', { axisOrder: axisOrder });
+      dispatch('axisOrderChanged', { axisOrder });
     }
   }
 </script>
@@ -424,24 +424,27 @@ It displays tick marks and labels based on provided data.
 You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
 
 #### Optional attributes
-  * axisOrder: string[]                             - The order that the axes should be drawn in. The array should contain strings
-                                                      identical to column names in the dataset. Defaults to `[]`, which draws axes
-                                                      in the order that they appear in the dataset.
-  * alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (i.e. the side of the column where the axis is placed).
-                                                      Defaults to `'start'`.
-  * fontSize: number                                - Font size of the tick labels. Defaults to `12`.
-  * color: string                                   - Color of the axis line. Defaults to `'black'`.
-  * renderLabel: boolean                            - Renders a label next to the axis. Defaults to `false`.
-  * labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. Defaults to `'top'`.
-  * labelOffset: number                             - Distance from the label to the axis. Defaults to `'20'`.
-  * hasTicks: boolean                               - Whether to display tick marks. Defaults to `true`.
-  * offset: number                                  - The offset of the axis from the side of the visualisation. Defaults to `0`.
-  * ticksNumber: number                             - The number of ticks you want displayed on the axes. Defaults to `10`.
-  * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. Defaults to `'bottom'`.
-  * spacingDirection: 'horizontal' | 'vertical'
-                    | 'left' | 'right'              - The direction to space the axes. Defaults to `'horizontal'`.
-  * padding: number                                 - The amount of padding between axes, important for either vertically spaced
-                                                      vertical axes or horizontally spaced horizontal axes. Defaults to `0`.
+* axisOrder: string[]                             - The order in which the axes should be drawn. The array should contain strings
+                                                    identical to column names in the dataset. This defaults to `[]`, which draws axes
+                                                    in the order that they appear in the dataset.
+* alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (i.e. the side of the column where the axis is placed).
+                                                    Defaults to `'start'`.
+* fontSize: number                                - Font size of the tick labels. This defaults to `12`.
+* color: string                                   - Color of the axis line. This defaults to `'black'`.
+* renderLabel: boolean                            - Renders a label next to the axis. This defaults to `false`.
+* labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. This defaults to `'top'`.
+* labelOffset: number                             - Distance from the label to the axis. This defaults to `'20'`.
+* hasTicks: boolean                               - Whether to display tick marks. This defaults to `true`.
+* offset: number                                  - The offset of the axis from the side of the visualisation. This defaults to `0`.
+* ticksNumber: number                             - The number of ticks you want displayed on the axes. This defaults to `10`.
+* position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. This defaults to `'bottom'`.
+* spacingDirection: 'horizontal' | 'vertical'
+                  | 'left' | 'right'              - The direction to space the axes. This defaults to `'horizontal'`.
+* padding: number                                 - The amount of padding between axes, important for either vertically spaced
+                                                    vertical axes or horizontally spaced horizontal axes. This defaults to `0`.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <!-- Loop over all the axis and draw them at their corresponding position -->

@@ -21,12 +21,15 @@
 SeparatorColumn is a Column component that displays lines connecting rows in the data array.
 
 #### Required attributes
-  * x - X-coordinate of the column.
-  * width - The width of the column.
-  * height - The height of the column.
+* x - X-coordinate of the column.
+* width - The width of the column.
+* height - The height of the column.
 
 #### Optional attributes
-  * padding - The padding of the column.
+* padding - The padding of the column.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <Column {type} {x} {height} {width} {padding} name="">

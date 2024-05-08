@@ -23,7 +23,7 @@ Y-coordinate of the label.
 
 - Type: `string`
 
-Text to display in the label.
+Text to display on the label.
 
 ?> Words in the text will be automatically placed on a new line if they take up too much horizontal space depending on `width`.
 
@@ -41,7 +41,7 @@ Color of the rectangle behind the label.
 - Type: `number | string`
 - Default: `1`
 
-Opacity of the text of the label.
+The opacity of the text of the label.
 
 ## originX
 
@@ -73,7 +73,7 @@ Rotation of the label in degrees.
 - Type: `number | string`
 - Default: `0`
 
-Horizontal corner radius of the label as a number in range `[0..1]` or
+Horizontal corner radius of the label as a number in the range `[0..1]` or
 a percentage string formatted as `'{number}%'`.
 
 ## radiusY
@@ -103,7 +103,7 @@ Color of the text in the label.
 - Type: `string`
 - Default: `'12px'`
 
-Font size of the text in the label.
+The font size of the text in the label.
 
 ## fontWeight
 
@@ -131,7 +131,7 @@ Whether the label has a background.
 - Type: `number | string`
 - Defaults: `textOpacity`
 
-Opacity of the background behind the label.
+The opacity of the background behind the label.
 
 ## hasPointerEvents
 
@@ -167,7 +167,7 @@ Height of the rectangle of the label.
 - Type: `string`
 - Default: `'black'`
 
-Color of the border around the background of the label.
+Colour of the border around the background of the label.
 
 > Note: Can be set to `'none'` for no border.
 

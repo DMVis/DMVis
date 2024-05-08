@@ -1,6 +1,6 @@
 # StackedBarChart
 
-The stacked BarChart component is a visual representation of data in a stacked bar chart format. It is used to compare the parts to the whole, and show the relationship of individual items to the total.
+The stacked BarChart component is a visual representation of data in a stacked bar chart format. It is used to compare the parts to the whole and show the relationship of individual items to the total.
 
 # Required attributes
 
@@ -81,7 +81,7 @@ Whether or not to display the sum of all bars at the end as a number.
 - Type: `StyleUtils`
 - Default: `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`
 
-The `StyleUtils` class which contains all the style information for the chart.
+The `StyleUtils` class contains all the style information for the chart.
 
 # Example usage
 

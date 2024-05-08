@@ -105,8 +105,8 @@
 <!--
 @component
 ### ValueChart
-ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision making, depending on how important the user thinks the attribute is.
-The visualisation exists of two major components: namely, a visualisation close to `TabularVisualisation` at the top, and a visualisation similar to `StackedBarChart` at the bottom.
+ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision-making, depending on how important the user thinks the attribute is.
+The visualisation consists of two major components: namely, a visualisation close to `TabularVisualisation` at the top, and a visualisation similar to `StackedBarChart` at the bottom.
 
 ### Required Attributes
 * width: number                               - Width of the visualisation.
@@ -115,11 +115,11 @@ The visualisation exists of two major components: namely, a visualisation close 
 
 ### Optional Attributes
 * styleUtil: StyleUtils                     - Class holding all the styling. See its documentation.
-* marginLeft: number                        - Margin to the left of the visualisation. Defaults to `100`.
-* marginRight: number                       - Margin to the right of the visualisation. Defaults to `40`.
-* marginTop: number                         - Margin to the top of the visualisation. Defaults to `40`.
-* marginBottom: number                      - Margin to the bottom of the visualisation. Defaults to `40`.
-* padding: number                           - Padding between the different visualisations. Defaults to `0.1`.
+* marginLeft: number                        - Margin to the left of the visualisation. This defaults to `100`.
+* marginRight: number                       - Margin to the right of the visualisation. This defaults to `40`.
+* marginTop: number                         - Margin to the top of the visualisation. This defaults to `40`.
+* marginBottom: number                      - Margin to the bottom of the visualisation. This defaults to `40`.
+* padding: number                           - Padding between the different visualisations. This defaults to `0.1`.
 -->
 
 <svg {width} {height} class="valuechart">

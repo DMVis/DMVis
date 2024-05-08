@@ -110,14 +110,14 @@ Value for the distance between each bar in the range [0..1].
 - Type: `string`
 - Default: `'blue'`
 
-Color of each bar.
+Colour of each bar.
 
 ## opacity
 
 - Type: `number | string`
 - Default: `1`
 
-Opacity of each bar as a number in range [0..1] or
+The opacity of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
 ## radiusX

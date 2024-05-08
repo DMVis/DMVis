@@ -1,6 +1,6 @@
 # Origin
 
-To calculate a (new) origin for an element, we have created the `getOrigin` function. This function takes in the dimension of the element, the origin of the element, and the origin of the destination. It returns a number that represents the new origin of the element.
+To calculate a (new) origin for an element, we have created the `getOrigin` function. This function takes in the dimension and origin of the element, and the origin of the destination. It returns a number that represents the new origin.
 
 # Origin enums
 

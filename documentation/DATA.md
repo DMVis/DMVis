@@ -1,6 +1,6 @@
 # What data is supported in DMVis
 
-Once you have installed DMVis after following [this](INSTALLING.md) guide, you can start using it to visualize your data. This guide will inform you about the types of data that DMVis supports and how to add data to your visualisation.
+Once you have installed DMVis after following [this](INSTALLING.md) guide, you can start using it to visualise your data. This guide will inform you about the types of data that DMVis supports and how to add data to your visualisation.
 
 ## Adding data to your visualisation
 
@@ -10,7 +10,7 @@ Below we will explain the different types of data that DMVis supports and how to
 
 ### CSV
 
-To parse a CSV file, you can either use the `parseData` function or the `parseCSV` function. The `parseData` function automatically detects the type of data and calls the appropriate function. We support the following separators for CSV files:
+To parse a CSV file, you can either use the `parseData` function or the `parseCSV` function. The `parseData` function automatically detects the data type and calls the appropriate function. We support the following separators for CSV files:
 
 - Comma (`,`)
 - Tab (`\t`)

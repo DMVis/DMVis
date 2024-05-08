@@ -39,7 +39,7 @@
   // Dispatch filter
   const dispatch = createEventDispatcher();
   const dispatchFilter = () => {
-    dispatch('filterData', { column: name, min: 0, max: 200 });
+    dispatch('filter', { column: name, min: 0, max: 200 });
   };
 </script>
 
@@ -49,15 +49,18 @@
 BarColumn is a Column component that displays bars for each value in the data array.
 
 #### Required attributes
-  * x - X-coordinate of the column.
-  * width - The width of the column.
-  * height - The height of the column.
-  * data - The data to display as bars.
+* x - X-coordinate of the column.
+* width - The width of the column.
+* height - The height of the column.
+* data - The data you want to display as bars.
 
 #### Optional attributes
-  * name - The name of the column. Usually the attribute name.
-  * padding - The padding of the column.
-  * barColor - The color of the bars.
+* name - The name of the column. Usually the attribute name.
+* padding - The padding of the column.
+* barColor - The colour of the bars.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <Column
@@ -73,7 +76,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
   on:mouseRowClick
-  on:sortData>
+  on:sort>
   <g slot="overlay">
     {#if showFilter}
       <rect

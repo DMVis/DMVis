@@ -26,7 +26,7 @@
   const dispatch = createEventDispatcher();
 
   const dispatchFilterData = (event: Event, isMin: boolean) => {
-    dispatch('filterData', {
+    dispatch('filter', {
       column: name,
       value: (event.target as HTMLInputElement).value,
       isMin
@@ -51,14 +51,17 @@
 FilterColumn is a component that displays a filter input for each column.
 
 #### Required attributes
-  * x       - X-coordinate of the column.
-  * width   - The width of the column.
-  * height  - The height of the column.
-  * data    - The data to display as text.
+* x       - X-coordinate of the column.
+* width   - The width of the column.
+* height  - The height of the column.
+* data    - The data to display as text.
 
 #### Optional attributes
-  * name    - The name of the column. Usually the attribute name.
-  * padding - The padding of the column.
+* name    - The name of the column. Usually the attribute name.
+* padding - The padding of the column.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <Column
@@ -69,7 +72,7 @@ FilterColumn is a component that displays a filter input for each column.
   {width}
   {padding}
   {name}
-  on:sortData
+  on:sort
   on:filter={() => {
     showFilter = !showFilter;
     showSearch = false;

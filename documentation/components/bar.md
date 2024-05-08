@@ -1,6 +1,6 @@
 # Bar component
 
-A bar that can be used for bar visualizations.
+A bar that can be used for bar visualisations.
 Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
 Both positive and negative `height` values are visible
@@ -49,14 +49,14 @@ Whether the bar is vertical bar or horizontal.
 - Type: `string`
 - Default: `'red'`
 
-Color of the bar.
+Colour of the bar.
 
 ## opacity
 
 - Type: `number | string`
 - Default: `1`
 
-Opacity of the bar as a number in range [0..1] or
+The opacity of the bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
 ## originX

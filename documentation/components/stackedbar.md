@@ -1,8 +1,8 @@
 # StackedBar
 
-The StackedBar component is a visual representation of a data row. It is used to compare the parts to the whole, and show the relationship of individual items to the total.
+The StackedBar component is a visual representation of a data row. It is used to compare the parts to the whole and show the relationship of individual items to the total.
 
-> Note: This creates a single stacked bar, not the whole stacked barchart
+> Note: This creates a single stacked bar, not the whole stacked bar chart
 
 # Required Attributes
 
@@ -28,7 +28,7 @@ An entire row of the dataUtil. Which will be represented as a stacked bar.
 
 - Type: `d3.ScaleLinear<number, number>`
 
-The scale which is used for all the bars in the stacked bar. This will hold a range and a domain in which to fit the stacked bar.
+The scale is used for all the bars in the stacked bar. This will hold a range and a domain in which to fit the stacked bar.
 
 > Note: If you plot multiple stacked bars below each other, keep this scale the same. Or the comparisons will not mean anything.
 

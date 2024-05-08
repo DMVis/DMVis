@@ -1,6 +1,6 @@
 # StaticLine component
 
-The static line component is meant to be used in charts like a linechart. It produces a line between given points of certain color, size and style.
+The static line component is meant to be used in charts like a line chart. It produces a line between the points with a certain colour, size and style.
 
 > Note: The points passed to the StaticLine component are true coordinates, meaning that they will be plotted at these exact coordinates.
 
@@ -19,7 +19,7 @@ List of points containing an x and y value.
 - Type: `string`
 - Default: `#000`
 
-Color of the line.
+Colour of the line.
 
 ## lineWidth
 
@@ -40,7 +40,7 @@ Length of the strokes of the line. By default, this is a normal line. If set to 
 - Type: `number`
 - Default: `1`
 
-Opacity of the line, where `1` represents a fully opaque line and `0` a fully transparent line.
+The opacity of the line, where `1` represents a fully opaque line and `0` a fully transparent line.
 
 # Example usage
 

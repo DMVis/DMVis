@@ -1,7 +1,7 @@
 # Tooltip component
 
 A tooltip is typically used to quickly display a small amount of information to the user.
-It can, for example, be used to display the name of a point when hovering over it by mouse.
+It can, for example, be used to display the name of a point when hovering over it with a mouse.
 
 # Required Attributes
 
@@ -38,7 +38,7 @@ Whether or not to display a background behind the tooltip text.
 - Default: `'light'`
 - Options: `'light'`, `'dark'`
 
-Theme of the tooltip, which controls both the background-color and the text-color.
+The theme of the tooltip. This controls both the `background-color` and the `text-color`.
 Options are: light (black text on white background) and dark (white text on black background).
 See below what the options look like.
 

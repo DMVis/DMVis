@@ -38,7 +38,7 @@ Name of the icon to display. This can be either one of the supported icons (see 
 - Type: `string`
 - Default: `#000000`
 
-Color of the icon.
+Colour of the icon.
 
 ## Example usage
 

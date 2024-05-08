@@ -141,8 +141,8 @@ Filter is a component that allows users to filter data based on the column value
 * dataUtil: DataUtils    - Class holding all the data, see documentation.
 
 #### Optional attributes
-* columnHeight: number   - Height per column filter. Defaults to `100`.
-* width: number          - Width of the filter. Defaults to `150`.
+* columnHeight: number   - Height per column filter. This defaults to `100`.
+* width: number          - Width of the filter. This defaults to `150`.
 -->
 
 <!-- Drawn in reverse order so the overlays will be on top -->
@@ -160,8 +160,8 @@ Filter is a component that allows users to filter data based on the column value
         showFilter = !showFilter;
         showSearch = false;
       }}
-      on:filterData={handleFilterData}
-      on:sortData={handleSort} />
+      on:filter={handleFilterData}
+      on:sort={handleSort} />
   {/each}
 </svg>
 

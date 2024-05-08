@@ -25,7 +25,7 @@ Scaled y-coordinate of the point.
 - Type: `number`
 - Default: `5`
 
-Radius of circle that represents the point.
+The radius of the circle that represents the point.
 
 ## borderWidth
 
@@ -41,14 +41,14 @@ Width of the border around the point.
 - Type: `number`
 - Default: `1`
 
-Opacity of the point, where 0 represents a completely transparent point and 1 respresents a completely opaque point.
+The opacity of the point, where 0 represents a completely transparent point and 1 represents a completely opaque point.
 
 ## name
 
 - Type: `string`
 - Default: `'point'`
 
-Class name of the point. It can be used as an identifier. Defaults to only `'point'`. If set, the class names will be `'point'` and `'point-name'`.
+The class name of the point. It can be used as an identifier. It defaults to only `'point'`. If set, the class names will be `'point'` and `'point-name'`.
 
 # Event dispatches
 
@@ -64,13 +64,13 @@ Event that fires when the mouse enters the point. The name attribute represents 
 
 - Event type: `{ name: string, x: number, y: number }`
 
-Event that fires when the mouse leaves the point. The name attribute represents the classname of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
+Event that fires when the mouse leaves the point. The name attribute represents the class name of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
 
 ## mousePointClick
 
 - Event type: `{ name: string }`
 
-Event that fires when the point is clicked. The name attribute represents the classname of the point.
+Event that fires when the point is clicked. The name attribute represents the class name of the one clicked.
 
 # Example usage
 

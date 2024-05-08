@@ -288,57 +288,57 @@ Since a header label is added on top of each column, it might be necessary
 to adjust `marginTop` or `columnMarginTop`.
 
 #### Required attributes
-* dataUtil: DataUtils                 - The `DataUtils` class which, contains all the data to be displayed.
+* dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed.
 
 #### Optional attributes
-* styleUtil: StyleUtils               - The `StyleUtils` class which, contains all the styling for the visualisation.
-* width: number                       - Width of the visualisation. Defaults to `numberOfColumns * 175`.
-* height: number                      - Height of the visualisation. Defaults to `numberOfRows * 15`.
-* marginLeft: number                  - Margin to the left of the visualisation. Defaults to `30`.
-* marginRight: number                 - Margin to the right of the visualisation. Defaults to `30`.
-* marginTop: number                   - Margin to the top of the visualisation. Defaults to `50`.
-* marginBottom: number                - Margin to the bottom of the visualisation. Defaults to `30`.
+* styleUtil: StyleUtils               - The `StyleUtils` class contains all the styling for the visualisation.
+* width: number                       - Width of the visualisation. This defaults to `numberOfColumns * 175`.
+* height: number                      - Height of the visualisation. This defaults to `numberOfRows * 15`.
+* marginLeft: number                  - Margin to the left of the visualisation. This defaults to `30`.
+* marginRight: number                 - Margin to the right of the visualisation. This defaults to `30`.
+* marginTop: number                   - Margin to the top of the visualisation. This defaults to `50`.
+* marginBottom: number                - Margin to the bottom of the visualisation. This defaults to `30`.
 * columnSpacing: number               - Spacing between each column. Adds `columnSpacing / 2` to the left and right of each column.
-                                        Defaults to `20`.
-* showColumnLines: boolean            - Whether to show lines at the start and end of each column. Defaults to `false`.
+                                        This defaults to `20`.
+* showColumnLines: boolean            - Whether to show lines at the start and end of each column. This defaults to `false`.
 * barPadding: number                  - Value for the distance between each bar in each column in the range [0..1].
-                                        Defaults to `0.15`.
-* barColor: string                    - Color of each bar in each column. Defaults to `'red'`.
-* barOpacity: number | string         - Opacity of each bar as a number in range [0..1] or
+                                        This defaults to `0.15`.
+* barColor: string                    - Color of each bar in each column. This defaults to `'red'`.
+* barOpacity: number | string         - Opacity of each bar as a number in the range [0..1] or
                                         a percentage string formatted as '{number}%'. A value
                                         lower than one is recommended for visible bar highlighting.
-                                        Defaults to `0.6`.
+                                        This defaults to `0.6`.
 * barRadiusX: number                  - Horizontal corner radius of each bar in each column as a number
                                         or a percentage string formatted as '{number}%'.
-                                        Defaults to `0`.
+                                        This defaults to `0`.
 * barRadiusY: number                  - Vertical corner radius of each bar in each column as a number
                                         or a percentage string formatted as '{number}%'.
-                                        Defaults to `0`.
-* textColor: string                   - Color of the text in each bar in each column. Defaults to `'black'`.
-* fontSize: string                    - Font size of the text in each bar in each column. Defaults to `'12px'`.
-* fontWeight: string                  - Font weight of the text in each bar in each column. Defaults to `'normal'`.
-* fontFamily: string                  - Font family of the text in each bar in each column. Defaults to `'Arial'`.
+                                        This defaults to `0`.
+* textColor: string                   - Color of the text in each bar in each column. This defaults to `'black'`.
+* fontSize: string                    - Font size of the text in each bar in each column. This defaults to `'12px'`.
+* fontWeight: string                  - Font weight of the text in each bar in each column. This defaults to `'normal'`.
+* fontFamily: string                  - Font family of the text in each bar in each column. This defaults to `'Arial'`.
 * headerColor: string                 - Color of the rectangle behind the header label in each column.
-                                        Defaults to `'rgb(200,200,200)'`.
-* headerOpacity: number | string      - Opacity of the header label in each column. Defaults to `1`.
+                                        This defaults to `'rgb(200,200,200)'`.
+* headerOpacity: number | string      - Opacity of the header label in each column. This defaults to `1`.
 * headerRadiusX: number | string      - Horizontal corner radius of the header label in each column as a number
                                         or a percentage string formatted as '{number}%'.
-                                        Defaults to `5`.
+                                        This defaults to `5`.
 * headerRadiusY: number | string      - Vertical corner radius of the header label in each column as a number or
                                         a percentage string formatted as '{number}%'.
-                                        Defaults to `5`.
+                                        This defaults to `5`.
 * headerPadding: number               - Padding around the text in the header label in each column.
-                                        Defaults to `5`.
+                                        This defaults to `5`.
 * headerTextColor: string             - Color of the text in the header label in each column.
-                                        Defaults to `'black'`.
+                                        This defaults to `'black'`.
 * headerFontSize: string              - Font size of the text in the header label in each column.
-                                        Defaults to `'12px'`.
+                                        This defaults to `'12px'`.
 * headerFontWeight: string            - Font weight of the text in the header label in each column.
-                                        Defaults to `'normal'`.
+                                        This defaults to `'normal'`.
 * headerFontFamily: string            - Font family of the text in the header label in each column.
-                                        Defaults to `'Arial'`.
+                                        This defaults to `'Arial'`.
 * hasHeaderBackground: boolean        - Whether the header label in each column has a background.
-                                        Defaults to `false`.
+                                        This defaults to `false`.
 -->
 
 <svg class="visualisation tabularVisualisation" {width} {height}>

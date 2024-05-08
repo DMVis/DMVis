@@ -25,7 +25,7 @@ We follow a specific code style in this project to maintain consistency. Please 
 
 ## Reporting Issues
 
-If you encounter any bugs, issues, or have suggestions for improvements, please open an issue on the [issue tracker](#). Provide as much detail as possible, including steps to reproduce the issue and any relevant code snippets.
+If you encounter any bugs, issues, or have suggestions for improvements, please open an issue on the [issue tracker](#). Provide as much detail as possible, including steps to reproduce the problem and any relevant code snippets.
 
 ## Community Guidelines
 

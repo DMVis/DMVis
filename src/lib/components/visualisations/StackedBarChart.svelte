@@ -80,7 +80,7 @@
 <!--
 @component
 ### Stacked Bar Chart
-This is visualisation that represents categorical data with rectangular bars.
+This is a visualisation that represents categorical data with rectangular bars.
 The length of each bar corresponds to the numerical value of the data being represented.
 The x-axis represents the numerical values of the data.
 The y-axis represents the categories of the data.
@@ -89,16 +89,16 @@ The y-axis represents the categories of the data.
 * dataUtil: Array<Array<string | number>>  - Data to visualise.
 
 #### Optional attributes
-* width: number             - Width of the visualisation. Defaults to `numberOfRows * 15`.
-* height: number            - Height of the visualisation. Defaults to `1500`.
-* marginLeft: number        - Margin to the left of the visualisation. Defaults to `40`.
-* marginRight: number       - Margin to the right of the visualisation. Defaults to `40`.
-* marginTop: number         - Margin to the top of the visualisation. Defaults to `40`.
-* marginBottom: number      - Margin to the bottom of the visualisation. Defaults to `40`.
+* width: number             - Width of the visualisation. This defaults to `numberOfRows * 15`.
+* height: number            - Height of the visualisation. This defaults to `1500`.
+* marginLeft: number        - Margin to the left of the visualisation. This defaults to `40`.
+* marginRight: number       - Margin to the right of the visualisation. This defaults to `40`.
+* marginTop: number         - Margin to the top of the visualisation. This defaults to `40`.
+* marginBottom: number      - Margin to the bottom of the visualisation. This defaults to `40`.
 * padding: number           - Value for the distance between each bar in the range [0..1].
                               Defaults to `0.2`.
-* opacity: number | string  - Opacity of each bar as a number in range [0..1] or
-                              a percentage string formatted as '{number}%'. Defaults to `1`.
+* opacity: number | string  - Opacity of each bar as a number in the range [0..1] or
+                              a percentage string formatted as '{number}%'. This defaults to `1`.
 * styleUtil: StyleUtils     - Class holding all the styling. See its documentation.
                               Defaults to `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`.
 * showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number, defaults to false.

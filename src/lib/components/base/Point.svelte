@@ -44,16 +44,16 @@ The point allows you to plot a point at a given coordinate.
 It is used in combination with other components to create a chart.
 
 #### Required attributes
-  * x: number             - Scaled x-coordinate of the point.
-  * y: number             - Scaled y-coordinate of the point.
+* x: number             - Scaled x-coordinate of the point.
+* y: number             - Scaled y-coordinate of the point.
 
 #### Optional attributes
-  * radius: number        - Radius of the point. Defaults to `5`.
-  * borderWidth: number   - Width of the border. Defaults to `1`.
-  * opacity: number       - Opacity of the point, where `0` is completely transparent and `1` is completely opaque.
-                            Defaults to `1`.
-  * name: string          - Class name of the point. It can be used as an identifier. Defaults to only `point`.
-                            If set, the class names will be `point` and `point-name`.
+* radius: number        - Radius of the point. This defaults to `5`.
+* borderWidth: number   - Width of the border. This defaults to `1`.
+* opacity: number       - Opacity of the point, where `0` is completely transparent and `1` is completely opaque.
+                          Defaults to `1`.
+* name: string          - The class name of the point. It can be used as an identifier. This defaults to only `point`.
+                          If set, the class names will be set to both `point` and `point-name`.
 
 #### Events
 * For detailed information about dispatches, check the documentation.

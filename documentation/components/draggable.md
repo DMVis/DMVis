@@ -8,23 +8,23 @@ Some visualisations require elements that are draggable. This wrapper makes it e
 
 ## on:dragStart
 
-This event is called when the user starts dragging the component inside the `Draggable` wrapper. Specifically, this means: if the user has clicked on the component, this event will fire the first time the mouse is moved.
+This event is called when the user starts dragging the component inside the `Draggable` wrapper. Specifically, this means that if the user has clicked on this, this event will fire the first time the mouse is moved.
 
 - Passes: `CustomEvent` with variables:
   - elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.
 
 ## on:dragMove
 
-This event is called while the user is dragging the component inside the `Draggable` wrapper. Specifically, this means: if the user has clicked on the component, the events will fire as long as the user keeps their mousebutton down. The event fires every time the mouse is moved.
+This event is called while the user is dragging the component inside the `Draggable` wrapper. Specifically, this means that if the user has clicked on this, the events will fire as long as the user keeps their mouse button down. The event fires every time the mouse is moved.
 
 - Passes: `CustomEvent` with variables:
   - elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, which is used for identifying which component is being dragged.
-  - movementX: `number` - The amount of pixels that the mouse moved in the horizontal direction.
-  - movementY `number` - The amount of pixels that the mouse moved in the vertical direction.
+  - movementX: `number` - The number of pixels that the mouse moved in the horizontal direction.
+  - movementY `number` - The number of pixels that the mouse moved in the vertical direction.
 
 ## on:dragStop
 
-This event is called when the user stops dragging the component inside the `Draggable` wrapper. Specifically, this means: if the user has clicked on the component, this event will fire the next time the user lets the mousebutton go.
+This event is called when the user stops dragging the component inside the `Draggable` wrapper. Specifically, this means that if the user has clicked on this, the event will fire the next time the user lets the mouse button go.
 
 - Passes: `CustomEvent` with variables:
   - elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.

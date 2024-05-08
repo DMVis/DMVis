@@ -20,7 +20,7 @@ Height of the visualisation.
 
 - Type: `Array<string | number>`
 
-Array of data which should be shown in the histogram. They will be represented as bars.
+An array of data which should be shown in the histogram. They will be represented as bars.
 
 # Optional Attributes
 
@@ -36,20 +36,20 @@ X position of the histogram.
 - Type: `boolean`
 - Default: `true`
 
-Specifies if you want to show only the outer ticks. Otherwise shows all ticks.
+Specifies if you want to show only the outer ticks. Otherwise, it will show all ticks.
 
 ## bins
 
 - Type: `number`
 - Default: `d3.max(data as number[]) as number`
 
-Specifies the number of bins. This only has impact on numerical data.
-Categorical data is divided on unique catagories (strings).
-Bucketing multiple strings together makes the histogram less usefull/clear.
+Specifies the number of bins. This only has an impact on numerical data.
+Categorical data is divided into unique categories (strings).
+Bucketing multiple strings together makes the histogram less useful/clear.
 To make buckets for numerical data we use the d3.bin function which groups numerical values together in buckets with equally large ranges.
-This d3.bin function has a parameter called 'thresholds()' where you can enter a number to specify how many buckets you want. Here we use the bins variable as it's input and thus should specify the number of buckets.
-However the d3.bin().thresholds(bins) does not enforce the precise amount of buckets you wish to have.
-It only tries to get as close as possible to the specified number of 'bins' and may make more or less then the value assigned to 'bins'.
+This d3.bin function has a parameter called 'thresholds()' where you can enter a number to specify how many buckets you want. Here we use the bins variable as its input and thus should specify the number of buckets.
+However, the d3.bin().thresholds(bins) do not enforce the precise amount of buckets you wish to have.
+It only tries to get as close as possible to the specified number of 'bins' and may make more or less than the value assigned to 'bins'.
 This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another.
 
 ## marginLeft
@@ -92,14 +92,14 @@ Value for the distance between each bar in the range [0..1].
 - Type: `string`
 - Default: `'blue'`
 
-Color of each bar.
+Colour of each bar.
 
 ## opacity
 
 - Type: `number | string`
 - Default: `1`
 
-Opacity of each bar as a number in range [0..1] or
+The opacity of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
 ## radiusX
@@ -107,7 +107,7 @@ a percentage string formatted as '{number}%'.
 - Type: `number | string`
 - Default: `0`
 
-Horizontal corner radius of each bar as a number in range [0..1] or
+Horizontal corner radius of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
 ## radiusY
@@ -115,7 +115,7 @@ a percentage string formatted as '{number}%'.
 - Type: `number | string`
 - Default: `0`
 
-Vertical corner radius of each bar as a number in range [0..1] or
+Vertical corner radius of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
 # Example usage

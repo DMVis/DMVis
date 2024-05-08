@@ -20,7 +20,7 @@ Height of the visualisation.
 
 - Type: `string`
 
-The name of the attribute that should be plotted along the x-axis.
+The name of the attribute should be plotted along the x-axis.
 
 > Note: This should be the same name as the one that is provided in the input data.
 
@@ -46,21 +46,21 @@ Whether or not to display the Left- and Bottom-axis.
 - Type: `number`
 - Default: `5`
 
-Amount of ticks to display on each of the axis.
+Amount of ticks to display on each of the axes.
 
 ## pointOpacity
 
 - Type: `number`
 - Default: `1`
 
-Opacity of the points of the scatterplot.
+The opacity of the points of the scatterplot.
 
 # Example usage
 
 ```svelte
 <script lang="ts">
   const width: number = 500;
-  const heigth: number = 500;
+  const height: number = 500;
   const data: Array<Array<string | number>> = [
     ['Name', 'weight', 'size', 'age'],
     ['Piet', 0, 0, 0],

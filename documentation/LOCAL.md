@@ -9,7 +9,7 @@ We develop inside Visual Studio Code
 - [Visual Studio Code](https://code.visualstudio.com/download)
 
 The recommended extensions for Visual Studio Code can be installed by typing
-`@recommended` in the extensions tab. Install all the recmmended workspace
+`@recommended` in the extensions tab. Install all the recommended workspace
 extensions.
 
 We have created a `.editorconfig` file to ensure that all developers use the same
@@ -49,7 +49,7 @@ npm install --save-dev husky
 npm install
 ```
 
-To maintain code quality, husky is used to run test, linting, and formatting checks
+To maintain code quality, `husky` is used to run tests, linting, and formatting checks
 before commits. To enable this, you need to install the git hooks:
 
 ```bash

@@ -120,7 +120,7 @@ The `sortData` function allows you to sort the data based on a specific column. 
 - `column`: The column to sort the data by
 - `ascending`: A boolean that determines whether the data should be sorted in ascending order
 
-The function returns a sorted array of arrays. And also sets the `visualisationData` store to the sorted data.
+The function returns a sorted array of arrays. This also sets the `visualisationData` store to the sorted data.
 
 Below is an example of how to use the `sortData` function:
 
@@ -131,7 +131,7 @@ console.log(sortedData);
 
 # filterData
 
-The `filterData` function allows you to filter data based on the given ranges for every attribute. It takes in the following parameter:
+The `filterData` function allows you to filter data based on the given ranges for every attribute. It takes in the following parameters:
 
 - `rangePerAttribute`: An object that contains the ranges for each attribute.
 
@@ -150,9 +150,9 @@ const [filteredData, excludedData] = dataUtil.filterData(rangePerAttribute);
 
 # applyFilters
 
-The `applyFilters` function allows you to apply filters to the data based on the given filters. It takes in the following parameter:
+The `applyFilters` function allows you to apply filters to the data based on the given filters. It takes in the following parameters:
 
-- `filters`: An object of filters where the key is the column name. With either a string for textual data or and object with `min` and `max` for numerical data.
+- `filters`: An object of filters where the key is the column name. With either a string for textual data or an object with `min` and `max` for numerical data.
 
 This function changes the `visualisationData` store to the filtered data.
 

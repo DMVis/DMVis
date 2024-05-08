@@ -86,11 +86,11 @@ the other axis goes in the direction of the length of the bars and has numerical
 * marginBottom: number             - Margin to the bottom of the visualisation.
 * padding: number                  - Value for the distance between each bar in the range [0..1].
 * color: string = 'blue'           - Color of each bar.
-* opacity: number | string         - Opacity of each bar as a number in range [0..1] or
+* opacity: number | string         - Opacity of each bar as a number in the range [0..1] or
                                      a percentage string formatted as '{number}%'.
-* radiusX: number | string         - Horizontal corner radius of each bar as a number in range [0..1] or
+* radiusX: number | string         - Horizontal corner radius of each bar as a number in the range [0..1] or
                                      a percentage string formatted as '{number}%'.
-* radiusY: number | string         - Vertical corner radius of each bar as a number in range [0..1] or
+* radiusY: number | string         - Vertical corner radius of each bar as a number in the range [0..1] or
                                      a percentage string formatted as '{number}%'.
 -->
 <svg class="visualisation barchart" {width} {height}>

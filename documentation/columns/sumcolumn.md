@@ -36,7 +36,7 @@ Padding around the column.
 - Type: `string`
 - Default: `'Column'`
 
-Name of the column. Should contain the names of the attributes you're comparing. Could also contain weights.
+Name of the column. This should contain the names of the attributes you're comparing. It could also contain weights.
 
 ## Example usage
 

@@ -11,7 +11,7 @@ It displays tick marks and labels based on provided data.
 - Type: `string[]`
 - Default: `[]`
 
-The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. Defaults to `[]`, which draws axes in the order that they appear in the dataset.
+The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. This defaults to `[]`, which draws axes in the order that they appear in the dataset.
 
 ## alignment
 
@@ -26,7 +26,7 @@ Alignment of the axes (i.e. the side of the column where the axis is placed).
 - Type: `number`
 - Default: `10`
 
-Font size of the tick labels.
+The font size of the tick labels.
 
 ## color
 
@@ -99,11 +99,11 @@ The direction to space the axes.
 - Type: `number`
 - Default: `0`
 
-The amount of padding between axes, which is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
+The amount of padding between axes is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
 
 # Example usage
 
-Creating a bottom axis with custom color and no tick marks.
+Creating a bottom axis with a custom colour and no tick marks.
 
 ```svelte
 <svg {width} {height}>
@@ -111,7 +111,7 @@ Creating a bottom axis with custom color and no tick marks.
 </svg>
 ```
 
-Creating a left axis with custom font size and 5 ticks.
+Creating a left axis with a custom font size and 5 ticks.
 
 ```svelte
 <svg {width} {height}>

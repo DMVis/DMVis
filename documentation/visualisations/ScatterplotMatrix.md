@@ -68,14 +68,14 @@ Margin right of the visualisation.
 - Type: `number`
 - Default: `40`
 
-Margin above of the visualisation.
+Margin above the visualisation.
 
 ## marginBottom
 
 - Type: `number`
 - Default: `40`
 
-Margin under of the visualisation.
+Margin under the visualisation.
 
 ## styleUtils
 

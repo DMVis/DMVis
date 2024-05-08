@@ -16,7 +16,7 @@ Horizontal start position of the axis.
 
 - Type: `number`
 
-Vertical start position of the axis.
+The vertical start position of the axis.
 
 ## axis
 
@@ -78,7 +78,7 @@ Color of the axis line and label.
 
 Sets whether the axis is draggable. For this to work, the `renderLabel` parameter should be set to `true`.
 
-> Note: Logic for displacement of the axis should be handled outside this component.
+> Note: Logic for the displacement of the axis should be handled outside this component.
 
 # Example usage
 
@@ -117,4 +117,4 @@ Creating a draggable axis (excl. any reordering logic)
 </svg>
 ```
 
-> Note: `onDragMove` and `onDragStop` should be functions that handle the logic for dragging the axis (or axes). In this example, `draggedAxis` keeps track of the name of the axis that is being dragged and `draggingOffset` keeps track of how much the axis has been dragged.
+> Note: `onDragMove` and `onDragStop` should be functions that handle the logic for dragging the axis (or axes). In this example, `draggedAxis` keeps track of the name of the axis that is being moved and `draggingOffset` keeps track of how much the axis has been dragged.

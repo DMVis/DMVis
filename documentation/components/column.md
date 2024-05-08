@@ -1,6 +1,6 @@
 # Column
 
-Column is a component that represents a column in a table. It can be used to display data in a table, or to create a visual representation of data.
+The column is a component that represents a column in a table. It can be used to display data in a table or to create a visual representation of data.
 
 ## Required Attributes
 
@@ -30,7 +30,7 @@ Signifies the type of the column. Influences the rendering of the column.
 
 #### ColumnType
 
-An enum, containing types of columns. Can be selected by importing `ColumnType` and using it as the type of the `type` attribute. The types are:
+An enum, containing types of columns. This can be selected by importing `ColumnType` and using it as the type of the `type` attribute. The types are:
 
 - `'Bar'`
 - `'Rank'`
@@ -53,7 +53,7 @@ Y-coordinate of the column.
 - Type: `string`
 - Default: `'Column'`
 
-The title that will show at the top of the column. Set this to the attribute name.
+The name is at the top of the column. Set this to the attribute name.
 
 ### padding
 

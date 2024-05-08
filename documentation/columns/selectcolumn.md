@@ -1,6 +1,6 @@
 # SelectColumn
 
-The SelectColumn is a column allowing you to select a row using a checkbox.
+The SelectColumn is a column that allows you to select a row using a checkbox.
 
 ## Required Attribute
 

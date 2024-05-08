@@ -36,7 +36,7 @@
 @component
 ### Tooltip
 A tooltip is typically used to quickly display a small amount of information to the user.
-It can, for example, be used to display the name of a point when hovering over it by mouse.
+It can, for example, be used to display the name of a point when hovering over it with a mouse.
 
 #### Required attributes
 * x: number               - X-coordinate of the tooltip.
@@ -51,11 +51,11 @@ It can, for example, be used to display the name of a point when hovering over i
 * originX: OriginX        - Horizontal origin of the label.
                             Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
                             Which value is useful depends on your positioning logic.
-                            Defauls to `OriginX.Middle`.
+                            This defauls to `OriginX.Middle`.
 * originY: OriginY        - Vertical origin of the label.
                             Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
                             Which value is useful depends on your positioning logic.
-                            Defaults to `OriginX.Middle`.
+                            This defaults to `OriginX.Middle`.
 -->
 
 <Label

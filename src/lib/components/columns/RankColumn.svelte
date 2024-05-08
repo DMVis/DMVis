@@ -34,13 +34,16 @@
 RankColumn is a Column component that displays the rank of each value in the data array.
 
 #### Required attributes
-  * x - X-coordinate of the column.
-  * width - The width of the column.
-  * height - The height of the column.
-  * length - The number of ranks to display.
+* x - X-coordinate of the column.
+* width - The width of the column.
+* height - The height of the column.
+* length - The number of ranks to display.
 
 #### Optional attributes
-  * padding - The padding of the column.
+* padding - The padding of the column.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
 <Column

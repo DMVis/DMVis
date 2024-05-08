@@ -76,7 +76,7 @@ Value for the distance between each column. Adds `columnSpacing / 2` to the left
 - Type: `boolean`
 - Default: `false`
 
-Whether to show lines at the start and end of each column. Defaults to false.
+Whether to show lines at the start and end of each column. This defaults to false.
 
 ## barPadding
 
@@ -97,7 +97,7 @@ Color of each bar in each column.
 - Type: number | string
 - Default: `0.6`
 
-Opacity of each bar as a number in range [0..1] or
+The opacity of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
 > Note: A value lower than one is recommended for visible bar highlighting.
@@ -107,7 +107,7 @@ a percentage string formatted as '{number}%'.
 - Type: `number | string`
 - Default: `0`
 
-Horizontal corner radius of each bar in each column as a number
+Horizontal corner radius of each bar in each column is a number
 or a percentage string formatted as '{number}%'.
 
 ## barRadiusY
@@ -123,14 +123,14 @@ or a percentage string formatted as '{number}%'.
 - Type: `string`
 - Default: `'black'`
 
-Color of the text in each bar in each column.
+Colour of the text in each bar in each column.
 
 ## fontSize
 
 - Type: `string`
 - Default: `'12px'`
 
-Font size of the text in each bar in each column.
+The font size of the text in each bar in each column.
 
 ## fontWeight
 
@@ -151,14 +151,14 @@ Font family of the text in each bar in each column.
 - Type: `string`
 - Default: `'rgb(200,200,200)'`
 
-Color of the rectangle behind the header label in each column.
+Colour of the rectangle behind the header label in each column.
 
 ## headerOpacity
 
 - Type: `number`
 - Default: `1`
 
-Opacity of the header label in each column.
+The opacity of the header label in each column.
 
 ## headerRadiusX
 
@@ -188,14 +188,14 @@ Padding around the text in the header label in each column.
 - Type: `string`
 - Default: `'black'`
 
-Color of the text in the header label in each column.
+Colour of the text in the header label in each column.
 
 ## headerFontSize
 
 - Type: `string`
 - Default: `'12px'`
 
-Font size of the text in the header label in each column.
+The font size of the text in the header label in each column.
 
 ## headerFontWeight
 

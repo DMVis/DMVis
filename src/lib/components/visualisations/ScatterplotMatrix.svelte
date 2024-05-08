@@ -512,18 +512,18 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 
 #### Optional attributes
 * styleUtil: StyleUtils               - Class holding all the styling. See its documentation.
-* padding: number                     - Padding between the different scatterplots. Default is `0.1`.
-* pointColor: string                  - Color of the points in the scatterplots. Default is `'red'`.
-* pointOpacity: number                - Default opacity of the points in the scatterplots. Default is `0.3`.
+* padding: number                     - Padding between the different scatterplots. The default is `0.1`.
+* pointColor: string                  - Color of the points in the scatterplots. The default is `'red'`.
+* pointOpacity: number                - Default opacity of the points in the scatterplots. The default is `0.3`.
 * display: 'full'|'top'|'bottom'      - Whether to draw the entire Scatterplot Matrix, or only the top,
-                                          or only the bottom half. Defaults to `'full'`.
+                                        or only the bottom half. This defaults to `'full'`.
 
-* height: number         - Height of the Scatterplot Matrix. Defaults to `numberOfAttributes * 150`.
-* width: number          - Width of the Scatterplot Matrix. Defaults to `numberOfAttributes * 150`.
-* marginLeft: number     - Margin to the left of the visualisation. Defaults to `40`.
-* marginRight: number    - Margin to the right of the visualisation. Defaults to `40`.
-* marginTop: number      - Margin to the top of the visualisation. Defaults to `40`.
-* marginBottom: number   - Margin to the bottom of the visualisation. Defaults to `40`.
+* height: number         - Height of the Scatterplot Matrix. This defaults to `numberOfAttributes * 150`.
+* width: number          - Width of the Scatterplot Matrix. This defaults to `numberOfAttributes * 150`.
+* marginLeft: number     - Margin to the left of the visualisation. This defaults to `40`.
+* marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
+* marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
+* marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
 -->
 
 {#await xScale}

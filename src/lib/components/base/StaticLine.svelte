@@ -19,18 +19,18 @@ The Line allows you to plot a line between given coordinates.
 It is used in combination with other components to create a chart.
 
 #### Required attributes
-  * points: [{ x: number; y: number }]  - List of scaled points on the visualisation
+* points: [{ x: number; y: number }]  - List of scaled points on the visualisation
 
 #### Optional attributes
-  * color: number                       - Color of the line. Defaults to `'#000'` (i.e. blue).
-                                          Can be any hex-code, rgb or plain string colors.
-  * lineWidth string                    - Width of the line. Defaults to `1`.
-  * dashLength: string                  - Width of the strokes of the line.
-                                          By default, this is a normal line. If set to a higher value, it will result in a dotted line.
-                                          If set to a higher value, it will result in a dotted line.
-                                          Defaults to `'0'`, meaning it is a normal line.
-  * opacity: number                     - Opacity of the line, where `1` represents a fully opaque line and `0` a fully transparent line.
-                                          Defaults to `1`.
+* color: number                       - Color of the line. This defaults to `'#000'` (i.e. blue).
+                                        This can be any hex-code, RGB or plain string colour.
+* lineWidth string                    - Width of the line. This defaults to `1`.
+* dashLength: string                  - Width of the strokes of the line.
+                                        By default, this is a normal line. If set to a higher value, it will result in a dotted line.
+                                        If set to a higher value, it will result in a dotted line.
+                                        This defaults to `'0'`, meaning it is a normal line.
+* opacity: number                     - Opacity of the line, where `1` represents a fully opaque line and `0` is a fully transparent line.
+                                        This defaults to `1`.
 -->
 <path
   stroke={color}
