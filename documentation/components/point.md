@@ -50,27 +50,15 @@ The opacity of the point, where 0 represents a completely transparent point and 
 
 The class name of the point. It can be used as an identifier. It defaults to only `'point'`. If set, the class names will be `'point'` and `'point-name'`.
 
-# Event dispatches
+# Events
 
-These are all the events that the point component will dispatch to its parent components. Check the example usage on how to use these events.
+This component emits the following events:
 
-## mousePointEnter
+- `mousePointEnter`
+- `mousePointLeave`
+- `mousePointClick`
 
-- Event type: `{ name: string, x: number, y: number }`
-
-Event that fires when the mouse enters the point. The name attribute represents the classname of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
-
-## mousePointLeave
-
-- Event type: `{ name: string, x: number, y: number }`
-
-Event that fires when the mouse leaves the point. The name attribute represents the class name of the point, the x- and y-attribute represent the given x- and y-coordinate of the point.
-
-## mousePointClick
-
-- Event type: `{ name: string }`
-
-Event that fires when the point is clicked. The name attribute represents the class name of the one clicked.
+To read more about these events, see the [Events](../utils/events.md) documentation.
 
 # Example usage
 

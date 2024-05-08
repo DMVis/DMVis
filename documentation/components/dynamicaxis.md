@@ -101,6 +101,16 @@ The direction to space the axes.
 
 The amount of padding between axes is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
 
+# Events
+
+This component emits the following events:
+
+- `axisOrderChanged`
+- `dragMove`
+- `dragStop`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
 # Example usage
 
 Creating a bottom axis with a custom colour and no tick marks.

@@ -80,6 +80,16 @@ Sets whether the axis is draggable. For this to work, the `renderLabel` paramete
 
 > Note: Logic for the displacement of the axis should be handled outside this component.
 
+# Events
+
+This component emits the following events:
+
+- `axisOrderChanged`
+- `dragMove`
+- `dragStop`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
 # Example usage
 
 Creating a left axis with a label at the bottom.

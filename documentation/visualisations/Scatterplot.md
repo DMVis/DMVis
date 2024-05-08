@@ -55,6 +55,16 @@ Amount of ticks to display on each of the axes.
 
 The opacity of the points of the scatterplot.
 
+# Events
+
+This component emits the following events:
+
+- `mousePointEnter`
+- `mousePointLeave`
+- `mousePointClick`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
 # Example usage
 
 ```svelte

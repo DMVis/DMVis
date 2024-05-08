@@ -70,14 +70,14 @@
   function onMouseEnter() {
     isMouseOnBar = true;
     // Fire an event to be picked up by parent components of this bar
-    dispatch('mouseBarEnter', { name: name });
+    dispatch('mouseBarEnter', { name });
   }
 
   /** Fires when the mouse leaves the bar. */
   function onMouseLeave() {
     isMouseOnBar = false;
     // Fire an event to be picked up by parent components of this bar
-    dispatch('mouseBarLeave', { name: name });
+    dispatch('mouseBarLeave', { name });
   }
 </script>
 

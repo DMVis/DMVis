@@ -323,7 +323,7 @@ displays different types of columns such as text, bar, and rank columns. This is
           on:group={(e) => groupData(e)}
           on:mouseHover={(e) => (highlightRow = e.detail.row)}
           on:mouseRowClick={(e) => (shift ? shiftSelectRows(e) : selectRow(e))}
-          on:sortData={(e) => sortData(e)} />
+          on:sort={(e) => sortData(e)} />
       {:else if columnInfo[column] === 'number'}
         {#key column}
           <BarColumn

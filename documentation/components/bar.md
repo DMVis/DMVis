@@ -142,6 +142,15 @@ The name attribute represents the class name of the bar.
 Event that fires when the mouse leaves the bar.
 The name attribute represents the class name of the bar.
 
+# Events
+
+This component emits the following events:
+
+- `mouseBarEnter`
+- `mouseBarLeave`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
 # Example usage
 
 ```svelte

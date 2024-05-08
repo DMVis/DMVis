@@ -47,6 +47,7 @@
 - Utilities
   - [Context](utils/context.md)
   - [DataUtils](utils/dataUtils.md)
+  - [Events](utils/events.md)
   - [Origin](utils/origin.md)
   - [Performance](utils/performance.md)
   - [Spacer](utils/spacer.md)

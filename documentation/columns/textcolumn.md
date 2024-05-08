@@ -2,49 +2,63 @@
 
 TextColumn is a column that shows the text of the given column.
 
-## Required Attributes
+# Required Attributes
 
-### x
+## x
 
 - Type: `number`
 
 X-coordinate of the column.
 
-### width
+## width
 
 - Type: `number`
 
 Width of the column.
 
-### height
+## height
 
 - Type: `number`
 
 Height of the column.
 
-### data
+## data
 
 - Type: `string[]`
 
 Data to display.
 
-## Optional Attributes
+# Optional Attributes
 
-### padding
+## padding
 
 - Type: `number`
 - Default: `10`
 
 Padding around the column.
 
-### name
+## name
 
 - Type: `string`
 - Default: `'Column'`
 
 Name of the column. It should contain the name of the attribute you're displaying.
 
-## Example usage
+# Events
+
+This component emits the following events:
+
+- `dragStart`
+- `dragMove`
+- `dragStop`
+- `mouseHover`
+- `mouseRowClick`
+- `search`
+- `sort`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
+# Example usage
 
 ```svelte
 <TextColumn x={0} width={100} height={200} data={['A', 'B', 'C']} />

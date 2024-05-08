@@ -2,7 +2,7 @@
 
 Some visualisations, like LineUp, require icons to be displayed. This component provides a way to display icons in the UI.
 
-## Supported icons
+# Supported icons
 
 Out of the box, we support the following icons:
 
@@ -11,36 +11,46 @@ Out of the box, we support the following icons:
 - `filter`
 - `more`
 
-## Required Attributes
+# Required Attributes
 
-### x
+## x
 
 - Type: `number`
 
 X-coordinate of the icon.
 
-### y
+## y
 
 - Type: `number`
 
 Y-coordinate of the icon.
 
-### icon
+## icon
 
 - Type: `string`
 
 Name of the icon to display. This can be either one of the supported icons (see above) or an SVG path with your own icon. The icon is 25px by 25px, so you may need to adjust the path to fit within these dimensions.
 
-## Optional Attributes
+# Optional Attributes
 
-### color
+## color
 
 - Type: `string`
 - Default: `#000000`
 
 Colour of the icon.
 
-## Example usage
+# Events
+
+This component emits the following events:
+
+- `mouseIconClick`
+- `mouseIconEnter`
+- `mouseIconLeave`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
+# Example usage
 
 If you want to create a stock sorting icon you can use the following code:
 

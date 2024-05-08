@@ -55,7 +55,7 @@
   const iconStart = width / 2 - (icons.length * 25) / 2;
 
   // Handle options for the column
-  let group: boolean = false;
+  let isGrouped: boolean = false;
   let showMore: boolean = false;
   let highlighted: boolean = false;
   let sorting: 'ascend' | 'descend' | 'none' = 'none';
@@ -71,14 +71,14 @@
       }
 
       // Sort the data
-      dispatch('sort=', { column, sorting });
+      dispatch('sort', { column, sorting });
     } else if (option === 'search') {
       dispatch('search', { column });
     } else if (option === 'filter') {
       dispatch('filter', { column });
     } else if (option === 'group') {
-      group = !group;
-      dispatch('group=', { column, group });
+      isGrouped = !isGrouped;
+      dispatch('group', { column, isGrouped });
     } else if (option === 'more') {
       showMore = !showMore;
     } else if (option === 'item') {

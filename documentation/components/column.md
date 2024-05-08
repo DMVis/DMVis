@@ -2,33 +2,33 @@
 
 The column is a component that represents a column in a table. It can be used to display data in a table or to create a visual representation of data.
 
-## Required Attributes
+# Required Attributes
 
-### x
+## x
 
 - Type: `number`
 
 X-coordinate of the column.
 
-### width
+## width
 
 - Type: `number`
 
 Width of the column.
 
-### height
+## height
 
 - Type: `number`
 
 Height of the column.
 
-### type
+## type
 
 - Type: `ColumnType`
 
 Signifies the type of the column. Influences the rendering of the column.
 
-#### ColumnType
+### ColumnType
 
 An enum, containing types of columns. This can be selected by importing `ColumnType` and using it as the type of the `type` attribute. The types are:
 
@@ -39,30 +39,46 @@ An enum, containing types of columns. This can be selected by importing `ColumnT
 - `'Sum'`
 - `'Text'`
 
-## Optional Attributes
+# Optional Attributes
 
-### y
+## y
 
 - Type: `number`
 - Default: `100`
 
 Y-coordinate of the column.
 
-### name
+## name
 
 - Type: `string`
 - Default: `'Column'`
 
 The name is at the top of the column. Set this to the attribute name.
 
-### padding
+## padding
 
 - Type: `number`
 - Default: `10`
 
 The padding around the column.
 
-## Example usage
+# Events
+
+This component emits the following events:
+
+- `dragStart`
+- `dragMove`
+- `dragStop`
+- `filter`
+- `group`
+- `mouseHover`
+- `mouseRowClick`
+- `search`
+- `sort`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
+# Example usage
 
 Creating columns for each of the attributes in the data:
 

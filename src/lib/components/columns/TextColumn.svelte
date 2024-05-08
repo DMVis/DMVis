@@ -36,7 +36,7 @@
   // Dispatch search data
   const dispatch = createEventDispatcher();
   const dispatchSearchData = (event: Event) => {
-    dispatch('search', { column: name, search: (event.target as HTMLInputElement).value });
+    dispatch('search', { column: name, value: (event.target as HTMLInputElement).value });
   };
 </script>
 

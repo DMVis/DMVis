@@ -2,42 +2,54 @@
 
 RankColumn is a column that shows the index of the row in the table.
 
-## Required Attributes
+# Required Attributes
 
-### x
+## x
 
 - Type: `number`
 
 X-coordinate of the column.
 
-### width
+## width
 
 - Type: `number`
 
 Width of the column.
 
-### height
+## height
 
 - Type: `number`
 
 Height of the column.
 
-### length
+## length
 
 - Type: `number`
 
 Number of rows in the table.
 
-## Optional Attributes
+# Optional Attributes
 
-### padding
+## padding
 
 - Type: `number`
 - Default: `10`
 
 Padding around the column.
 
-## Example usage
+# Events
+
+This component emits the following events:
+
+- `dragStart`
+- `dragMove`
+- `dragStop`
+- `mouseHover`
+- `mouseRowClick`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
+
+# Example usage
 
 ```svelte
 <RankColumn x={0} width={100} height={200} length={10} />
