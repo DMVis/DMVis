@@ -6,6 +6,7 @@
   import StackedBar from '$lib/components/base/StackedBar.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import {
     setVisualisationContext,
@@ -104,18 +105,19 @@ The y-axis represents the categories of the data.
                               Defaults to `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`.
 * showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number, defaults to false.
 -->
-
-<svg class="visualisation stackedBarchart" {width} {height}>
-  {#key dataUtil || $visualisationData}
-    {#each $visualisationData as row}
-      <StackedBar
-        {opacity}
-        {showTotals}
-        y={getY(row[0])}
-        {row}
-        xScale={barXScale}
-        barWidth={yScale.bandwidth()} />
-    {/each}
-    <DynamicAxis position="left" axisOrder={dataUtil.columns.slice(0, 1)} />
-  {/key}
-</svg>
+<BaseVisualisation>
+  <svg class="visualisation stackedBarchart" {width} {height}>
+    {#key dataUtil || $visualisationData}
+      {#each dataUtil.data as row}
+        <StackedBar
+          {opacity}
+          {showTotals}
+          y={getY(row[0])}
+          {row}
+          xScale={barXScale}
+          barWidth={yScale.bandwidth()} />
+      {/each}
+      <DynamicAxis position="left" axisOrder={dataUtil.columns.slice(0, 1)} />
+    {/key}
+  </svg>
+</BaseVisualisation>

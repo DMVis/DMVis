@@ -5,7 +5,7 @@
 
   // DMVis imports
   import Axis from '$lib/components/base/Axis.svelte';
-  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import { getVisualisationContext } from '$lib/context.js';
 
@@ -61,7 +61,7 @@
     drawingIndices = drawingOrder.map((attributeName: string) => {
       let index = $columns.indexOf(attributeName);
       if (index === -1) {
-        throw ThrowError('Error', `${attributeName} is not a valid column name`, 'DynamicAxis');
+        throw DMVisError(`${attributeName} is not a valid column name`, 'DynamicAxis');
       }
       return index;
     });
@@ -97,7 +97,7 @@
         break;
       }
       default:
-        throw ThrowError('Error', 'Invalid alignment provided.', 'DynamicAxis');
+        throw DMVisError('Invalid alignment provided.', 'DynamicAxis');
     }
   }
 
@@ -157,7 +157,7 @@
               scale.range([spacerStepSizeHorizontal, 0]) as d3.ScaleLinear<number, number>
             );
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Set the ticks of the scaleLinear axis
@@ -179,7 +179,7 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)!;
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Create an axis config to be drawn later on
@@ -220,7 +220,7 @@
               scale.range([spacerStepSizeHorizontal, 0]) as d3.ScaleLinear<number, number>
             );
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Set the ticks of the scaleLinear axis
@@ -242,7 +242,7 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)!;
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Create an axis config to be drawn later on
@@ -279,7 +279,7 @@
             // If the scale is a scalelinear and horizontal spacing
             newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Set the ticks of the scaleLinear axis
@@ -301,7 +301,7 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)! - offset;
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Create an axis config to be drawn later on
@@ -338,7 +338,7 @@
             // If the scale is a scalelinear and horizontal spacing
             newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Set the ticks of the scaleLinear axis
@@ -360,7 +360,7 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)! + offset;
           } else {
-            throw ThrowError('Error', 'Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Create an axis config to be drawn later on
@@ -375,7 +375,7 @@
       // If this point is reached, the input was not recognised. So throw an error
       // Note that due to TypeScript, this will never happen
       default:
-        throw ThrowError('Error', 'Invalid axis position', 'DynamicAxis');
+        throw DMVisError('Invalid axis position', 'DynamicAxis');
     }
   }
 

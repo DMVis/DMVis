@@ -1,6 +1,6 @@
 // DMVis imports
 import { OriginX, OriginY } from '$lib/Enums.js';
-import { ThrowError } from '$lib/utils/ThrowError.js';
+import { DMVisError } from '$lib/utils/DMVisError.js';
 
 // See origin.md for more information about these functions
 
@@ -25,7 +25,7 @@ export function getOrigin(
     case OriginX.Right || OriginY.Bottom:
       return -mapEndToDestination(dimension, destinationOrigin);
     default:
-      throw ThrowError('Error', `${sourceOrigin} is not a valid source origin`, 'OriginMapper');
+      throw DMVisError(`${sourceOrigin} is not a valid source origin`, 'OriginMapper');
   }
 }
 
@@ -49,7 +49,7 @@ export function getFlippedOrigin(origin: OriginX | OriginY): OriginX | OriginY {
     case OriginY.Bottom:
       return OriginY.Top;
     default:
-      throw ThrowError('Error', `${origin} is not a valid origin`, 'OriginMapper');
+      throw DMVisError(`${origin} is not a valid origin`, 'OriginMapper');
   }
 }
 
@@ -64,11 +64,7 @@ function mapStartToDestination(dimension: number, destinationOrigin: OriginX | O
     case OriginX.Right || OriginY.Bottom:
       return dimension;
     default:
-      throw ThrowError(
-        'Error',
-        `${destinationOrigin} is not a valid destination origin`,
-        'OriginMapper'
-      );
+      throw DMVisError(`${destinationOrigin} is not a valid destination origin`, 'OriginMapper');
   }
 }
 
@@ -81,11 +77,7 @@ function mapMiddleToDestination(dimension: number, destinationOrigin: OriginX | 
     case OriginX.Right || OriginY.Bottom:
       return dimension / 2;
     default:
-      throw ThrowError(
-        'Error',
-        `${destinationOrigin} is not a valid destination origin`,
-        'OriginMapper'
-      );
+      throw DMVisError(`${destinationOrigin} is not a valid destination origin`, 'OriginMapper');
   }
 }
 
@@ -98,10 +90,6 @@ function mapEndToDestination(dimension: number, destinationOrigin: OriginX | Ori
     case OriginX.Right || OriginY.Bottom:
       return 0;
     default:
-      throw ThrowError(
-        'Error',
-        `${destinationOrigin} is not a valid destination origin`,
-        'OriginMapper'
-      );
+      throw DMVisError(`${destinationOrigin} is not a valid destination origin`, 'OriginMapper');
   }
 }

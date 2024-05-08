@@ -1,7 +1,7 @@
 <script lang="ts">
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
-  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required attributes
@@ -28,7 +28,7 @@
     textColor = 'white';
   } else {
     // Error is for completeness, but never happens in practice (because of type safety)
-    throw ThrowError('Error', 'theme attribute not recognised', 'Tooltip');
+    throw DMVisError('theme attribute not recognised', 'Tooltip');
   }
 </script>
 

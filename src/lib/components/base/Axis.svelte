@@ -6,7 +6,7 @@
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Draggable from './Draggable.svelte';
-  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required Attributes
@@ -32,7 +32,7 @@
   let labelRotationDegrees: number = 0;
 
   $: if (isDraggable && !renderLabel) {
-    throw ThrowError('Error', "'renderLabel' must be enabled to make the Axis draggable.", 'Axis');
+    throw DMVisError("'renderLabel' must be enabled to make the Axis draggable.", 'Axis');
   }
 
   onMount(() => {
@@ -75,7 +75,7 @@
           labelOriginY = OriginY.Top;
           break;
         default:
-          throw ThrowError('Error', 'Incorrect labelPosition assignment.', 'Axis');
+          throw DMVisError('Incorrect labelPosition assignment.', 'Axis');
       }
     }
   });

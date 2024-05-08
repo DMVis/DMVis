@@ -9,6 +9,7 @@
 
   // DMVis util imports
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { VisualisationStore } from '$lib/store.js';
 
@@ -122,62 +123,70 @@ The visualisation consists of two major components: namely, a visualisation clos
 * padding: number                           - Padding between the different visualisations. This defaults to `0.1`.
 -->
 
-<svg {width} {height} class="valuechart">
-  {#key $visualisationData}
-    <!-- Scrollable logic -->
-    <foreignObject x={0} y={0} {width} height={topHeight}>
-      <div
-        class="valuechart-scrollable-top scrollable"
-        style={`width:${width}px; height:${topHeight}px; overflow:auto; overflow-x:hidden;`}
-        on:scroll={onScroll}>
-        <!-- Start of top half of the visualisation -->
-        <svg {width} height={calculateHeight($visualisationData.length - 1)}>
-          <!-- Create a colum for the labels -->
-          <TextColumn x={0} width={marginLeft} {height} data={labelColumn} name={'Labels'} />
-          <!-- Loop over all the columns and create a bar column for every column -->
-          {#each numericalColumns as column, i}
-            {#if typeof column[0] === 'number'}
-              <BarColumn
-                x={marginLeft + i * columnWidth}
-                width={columnWidth}
-                {height}
-                data={column}
-                name={dataUtil.columns[i + 1]}
-                barColor={styleUtil.colorScheme[i % styleUtil.colorScheme.length]} />
-            {/if}
-          {/each}
-        </svg>
-      </div>
-    </foreignObject>
-    <!-- Line to seperate top and bottom half -->
-    <line x1={0} x2={width} y1={lineYPosition} y2={lineYPosition} stroke="black" stroke-width="2" />
-    <!-- Scrollable logic -->
-    <foreignObject x={0} y={bottomYPosition} {width} height={bottomHeight}>
-      <div
-        class="valuechart-scrollable-bottom scrollable"
-        style={`width:${width}px; height:${bottomHeight}px; overflow:auto; overflow-x:hidden;`}
-        on:scroll={onScroll}>
-        <!-- Bottom half of the visualisation -->
-        <svg {width} height={calculateHeight($visualisationData.length - 1)}>
-          <!-- Draw a column for the labels -->
-          <TextColumn
-            x={0}
-            width={marginLeft}
-            {height}
-            data={transposedData[0].map(String)}
-            name={'Labels'} />
-          <!-- Draw a very wide columns for a stacked bar for each row -->
-          <SumColumn
-            x={marginLeft}
-            width={width - marginLeft - marginRight}
-            {height}
-            data={numericalRows}
-            name={'Sum'} />
-        </svg>
-      </div>
-    </foreignObject>
-  {/key}
-</svg>
+<BaseVisualisation>
+  <svg {width} {height} class="valuechart">
+    {#key $visualisationData}
+      <!-- Scrollable logic -->
+      <foreignObject x={0} y={0} {width} height={topHeight}>
+        <div
+          class="valuechart-scrollable-top scrollable"
+          style={`width:${width}px; height:${topHeight}px; overflow:auto; overflow-x:hidden;`}
+          on:scroll={onScroll}>
+          <!-- Start of top half of the visualisation -->
+          <svg {width} height={calculateHeight($visualisationData.length - 1)}>
+            <!-- Create a colum for the labels -->
+            <TextColumn x={0} width={marginLeft} {height} data={labelColumn} name={'Labels'} />
+            <!-- Loop over all the columns and create a bar column for every column -->
+            {#each numericalColumns as column, i}
+              {#if typeof column[0] === 'number'}
+                <BarColumn
+                  x={marginLeft + i * columnWidth}
+                  width={columnWidth}
+                  {height}
+                  data={column}
+                  name={dataUtil.columns[i + 1]}
+                  barColor={styleUtil.colorScheme[i % styleUtil.colorScheme.length]} />
+              {/if}
+            {/each}
+          </svg>
+        </div>
+      </foreignObject>
+      <!-- Line to seperate top and bottom half -->
+      <line
+        x1={0}
+        x2={width}
+        y1={lineYPosition}
+        y2={lineYPosition}
+        stroke="black"
+        stroke-width="2" />
+      <!-- Scrollable logic -->
+      <foreignObject x={0} y={bottomYPosition} {width} height={bottomHeight}>
+        <div
+          class="valuechart-scrollable-bottom scrollable"
+          style={`width:${width}px; height:${bottomHeight}px; overflow:auto; overflow-x:hidden;`}
+          on:scroll={onScroll}>
+          <!-- Bottom half of the visualisation -->
+          <svg {width} height={calculateHeight($visualisationData.length - 1)}>
+            <!-- Draw a column for the labels -->
+            <TextColumn
+              x={0}
+              width={marginLeft}
+              {height}
+              data={transposedData[0].map(String)}
+              name={'Labels'} />
+            <!-- Draw a very wide columns for a stacked bar for each row -->
+            <SumColumn
+              x={marginLeft}
+              width={width - marginLeft - marginRight}
+              {height}
+              data={numericalRows}
+              name={'Sum'} />
+          </svg>
+        </div>
+      </foreignObject>
+    {/key}
+  </svg>
+</BaseVisualisation>
 
 <style>
   .scrollable {

@@ -9,6 +9,7 @@
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
 
   // Required attributes
@@ -341,48 +342,50 @@ to adjust `marginTop` or `columnMarginTop`.
                                         This defaults to `false`.
 -->
 
-<svg class="visualisation tabularVisualisation" {width} {height}>
-  {#key dataUtil || $visualisationData}
-    <!-- Plot the top axis of the visualisation -->
-    <g id="axes">
-      <DynamicAxis
-        position="top"
-        ticksNumber={3}
-        padding={columnSpacing / scaleColumns.bandwidth()} />
-    </g>
-    <!-- Loop over all the columns and create a barcolumn for each of them -->
-    {#each $columns as column, columnIndex}
-      <BarColumn
-        x={marginLeft + scaleColumns.bandwidth() * columnIndex}
-        y={marginTop}
-        width={scaleColumns.bandwidth()}
-        height={height - marginTop - marginBottom}
-        data={column}
-        {columnSpacing}
-        {showColumnLines}
-        {barPadding}
-        {barColor}
-        {barOpacity}
-        {barRadiusX}
-        {barRadiusY}
-        {textColor}
-        {fontSize}
-        {fontWeight}
-        {fontFamily}
-        {headerColor}
-        {headerOpacity}
-        {headerRadiusX}
-        {headerRadiusY}
-        {headerPadding}
-        {headerTextColor}
-        {headerFontSize}
-        {headerFontWeight}
-        {headerFontFamily}
-        {hasHeaderBackground}
-        on:mouseBarEnter={onMouseBarEnter}
-        on:mouseBarLeave={onMouseBarLeave}
-        on:mouseLabelEnter={onMouseLabelEnter}
-        on:mouseLabelLeave={onMouseLabelLeave} />
-    {/each}
-  {/key}
-</svg>
+<BaseVisualisation>
+  <svg class="visualisation tabularVisualisation" {width} {height}>
+    {#key dataUtil || $visualisationData}
+      <!-- Plot the top axis of the visualisation -->
+      <g id="axes">
+        <DynamicAxis
+          position="top"
+          ticksNumber={3}
+          padding={columnSpacing / scaleColumns.bandwidth()} />
+      </g>
+      <!-- Loop over all the columns and create a barcolumn for each of them -->
+      {#each $columns as column, columnIndex}
+        <BarColumn
+          x={marginLeft + scaleColumns.bandwidth() * columnIndex}
+          y={marginTop}
+          width={scaleColumns.bandwidth()}
+          height={height - marginTop - marginBottom}
+          data={column}
+          {columnSpacing}
+          {showColumnLines}
+          {barPadding}
+          {barColor}
+          {barOpacity}
+          {barRadiusX}
+          {barRadiusY}
+          {textColor}
+          {fontSize}
+          {fontWeight}
+          {fontFamily}
+          {headerColor}
+          {headerOpacity}
+          {headerRadiusX}
+          {headerRadiusY}
+          {headerPadding}
+          {headerTextColor}
+          {headerFontSize}
+          {headerFontWeight}
+          {headerFontFamily}
+          {hasHeaderBackground}
+          on:mouseBarEnter={onMouseBarEnter}
+          on:mouseBarLeave={onMouseBarLeave}
+          on:mouseLabelEnter={onMouseLabelEnter}
+          on:mouseLabelLeave={onMouseLabelLeave} />
+      {/each}
+    {/key}
+  </svg>
+</BaseVisualisation>

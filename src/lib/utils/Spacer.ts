@@ -1,6 +1,6 @@
 import { scaleBand, scalePoint } from 'd3-scale';
 
-import { ThrowError } from '$lib/utils/ThrowError.js';
+import { DMVisError } from '$lib/utils/DMVisError.js';
 
 export function Spacer(
   dimension: number,
@@ -9,7 +9,7 @@ export function Spacer(
   length: number
 ): number {
   if (length < 1) {
-    throw ThrowError('Error', 'Cannot space less than 1 element', 'Spacer');
+    throw DMVisError('Cannot space less than 1 element', 'Spacer');
   } else if (length === 1) {
     return (dimension - marginLow - marginHigh - 1) / 1;
   } else {
@@ -51,7 +51,7 @@ export function SpacerSide(
         .paddingOuter(paddingOuter);
     }
     default:
-      throw ThrowError('Error', 'Invalid alignment', 'Spacer');
+      throw DMVisError('Invalid alignment', 'Spacer');
   }
 }
 

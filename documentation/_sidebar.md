@@ -26,6 +26,7 @@
   - [Axis](components/axis.md)
   - [Bar](components/bar.md)
   - [BarColumn](components/barcolumn.md)
+  - [BaseVisualisation](components/basevisualisation.md)
   - [Column](components/column.md)
     - [BarColumn](columns/barcolumn.md)
     - [RankColumn](columns/rankcolumn.md)
@@ -48,9 +49,9 @@
 - Utilities
   - [Context](utils/context.md)
   - [DataUtils](utils/dataUtils.md)
+  - [DMVisError](utils/DMVisError.md)
   - [Events](utils/events.md)
   - [Origin](utils/origin.md)
   - [Performance](utils/performance.md)
   - [Spacer](utils/spacer.md)
   - [StyleUtils](utils/styleUtils.md)
-  - [ThrowError](utils/throwError.md)

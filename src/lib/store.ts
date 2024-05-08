@@ -3,7 +3,7 @@ import { extent, scaleBand, scaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
 
 // DMVis Imports
-import { ThrowError } from '$lib/utils/ThrowError.js';
+import { DMVisError } from '$lib/utils/DMVisError.js';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
 export class VisualisationStore {
@@ -81,8 +81,7 @@ export class VisualisationStore {
       } else {
         const domain = extent(columnData as Array<number>);
         if (domain[0] === undefined) {
-          throw ThrowError(
-            'Error',
+          throw DMVisError(
             `Data is incompatable, value range could not be found in column ${data[0][i]}`,
             'VisualisationStore'
           );

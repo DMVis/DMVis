@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 
 // DMVis imports
-import { ThrowError } from './ThrowError.js';
+import { DMVisError } from './DMVisError.js';
 import { writable, type Writable } from 'svelte/store';
 
 /**
@@ -41,8 +41,7 @@ export class DataUtils {
         try {
           return await this.parseCSV(data);
         } catch (error) {
-          throw ThrowError(
-            'Error',
+          throw DMVisError(
             'Data could not be parsed as JSON or CSV. Please provide a valid type.',
             'DataUtils'
           );
@@ -86,11 +85,7 @@ export class DataUtils {
       // Return the parsed data
       return this.rawData;
     } catch (error) {
-      throw ThrowError(
-        'Error',
-        'CSV data that was supplied is not in the correct format.',
-        'DataUtils'
-      );
+      throw DMVisError('CSV data that was supplied is not in the correct format.', 'DataUtils');
     }
   }
 
@@ -136,7 +131,7 @@ export class DataUtils {
         });
         this.rawData = [this.columns, ...this.data];
       } else {
-        throw ThrowError('Error', 'Could not parse JSON data', 'DataUtils');
+        throw DMVisError('Could not parse JSON data', 'DataUtils');
       }
 
       // Infer column types
@@ -148,11 +143,7 @@ export class DataUtils {
       // Return the parsed data
       return this.rawData;
     } catch (error) {
-      throw ThrowError(
-        'Error',
-        'JSON data that was supplied is not in the correct format.',
-        'DataUtils'
-      );
+      throw DMVisError('JSON data that was supplied is not in the correct format.', 'DataUtils');
     }
   }
 
@@ -373,6 +364,6 @@ export class DataUtils {
       }
     }
 
-    throw ThrowError('Error', 'Could not determine separator', 'DataUtils');
+    throw DMVisError('Could not determine separator', 'DataUtils');
   }
 }

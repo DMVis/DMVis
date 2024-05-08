@@ -8,6 +8,7 @@
   import RankColumn from '$lib/components/columns/RankColumn.svelte';
   import SelectColumn from '$lib/components/columns/SelectColumn.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
 
@@ -282,99 +283,101 @@ displays different types of columns such as text, bar, and rank columns. This is
 * padding: number                      - The padding between columns. The default value is 10.
 -->
 
-<svg
-  class="visualisation lineUp"
-  {width}
-  {height}
-  role="cell"
-  tabindex="-1"
-  on:keydown={setCurrentKey}
-  on:keyup={setCurrentKey}>
-  {#key dataUtil || $visualisationData}
-    <g class="lineUp-highlights">
-      {#if highlightRow >= 0}
-        <rect
-          x={0}
-          y={highlightRow * 20 + 105}
-          {width}
-          height="20"
-          fill={styleUtil.focusColor}
-          fill-opacity="10%" />
-      {/if}
-      {#each selectedRows as row}
-        <rect
-          x={0}
-          y={row * 20 + 105}
-          {width}
-          height="20"
-          fill={styleUtil.focusColor}
-          fill-opacity="25%" />
-      {/each}
-    </g>
-    {#each columns as column, i}
-      {#if columnInfo[column] === 'string'}
-        <TextColumn
-          x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
-          width={columnWidth}
-          {height}
-          {padding}
-          name={column}
-          data={columnData[column].map(String)}
-          on:dragStart={onDraggingStart}
-          on:dragMove={onDragMove}
-          on:dragStop={onDragStop}
-          on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={selectRows}
-          on:search={(e) => searchData(e)}
-          on:sort={(e) => sortData(e)} />
-      {:else if columnInfo[column] === 'rank'}
-        <RankColumn
-          x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
-          width={columnWidth}
-          {height}
-          {padding}
-          length={Number(columnData[column][0])}
-          on:dragStart={onDraggingStart}
-          on:dragMove={onDragMove}
-          on:dragStop={onDragStop}
-          on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={selectRows} />
-      {:else if columnInfo[column] === 'select'}
-        <SelectColumn
-          x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
-          width={columnWidth}
-          {height}
-          {padding}
-          selected={selectedRows}
-          length={Number(columnData[column][0])}
-          on:check={selectRows}
-          on:dragStart={onDraggingStart}
-          on:dragMove={onDragMove}
-          on:dragStop={onDragStop}
-          on:checkAll={(e) => selectAll(e)}
-          on:group={(e) => groupData(e)}
-          on:mouseHover={(e) => (highlightRow = e.detail.row)}
-          on:mouseRowClick={selectRows}
-          on:sort={(e) => sortData(e)} />
-      {:else if columnInfo[column] === 'number'}
-        {#key column}
-          <BarColumn
+<BaseVisualisation>
+  <svg
+    class="visualisation lineUp"
+    {width}
+    {height}
+    role="cell"
+    tabindex="-1"
+    on:keydown={setCurrentKey}
+    on:keyup={setCurrentKey}>
+    {#key dataUtil || $visualisationData}
+      <g class="lineUp-highlights">
+        {#if highlightRow >= 0}
+          <rect
+            x={0}
+            y={highlightRow * 20 + 105}
+            {width}
+            height="20"
+            fill={styleUtil.focusColor}
+            fill-opacity="10%" />
+        {/if}
+        {#each selectedRows as row}
+          <rect
+            x={0}
+            y={row * 20 + 105}
+            {width}
+            height="20"
+            fill={styleUtil.focusColor}
+            fill-opacity="25%" />
+        {/each}
+      </g>
+      {#each columns as column, i}
+        {#if columnInfo[column] === 'string'}
+          <TextColumn
             x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
             width={columnWidth}
             {height}
             {padding}
-            barColor={columnColors[column]}
             name={column}
-            data={columnData[column].map(Number)}
+            data={columnData[column].map(String)}
             on:dragStart={onDraggingStart}
             on:dragMove={onDragMove}
             on:dragStop={onDragStop}
-            on:filter={(e) => filterData(e)}
+            on:mouseHover={(e) => (highlightRow = e.detail.row)}
+            on:mouseRowClick={selectRows}
+            on:search={(e) => searchData(e)}
+            on:sort={(e) => sortData(e)} />
+        {:else if columnInfo[column] === 'rank'}
+          <RankColumn
+            x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
+            width={columnWidth}
+            {height}
+            {padding}
+            length={Number(columnData[column][0])}
+            on:dragStart={onDraggingStart}
+            on:dragMove={onDragMove}
+            on:dragStop={onDragStop}
+            on:mouseHover={(e) => (highlightRow = e.detail.row)}
+            on:mouseRowClick={selectRows} />
+        {:else if columnInfo[column] === 'select'}
+          <SelectColumn
+            x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
+            width={columnWidth}
+            {height}
+            {padding}
+            selected={selectedRows}
+            length={Number(columnData[column][0])}
+            on:check={selectRows}
+            on:dragStart={onDraggingStart}
+            on:dragMove={onDragMove}
+            on:dragStop={onDragStop}
+            on:checkAll={(e) => selectAll(e)}
+            on:group={(e) => groupData(e)}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={selectRows}
             on:sort={(e) => sortData(e)} />
-        {/key}
-      {/if}
-    {/each}
-  {/key}
-</svg>
+        {:else if columnInfo[column] === 'number'}
+          {#key column}
+            <BarColumn
+              x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
+              width={columnWidth}
+              {height}
+              {padding}
+              barColor={columnColors[column]}
+              name={column}
+              data={columnData[column].map(Number)}
+              on:dragStart={onDraggingStart}
+              on:dragMove={onDragMove}
+              on:dragStop={onDragStop}
+              on:filter={(e) => filterData(e)}
+              on:mouseHover={(e) => (highlightRow = e.detail.row)}
+              on:mouseRowClick={selectRows}
+              on:sort={(e) => sortData(e)} />
+          {/key}
+        {/if}
+      {/each}
+    {/key}
+  </svg>
+</BaseVisualisation>

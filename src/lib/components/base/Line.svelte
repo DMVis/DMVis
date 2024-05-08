@@ -5,7 +5,7 @@
 
   // DMVis imports
   import Tooltip from '$lib/components/base/Tooltip.svelte';
-  import { ThrowError } from '$lib/utils/ThrowError.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import { getVisualisationContext } from '$lib/context.js';
@@ -55,7 +55,7 @@
       // When this point is reached, it means that the given alignment is not recognised
       // Note that due to Typescript, this should never happen
       default:
-        throw ThrowError('Error', 'Invalid alignment provided.', 'Line');
+        throw DMVisError('Invalid alignment provided.', 'Line');
     }
   }
 

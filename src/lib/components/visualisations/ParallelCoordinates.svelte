@@ -3,6 +3,7 @@
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
 
@@ -96,20 +97,22 @@ and draws a line through each axis for each row in the table.
 * marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
 * marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
 -->
-<svg class="visualisation parallelCoordinates" {width} {height}>
-  {#key $visualisationData}
-    <!-- Draw all the lines -->
-    <Line lineWidth={2} hoverable={true} {axisOrder} {draggedAxis} {draggingOffset} />
-    <!-- Draw all the axes -->
-    <DynamicAxis
-      position={'left'}
-      alignment={'spaced'}
-      renderLabel={true}
-      labelPosition={'top'}
-      {axisOrder}
-      isDraggable={true}
-      on:dragMove={onDragMove}
-      on:dragStop={onDragStop}
-      on:axisOrderChanged={onAxisOrderChanged} />
-  {/key}
-</svg>
+<BaseVisualisation>
+  <svg class="visualisation parallelCoordinates" {width} {height}>
+    {#key $visualisationData}
+      <!-- Draw all the lines -->
+      <Line lineWidth={2} hoverable={true} {axisOrder} {draggedAxis} {draggingOffset} />
+      <!-- Draw all the axes -->
+      <DynamicAxis
+        position={'left'}
+        alignment={'spaced'}
+        renderLabel={true}
+        labelPosition={'top'}
+        {axisOrder}
+        isDraggable={true}
+        on:dragMove={onDragMove}
+        on:dragStop={onDragStop}
+        on:axisOrderChanged={onAxisOrderChanged} />
+    {/key}
+  </svg>
+</BaseVisualisation>

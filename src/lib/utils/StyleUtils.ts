@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import colorbrewer from 'colorbrewer';
 
 // DMVis Imports
-import { ThrowError } from '$lib/utils/ThrowError.js';
+import { DMVisError } from '$lib/utils/DMVisError.js';
 
 interface styleOptions {
   fontSize?: number;
@@ -52,11 +52,7 @@ export class StyleUtils {
   generateColors(colorSet: string, numberOfColors: number): Array<string> {
     // Check if n is a positive integer
     if (!Number.isInteger(numberOfColors) || numberOfColors <= 0) {
-      throw ThrowError(
-        'Error',
-        'Invalid number of colors. Please provide a positive number.',
-        'StyleUtils'
-      );
+      throw DMVisError('Invalid number of colors. Please provide a positive number.', 'StyleUtils');
     }
 
     // Assert that colorSet is indeed a keyof typeof colorbrewer
@@ -91,8 +87,7 @@ export class StyleUtils {
       // Generates the colors based on the color set
       this.colorScheme = this.generateColors(scheme, numberOfColors);
     } else {
-      throw ThrowError(
-        'Error',
+      throw DMVisError(
         'Invalid color scheme. Look up the available color schemes in ColorBrewer2.org.',
         'StyleUtils'
       );
