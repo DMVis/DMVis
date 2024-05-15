@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 // DMVis imports
 import { DMVisError } from './DMVisError.js';
-import { writable, type Writable } from 'svelte/store';
+import { get, writable, type Writable } from 'svelte/store';
 
 /**
  * A class that provides utility functions to work with data.
@@ -81,11 +81,14 @@ export class DataUtils {
       this.columns = csv_data[0].map((d: string | number) => String(d));
       this.columnInfo = this.#inferColumnTypes();
 
-      // Set the visualisation data
-      this.visualisationData.set(this.data);
+      // Set the visualisation data using a new array to prevent reactivity issues
+      this.visualisationData.set([...this.data]);
       this.dataMap.set(
         new Map(
-          this.#transposeData(this.data).map((row, index) => [this.columns[index] as string, row])
+          this.#transposeData([...this.data]).map((row, index) => [
+            this.columns[index] as string,
+            row
+          ])
         )
       );
 
@@ -170,7 +173,7 @@ export class DataUtils {
     }
 
     // Sort the data based on the given column
-    const sortedData = this.data.sort((a, b) => {
+    const sortedData = get(this.visualisationData).sort((a, b) => {
       if (ascending) {
         // Sort in ascending order
         return a[index] > b[index] ? 1 : a[index] < b[index] ? -1 : 0;
@@ -214,7 +217,7 @@ export class DataUtils {
       }, 0);
     }
 
-    const sortedData = this.data.sort((a, b) => {
+    const sortedData = get(this.visualisationData).sort((a, b) => {
       if (ascending) {
         // Sort in ascending order
         return computeScaledTotal(b) - computeScaledTotal(a);
@@ -281,7 +284,7 @@ export class DataUtils {
     // So return an empty array
     if (indicesToCheck.length == 0) {
       return [
-        this.data.map((row) => {
+        get(this.visualisationData).map((row) => {
           return row[0] as string;
         }),
         []
@@ -290,7 +293,7 @@ export class DataUtils {
 
     const inside: string[] = [];
     const outside: string[] = [];
-    this.data.forEach((row) => {
+    get(this.visualisationData).forEach((row) => {
       (this.#filterRow(row, indicesToCheck, rangePerAttribute) ? inside : outside).push(
         row[0] as string
       );
@@ -315,7 +318,7 @@ export class DataUtils {
     );
 
     // Filter rawData based on filters
-    const filteredData = this.data.filter((row) => {
+    const filteredData = get(this.visualisationData).filter((row) => {
       return Object.entries(filters).every(([column, filterValue]) => {
         // Get the index of the column
         const index = columnIndexMap[column];

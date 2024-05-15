@@ -1,5 +1,6 @@
 <script lang="ts">
   // Imports
+  import { writable } from 'svelte/store';
   import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports
@@ -40,35 +41,14 @@
   let isGrouped: boolean = false;
   let showMore: boolean = false;
   let highlighted: boolean = false;
-  let sorting: 'ascend' | 'descend' | 'none' = 'none';
   const handleOptions = (option: string, column: string) => {
-    if (option === 'sort') {
-      // Set the sorting option
-      if (sorting === 'ascend') {
-        sorting = 'descend';
-      } else if (sorting === 'descend') {
-        sorting = 'none';
-      } else {
-        sorting = 'ascend';
-      }
-
-      // Sort the data
-      dispatch('sort', { column, sorting });
-    } else if (option === 'search') {
-      dispatch('search', { column });
-    } else if (option === 'filter') {
-      dispatch('filter', { column });
-    } else if (option === 'group') {
+    if (option === 'group') {
       isGrouped = !isGrouped;
       dispatch('group', { column, isGrouped });
     } else if (option === 'more') {
       showMore = !showMore;
-    } else if (option === 'weight') {
-      dispatch('weight', { column });
-    } else if (option === 'item') {
-      // TODO: Separator feature, requires more research
-    } else if (option === 'band') {
-      // TODO: Separator feature, requires more research
+    } else {
+      dispatch(option, { column });
     }
   };
 

@@ -25,8 +25,8 @@
   export let height: number = calculateHeight(dataUtil.data.length);
   export let padding: number = 10;
 
-  // Get the data from the dataUtil
-  const { visualisationData } = dataUtil;
+  // Get the visualisation data
+  const { visualisationData, dataMap } = dataUtil;
 
   // Set store values
   setVisualisationContext({
@@ -37,11 +37,16 @@
     styleUtil
   });
 
+  // Handle mount
+  const columnFilters: Map<string, string | { min: number; max: number }> = new Map();
+  const columnColours: Map<string, string> = new Map();
+  let columnData: Map<string, Array<number | string>> = $dataMap;
+
   $: {
-    //visualisationStore.data.set($visualisationData);
+    // Update the visualisation context
     updateVisualisationContext({ data: $visualisationData });
     height = calculateHeight($visualisationData.length);
-    [columnData, columnColors] = setColumnData($visualisationData);
+    columnData = $dataMap;
   }
 
   // Set variables for data and highlighting
@@ -53,6 +58,22 @@
   let columns = ['LineUp_Rank', 'LineUp_Select', ...dataUtil.columns];
   let highlightRow: number = -1;
 
+  // Set the colors for each columns
+  const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
+  dataUtil.columns.forEach((column, i) => {
+    columnColours.set(column, barColors[i]);
+  });
+
+  // Set the filters
+  columns.forEach((column) => {
+    if (dataUtil.columnInfo[column] === 'number') {
+      const data = $dataMap.get(column) as Array<number>;
+      columnFilters.set(column, { min: Math.min(...data), max: Math.max(...data) });
+    } else {
+      columnFilters.set(column, '');
+    }
+  });
+
   // Booleans to track whether a special key is being held for selection
   let shift: boolean = false;
   let ctrl: boolean = false;
@@ -63,50 +84,6 @@
     } else if (event.key === 'Control') {
       ctrl = event.type === 'keydown';
     }
-  }
-
-  // Create the data and colors for each column
-  const barColors = styleUtil.generateColors('Dark2', columns.length);
-  let columnData: { [key: string]: Array<number | string> };
-  let columnColors: { [key: string]: string };
-  [columnData, columnColors] = setColumnData($visualisationData);
-
-  function setColumnData(data: Array<Array<number | string>>) {
-    let newColumnData: { [key: string]: Array<number | string> } = {};
-    let newColumnColors: { [key: string]: string } = {};
-
-    // Transpose rows to columns
-    let transposedData = data.reduce(
-      (acc, currentRow) => {
-        currentRow.forEach((value, index) => {
-          if (acc[index] === undefined) {
-            acc[index] = [] as Array<number | string>;
-          }
-          acc[index].push(value);
-        });
-        return acc;
-      },
-      [[]] as Array<Array<number | string>>
-    );
-
-    columns.forEach((column, index) => {
-      if (column === 'LineUp_Rank') {
-        newColumnData[column] = [data.length];
-      } else if (column === 'LineUp_Select') {
-        newColumnData[column] = [data.length];
-      } else {
-        // Skipping the first two columns, since they are rank and select columns which
-        // do not hold any data from the data array. Defaulting to an empty array if no
-        // values are present for the column.
-        newColumnData[column] = transposedData[index - 2] || [];
-      }
-      newColumnColors[column] = barColors[index];
-    });
-
-    return [newColumnData, newColumnColors] as [
-      { [key: string]: Array<number | string> },
-      { [key: string]: string }
-    ];
   }
 
   // Calculate height based on number of rows
@@ -134,7 +111,7 @@
   function selectRow(event: CustomEvent, single: boolean = true) {
     // Get the row that was clicked, if it is a valid row
     const row = Number(event.detail.row);
-    if (row < 0) {
+    if (row < 0 || row >= $visualisationData.length) {
       return;
     }
 
@@ -143,7 +120,7 @@
       // With a normal click, only select one row, deselect others
       selectedRows.forEach((deselect) => {
         const checkbox = document.getElementById(`select-${deselect}`) as HTMLInputElement;
-        checkbox.checked = false;
+        checkbox ? (checkbox.checked = false) : null;
       });
 
       // If the row was already selected, deselect it
@@ -166,7 +143,7 @@
 
     // Set the column checkbox based on selectedRows state
     const allCheckbox = document.getElementById('column-select-all') as HTMLInputElement;
-    if (selectedRows.size === dataUtil.data.length) {
+    if (selectedRows.size === $visualisationData.length) {
       allCheckbox.indeterminate = false;
       allCheckbox.checked = true;
     } else if (selectedRows.size === 0) {
@@ -208,15 +185,29 @@
 
   function selectAll(event: CustomEvent) {
     if (event.detail.checked) {
-      selectedRows = new Set([...Array(dataUtil.data.length).keys()]);
+      selectedRows = new Set([...Array($visualisationData.length).keys()]);
     } else {
       selectedRows = new Set();
     }
   }
 
   function filterData(event: CustomEvent) {
-    // TODO: Implement filtering functionality in DataUtils
-    console.log('filter', event.detail.column, event.detail.min, event.detail.max);
+    // Get the filter values
+    const { column, min, max, value } = event.detail;
+
+    // Create a new filter object
+    if (value) {
+      columnFilters.set(column, value);
+    } else {
+      columnFilters.set(column, { min, max });
+    }
+
+    // Apply the filters to the data
+    dataUtil.applyFilters(Object.fromEntries(columnFilters));
+  }
+
+  function getColumnFilter(column: string): { min: number; max: number } {
+    return columnFilters.get(column) as { min: number; max: number };
   }
 
   function groupData(event: CustomEvent) {
@@ -225,13 +216,66 @@
   }
 
   function searchData(event: CustomEvent) {
-    // TODO: Implement search functionality in DataUtils
-    console.log('search', event.detail.column, event.detail.search);
+    const { column, value } = event.detail;
+    const selected: Set<number> = new Set();
+
+    if (value !== '') {
+      // Select the rows that match the search
+      $dataMap.get(column)?.forEach((rowValue, i) => {
+        if (String(rowValue).toLowerCase().includes(value.toLowerCase())) {
+          selected.add(i);
+          selectRow({ detail: { row: i } } as CustomEvent, false);
+        }
+      });
+    }
+
+    // Set the selected rows
+    selectedRows = selected;
   }
 
+  let sortedColumn: string = '';
+  let sortedOrder: 'asc' | 'desc' | 'none' = 'none';
   function sortData(event: CustomEvent) {
-    // TODO: Make sure that we can disable sorting as well, not just ascending and descending
-    console.log('sort', event.detail.column, event.detail.sorting);
+    const { column } = event.detail;
+    let ascending = sortedOrder === 'asc';
+    if (sortedColumn === column) {
+      // Decide sorting order, none -> asc -> desc -> none
+      sortedOrder = sortedOrder === 'asc' ? 'desc' : sortedOrder === 'desc' ? 'none' : 'asc';
+    } else {
+      sortedOrder = 'asc';
+    }
+    sortedColumn = column;
+
+    // Check if sorting should be applied or not
+    if (sortedOrder !== 'none') {
+      // Handle sorting differently if the column is the select column
+      if (column === 'LineUp_Select') {
+        // Sort the selected rows
+        const selected = Array.from(selectedRows);
+        const sortedData = $visualisationData.sort((a, _) => {
+          if (ascending) {
+            // Sort in ascending order
+            return selected.includes($visualisationData.indexOf(a)) ? -1 : 1;
+          } else {
+            // Sort in descending order
+            return selected.includes($visualisationData.indexOf(a)) ? 1 : -1;
+          }
+        });
+
+        console.log(sortedData);
+
+        // Set the visualisation data
+        dataUtil.setVisualisationData(sortedData);
+      } else {
+        dataUtil.sortData(column, ascending);
+      }
+    } else {
+      // Reset sorting values
+      dataUtil.resetVisualisationData();
+    }
+
+    // Apply the filters to the data
+    dataUtil.applyFilters(Object.fromEntries(columnFilters));
   }
 
   // Handle columns being dragged
@@ -325,21 +369,23 @@ displays different types of columns such as text, bar, and rank columns. This is
             {height}
             {padding}
             name={column}
-            data={columnData[column].map(String)}
+            data={columnData.get(column)?.map(String) ?? []}
+            filter={String(columnFilters.get(column))}
             on:dragStart={onDraggingStart}
             on:dragMove={onDragMove}
             on:dragStop={onDragStop}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={selectRows}
-            on:search={(e) => searchData(e)}
-            on:sort={(e) => sortData(e)} />
+            on:search={searchData}
+            on:filter={filterData}
+            on:sort={sortData} />
         {:else if columnInfo[column] === 'rank'}
           <RankColumn
             x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
             width={columnWidth}
             {height}
             {padding}
-            length={Number(columnData[column][0])}
+            length={$visualisationData.length}
             on:dragStart={onDraggingStart}
             on:dragMove={onDragMove}
             on:dragStop={onDragStop}
@@ -352,16 +398,16 @@ displays different types of columns such as text, bar, and rank columns. This is
             {height}
             {padding}
             selected={selectedRows}
-            length={Number(columnData[column][0])}
+            length={$visualisationData.length}
             on:check={selectRows}
             on:dragStart={onDraggingStart}
             on:dragMove={onDragMove}
             on:dragStop={onDragStop}
-            on:checkAll={(e) => selectAll(e)}
-            on:group={(e) => groupData(e)}
+            on:checkAll={selectAll}
+            on:group={groupData}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={selectRows}
-            on:sort={(e) => sortData(e)} />
+            on:sort={sortData} />
         {:else if columnInfo[column] === 'number'}
           {#key column}
             <BarColumn
@@ -369,17 +415,18 @@ displays different types of columns such as text, bar, and rank columns. This is
               width={columnWidth}
               {height}
               {padding}
-              barColor={columnColors[column]}
+              barColor={columnColours.get(column)}
               name={column}
               overviewItem={'histogram'}
-              data={columnData[column].map(Number)}
+              data={columnData.get(column)?.map(Number) ?? []}
+              filter={getColumnFilter(column)}
               on:dragStart={onDraggingStart}
               on:dragMove={onDragMove}
               on:dragStop={onDragStop}
-              on:filter={(e) => filterData(e)}
+              on:filter={filterData}
               on:mouseHover={(e) => (highlightRow = e.detail.row)}
               on:mouseRowClick={selectRows}
-              on:sort={(e) => sortData(e)} />
+              on:sort={sortData} />
           {/key}
         {/if}
       {/each}

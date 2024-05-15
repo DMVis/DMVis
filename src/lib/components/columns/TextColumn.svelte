@@ -15,6 +15,7 @@
   export let data: Array<string>;
 
   // Optional attributes
+  export let filter: string = '';
   export let padding: number = 10;
   export let name: string = 'Column';
   export let icons: IconType[] = [IconType.Sort, IconType.Search, IconType.Filter, IconType.More];
@@ -34,8 +35,12 @@
   // Get store values
   const { styleUtil } = getVisualisationContext();
 
-  // Dispatch search data
+  // Dispatches
   const dispatch = createEventDispatcher();
+  const dispatchFilterData = (event: Event) => {
+    dispatch('filter', { column: name, value: (event.target as HTMLInputElement).value });
+  };
+
   const dispatchSearchData = (event: Event) => {
     dispatch('search', { column: name, value: (event.target as HTMLInputElement).value });
   };
@@ -91,15 +96,17 @@ TextColumn is a Column component that displays text for each value in the data a
         x={x + paddingSide}
         y={60}
         width={width - padding}
-        height={100}
+        height={27}
         role="gridcell" />
-      <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={100}>
+      <!-- Height is set to the input height -->
+      <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={27}>
         <input
           type="text"
           placeholder={showSearch ? 'Search...' : 'Filter...'}
           list="filter-data"
           style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;"
-          on:input={(e) => dispatchSearchData(e)} />
+          value={filter}
+          on:keydown={(e) => (showSearch ? dispatchSearchData(e) : dispatchFilterData(e))} />
         {#if showFilter}
           <datalist id="filter-data">
             {#each ['Option 1', 'Option 2', 'Option 3'] as option}

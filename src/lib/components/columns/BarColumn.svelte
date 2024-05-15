@@ -1,9 +1,11 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
+  import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
+  import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
   import { Bar } from '$lib/components.js';
   import Histogram from '$lib/components/visualisations/Histogram.svelte';
@@ -17,6 +19,7 @@
   export let data: Array<number>;
 
   // Optional attributes
+  export let filter: { min: number; max: number } = { min: 0, max: 100 };
   export let name: string = 'Column';
   export let padding: number = 10;
   export let barColor: string = 'red';
@@ -33,8 +36,11 @@
   }
 
   // Column standards
+  const dispatch = createEventDispatcher();
   const type = ColumnType.Bar;
   const paddingSide: number = padding / 2;
+  const minValue = Math.min(...data);
+  const maxValue = Math.max(...data);
   let showFilter = false;
   let showWeight = false;
   let weightInputIsCorrect = true;
@@ -46,10 +52,11 @@
   }
 
   // Dispatch filter
-  const dispatch = createEventDispatcher();
-  const dispatchFilter = () => {
-    dispatch('filter', { column: name, min: 0, max: 200 });
-  };
+  let min = writable(filter.min.toString());
+  let max = writable(filter.max.toString());
+  function dispatchFilter(e: Event) {
+    dispatch('filter', { column: name, min: parseInt($min), max: parseInt($max) });
+  }
 
   // Function that fires when a key is pressed in the weight input
   function dispatchWeight(e: KeyboardEvent) {
@@ -127,8 +134,32 @@ BarColumn is a Column component that displays bars for each value in the data ar
         width={width - padding}
         height={100}
         role="gridcell" />
-      <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={100}>
-        <button on:click={() => dispatchFilter()}>Filter on range</button>
+      <Label
+        x={x + width / 2}
+        y={80}
+        backgroundColor={'none'}
+        borderColor={'none'}
+        text={'Select range'} />
+      <!-- Add 5px extra padding -->
+      <foreignObject x={x + 5 + paddingSide} y={100} width={width - padding - 10} height={50}>
+        <input
+          type="number"
+          min={minValue}
+          max={maxValue}
+          bind:value={$min}
+          placeholder="Min"
+          aria-label="MinInput"
+          style="width: 100%; padding:0; margin:0;"
+          on:change={dispatchFilter} />
+        <input
+          type="number"
+          min={minValue}
+          max={maxValue}
+          bind:value={$max}
+          placeholder="Max"
+          aria-label="MaxInput"
+          style="width: 100%; padding:0; margin:0;"
+          on:change={dispatchFilter} />
       </foreignObject>
     {/if}
     {#if showWeight}

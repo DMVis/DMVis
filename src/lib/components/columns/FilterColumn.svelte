@@ -130,8 +130,7 @@ FilterColumn is a component that displays a filter input for each column.
           placeholder={showSearch ? 'Search...' : 'Filter...'}
           list="filter-data"
           aria-label="TextInput"
-          style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;"
-          on:input={(e) => dispatchFilterData(e, true)} />
+          style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;" />
         {#if showFilter && type === ColumnType.Bar}
           <datalist id="filter-data">
             {#each ['Option 1', 'Option 2', 'Option 3'] as option}
