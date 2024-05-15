@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -30,6 +30,8 @@
   let labelOriginX: OriginX = OriginX.Middle;
   let labelOriginY: OriginY = OriginY.Middle;
   let labelRotationDegrees: number = 0;
+
+  const dispatch = createEventDispatcher();
 
   $: if (isDraggable && !renderLabel) {
     throw DMVisError("'renderLabel' must be enabled to make the Axis draggable.", 'Axis');
@@ -78,6 +80,7 @@
           throw DMVisError('Incorrect labelPosition assignment.', 'Axis');
       }
     }
+    dispatch('renderAxis');
   });
 </script>
 

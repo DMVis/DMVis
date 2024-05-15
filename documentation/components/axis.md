@@ -84,9 +84,9 @@ Sets whether the axis is draggable. For this to work, the `renderLabel` paramete
 
 This component emits the following events:
 
-- `axisOrderChanged`
 - `dragMove`
 - `dragStop`
+- `renderAxis`
 
 To read more about these events, see the [Events](../utils/events.md) documentation.
 

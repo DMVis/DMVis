@@ -1,4 +1,7 @@
 <script lang="ts">
+  // Imports
+  import * as d3 from 'd3';
+
   // DMVis imports
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
@@ -19,8 +22,13 @@
   export let marginTop: number = 40;
   export let marginBottom: number = 40;
 
+  // Variables that keep track of axis dragging
   let draggedAxis: string | null = null;
   let draggingOffset: number = 0;
+
+  // Variables that keep track of line highlighting
+  let highlightedLine: number = -1;
+  let clickedLine: boolean = false;
 
   const { visualisationData } = dataUtil;
 
@@ -76,6 +84,60 @@
     axisOrder = e.detail.axisOrder;
     draggingOffset = 0;
   }
+
+  // Function that fires when the mouse enters any line
+  function onMouseLineEnter(e: CustomEvent): void {
+    const id = e.detail.id;
+    if (draggedAxis === null && !clickedLine && highlightedLine !== id) {
+      highlightedLine = id;
+    }
+  }
+
+  // Function that fires when the mouse leaves any line
+  function onMouseLineLeave(): void {
+    if (!clickedLine) {
+      highlightedLine = -1;
+    }
+  }
+
+  // Function that fires when the mouse clicks any line
+  function onMouseLineClick(e: CustomEvent): void {
+    const id = e.detail.id;
+    if (clickedLine && highlightedLine !== id) {
+      highlightedLine = id;
+    } else {
+      clickedLine = !clickedLine;
+      highlightedLine = clickedLine ? highlightedLine : -1;
+    }
+  }
+
+  // If a line is highlighted (or not highlighted anymore), update the tick font-weight for the line
+  $: if (typeof highlightedLine === 'number') {
+    console.log(highlightedLine);
+    highlightAxisTick();
+  }
+
+  // If the order of the axes changes, update the tick font-weight for the highlighted line
+  function onRenderAxis(): void {
+    highlightAxisTick();
+  }
+
+  function highlightAxisTick() {
+    // If user is hovering a line, select the tick that is to be highlighted and make it bold
+    if (highlightedLine !== -1) {
+      const highlightText = $visualisationData[highlightedLine][0];
+      d3.select('.parallelCoordinates')
+        .selectAll('.tick text')
+        .filter(function () {
+          return d3.select(this).text() === highlightText;
+        })
+        .attr('font-weight', 'bold');
+    }
+    // If no line is being hovered, revert all ticks to normal font-weight
+    else {
+      d3.select('.parallelCoordinates').selectAll('.tick text').attr('font-weight', 'normal');
+    }
+  }
 </script>
 
 <!--
@@ -101,7 +163,15 @@ and draws a line through each axis for each row in the table.
   <svg class="visualisation parallelCoordinates" {width} {height}>
     {#key $visualisationData}
       <!-- Draw all the lines -->
-      <Line lineWidth={2} hoverable={true} {axisOrder} {draggedAxis} {draggingOffset} />
+      <Line
+        lineWidth={2}
+        hoverable={true}
+        {axisOrder}
+        {draggedAxis}
+        {draggingOffset}
+        on:mouseLineEnter={onMouseLineEnter}
+        on:mouseLineLeave={onMouseLineLeave}
+        on:mouseLineClick={onMouseLineClick} />
       <!-- Draw all the axes -->
       <DynamicAxis
         position={'left'}
@@ -112,7 +182,8 @@ and draws a line through each axis for each row in the table.
         isDraggable={true}
         on:dragMove={onDragMove}
         on:dragStop={onDragStop}
-        on:axisOrderChanged={onAxisOrderChanged} />
+        on:axisOrderChanged={onAxisOrderChanged}
+        on:renderAxis={onRenderAxis} />
     {/key}
   </svg>
 </BaseVisualisation>

@@ -469,6 +469,7 @@ You can use this component to render the axis on the top, bottom, left, or right
       on:dragMove
       on:dragMove={onDragMove}
       on:dragStop
-      on:dragStop={onDragStop} />
+      on:dragStop={onDragStop}
+      on:renderAxis />
   {/each}
 {/key}

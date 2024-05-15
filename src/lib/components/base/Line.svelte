@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { tick } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
 
   // DMVis imports
   import Tooltip from '$lib/components/base/Tooltip.svelte';
@@ -85,7 +85,7 @@
         let yBandOffset = 0;
         let xOffset = draggedAxis === axis ? draggingOffset : 0;
         // Scalebands return the start of the band instead of the middle, so add 0.5*bandwith to the y-position
-        if (typeof value === 'string' && 'bandwidth' in $yScales[index]) {
+        if (typeof value === 'string' && 'bandwidth' in $yScales[axisIndexInRow[index]]) {
           const yScaleBand = $yScales[axisIndexInRow[index]] as d3.ScaleBand<string>;
           yBandOffset = yScaleBand.bandwidth() * 0.5;
         }
@@ -114,6 +114,7 @@
         path: path.slice(0, -1)
       } as LineConfig);
     });
+    redrawHoveredLine(highlightedLine);
   }
 
   async function redrawHoveredLine(id: number) {
@@ -121,6 +122,60 @@
     // Once the page has been updated, raise the line and points to be on top of all the other lines
     d3.select(`#line-${id}`).raise();
     d3.select(`#line-${id}-points`).raise();
+  }
+
+  const dispatch = createEventDispatcher();
+
+  // Function that fires when the mouse enters a line
+  function onMouseEnter(id: number) {
+    // Create a dispatch to be catched by parent components
+    dispatch('mouseLineEnter', { id: id });
+    /* Only update the highlight if the following criteria are met:
+      - There is no line clicked, since clicking blocks all other highlighting
+      - The lines are hoverable
+      - This line is not already highlighted
+    */
+    if (draggedAxis === null && !clickedLine && hoverable && highlightedLine !== id) {
+      // Set the current line to be highlighted
+      highlightedLine = id;
+      // And raise it to be on top
+      redrawHoveredLine(id);
+    }
+  }
+
+  // Function that fires when the mouse leaves a line
+  function onMouseLeave(id: number) {
+    // Create a dispatch to be catched by parent components
+    dispatch('mouseLineLeave', { id: id });
+    /* Only remove the highlight if the following criteria are met:
+      - There is no line clicked, since clicking blocks all other highlighting
+      - The lines are hoverable
+    */
+    if (!clickedLine && hoverable) {
+      highlightedLine = -1;
+    }
+  }
+
+  // Function that fires when a line is clicked
+  function onMouseDown(id: number) {
+    // Create a dispatch to be catched by parent components
+    dispatch('mouseLineClick', { id: id });
+    // If this line is not interactable, return immediately
+    if (!hoverable) return;
+
+    /* There is a distinction to be made when a line is clicked
+       - Either a line is already clicked, but it is not this line
+        -> In this case, the line that is clicked will take over the highlight
+       - Or this is not the case
+        -> In this case invert the clicked line, and set the correct highlight
+    */
+    if (clickedLine && highlightedLine !== id) {
+      highlightedLine = id;
+      redrawHoveredLine(id);
+    } else {
+      clickedLine = !clickedLine;
+      highlightedLine = clickedLine ? highlightedLine : -1;
+    }
   }
 </script>
 
@@ -165,44 +220,13 @@ It is used in combination with other components to create a chart.
         stroke-width={lineWidth}
         fill="none"
         on:mouseenter={() => {
-          /* Only update the highlight if the following criteria are met:
-              - There is no line clicked, since clicking blocks all other highlighting
-              - The lines are hoverable
-              - This line is not already highlighted
-          */
-          if (draggedAxis === null && !clickedLine && hoverable && highlightedLine !== i) {
-            // Set the current line to be highlighted
-            highlightedLine = i;
-            // And raise it to be on top
-            redrawHoveredLine(i);
-          }
+          onMouseEnter(i);
         }}
         on:mouseleave={() => {
-          /* Only remove the highlight if the following criteria are met:
-              - There is no line clicked, since clicking blocks all other highlighting
-              - The lines are hoverable
-          */
-          if (!clickedLine && hoverable) {
-            highlightedLine = -1;
-          }
+          onMouseLeave(i);
         }}
         on:mousedown={() => {
-          // If this line is not interactable, return immediately
-          if (!hoverable) return;
-
-          /* There is a distinction to be made when a line is clicked
-                - Either a line is already clicked, but it is not this line
-                    -> In this case, the line that is clicked will take over the highlight
-                - Or this is not the case
-                    -> In this case invert the clicked line, and set the correct highlight
-          */
-          if (clickedLine && highlightedLine !== i) {
-            highlightedLine = i;
-            redrawHoveredLine(i);
-          } else {
-            clickedLine = !clickedLine;
-            highlightedLine = clickedLine ? highlightedLine : -1;
-          }
+          onMouseDown(i);
         }} />
       <!-- If the current line is highlighted, also display the points at the intersection of each axis -->
       {#if highlightedLine === i && hoverable}

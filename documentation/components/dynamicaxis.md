@@ -108,6 +108,7 @@ This component emits the following events:
 - `axisOrderChanged`
 - `dragMove`
 - `dragStop`
+- `renderAxis`
 
 To read more about these events, see the [Events](../utils/events.md) documentation.
 

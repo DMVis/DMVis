@@ -40,6 +40,7 @@ Here is a list of all the events that are used in DMVis.
 - [mousePointEnter](#mousePointEnter)
 - [mousePointLeave](#mousePointLeave)
 - [mouseRowClick](#mouseRowClick)
+- [renderAxis](#renderAxis)
 - [search](#search)
 - [sort](#sort)
 
@@ -313,6 +314,15 @@ An event that is triggered when the user clicks on a row.
 ### Event Properties
 
 - `row` - A number representing the row that the user clicked on.
+
+## renderAxis
+
+An event that is triggered when an `Axis` component is rendered.
+
+### Components using this event
+
+- [Axis](../components/axis.md)
+- [DynamicAxis](../components/dynamicaxis.md)
 
 ## search
 
