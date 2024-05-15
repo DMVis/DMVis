@@ -2,11 +2,12 @@ import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/svelte';
 
 import Icon from '$lib/components/base/Icon.svelte';
+import { IconType } from '$lib/Enums.js';
 
 describe('Icon test', () => {
   it('renders all icons', () => {
     // Arrange
-    const icons = ['sort', 'search', 'filter', 'more'];
+    const icons = [IconType.Sort, IconType.Search, IconType.Filter, IconType.More];
 
     // Act
     const iconElements = icons.map((icon) => {

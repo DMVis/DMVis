@@ -1,11 +1,13 @@
 <script lang="ts">
+  import type { IconType } from '$lib/Enums.js';
+
   // Imports
   import { createEventDispatcher } from 'svelte';
 
   // Required attributes
   export let x: number;
   export let y: number;
-  export let icon: string;
+  export let icon: IconType | string;
 
   // Optional attributes
   export let color: string = '#000000';
@@ -22,7 +24,7 @@
       'M5.005 11.19V12l6.998 4.042L19 12v-.81M5 16.15v.81L11.997 21l6.998-4.042v-.81M12.003 3 5.005 7.042l6.998 4.042L19 7.042 12.003 3Z',
     item: 'M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961',
     band: 'M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961',
-    weights:
+    weight:
       'M11 9h6m-6 3h6m-6 3h6M6.996 9h.01m-.01 3h.01m-.01 3h.01M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z'
   };
 
@@ -54,7 +56,7 @@ Out of the box, it supports the following icons:
 #### Required attributes
 * x: number - x-coordinate of the icon
 * y: number - y-coordinate of the icon
-* icon: string - Type of icon to display. It can be either one of the supported icons or a custom SVG path
+* icon: IconType | string - Type of icon to display. It can be either one of the supported icons (specified as `IconType`) or a custom SVG path (as a string)
 
 #### Optional attributes
 * color: string - The color of the icon, defaults to #000000

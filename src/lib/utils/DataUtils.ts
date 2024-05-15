@@ -175,6 +175,45 @@ export class DataUtils {
   }
 
   /**
+   * @param {Array<d3.ScaleLinear<number,number>>} scales - The scales used to weigh the data, containing one scale per attribute.
+   * @returns {Array<Array<string | number>>} The sorted data.
+   */
+  sortByWeights(
+    scales: Array<d3.ScaleLinear<number, number>>,
+    ascending: boolean
+  ): Array<Array<string | number>> {
+    if (this.columns.length !== scales.length + 1) {
+      throw DMVisError(
+        `Incorrect amount of scales supplied. There needs to be one scale per numerical column in the dataset`,
+        'DataUtil'
+      );
+    }
+
+    // Function that takes a row, and uses the global scales to compute the total of the entire row
+    function computeScaledTotal(row: Array<string | number>) {
+      // Compute running total
+      return (row.slice(1) as number[]).reduce((old, current, i) => {
+        return old + scales[i](current);
+      }, 0);
+    }
+
+    const sortedData = this.data.sort((a, b) => {
+      if (ascending) {
+        // Sort in ascending order
+        return computeScaledTotal(b) - computeScaledTotal(a);
+      } else {
+        // Sort in descending order
+        return computeScaledTotal(a) - computeScaledTotal(b);
+      }
+    });
+
+    // Set the visualisation data
+    this.visualisationData.set(sortedData);
+
+    return sortedData;
+  }
+
+  /**
    * Reorders the rows of the data based on the given column and the old and new indices.
    * @param column The column to reorder the rows based on.
    * @param oldIndex The old index of the row.

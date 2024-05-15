@@ -7,7 +7,7 @@
   import Label from '$lib/components/base/Label.svelte';
   import Draggable from '$lib/components/base/Draggable.svelte';
   import { ColumnType } from '$lib/Enums.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
+  import { OriginX, OriginY, IconType } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
 
   // Required attributes
@@ -20,6 +20,7 @@
   export let y: number = 100;
   export let name: string = 'Column';
   export let padding: number = 10;
+  export let icons: IconType[] = [];
 
   // Set column specific values
   const paddingSide: number = padding / 2;
@@ -30,29 +31,9 @@
   const { styleUtil } = getContext<VisualisationStore>('store');
   $styleUtil.color = '#000000';
 
-  // Define the icons for the column
-  let icons: string[];
-  switch (type) {
-    case ColumnType.Rank:
-      icons = ['more'];
-      break;
-    case ColumnType.Separator:
-      icons = ['item', 'band'];
-      break;
-    case ColumnType.Bar:
-      icons = ['sort', 'filter', 'more'];
-      break;
-    case ColumnType.Select:
-      icons = ['sort', 'group', 'more'];
-      break;
-    case ColumnType.Sum:
-      icons = ['sort', 'group', 'weights', 'more'];
-      break;
-    default:
-      icons = ['sort', 'search', 'filter', 'more'];
-      break;
-  }
-  const iconStart = width / 2 - (icons.length * 25) / 2;
+  // Calculate the position for the icons
+  let iconStart: number;
+  $: iconStart = width / 2 - (icons.length * 25) / 2;
 
   // Handle options for the column
   let isGrouped: boolean = false;
@@ -81,6 +62,8 @@
       dispatch('group', { column, isGrouped });
     } else if (option === 'more') {
       showMore = !showMore;
+    } else if (option === 'weight') {
+      dispatch('weight', { column });
     } else if (option === 'item') {
       // TODO: Separator feature, requires more research
     } else if (option === 'band') {
@@ -136,6 +119,7 @@ Each columns contains a top part with information about the column and a bottom 
 * y: number             - Scaled y-coordinate of the column. The default is `100`.
 * name: string          - Name of the column. Set this to the name of the attribute. The default is 'Column'.
 * padding: number       - Padding of the column. The default is 10.
+* icons: IconType[]     - List of what icons to display in the top of the column.
 
 #### Slots
 * data                  - Slot for the data of the column.

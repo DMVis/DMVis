@@ -44,6 +44,13 @@ Padding around the column.
 
 Name of the column. It should contain the name of the attribute you're displaying.
 
+## icons
+
+- Type: `IconType[]`
+- Default: `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`
+
+List of what icons to display in the top of the column.
+
 # Events
 
 This component emits the following events:

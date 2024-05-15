@@ -73,10 +73,12 @@
   }
 
   // Create a scale to be used for all stacked bars
-  const barXScale = d3
-    .scaleLinear()
-    .domain([0, Number(maxValue)])
-    .range([0, width - marginLeft - marginRight]);
+  const barXScales = Array(dataUtil.columns.length - 1).fill(
+    d3
+      .scaleLinear()
+      .domain([0, Number(maxValue)])
+      .range([0, width - marginLeft - marginRight])
+  );
 </script>
 
 <!--
@@ -114,7 +116,7 @@ The y-axis represents the categories of the data.
           {showTotals}
           y={getY(row[0])}
           {row}
-          xScale={barXScale}
+          attributeScales={barXScales}
           barWidth={yScale.bandwidth()} />
       {/each}
       <DynamicAxis position="left" axisOrder={dataUtil.columns.slice(0, 1)} />

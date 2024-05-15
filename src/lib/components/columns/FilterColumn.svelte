@@ -4,7 +4,7 @@
 
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
-  import { ColumnType } from '$lib/Enums.js';
+  import { ColumnType, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
@@ -16,6 +16,10 @@
   export let padding: number = 10;
   export let name: string = 'Column';
   export let type: ColumnType = ColumnType.Text;
+  export let icons: IconType[] =
+    type === ColumnType.Text
+      ? [IconType.Sort, IconType.Search, IconType.Filter, IconType.More]
+      : [IconType.Sort, IconType.Filter, IconType.More];
 
   // Column standards
   const paddingSide: number = padding / 2;
@@ -52,6 +56,7 @@ FilterColumn is a component that displays a filter input for each column.
 
 #### Required attributes
 * x       - X-coordinate of the column.
+* y       - Y-coordinate of the column.
 * width   - The width of the column.
 * height  - The height of the column.
 * data    - The data to display as text.
@@ -59,6 +64,11 @@ FilterColumn is a component that displays a filter input for each column.
 #### Optional attributes
 * name    - The name of the column. Usually the attribute name.
 * padding - The padding of the column.
+* type    - The type of the column that is being filtered. Defaults to `ColumnType.Text`.
+* icons: IconType[]   - List of what icons to display in the top of the column. Defaults
+                        to `[IconType.Sort,IconType.Search,IconType.Filter,IconType.More]`
+                        if type is `ColumnType.Text`, else it defaults to
+                        `[IconType.Sort,IconType.Filter,IconType.More]`.
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -72,6 +82,7 @@ FilterColumn is a component that displays a filter input for each column.
   {width}
   {padding}
   {name}
+  {icons}
   on:sort
   on:filter={() => {
     showFilter = !showFilter;

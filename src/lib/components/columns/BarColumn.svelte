@@ -6,7 +6,8 @@
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import { Bar } from '$lib/components.js';
-  import { ColumnType, OriginX, OriginY } from '$lib/Enums.js';
+  import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
 
   // Required attributes
   export let x: number;
@@ -18,11 +19,19 @@
   export let name: string = 'Column';
   export let padding: number = 10;
   export let barColor: string = 'red';
+  export let icons: IconType[] = [IconType.Sort, IconType.Filter, IconType.More];
+  export let weight: string = '10';
+  export let scale: d3.ScaleLinear<number, number> = d3
+    .scaleLinear()
+    .domain([0, d3.max(data) ?? 0])
+    .range([0, width - padding]);
 
   // Column standards
   const type = ColumnType.Bar;
   const paddingSide: number = padding / 2;
   let showFilter = false;
+  let showWeight = false;
+  let weightInputIsCorrect = true;
 
   // Get the y position of the column
   function getY(index: number) {
@@ -30,17 +39,35 @@
     return index * 20 + 105 + 1;
   }
 
-  // Scale for the width of each bar
-  const scale = d3
-    .scaleLinear()
-    .domain([0, d3.max(data) ?? 0])
-    .range([0, width - padding]);
-
   // Dispatch filter
   const dispatch = createEventDispatcher();
   const dispatchFilter = () => {
     dispatch('filter', { column: name, min: 0, max: 200 });
   };
+
+  // Function that fires when a key is pressed in the weight input
+  function dispatchWeight(e: KeyboardEvent) {
+    // Only allow weights to be accepted when the enter button is pressed
+    if (e.key !== 'Enter') return;
+    // Regex to check if the number is an integer or floating point with a '.'
+    const regex = /^[-+]?[0-9]*\.?[0-9]+$/;
+    if (regex.test(weight)) {
+      const weightAsFloat = parseFloat(weight);
+      if (weightAsFloat < 0 || weightAsFloat > 100) {
+        throw DMVisError('Invalid weight supplied', 'BarColumn');
+      }
+      // Turn box back to white
+      weightInputIsCorrect = true;
+      // Dispatch the new weight
+      dispatch('weightChanged', {
+        column: name,
+        value: weightAsFloat
+      });
+    } else {
+      //Turn box red
+      weightInputIsCorrect = false;
+    }
+  }
 </script>
 
 <!--
@@ -49,15 +76,19 @@
 BarColumn is a Column component that displays bars for each value in the data array.
 
 #### Required attributes
-* x - X-coordinate of the column.
-* width - The width of the column.
-* height - The height of the column.
-* data - The data you want to display as bars.
+* x: number - X-coordinate of the column.
+* width: number - The width of the column.
+* height: number - The height of the column.
+* data: number[] - The data you want to display as bars.
 
 #### Optional attributes
-* name - The name of the column. Usually the attribute name.
-* padding - The padding of the column.
-* barColor - The colour of the bars.
+* name: string - The name of the column. Usually the attribute name.
+* padding: number - The padding of the column.
+* barColor: string - The colour of the bars.
+* icons: IconType[] - List of what icons to display in the top of the column,
+                        defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
+* scale: d3.ScaleLinear<number,number> - What scale to use for all of the bars in the column.
+                        Defaults to a scale that ranges from 0 to width and has a domain from 0 to the maximum value.
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -70,13 +101,15 @@ BarColumn is a Column component that displays bars for each value in the data ar
   {width}
   {padding}
   {name}
+  {icons}
   on:dragStart
   on:dragMove
   on:dragStop
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
   on:mouseRowClick
-  on:sort>
+  on:sort
+  on:weight={() => (showWeight = !showWeight)}>
   <g slot="overlay">
     {#if showFilter}
       <rect
@@ -90,12 +123,25 @@ BarColumn is a Column component that displays bars for each value in the data ar
         <button on:click={() => dispatchFilter()}>Filter on range</button>
       </foreignObject>
     {/if}
+    {#if showWeight}
+      <foreignObject x={x + paddingSide} y={60} width={width - padding - 1} height={26}>
+        <input
+          type="number"
+          placeholder={'Weight'}
+          aria-label="WeightInput"
+          style={`translate: ${0}px 0px; font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;` +
+            `background-color: ${weightInputIsCorrect ? 'white' : '#ff534a'}; height:14px; width: ${width - padding - 5}px;`}
+          min={0}
+          bind:value={weight}
+          on:keypress={dispatchWeight} />
+      </foreignObject>
+    {/if}
   </g>
   <g slot="overview">
     <!-- Insert histogram using bar chart -->
   </g>
   <g slot="data">
-    {#key data}
+    {#key data || width}
       {#each data as value, i}
         <Bar
           x={x + paddingSide}

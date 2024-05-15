@@ -2,14 +2,18 @@
 
 Some visualisations, like LineUp, require icons to be displayed. This component provides a way to display icons in the UI.
 
-# Supported icons
+# Supported IconTypes
 
 Out of the box, we support the following icons:
 
-- `sort`
-- `search`
-- `filter`
-- `more`
+- `'filter'`
+- `'group'`
+- `'more'`
+- `'search'`
+- `'sort'`
+- `'weight'`
+
+They can be accessed by importing the enum `IconType` and using it as the type of the `type` attribute. An example is `IconType.Sort`.
 
 # Required Attributes
 
@@ -27,9 +31,9 @@ Y-coordinate of the icon.
 
 ## icon
 
-- Type: `string`
+- Type: `string`|`IconType`
 
-Name of the icon to display. This can be either one of the supported icons (see above) or an SVG path with your own icon. The icon is 25px by 25px, so you may need to adjust the path to fit within these dimensions.
+Name of the icon to display. This can be either one of the supported icons (specified as IconType) or an SVG path with your own icon (specified as string). The icon is 25px by 25px, so you may need to adjust the path to fit within these dimensions.
 
 # Optional Attributes
 

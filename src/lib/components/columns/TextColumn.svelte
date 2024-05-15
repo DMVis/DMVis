@@ -5,7 +5,7 @@
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
-  import { ColumnType } from '$lib/Enums.js';
+  import { ColumnType, IconType } from '$lib/Enums.js';
   import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
@@ -17,6 +17,7 @@
   // Optional attributes
   export let padding: number = 10;
   export let name: string = 'Column';
+  export let icons: IconType[] = [IconType.Sort, IconType.Search, IconType.Filter, IconType.More];
 
   // Column standards
   const type = ColumnType.Text;
@@ -54,6 +55,8 @@ TextColumn is a Column component that displays text for each value in the data a
 #### Optional attributes
 * name - The name of the column. Usually the attribute name.
 * padding - The padding of the column.
+* icons: IconType[] - List of what icons to display in the top of the column,
+                          defaults to `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -66,6 +69,7 @@ TextColumn is a Column component that displays text for each value in the data a
   {width}
   {padding}
   {name}
+  {icons}
   on:dragStart
   on:dragMove
   on:dragStop

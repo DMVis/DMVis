@@ -10,6 +10,7 @@
 
   // Optional attributes
   export let padding: number = 10;
+  // export let icons: IconType[] = [IconType.Item,IconType.Band];
 
   // Column standards
   const type = ColumnType.Separator;

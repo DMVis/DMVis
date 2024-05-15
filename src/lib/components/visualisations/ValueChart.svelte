@@ -1,17 +1,22 @@
 <script lang="ts">
   // Imports
-  import { setContext } from 'svelte';
+  import * as d3 from 'd3';
 
   // DMVis component imports
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
   import SumColumn from '$lib/components/columns/SumColumn.svelte';
   import TextColumn from '$lib/components/columns/TextColumn.svelte';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
 
   // DMVis util imports
+  import { IconType } from '$lib/Enums.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
-  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import {
+    getVisualisationContext,
+    setVisualisationContext,
+    updateVisualisationContext
+  } from '$lib/context.js';
 
   // Required attributes
   export let width: number;
@@ -28,8 +33,10 @@
   export let marginBottom: number = 40;
   export let marginTop: number = 40;
   export let padding: number = 0.1;
+  export let autoDistributeWeight: boolean = true;
 
   // Local variables
+  let weightSumTotal = 100;
   const marginBetweenTopAndBottom = 10;
   const topHeight = height / 2 - marginBetweenTopAndBottom / 2;
   const bottomHeight = height / 2;
@@ -37,15 +44,28 @@
   const lineYPosition = topHeight + marginBetweenTopAndBottom / 2;
   const { visualisationData } = dataUtil;
 
+  // Logic about weights
+  const startWeight = weightSumTotal / (dataUtil.data[0].length - 1);
+  let columnWeights = Array(dataUtil.data[0].length - 1).fill(startWeight);
+  let columnScales: d3.ScaleLinear<number, number>[];
+
   // Local variables to be set in the reactive block below
   let transposedData: (string | number)[][];
   let labelColumn: string[];
   let numericalColumns: number[][];
   let numericalRows: number[][];
-  let columnWidth: number;
+  let columnWidths: number[] = [];
 
   $: {
-    visualisationStore.data.set($visualisationData);
+    // Reactively update weights and scales
+    for (let i = 0; i < transposedData.length - 1; i++) {
+      columnWidths[i] = (columnWeights[i] / weightSumTotal) * (width - marginLeft - marginRight);
+      columnScales[i] = columnScales[i].range([columnWidths[i] - 10, 0]);
+    }
+  }
+
+  $: {
+    updateVisualisationContext({ data: $visualisationData });
     transposedData = $visualisationData[0].map((_, colIndex) =>
       $visualisationData.map((row) => row[colIndex])
     );
@@ -55,23 +75,26 @@
     numericalRows = $visualisationData.map((row) => {
       return row as number[];
     });
-    // Width for all the bar columns in the top half
-    columnWidth = (width - marginLeft - marginRight) / (transposedData.length - 1);
   }
 
   // Fill the visualisation store
-  const visualisationStore = new VisualisationStore();
-  visualisationStore.marginLeft.set(marginLeft);
-  visualisationStore.marginRight.set(marginRight);
-  visualisationStore.marginBottom.set(marginBottom);
-  visualisationStore.marginTop.set(marginTop);
-  visualisationStore.padding.set(padding);
-  visualisationStore.width.set(width);
-  visualisationStore.height.set(height);
-  visualisationStore.data.set(dataUtil.data);
-  visualisationStore.columns.set(dataUtil.columns);
-  visualisationStore.styleUtil.set(styleUtil);
-  setContext('store', visualisationStore);
+  setVisualisationContext({
+    marginLeft,
+    marginBottom,
+    marginRight,
+    marginTop,
+    padding,
+    width,
+    height,
+    data: dataUtil.data,
+    columns: dataUtil.columns,
+    styleUtil
+  });
+
+  const { xScales } = getVisualisationContext();
+  columnScales = $xScales.slice(1) as d3.ScaleLinear<number, number>[];
+  // Sort the weight the moment the scales are loaded in
+  dataUtil.sortByWeights(columnScales, false);
 
   function calculateHeight(numRows: number): number {
     return numRows * 20 + 105;
@@ -101,6 +124,56 @@
       left: leftScroll
     });
   }
+
+  // Function that fires when the weights are changed in any of the barColumns
+  // Will update the columnWeights array to be up to date
+  function onWeightChanged(e: { detail: { value: number; column: string } }): void {
+    const newWeight = e.detail.value;
+    const changedColumn = e.detail.column;
+    const changedColumnIndex = dataUtil.columns.indexOf(changedColumn) - 1;
+    // Redistribute the other weights if needed, otherwise update the sum of all the weights
+    if (autoDistributeWeight) {
+      updateWeights(changedColumnIndex, newWeight);
+    } else {
+      columnWeights[changedColumnIndex] = newWeight;
+      weightSumTotal = d3.sum(columnWeights);
+    }
+
+    // Update the the width and scales of the columns
+    for (let i = 0; i < columnWidths.length; i++) {
+      let newWidth = (columnWeights[i] / weightSumTotal) * (width - marginLeft - marginRight);
+      columnScales[i] = columnScales[i].range([newWidth - 10, 0]);
+    }
+
+    // Automatically sort the columns by the sum of all the bars
+    dataUtil.sortByWeights(columnScales, true);
+  }
+
+  // Function that updates the weights when one weight changes
+  // This makes sure that all weights always add up to 100
+  function updateWeights(changedColumnIndex: number, newWeight: number): void {
+    const otherColumnsWeight =
+      columnWeights.reduce((sum, weight) => sum + weight, 0) - columnWeights[changedColumnIndex];
+    const weightDifference = newWeight - columnWeights[changedColumnIndex];
+    columnWeights[changedColumnIndex] = newWeight;
+
+    // Change the weights of all other columns relative to their old weight to adjust for the weight change
+    columnWeights.forEach((weight, i) => {
+      if (changedColumnIndex !== i) {
+        let proportion = weight / otherColumnsWeight;
+        let adjustment = weightDifference * proportion;
+        columnWeights[i] = weight - adjustment;
+      }
+    });
+
+    // Because of rounding, change the weight of the last column so that the total weight is equal to 100
+    let totalWeightFinal = columnWeights.reduce((sum, weight) => sum + weight, 0);
+    if (totalWeightFinal !== 100) {
+      const adjustment = 100 - totalWeightFinal;
+      columnWeights[columnWeights.length - 1] =
+        columnWeights[columnWeights.length - 1] + adjustment;
+    }
+  }
 </script>
 
 <!--
@@ -121,8 +194,10 @@ The visualisation consists of two major components: namely, a visualisation clos
 * marginTop: number                         - Margin to the top of the visualisation. This defaults to `40`.
 * marginBottom: number                      - Margin to the bottom of the visualisation. This defaults to `40`.
 * padding: number                           - Padding between the different visualisations. This defaults to `0.1`.
+* autoDistributeWeight: boolean             - Determines whether the total of the weights should be 100.
+                                                This will mean that when set to true all other weights will be redistributed.
+                                                This defaults to true
 -->
-
 <BaseVisualisation>
   <svg {width} {height} class="valuechart">
     {#key $visualisationData}
@@ -140,12 +215,16 @@ The visualisation consists of two major components: namely, a visualisation clos
             {#each numericalColumns as column, i}
               {#if typeof column[0] === 'number'}
                 <BarColumn
-                  x={marginLeft + i * columnWidth}
-                  width={columnWidth}
+                  x={marginLeft + d3.sum(columnWidths.slice(0, i))}
+                  width={columnWidths[i]}
                   {height}
                   data={column}
                   name={dataUtil.columns[i + 1]}
-                  barColor={styleUtil.colorScheme[i % styleUtil.colorScheme.length]} />
+                  barColor={styleUtil.colorScheme[i % styleUtil.colorScheme.length]}
+                  icons={[IconType.Weight, IconType.More]}
+                  weight={columnWeights[i]}
+                  scale={columnScales[i]}
+                  on:weightChanged={onWeightChanged} />
               {/if}
             {/each}
           </svg>
@@ -180,7 +259,8 @@ The visualisation consists of two major components: namely, a visualisation clos
               width={width - marginLeft - marginRight}
               {height}
               data={numericalRows}
-              name={'Sum'} />
+              name={'Sum'}
+              attributeScales={columnScales} />
           </svg>
         </div>
       </foreignObject>

@@ -62,6 +62,13 @@ The name is at the top of the column. Set this to the attribute name.
 
 The padding around the column.
 
+## icons
+
+- Type: `IconType[]`
+- Default `[]`
+
+What icons to display in the top of the column.
+
 # Events
 
 This component emits the following events:

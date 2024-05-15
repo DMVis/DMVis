@@ -4,7 +4,7 @@
 
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
-  import { ColumnType } from '$lib/Enums.js';
+  import { ColumnType, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
@@ -15,6 +15,7 @@
 
   // Optional attributes
   export let padding: number = 10;
+  export let icons: IconType[] = [IconType.Sort, IconType.Group, IconType.More];
 
   // Column standards
   const type = ColumnType.Select;
@@ -62,6 +63,8 @@ SelectColumn is a Column component that displays checkboxes for each value in th
 
 #### Optional attributes
 * padding - The padding of the column.
+* icons: IconType[] - List of what icons to display in the top of the column,
+                        defaults to `[IconType.Sort, IconType.Group, IconType.More]`
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -73,6 +76,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   {height}
   {width}
   {padding}
+  {icons}
   name="LineUp_Select"
   on:dragStart
   on:dragMove

@@ -2,7 +2,7 @@
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
-  import { ColumnType } from '$lib/Enums.js';
+  import { ColumnType, IconType } from '$lib/Enums.js';
   import { getVisualisationContext } from '$lib/context.js';
 
   // Required attributes
@@ -13,6 +13,7 @@
 
   // Optional attributes
   export let padding: number = 10;
+  export let icons: IconType[] = [IconType.More];
 
   // Column standards
   const type = ColumnType.Rank;
@@ -41,6 +42,8 @@ RankColumn is a Column component that displays the rank of each value in the dat
 
 #### Optional attributes
 * padding - The padding of the column.
+* icons: IconType[] - List of what icons to display in the top of the column,
+                        defaults to `[IconType.More]`
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -52,6 +55,7 @@ RankColumn is a Column component that displays the rank of each value in the dat
   {height}
   {width}
   {padding}
+  {icons}
   name="LineUp_Rank"
   on:dragStart
   on:dragMove

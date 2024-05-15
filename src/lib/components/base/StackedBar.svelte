@@ -14,7 +14,7 @@
   export let y: number;
   export let barWidth: number;
   export let row: (string | number)[];
-  export let xScale: d3.ScaleLinear<number, number>;
+  export let attributeScales: d3.ScaleLinear<number, number>[];
 
   // Optional attributes
   export let opacity: number | string = 1;
@@ -26,14 +26,24 @@
   const numericalCols = $columns.slice(1);
   const rowData = row.slice(1) as number[];
 
+  // Calculate the scaled value for each bar in the stacked bar
+  let values = rowData.map((value, i) => {
+    let scale = attributeScales[i];
+    return scale(value);
+  });
   // Create the xPositions for each bar in the stacked bar
-  let currentX = 0;
   const xPositions: number[] = [];
+  let currentX = 0;
   xPositions.push(currentX);
   for (let i = 0; i < numericalCols.length; i++) {
-    currentX += xScale(rowData[i]);
+    currentX += attributeScales[i](rowData[i]);
     xPositions.push(currentX);
   }
+
+  // Calculate the scaled total value of this row, this is displayed at the end of the stacked bar
+  const total = rowData.reduce((old, current, i) => {
+    return old + attributeScales[i](current);
+  }, 0);
 </script>
 
 <!--
@@ -48,9 +58,8 @@ on top of each other.
 * barWidth: number           - The width of the bar.
 * y: number                  - The y position to place the stacked bar.
 * row: (string|number)[]     - A single row of the dataUtil, which to plot as a stacked bar.
-* xScale: d3.scaleLinear<number,number> - Scale for all of the bars.
-                                            This holds a domain depending on the maximum value, and the range.
-                                            Note that this scale needs to be uniform for all stacked bars
+* attributeScales: d3.scaleLinear<number,number>[] - An array of scales where the first entry
+                                                      is the scale for the first numerical entry in the row attribute, etc.
 #### Optional attributes
 * opacity: number | string - Sets the opacity of the bars.
                              Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
@@ -65,7 +74,7 @@ on top of each other.
       x={$marginLeft + x}
       {y}
       width={barWidth}
-      height={xScale(Number(rowData[i]))}
+      height={values[i]}
       isVertical={false}
       color={$styleUtil.colorScheme[i % $styleUtil.colorScheme.length]}
       originX={OriginX.Left}
@@ -75,9 +84,9 @@ on top of each other.
   {/each}
   {#if showTotals}
     <Label
-      x={xScale(d3.sum(rowData)) + $marginLeft}
+      x={currentX + $marginLeft}
       y={y + barWidth / 2}
-      text={Math.round(d3.sum(rowData)).toString()}
+      text={Math.floor(total).toString()}
       originX={OriginX.Left}
       originY={OriginY.Middle}
       hasBackground={false}

@@ -32,6 +32,13 @@ Class holding all the data. See [DataUtils](utils/dataUtils.md).
 
 Class holding all the styling. See [StyleUtils](utils/styleUtils.md).
 
+## autoDistributeWeights
+
+- Type: `boolean`
+- Default: `true`
+
+Determines whether the total of the weights should be 100. This will mean that when the weight of one attribute is changed, all of the other weights will be redistributed such that their sum will be equal to 100. When set to false, it will take the sum of all the weights as the total and scale with this number as opposed to 100%..
+
 ## marginLeft
 
 - Type: `number`

@@ -20,3 +20,12 @@ export enum ColumnType {
   Sum = 'Sum',
   Text = 'Text'
 }
+
+export enum IconType {
+  Filter = 'filter',
+  Group = 'group',
+  More = 'more',
+  Search = 'search',
+  Sort = 'sort',
+  Weight = 'weight'
+}

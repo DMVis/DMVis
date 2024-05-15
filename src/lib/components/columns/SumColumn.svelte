@@ -6,17 +6,19 @@
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import StackedBar from '$lib/components/base/StackedBar.svelte';
-  import { ColumnType } from '$lib/Enums.js';
+  import { ColumnType, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
   export let width: number;
   export let height: number;
   export let data: Array<Array<number>>;
+  export let attributeScales: d3.ScaleLinear<number, number>[];
 
   // Optional attributes
   export let name: string = 'Column';
   export let padding: number = 10;
+  export let icons: IconType[] = [IconType.Sort, IconType.Group, IconType.More];
 
   // Column standards
   const type = ColumnType.Sum;
@@ -28,10 +30,6 @@
     // 20 = height of row, 105 = height of top part, 1 = padding
     return index * 20 + 105 + 1;
   }
-
-  // Code will be used later on when starting to work with weights
-  let maxValue: number;
-  $: maxValue = d3.max(data.map((row) => d3.sum(row.slice(1) as number[]))) ?? 0;
 
   // Dispatch filter
   const dispatch = createEventDispatcher();
@@ -46,14 +44,18 @@
 SumColumn is a Column component that displays the StackedBar for the given attributes in the data array.
 
 #### Required attributes
-* x - X-coordinate of the column.
-* width - The width of the column.
-* height - The height of the column.
-* data - data
+* x: number - X-coordinate of the column.
+* width: number - The width of the column.
+* height: number - The height of the column.
+* data: number[][] - Data for the sumColum.
 
 #### Optional attributes
-* padding - The padding of the column.
-* name - The name of the column. Usually the attribute name.
+* padding: number - The padding of the column.
+* name: string - The name of the column. Usually the attribute name.
+* icons: IconType[] - List of what icons to display in the top of the column,
+                          defaults to `[IconType.Sort, IconType.Group, IconType.More]`
+* attributeScales: d3.scaleLinear<number,number>[] - An array of scales where the first entry
+                                                      is the scale for the first numerical entry in the row attribute, etc.
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -66,6 +68,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   {width}
   {padding}
   {name}
+  {icons}
   on:dragStart
   on:dragMove
   on:dragStop
@@ -95,12 +98,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   <g slot="data">
     {#each data as row, i}
       <g transform="translate({paddingSide} 0)">
-        <StackedBar
-          barWidth={18}
-          y={getY(i)}
-          xScale={d3.scaleLinear().domain([0, maxValue]).range([0, width])}
-          {row} />
-        <!-- Domain and range need to be from data -->
+        <StackedBar barWidth={18} y={getY(i)} {row} {attributeScales} showTotals={true} />
       </g>
     {/each}
   </g>

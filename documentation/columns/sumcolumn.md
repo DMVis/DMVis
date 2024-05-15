@@ -22,6 +22,12 @@ Width of the column.
 
 Height of the column.
 
+## attributeScales
+
+- Type: `d3.scaleLinear<number,number>[]`
+
+An array of scales where the first entry is the scale for the first numerical entry in the row attribute, etc.
+
 # Optional Attributes
 
 ## padding
@@ -37,6 +43,13 @@ Padding around the column.
 - Default: `'Column'`
 
 Name of the column. This should contain the names of the attributes you're comparing. It could also contain weights.
+
+## icons
+
+- Type: `IconType[]`
+- Default: `[IconType.Sort, IconType.Group, IconType.More]`
+
+List of what icons to display in the top of the column.
 
 # Events
 
@@ -56,5 +69,11 @@ To read more about these events, see the [Events](../utils/events.md) documentat
 # Example usage
 
 ```svelte
-<SumColumn x={0} width={100} height={200} />
+<script lang="ts">
+  const uniformScales = Array(data.columns.length - 1).fill(
+    d3.ScaleLinear().domain([0, 100]).range([0, 100])
+  );
+</script>
+
+<SumColumn x={0} width={100} height={200} {data} attributeScales={uniformScales} />
 ```

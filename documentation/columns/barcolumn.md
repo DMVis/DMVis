@@ -44,6 +44,20 @@ Name of the column to display at the top. Set this to the attribute name.
 
 Padding around the column.
 
+## icons
+
+- Type: `IconType[]`
+- Default: `[IconType.Sort,IconType.Filter,IconType.More]`
+
+List of what icons to display in the top of the column.
+
+## scale
+
+- Type: `d3.ScaleLinear<number,number>`
+- Default: `d3.scaleLinear().domain([0, d3.max(data) ?? 0]).range([0, width - padding])`
+
+What scale to use for the entire column. This default scale is nothing more than a scale that has a range that is equal to the width of the column and a domain that goes from 0 to the maximum value of the column.
+
 # Events
 
 This component emits the following events:

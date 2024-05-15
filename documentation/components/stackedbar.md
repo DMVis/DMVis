@@ -24,13 +24,11 @@ The width of the bar.
 
 An entire row of the dataUtil. Which will be represented as a stacked bar.
 
-## xScale
+## attributeScales
 
-- Type: `d3.ScaleLinear<number, number>`
+- Type: `d3.scaleLinear<number,number>[]`
 
-The scale is used for all the bars in the stacked bar. This will hold a range and a domain in which to fit the stacked bar.
-
-> Note: If you plot multiple stacked bars below each other, keep this scale the same. Or the comparisons will not mean anything.
+An array of scales where the first entry is the scale for the first numerical entry in the row attribute, etc.
 
 # Optional Attributes
 
@@ -50,7 +48,7 @@ Whether or not to display the sum of all bars at the end as a number.
 
 # Example
 
-Create a StackedBar of the 10th row of the data.
+Create a StackedBar of the 10th row of the data. Where each column is scaled the same
 
 ```svelte
 <script>
@@ -59,7 +57,9 @@ Create a StackedBar of the 10th row of the data.
   const opacity = 0.5;
   const width = 1000;
   const maxValue = d3.max(visStore.data.map((row) => d3.sum(row.slice(1) as number[]))) ?? 0;
-  const xScale = d3.scaleLinear().range([0, width]).domain([0, maxValue]);
+  const attributeScales = Array(visStore.columns.length - 1).fill(
+    d3.scaleLinear().range([0, width]).domain([0, maxValue])
+  );
 
   // Get & set data
   const dataUrl = '/datasets/holidays-20.csv';
@@ -73,6 +73,6 @@ Create a StackedBar of the 10th row of the data.
 </script>
 
 {#await load then}
-  <StackedBar barWidth={10} y={10} {xScale} row={visStore.data.slice(10)} {opacity} />
+  <StackedBar barWidth={10} y={10} {attributeScales} row={visStore.data.slice(10)} {opacity} />
 {/await}
 ```

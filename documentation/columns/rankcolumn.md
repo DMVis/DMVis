@@ -37,6 +37,13 @@ Number of rows in the table.
 
 Padding around the column.
 
+## icons
+
+- Type: `IconType[]`
+- Default: `[IconType.More]`
+
+List of what icons to display in the top of the column.
+
 # Events
 
 This component emits the following events:
