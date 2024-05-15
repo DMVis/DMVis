@@ -59,6 +59,8 @@ This component emits the following events:
 - `dragMove`
 - `dragStop`
 - `mouseHover`
+- `mouseLabelEnter`
+- `mouseLabelLeave`
 - `mouseRowClick`
 - `search`
 - `sort`

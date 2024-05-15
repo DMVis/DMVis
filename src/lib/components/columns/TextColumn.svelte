@@ -121,7 +121,7 @@ TextColumn is a Column component that displays text for each value in the data a
       </foreignObject>
     {/if}
   </g>
-  <g slot="data">
+  <g slot="data" class="labelNames">
     {#each data as value, i}
       <Label
         x={x + width / 2}
@@ -131,7 +131,10 @@ TextColumn is a Column component that displays text for each value in the data a
         {padding}
         hasPointerEvents={true}
         hasBackground={false}
-        text={value} />
+        text={value}
+        name={`${value}`}
+        on:mouseLabelEnter
+        on:mouseLabelLeave />
     {/each}
   </g>
 </Column>

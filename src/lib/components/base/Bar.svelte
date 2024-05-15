@@ -158,21 +158,25 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   on:focus={onMouseEnter}
   on:blur={onMouseLeave} />
 
-<!-- The bar's label, which shows on hovering over the bar -->
-{#if isMouseOnBar}
+<!-- Create a tooltip that lies on top of the bar
+  and is only visible if the class `highlighted` is active -->
+<g class={`bar-number-${name} bar-number`}>
   <Tooltip
-    {x}
-    {y}
+    x={x + 15}
+    y={y + height / 2}
     text={hoverText}
-    originX={OriginX.Left}
-    originY={OriginY.Bottom}
-    hasBackground={true}
-    theme={'dark'} />
-{/if}
+    originY={OriginY.Top}
+    originX={OriginX.Right}
+    hasBackground={false} />
+</g>
 
 <style>
   /* Styling for the bar, this class will be set by parent components of the bar */
   .highlighted {
     fill-opacity: 1;
+    display: block !important;
+  }
+  .bar-number {
+    display: none;
   }
 </style>

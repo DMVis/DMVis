@@ -18,14 +18,14 @@ The `DataUtils` class which, contains all the data to be displayed.
 ## width
 
 - Type: `number`
-- Default: `numberOfColumns * 175`
+- Default: `numberOfColumns * 200`
 
 Width of the visualisation.
 
 ## height
 
 - Type: `number`
-- Default: `numberOfRows * 15`
+- Default: `numberOfRows * 20 + header`
 
 Height of the visualisation.
 
@@ -57,20 +57,6 @@ Margin to the top of the visualisation.
 
 Margin to the bottom of the visualisation.
 
-## columnMarginLeft
-
-- Type: `number`
-- Default: `0`
-
-Margin to the left of each column.
-
-## columnSpacing
-
-- Type: `number`
-- Default: `20`
-
-Value for the distance between each column. Adds `columnSpacing / 2` to the left and right of each column.
-
 ## showColumnLines
 
 - Type: `boolean`
@@ -78,19 +64,12 @@ Value for the distance between each column. Adds `columnSpacing / 2` to the left
 
 Whether to show lines at the start and end of each column. This defaults to false.
 
-## barPadding
+## columnPadding
 
 - Type: `number`
-- Default: `0.15`
+- Default: `10`
 
-Value for the distance between each bar in each column in the range [0..1].
-
-## barColor
-
-- Type: `string`
-- Default: `'red'`
-
-Color of each bar in each column.
+Value for the distance between each column.
 
 ## barOpacity
 
@@ -100,123 +79,7 @@ Color of each bar in each column.
 The opacity of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
-> Note: A value lower than one is recommended for visible bar highlighting.
-
-## barRadiusX
-
-- Type: `number | string`
-- Default: `0`
-
-Horizontal corner radius of each bar in each column is a number
-or a percentage string formatted as '{number}%'.
-
-## barRadiusY
-
-- Type: `number | string`
-- Default: `0`
-
-Vertical corner radius of each bar in each column as a number
-or a percentage string formatted as '{number}%'.
-
-## textColor
-
-- Type: `string`
-- Default: `'black'`
-
-Colour of the text in each bar in each column.
-
-## fontSize
-
-- Type: `string`
-- Default: `'12px'`
-
-The font size of the text in each bar in each column.
-
-## fontWeight
-
-- Type: `string`
-- Default: `'normal'`
-
-Font weight of the text in each bar in each column.
-
-## fontFamily
-
-- Type: `string`
-- Default: `'Arial'`
-
-Font family of the text in each bar in each column.
-
-## headerColor
-
-- Type: `string`
-- Default: `'rgb(200,200,200)'`
-
-Colour of the rectangle behind the header label in each column.
-
-## headerOpacity
-
-- Type: `number`
-- Default: `1`
-
-The opacity of the header label in each column.
-
-## headerRadiusX
-
-- Type: `number | string`
-- Default: `5`
-
-Horizontal corner radius of the header label in each column as a number
-or a percentage string formatted as '{number}%'.
-
-## headerRadiusY
-
-- Type: `number | string`
-- Default: `5`
-
-Vertical corner radius of the header label in each column as a number
-or a percentage string formatted as '{number}%'.
-
-## headerPadding
-
-- Type: `number`
-- Default: `5`
-
-Padding around the text in the header label in each column.
-
-## headerTextColor
-
-- Type: `string`
-- Default: `'black'`
-
-Colour of the text in the header label in each column.
-
-## headerFontSize
-
-- Type: `string`
-- Default: `'12px'`
-
-The font size of the text in the header label in each column.
-
-## headerFontWeight
-
-- Type: `string`
-- Default: `'normal'`
-
-Font weight of the text in the header label in each column.
-
-## headerFontFamily
-
-- Type: `string`
-- Default: `'Arial'`
-
-Font family of the text in the header label in each column.
-
-## hasHeaderBackground
-
-- Type: `boolean`
-- Default: `false`
-
-Whether the header label has a background or not in each column.
+> Note: A value lower than 1 is recommended for visible bar highlighting.
 
 # Example usage
 

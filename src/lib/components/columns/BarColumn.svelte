@@ -7,10 +7,11 @@
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
-  import { Bar } from '$lib/components.js';
   import Histogram from '$lib/components/visualisations/Histogram.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
+  import Axis from '$lib/components/base/Axis.svelte';
+  import Bar from '$lib/components/base/Bar.svelte';
 
   // Required attributes
   export let x: number;
@@ -31,8 +32,15 @@
     .domain([0, d3.max(data) ?? 0])
     .range([0, width - padding]);
 
+  export let names: string[] = [];
+  export let barOpacity: number = 1;
+
   if (overviewItem !== 'histogram' && overviewItem !== 'axis' && overviewItem !== 'none') {
     throw DMVisError(`${overviewItem} was not recognised as overview item`, 'BarColumn');
+  }
+
+  if (names.length > 0 && names.length !== data.length) {
+    throw DMVisError('Specified names array is either too big, or too small', 'BarColumn');
   }
 
   // Column standards
@@ -98,8 +106,8 @@ BarColumn is a Column component that displays bars for each value in the data ar
 * name: string                            - The name of the column. Usually the attribute name.
 * padding: number                         - The padding of the column.
 * barColor: string                        - The colour of the bars.
-* icons: IconType[]                       - A list of what icons to display in the top of the column,
-                                            which defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
+* icons: IconType[]                       - List of what icons to display in the top of the column,
+                                              defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
 * overviewItem: 'histogram'|'axis'|'none' - Determines what item to display in the overview section of the column header. Defaults to none
 * scale: d3.ScaleLinear<number,number>    - What scale to use for all of the bars in the column.
                                             Defaults to a scale that ranges from 0 to width and has a domain from 0 to the maximum value.
@@ -181,7 +189,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   </g>
   <g slot="overview">
     {#if overviewItem === 'axis'}
-      <!-- Add axis -->
+      <Axis placementX={x + padding / 2} placementY={90} axis={d3.axisTop(scale).ticks(3)} />
     {:else if overviewItem === 'histogram'}
       <foreignObject {x} y={45} {width} height={75}>
         <Histogram
@@ -208,7 +216,11 @@ BarColumn is a Column component that displays bars for each value in the data ar
           originY={OriginY.Top}
           isVertical={false}
           color={barColor}
-          hoverText={value.toString()} />
+          hoverText={value.toString()}
+          on:mouseBarEnter
+          on:mouseBarLeave
+          name={names.length > 0 ? names[i] : undefined}
+          opacity={barOpacity} />
       {/each}
     {/key}
   </g>

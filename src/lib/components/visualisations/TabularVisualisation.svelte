@@ -1,56 +1,62 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { writable } from 'svelte/store';
   import { afterUpdate } from 'svelte';
 
+  // DMVis component imports
+  import BarColumn from '$lib/components/columns/BarColumn.svelte';
+  import StaticLine from '$lib/components/base/StaticLine.svelte';
+  import TextColumn from '$lib/components/columns/TextColumn.svelte';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
+
   // DMVis imports
-  import BarColumn from '$lib/components/base/BarColumn.svelte';
-  import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
-  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
+  import { IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
 
   // Optional attributes
-  export let styleUtil: StyleUtils = new StyleUtils({ color: 'red' });
+  export let styleUtil: StyleUtils = new StyleUtils();
 
-  export let width: number = calculateWidth(dataUtil.columns.length);
-  export let height: number = calculateHeight(dataUtil.data.length);
-
+  // Defaults for the margins
   export let marginLeft: number = 30;
   export let marginRight: number = 30;
   export let marginTop: number = 50;
   export let marginBottom: number = 50;
 
-  export let columnSpacing: number = 20;
+  // Automatically calculate the height and width of the visualisation if none is specified
+  export let width: number = calculateWidth(dataUtil.columns.length);
+  export let height: number = calculateHeight(dataUtil.data.length);
+
+  // Determines whether or not the lines between columns are drawn
   export let showColumnLines: boolean = false;
-
-  export let barPadding: number = 0.15;
-  export let barColor: string = styleUtil.color;
-  export let barRadiusX: number | string = 0;
-  export let barRadiusY: number | string = 0;
-
-  export let textColor: string = 'black';
-  export let fontSize: string = '10px';
-  export let fontWeight: string = 'normal';
-  export let fontFamily: string = styleUtil.fontFamily;
+  // Padding between columns
+  export let columnPadding: number = 10;
+  // Default opacity of the bars
   export let barOpacity: number | string = 0.6;
-  export let headerColor: string = 'rgb(200,200,200)';
-  export let headerOpacity: number | string = 1;
-  export let headerRadiusX: number | string = 5;
-  export let headerRadiusY: number | string = 5;
-  export let headerPadding: number = 5;
-  export let headerTextColor: string = 'black';
-  export let headerFontSize: string = '12px';
-  export let headerFontWeight: string = 'normal';
-  export let headerFontFamily: string = 'Arial';
-  export let hasHeaderBackground: boolean = false;
 
+  // Private variables
   const { visualisationData } = dataUtil;
+  let tabularElement: SVGElement;
+  let tabularSelection: d3.Selection<SVGElement, unknown, null, undefined>;
+
+  // Values related to columns, will be set in the updateColumns function
+  let columns: Array<string[] | number[]>;
+  let labelColumn: string[];
+  let numericalColumns: number[][];
+
+  // Scaleband used to equally space out the columns over the entire width
+  let columnScale: d3.ScaleBand<string>;
+
+  // Drag related variables, set by dragHandler
+  let deltaY: number = 0;
+  let deltaYLabel: number = 0;
+  let draggedRow: string = '';
+  let draggedItem: string = '';
+  let startingDraggedY: number = 0;
 
   // Set store values
   setVisualisationContext({
@@ -59,8 +65,8 @@
     data: $visualisationData,
     columns: dataUtil.columns,
     styleUtil,
-    marginLeft: marginLeft + columnSpacing / 2,
-    marginRight: marginRight + columnSpacing / 2,
+    marginLeft: marginLeft,
+    marginRight: marginRight,
     marginTop,
     marginBottom
   });
@@ -72,23 +78,6 @@
     updateColumns();
   }
 
-  // Private attributes
-  // A column either just has labels or it has pairs of labels and values
-  type LabelColumn = {
-    header: string;
-    rows: Array<{ label: string }>;
-  };
-  type BarColumn = {
-    header: string;
-    rows: Array<{ label: string; value: number }>;
-  };
-
-  // Set by dragHandler
-  let deltaY: number = 0;
-  let deltaYLabel: number = 0;
-  let draggedRow: string = '';
-  let draggedItem: string = '';
-  let startingDraggedY: number = 0;
   // Allows for rows to be dragged
   const dragHandler = d3
     .drag<SVGElement, unknown>()
@@ -106,35 +95,44 @@
         draggedItem = draggedRow.split('-')[1];
       }
       // Store the initial y position of the dragged row
-      startingDraggedY = parseFloat(d3.select(`.bar-${draggedItem}`).attr('y'));
-      deltaY = parseFloat(d3.select(`.bar-${draggedItem}`).attr('y')) - event.y;
-      deltaYLabel = parseFloat(d3.select(`.label-${draggedItem} > text`).attr('y')) - event.y;
+      startingDraggedY = parseFloat(tabularSelection.select(`.bar-${draggedItem}`).attr('y'));
+      deltaY = parseFloat(tabularSelection.select(`.bar-${draggedItem}`).attr('y')) - event.y;
+      deltaYLabel =
+        parseFloat(tabularSelection.select(`.label-${draggedItem} > text`).attr('y')) - event.y;
 
       // Raise dragged row to the front
-      d3.selectAll(`.bar-${draggedItem}`).raise();
-      d3.selectAll(`.label-${draggedItem}`).raise();
+      tabularSelection.selectAll(`.bar-${draggedItem}`).raise();
+      tabularSelection.selectAll(`.label-${draggedItem}`).raise();
+
+      // Hide the bar numbers
+      tabularSelection.selectAll(`.bar-number-${draggedItem}`).classed('highlighted', false);
     })
     .on('drag', function (event) {
       // Update y position of the row
-      d3.selectAll(`.bar-${draggedItem}`).attr('y', event.y + deltaY);
-      d3.selectAll(`.label-${draggedItem} > text`).attr('y', event.y + deltaYLabel);
+      tabularSelection.selectAll(`.bar-${draggedItem}`).attr('y', event.y + deltaY);
+      tabularSelection.selectAll(`.label-${draggedItem} > text`).attr('y', event.y + deltaYLabel);
     })
     .on('end', async function () {
-      // Get nearest row to the dragged row
-      const y = parseFloat(d3.select(`.label-${draggedItem} > text`).attr('y'));
-      const labelColumn = d3.select('.bar-column');
+      // Get the y coordinate of the label of the dragged row
+      const y = parseFloat(tabularSelection.select(`.label-${draggedItem} > text`).attr('y'));
+      // Select the column with all the other labels in it
+      const labelColumn = tabularSelection.select('.labelNames');
+      // From this column, select all the text elements
       const rows: Array<Element> = labelColumn.selectAll('text').nodes() as Array<Element>;
+      // Loop over all these text elements and compute the distance from this one to the dragged row
       const distances = rows.map((row: Element) => {
+        // If this row is not found, return infinity
         if (row === null) {
           return Infinity;
         }
+        // Get the y attribute of the row
         const rowY: string | undefined = row.attributes?.getNamedItem('y')?.value;
         if (rowY === null || rowY === undefined) {
           return Infinity;
         }
         if (row.innerHTML === draggedItem) {
-          // Dragging less than 10 pixels means draggedItem is closest
-          if (Math.abs(startingDraggedY - y) > 10) {
+          // Dragging less than 20 pixels means draggedItem is closest
+          if (Math.abs(startingDraggedY - y) > 20) {
             return Infinity;
           }
         }
@@ -153,112 +151,86 @@
         $visualisationData
       );
       $visualisationData = newData;
-      updateVisualisationContext({ data: $visualisationData });
       updateColumns();
 
+      // Show bar numbers again
+      tabularSelection.selectAll(`.bar-number-${draggedItem}`).classed('highlighted', true);
+
       // Unhighlight and reset row
-      d3.selectAll(`.${draggedItem}`)
+      tabularSelection
+        .selectAll(`.${draggedItem}`)
         .classed('highlighted', false)
         .attr('fill-opacity', barOpacity);
-      d3.selectAll(`.label-${draggedItem} > text`).classed('highlighted', false);
+      tabularSelection.selectAll(`.label-${draggedItem} > text`).classed('highlighted', false);
       draggedItem = '';
       draggedRow = '';
     });
   // End of assignment to dragHandler
 
-  // Convert array of rows to array of columns (i.e. transpose)
-  // Distance between columns is determined by scaleColumns
-  const columns = writable<Array<LabelColumn | BarColumn>>([]);
-  let scaleColumns: d3.ScaleBand<string>;
-
+  // Function that creates the columns from the visualisation data
   function updateColumns() {
-    scaleColumns = d3
+    columnScale = d3
       .scaleBand()
       .domain(dataUtil.columns)
-      .range([marginLeft - columnSpacing / 2, width - marginRight - columnSpacing / 2]);
+      .range([0, width - marginRight - marginLeft]);
 
-    // Fill labelColumn
-    const transposedData: Array<Array<number | string>> = d3.transpose($visualisationData);
-    const labelColumn: LabelColumn = {
-      header: dataUtil.columns[0],
-      rows: transposedData[0].map((label) => {
-        return { label: label as string };
-      })
-    };
-
-    let newColumns = [labelColumn];
-
-    // Fill bar columns
-    const barColumns: Array<BarColumn> = [];
-    // -1 or +1, because we are only interested in the bar columns here
-    for (let i: number = 0; i < dataUtil.columns.length - 1; ++i) {
-      barColumns[i] = { header: dataUtil.columns[i + 1], rows: [] };
-
-      for (let j: number = 0; j < transposedData[i + 1].length; ++j) {
-        barColumns[i].rows.push({
-          label: transposedData[0][j] as string,
-          value: transposedData[i + 1][j] as number
-        });
-      }
-
-      newColumns.push(barColumns[i]);
-    }
-
-    // Update columns store
-    columns.set(newColumns);
-
-    // Add drag handler to all rows
-    dragHandler(d3.selectAll('.bar'));
-    dragHandler(d3.selectAll('.bar-label'));
+    // Transpose the entire data
+    let transposedData = $visualisationData[0].map((_, colIndex) =>
+      $visualisationData.map((row) => row[colIndex])
+    );
+    // Create a column for all the labels, and columns for each attribute
+    let newColumns: (string[] | number[])[] = [];
+    let newLabelColumn = transposedData[0] as string[];
+    let newNumericalColumns = transposedData.slice(1) as number[][];
+    newColumns.push(newLabelColumn);
+    newNumericalColumns.forEach((col) => newColumns.push(col));
+    // Update the global variables
+    columns = [...newColumns];
+    labelColumn = [...newLabelColumn];
+    numericalColumns = [...newNumericalColumns];
   }
 
   // Function that fires when the mouse enters any bar that is a child component of the tabular visualisation
   function onMouseBarEnter(e: CustomEvent<{ name: string }>) {
+    if (draggedItem !== '') return;
+    const name = e.detail.name;
     // Highlight bar row
-    d3.selectAll(`.bar-${e.detail.name}`).classed('highlighted', true);
-    // Highlight label. '> text' is to refer to the nested text object
-    d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', true);
+    toggleHighlight(name, true);
   }
 
   // Function that fires when the mouse leaves any bar that is a child component of the tabular visualisation
   function onMouseBarLeave(e: CustomEvent<{ name: string }>) {
+    if (draggedItem !== '') return;
+    const name = e.detail.name;
     // Unhighlight bar row if not dragging
     if (draggedRow !== e.detail.name) {
-      d3.selectAll(`.bar-${e.detail.name}`).classed('highlighted', false);
-
-      // Unhighlight label
-      d3.selectAll(`.label-${e.detail.name} > text`).classed('highlighted', false);
+      toggleHighlight(name, false);
     }
   }
 
   // Function that fires when the mouse enters any label that is a child component of the tabular visualisation
   function onMouseLabelEnter(e: CustomEvent<{ name: string }>) {
-    // Split, because of multiple classes
-    const name = e.detail.name.split(' ')[0];
+    if (draggedItem !== '') return;
+    const name = e.detail.name;
     // Highlight bar row
-    d3.selectAll(`.bar-${name}`).classed('highlighted', true);
-    // Highlight label. '> text' is to refer to the nested text object
-    d3.selectAll(`.label-${name} > text`).classed('highlighted', true);
+    toggleHighlight(name, true);
   }
 
   // Function that fires when the mouse leaves any label that is a child component of the tabular visualisation
   function onMouseLabelLeave(e: CustomEvent<{ name: string }>) {
-    // Split, because of multiple classes
-    const name = e.detail.name.split(' ')[0];
-
+    if (draggedItem !== '') return;
+    const name = e.detail.name;
     // Unhighlight bar row if not dragging
     if (draggedRow !== name) {
-      d3.selectAll(`.bar-${name}`).classed('highlighted', false);
-
-      // Unhighlight label
-      d3.selectAll(`.label-${name} > text`).classed('highlighted', false);
+      toggleHighlight(name, false);
     }
   }
 
   // Calculate height based on number of rows
-  // Use the fontsize per row and multiply by 1.5 for padding
   function calculateHeight(numRows: number): number {
-    return numRows * styleUtil.fontSize + 150;
+    // 105 and 20 are both hard coded values in barColumn
+    // that represent the height of the column header and the height of a bar respectively
+    return numRows * 20 + 105 + marginBottom;
   }
 
   // Calculate width based on number of columns
@@ -270,14 +242,26 @@
   // Run initial and update functions
   updateColumns();
   afterUpdate(() => {
-    dragHandler(d3.selectAll('.bar'));
-    dragHandler(d3.selectAll('.bar-label'));
+    tabularSelection = d3.select(tabularElement);
+    dragHandler(tabularSelection.selectAll('.bar'));
+    dragHandler(tabularSelection.select('.labelNames').selectAll('.label'));
     const axes = document.getElementById('axes');
 
     if (axes !== null && axes.children.length > 0) {
       axes.removeChild(axes.children[0]);
     }
   });
+
+  // Function that will toggle the class `highlighted` on all needed components.
+  // Namely the bar, bar number and label
+  function toggleHighlight(name: string, classActive: boolean) {
+    // Update the bars
+    tabularSelection.selectAll(`.bar-${name}`).classed('highlighted', classActive);
+    // Update the numbers in the bar
+    tabularSelection.selectAll(`.bar-number-${name}`).classed('highlighted', classActive);
+    // Update the labels
+    tabularSelection.selectAll(`.label-${name} > text`).classed('highlighted', classActive);
+  }
 </script>
 
 <!--
@@ -285,107 +269,75 @@
 ### Tabular Visualisation
 This is a visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
-Since a header label is added on top of each column, it might be necessary
-to adjust `marginTop` or `columnMarginTop`.
 
 #### Required attributes
 * dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed.
 
 #### Optional attributes
 * styleUtil: StyleUtils               - The `StyleUtils` class contains all the styling for the visualisation.
-* width: number                       - Width of the visualisation. This defaults to `numberOfColumns * 175`.
-* height: number                      - Height of the visualisation. This defaults to `numberOfRows * 15`.
+
+* width: number                       - Width of the visualisation. This defaults to `numberOfColumns * 200`.
+* height: number                      - Height of the visualisation. This defaults to `numberOfRows * 20 + header`.
+
 * marginLeft: number                  - Margin to the left of the visualisation. This defaults to `30`.
 * marginRight: number                 - Margin to the right of the visualisation. This defaults to `30`.
 * marginTop: number                   - Margin to the top of the visualisation. This defaults to `50`.
 * marginBottom: number                - Margin to the bottom of the visualisation. This defaults to `30`.
-* columnSpacing: number               - Spacing between each column. Adds `columnSpacing / 2` to the left and right of each column.
-                                        This defaults to `20`.
+
 * showColumnLines: boolean            - Whether to show lines at the start and end of each column. This defaults to `false`.
-* barPadding: number                  - Value for the distance between each bar in each column in the range [0..1].
-                                        This defaults to `0.15`.
-* barColor: string                    - Color of each bar in each column. This defaults to `'red'`.
+* columnPadding: number               - Value for the distance between each column. This defaults to `10`.
 * barOpacity: number | string         - Opacity of each bar as a number in the range [0..1] or
                                         a percentage string formatted as '{number}%'. A value
                                         lower than one is recommended for visible bar highlighting.
                                         This defaults to `0.6`.
-* barRadiusX: number                  - Horizontal corner radius of each bar in each column as a number
-                                        or a percentage string formatted as '{number}%'.
-                                        This defaults to `0`.
-* barRadiusY: number                  - Vertical corner radius of each bar in each column as a number
-                                        or a percentage string formatted as '{number}%'.
-                                        This defaults to `0`.
-* textColor: string                   - Color of the text in each bar in each column. This defaults to `'black'`.
-* fontSize: string                    - Font size of the text in each bar in each column. This defaults to `'12px'`.
-* fontWeight: string                  - Font weight of the text in each bar in each column. This defaults to `'normal'`.
-* fontFamily: string                  - Font family of the text in each bar in each column. This defaults to `'Arial'`.
-* headerColor: string                 - Color of the rectangle behind the header label in each column.
-                                        This defaults to `'rgb(200,200,200)'`.
-* headerOpacity: number | string      - Opacity of the header label in each column. This defaults to `1`.
-* headerRadiusX: number | string      - Horizontal corner radius of the header label in each column as a number
-                                        or a percentage string formatted as '{number}%'.
-                                        This defaults to `5`.
-* headerRadiusY: number | string      - Vertical corner radius of the header label in each column as a number or
-                                        a percentage string formatted as '{number}%'.
-                                        This defaults to `5`.
-* headerPadding: number               - Padding around the text in the header label in each column.
-                                        This defaults to `5`.
-* headerTextColor: string             - Color of the text in the header label in each column.
-                                        This defaults to `'black'`.
-* headerFontSize: string              - Font size of the text in the header label in each column.
-                                        This defaults to `'12px'`.
-* headerFontWeight: string            - Font weight of the text in the header label in each column.
-                                        This defaults to `'normal'`.
-* headerFontFamily: string            - Font family of the text in the header label in each column.
-                                        This defaults to `'Arial'`.
-* hasHeaderBackground: boolean        - Whether the header label in each column has a background.
-                                        This defaults to `false`.
 -->
 
 <BaseVisualisation>
-  <svg class="visualisation tabularVisualisation" {width} {height}>
+  <svg class="visualisation tabularVisualisation" {width} {height} bind:this={tabularElement}>
     {#key dataUtil || $visualisationData}
-      <!-- Plot the top axis of the visualisation -->
-      <g id="axes">
-        <DynamicAxis
-          position="top"
-          ticksNumber={3}
-          padding={columnSpacing / scaleColumns.bandwidth()} />
-      </g>
       <!-- Loop over all the columns and create a barcolumn for each of them -->
-      {#each $columns as column, columnIndex}
+      <TextColumn
+        x={marginLeft}
+        icons={[IconType.Sort]}
+        name={dataUtil.columns[0]}
+        width={columnScale.step()}
+        height={height - marginTop - marginBottom}
+        data={labelColumn}
+        padding={columnPadding}
+        on:mouseLabelEnter={onMouseLabelEnter}
+        on:mouseLabelLeave={onMouseLabelLeave} />
+      {#each numericalColumns as column, columnIndex}
         <BarColumn
-          x={marginLeft + scaleColumns.bandwidth() * columnIndex}
-          y={marginTop}
-          width={scaleColumns.bandwidth()}
+          overviewItem={'histogram'}
+          x={marginLeft + columnScale.step() * (columnIndex + 1)}
+          icons={[IconType.Sort]}
+          name={dataUtil.columns[columnIndex + 1]}
+          width={columnScale.step()}
           height={height - marginTop - marginBottom}
           data={column}
-          {columnSpacing}
-          {showColumnLines}
-          {barPadding}
-          {barColor}
-          {barOpacity}
-          {barRadiusX}
-          {barRadiusY}
-          {textColor}
-          {fontSize}
-          {fontWeight}
-          {fontFamily}
-          {headerColor}
-          {headerOpacity}
-          {headerRadiusX}
-          {headerRadiusY}
-          {headerPadding}
-          {headerTextColor}
-          {headerFontSize}
-          {headerFontWeight}
-          {headerFontFamily}
-          {hasHeaderBackground}
           on:mouseBarEnter={onMouseBarEnter}
           on:mouseBarLeave={onMouseBarLeave}
-          on:mouseLabelEnter={onMouseLabelEnter}
-          on:mouseLabelLeave={onMouseLabelLeave} />
+          padding={columnPadding}
+          names={labelColumn}
+          barOpacity={0.6} />
       {/each}
+      {#if showColumnLines}
+        {#each columns as col, i}
+          <StaticLine
+            points={[
+              { x: marginLeft + columnScale.bandwidth() * i, y: marginTop },
+              { x: marginLeft + columnScale.bandwidth() * i, y: height - marginBottom / 2 }
+            ]} />
+        {/each}
+        <StaticLine
+          points={[
+            { x: marginLeft + columnScale.bandwidth() * columns.length, y: marginTop },
+            {
+              x: marginLeft + columnScale.bandwidth() * columns.length,
+              y: height - marginBottom / 2
+            }
+          ]} />
+      {/if}
     {/key}
   </svg>
 </BaseVisualisation>

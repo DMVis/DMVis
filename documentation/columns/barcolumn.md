@@ -68,6 +68,31 @@ Setting this to `'axis'`, will cause `BarColumn` to automatically create a `d3.a
 
 What scale to use for the entire column. This default scale is nothing more than a scale that has a range that is equal to the width of the column and a domain that goes from 0 to the maximum value of the column.
 
+## barOpacity
+
+- Type: `number`
+- Default: `1`
+
+The opacity of each bar as a number in the range [0..1].
+
+## names
+
+- Type: `string[]`
+- Default: `[]`
+
+The name for each point. Will be used for accessing the bars with classnames. The first entry of this array is linked with the first item of the data array, etc..
+
+> Note: Setting this to `[]` will cause the bars to have no additional name
+
+## overviewItem
+
+- Type: `string`
+- Default: `'none'`
+- Options: `'histogram'`,`'axis'`,`'none'`
+
+Determines what item to display in the overview section of the column header. <br>
+Setting this to `'axis'`, will cause `BarColumn` to automatically create a `d3.axisTop` from the specified scale.
+
 # Events
 
 This component emits the following events:

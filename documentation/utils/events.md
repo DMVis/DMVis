@@ -34,6 +34,8 @@ Here is a list of all the events that are used in DMVis.
 - [mouseBarEnter](#mouseBarEnter)
 - [mouseBarLeave](#mouseBarLeave)
 - [mouseHover](#mouseHover)
+- [mouseLabelEnter](#mouseLabelEnter)
+- [mouseLabelLeave](#mouseLabelLeave)
 - [mouseIconClick](#mouseIconClick)
 - [mouseIconEnter](#mouseIconEnter)
 - [mouseIconLeave](#mouseIconLeave)
@@ -233,6 +235,32 @@ This event is triggered when the user hovers over a component. This is mainly us
 ### Event Properties
 
 - `row` - A number representing the row that the user is hovering over.
+
+## mouseLabelEnter
+
+An event that is fired when the mouse enters a label.
+
+### Components using this event
+
+- [Label](../components/label.md)
+- [TextColumn](../columns/textcolumn.md.md)
+
+### Event Properties
+
+- `name` - The name of the label.
+
+## mouseLabelLeave
+
+An event that is fired when the mouse leaves a label.
+
+### Components using this event
+
+- [Label](../components/label.md)
+- [TextColumn](../columns/textcolumn.md.md)
+
+### Event Properties
+
+- `name` - The name of the label.
 
 ## mouseIconClick
 
