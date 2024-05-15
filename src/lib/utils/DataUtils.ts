@@ -14,6 +14,7 @@ export class DataUtils {
   public columns: Array<string>;
   public columnInfo: { [key: string]: string };
   public visualisationData: Writable<Array<Array<string | number>>>;
+  public dataMap: Writable<Map<string, Array<string | number>>>;
 
   constructor() {
     this.rawData = [];
@@ -21,6 +22,7 @@ export class DataUtils {
     this.columns = [];
     this.columnInfo = {};
     this.visualisationData = writable([]);
+    this.dataMap = writable(new Map());
   }
 
   /**
@@ -81,6 +83,11 @@ export class DataUtils {
 
       // Set the visualisation data
       this.visualisationData.set(this.data);
+      this.dataMap.set(
+        new Map(
+          this.#transposeData(this.data).map((row, index) => [this.columns[index] as string, row])
+        )
+      );
 
       // Return the parsed data
       return this.rawData;
@@ -139,6 +146,11 @@ export class DataUtils {
 
       // Set the visualisation data
       this.visualisationData.set(this.data);
+      this.dataMap.set(
+        new Map(
+          this.#transposeData(this.data).map((row, index) => [this.columns[index] as string, row])
+        )
+      );
 
       // Return the parsed data
       return this.rawData;
@@ -170,6 +182,11 @@ export class DataUtils {
 
     // Set the visualisation data
     this.visualisationData.set(sortedData);
+    this.dataMap.set(
+      new Map(
+        this.#transposeData(sortedData).map((row, index) => [this.columns[index] as string, row])
+      )
+    );
 
     return sortedData;
   }
@@ -209,6 +226,11 @@ export class DataUtils {
 
     // Set the visualisation data
     this.visualisationData.set(sortedData);
+    this.dataMap.set(
+      new Map(
+        this.#transposeData(sortedData).map((row, index) => [this.columns[index] as string, row])
+      )
+    );
 
     return sortedData;
   }
@@ -218,7 +240,7 @@ export class DataUtils {
    * @param column The column to reorder the rows based on.
    * @param oldIndex The old index of the row.
    * @param newIndex The new index of the row.
-   * @returns
+   * @returns {Array<Array<string | number>>} The reordered data.
    */
   reorderRows(
     oldIndex: number,
@@ -232,12 +254,20 @@ export class DataUtils {
 
     // Set the visualisation data
     this.visualisationData.set(reorderedData);
+    this.dataMap.set(
+      new Map(
+        this.#transposeData(reorderedData).map((row, index) => [this.columns[index] as string, row])
+      )
+    );
 
     return reorderedData;
   }
 
-  // Filters data based on the given ranges for every attribute,
-  // Will return data in the format [Points inside[], Points outside[]]
+  /**
+   *
+   * @param {(number[] | null)[]} rangePerAttribute - The range for each attribute
+   * @returns {string[][]} The data in the format [Points inside[], Points outside[]]
+   */
   filterData(rangePerAttribute: (number[] | null)[]): string[][] {
     // Find out what indices actually hold a selection and therefore need checking
     const indicesToCheck: number[] = [];
@@ -269,6 +299,11 @@ export class DataUtils {
     return [inside, outside];
   }
 
+  /**
+   * Applies filters to the data based on the given filter values.
+   * @param { [key: string]: string | { min: number; max: number } } filters - An object where the keys are the column names and the values are the filter values.
+   * @returns {void}
+   */
   applyFilters(filters: { [key: string]: string | { min: number; max: number } }): void {
     // Convert column names to indices for easier filtering
     const columnIndexMap = this.columns.reduce(
@@ -308,18 +343,45 @@ export class DataUtils {
 
     // Update the data
     this.visualisationData.set(filteredData);
+    this.dataMap.set(
+      new Map(
+        this.#transposeData(filteredData).map((row, index) => [this.columns[index] as string, row])
+      )
+    );
   }
 
-  // Resets the visualisation data to the original data
-  resetVisualisationData() {
+  /**
+   * Resets the visualisation data to the original data.
+   * @returns {void}
+   */
+  resetVisualisationData(): void {
     this.visualisationData.set(this.data);
+    this.dataMap.set(
+      new Map(
+        this.#transposeData(this.data).map((row, index) => [this.columns[index] as string, row])
+      )
+    );
   }
 
-  setVisualisationData(data: Array<Array<string | number>>) {
+  /**
+   * Sets the visualisation data.
+   * @param {Array<Array<string | number>>} data - The data to set as the visualisation data.
+   * @returns {void}
+   */
+  setVisualisationData(data: Array<Array<string | number>>): void {
     this.visualisationData.set(data);
+    this.dataMap.set(
+      new Map(this.#transposeData(data).map((row, index) => [this.columns[index] as string, row]))
+    );
   }
 
-  // Filters the data based on the specified ranges
+  /**
+   * Filters a row based on the given ranges for each attribute.
+   * @param {Array<string | number>} row - The row to check
+   * @param {number[]} indicesToCheck - The indices of the attributes that have a selection
+   * @param {number[][]} rangePerAttribute - The range for each attribute
+   * @returns {boolean} Whether the row is valid based on the given ranges
+   */
   #filterRow(
     row: (string | number)[],
     indicesToCheck: number[],
@@ -372,6 +434,7 @@ export class DataUtils {
   }
 
   /**
+   * Infers the types of the columns based on the data.
    * @returns {{ [key: string]: string }} An object where the keys are the column names and the values are the inferred types of the columns.
    */
   #inferColumnTypes(): { [key: string]: string } {
@@ -386,6 +449,7 @@ export class DataUtils {
   }
 
   /**
+   * Determines the separator used in the data.
    * @param {string} data - The data to check
    * @returns {string} The separator used in the data
    * @throws {Error} If the separator could not be determined
@@ -404,5 +468,25 @@ export class DataUtils {
     }
 
     throw DMVisError('Could not determine separator', 'DataUtils');
+  }
+
+  /**
+   * Transposes the given data.
+   * @param {Array<Array<string | number>>} data - The data to transpose
+   * @returns {Array<Array<string | number>>} The transposed data
+   */
+  #transposeData(data: Array<Array<string | number>>): Array<Array<string | number>> {
+    return data.reduce(
+      (acc, currentRow) => {
+        currentRow.forEach((value, index) => {
+          if (acc[index] === undefined) {
+            acc[index] = [] as Array<number | string>;
+          }
+          acc[index].push(value);
+        });
+        return acc;
+      },
+      [[]] as Array<Array<number | string>>
+    );
   }
 }
