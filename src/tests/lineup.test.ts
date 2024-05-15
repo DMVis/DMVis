@@ -19,7 +19,7 @@ describe('Html test', async () => {
     // Assert
     expect(container).not.toBeNull();
     expect(Number(container.getAttribute('width'))).toBe(150 * (3 + 2)); // Default column width * (amount of columns + rank & select columns)
-    expect(Number(container.getAttribute('height'))).toBe(105 + 3 * 20); // Column top height + (amount of rows * row height)
+    expect(Number(container.getAttribute('height'))).toBe(120 + 3 * 20); // Column top height + (amount of rows * row height)
     expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns
   });
 
@@ -33,7 +33,7 @@ describe('Html test', async () => {
     // Assert
     expect(container).not.toBeNull();
     expect(Number(container.getAttribute('width'))).toBe(150 * (3 + 2)); // Default column width * (amount of columns + rank & select columns)
-    expect(Number(container.getAttribute('height'))).toBe(105); // Column top height
+    expect(Number(container.getAttribute('height'))).toBe(120); // Column top height
     expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns
   });
 
@@ -47,7 +47,7 @@ describe('Html test', async () => {
     // Assert
     expect(container).not.toBeNull();
     expect(Number(container.getAttribute('width'))).toBe(150 * 2); // Default column width * rank & select columns
-    expect(Number(container.getAttribute('height'))).toBe(105); // Column top height
+    expect(Number(container.getAttribute('height'))).toBe(120); // Column top height
     expect(container.getElementsByClassName('column').length).toBe(2); // Rank & select columns
   });
 
@@ -61,7 +61,7 @@ describe('Html test', async () => {
     // Assert
     expect(container).not.toBeNull();
     expect(Number(container.getAttribute('width'))).toBe(config.columnWidth * (3 + 2)); // Custom column width * (amount of columns + rank & select columns)
-    expect(Number(container.getAttribute('height'))).toBe(105 + 3 * 20); // Column top height + (amount of rows * row height)
+    expect(Number(container.getAttribute('height'))).toBe(120 + 3 * 20); // Column top height + (amount of rows * row height)
     expect(container.getElementsByClassName('column').length).toBe(3 + 2); // Columns from data + rank & select columns
   });
 });

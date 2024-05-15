@@ -6,8 +6,9 @@
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import { Bar } from '$lib/components.js';
-  import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
+  import Histogram from '$lib/components/visualisations/Histogram.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
+  import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
@@ -21,10 +22,15 @@
   export let barColor: string = 'red';
   export let icons: IconType[] = [IconType.Sort, IconType.Filter, IconType.More];
   export let weight: string = '10';
+  export let overviewItem: 'histogram' | 'axis' | 'none' = 'none';
   export let scale: d3.ScaleLinear<number, number> = d3
     .scaleLinear()
     .domain([0, d3.max(data) ?? 0])
     .range([0, width - padding]);
+
+  if (overviewItem !== 'histogram' && overviewItem !== 'axis' && overviewItem !== 'none') {
+    throw DMVisError(`${overviewItem} was not recognised as overview item`, 'BarColumn');
+  }
 
   // Column standards
   const type = ColumnType.Bar;
@@ -35,8 +41,8 @@
 
   // Get the y position of the column
   function getY(index: number) {
-    // 20 = height of row, 105 = height of top part, 1 = padding
-    return index * 20 + 105 + 1;
+    // 20 = height of row, 120 = height of top part, 1 = padding
+    return index * 20 + 120 + 1;
   }
 
   // Dispatch filter
@@ -76,19 +82,20 @@
 BarColumn is a Column component that displays bars for each value in the data array.
 
 #### Required attributes
-* x: number - X-coordinate of the column.
-* width: number - The width of the column.
-* height: number - The height of the column.
-* data: number[] - The data you want to display as bars.
+* x: number       - The X-coordinate of the column.
+* width: number   - The width of the column.
+* height: number  - The height of the column.
+* data: number[]  - The data you want to display as bars.
 
 #### Optional attributes
-* name: string - The name of the column. Usually the attribute name.
-* padding: number - The padding of the column.
-* barColor: string - The colour of the bars.
-* icons: IconType[] - List of what icons to display in the top of the column,
-                        defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
-* scale: d3.ScaleLinear<number,number> - What scale to use for all of the bars in the column.
-                        Defaults to a scale that ranges from 0 to width and has a domain from 0 to the maximum value.
+* name: string                            - The name of the column. Usually the attribute name.
+* padding: number                         - The padding of the column.
+* barColor: string                        - The colour of the bars.
+* icons: IconType[]                       - A list of what icons to display in the top of the column,
+                                            which defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
+* overviewItem: 'histogram'|'axis'|'none' - Determines what item to display in the overview section of the column header. Defaults to none
+* scale: d3.ScaleLinear<number,number>    - What scale to use for all of the bars in the column.
+                                            Defaults to a scale that ranges from 0 to width and has a domain from 0 to the maximum value.
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -138,7 +145,21 @@ BarColumn is a Column component that displays bars for each value in the data ar
     {/if}
   </g>
   <g slot="overview">
-    <!-- Insert histogram using bar chart -->
+    {#if overviewItem === 'axis'}
+      <!-- Add axis -->
+    {:else if overviewItem === 'histogram'}
+      <foreignObject {x} y={45} {width} height={100}>
+        <Histogram
+          {width}
+          height={75}
+          bins={8}
+          forceCategorical={false}
+          showOuterTicks={true}
+          padding={0.2}
+          color={barColor}
+          {data} />
+      </foreignObject>
+    {/if}
   </g>
   <g slot="data">
     {#key data || width}

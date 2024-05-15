@@ -51,6 +51,16 @@ Padding around the column.
 
 List of what icons to display in the top of the column.
 
+## overviewItem
+
+- Type: `string`
+- Options: `'histogram' | 'axis' | 'none'`
+- Default: `'none'`
+
+Determines what item to display in the overview section of the column header. <br>
+Setting the value to `histogram` will cause `BarColumn` to display a histogram of the data in the column. <br>
+Setting this to `'axis'`, will cause `BarColumn` to automatically create a `d3.axisTop` from the specified scale.
+
 ## scale
 
 - Type: `d3.ScaleLinear<number,number>`

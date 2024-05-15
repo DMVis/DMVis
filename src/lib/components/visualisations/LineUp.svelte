@@ -107,7 +107,7 @@
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
-    return numRows * 20 + 105;
+    return numRows * 20 + 120;
   }
 
   // Calculate width based on number of columns
@@ -297,7 +297,7 @@ displays different types of columns such as text, bar, and rank columns. This is
         {#if highlightRow >= 0}
           <rect
             x={0}
-            y={highlightRow * 20 + 105}
+            y={highlightRow * 20 + 120}
             {width}
             height="20"
             fill={styleUtil.focusColor}
@@ -306,7 +306,7 @@ displays different types of columns such as text, bar, and rank columns. This is
         {#each selectedRows as row}
           <rect
             x={0}
-            y={row * 20 + 105}
+            y={row * 20 + 120}
             {width}
             height="20"
             fill={styleUtil.focusColor}
@@ -367,6 +367,7 @@ displays different types of columns such as text, bar, and rank columns. This is
               {padding}
               barColor={columnColors[column]}
               name={column}
+              overviewItem={'histogram'}
               data={columnData[column].map(Number)}
               on:dragStart={onDraggingStart}
               on:dragMove={onDragMove}

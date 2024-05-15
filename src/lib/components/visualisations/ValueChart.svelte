@@ -97,7 +97,7 @@
   dataUtil.sortByWeights(columnScales, false);
 
   function calculateHeight(numRows: number): number {
-    return numRows * 20 + 105;
+    return numRows * 20 + 120;
   }
 
   // Function that fires once a box is scrolled

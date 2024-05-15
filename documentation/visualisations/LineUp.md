@@ -36,9 +36,9 @@ The width of the visualisation. The default value is calculated based on the num
 ## height
 
 - Type: `number`
-- Default: `number of rows * 20 + 105`
+- Default: `number of rows * 20 + 120`
 
-Height of the visualisation. 105 is the height of the header, and each row is 20 pixels high.
+Height of the visualisation. 120 is the height of the header, and each row is 20 pixels high.
 
 ## padding
 

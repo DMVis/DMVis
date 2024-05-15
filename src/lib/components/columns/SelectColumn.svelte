@@ -23,8 +23,8 @@
 
   // Get the y position of the column
   function getY(index: number) {
-    // 20 = height of row, 105 = height of top part
-    return index * 20 + 105;
+    // 20 = height of row, 120 = height of top part
+    return index * 20 + 120;
   }
 
   // Let the parent know that a checkbox has been checked

@@ -95,7 +95,7 @@
 
     // Get the position inside the background of the column
     const rect = (columnRect as HTMLElement)?.getBoundingClientRect();
-    const y = e.clientY - rect.top - 5;
+    const y = e.clientY - rect.top - 20;
 
     // Get the row and return it
     const row = Math.floor(y / 20);
