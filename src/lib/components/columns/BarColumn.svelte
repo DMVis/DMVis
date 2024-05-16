@@ -144,6 +144,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
       <!-- Add 5px extra padding -->
       <foreignObject x={x + 5 + paddingSide} y={100} width={width - padding - 10} height={50}>
         <input
+          class="filter-bar-min"
           type="number"
           min={minValue}
           max={maxValue}
@@ -153,6 +154,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
           style="width: 100%; padding:0; margin:0;"
           on:change={dispatchFilter} />
         <input
+          class="filter-bar-max"
           type="number"
           min={minValue}
           max={maxValue}

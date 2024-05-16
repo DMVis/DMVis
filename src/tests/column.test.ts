@@ -30,8 +30,8 @@ describe('Base column test', () => {
     expect(column).toBeDefined();
     expect(options).toBeDefined();
     expect(columnTop).toBeDefined();
-    expect(Number(columnTop?.getAttribute('width'))).toBe(config.width - 10);
-    expect(Number(columnTop?.getAttribute('height'))).toBe(100);
+    expect(Number(columnTop?.getAttribute('width'))).toBe(config.width - 10); // Width minus padding
+    expect(Number(columnTop?.getAttribute('height'))).toBe(100); // Height of the top column
     expect(Number(columnBottom?.getAttribute('width'))).toBe(config.width);
     expect(Number(columnBottom?.getAttribute('height'))).toBe(config.height);
   });
@@ -93,5 +93,42 @@ describe('BarColumn tests', () => {
     // Assert
     expect(column).toBeDefined();
     expect(container.querySelectorAll('.histogram')).toBeDefined();
+  });
+});
+
+describe('Column interaction test', () => {
+  it('highlights and unhighlights a column-top when moving over it', async () => {
+    // Arrange
+    const config = { x: 0, width: 150, height: 1000, type: ColumnType.Text };
+    const { container } = render(StoreWrapper, { props: { Component: Column, config } });
+
+    // Act
+    let columnTop = container.querySelector('.column-top > rect') as HTMLElement;
+    await columnTop.dispatchEvent(
+      new MouseEvent('mouseenter', {
+        // Hover at the center of the column row
+        clientX: 75,
+        clientY: 20
+      })
+    );
+
+    // Assert
+    columnTop = container.querySelector('.column-top > rect') as HTMLElement;
+    expect(columnTop).toBeDefined();
+    expect(columnTop.getAttribute('fill')).toBe('#FF0000');
+
+    // Act
+    await columnTop.dispatchEvent(
+      new MouseEvent('mouseleave', {
+        // Hover out of the column row
+        clientX: 75,
+        clientY: 0
+      })
+    );
+
+    // Assert
+    columnTop = container.querySelector('.column-top > rect') as HTMLElement;
+    expect(columnTop).toBeDefined();
+    expect(columnTop.getAttribute('fill')).toBe('#FFFFFF');
   });
 });
