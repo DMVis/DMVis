@@ -41,6 +41,7 @@
   - [Label](components/label.md)
   - [Line](components/line.md)
   - [Point](components/point.md)
+  - [Scrollable](components/scrollable.md)
   - [StackedBar](components/stackedbar.md)
   - [StaticLine](components/staticLine.md)
   - [Tooltip](components/tooltip.md)
