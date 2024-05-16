@@ -109,6 +109,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   {padding}
   {name}
   {icons}
+  showSeparator={false}
   on:dragStart
   on:dragMove
   on:dragStop
@@ -148,7 +149,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
     {#if overviewItem === 'axis'}
       <!-- Add axis -->
     {:else if overviewItem === 'histogram'}
-      <foreignObject {x} y={45} {width} height={100}>
+      <foreignObject {x} y={45} {width} height={75}>
         <Histogram
           {width}
           height={75}

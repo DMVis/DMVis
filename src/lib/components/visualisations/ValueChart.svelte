@@ -97,6 +97,7 @@
   dataUtil.sortByWeights(columnScales, false);
 
   function calculateHeight(numRows: number): number {
+    // 20 is the height of the rows, 120 is the margin for the column top
     return numRows * 20 + 120;
   }
 

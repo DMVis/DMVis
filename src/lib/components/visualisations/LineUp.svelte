@@ -15,6 +15,9 @@
   // Required attributes
   export let dataUtil: DataUtils;
 
+  // Margin to let the rows know where to start
+  let columnTopMargin: number = 120;
+
   // Optional attributes
   export let styleUtil: StyleUtils = new StyleUtils();
   export let columnWidth: number = 150;
@@ -22,6 +25,7 @@
   export let height: number = calculateHeight(dataUtil.data.length);
   export let padding: number = 10;
 
+  // Get the data from the dataUtil
   const { visualisationData } = dataUtil;
 
   // Set store values
@@ -107,7 +111,7 @@
 
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
-    return numRows * 20 + 120;
+    return numRows * 20 + columnTopMargin;
   }
 
   // Calculate width based on number of columns
@@ -297,7 +301,7 @@ displays different types of columns such as text, bar, and rank columns. This is
         {#if highlightRow >= 0}
           <rect
             x={0}
-            y={highlightRow * 20 + 120}
+            y={highlightRow * 20 + columnTopMargin}
             {width}
             height="20"
             fill={styleUtil.focusColor}
@@ -306,7 +310,7 @@ displays different types of columns such as text, bar, and rank columns. This is
         {#each selectedRows as row}
           <rect
             x={0}
-            y={row * 20 + 120}
+            y={row * 20 + columnTopMargin}
             {width}
             height="20"
             fill={styleUtil.focusColor}

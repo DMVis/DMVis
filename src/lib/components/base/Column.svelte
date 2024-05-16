@@ -21,6 +21,7 @@
   export let name: string = 'Column';
   export let padding: number = 10;
   export let icons: IconType[] = [];
+  export let showSeparator: boolean = true;
 
   // Set column specific values
   const paddingSide: number = padding / 2;
@@ -110,21 +111,22 @@ Columns are required for visualisations such as Tabular Visualisation and LineUp
 Each columns contains a top part with information about the column and a bottom part with the actual data.
 
 #### Required attributes
-* x: number             - Scaled x-coordinate of the column, which is the starting point of the column
-* width: number         - Width of the column
-* height: number        - Height of the column
-* type: ColumnType      - Type of the column. See the ColumnType enum for more information.
+* x: number              - Scaled x-coordinate of the column, which is the starting point of the column
+* width: number          - Width of the column
+* height: number         - Height of the column
+* type: ColumnType       - Type of the column. See the ColumnType enum for more information.
 
 #### Optional attributes
-* y: number             - Scaled y-coordinate of the column. The default is `100`.
-* name: string          - Name of the column. Set this to the name of the attribute. The default is 'Column'.
-* padding: number       - Padding of the column. The default is 10.
-* icons: IconType[]     - List of what icons to display in the top of the column.
+* y: number              - Scaled y-coordinate of the column. The default is `100`.
+* name: string           - Name of the column. Set this to the name of the attribute. The default is 'Column'.
+* padding: number        - Padding of the column. The default is 10.
+* icons: IconType[]      - List of what icons to display in the top of the column.
+* showSeparator: boolean - Whether to show the separator line at the bottom of the column header. The default is `true`.
 
 #### Slots
-* data                  - Slot for the data of the column.
-* overview              - Slot for the overview at the top of the column.
-* overlay               - Slot for the menu overlay at the top of the column. Only required if an overview is specified.
+* data                   - Slot for the data of the column.
+* overview               - Slot for the overview at the top of the column.
+* overlay                - Slot for the menu overlay at the top of the column. Only required if an overview is specified.
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -194,13 +196,16 @@ Each columns contains a top part with information about the column and a bottom 
         <g class="column-top-overview">
           <slot name="overview" />
         </g>
-        <line
-          x1={x + paddingSide}
-          y1={y}
-          x2={x + width - paddingSide}
-          y2={y}
-          stroke={$styleUtil.colorBorder}
-          stroke-width="1" />
+        {#if showSeparator}
+          <line
+            x1={x + paddingSide}
+            y1={y}
+            x2={x + width - paddingSide}
+            y2={y}
+            stroke={'#000000'}
+            stroke-width="1"
+            shape-rendering="crispEdges" />
+        {/if}
 
         <!-- Overlays for columns -->
         <g class="column-top-overlay">

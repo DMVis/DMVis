@@ -69,6 +69,13 @@ The padding around the column.
 
 What icons to display in the top of the column.
 
+## showSeparator
+
+- Type: `boolean`
+- Default: `true`
+
+Whether to show the separator line at the bottom of the column header.
+
 # Events
 
 This component emits the following events:
