@@ -30,12 +30,16 @@ Here is a list of all the events that are used in DMVis.
 - [dragStop](#dragStop)
 - [filter](#filter)
 - [group](#group)
+- [mouseBarClick](#mouseBarClick)
 - [mouseBarEnter](#mouseBarEnter)
 - [mouseBarLeave](#mouseBarLeave)
 - [mouseHover](#mouseHover)
 - [mouseIconClick](#mouseIconClick)
 - [mouseIconEnter](#mouseIconEnter)
 - [mouseIconLeave](#mouseIconLeave)
+- [mouseLabelClick](#mouseLabelClick)
+- [mouseLabelEnter](#mouseLabelEnter)
+- [mouseLabelLeave](#mouseLabelLeave)
 - [mousePointClick](#mousePointClick)
 - [mousePointEnter](#mousePointEnter)
 - [mousePointLeave](#mousePointLeave)
@@ -173,6 +177,18 @@ An event which handles the grouping of the data. Contains the name of the column
 - `column` - The name of the column to group by.
 - `isGrouped` - A boolean value indicating whether the column is grouped or not.
 
+## mouseBarClick
+
+Fire an event when the user clicks on a bar.
+
+### Components using this event
+
+- [Bar](../components/bar.md)
+
+### Event Properties
+
+- `name` - The name of the bar. This is set by the parent component and is used to identify the bar.
+
 ## mouseBarEnter
 
 Fire an event when the mouse of a user enters a bar.
@@ -254,6 +270,42 @@ An event that is triggered when the user stops hovering over an icon.
 
 - `x` - A number representing the x-coordinate of the mouse.
 - `y` - A number representing the y-coordinate of the mouse.
+
+## mouseLabelClick
+
+An event that is fired when the user clicks on a label.
+
+### Components using this event
+
+- [Label](../components/label.md)
+
+### Event Properties
+
+- `name` - The name of the label.
+
+## mouseLabelEnter
+
+An event that is fired when the mouse enters a label.
+
+### Components using this event
+
+- [Label](../components/label.md)
+
+### Event Properties
+
+- `name` - The name of the label.
+
+## mouseLabelLeave
+
+An event that is fired when the mouse leaves a label.
+
+### Components using this event
+
+- [Label](../components/label.md)
+
+### Event Properties
+
+- `name` - The name of the label.
 
 ## mousePointClick
 

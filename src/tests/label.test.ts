@@ -237,6 +237,32 @@ describe('Event dispatching test', () => {
     expect(styleAfterFocus).toContain(expectedStyle);
     expect(styleAfterBlur).toContain(expectedStyle);
   });
+
+  it('fires an event when the label is clicked', async () => {
+    // Arrange
+    const config = { x: 0, y: 0, text: 'Test', hasPointerEvents: true };
+    let clicked = false;
+
+    // Add svg block to the document
+    const svg = document.createElement('svg');
+    svg.setAttribute('id', 'svg');
+    document.body.appendChild(svg);
+
+    // Add label to svg block
+    const { getByText, component } = render(Label, config);
+    const group = getByText('Test').parentNode as SVGElement;
+    svg.appendChild(group);
+
+    // Act
+    component.$on('mouseLabelClick', () => {
+      clicked = true;
+    });
+    await fireEvent.mouseDown(group);
+
+    // Assert
+    expect(group).toBeDefined();
+    expect(clicked).toBe(true);
+  });
 });
 
 function createLabel(config: object): [SVGElement, SVGElement, SVGElement] {

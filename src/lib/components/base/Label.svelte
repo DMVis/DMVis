@@ -134,6 +134,12 @@
     // Fire an event to be picked up by parent components of this label
     dispatch('mouseLabelLeave', { name: name });
   }
+
+  /** Function that fires when the mouse is pressed down on this label if `hasPointerEvents` is `true` */
+  function onMouseDown() {
+    // Fire an event to be picked up by parent components of this label
+    dispatch('mouseLabelClick', { name: name });
+  }
 </script>
 
 <!--
@@ -192,6 +198,7 @@ The default origin is the middle of the label.
   role="treeitem"
   tabindex="0"
   aria-selected="false"
+  on:mousedown={onMouseDown}
   on:mouseenter={onMouseEnter}
   on:mouseleave={onMouseLeave}
   on:focus={onMouseEnter}

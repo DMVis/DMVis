@@ -79,6 +79,12 @@
     // Fire an event to be picked up by parent components of this bar
     dispatch('mouseBarLeave', { name });
   }
+
+  /** Fires when the mouse is pressed down on the bar. */
+  function onMouseDown() {
+    // Fire an event to be picked up by parent components of this bar
+    dispatch('mouseBarClick', { name });
+  }
 </script>
 
 <!--
@@ -146,6 +152,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   role="treeitem"
   tabindex="0"
   aria-selected="false"
+  on:mousedown={onMouseDown}
   on:mouseenter={onMouseEnter}
   on:mouseleave={onMouseLeave}
   on:focus={onMouseEnter}

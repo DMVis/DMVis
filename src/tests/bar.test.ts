@@ -205,6 +205,32 @@ describe('Mouse interactivity test', () => {
     expect(bar).toBeDefined();
     expect(label).toBeUndefined();
   });
+
+  it('fires an event when the bar is clicked', async () => {
+    // Arrange
+    const config = { x: 0, y: 0, width: 50, height: 250 };
+    let clicked = false;
+
+    // Add svg block to the document
+    const svg = document.createElement('svg');
+    svg.setAttribute('id', 'svg');
+    document.body.appendChild(svg);
+
+    // Add bar to svg block
+    const { container, component } = render(Bar, config);
+    const bar = container.getElementsByClassName('bar')[0] as SVGRectElement;
+    svg.appendChild(bar);
+
+    // Act
+    component.$on('mouseBarClick', () => {
+      clicked = true;
+    });
+    await fireEvent.mouseDown(bar);
+
+    // Assert
+    expect(bar).toBeDefined();
+    expect(clicked).toBe(true);
+  });
 });
 
 describe('Attribute test', () => {

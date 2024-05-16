@@ -171,26 +171,15 @@ Colour of the border around the background of the label.
 
 > Note: Can be set to `'none'` for no border.
 
-# Event dispatches
+# Events
 
-These are all the events that the label component will dispatch to its parent components.
-Check the example usage on how to use these events.
+This component emits the following events, when `hasPointerEvents` is set to true:
 
-## mouseLabelEnter
+- `mouseLabelClick`
+- `mouseLabelEnter`
+- `mouseLabelLeave`
 
-- Event type: `{ name: string }`
-
-Event that fires when the mouse enters the label.
-The name attribute represents the class name of the label.
-Set `hasPointerEvents` to `true` to use this.
-
-## mouseLabelLeave
-
-- Event type: `{ name: string }`
-
-Event that fires when the mouse leaves the label.
-The name attribute represents the class name of the label.
-Set `hasPointerEvents` to `true` to use this.
+To read more about these events, see the [Events](../utils/events.md) documentation.
 
 # Example usage
 

@@ -123,29 +123,11 @@ Class name of the bar. It can be used as an identifier.
 Defaults to only `'bar'`.
 If set, the class names will be `'bar'` and `'bar-name'`.
 
-# Event dispatches
-
-These are all the events that the bar component will dispatch to its parent components.
-Check the example usage on how to use these events.
-
-## mouseBarEnter
-
-- Event type: `{ name: string }`
-
-Event that fires when the mouse enters the point.
-The name attribute represents the class name of the bar.
-
-## mouseBarLeave
-
-- Event type: `{ name: string }`
-
-Event that fires when the mouse leaves the bar.
-The name attribute represents the class name of the bar.
-
 # Events
 
 This component emits the following events:
 
+- `mouseBarClick`
 - `mouseBarEnter`
 - `mouseBarLeave`
 

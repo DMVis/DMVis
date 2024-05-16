@@ -113,7 +113,6 @@
 
   // If a line is highlighted (or not highlighted anymore), update the tick font-weight for the line
   $: if (typeof highlightedLine === 'number') {
-    console.log(highlightedLine);
     highlightAxisTick();
   }
 
