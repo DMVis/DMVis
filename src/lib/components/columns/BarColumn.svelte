@@ -123,6 +123,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
   on:mouseRowClick
+  on:remove
   on:sort
   on:weight={() => (showWeight = !showWeight)}>
   <g slot="overlay">

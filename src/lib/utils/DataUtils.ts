@@ -334,7 +334,7 @@ export class DataUtils {
     );
 
     // Filter rawData based on filters
-    const filteredData = get(this.visualisationData).filter((row) => {
+    const filteredData = [...this.data].filter((row) => {
       return Object.entries(filters).every(([column, filterValue]) => {
         // Get the index of the column
         const index = columnIndexMap[column];

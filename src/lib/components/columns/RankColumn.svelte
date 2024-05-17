@@ -61,7 +61,8 @@ RankColumn is a Column component that displays the rank of each value in the dat
   on:dragMove
   on:dragStop
   on:mouseHover
-  on:mouseRowClick>
+  on:mouseRowClick
+  on:remove>
   <g slot="data">
     {#each rowArray as row}
       <Label

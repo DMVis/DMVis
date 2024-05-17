@@ -224,8 +224,6 @@ describe('Interactive Parallel Coordinates', async () => {
 
     // Store the column names of the first and the second axes
     const firstAxis = parallelCoordinates.getElementsByClassName('label')[0].children[0];
-    const firstLine = parallelCoordinates.getElementsByClassName('line')[0];
-    console.log(firstLine.getAttribute('d'));
 
     // Assert
     // Check whether the paths of the original lines are correct

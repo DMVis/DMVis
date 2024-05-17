@@ -37,8 +37,10 @@
 
   // Dispatches
   const dispatch = createEventDispatcher();
-  const dispatchFilterData = (event: Event) => {
-    dispatch('filter', { column: name, value: (event.target as HTMLInputElement).value });
+  const dispatchFilterData = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      dispatch('filter', { column: name, value: (event.target as HTMLInputElement).value });
+    }
   };
 
   const dispatchSearchData = (event: Event) => {
@@ -85,6 +87,7 @@ TextColumn is a Column component that displays text for each value in the data a
   }}
   on:mouseHover
   on:mouseRowClick
+  on:remove
   on:search={() => {
     showSearch = !showSearch;
     showFilter = false;
@@ -106,11 +109,12 @@ TextColumn is a Column component that displays text for each value in the data a
           list="filter-data"
           style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;"
           value={filter}
-          on:keydown={(e) => (showSearch ? dispatchSearchData(e) : dispatchFilterData(e))} />
+          on:input={dispatchSearchData}
+          on:keydown={dispatchFilterData} />
         {#if showFilter}
           <datalist id="filter-data">
-            {#each ['Option 1', 'Option 2', 'Option 3'] as option}
-              <option value={option} />
+            {#each data as option}
+              <option value={String(option)} />
             {/each}
           </datalist>
         {/if}

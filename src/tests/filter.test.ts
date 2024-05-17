@@ -1,4 +1,5 @@
 // Imports
+import { get } from 'svelte/store';
 import { tick } from 'svelte';
 import userEvent from '@testing-library/user-event';
 import { render } from '@testing-library/svelte';
@@ -65,11 +66,11 @@ describe('Filter component tests', () => {
     const { getAllByRole } = render(StoreWrapper, { props: { Component: Filter, config } });
     // Get all the sort buttons
     const sortButtons = getAllByRole('button', { name: /sort/i });
-    // Clikc the first sort button (Country)
+    // Click the first sort button (Country)
     await user.click(sortButtons[2]);
 
     // Assert
-    expect(dataUtil.data).toStrictEqual([
+    expect(get(dataUtil.visualisationData)).toStrictEqual([
       ['Belgium', 6, 6],
       ['France', 8, 3],
       ['Germany', 3, 8],
@@ -188,6 +189,7 @@ function createDataUtil(): DataUtils {
   ];
 
   dataUtil.data = dataUtil.rawData.slice(1);
+  dataUtil.visualisationData.set(dataUtil.data);
 
   dataUtil.columns = dataUtil.rawData[0].map((item) => String(item));
 

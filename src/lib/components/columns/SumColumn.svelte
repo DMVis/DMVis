@@ -75,6 +75,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   on:filter={() => (showFilter = !showFilter)}
   on:mouseHover
   on:group
+  on:remove
   on:sort
   on:mouseRowClick>
   <g slot="overlay">

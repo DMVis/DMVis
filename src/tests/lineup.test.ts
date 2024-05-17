@@ -69,7 +69,7 @@ describe('Html test', async () => {
 async function generateLineUp(customConfig: object, customData: string | null = null) {
   // Prepare data
   const data = customData != null ? customData : 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
-  const dataUtil = new DataUtils();
+  const dataUtil = new DataUtils(true);
 
   if (data === '') {
     await expect(

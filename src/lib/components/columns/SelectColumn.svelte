@@ -90,6 +90,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   on:group
   on:mouseHover
   on:mouseRowClick
+  on:remove
   on:sort>
   <g slot="overview">
     <foreignObject x={x + (width - 20) / 2} y="60" width="20px" height="20px">

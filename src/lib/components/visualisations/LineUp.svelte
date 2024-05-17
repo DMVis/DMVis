@@ -23,7 +23,7 @@
   // Optional attributes
   export let styleUtil: StyleUtils = new StyleUtils();
   export let columnWidth: number = 150;
-  export let width: number = calculateWidth(dataUtil.columns.length);
+  export let width: number = calculateWidth(Math.max(0, dataUtil.columns.length - 1)); // Exclude the ID column
   export let height: number = calculateHeight(dataUtil.data.length);
   export let padding: number = 10;
 
@@ -67,10 +67,12 @@
   ];
 
   // Set the colors for each columns
-  const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
-  dataUtil.columns.forEach((column, i) => {
-    columnColours.set(column, barColors[i]);
-  });
+  if (dataUtil.columns.length > 0) {
+    const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
+    dataUtil.columns.forEach((column, i) => {
+      columnColours.set(column, barColors[i]);
+    });
+  }
 
   // Set the filters
   columns.forEach((column) => {
@@ -209,14 +211,17 @@
     const { column, min, max, value } = event.detail;
 
     // Create a new filter object
-    if (value) {
+    if (value !== undefined) {
       columnFilters.set(column, value);
     } else {
       columnFilters.set(column, { min, max });
     }
 
-    // Apply the filters to the data
+    // Apply the filters to the data and (if needed) sort it
     dataUtil.applyFilters(Object.fromEntries(columnFilters));
+    if (sortedOrder !== 'none') {
+      dataUtil.sortData(sortedColumn, sortedOrder === 'asc');
+    }
   }
 
   function getColumnFilter(column: string): { min: number; max: number } {
@@ -251,7 +256,6 @@
   let sortedOrder: 'asc' | 'desc' | 'none' = 'none';
   function sortData(event: CustomEvent) {
     const { column } = event.detail;
-    let ascending = sortedOrder === 'asc';
     if (sortedColumn === column) {
       // Decide sorting order, none -> asc -> desc -> none
       sortedOrder = sortedOrder === 'asc' ? 'desc' : sortedOrder === 'desc' ? 'none' : 'asc';
@@ -263,10 +267,11 @@
     // Check if sorting should be applied or not
     if (sortedOrder !== 'none') {
       // Sort the data
-      dataUtil.sortData(column, ascending);
+      dataUtil.sortData(column, sortedOrder === 'asc');
     } else {
       // Reset sorting values
       dataUtil.resetVisualisationData();
+      dataUtil.applyFilters(Object.fromEntries(columnFilters));
     }
 
     // Update the selected rows
@@ -276,9 +281,6 @@
       selected.set(rowId, rowIndex);
     });
     selectedRows = selected;
-
-    // Apply the filters to the data
-    dataUtil.applyFilters(Object.fromEntries(columnFilters));
   }
 
   // Handle columns being dragged
@@ -353,7 +355,7 @@ displays different types of columns such as text, bar, and rank columns. This is
     tabindex="-1"
     on:keydown={setCurrentKey}
     on:keyup={setCurrentKey}>
-    {#key dataUtil || $visualisationData}
+    {#key columnData || dataUtil || $dataMap || $visualisationData}
       <g class="lineUp-highlights">
         {#if highlightRow >= 0}
           <rect
@@ -391,6 +393,7 @@ displays different types of columns such as text, bar, and rank columns. This is
             on:mouseRowClick={selectRows}
             on:search={searchData}
             on:filter={filterData}
+            on:remove={() => (columns = columns.filter((c) => c !== column))}
             on:sort={sortData} />
         {:else if columnInfo[column] === 'rank'}
           <RankColumn
@@ -403,24 +406,28 @@ displays different types of columns such as text, bar, and rank columns. This is
             on:dragMove={onDragMove}
             on:dragStop={onDragStop}
             on:mouseHover={(e) => (highlightRow = e.detail.row)}
-            on:mouseRowClick={selectRows} />
-        {:else if columnInfo[column] === 'select'}
-          <SelectColumn
-            x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
-            width={columnWidth}
-            {height}
-            {padding}
-            selected={new Set(selectedRows.values())}
-            length={$visualisationData.length}
-            on:check={selectRows}
-            on:dragStart={onDraggingStart}
-            on:dragMove={onDragMove}
-            on:dragStop={onDragStop}
-            on:checkAll={selectAll}
-            on:group={groupData}
-            on:mouseHover={(e) => (highlightRow = e.detail.row)}
             on:mouseRowClick={selectRows}
-            on:sort={sortData} />
+            on:remove={() => (columns = columns.filter((c) => c !== column))} />
+        {:else if columnInfo[column] === 'select'}
+          {#key selectedRows}
+            <SelectColumn
+              x={dragMove === column ? dragMoveX + i * columnWidth : i * columnWidth}
+              width={columnWidth}
+              {height}
+              {padding}
+              selected={new Set(selectedRows.values())}
+              length={$visualisationData.length}
+              on:check={selectRows}
+              on:dragStart={onDraggingStart}
+              on:dragMove={onDragMove}
+              on:dragStop={onDragStop}
+              on:checkAll={selectAll}
+              on:group={groupData}
+              on:mouseHover={(e) => (highlightRow = e.detail.row)}
+              on:mouseRowClick={selectRows}
+              on:remove={() => (columns = columns.filter((c) => c !== column))}
+              on:sort={sortData} />
+          {/key}
         {:else if columnInfo[column] === 'number'}
           {#key column}
             <BarColumn
@@ -439,6 +446,7 @@ displays different types of columns such as text, bar, and rank columns. This is
               on:filter={filterData}
               on:mouseHover={(e) => (highlightRow = e.detail.row)}
               on:mouseRowClick={selectRows}
+              on:remove={() => (columns = columns.filter((c) => c !== column))}
               on:sort={sortData} />
           {/key}
         {/if}

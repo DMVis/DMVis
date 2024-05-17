@@ -206,7 +206,8 @@ Each columns contains a top part with information about the column and a bottom 
                 fontSize={`${$styleUtil.fontSize}px`}
                 fontFamily={$styleUtil.fontFamily}
                 hasPointerEvents={true}
-                hasBackground={false} />
+                hasBackground={false}
+                on:mouseLabelClick={() => handleOptions('remove', name)} />
             </g>
           {/if}
           <slot name="overlay" />
@@ -222,5 +223,9 @@ Each columns contains a top part with information about the column and a bottom 
     fill-opacity: 100%;
     stroke: black;
     stroke-width: 1;
+  }
+
+  .column-top-more {
+    cursor: pointer !important;
   }
 </style>

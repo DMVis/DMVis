@@ -44,6 +44,7 @@ Here is a list of all the events that are used in DMVis.
 - [mousePointEnter](#mousePointEnter)
 - [mousePointLeave](#mousePointLeave)
 - [mouseRowClick](#mouseRowClick)
+- [remove](#remove)
 - [renderAxis](#renderAxis)
 - [scroll](#scroll)
 - [search](#search)
@@ -93,10 +94,10 @@ This event is called when the user starts dragging the component inside the `Dra
 ### Components using this event
 
 - [Axis](../components/axis.md)
+- [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
 - [Draggable](../components/draggable.md)
 - [DynamicAxis](../components/dynamicaxis.md)
-- [Column](../components/column.md)
-- [BarColumn](../columns/barcolumn.md)
 - [RankColumn](../columns/rankcolumn.md)
 - [SelectColumn](../columns/selectcolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
@@ -113,10 +114,10 @@ This event is called while the user is dragging the component inside the `Dragga
 ### Components using this event
 
 - [Axis](../components/axis.md)
+- [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
 - [Draggable](../components/draggable.md)
 - [DynamicAxis](../components/dynamicaxis.md)
-- [Column](../components/column.md)
-- [BarColumn](../columns/barcolumn.md)
 - [RankColumn](../columns/rankcolumn.md)
 - [SelectColumn](../columns/selectcolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
@@ -134,9 +135,9 @@ This event is called when the user stops dragging the component inside the `Drag
 
 ### Components using this event
 
-- [Draggable](../components/draggable.md)
-- [Column](../components/column.md)
 - [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
+- [Draggable](../components/draggable.md)
 - [RankColumn](../columns/rankcolumn.md)
 - [SelectColumn](../columns/selectcolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
@@ -152,8 +153,8 @@ An event which handles the filtering of the data. It contains either text or num
 
 ### Components using this event
 
-- [Column](../components/column.md)
 - [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
 - [FilterColumn](../columns/filtercolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
 
@@ -222,8 +223,8 @@ This event is triggered when the user hovers over a component. This is mainly us
 
 ### Components using this event
 
-- [Column](../components/column.md)
 - [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
 - [RankColumn](../columns/rankcolumn.md)
 - [SelectColumn](../columns/selectcolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
@@ -357,8 +358,8 @@ An event that is triggered when the user clicks on a row.
 
 ### Components using this event
 
-- [Column](../components/column.md)
 - [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
 - [RankColumn](../columns/rankcolumn.md)
 - [SelectColumn](../columns/selectcolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
@@ -367,6 +368,23 @@ An event that is triggered when the user clicks on a row.
 ### Event Properties
 
 - `row` - A number representing the row that the user clicked on.
+
+## remove
+
+An event that is triggered when a column is removed from the visualisation.
+
+### Components using this event
+
+- [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
+- [RankColumn](../columns/rankcolumn.md)
+- [SelectColumn](../columns/selectcolumn.md)
+- [SumColumn](../columns/sumcolumn.md)
+- [TextColumn](../columns/textcolumn.md)
+
+### Event Properties
+
+- `column` - The name of the column that is being removed.
 
 ## renderAxis
 
@@ -405,8 +423,8 @@ An event that is triggered when the user sorts the data.
 
 ### Components using this event
 
-- [Column](../components/column.md)
 - [BarColumn](../columns/barcolumn.md)
+- [Column](../components/column.md)
 - [FilterColumn](../columns/filtercolumn.md)
 - [SelectColumn](../columns/selectcolumn.md)
 - [SumColumn](../columns/sumcolumn.md)
