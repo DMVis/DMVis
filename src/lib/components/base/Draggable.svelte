@@ -15,12 +15,20 @@
   }
 
   // Dispatch events that detail where the user is trying to move the component
+  let previousX: number = 0;
+  let previousY: number = 0;
   function onMouseMove(e: MouseEvent) {
+    // Setting movement to the difference between the current and previous position
+    const moveX: number = e.movementX ?? e.screenX - previousX;
+    const moveY: number = e.movementY ?? e.screenY - previousY;
+    previousX = e.screenX;
+    previousY = e.screenY;
+
     if (isMoving) {
       dispatch('dragMove', {
         elementName: elementName,
-        movementX: e.movementX,
-        movementY: e.movementY
+        movementX: moveX,
+        movementY: moveY
       });
     }
   }
