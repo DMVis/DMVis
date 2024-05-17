@@ -54,7 +54,7 @@
   // Dispatch filter
   let min = writable(filter.min.toString());
   let max = writable(filter.max.toString());
-  function dispatchFilter(e: Event) {
+  function dispatchFilter() {
     dispatch('filter', { column: name, min: parseInt($min), max: parseInt($max) });
   }
 

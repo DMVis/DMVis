@@ -15,14 +15,16 @@ export class DataUtils {
   public columnInfo: { [key: string]: string };
   public visualisationData: Writable<Array<Array<string | number>>>;
   public dataMap: Writable<Map<string, Array<string | number>>>;
+  public includeId: boolean;
 
-  constructor() {
+  constructor(includeId: boolean = false) {
     this.rawData = [];
     this.data = [];
     this.columns = [];
     this.columnInfo = {};
     this.visualisationData = writable([]);
     this.dataMap = writable(new Map());
+    this.includeId = includeId;
   }
 
   /**
@@ -79,6 +81,14 @@ export class DataUtils {
       this.rawData = csv_data;
       this.data = csv_data.slice(1);
       this.columns = csv_data[0].map((d: string | number) => String(d));
+
+      // Add an ID to each row
+      if (this.includeId) {
+        this.columns = ['DMVIS_ID', ...this.columns];
+        this.data = this.data.map((row, index) => [`D-${index}`, ...row]);
+      }
+
+      // Infer column types
       this.columnInfo = this.#inferColumnTypes();
 
       // Set the visualisation data using a new array to prevent reactivity issues
@@ -142,6 +152,12 @@ export class DataUtils {
         this.rawData = [this.columns, ...this.data];
       } else {
         throw DMVisError('Could not parse JSON data', 'DataUtils');
+      }
+
+      // Add an ID to each row
+      if (this.includeId) {
+        this.columns = ['DMVIS_ID', ...this.columns];
+        this.data = this.data.map((row, index) => [`D-${index}`, ...row]);
       }
 
       // Infer column types

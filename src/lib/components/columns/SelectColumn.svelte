@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
@@ -15,7 +15,7 @@
 
   // Optional attributes
   export let padding: number = 10;
-  export let icons: IconType[] = [IconType.Sort, IconType.Group, IconType.More];
+  export let icons: IconType[] = [IconType.Group, IconType.More];
 
   // Column standards
   const type = ColumnType.Select;
@@ -47,6 +47,12 @@
 
     dispatch('checkAll', { checked: selectAll });
   };
+
+  onMount(() => {
+    const allCheckbox = document.getElementById('column-select-all') as HTMLInputElement;
+    allCheckbox.checked = selected.size === length;
+    allCheckbox.indeterminate = selected.size > 0 && selected.size < length;
+  });
 </script>
 
 <!--
@@ -64,7 +70,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
 #### Optional attributes
 * padding - The padding of the column.
 * icons: IconType[] - List of what icons to display in the top of the column,
-                        defaults to `[IconType.Sort, IconType.Group, IconType.More]`
+                        defaults to `[IconType.Group, IconType.More]`
 
 #### Events
 * For detailed information about dispatches, check the documentation.

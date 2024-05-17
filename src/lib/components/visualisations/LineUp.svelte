@@ -1,6 +1,7 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
+  import { onMount } from 'svelte';
 
   // DMVis imports
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
@@ -8,6 +9,7 @@
   import RankColumn from '$lib/components/columns/RankColumn.svelte';
   import SelectColumn from '$lib/components/columns/SelectColumn.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
@@ -55,8 +57,14 @@
     LineUp_Select: 'select',
     ...dataUtil.columnInfo
   };
-  let columns = ['LineUp_Rank', 'LineUp_Select', ...dataUtil.columns];
   let highlightRow: number = -1;
+
+  // Set the columns, excluding the first ID column
+  let columns = [
+    'LineUp_Rank',
+    'LineUp_Select',
+    ...dataUtil.columns.filter((column) => column !== 'DMVIS_ID')
+  ];
 
   // Set the colors for each columns
   const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
@@ -97,7 +105,7 @@
   }
 
   // Handle events
-  let selectedRows: Set<number> = new Set();
+  let selectedRows: Map<string, number> = new Map();
   function selectRows(event: CustomEvent) {
     if (shift) {
       shiftselectedRows(event);
@@ -111,6 +119,8 @@
   function selectRow(event: CustomEvent, single: boolean = true) {
     // Get the row that was clicked, if it is a valid row
     const row = Number(event.detail.row);
+    const rowId = ($dataMap.get('DMVIS_ID')?.[row] as string) ?? '-1';
+
     if (row < 0 || row >= $visualisationData.length) {
       return;
     }
@@ -124,17 +134,18 @@
       });
 
       // If the row was already selected, deselect it
-      if (!selectedRows.has(row)) {
-        selectedRows = new Set([row]);
+      if (!selectedRows.has(rowId)) {
+        selectedRows = new Map();
+        selectedRows.set(rowId, row);
       } else {
-        selectedRows = new Set();
+        selectedRows = new Map();
       }
     } else {
       // With a shift click, we want to be able to have more than one row selected
-      if (event.detail.checked || !selectedRows.has(row)) {
-        selectedRows.add(row);
+      if (event.detail.checked || !selectedRows.has(rowId)) {
+        selectedRows.set(rowId, row);
       } else {
-        selectedRows.delete(row);
+        selectedRows.delete(rowId);
       }
     }
 
@@ -158,12 +169,12 @@
   function shiftselectedRows(event: CustomEvent) {
     // Get the row ranges that need to be selected
     const row = Number(event.detail.row);
-    const rowArray = Array.from(selectedRows);
+    const rowArray = Array.from(selectedRows.values());
     const min = Math.min(...rowArray);
     const max = Math.max(...rowArray);
 
     // Reset the selected rows
-    selectedRows = new Set();
+    selectedRows = new Map();
 
     // Select the rows based on the range
     if (min === -Infinity || max === Infinity || min === Infinity || max === -Infinity) {
@@ -185,9 +196,11 @@
 
   function selectAll(event: CustomEvent) {
     if (event.detail.checked) {
-      selectedRows = new Set([...Array($visualisationData.length).keys()]);
+      selectedRows = new Map(
+        [...Array($visualisationData.length).keys()].map((row) => [`D-${row}`, row])
+      );
     } else {
-      selectedRows = new Set();
+      selectedRows = new Map();
     }
   }
 
@@ -217,13 +230,14 @@
 
   function searchData(event: CustomEvent) {
     const { column, value } = event.detail;
-    const selected: Set<number> = new Set();
+    const selected: Map<string, number> = new Map();
 
     if (value !== '') {
       // Select the rows that match the search
       $dataMap.get(column)?.forEach((rowValue, i) => {
         if (String(rowValue).toLowerCase().includes(value.toLowerCase())) {
-          selected.add(i);
+          const rowId = ($dataMap.get('DMVIS_ID')?.[i] as string) ?? '-1';
+          selected.set(rowId, i);
           selectRow({ detail: { row: i } } as CustomEvent, false);
         }
       });
@@ -248,31 +262,20 @@
 
     // Check if sorting should be applied or not
     if (sortedOrder !== 'none') {
-      // Handle sorting differently if the column is the select column
-      if (column === 'LineUp_Select') {
-        // Sort the selected rows
-        const selected = Array.from(selectedRows);
-        const sortedData = $visualisationData.sort((a, _) => {
-          if (ascending) {
-            // Sort in ascending order
-            return selected.includes($visualisationData.indexOf(a)) ? -1 : 1;
-          } else {
-            // Sort in descending order
-            return selected.includes($visualisationData.indexOf(a)) ? 1 : -1;
-          }
-        });
-
-        console.log(sortedData);
-
-        // Set the visualisation data
-        dataUtil.setVisualisationData(sortedData);
-      } else {
-        dataUtil.sortData(column, ascending);
-      }
+      // Sort the data
+      dataUtil.sortData(column, ascending);
     } else {
       // Reset sorting values
       dataUtil.resetVisualisationData();
     }
+
+    // Update the selected rows
+    const selected = new Map();
+    selectedRows.forEach((row, rowId) => {
+      const rowIndex = $dataMap.get('DMVIS_ID')?.indexOf(rowId) ?? row;
+      selected.set(rowId, rowIndex);
+    });
+    selectedRows = selected;
 
     // Apply the filters to the data
     dataUtil.applyFilters(Object.fromEntries(columnFilters));
@@ -312,6 +315,16 @@
     dragMove = null;
     dragMoveX = 0;
   }
+
+  // Check if the correct dataUtil is being used
+  onMount(() => {
+    if (!dataUtil.includeId) {
+      throw DMVisError(
+        'The LineUp visualisation requires a DataUtils instance with the `includeId` flag set to true.',
+        'LineUp'
+      );
+    }
+  });
 </script>
 
 <!--
@@ -321,7 +334,7 @@ LineUp is a visualisation that displays multiple columns of data in a tabular fo
 displays different types of columns such as text, bar, and rank columns. This is based on the type of the supplied data.
 
 #### Required attributes
-* dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed.
+* dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed. Requires a dataUtil with the `includeId` flag set to `true`.
 
 #### Optional attributes
 * styleUtil: StyleUtils                - The `StyleUtils` class contains all the styling information. The default value is a new instance of `StyleUtils`.
@@ -351,7 +364,7 @@ displays different types of columns such as text, bar, and rank columns. This is
             fill={styleUtil.focusColor}
             fill-opacity="10%" />
         {/if}
-        {#each selectedRows as row}
+        {#each selectedRows.values() as row}
           <rect
             x={0}
             y={row * 20 + columnTopMargin}
@@ -397,7 +410,7 @@ displays different types of columns such as text, bar, and rank columns. This is
             width={columnWidth}
             {height}
             {padding}
-            selected={selectedRows}
+            selected={new Set(selectedRows.values())}
             length={$visualisationData.length}
             on:check={selectRows}
             on:dragStart={onDraggingStart}

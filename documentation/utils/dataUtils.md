@@ -2,13 +2,15 @@
 
 To make sure that every visualisation is consistent, we have created a set of utility functions that help with data manipulation. These functions are used to transform data into a format that can be easily used by the visualisation components.
 
-Each instance of this class has five attributes available
+Each instance of this class has seven attributes available
 
-- `data`: The original parsed data in the form of an array of arrays
-- `columns`: The column names of the data
-- `columnInfo`: An object containing the type of each column
-- `rawData`: An array of arrays with the columns prepended before the data
-- `visualisationData`: The parsed data in a writable store, used to update the data in the visualisation
+- `data`: The original parsed data in the form of an array of arrays.
+- `columns`: The column names of the data.
+- `columnInfo`: An object containing the type of each column.
+- `rawData`: An array of arrays with the columns prepended before the data.
+- `visualisationData`: The parsed data in a writable store, used to update the data in the visualisation.
+- `dataMap`: A dictionary mapping the column names to their respective row values.
+- `includeId`: A boolean that determines whether the data should include an ID column. This is used for visualisations that require a unique identifier for each row. The value can be set when creating an instance of the `DataUtils` class by using `new DataUtils(true)`.
 
 The `DataUtils` class contains a set of utility functions that help with data manipulation. The functions are as follows:
 

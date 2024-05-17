@@ -13,6 +13,12 @@
     errorMessage = message.toString();
     isError = true;
   };
+
+  // Global Error Listener for Unhandled Promise Rejections
+  window.onunhandledrejection = function (event) {
+    errorMessage = event.reason.toString();
+    isError = true;
+  };
 </script>
 
 <!--

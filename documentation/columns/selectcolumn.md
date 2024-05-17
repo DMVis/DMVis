@@ -40,7 +40,7 @@ Padding around the column.
 ## icons
 
 - Type: `IconType[]`
-- Default: `[IconType.Sort, IconType.Group, IconType.More]`
+- Default: `[IconType.Group, IconType.More]`
 
 List of what icons to display in the top of the column.
 

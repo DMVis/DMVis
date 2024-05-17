@@ -1,6 +1,5 @@
 <script lang="ts">
   // Imports
-  import { writable } from 'svelte/store';
   import { getContext, createEventDispatcher } from 'svelte';
 
   // DMVis imports

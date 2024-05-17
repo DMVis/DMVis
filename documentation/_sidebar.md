@@ -12,6 +12,7 @@
 
   - [BarChart](visualisations/BarChart.md)
   - [Histogram](visualisations/Histogram.md)
+  - [LineUp](visualisations/LineUp.md)
   - [ParallelCoordinates](visualisations/ParallelCoordinates.md)
   - [Scatterplot](visualisations/Scatterplot.md)
   - [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
