@@ -37,7 +37,9 @@
   function onMouseUp() {
     if (isMoving) {
       isMoving = false;
-      dispatch('dragStop', { elementName: elementName });
+      dispatch('dragStop', {
+        elementName: elementName
+      });
     }
   }
 </script>
