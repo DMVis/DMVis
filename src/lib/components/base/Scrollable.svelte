@@ -23,6 +23,8 @@ This component allows for making any visualisation smaller, by making it scrolla
 * height: number                    - Height of the visualisation that is shown at any moment.
 
 #### Optional Attributes
+  * x: number                         - Optional horizontal offset for the `div`. Defaulted to `0`.
+  * y: number                         - Optional vertical offset for the `div`. Defaulted to `0`.
   * className: string                 - Optional string that will be added to the class of the `div` (which
                                         will be `'scrollable-div-{className}'`) and to the class of the `svg`
                                         (which will be `'scrollable-svg-{className}'`). This could be used if
@@ -34,9 +36,12 @@ This component allows for making any visualisation smaller, by making it scrolla
   * allowVerticalScrolling: boolean   - If this is set to `false`, no vertical scrolling will be allowed,
                                         even if the contained component is bigger than the `div`. Defaulted
                                         to `true`.
+
+#### Events
+* For detailed information about dispatches, check the documentation.
 -->
 
-<svg class="scrollable-svg-{className} " {width} {height}>
+<svg {x} {y} class="scrollable-svg-{className} " {width} {height}>
   <foreignObject {width} {height}>
     <div
       class="scrollable"
@@ -44,8 +49,16 @@ This component allows for making any visualisation smaller, by making it scrolla
       style={`width:${width}px;
           height:${height}px;
           overflow-x:${horizontalScroll};
-          overflow-y:${verticalScroll};`}>
+          overflow-y:${verticalScroll};`}
+      on:scroll>
       <slot />
     </div>
   </foreignObject>
 </svg>
+
+<style>
+  .scrollable {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(87, 87, 87, 0.7) rgba(0, 0, 0, 0);
+  }
+</style>

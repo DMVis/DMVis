@@ -45,6 +45,7 @@ Here is a list of all the events that are used in DMVis.
 - [mousePointLeave](#mousePointLeave)
 - [mouseRowClick](#mouseRowClick)
 - [renderAxis](#renderAxis)
+- [scroll](#scroll)
 - [search](#search)
 - [sort](#sort)
 
@@ -375,6 +376,14 @@ An event that is triggered when an `Axis` component is rendered.
 
 - [Axis](../components/axis.md)
 - [DynamicAxis](../components/dynamicaxis.md)
+
+## scroll
+
+An event that is triggered when the user uses the scrolling functionality in a component that is wrapped by the `Scrollable` component.
+
+### Components using this event
+
+- [Scrollable](../components/scrollable.md)
 
 ## search
 

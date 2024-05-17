@@ -18,6 +18,20 @@ Height of the visualisation that is shown at any moment.
 
 # Optional Attributes
 
+## x
+
+- Type: `number`
+- Default: `0`
+
+Optional horizontal offset for the `div`.
+
+## y
+
+- Type: `number`
+- Default: `0`
+
+Optional vertical offset for the `div`.
+
 ## className
 
 - Type: `string`
@@ -43,6 +57,14 @@ If this is set to `false`, no horizontal scrolling will be allowed, even if the 
 - Default: `true`
 
 If this is set to `false`, no vertical scrolling will be allowed, even if the contained component is bigger than the `div`.
+
+# Events
+
+This component emits the following events:
+
+- `scroll`
+
+To read more about these events, see the [Events](../utils/events.md) documentation.
 
 # Example usage
 
