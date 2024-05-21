@@ -220,8 +220,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
           on:mouseBarEnter
           on:mouseBarLeave
           name={names.length > 0 ? names[i] : undefined}
-          opacity={barOpacity}
-          showTextOnHover={false} />
+          opacity={barOpacity} />
       {/each}
     {/key}
   </g>

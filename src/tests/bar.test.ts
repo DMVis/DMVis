@@ -131,7 +131,7 @@ describe('Height configuration test', () => {
 describe('Mouse interactivity test', () => {
   it('checks if a bar has the number hidden by default', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
 
     // Act
     const bar = createBar(config);
@@ -148,7 +148,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number appears on mouse enter event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
 
     // Act
     const bar = createBar(config);
@@ -169,7 +169,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number appears on focus event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
 
     // Act
     const bar = createBar(config);
@@ -190,7 +190,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number disappears on mouse leave event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
 
     // Act
     const bar = createBar(config);
@@ -210,7 +210,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number disappears on blur event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
 
     // Act
     const bar = createBar(config);

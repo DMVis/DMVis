@@ -40,7 +40,7 @@ Height of the bar.
 ## showTextOnHover
 
 - Type: `boolean`
-- Default: `true`
+- Default: `false`
 
 Whether the [`hoverText`](#hovertext) is shown when the bar is being hovered over.
 
@@ -120,6 +120,8 @@ Whether the bar flips its orientation when `height` is negative.
 - Default: `height`
 
 Text to display in the label when the mouse hovers over the bar. This will default to the specified `height` attribute.
+
+> Note: In order to make use of this text, you need to set the [`showTextOnHover`](#showtextonhover) attribute to be `true`.
 
 ## name
 

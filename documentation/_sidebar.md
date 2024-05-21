@@ -26,7 +26,6 @@
 
   - [Axis](components/axis.md)
   - [Bar](components/bar.md)
-  - [BarColumn](components/barcolumn.md)
   - [BaseVisualisation](components/basevisualisation.md)
   - [Column](components/column.md)
     - [BarColumn](columns/barcolumn.md)

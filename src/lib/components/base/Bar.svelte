@@ -15,7 +15,7 @@
   export let height: number;
 
   // Optional attributes
-  export let showTextOnHover: boolean = true;
+  export let showTextOnHover: boolean = false;
   export let isVertical: boolean = true;
   export let color: string = 'red';
   export let opacity: number | string = 1;
@@ -106,7 +106,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * height: number                - Height of the bar.
 
 #### Optional attributes
-* showTextOnHover: boolean      - Whether the `hoverText` is shown when the bar is being hovered over. This defaults to `true`.
+* showTextOnHover: boolean      - Whether the `hoverText` is shown when the bar is being hovered over. This defaults to `false`.
 * isVertical: boolean           - Whether the bar is vertical bar or horizontal. This defaults to `true`.
 * color: string                 - Color of the bar.
 * opacity: string               - Opacity of the bar as a number in the range [0..1] or
