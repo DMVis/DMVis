@@ -129,20 +129,24 @@ describe('Height configuration test', () => {
 });
 
 describe('Mouse interactivity test', () => {
-  it('checks if a bar has no label by default', () => {
+  it('checks if a bar has the number hidden by default', () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
-    const label = document.body.getElementsByClassName('label')[0];
+    const label = document.body.getElementsByClassName('bar-number')[0];
+    // Get all the classes on the label
+    const classes = label.classList;
+    // If the tooltip has the class highlighted, it is visible
+    const labelIsVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(label).toBeUndefined();
+    expect(labelIsVisible).toBeFalsy();
   });
 
-  it('checks if a label appears on mouse enter event with the bar', async () => {
+  it('checks if the bar number appears on mouse enter event with the bar', async () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
 
@@ -151,30 +155,40 @@ describe('Mouse interactivity test', () => {
 
     // Simulate mouseEnter event
     await fireEvent.mouseEnter(bar);
-    const label = document.body.getElementsByClassName('label-tooltip')[0];
+    const label = document.body.getElementsByClassName('bar-number')[0];
+    // Get all the classes on the label
+    const classes = label.classList;
+    // If the tooltip has the class highlighted, it is visible
+    const labelIsVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(label).toBeDefined();
+
+    expect(labelIsVisible).toBeTruthy();
   });
 
-  it('checks if a label appears on focus event with the bar', async () => {
+  it('checks if the bar number appears on focus event with the bar', async () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
 
-    // Simulate focus event
+    // Simulate mouseEnter event
     await fireEvent.focus(bar);
-    const label = document.body.getElementsByClassName('label-tooltip')[0];
+    const label = document.body.getElementsByClassName('bar-number')[0];
+    // Get all the classes on the label
+    const classes = label.classList;
+    // If the tooltip has the class highlighted, it is visible
+    const labelIsVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(label).toBeDefined();
+
+    expect(labelIsVisible).toBeTruthy();
   });
 
-  it('checks if a label disappears on mouse leave event with the bar', async () => {
+  it('checks if the bar number disappears on mouse leave event with the bar', async () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
 
@@ -183,27 +197,56 @@ describe('Mouse interactivity test', () => {
 
     // Simulate mouseLeave event
     await fireEvent.mouseLeave(bar);
-    const label = document.body.getElementsByClassName('label-bar')[0];
+    const label = document.body.getElementsByClassName('bar-number')[0];
+    // Get all the classes on the label
+    const classes = label.classList;
+    // If the tooltip has the class highlighted, it is visible
+    const labelIsVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(label).toBeUndefined();
+    expect(labelIsVisible).toBeFalsy();
   });
 
-  it('checks if a label disappears on blur event with the bar', async () => {
+  it('checks if the bar number disappears on blur event with the bar', async () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };
 
     // Act
     const bar = createBar(config);
 
-    // Simulate blur event
+    // Simulate mouseLeave event
     await fireEvent.blur(bar);
-    const label = document.body.getElementsByClassName('label')[0];
+    const label = document.body.getElementsByClassName('bar-number')[0];
+    // Get all the classes on the label
+    const classes = label.classList;
+    // If the tooltip has the class highlighted, it is visible
+    const labelIsVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(label).toBeUndefined();
+    expect(labelIsVisible).toBeFalsy();
+  });
+
+  it('checks if setting showTextOnHover to false will never show the label', async () => {
+    // Arrange
+    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: false };
+
+    // Act
+    const bar = createBar(config);
+
+    // Simulate mouseEnter event
+    await fireEvent.mouseEnter(bar);
+    const label = document.body.getElementsByClassName('bar-number')[0];
+    // Get all the classes on the label
+    const classes = label.classList;
+    // If the tooltip has the class highlighted, it is visible
+    const labelIsVisible = classes.contains('highlighted');
+
+    // Assert
+    expect(bar).toBeDefined();
+
+    expect(labelIsVisible).toBeFalsy();
   });
 
   it('fires an event when the bar is clicked', async () => {

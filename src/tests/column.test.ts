@@ -81,7 +81,6 @@ describe('BarColumn tests', () => {
       x: 0,
       width: 150,
       height: 1000,
-      type: ColumnType.Bar,
       data: [1, 2, 3, 4, 5],
       overviewItem: 'histogram'
     };
@@ -93,6 +92,25 @@ describe('BarColumn tests', () => {
     // Assert
     expect(column).toBeDefined();
     expect(container.querySelectorAll('.histogram')).toBeDefined();
+  });
+
+  it('renders a bar column with an axis', () => {
+    // Arrange
+    const config = {
+      x: 0,
+      width: 150,
+      height: 1000,
+      data: [1, 2, 3, 4, 5],
+      overviewItem: 'axis'
+    };
+
+    // Act
+    const { container } = render(StoreWrapper, { props: { Component: BarColumn, config } });
+    const column = container.querySelector('.column');
+
+    // Assert
+    expect(column).toBeDefined();
+    expect(container.querySelectorAll('.axis')).toBeDefined();
   });
 });
 
@@ -149,6 +167,7 @@ describe('Error checking in BarColumn', () => {
     // Assert
     expect(createInvalidBarColumn).toThrow('Specified names array is either too big, or too small');
   });
+
   it('Checks if an error is thrown if the overviewItem attribute is not valid', () => {
     // Arrange
     const config = {
@@ -156,7 +175,7 @@ describe('Error checking in BarColumn', () => {
       width: 150,
       height: 1000,
       data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      overviewItem: 'Dragon'
+      overviewItem: 'WrongTestingName'
     };
 
     // Act

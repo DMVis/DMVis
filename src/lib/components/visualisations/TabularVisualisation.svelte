@@ -308,7 +308,7 @@ categorical data with labels in a column.
         on:mouseLabelLeave={onMouseLabelLeave} />
       {#each numericalColumns as column, columnIndex}
         <BarColumn
-          overviewItem={'histogram'}
+          overviewItem={'axis'}
           x={marginLeft + columnScale.step() * (columnIndex + 1)}
           icons={[IconType.Sort]}
           name={dataUtil.columns[columnIndex + 1]}
@@ -322,7 +322,7 @@ categorical data with labels in a column.
           barOpacity={0.6} />
       {/each}
       {#if showColumnLines}
-        {#each columns as col, i}
+        {#each Array(columns.length) as i}
           <StaticLine
             points={[
               { x: marginLeft + columnScale.bandwidth() * i, y: marginTop },

@@ -15,6 +15,7 @@
   export let height: number;
 
   // Optional attributes
+  export let showTextOnHover: boolean = true;
   export let isVertical: boolean = true;
   export let color: string = 'red';
   export let opacity: number | string = 1;
@@ -24,7 +25,7 @@
   export let radiusX: number | string = 0;
   export let radiusY: number | string = 0;
   export let showsNegativeHeight: boolean = false;
-  export let hoverText: string = '';
+  export let hoverText: string = height.toString();
   export let name: string | undefined = undefined;
 
   // Private attributes
@@ -68,14 +69,14 @@
 
   /** Fires when the mouse enters the bar. */
   function onMouseEnter() {
-    isMouseOnBar = true;
+    if (showTextOnHover) isMouseOnBar = true;
     // Fire an event to be picked up by parent components of this bar
     dispatch('mouseBarEnter', { name });
   }
 
   /** Fires when the mouse leaves the bar. */
   function onMouseLeave() {
-    isMouseOnBar = false;
+    if (showTextOnHover) isMouseOnBar = false;
     // Fire an event to be picked up by parent components of this bar
     dispatch('mouseBarLeave', { name });
   }
@@ -105,7 +106,8 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * height: number                - Height of the bar.
 
 #### Optional attributes
-* isVertical                    - Whether the bar is vertical bar or horizontal. This defaults to `true`.
+* showTextOnHover: boolean      - Whether the `hoverText` is shown when the bar is being hovered over. This defaults to `true`.
+* isVertical: boolean           - Whether the bar is vertical bar or horizontal. This defaults to `true`.
 * color: string                 - Color of the bar.
 * opacity: string               - Opacity of the bar as a number in the range [0..1] or
                                   a percentage string formatted as '{number}%'.
@@ -128,7 +130,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative.
                                   Defaults to `false`.
 * hoverText: string             - Text to display in the label when the mouse hovers over the bar.
-                                  Defaults to `''`.
+                                  Defaults to the given `height` attribute.
 * name: string                  - Class name of the bar. It can be used as an identifier. This defaults to only `bar`.
                                   If set, the class names will be `bar` and `bar-name`.
 
@@ -160,7 +162,10 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 
 <!-- Create a tooltip that lies on top of the bar
   and is only visible if the class `highlighted` is active -->
-<g class={`bar-number-${name} bar-number`}>
+<g
+  class={'bar-number' +
+    (name !== undefined ? ` bar-number-${name}` : '') +
+    (isMouseOnBar ? ' highlighted' : '')}>
   <Tooltip
     x={x + 15}
     y={y + height / 2}

@@ -189,7 +189,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   </g>
   <g slot="overview">
     {#if overviewItem === 'axis'}
-      <Axis placementX={x + padding / 2} placementY={90} axis={d3.axisTop(scale).ticks(3)} />
+      <Axis placementX={x + padding / 2} placementY={90} axis={d3.axisTop(scale).ticks(5)} />
     {:else if overviewItem === 'histogram'}
       <foreignObject {x} y={45} {width} height={75}>
         <Histogram
@@ -220,7 +220,8 @@ BarColumn is a Column component that displays bars for each value in the data ar
           on:mouseBarEnter
           on:mouseBarLeave
           name={names.length > 0 ? names[i] : undefined}
-          opacity={barOpacity} />
+          opacity={barOpacity}
+          showTextOnHover={false} />
       {/each}
     {/key}
   </g>
