@@ -9,7 +9,7 @@
   import ParallelCoordinates from '$lib/components/visualisations/ParallelCoordinates.svelte';
   import TabularVisualisation from '$lib/components/visualisations/TabularVisualisation.svelte';
 
-  const dataUrl = '/datasets/holidays-20.csv';
+  const dataUrl = '/datasets/EVCarsData.csv';
   const dataUtil = new DataUtils();
   const dataUtilWithId = new DataUtils(true);
 
@@ -22,10 +22,10 @@
 
 {#await load then}
   <Filter {dataUtil} />
-  <ValueChart width={1500} height={900} {dataUtil} />
-  <LineUp width={1920} height={1080} dataUtil={dataUtilWithId} />
+  <!-- <ValueChart width={1500} height={900} {dataUtil} />
+  <LineUp width={1920} height={1080} {dataUtil} /> -->
   <TabularVisualisation {dataUtil} />
-  <ParallelCoordinates marginLeft={100} marginTop={40} marginRight={50} {dataUtil} />
+  <!-- <ParallelCoordinates marginLeft={100} marginTop={40} marginRight={50} {dataUtil} />
   <ScatterplotMatrix {dataUtil} />
-  <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} />
+  <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} /> -->
 {/await}

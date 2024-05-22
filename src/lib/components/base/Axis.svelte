@@ -80,6 +80,13 @@
           throw DMVisError('Incorrect labelPosition assignment.', 'Axis');
       }
     }
+    // Apply text-anchor to properly align the text on the axis
+    const ticks = Array.from(element.getElementsByClassName('tick'));
+    ticks.forEach((tick, index) => {
+      const text = tick.getElementsByTagName('text')[0];
+      text.setAttribute('text-anchor', index === 0 ? 'start' : 'end');
+    });
+
     dispatch('renderAxis');
   });
 </script>

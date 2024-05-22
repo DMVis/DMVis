@@ -36,7 +36,7 @@
   export let barOpacity: number = 1;
 
   if (overviewItem !== 'histogram' && overviewItem !== 'axis' && overviewItem !== 'none') {
-    throw DMVisError(`${overviewItem} was not recognised as overview item`, 'BarColumn');
+    throw DMVisError(`${overviewItem} was not recognised as an overview item`, 'BarColumn');
   }
 
   if (names.length > 0 && names.length !== data.length) {
@@ -219,7 +219,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
           hoverText={value.toString()}
           on:mouseBarEnter
           on:mouseBarLeave
-          name={names.length > 0 ? names[i] : undefined}
+          name={names.length > 0 ? names[i].replace(/[^a-zA-Z0-9]|\s/g, '') : undefined}
           opacity={barOpacity} />
       {/each}
     {/key}
