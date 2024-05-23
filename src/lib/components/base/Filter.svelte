@@ -1,7 +1,11 @@
 <script lang="ts">
+  // Imports
+  import { onMount, setContext } from 'svelte';
+
+  // DMVis imports
+  import Scrollable from '$lib/components/base/Scrollable.svelte';
   import FilterColumn from '$lib/components/columns/FilterColumn.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
-  import { onMount, setContext } from 'svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { ColumnType } from '$lib/Enums.js';
   import { VisualisationStore } from '$lib/store.js';
@@ -25,6 +29,7 @@
   };
 
   // Variables to track the state of the filters
+  let height: number;
   let columns: string[] = [];
   let filters: FilterValues = {};
   let sortColumn = ''; // Track the column currently being sorted
@@ -129,6 +134,9 @@
     columns.forEach((column) => {
       filterMap.set(column, 'ascend');
     });
+
+    // Added the 50 for some extra space at the bottom, otherwise the last filter is partially hidden
+    height = columns.length * columnHeight + 50;
   });
 </script>
 
@@ -143,38 +151,47 @@ Filter is a component that allows users to filter data based on the column value
 #### Optional attributes
 * columnHeight: number   - Height per column filter. This defaults to `100`.
 * width: number          - Width of the filter. This defaults to `150`.
+* styleUtil: StyleUtils  - Class holding all the styling. Is needed in the column component. See its documentation.
 -->
 
 <!-- Drawn in reverse order so the overlays will be on top -->
-<svg class="filter-container">
-  {#each reversedColumns as column, index}
-    <FilterColumn
-      x={10}
-      y={(reversedColumns.length - index) * columnHeight}
-      type={dataUtil.columnInfo[column] === 'string' ? ColumnType.Text : ColumnType.Bar}
-      {width}
-      height={columnHeight}
-      padding={10}
-      name={column}
-      on:filter={() => {
-        showFilter = !showFilter;
-        showSearch = false;
-      }}
-      on:filter={handleFilterData}
-      on:sort={handleSort} />
-  {/each}
-</svg>
+<div class="filter-container">
+  <Scrollable width={width + 50} height={window.innerHeight}>
+    <svg {height}>
+      {#each reversedColumns as column, index}
+        <FilterColumn
+          x={10}
+          y={(reversedColumns.length - index) * columnHeight}
+          type={dataUtil.columnInfo[column] === 'string' ? ColumnType.Text : ColumnType.Bar}
+          {width}
+          height={columnHeight}
+          padding={10}
+          name={column}
+          on:filter={() => {
+            showFilter = !showFilter;
+            showSearch = false;
+          }}
+          on:filter={handleFilterData}
+          on:sort={handleSort} />
+      {/each}
+    </svg>
+  </Scrollable>
+</div>
 
 <style>
-  :global(.filter-container) {
-    position: fixed; /* Fixed positioning relative to the viewport */
-    top: 0; /* Aligns the top of the element with the viewport */
-    right: 0; /* Aligns the right of the element with the viewport */
-    width: 200px; /* Set a specific width for the filter component */
-    height: 100vh; /* Set the height to take full viewport height */
-    overflow-y: auto; /* Adds scroll to the filter if content exceeds the viewport height */
+  .filter-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100vh;
     padding: 20px;
-    background-color: #f9f9f9; /* Optional background color */
-    z-index: 1000; /* Ensures the filter appears above other content */
+    background-color: #f9f9f9;
+    z-index: 1000;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
   }
 </style>
