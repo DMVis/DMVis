@@ -192,7 +192,11 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
     text={hoverText}
     hasBackground={false}
     originX={OriginX.Left}
-    originY={OriginY.Middle} />
+    originY={OriginY.Middle}
+    on:mouseLabelEnter={onMouseEnter}
+    on:mouseLabelLeave={onMouseLeave}
+    hasPointerEvents={true}
+    name={`${name}`} />
 </g>
 
 <style>

@@ -9,8 +9,7 @@
   import ParallelCoordinates from '$lib/components/visualisations/ParallelCoordinates.svelte';
   import TabularVisualisation from '$lib/components/visualisations/TabularVisualisation.svelte';
 
-  const dataUrl = '/datasets/qualityLifeCountryData.csv';
-
+  const dataUrl = '/datasets/holidays-20.csv';
   const dataUtil = new DataUtils();
   const dataUtilWithId = new DataUtils(true);
 

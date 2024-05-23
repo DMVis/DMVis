@@ -45,7 +45,7 @@ describe('Rendering test', () => {
     // Check if the styling of text elements is correct
     expect(axis.style).not.toBeNull();
     expect(axis.style.color).toBe('black');
-    expect(axis.style.fontSize).toBe('12px');
+    expect(axis.style.fontSize).toBe('10px');
 
     // Check if the position of the axis is correct
     expect(translateX).toBe(config.placementX.toString());

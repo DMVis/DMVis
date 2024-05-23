@@ -2,10 +2,10 @@ import { render } from '@testing-library/svelte';
 import { describe, it, expect } from 'vitest';
 
 import Column from '$lib/components/base/Column.svelte';
+import BarColumn from '$lib/components/columns/BarColumn.svelte';
 import StoreWrapper from './StoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
 import { ColumnType, IconType } from '$lib/Enums.js';
-import BarColumn from '$lib/components/columns/BarColumn.svelte';
 
 prepareSvgGetter();
 
@@ -151,7 +151,7 @@ describe('Column interaction test', () => {
   });
 });
 describe('Error checking in BarColumn', () => {
-  it('Checks if an error is thrown if the names input is not valid', () => {
+  it('checks if an error is thrown if the names input is not valid', () => {
     // Arrange
     const config = {
       x: 0,
@@ -168,7 +168,7 @@ describe('Error checking in BarColumn', () => {
     expect(createInvalidBarColumn).toThrow('Specified names array is either too big, or too small');
   });
 
-  it('Checks if an error is thrown if the overviewItem attribute is not valid', () => {
+  it('checks if an error is thrown if the overviewItem attribute is not valid', () => {
     // Arrange
     const config = {
       x: 0,

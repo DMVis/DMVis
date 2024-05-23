@@ -97,15 +97,18 @@
     }
   }
 
-  // Function that formats a number to a string, and rounds it if needed
+  // Function that formats a number to a string, and rounds numerical values to 2 decimals
   function formatValue(value: number): string {
     if (!isNaN(value)) {
-      // If it is a number
+      // If it is a number, round it to 2 decimals
       return (Math.round(value * 100) / 100).toString();
     }
     if (value) {
       return value.toString();
     }
+    // At this point value is null/undefined meaning there was no value supplied in the input csv.
+    // All is done now is ensuring it is a string to satisfy typescript
+    // These empty values are handled later on
     return value as unknown as string;
   }
 </script>
@@ -216,7 +219,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   </g>
   <g slot="overview">
     {#if overviewItem === 'axis'}
-      <Axis placementX={x + padding / 2} placementY={90} axis={d3.axisTop(scale).ticks(5)} />
+      <Axis placementX={x + padding / 2} placementY={100} axis={d3.axisTop(scale).ticks(5)} />
     {:else if overviewItem === 'histogram'}
       <foreignObject {x} y={45} {width} height={75}>
         <Histogram

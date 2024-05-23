@@ -61,6 +61,10 @@
   let startingDraggedY: number = 0;
   let draggedItemIsSpan: boolean = false;
 
+  // Sorting variables
+  let sortedColumn: string = '';
+  let sortedOrder: 'asc' | 'desc' | 'none' = 'none';
+
   // Set store values
   setVisualisationContext({
     width,
@@ -328,12 +332,34 @@
     tabularSelection = d3.select(tabularElement);
     dragHandler(tabularSelection.selectAll('.bar'));
     dragHandler(tabularSelection.select('.labelNames').selectAll('.label'));
+    dragHandler(tabularSelection.selectAll('.bar-number'));
     const axes = document.getElementById('axes');
 
     if (axes !== null && axes.children.length > 0) {
       axes.removeChild(axes.children[0]);
     }
   });
+
+  function sortData(event: CustomEvent) {
+    const { column } = event.detail;
+    if (sortedColumn === column) {
+      // Decide sorting order, none -> asc -> desc -> none
+      sortedOrder = sortedOrder === 'asc' ? 'desc' : sortedOrder === 'desc' ? 'none' : 'asc';
+    } else {
+      sortedOrder = 'asc';
+    }
+    sortedColumn = column;
+
+    // Check if sorting should be applied or not
+    if (sortedOrder !== 'none') {
+      // Sort the data
+      dataUtil.sortData(column, sortedOrder === 'asc');
+    } else {
+      // Reset sorting values
+      dataUtil.resetVisualisationData();
+    }
+    updateColumns();
+  }
 
   // Function that will toggle the class `highlighted` on all needed components.
   // Namely the bar, bar number and label
@@ -399,6 +425,7 @@ categorical data with labels in a column.
           data={column}
           on:mouseBarEnter={onMouseBarEnter}
           on:mouseBarLeave={onMouseBarLeave}
+          on:sort={sortData}
           padding={columnPadding}
           names={labelColumn.map(formatClassName)}
           {barOpacity}

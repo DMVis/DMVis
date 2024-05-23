@@ -1,7 +1,6 @@
 <script lang="ts">
   // Imports
   import * as d3 from 'd3';
-  import { onMount } from 'svelte';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -111,16 +110,6 @@
         .range([height - marginBottom - marginTop, 0]);
     }
   }
-
-  let histogram: SVGSVGElement;
-  // onMount(() => {
-  //   // Apply text-anchor to properly align the text on the axis
-  //   const ticks = Array.from(histogram.getElementsByClassName('tick'));
-  //   ticks.forEach((tick, index) => {
-  //     const text = tick.getElementsByTagName('text')[0];
-  //     text.setAttribute('text-anchor', index === 0 ? 'start' : 'end');
-  //   });
-  // });
 </script>
 
 <!--
@@ -165,7 +154,7 @@ This visualisation shows frequencies of data. It can group data categorically or
 -->
 
 <BaseVisualisation>
-  <svg class="visualisation histogram" {width} {height} {x} {y} bind:this={histogram}>
+  <svg class="visualisation histogram" {width} {height} {x} {y}>
     <!-- Draw categorical bars because categoricalBuckets is not empty -->
     {#if categoricalBuckets.length > 0}
       {#each categoricalBuckets as bucket}
