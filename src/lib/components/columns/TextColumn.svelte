@@ -128,6 +128,7 @@ TextColumn is a Column component that displays text for each value in the data a
         x={x + width / 2}
         y={getY(i)}
         width={width - padding}
+        showEllipsis={true}
         height={20}
         {padding}
         hasPointerEvents={true}

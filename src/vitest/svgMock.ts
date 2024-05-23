@@ -24,6 +24,6 @@ export default function prepareSvgGetter() {
   });
 
   beforeEach(() => {
-    window.SVGElement.prototype.getComputedTextLength = () => 200;
+    window.SVGElement.prototype.getComputedTextLength = () => -1;
   });
 }

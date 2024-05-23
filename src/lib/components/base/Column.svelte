@@ -155,6 +155,7 @@ Each columns contains a top part with information about the column and a bottom 
           y={y - 90}
           text={columnTitle.includes('LineUp') ? columnTitle.split('_')[1] : columnTitle}
           width={width - padding}
+          showEllipsis={true}
           textColor={$styleUtil.color}
           fontSize={`${$styleUtil.fontSize}px`}
           fontFamily={$styleUtil.fontFamily}

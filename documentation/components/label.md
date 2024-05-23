@@ -29,6 +29,13 @@ Text to display on the label.
 
 # Optional Attributes
 
+## showEllipsis
+
+- Type: `boolean`
+- Default: `false`
+
+Whether to show an ellipsis at the end of the text if it overflows the label.
+
 ## backgroundColor
 
 - Type: `string`
@@ -183,6 +190,14 @@ To read more about these events, see the [Events](../utils/events.md) documentat
 
 # Example usage
 
+Label with only required properties set.
+
+```svelte
+<svg style="border: 1px solid black" width="500" height="500">
+  <Label x={100} y={100} text="Hello, world!" />
+</svg>
+```
+
 Label with all properties set.
 
 ```svelte
@@ -212,13 +227,5 @@ Label with all properties set.
     borderColor="none"
     on:mouseLabelEnter={onMouseLabelEnter}
     on:mouseLabelLeave={onMouseLabelLeave} />
-</svg>
-```
-
-Label with only required properties set.
-
-```svelte
-<svg style="border: 1px solid black" width="500" height="500">
-  <Label x={100} y={100} text="Hello, world!" />
 </svg>
 ```
