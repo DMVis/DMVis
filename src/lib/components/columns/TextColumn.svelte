@@ -7,6 +7,7 @@
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType, IconType } from '$lib/Enums.js';
   import { getVisualisationContext } from '$lib/context.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes
   export let x: number;
@@ -132,7 +133,7 @@ TextColumn is a Column component that displays text for each value in the data a
         hasPointerEvents={true}
         hasBackground={false}
         text={value}
-        name={`${value}`}
+        name={`${formatClassName(value)}`}
         on:mouseLabelEnter
         on:mouseLabelLeave />
     {/each}

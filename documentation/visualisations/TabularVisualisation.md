@@ -73,11 +73,10 @@ Value for the distance between each column.
 
 ## barOpacity
 
-- Type: number | string
+- Type: number
 - Default: `0.6`
 
-The opacity of each bar as a number in the range [0..1] or
-a percentage string formatted as '{number}%'.
+The opacity of each bar as a number in the range [0..1].
 
 > Note: A value lower than 1 is recommended for visible bar highlighting.
 

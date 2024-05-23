@@ -15,6 +15,7 @@
   // Import dmvis utils
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import {
     getVisualisationContext,
@@ -394,11 +395,6 @@
     else if (clickedPoint === '') {
       clickedPoint = name;
     }
-  }
-
-  // Class names can't accept brackets and other fancy symbols, so remove them
-  function formatClassName(name: string) {
-    return name.replace(/[\s()/]/g, '');
   }
 
   function getDataUtilIndex(attributeIndex: number) {

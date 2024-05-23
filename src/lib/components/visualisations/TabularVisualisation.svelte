@@ -10,10 +10,11 @@
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
 
   // DMVis imports
+  import { IconType } from '$lib/Enums.js';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
-  import { IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -36,7 +37,7 @@
   // Padding between columns
   export let columnPadding: number = 10;
   // Default opacity of the bars
-  export let barOpacity: number | string = 0.6;
+  export let barOpacity: number = 0.6;
 
   // Private variables
   const { visualisationData } = dataUtil;
@@ -57,6 +58,7 @@
   let draggedRow: string = '';
   let draggedItem: string = '';
   let startingDraggedY: number = 0;
+  let draggedItemIsSpan: boolean = false;
 
   // Set store values
   setVisualisationContext({
@@ -83,38 +85,90 @@
     .drag<SVGElement, unknown>()
     .on('start', function (event) {
       // Set the element being dragged
-      if (event.sourceEvent.srcElement.nodeName === 'text') {
-        draggedRow = event.sourceEvent.srcElement.parentElement.attributes
-          .getNamedItem('class')
-          .value.split(' ')[1];
-        draggedItem = draggedRow.split('-')[1];
-      } else {
+      // Note that every different type of node requires a different item to be selected in order to get the class name
+      if (event.sourceEvent.srcElement.nodeName === 'rect') {
+        // For a rect (and therefore the bar element), just get the class of the item that is being dragged
         draggedRow = event.sourceEvent.srcElement.attributes
           .getNamedItem('class')
           .value.split(' ')[1];
+        /* Note that draggedItem will be the class name of the element,
+            and will therefore be formatted to not use any whitespaces and other symbols.
+            Formatting is done by ClassNameFormat.ts */
+        draggedItem = draggedRow.split('-')[1];
+      } else if (event.sourceEvent.srcElement.nodeName === 'text') {
+        /* For a text element (being a label without any whitespaces), get the parent of the text element
+           (therefore the group element that `Label` creates), which will hold the class name. */
+        draggedRow = event.sourceEvent.srcElement.parentElement.attributes
+          .getNamedItem('class')
+          .value.split(' ')[1];
+        /* Note that draggedItem will be the class name of the element,
+            and will therefore be formatted to not use any whitespaces and other symbols.
+            Formatting is done by ClassNameFormat.ts */
+        draggedItem = draggedRow.split('-')[1];
+      } else if (event.sourceEvent.srcElement.nodeName === 'tspan') {
+        /* For a tspan element (meaning a label that has whitespaces), get the parent element (which is the text element),
+            and after that, do the same as the code block above */
+        draggedRow = event.sourceEvent.srcElement.parentElement.parentElement.attributes
+          .getNamedItem('class')
+          .value.split(' ')[1];
+        /* Note that draggedItem will be the class name of the element,
+            and will therefore be formatted to not use any whitespaces and other symbols.
+            Formatting is done by ClassNameFormat.ts */
         draggedItem = draggedRow.split('-')[1];
       }
       // Store the initial y position of the dragged row
       startingDraggedY = parseFloat(tabularSelection.select(`.bar-${draggedItem}`).attr('y'));
+      // Get the initial y position of the bar
       deltaY = parseFloat(tabularSelection.select(`.bar-${draggedItem}`).attr('y')) - event.y;
-      deltaYLabel =
-        parseFloat(tabularSelection.select(`.label-${draggedItem} > text`).attr('y')) - event.y;
 
+      /* Check if we are dealing with a tspan or just a text element.
+          This is done by checking if the text element has any child nodes (these would be tspans).
+          Note that this could not be done in the if statement above, since you could start dragging a row by grabbing the bar
+            but the label could still be a tspan */
+      const textSelection = tabularSelection.select(`.label-${draggedItem} > text`);
+      if ((textSelection.node() as Element).children.length > 0) {
+        // If there are more than 0 children, it means this is a label containing tspans, so set this flag to true
+        draggedItemIsSpan = true;
+        // Now calculate the inital deltaY for the label by selecting the first tspan element in the text element
+        deltaYLabel = parseFloat(textSelection.select('tspan').attr('y')) - event.y;
+      } else {
+        // If there is only a text element, just get the delta from this label
+        deltaYLabel = parseFloat(textSelection.attr('y')) - event.y;
+      }
       // Raise dragged row to the front
       tabularSelection.selectAll(`.bar-${draggedItem}`).raise();
       tabularSelection.selectAll(`.label-${draggedItem}`).raise();
-
       // Hide the bar numbers
       tabularSelection.selectAll(`.bar-number-${draggedItem}`).classed('highlighted', false);
     })
     .on('drag', function (event) {
-      // Update y position of the row
+      // Update y position of the bars
       tabularSelection.selectAll(`.bar-${draggedItem}`).attr('y', event.y + deltaY);
-      tabularSelection.selectAll(`.label-${draggedItem} > text`).attr('y', event.y + deltaYLabel);
+      // Update y position of the label
+      if (draggedItemIsSpan) {
+        // If this item is a span, move all of the spans in the selected text selection
+        tabularSelection
+          .selectAll(`.label-${draggedItem} >  text > *`)
+          .attr('y', event.y + deltaYLabel);
+      } else {
+        // If this is not a span, just move the text element
+        tabularSelection
+          .selectAll(`.label-${draggedItem} >  text`)
+          .attr('y', event.y + deltaYLabel);
+      }
     })
     .on('end', async function () {
+      let y: number;
       // Get the y coordinate of the label of the dragged row
-      const y = parseFloat(tabularSelection.select(`.label-${draggedItem} > text`).attr('y'));
+      if (draggedItemIsSpan) {
+        // If the item is a span, get the y position of the first span element of the text element
+        y = parseFloat(
+          tabularSelection.select(`.label-${draggedItem} > text`).select('tspan').attr('y')
+        );
+      } else {
+        // If the item is not a span, just get the y position of the text element
+        y = parseFloat(tabularSelection.select(`.label-${draggedItem} > text`).attr('y'));
+      }
       // Select the column with all the other labels in it
       const labelColumn = tabularSelection.select('.labelNames');
       // From this column, select all the text elements
@@ -138,32 +192,54 @@
         }
         return Math.abs(parseFloat(rowY as string) - y);
       });
+      // Now that all of the distances are computed, find the rows that need to be updated
 
-      // Update the data
+      // Find the closed row index
       const minDistanceIndex = distances.indexOf(Math.min(...distances));
+      // Get the actual row, rather than the index
       const nearestRow = rows[minDistanceIndex !== -1 ? minDistanceIndex : 0];
-      const nearestLabel = nearestRow ? nearestRow.innerHTML : rows[0].innerHTML;
-      const oldIndex = $visualisationData.findIndex((row) => row[0] === draggedItem);
+      // Select the label, depending on whether the nearest row holds spans or not
+      let nearestLabel: string;
+      if (nearestRow.children.length > 0) {
+        nearestLabel = '';
+        let children = nearestRow.children;
+        // Loop over all the tspans
+        for (let i = 0; i < children.length; i++) {
+          const child = children[i] as Element;
+          // Add the text of the tspan to the result
+          nearestLabel += child.innerHTML;
+          // Add a whitespace to the end if this is not the last tspan
+          if (i < nearestRow.children.length - 1) {
+            nearestLabel += ' ';
+          }
+        }
+      } else {
+        nearestLabel = nearestRow.innerHTML;
+      }
+      // Find the index of the dragged row, note that since draggedItem is formatted, we will also format the data we search through
+      const oldIndex = $visualisationData.findIndex(
+        (row) => formatClassName(row[0].toString()) === draggedItem
+      );
+      // Find the index of the nearest row
       const newIndex = $visualisationData.findIndex((row) => row[0] === nearestLabel);
+      // Reorder the rows using the datautil
       const newData = dataUtil.reorderRows(
         oldIndex,
         newIndex === -1 ? 0 : newIndex,
         $visualisationData
       );
       $visualisationData = newData;
+      // Update all of the columns and rows
       updateColumns();
 
       // Show bar numbers again
       tabularSelection.selectAll(`.bar-number-${draggedItem}`).classed('highlighted', true);
 
       // Unhighlight and reset row
-      tabularSelection
-        .selectAll(`.${draggedItem}`)
-        .classed('highlighted', false)
-        .attr('fill-opacity', barOpacity);
       tabularSelection.selectAll(`.label-${draggedItem} > text`).classed('highlighted', false);
       draggedItem = '';
       draggedRow = '';
+      draggedItemIsSpan = false;
     });
   // End of assignment to dragHandler
 
@@ -286,9 +362,8 @@ categorical data with labels in a column.
 
 * showColumnLines: boolean            - Whether to show lines at the start and end of each column. This defaults to `false`.
 * columnPadding: number               - Value for the distance between each column. This defaults to `10`.
-* barOpacity: number | string         - Opacity of each bar as a number in the range [0..1] or
-                                        a percentage string formatted as '{number}%'. A value
-                                        lower than one is recommended for visible bar highlighting.
+* barOpacity: number                  - Opacity of each bar as a number in the range [0..1].
+                                        A value lower than one is recommended for visible bar highlighting.
                                         This defaults to `0.6`.
 -->
 
@@ -318,8 +393,8 @@ categorical data with labels in a column.
           on:mouseBarEnter={onMouseBarEnter}
           on:mouseBarLeave={onMouseBarLeave}
           padding={columnPadding}
-          names={labelColumn}
-          barOpacity={0.6} />
+          names={labelColumn.map(formatClassName)}
+          {barOpacity} />
       {/each}
       {#if showColumnLines}
         {#each Array(columns.length) as i}
