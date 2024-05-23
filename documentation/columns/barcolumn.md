@@ -75,6 +75,17 @@ What scale to use for the entire column. This default scale is nothing more than
 
 The opacity of each bar as a number in the range [0..1].
 
+## barLabelVisibility
+
+- Type: `string`
+- Default: `'none'`
+- Options: `'none'`, `'alwaysVisible'`, `'visibleOnHighlight'`
+
+Determines the behaviour of the labels on the bars.<br>
+Setting this to `'none'`, means no label will be drawn.<br>
+Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
+Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label receives the class `'highlighted'`, the numbers will become visible.
+
 ## names
 
 - Type: `string[]`

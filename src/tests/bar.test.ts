@@ -139,11 +139,11 @@ describe('Mouse interactivity test', () => {
     // Get all the classes on the label
     const classes = label.classList;
     // If the tooltip has the class highlighted, it is visible
-    const labelIsVisible = classes.contains('highlighted');
+    const isLableVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(labelIsVisible).toBeFalsy();
+    expect(isLableVisible).toBeFalsy();
   });
 
   it('checks if the bar number appears on mouse enter event with the bar', async () => {
@@ -159,12 +159,12 @@ describe('Mouse interactivity test', () => {
     // Get all the classes on the label
     const classes = label.classList;
     // If the tooltip has the class highlighted, it is visible
-    const labelIsVisible = classes.contains('highlighted');
+    const isLableVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
 
-    expect(labelIsVisible).toBeTruthy();
+    expect(isLableVisible).toBeTruthy();
   });
 
   it('checks if the bar number appears on focus event with the bar', async () => {
@@ -180,12 +180,12 @@ describe('Mouse interactivity test', () => {
     // Get all the classes on the label
     const classes = label.classList;
     // If the tooltip has the class highlighted, it is visible
-    const labelIsVisible = classes.contains('highlighted');
+    const isLableVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
 
-    expect(labelIsVisible).toBeTruthy();
+    expect(isLableVisible).toBeTruthy();
   });
 
   it('checks if the bar number disappears on mouse leave event with the bar', async () => {
@@ -201,11 +201,11 @@ describe('Mouse interactivity test', () => {
     // Get all the classes on the label
     const classes = label.classList;
     // If the tooltip has the class highlighted, it is visible
-    const labelIsVisible = classes.contains('highlighted');
+    const isLableVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(labelIsVisible).toBeFalsy();
+    expect(isLableVisible).toBeFalsy();
   });
 
   it('checks if the bar number disappears on blur event with the bar', async () => {
@@ -221,11 +221,11 @@ describe('Mouse interactivity test', () => {
     // Get all the classes on the label
     const classes = label.classList;
     // If the tooltip has the class highlighted, it is visible
-    const labelIsVisible = classes.contains('highlighted');
+    const isLableVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
-    expect(labelIsVisible).toBeFalsy();
+    expect(isLableVisible).toBeFalsy();
   });
 
   it('checks if setting showTextOnHover to false will never show the label', async () => {
@@ -241,12 +241,12 @@ describe('Mouse interactivity test', () => {
     // Get all the classes on the label
     const classes = label.classList;
     // If the tooltip has the class highlighted, it is visible
-    const labelIsVisible = classes.contains('highlighted');
+    const isLableVisible = classes.contains('highlighted');
 
     // Assert
     expect(bar).toBeDefined();
 
-    expect(labelIsVisible).toBeFalsy();
+    expect(isLableVisible).toBeFalsy();
   });
 
   it('fires an event when the bar is clicked', async () => {

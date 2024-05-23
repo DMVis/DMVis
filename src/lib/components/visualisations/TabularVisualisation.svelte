@@ -54,6 +54,7 @@
 
   // Drag related variables, set by dragHandler
   let deltaY: number = 0;
+  let deltaYNumber: number = 0;
   let deltaYLabel: number = 0;
   let draggedRow: string = '';
   let draggedItem: string = '';
@@ -120,13 +121,17 @@
       startingDraggedY = parseFloat(tabularSelection.select(`.bar-${draggedItem}`).attr('y'));
       // Get the initial y position of the bar
       deltaY = parseFloat(tabularSelection.select(`.bar-${draggedItem}`).attr('y')) - event.y;
+      deltaYNumber =
+        parseFloat(tabularSelection.select(`.bar-number-${draggedItem} > g > text`).attr('y')) -
+        event.y;
 
       /* Check if we are dealing with a tspan or just a text element.
           This is done by checking if the text element has any child nodes (these would be tspans).
           Note that this could not be done in the if statement above, since you could start dragging a row by grabbing the bar
             but the label could still be a tspan */
       const textSelection = tabularSelection.select(`.label-${draggedItem} > text`);
-      if ((textSelection.node() as Element).children.length > 0) {
+      const amountOfSpans = textSelection.selectAll('tspan').size();
+      if (amountOfSpans > 0) {
         // If there are more than 0 children, it means this is a label containing tspans, so set this flag to true
         draggedItemIsSpan = true;
         // Now calculate the inital deltaY for the label by selecting the first tspan element in the text element
@@ -138,17 +143,21 @@
       // Raise dragged row to the front
       tabularSelection.selectAll(`.bar-${draggedItem}`).raise();
       tabularSelection.selectAll(`.label-${draggedItem}`).raise();
-      // Hide the bar numbers
-      tabularSelection.selectAll(`.bar-number-${draggedItem}`).classed('highlighted', false);
+      tabularSelection.selectAll(`.bar-number-${draggedItem}`).raise();
     })
     .on('drag', function (event) {
       // Update y position of the bars
       tabularSelection.selectAll(`.bar-${draggedItem}`).attr('y', event.y + deltaY);
+      // Update y position of the number in the bar
+      tabularSelection
+        .selectAll(`.bar-number-${draggedItem} > g > text`)
+        .attr('y', event.y + deltaYNumber);
+
       // Update y position of the label
       if (draggedItemIsSpan) {
         // If this item is a span, move all of the spans in the selected text selection
         tabularSelection
-          .selectAll(`.label-${draggedItem} >  text > *`)
+          .selectAll(`.label-${draggedItem} >  text > tspan`)
           .attr('y', event.y + deltaYLabel);
       } else {
         // If this is not a span, just move the text element
@@ -200,7 +209,8 @@
       const nearestRow = rows[minDistanceIndex !== -1 ? minDistanceIndex : 0];
       // Select the label, depending on whether the nearest row holds spans or not
       let nearestLabel: string;
-      if (nearestRow.children.length > 0) {
+      const amountOfSpansRow = d3.select(nearestRow).selectAll('tspan').size();
+      if (amountOfSpansRow > 0) {
         nearestLabel = '';
         let children = nearestRow.children;
         // Loop over all the tspans
@@ -231,9 +241,6 @@
       $visualisationData = newData;
       // Update all of the columns and rows
       updateColumns();
-
-      // Show bar numbers again
-      tabularSelection.selectAll(`.bar-number-${draggedItem}`).classed('highlighted', true);
 
       // Unhighlight and reset row
       tabularSelection.selectAll(`.label-${draggedItem} > text`).classed('highlighted', false);
@@ -394,7 +401,8 @@ categorical data with labels in a column.
           on:mouseBarLeave={onMouseBarLeave}
           padding={columnPadding}
           names={labelColumn.map(formatClassName)}
-          {barOpacity} />
+          {barOpacity}
+          barLabelVisibility={'alwaysVisible'} />
       {/each}
       {#if showColumnLines}
         {#each Array(columns.length) as i}

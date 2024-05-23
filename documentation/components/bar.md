@@ -123,6 +123,17 @@ Text to display in the label when the mouse hovers over the bar. This will defau
 
 > Note: In order to make use of this text, you need to set the [`showTextOnHover`](#showtextonhover) attribute to be `true`.
 
+## labelType
+
+- Type: `string`
+- Default: `'none'`
+- Options: `'none'`, `'alwaysVisible'`, `'visibleOnHighlight'`
+
+Determines the behaviour of the label on the bar.<br>
+Setting this to `'none'`, means no label will be drawn.<br>
+Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
+Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label receives the class `'highlighted'`, the numbers will become visible.
+
 ## name
 
 - Type: `string`

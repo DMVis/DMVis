@@ -19,7 +19,7 @@
   export let labelText: string = 'default';
   export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
   export let labelOffset: number = 20;
-  export let fontSize: number = 12;
+  export let fontSize: number = 10;
   export let color: string = 'black';
   export let isDraggable: boolean = false;
 
@@ -84,7 +84,11 @@
     const ticks = Array.from(element.getElementsByClassName('tick'));
     ticks.forEach((tick, index) => {
       const text = tick.getElementsByTagName('text')[0];
-      text.setAttribute('text-anchor', index === 0 ? 'start' : 'end');
+      if (index === 0) {
+        text.setAttribute('text-anchor', 'start');
+      } else if (index === ticks.length - 1) {
+        text.setAttribute('text-anchor', 'end');
+      }
     });
 
     dispatch('renderAxis');

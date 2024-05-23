@@ -113,14 +113,14 @@
   }
 
   let histogram: SVGSVGElement;
-  onMount(() => {
-    // Apply text-anchor to properly align the text on the axis
-    const ticks = Array.from(histogram.getElementsByClassName('tick'));
-    ticks.forEach((tick, index) => {
-      const text = tick.getElementsByTagName('text')[0];
-      text.setAttribute('text-anchor', index === 0 ? 'start' : 'end');
-    });
-  });
+  // onMount(() => {
+  //   // Apply text-anchor to properly align the text on the axis
+  //   const ticks = Array.from(histogram.getElementsByClassName('tick'));
+  //   ticks.forEach((tick, index) => {
+  //     const text = tick.getElementsByTagName('text')[0];
+  //     text.setAttribute('text-anchor', index === 0 ? 'start' : 'end');
+  //   });
+  // });
 </script>
 
 <!--

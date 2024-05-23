@@ -183,7 +183,7 @@ describe('Error checking in BarColumn', () => {
 
     // Assert
     expect(createInvalidBarColumn).toThrow(
-      `${config.overviewItem} was not recognised as overview item`
+      `${config.overviewItem} was not recognised as an overview item`
     );
   });
 });

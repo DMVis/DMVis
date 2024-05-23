@@ -4,7 +4,8 @@
   import { onMount, createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import Tooltip from '$lib/components/base/Tooltip.svelte';
+  import Label from '$lib/components/base/Label.svelte';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
 
@@ -27,6 +28,7 @@
   export let showsNegativeHeight: boolean = false;
   export let hoverText: string = height.toString();
   export let name: string | undefined = undefined;
+  export let labelType: 'none' | 'alwaysVisible' | 'visibleOnHighlight' = 'none';
 
   // Private attributes
   let rectBlock: SVGRectElement;
@@ -34,6 +36,20 @@
 
   const dispatch = createEventDispatcher();
 
+  // Depending on the labelType, we get a couple of different css values for the `display` option
+  let numberDisplayOption: string;
+  if (labelType === 'none') {
+    // This needs to be important in order to override the `display: block` set by highlight
+    numberDisplayOption = 'none !important';
+  } else if (labelType === 'alwaysVisible') {
+    // In this case the label will always be visible
+    numberDisplayOption = 'block';
+  } else if (labelType === 'visibleOnHighlight') {
+    // In this case the label will be invisible by default, but can be overridden by the highlight class
+    numberDisplayOption = 'none';
+  } else {
+    throw DMVisError(`Labeltype ${labelType}, is not recognised`, 'Bar');
+  }
   if (!isVertical) {
     // Swap width and height if the bar is horizontal
     const temp: number = width;
@@ -133,6 +149,9 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
                                   Defaults to the given `height` attribute.
 * name: string                  - Class name of the bar. It can be used as an identifier. This defaults to only `bar`.
                                   If set, the class names will be `bar` and `bar-name`.
+* labelType: 'none' | 'alwaysVisible' | 'visibleOnHighlight' - Determines the behaviour of the labels on the bars.
+                                        Refer to the documentation for more information. This defaults to `'none'`
+
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -165,23 +184,22 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 <g
   class={'bar-number' +
     (name !== undefined ? ` bar-number-${name}` : '') +
-    (isMouseOnBar ? ' highlighted' : '')}>
-  <Tooltip
-    x={x + 15}
-    y={y + height / 2}
+    (isMouseOnBar ? ' highlighted' : '')}
+  style={`display: ${numberDisplayOption}`}>
+  <Label
+    {x}
+    {y}
     text={hoverText}
-    originY={OriginY.Top}
-    originX={OriginX.Right}
-    hasBackground={false} />
+    hasBackground={false}
+    originX={OriginX.Left}
+    originY={OriginY.Middle} />
 </g>
 
 <style>
   /* Styling for the bar, this class will be set by parent components of the bar */
   .highlighted {
+    font-weight: bold;
     fill-opacity: 1;
     display: block !important;
-  }
-  .bar-number {
-    display: none;
   }
 </style>
