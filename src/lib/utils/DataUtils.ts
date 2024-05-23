@@ -218,7 +218,13 @@ export class DataUtils {
     scales: Array<d3.ScaleLinear<number, number>>,
     ascending: boolean
   ): Array<Array<string | number>> {
-    if (this.columns.length !== scales.length + 1) {
+    let numericalScales: number = 0;
+    this.columns.forEach((column, index) => {
+      if (typeof this.data[0][index] === 'number') {
+        numericalScales += 1;
+      }
+    });
+    if (scales.length !== numericalScales) {
       throw DMVisError(
         `Incorrect amount of scales supplied. There needs to be one scale per numerical column in the dataset`,
         'DataUtil'

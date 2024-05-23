@@ -44,8 +44,7 @@ This component allows for making any visualisation smaller, by making it scrolla
 <svg {x} {y} class="scrollable-svg-{className} " {width} {height}>
   <foreignObject {width} {height}>
     <div
-      class="scrollable"
-      id="scrollable-div-{className}"
+      class="scrollable scrollable-div-{className}"
       style={`width:${width}px;
           height:${height}px;
           overflow-x:${horizontalScroll};

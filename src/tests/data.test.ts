@@ -71,12 +71,25 @@ describe('dataUtils functionality test', () => {
 
   it('should throw an error when supplying an incorrect amount of scales to the sortByWeights function', async () => {
     // Arrange
-    // Create data with 2 columns
-    const csvData = 'a,b,c\n3,2,1\n6,5,4\n9,8,7';
+    // Create data with 3 numerical columns
+    const csvData = 'l,a,b,c\nfirst,3,2,1\nsecond,6,5,4\nthird,9,8,7';
     const ascending = true;
     const dataUtils = new DataUtils();
-    // Create 3 scales
-    const scales = Array(3).fill(d3.scaleLinear().range([0, 100]).domain([0, 100]));
+
+    // Test whether an error is thrown when giving too few scales
+    // Create 2 scales
+    let scales = Array(2).fill(d3.scaleLinear().range([0, 100]).domain([0, 100]));
+    // Act
+    await dataUtils.parseCSV(csvData);
+
+    // Assert
+    expect(() => dataUtils.sortByWeights(scales, ascending)).toThrowError(
+      'Incorrect amount of scales supplied. There needs to be one scale per numerical column in the dataset'
+    );
+
+    // Test whether an error is thrown when giving too many scales
+    // Create 4 scales
+    scales = Array(4).fill(d3.scaleLinear().range([0, 100]).domain([0, 100]));
     // Act
     await dataUtils.parseCSV(csvData);
 

@@ -40,7 +40,7 @@
   let weightSumTotal = 100;
   const marginBetweenTopAndBottom = 10;
   const topHeight = height / 2 - marginBetweenTopAndBottom / 2;
-  const bottomHeight = height / 2;
+  const bottomHeight = height / 2 - marginBetweenTopAndBottom / 2;
   const bottomYPosition = topHeight + marginBetweenTopAndBottom;
   const lineYPosition = topHeight + marginBetweenTopAndBottom / 2;
   const { visualisationData } = dataUtil;
@@ -204,8 +204,13 @@ The visualisation consists of two major components: namely, a visualisation clos
   <svg {width} {height} class="valuechart">
     {#key $visualisationData}
       <!-- Start of top half of the visualisation -->
-      <Scrollable {width} height={topHeight} allowHorizontalScrolling={false} on:scroll={onScroll}>
-        <svg {width} height={calculateHeight($visualisationData.length - 1)}>
+      <Scrollable
+        className={'valuechart-top'}
+        {width}
+        height={topHeight}
+        allowHorizontalScrolling={false}
+        on:scroll={onScroll}>
+        <svg {width} height={calculateHeight($visualisationData.length)}>
           <!-- Create a colum for the labels -->
           <TextColumn x={0} width={marginLeft} {height} data={labelColumn} name={'Labels'} />
           <!-- Loop over all the columns and create a bar column for every column -->
@@ -236,13 +241,14 @@ The visualisation consists of two major components: namely, a visualisation clos
         stroke-width="2" />
       <!-- Scrollable logic -->
       <Scrollable
+        className={'valuechart-bottom'}
         y={bottomYPosition}
         {width}
         height={bottomHeight}
         allowHorizontalScrolling={false}
         on:scroll={onScroll}>
         <!-- Bottom half of the visualisation -->
-        <svg {width} height={calculateHeight($visualisationData.length - 1)}>
+        <svg {width} height={calculateHeight($visualisationData.length)}>
           <!-- Draw a column for the labels -->
           <TextColumn
             x={0}
