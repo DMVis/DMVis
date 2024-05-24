@@ -469,6 +469,7 @@
 
   // After dragging, find which label the dragged label should be swapped with and swap them
   function swapLabels() {
+    if (draggingLabelOffsetX === 0) return;
     // Enforced type because it will always exist
     const axisIndex = axisNames.indexOf(draggedAttribute as string);
     let newIndex =
