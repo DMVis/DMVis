@@ -107,6 +107,12 @@
   let draggingLabelOffsetY: number = 0;
   let draggedAttribute: string | null = null;
 
+  // Hover line related variables
+  let hoveredPoint: string = '';
+  let hoveredPointX: number;
+  let hoveredPointY: number;
+  let enteredNewPoint: boolean = false;
+
   const { visualisationData } = dataUtil;
 
   // Fill the store
@@ -175,18 +181,41 @@
     currentX = '';
     currentY = '';
 
-    showMouseLines = false;
+    // If there is no point clicked (and therefore locking the mouse lines to this place), hide the lines that follow the mouse
+    if (clickedPoint === '') showMouseLines = false;
   }
 
   // This function is called when the mouse moves over the scatterplot
   function onMouseMove(event: MouseEvent, xAxis: string, yAxis: string) {
-    // Update global variables
-    mouseX = event.offsetX;
-    mouseY = event.offsetY;
+    // Line to block the line from moving if a point is selected
+    // An exception is when there is a new point entered, in that case update the line
+    if ((hoveredPoint !== '' && !enteredNewPoint) || clickedPoint !== '') return;
 
+    if (enteredNewPoint) {
+      mouseX = hoveredPointX + xScale(xAxis)!;
+      mouseY = hoveredPointY + yScale(yAxis)!;
+    } else {
+      // Update global variables
+      mouseX = event.offsetX;
+      mouseY = event.offsetY;
+    }
+    enteredNewPoint = false;
+
+    let [scaledX, scaledY] = getScaledMouseCoords(mouseX, mouseY, xAxis, yAxis);
+    scaledMouseX = scaledX;
+    scaledMouseY = scaledY;
+
+    // Check which tooltip line to display
+    showBottomLeftLines = (xScale(yAxis) ?? 0) > mouseX;
+    showTopRightLines = !showBottomLeftLines;
+  }
+
+  // This function takes mouse coordinates and the 2 attributes which the scatterplot are about
+  // And returns the scaled coordinates of the mouse in this scatterplot
+  function getScaledMouseCoords(mouseX: number, mouseY: number, xAxis: string, yAxis: string) {
     // Scatter coordinates are the absolute coordinates inside a scatterplot
-    let scatterX = event.offsetX - (xScale(xAxis) ?? 0);
-    let scatterY = event.offsetY - (yScale(yAxis) ?? 0);
+    let scatterX = mouseX - (xScale(xAxis) ?? 0);
+    let scatterY = mouseY - (yScale(yAxis) ?? 0);
 
     // The index of the x and y attribute
     let xIndex = dataUtil.columns.indexOf(xAxis);
@@ -199,14 +228,11 @@
     yScaleLinear.range([0, yScale.bandwidth()]);
 
     // Scaled mouse coordinates are the scaled coordinates of a scatterplot
-    scaledMouseX = xScaleLinear.invert(scatterX);
-    scaledMouseY = yScaleLinear.invert(scatterY);
+    let scaledMouseXLocal = xScaleLinear.invert(scatterX);
+    let scaledMouseYLocal = yScaleLinear.invert(scatterY);
 
-    // Check which tooltip line to display
-    showBottomLeftLines = (xScale(yAxis) ?? 0) > mouseX;
-    showTopRightLines = !showBottomLeftLines;
+    return [scaledMouseXLocal, scaledMouseYLocal];
   }
-
   // Function that fires when the user starts brushing
   function brushStart(ap: { sourceEvent: { offsetX: number; offsetY: number } }) {
     /* Get the x and y index of the scatterplot from which the brush is initiated
@@ -361,22 +387,27 @@
 
   // Function that fires when the mouse leaves any point
   function onMousePointLeave(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+    let name = e.detail.name;
+    hoveredPoint = '';
     // If there is a point clicked, do not do anything
     if (clickedPoint !== '') return;
     // Remove the highlight from all points
-    let name = e.detail.name;
-    selectAll(`.point-${formatClassName(name)}`).classed('highlighted', false);
+    selectAll(`.point-${name}`).classed('highlighted', false);
     // Tooltip label is no longer visible
     tooltipData.visible = false;
   }
   // Function that fires when the mouse hovers over any point
   function onMousePointEnter(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+    enteredNewPoint = true;
+    hoveredPointX = e.detail.x;
+    hoveredPointY = e.detail.y;
+    let name = e.detail.name;
+    hoveredPoint = name;
     // If there is a point clicked, do not do anything
     if (clickedPoint !== '') return;
 
     // Select all the points with the same class name
-    let name = e.detail.name;
-    selectAll(`.point-${formatClassName(name)}`).classed('highlighted', true);
+    selectAll(`.point-${name}`).classed('highlighted', true);
     // Get the coordinates of this point
     // Used for the tooltip label
     let xCoordPoint = e.detail.x + (xScale(currentX) ?? 0);
@@ -464,6 +495,8 @@
     draggingLabelOffsetX = 0;
     draggingLabelOffsetY = 0;
     currentGreyPoints = [];
+    showMouseLines = false;
+    clickedPoint = '';
   }
 
   // Raise the label when we start dragging
