@@ -2,8 +2,8 @@
 import { get } from 'svelte/store';
 import { tick } from 'svelte';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
+import { act, fireEvent, render } from '@testing-library/svelte';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
 // DMVis imports
@@ -89,9 +89,6 @@ describe('Filter component tests', () => {
       ]); // Simulating the setting of new data
     });
     const config = { dataUtil: dataUtil };
-    // @ts-expect-error - Cant find setup in userEvent
-    const user = userEvent.setup();
-
     const { getAllByLabelText } = render(StoreWrapper, { props: { Component: Filter, config } });
 
     // Subscribe to the writable store and capture data
@@ -103,8 +100,15 @@ describe('Filter component tests', () => {
     // Act
     const minInput = getAllByLabelText('MinInput');
     const maxInput = getAllByLabelText('MaxInput');
-    await user.type(minInput[1], '5'); // Simulate entering values for Min
-    await user.type(maxInput[1], '10'); // Simulate entering values for Max
+    await act(async () => {
+      // Simulate entering values for min
+      fireEvent.input(minInput[1], { target: { value: '5' } });
+      fireEvent.change(minInput[1]);
+
+      // Simulate entering values for max
+      fireEvent.input(maxInput[1], { target: { value: '10' } });
+      fireEvent.change(maxInput[1]);
+    });
 
     // Force any pending state updates to complete
     await tick();
@@ -153,8 +157,15 @@ describe('Filter component tests', () => {
     await user.click(sortButtons[1]); // Sort by Inhabitants
     const minInput = getAllByLabelText('MinInput');
     const maxInput = getAllByLabelText('MaxInput');
-    await user.type(minInput[1], '5'); // Simulate entering values for Min
-    await user.type(maxInput[1], '10'); // Simulate entering values for Max
+    await act(async () => {
+      // Simulate entering values for min
+      fireEvent.input(minInput[1], { target: { value: '5' } });
+      fireEvent.change(minInput[1]);
+
+      // Simulate entering values for max
+      fireEvent.input(maxInput[1], { target: { value: '10' } });
+      fireEvent.change(maxInput[1]);
+    });
 
     // Force any pending state updates to complete
     await tick();

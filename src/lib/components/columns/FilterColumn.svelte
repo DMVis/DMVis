@@ -101,7 +101,7 @@ FilterColumn is a component that displays a filter input for each column.
           placeholder="Min"
           aria-label="MinInput"
           style="width: 100%; padding:0; margin:0; border:1;"
-          on:input={(e) => dispatchFilterData(e, true)} />
+          on:change={(e) => dispatchFilterData(e, true)} />
       </foreignObject>
       <foreignObject x={x + paddingSide * 8 + width / 3} y={y - 40} width={width / 3} height={30}>
         <input
@@ -109,7 +109,7 @@ FilterColumn is a component that displays a filter input for each column.
           placeholder="Max"
           aria-label="MaxInput"
           style="width: 100%; padding:0; margin:0; border:1;"
-          on:input={(e) => dispatchFilterData(e, false)} />
+          on:change={(e) => dispatchFilterData(e, false)} />
       </foreignObject>
     {/if}
   </g>

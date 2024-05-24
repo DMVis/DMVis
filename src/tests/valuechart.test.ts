@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { act, fireEvent, render, waitFor } from '@testing-library/svelte';
+import { act, fireEvent, render } from '@testing-library/svelte';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
 import ValueChart from '$lib/components/visualisations/ValueChart.svelte';
@@ -97,8 +97,8 @@ describe('Interactive ValueChart', async () => {
     const inputBoxes = getAllByLabelText('WeightInput');
     await act(async () => {
       fireEvent.input(inputBoxes[0], { target: { value: '60' } });
+      fireEvent.change(inputBoxes[0]);
     });
-    await user.type(inputBoxes[0], '[Enter]');
 
     // Assert
     /* Check whether
@@ -153,8 +153,8 @@ describe('Interactive ValueChart', async () => {
     const inputBoxes = getAllByLabelText('WeightInput');
     await act(async () => {
       fireEvent.input(inputBoxes[0], { target: { value: '60' } });
+      fireEvent.change(inputBoxes[0]);
     });
-    await user.type(inputBoxes[0], '[Enter]');
 
     // Assert
     /* Check whether
@@ -226,8 +226,8 @@ describe('Interactive ValueChart', async () => {
     const inputBoxes = getAllByLabelText('WeightInput');
     await act(async () => {
       fireEvent.input(inputBoxes[0], { target: { value: '80' } });
+      fireEvent.change(inputBoxes[0]);
     });
-    await user.type(inputBoxes[0], '[Enter]');
     await tick();
 
     // Act

@@ -73,10 +73,8 @@
     dispatch('filter', { column: name, min: parseInt($min), max: parseInt($max) });
   }
 
-  // Function that fires when a key is pressed in the weight input
-  function dispatchWeight(e: KeyboardEvent) {
-    // Only allow weights to be accepted when the enter button is pressed
-    if (e.key !== 'Enter') return;
+  // Function that fires when the user changes the column weight
+  function dispatchWeight() {
     // Regex to check if the number is an integer or floating point with a '.'
     const regex = /^[-+]?[0-9]*\.?[0-9]+$/;
     if (regex.test(weight)) {
@@ -213,7 +211,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
             `background-color: ${weightInputIsCorrect ? 'white' : '#ff534a'}; height:14px; width: ${width - padding - 5}px;`}
           min={0}
           bind:value={weight}
-          on:keypress={dispatchWeight} />
+          on:change={dispatchWeight} />
       </foreignObject>
     {/if}
   </g>
