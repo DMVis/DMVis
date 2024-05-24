@@ -194,15 +194,24 @@
         }
         // Get the y attribute of the row
         const rowY: string | undefined = row.attributes?.getNamedItem('y')?.value;
+        // If the row is undefined, do nothing
         if (rowY === null || rowY === undefined) {
           return Infinity;
         }
-        if (row.innerHTML === draggedItem) {
+        // Get the label text of this row
+        let textContent = formatClassName(row.innerHTML);
+        // If this label is cut short with ellipses, then get the actual long text
+        if (d3.select(row).select('title').size() > 0) {
+          textContent = formatClassName(d3.select(row).selectChild().html());
+        }
+        // If this row is the same as the dragged item, return infinity if nothign has changed
+        if (textContent === draggedItem) {
           // Dragging less than 20 pixels means draggedItem is closest
           if (Math.abs(startingDraggedY - y) > 20) {
             return Infinity;
           }
         }
+        // Return the distance betweent the 2 rowss
         return Math.abs(parseFloat(rowY as string) - y);
       });
       // Now that all of the distances are computed, find the rows that need to be updated
@@ -213,7 +222,10 @@
       const nearestRow = rows[minDistanceIndex !== -1 ? minDistanceIndex : 0];
       // Select the label, depending on whether the nearest row holds spans or not
       let nearestLabel: string;
+      // Check if the label has multiple rows
       const amountOfSpansRow = d3.select(nearestRow).selectAll('tspan').size();
+      // Check if the label is cut short using ellipses
+      const hasEllipsis = d3.select(nearestRow).selectAll('title').size() > 0;
       if (amountOfSpansRow > 0) {
         nearestLabel = '';
         let children = nearestRow.children;
@@ -227,6 +239,8 @@
             nearestLabel += ' ';
           }
         }
+      } else if (hasEllipsis) {
+        nearestLabel = d3.select(nearestRow).select('title').html();
       } else {
         nearestLabel = nearestRow.innerHTML;
       }
@@ -364,12 +378,15 @@
   // Function that will toggle the class `highlighted` on all needed components.
   // Namely the bar, bar number and label
   function toggleHighlight(name: string, classActive: boolean) {
+    const formattedName = formatClassName(name);
     // Update the bars
-    tabularSelection.selectAll(`.bar-${name}`).classed('highlighted', classActive);
+    tabularSelection.selectAll(`.bar-${formattedName}`).classed('highlighted', classActive);
     // Update the numbers in the bar
-    tabularSelection.selectAll(`.bar-number-${name}`).classed('highlighted', classActive);
+    tabularSelection.selectAll(`.bar-number-${formattedName}`).classed('highlighted', classActive);
     // Update the labels
-    tabularSelection.selectAll(`.label-${name} > text`).classed('highlighted', classActive);
+    tabularSelection
+      .selectAll(`.label-${formattedName} > text`)
+      .classed('highlighted', classActive);
   }
 </script>
 
@@ -427,7 +444,7 @@ categorical data with labels in a column.
           on:mouseBarLeave={onMouseBarLeave}
           on:sort={sortData}
           padding={columnPadding}
-          names={labelColumn.map(formatClassName)}
+          names={labelColumn}
           {barOpacity}
           barLabelVisibility={'alwaysVisible'} />
       {/each}

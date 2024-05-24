@@ -8,6 +8,7 @@
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes
   export let x: number;
@@ -159,7 +160,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 
 <!-- The bar -->
 <rect
-  class={`bar` + `${name === undefined ? '' : ' bar-' + name}`}
+  class={`bar` + `${name === undefined ? '' : ' bar-' + formatClassName(name)}`}
   bind:this={rectBlock}
   transform="rotate({rotationDegrees}, {x}, {y})"
   {x}
@@ -183,7 +184,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   and is only visible if the class `highlighted` is active -->
 <g
   class={'bar-number' +
-    (name !== undefined ? ` bar-number-${name}` : '') +
+    (name !== undefined ? ` bar-number-${formatClassName(name)}` : '') +
     (isMouseOnBar ? ' highlighted' : '')}
   style={`display: ${numberDisplayOption}`}>
   <Label

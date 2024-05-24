@@ -13,6 +13,7 @@
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -290,7 +291,7 @@
   // Raise the column when dragging so its displayed over the other ones
   function onDraggingStart(event: CustomEvent) {
     dragMove = event.detail.elementName as string;
-    d3.select(`.lineUp > #${dragMove.replace(/[\s()/]/g, '')}-column`).raise();
+    d3.select(`.lineUp > #${formatClassName(dragMove)}-column`).raise();
   }
 
   // Set the new position of the column when dragging

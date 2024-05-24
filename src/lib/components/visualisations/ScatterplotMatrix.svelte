@@ -153,8 +153,8 @@
     currentY = yAxis;
 
     // Add highlight to the labels
-    d3.selectAll(`.label-${formatClassName(xAxis)}-attr > *`).classed('highlighted', true);
-    d3.selectAll(`.label-${formatClassName(yAxis)}-attr > *`).classed('highlighted', true);
+    d3.selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', true);
+    d3.selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', true);
 
     showMouseLines = true;
   }
@@ -162,8 +162,8 @@
   // This function is called when the mouse leaves a scatterplot
   function onMouseOut(xAxis: string, yAxis: string) {
     // Remove the highlight from the labels
-    d3.selectAll(`.label-${formatClassName(xAxis)}-attr > *`).classed('highlighted', false);
-    d3.selectAll(`.label-${formatClassName(yAxis)}-attr > *`).classed('highlighted', false);
+    d3.selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', false);
+    d3.selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', false);
 
     // There no longer are attributes that need to be highlighted
     currentX = '';
@@ -330,7 +330,7 @@
     /* Toggles the focus of all the points with a given classname
        If the bool is true the point will be grey, if false it will not be grey */
     function changeFocus(pointName: string, needsToBeGrey: boolean) {
-      d3.selectAll(`.point-${pointName}`).classed('greyed', needsToBeGrey);
+      d3.selectAll(`.point-${formatClassName(pointName)}`).classed('greyed', needsToBeGrey);
     }
 
     function* setMinus(A: string[], B: string[]) {
@@ -359,7 +359,7 @@
     if (clickedPoint !== '') return;
     // Remove the highlight from all points
     let name = e.detail.name;
-    d3.selectAll(`.point-${name}`).classed('highlighted', false);
+    d3.selectAll(`.point-${formatClassName(name)}`).classed('highlighted', false);
     // Tooltip label is no longer visible
     tooltipData.visible = false;
   }
@@ -370,7 +370,7 @@
 
     // Select all the points with the same class name
     let name = e.detail.name;
-    d3.selectAll(`.point-${name}`).classed('highlighted', true);
+    d3.selectAll(`.point-${formatClassName(name)}`).classed('highlighted', true);
     // Get the coordinates of this point
     // Used for the tooltip label
     let xCoordPoint = e.detail.x + (xScale(currentX) ?? 0);
@@ -597,7 +597,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                     y={yScale.bandwidth() / 2}
                     text={xAxis}
                     hasBackground={true}
-                    name={formatClassName(xAxis) + '-attr'}
+                    name={xAxis + 'Attr'}
                     width={xScale.bandwidth()}
                     height={yScale.bandwidth()}
                     backgroundColor={'white'}

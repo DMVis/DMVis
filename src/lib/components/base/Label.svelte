@@ -6,6 +6,7 @@
   // DMVis Imports
   import { getOrigin } from '$lib/utils/OriginMapper.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes
   export let x: number;
@@ -223,7 +224,7 @@ The default origin is the middle of the label.
 
 <g
   transform="rotate({rotationDegrees}, {x}, {y})"
-  class={name !== undefined ? `label label-${name}` : 'label'}
+  class={name !== undefined ? `label label-${formatClassName(name)}` : 'label'}
   style="pointer-events: {hasPointerEvents ? 'all' : 'none'}"
   role="treeitem"
   tabindex="0"

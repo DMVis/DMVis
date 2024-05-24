@@ -9,6 +9,7 @@
   import { ColumnType } from '$lib/Enums.js';
   import { OriginX, OriginY, IconType } from '$lib/Enums.js';
   import type { VisualisationStore } from '$lib/store.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes
   export let x: number;
@@ -111,7 +112,7 @@ Each columns contains a top part with information about the column and a bottom 
 * For detailed information about dispatches, check the documentation.
 -->
 
-<g class="column" id={`${name.replace(/[\s()/]/g, '')}-column`} role="tablist" tabindex={-1}>
+<g class="column" id={`${formatClassName(name)}-column`} role="tablist" tabindex={-1}>
   <g
     class="column-bottom"
     role="grid"

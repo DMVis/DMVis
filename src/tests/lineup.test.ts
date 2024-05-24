@@ -230,8 +230,8 @@ describe('Interactive LineUp columns & rows', async () => {
 
     // Assert
     const columnResult = Array.from(container.getElementsByClassName('column'));
-    expect(columnResult[0].id).toBe('LineUp_Select-column');
-    expect(columnResult[1].id).toBe('LineUp_Rank-column');
+    expect(columnResult[0].id).toBe('LineUpSelect-column');
+    expect(columnResult[1].id).toBe('LineUpRank-column');
   });
 });
 

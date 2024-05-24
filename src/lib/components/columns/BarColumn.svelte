@@ -11,7 +11,6 @@
   import Column from '$lib/components/base/Column.svelte';
   import Histogram from '$lib/components/visualisations/Histogram.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
-  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
 
   // Required attributes
@@ -247,7 +246,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
           hoverText={formatValue(value)}
           on:mouseBarEnter
           on:mouseBarLeave
-          name={names.length > 0 ? formatClassName(names[i]) : undefined}
+          name={names.length > 0 ? names[i] : undefined}
           opacity={barOpacity}
           labelType={barLabelVisibility} />
       {/each}

@@ -37,8 +37,8 @@ are set and error handling is kept within the scope of the visualisation.
 
 #### Slots
 * Visualisation         - Slot for the visualisation.
+ -->
 
-<!-- TODO: Set to scrollable component -->
 {#if isScrollable}
   <Scrollable width={scrollableWidth} height={scrollableHeight}>
     {#if isError}

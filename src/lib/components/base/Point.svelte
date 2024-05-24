@@ -4,6 +4,7 @@
 
   // DMVis imports
   import { getVisualisationContext } from '$lib/context.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes
   export let x: number;
@@ -67,7 +68,7 @@ It is used in combination with other components to create a chart.
   fill={$styleUtil.color}
   stroke-width={borderWidth}
   {opacity}
-  class={`point` + `${name === undefined ? '' : ' point-' + name}`}
+  class={`point` + `${name === undefined ? '' : ' point-' + formatClassName(name)}`}
   on:mouseenter={onMouseEnter}
   on:focus={onMouseEnter}
   on:mouseleave={onMouseLeave}
