@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { select } from 'd3';
 
   // DMVis imports
   import Line from '$lib/components/base/Line.svelte';
@@ -125,16 +125,16 @@
     // If user is hovering a line, select the tick that is to be highlighted and make it bold
     if (highlightedLine !== -1) {
       const highlightText = $visualisationData[highlightedLine][0];
-      d3.select('.parallelCoordinates')
+      select('.parallelCoordinates')
         .selectAll('.tick text')
         .filter(function () {
-          return d3.select(this).text() === highlightText;
+          return select(this).text() === highlightText;
         })
         .attr('font-weight', 'bold');
     }
     // If no line is being hovered, revert all ticks to normal font-weight
     else {
-      d3.select('.parallelCoordinates').selectAll('.tick text').attr('font-weight', 'normal');
+      select('.parallelCoordinates').selectAll('.tick text').attr('font-weight', 'normal');
     }
   }
 </script>

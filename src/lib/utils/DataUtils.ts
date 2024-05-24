@@ -1,5 +1,5 @@
 // Imports
-import * as d3 from 'd3';
+import { text as textFunction, autoType, dsvFormat, type ScaleLinear } from 'd3';
 
 // DMVis imports
 import { DMVisError } from './DMVisError.js';
@@ -63,7 +63,7 @@ export class DataUtils {
     try {
       let text: string;
       if (csvData.includes('.csv') || this.isValidUrl(csvData)) {
-        text = await d3.text(csvData);
+        text = await textFunction(csvData);
       } else {
         text = csvData;
       }
@@ -73,7 +73,7 @@ export class DataUtils {
 
       // Get the separator used in the data and parse it
       const separator = this.#getSeparator(text);
-      const csv_data = d3.dsvFormat(separator).parseRows(text, d3.autoType) as Array<
+      const csv_data = dsvFormat(separator).parseRows(text, autoType) as Array<
         Array<string | number>
       >;
 
@@ -124,7 +124,7 @@ export class DataUtils {
     try {
       let text: string;
       if (jsonData.includes('.json') || this.isValidUrl(jsonData)) {
-        text = await d3.text(jsonData);
+        text = await textFunction(jsonData);
       } else {
         text = jsonData;
       }
@@ -216,11 +216,11 @@ export class DataUtils {
   }
 
   /**
-   * @param {Array<d3.ScaleLinear<number,number>>} scales - The scales used to weigh the data, containing one scale per attribute.
+   * @param {Array<ScaleLinear<number,number>>} scales - The scales used to weigh the data, containing one scale per attribute.
    * @returns {Array<Array<string | number>>} The sorted data.
    */
   sortByWeights(
-    scales: Array<d3.ScaleLinear<number, number>>,
+    scales: Array<ScaleLinear<number, number>>,
     ascending: boolean
   ): Array<Array<string | number>> {
     let numericalScales: number = 0;

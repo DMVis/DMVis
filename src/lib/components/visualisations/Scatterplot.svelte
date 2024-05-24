@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { type ScaleLinear } from 'd3';
 
   // DMVis imports
   import Point from '$lib/components/base/Point.svelte';
@@ -34,17 +34,17 @@
 
   // Get the rest of the data from the store
   const { yScales, xScales, data } = getVisualisationContext();
-  let xScaleLocal: d3.ScaleLinear<number, number>;
-  let yScaleLocal: d3.ScaleLinear<number, number>;
+  let xScaleLocal: ScaleLinear<number, number>;
+  let yScaleLocal: ScaleLinear<number, number>;
   let xIndex: number;
   let yIndex: number;
   $: {
     // Get the corresponding scales from the store
     xIndex = $columns.indexOf(xAxis);
     yIndex = $columns.indexOf(yAxis);
-    xScaleLocal = $xScales[xIndex] as d3.ScaleLinear<number, number>;
+    xScaleLocal = $xScales[xIndex] as ScaleLinear<number, number>;
     xScaleLocal.range([width, 0]);
-    yScaleLocal = $yScales[yIndex] as d3.ScaleLinear<number, number>;
+    yScaleLocal = $yScales[yIndex] as ScaleLinear<number, number>;
     yScaleLocal.range([0, height]);
   }
 

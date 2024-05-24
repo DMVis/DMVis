@@ -1,6 +1,6 @@
 import { describe, it, expect, expectTypeOf } from 'vitest';
 import { SpacerSide, SpacerEqual } from '$lib/utils/Spacer.js';
-import * as d3 from 'd3';
+import { type ScaleBand, type ScalePoint } from 'd3';
 
 describe('SpacerSide placement test', () => {
   it(`creates a SpacerSide and checks the type`, () => {
@@ -15,7 +15,7 @@ describe('SpacerSide placement test', () => {
     const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment);
 
     // Assert
-    expectTypeOf(spacer).toEqualTypeOf<d3.ScaleBand<string>>();
+    expectTypeOf(spacer).toEqualTypeOf<ScaleBand<string>>();
   });
 
   it(`creates a SpacerSide and checks the positions with 'start' alignment with zero margins`, () => {
@@ -155,7 +155,7 @@ describe('SpacerEqual placement test', () => {
     const spacer = SpacerEqual(dimension, marginLow, marginHigh, columns);
 
     // Assert
-    expectTypeOf(spacer).toEqualTypeOf<d3.ScalePoint<string>>();
+    expectTypeOf(spacer).toEqualTypeOf<ScalePoint<string>>();
   });
 
   it(`creates a SpacerEqual and checks the positions with zero margins`, () => {

@@ -1,6 +1,15 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import {
+    max,
+    scaleLinear,
+    scaleBand,
+    bin,
+    axisBottom,
+    type Bin,
+    type ScaleLinear,
+    type ScaleBand
+  } from 'd3';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -22,7 +31,7 @@
   export let marginBottom: number = 20;
 
   // The default number of bins are calculated based on the max value in the data divided by 2
-  export let bins: number = (d3.max(data as Array<number>) ?? 20) / 2;
+  export let bins: number = (max(data as Array<number>) ?? 20) / 2;
   export let showOuterTicks: boolean = true;
   export let forceCategorical: boolean = true;
   export let padding: number = 0.03;
@@ -34,10 +43,10 @@
 
   // Private attributes
   let categoricalBuckets: { key: string; values: string[] }[] = [];
-  let numericalBuckets: d3.Bin<number, number>[];
-  let yScale: d3.ScaleLinear<number, number>;
-  let categoricalScale: d3.ScaleBand<string>;
-  let numericalScale: d3.ScaleLinear<number, number>;
+  let numericalBuckets: Bin<number, number>[];
+  let yScale: ScaleLinear<number, number>;
+  let categoricalScale: ScaleBand<string>;
+  let numericalScale: ScaleLinear<number, number>;
 
   // Check if data is categorical or numerical by checking the first entry in the 'data' array
   // Data is categorical
@@ -51,23 +60,21 @@
         });
       }
       // Scale used for placing bars
-      categoricalScale = d3
-        .scaleBand()
+      categoricalScale = scaleBand()
         .domain(categoricalBuckets.map((element) => element.key))
         .range([marginLeft, width - marginRight])
         .padding(padding);
 
       // Scale used for length the bars
-      yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(categoricalBuckets.map((element) => element.values.length)) ?? 0])
+      yScale = scaleLinear()
+        .domain([0, max(categoricalBuckets.map((element) => element.values.length)) ?? 0])
         .range([height - marginBottom - marginTop, 0]);
     });
 
     // Data is numerical
   } else {
     // Group data into buckets representing a range of numbers
-    numericalBuckets = d3.bin().thresholds(bins)(data as number[]);
+    numericalBuckets = bin().thresholds(bins)(data as number[]);
 
     // Force the numerical data into categorical data
     // Make categories using the inclusive lower and exlusive upper bound of each bucket
@@ -80,23 +87,20 @@
       );
 
       // Scale used for placing bars
-      categoricalScale = d3
-        .scaleBand()
+      categoricalScale = scaleBand()
         .domain(categoricalBuckets.map((element) => element.key))
         .range([marginLeft, width - marginRight])
         .padding(padding);
 
       // Scale used for length the bars
-      yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(categoricalBuckets.map((element) => element.values.length)) ?? 0])
+      yScale = scaleLinear()
+        .domain([0, max(categoricalBuckets.map((element) => element.values.length)) ?? 0])
         .range([height - marginBottom - marginTop, 0]);
 
       // Keep numerical as numerical
     } else {
       // Scale used for placing bars
-      numericalScale = d3
-        .scaleLinear()
+      numericalScale = scaleLinear()
         .domain([
           numericalBuckets[0].x0 ?? 0,
           numericalBuckets[numericalBuckets.length - 1].x1 ?? 0
@@ -104,9 +108,8 @@
         .range([marginLeft, width - marginRight]);
 
       // Scale used for length of the bars
-      yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(numericalBuckets, (bucket) => bucket.length) ?? 0])
+      yScale = scaleLinear()
+        .domain([0, max(numericalBuckets, (bucket) => bucket.length) ?? 0])
         .range([height - marginBottom - marginTop, 0]);
     }
   }
@@ -195,19 +198,16 @@ This visualisation shows frequencies of data. It can group data categorically or
       <Axis
         placementX={0}
         placementY={height - marginBottom}
-        axis={d3.axisBottom(categoricalScale).tickSizeOuter(0)} />
+        axis={axisBottom(categoricalScale).tickSizeOuter(0)} />
       <!-- Draw numerical Axis with only the outer ticks -->
     {:else if showOuterTicks}
       <Axis
         placementX={0}
         placementY={height - marginBottom}
-        axis={d3.axisBottom(numericalScale).tickValues(numericalScale.domain())} />
+        axis={axisBottom(numericalScale).tickValues(numericalScale.domain())} />
       <!-- Draw numerical Axis with all ticks -->
     {:else}
-      <Axis
-        placementX={0}
-        placementY={height - marginBottom}
-        axis={d3.axisBottom(numericalScale)} />
+      <Axis placementX={0} placementY={height - marginBottom} axis={axisBottom(numericalScale)} />
     {/if}
   </svg>
 </BaseVisualisation>

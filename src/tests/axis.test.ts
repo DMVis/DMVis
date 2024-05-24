@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import { scaleLinear, axisBottom, axisLeft, axisTop, type ScaleLinear } from 'd3';
 import { render } from '@testing-library/svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
@@ -11,8 +11,8 @@ prepareSvgGetter();
 describe('Rendering test', () => {
   it('renders a default axis', () => {
     // Arrange
-    const scale = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const configAxis = d3.axisBottom(scale);
+    const scale = scaleLinear().domain([0, 100]).range([0, 100]);
+    const configAxis = axisBottom(scale);
     const config = {
       placementX: 50,
       placementY: 50,
@@ -57,8 +57,8 @@ describe('Rendering test', () => {
 
   it('checks if a label is drawn if renderLabel is true', () => {
     // Arrange
-    const scale = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const configAxis = d3.axisBottom(scale);
+    const scale = scaleLinear().domain([0, 100]).range([0, 100]);
+    const configAxis = axisBottom(scale);
     const config = {
       placementX: 50,
       placementY: 50,
@@ -84,8 +84,8 @@ describe('Rendering test', () => {
   it('renders a custom axis', () => {
     // Arrange
     const ticksNumber = 5;
-    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const scale: ScaleLinear<number, number> = scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = axisLeft(scale).ticks(ticksNumber);
     const config = {
       placementX: 0,
       placementY: 0,
@@ -130,8 +130,8 @@ describe('Rendering test', () => {
   it('renders an axis without ticks', () => {
     // Arrange
     const ticksNumber = 0;
-    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const scale: ScaleLinear<number, number> = scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = axisLeft(scale).ticks(ticksNumber);
     const config = {
       placementX: 0,
       placementY: 0,
@@ -168,8 +168,8 @@ describe('Axis placement test', () => {
 
     // Arrange
     const ticksNumber = 0;
-    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const d3axis = d3.axisBottom(scale).ticks(ticksNumber);
+    const scale: ScaleLinear<number, number> = scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = axisBottom(scale).ticks(ticksNumber);
     const config = {
       placementX: 0,
       placementY: defaultHeight - defaultMargin,
@@ -197,8 +197,8 @@ describe('Axis placement test', () => {
 
     // Arrange
     const ticksNumber = 0;
-    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const d3axis = d3.axisTop(scale).ticks(ticksNumber);
+    const scale: ScaleLinear<number, number> = scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = axisTop(scale).ticks(ticksNumber);
     const config = {
       placementX: 0,
       placementY: defaultMargin,
@@ -226,8 +226,8 @@ describe('Axis placement test', () => {
 
     // Arrange
     const ticksNumber = 0;
-    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const scale: ScaleLinear<number, number> = scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = axisLeft(scale).ticks(ticksNumber);
     const config = {
       placementX: defaultMargin,
       placementY: 0,
@@ -256,8 +256,8 @@ describe('Axis placement test', () => {
 
     // Arrange
     const ticksNumber = 0;
-    const scale: d3.ScaleLinear<number, number> = d3.scaleLinear().domain([0, 100]).range([0, 100]);
-    const d3axis = d3.axisLeft(scale).ticks(ticksNumber);
+    const scale: ScaleLinear<number, number> = scaleLinear().domain([0, 100]).range([0, 100]);
+    const d3axis = axisLeft(scale).ticks(ticksNumber);
     const config = {
       placementX: defaultWidth - defaultMargin,
       placementY: 0,

@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { type ScaleLinear } from 'd3';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -14,7 +14,7 @@
   export let y: number;
   export let barWidth: number;
   export let row: (string | number)[];
-  export let attributeScales: d3.ScaleLinear<number, number>[];
+  export let attributeScales: ScaleLinear<number, number>[];
 
   // Optional attributes
   export let opacity: number | string = 1;

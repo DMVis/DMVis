@@ -1,6 +1,16 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import {
+    type ScaleBand,
+    type ScalePoint,
+    type Axis as AxisType,
+    type NumberValue,
+    axisTop,
+    axisBottom,
+    axisLeft,
+    axisRight,
+    type ScaleLinear
+  } from 'd3';
   import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
@@ -50,8 +60,8 @@
   let draggedAxis: string | null = null;
   let draggingOffset: number = 0;
   // Non-nullable operator because they will be set in createSpacer
-  let spacerHorizontal!: d3.ScaleBand<string> | d3.ScalePoint<string>;
-  let spacerVertical!: d3.ScaleBand<string> | d3.ScalePoint<string>;
+  let spacerHorizontal!: ScaleBand<string> | ScalePoint<string>;
+  let spacerVertical!: ScaleBand<string> | ScalePoint<string>;
   let spacerStepSizeHorizontal!: number;
   let spacerStepSizeVertical!: number;
 
@@ -119,7 +129,7 @@
 
   interface AxisConfig {
     column: string;
-    axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+    axis: AxisType<string> | AxisType<NumberValue>;
     x: number;
     y: number;
   }
@@ -133,7 +143,7 @@
           // colIndex is the index of this attribute in the columns array in the store
           // Index is just the index of this number in the drawingIndices array
           // Non-nullable because it is certain this will be instantiated
-          let newAxis!: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+          let newAxis!: AxisType<string> | AxisType<NumberValue>;
           // ColumnName is the attribute name of this axis
           let columnName = drawingOrder[index];
           // Scale is the scale of this attribute
@@ -142,19 +152,19 @@
           // Create proper axis
           if ('padding' in scale) {
             // If the scale is a scaleband
-            newAxis = d3.axisTop(scale as d3.ScaleBand<string>);
+            newAxis = axisTop(scale as ScaleBand<string>);
           } else if (spacingDirection === 'vertical') {
             /* If the scale is a scalelinear and vertical spacing
                Note that the range needs to be flipped,
                   this is because the range is flipped by default in the store */
             const oldRange = scale.range();
-            newAxis = d3.axisTop(
-              scale.range([oldRange[1], oldRange[0]]) as d3.ScaleLinear<number, number>
+            newAxis = axisTop(
+              scale.range([oldRange[1], oldRange[0]]) as ScaleLinear<number, number>
             );
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = d3.axisTop(
-              scale.range([spacerStepSizeHorizontal, 0]) as d3.ScaleLinear<number, number>
+            newAxis = axisTop(
+              scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear<number, number>
             );
           } else {
             throw DMVisError('Invalid spacing direction', 'DynamicAxis');
@@ -162,10 +172,10 @@
 
           // Set the ticks of the scaleLinear axis
           if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSizeOuter(0) as AxisType<NumberValue> | AxisType<string>;
             newAxis = newAxis.ticks(ticksNumber);
           } else {
-            newAxis = newAxis.tickSize(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSize(0) as AxisType<NumberValue> | AxisType<string>;
           }
 
           // Set the placement of the axis
@@ -196,7 +206,7 @@
           // colIndex is the index of this attribute in the columns array in the store
           // Index is just the index of this number in the drawingIndices array
           // Non-nullable because it is certain this will be instantiated
-          let newAxis!: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+          let newAxis!: AxisType<string> | AxisType<NumberValue>;
           // ColumnName is the attribute name of this axis
           let columnName = drawingOrder[index];
           // Scale is the scale of this attribute
@@ -205,19 +215,19 @@
           // Create proper axis
           if ('padding' in scale) {
             // If the scale is a scaleband
-            newAxis = d3.axisBottom(scale as d3.ScaleBand<string>);
+            newAxis = axisBottom(scale as ScaleBand<string>);
           } else if (spacingDirection === 'vertical') {
             /* If the scale is a scalelinear and vertical spacing
                Note that the range needs to be flipped,
                   this is because the range is flipped by default in the store */
             const oldRange = scale.range();
-            newAxis = d3.axisBottom(
-              scale.range([oldRange[1], oldRange[0]]) as d3.ScaleLinear<number, number>
+            newAxis = axisBottom(
+              scale.range([oldRange[1], oldRange[0]]) as ScaleLinear<number, number>
             );
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = d3.axisBottom(
-              scale.range([spacerStepSizeHorizontal, 0]) as d3.ScaleLinear<number, number>
+            newAxis = axisBottom(
+              scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear<number, number>
             );
           } else {
             throw DMVisError('Invalid spacing direction', 'DynamicAxis');
@@ -225,10 +235,10 @@
 
           // Set the ticks of the scaleLinear axis
           if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSizeOuter(0) as AxisType<NumberValue> | AxisType<string>;
             newAxis = newAxis.ticks(ticksNumber);
           } else {
-            newAxis = newAxis.tickSize(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSize(0) as AxisType<NumberValue> | AxisType<string>;
           }
 
           // Set the placement of the axis
@@ -260,7 +270,7 @@
           // colIndex is the index of this attribute in the columns array in the store
           // Index is just the index of this number in the drawingIndices array
           // Non-nullable because it is certain this will be instantiated
-          let newAxis!: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+          let newAxis!: AxisType<string> | AxisType<NumberValue>;
           // ColumnName is the attribute name of this axis
           let columnName = drawingOrder[index];
           // Scale is the scale of this attribute
@@ -269,25 +279,25 @@
           // Create proper axis
           if ('padding' in scale) {
             // If the scale is a scaleband
-            newAxis = d3.axisLeft(scale as d3.ScaleBand<string>);
+            newAxis = axisLeft(scale as ScaleBand<string>);
           } else if (spacingDirection === 'vertical') {
             // If the scale is a scalelinear and vertical spacing
-            newAxis = d3.axisLeft(
-              scale.range([0, spacerStepSizeVertical]) as d3.ScaleLinear<number, number>
+            newAxis = axisLeft(
+              scale.range([0, spacerStepSizeVertical]) as ScaleLinear<number, number>
             );
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+            newAxis = axisLeft(scale as ScaleLinear<number, number>);
           } else {
             throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Set the ticks of the scaleLinear axis
           if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSizeOuter(0) as AxisType<NumberValue> | AxisType<string>;
             newAxis = newAxis.ticks(ticksNumber);
           } else {
-            newAxis = newAxis.tickSize(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSize(0) as AxisType<NumberValue> | AxisType<string>;
           }
 
           // Set the placement of the axis
@@ -319,7 +329,7 @@
           // colIndex is the index of this attribute in the columns array in the store
           // Index is just the index of this number in the drawingIndices array
           // Non-nullable because it is certain this will be instantiated
-          let newAxis!: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+          let newAxis!: AxisType<string> | AxisType<NumberValue>;
           // ColumnName is the attribute name of this axis
           let columnName = drawingOrder[index];
           // Scale is the scale of this attribute
@@ -328,25 +338,25 @@
           // Create proper axis
           if ('padding' in scale) {
             // If the scale is a scaleband
-            newAxis = d3.axisRight(scale as d3.ScaleBand<string>);
+            newAxis = axisRight(scale as ScaleBand<string>);
           } else if (spacingDirection === 'vertical') {
             // If the scale is a scalelinear and vertical spacing
-            newAxis = d3.axisRight(
-              scale.range([0, spacerStepSizeVertical]) as d3.ScaleLinear<number, number>
+            newAxis = axisRight(
+              scale.range([0, spacerStepSizeVertical]) as ScaleLinear<number, number>
             );
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = d3.axisRight(scale as d3.ScaleLinear<number, number>);
+            newAxis = axisRight(scale as ScaleLinear<number, number>);
           } else {
             throw DMVisError('Invalid spacing direction', 'DynamicAxis');
           }
 
           // Set the ticks of the scaleLinear axis
           if (hasTicks) {
-            newAxis = newAxis.tickSizeOuter(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSizeOuter(0) as AxisType<NumberValue> | AxisType<string>;
             newAxis = newAxis.ticks(ticksNumber);
           } else {
-            newAxis = newAxis.tickSize(0) as d3.Axis<d3.NumberValue> | d3.Axis<string>;
+            newAxis = newAxis.tickSize(0) as AxisType<NumberValue> | AxisType<string>;
           }
 
           // Set the placement of the axis

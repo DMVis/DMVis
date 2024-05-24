@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { DataUtils } from '$lib/utils/DataUtils.js';
-import * as d3 from 'd3';
+import { scaleLinear } from 'd3';
 
 describe('dataUtils functionality test', () => {
   it('should parse CSV data', async () => {
@@ -78,7 +78,7 @@ describe('dataUtils functionality test', () => {
 
     // Test whether an error is thrown when giving too few scales
     // Create 2 scales
-    let scales = Array(2).fill(d3.scaleLinear().range([0, 100]).domain([0, 100]));
+    let scales = Array(2).fill(scaleLinear().range([0, 100]).domain([0, 100]));
     // Act
     await dataUtils.parseCSV(csvData);
 
@@ -89,7 +89,7 @@ describe('dataUtils functionality test', () => {
 
     // Test whether an error is thrown when giving too many scales
     // Create 4 scales
-    scales = Array(4).fill(d3.scaleLinear().range([0, 100]).domain([0, 100]));
+    scales = Array(4).fill(scaleLinear().range([0, 100]).domain([0, 100]));
     // Act
     await dataUtils.parseCSV(csvData);
 

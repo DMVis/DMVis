@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { type ScaleBand, type ScalePoint, select } from 'd3';
   import { createEventDispatcher, tick } from 'svelte';
 
   // DMVis imports
@@ -39,7 +39,7 @@
 
   // Create a spacer, which is a scaleBand or scalePoint, which will handle the positions for all the axis
   // Non-null assertion because we call the createSpacer function immediately which assigns spacer
-  let spacer!: d3.ScaleBand<string> | d3.ScalePoint<string>;
+  let spacer!: ScaleBand<string> | ScalePoint<string>;
   function createSpacer() {
     drawingOrder = axisOrder.length > 0 ? axisOrder : $columns;
     switch (alignment) {
@@ -86,7 +86,7 @@
         let xOffset = draggedAxis === axis ? draggingOffset : 0;
         // Scalebands return the start of the band instead of the middle, so add 0.5*bandwith to the y-position
         if (typeof value === 'string' && 'bandwidth' in $yScales[axisIndexInRow[index]]) {
-          const yScaleBand = $yScales[axisIndexInRow[index]] as d3.ScaleBand<string>;
+          const yScaleBand = $yScales[axisIndexInRow[index]] as ScaleBand<string>;
           yBandOffset = yScaleBand.bandwidth() * 0.5;
         }
         // Non-null operator because TypeScript thinks an error might be thrown
@@ -120,8 +120,8 @@
   async function redrawHoveredLine(id: number) {
     await tick();
     // Once the page has been updated, raise the line and points to be on top of all the other lines
-    d3.select(`#line-${id}`).raise();
-    d3.select(`#line-${id}-points`).raise();
+    select(`#line-${id}`).raise();
+    select(`#line-${id}-points`).raise();
   }
 
   const dispatch = createEventDispatcher();

@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { select, drag, scaleBand, type Selection, type ScaleBand } from 'd3';
   import { afterUpdate } from 'svelte';
 
   // DMVis component imports
@@ -42,7 +42,7 @@
   // Private variables
   const { visualisationData } = dataUtil;
   let tabularElement: SVGElement;
-  let tabularSelection: d3.Selection<SVGElement, unknown, null, undefined>;
+  let tabularSelection: Selection<SVGElement, unknown, null, undefined>;
 
   // Values related to columns, will be set in the updateColumns function
   let columns: Array<string[] | number[]>;
@@ -50,7 +50,7 @@
   let numericalColumns: number[][];
 
   // Scaleband used to equally space out the columns over the entire width
-  let columnScale: d3.ScaleBand<string>;
+  let columnScale: ScaleBand<string>;
 
   // Drag related variables, set by dragHandler
   let deltaY: number = 0;
@@ -86,8 +86,7 @@
   }
 
   // Allows for rows to be dragged
-  const dragHandler = d3
-    .drag<SVGElement, unknown>()
+  const dragHandler = drag<SVGElement, unknown>()
     .on('start', function (event) {
       // Set the element being dragged
       // Note that every different type of node requires a different item to be selected in order to get the class name
@@ -201,8 +200,8 @@
         // Get the label text of this row
         let textContent = formatClassName(row.innerHTML);
         // If this label is cut short with ellipses, then get the actual long text
-        if (d3.select(row).select('title').size() > 0) {
-          textContent = formatClassName(d3.select(row).selectChild().html());
+        if (select(row).select('title').size() > 0) {
+          textContent = formatClassName(select(row).selectChild().html());
         }
         // If this row is the same as the dragged item, return infinity if nothign has changed
         if (textContent === draggedItem) {
@@ -223,9 +222,9 @@
       // Select the label, depending on whether the nearest row holds spans or not
       let nearestLabel: string;
       // Check if the label has multiple rows
-      const amountOfSpansRow = d3.select(nearestRow).selectAll('tspan').size();
+      const amountOfSpansRow = select(nearestRow).selectAll('tspan').size();
       // Check if the label is cut short using ellipses
-      const hasEllipsis = d3.select(nearestRow).selectAll('title').size() > 0;
+      const hasEllipsis = select(nearestRow).selectAll('title').size() > 0;
       if (amountOfSpansRow > 0) {
         nearestLabel = '';
         let children = nearestRow.children;
@@ -240,7 +239,7 @@
           }
         }
       } else if (hasEllipsis) {
-        nearestLabel = d3.select(nearestRow).select('title').html();
+        nearestLabel = select(nearestRow).select('title').html();
       } else {
         nearestLabel = nearestRow.innerHTML;
       }
@@ -270,8 +269,7 @@
 
   // Function that creates the columns from the visualisation data
   function updateColumns() {
-    columnScale = d3
-      .scaleBand()
+    columnScale = scaleBand()
       .domain(dataUtil.columns)
       .range([0, width - marginRight - marginLeft]);
 
@@ -343,7 +341,7 @@
   // Run initial and update functions
   updateColumns();
   afterUpdate(() => {
-    tabularSelection = d3.select(tabularElement);
+    tabularSelection = select(tabularElement);
     dragHandler(tabularSelection.selectAll('.bar'));
     dragHandler(tabularSelection.select('.labelNames').selectAll('.label'));
     dragHandler(tabularSelection.selectAll('.bar-number'));

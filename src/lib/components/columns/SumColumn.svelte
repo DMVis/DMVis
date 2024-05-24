@@ -1,6 +1,6 @@
 <script lang="ts">
   // DMVis imports
-  import * as d3 from 'd3';
+  import { type ScaleLinear } from 'd3';
   import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
@@ -13,7 +13,7 @@
   export let width: number;
   export let height: number;
   export let data: Array<Array<number>>;
-  export let attributeScales: d3.ScaleLinear<number, number>[];
+  export let attributeScales: ScaleLinear<number, number>[];
 
   // Optional attributes
   export let name: string = 'Column';

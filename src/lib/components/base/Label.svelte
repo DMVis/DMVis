@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { select } from 'd3';
   import { onMount, createEventDispatcher } from 'svelte';
 
   // DMVis Imports
@@ -84,7 +84,7 @@
           .text(selectedWord);
       }
     }
-    let yCorrection = (d3.select(textBlock)?.node()?.getBBox()?.height || 0) / 4;
+    let yCorrection = (select(textBlock)?.node()?.getBBox()?.height || 0) / 4;
     tspan = textSelection
       // @ts-expect-error A text selection does have the .call() attribute
       .call(function (selection) {
@@ -94,7 +94,7 @@
 
   onMount(() => {
     // Set attributes for the text
-    d3.select(textBlock)
+    select(textBlock)
       .attr('fill', textColor)
       .attr('font-size', fontSize)
       .attr('font-weight', fontWeight)
@@ -102,23 +102,20 @@
 
     // Calculate the height of the text
     if (height === 'auto') {
-      const textHeight = d3.select(textBlock)?.node()?.getBBox()?.height || 0;
+      const textHeight = select(textBlock)?.node()?.getBBox()?.height || 0;
       rectHeight = textHeight + padding;
     } else {
       rectHeight = height;
     }
     // Calculate the width of the text
     if (width === 'auto') {
-      const textLen = d3.select(textBlock)?.node()?.getComputedTextLength() || 0;
+      const textLen = select(textBlock)?.node()?.getComputedTextLength() || 0;
       rectWidth = textLen + padding;
     } else {
       rectWidth = width;
-      if (showEllipsis && (d3.select(textBlock)?.node()?.getComputedTextLength() || 0) > 0) {
+      if (showEllipsis && (select(textBlock)?.node()?.getComputedTextLength() || 0) > 0) {
         // Calculate length of text, minus 5 pixels for the ellipsis
-        let textLength = Math.max(
-          (d3.select(textBlock)?.node()?.getComputedTextLength() || 0) - 5,
-          0
-        );
+        let textLength = Math.max((select(textBlock)?.node()?.getComputedTextLength() || 0) - 5, 0);
 
         // If the text is longer than the width, add ellipsis
         if (textLength > rectWidth) {
@@ -127,26 +124,26 @@
           // Shorten the text until it fits
           while (textLength > rectWidth) {
             newText = newText.slice(0, -1);
-            d3.select(textBlock).text(newText + '...');
-            textLength = d3.select(textBlock)?.node()?.getComputedTextLength() || 0;
+            select(textBlock).text(newText + '...');
+            textLength = select(textBlock)?.node()?.getComputedTextLength() || 0;
           }
 
           // Add a title to show the full text on hover
-          d3.select(textBlock).html(d3.select(textBlock).html() + `<title>${text}</title>`);
+          select(textBlock).html(select(textBlock).html() + `<title>${text}</title>`);
         }
       } else {
         // @ts-expect-error Assigning a D3 text selection, but selections only have an interface
-        d3.select(textBlock).call(wrapWords, rectWidth);
+        select(textBlock).call(wrapWords, rectWidth);
       }
     }
 
     // Update the text
-    d3.select(textBlock)
+    select(textBlock)
       .attr('x', x + getOrigin(rectWidth, OriginX.Middle, originX))
       .attr('y', y + getOrigin(rectHeight, OriginY.Middle, originY));
 
     // Update the rectangle
-    d3.select(rectBlock)
+    select(rectBlock)
       .attr('x', x + getOrigin(rectWidth, OriginX.Left, originX))
       .attr('y', y + getOrigin(rectHeight, OriginY.Top, originY))
       .attr('width', rectWidth)

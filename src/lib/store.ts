@@ -1,5 +1,5 @@
 // Imports
-import { extent, scaleBand, scaleLinear } from 'd3';
+import { extent, scaleBand, scaleLinear, type ScaleBand, type ScaleLinear } from 'd3';
 import { derived, writable, type Writable } from 'svelte/store';
 
 // DMVis Imports
@@ -61,7 +61,7 @@ export class VisualisationStore {
       return [];
     }
 
-    const scales: Array<d3.ScaleLinear<number, number> | d3.ScaleBand<string>> = [];
+    const scales: Array<ScaleLinear<number, number> | ScaleBand<string>> = [];
 
     for (let i = 0; i < columns.length; i++) {
       const columnData: Array<number | string> = [];

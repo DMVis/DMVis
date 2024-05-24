@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { sum, type ScaleLinear } from 'd3';
 
   // DMVis component imports
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
@@ -49,7 +49,7 @@
   // Logic about weights
   const startWeight = weightSumTotal / (dataUtil.data[0].length - 1);
   let columnWeights = Array(dataUtil.data[0].length - 1).fill(startWeight);
-  let columnScales: d3.ScaleLinear<number, number>[];
+  let columnScales: ScaleLinear<number, number>[];
 
   // Local variables to be set in the reactive block below
   let transposedData: (string | number)[][];
@@ -94,7 +94,7 @@
   });
 
   const { xScales } = getVisualisationContext();
-  columnScales = $xScales.slice(1) as d3.ScaleLinear<number, number>[];
+  columnScales = $xScales.slice(1) as ScaleLinear<number, number>[];
   // Sort the weight the moment the scales are loaded in
   dataUtil.sortByWeights(columnScales, false);
 
@@ -139,7 +139,7 @@
       updateWeights(changedColumnIndex, newWeight);
     } else {
       columnWeights[changedColumnIndex] = newWeight;
-      weightSumTotal = d3.sum(columnWeights);
+      weightSumTotal = sum(columnWeights);
     }
 
     // Update the the width and scales of the columns
@@ -224,7 +224,7 @@ The visualisation consists of two major components: namely, a visualisation clos
           {#each numericalColumns as column, i}
             {#if typeof column[0] === 'number'}
               <BarColumn
-                x={marginLeft + d3.sum(columnWidths.slice(0, i))}
+                x={marginLeft + sum(columnWidths.slice(0, i))}
                 width={columnWidths[i]}
                 {height}
                 data={column}

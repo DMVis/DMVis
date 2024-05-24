@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { max, sum, scaleLinear, type ScaleBand } from 'd3';
 
   // DMVis imports
   import StackedBar from '$lib/components/base/StackedBar.svelte';
@@ -49,13 +49,13 @@
   });
 
   const { yScales } = getVisualisationContext();
-  let yScale = $yScales[0] as d3.ScaleBand<string>;
+  let yScale = $yScales[0] as ScaleBand<string>;
 
   // Set reactive store values
   $: {
     height = calculateHeight($visualisationData.length);
     updateVisualisationContext({ data: $visualisationData, height });
-    yScale = $yScales[0] as d3.ScaleBand<string>;
+    yScale = $yScales[0] as ScaleBand<string>;
   }
 
   // Calculate height based on number of rows stackedbarchart
@@ -65,7 +65,7 @@
   }
 
   // Maximum value of all the sums, used for scaling all bars properly
-  const maxValue = d3.max($visualisationData.map((row) => d3.sum(row.slice(1) as number[])));
+  const maxValue = max($visualisationData.map((row) => sum(row.slice(1) as number[])));
 
   // Function that gets the y value for a given row
   function getY(rowName: string | number): number {
@@ -74,8 +74,7 @@
 
   // Create a scale to be used for all stacked bars
   const barXScales = Array(dataUtil.columns.length - 1).fill(
-    d3
-      .scaleLinear()
+    scaleLinear()
       .domain([0, Number(maxValue)])
       .range([0, width - marginLeft - marginRight])
   );

@@ -1,6 +1,14 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import {
+    scaleBand,
+    selectAll,
+    brush,
+    max as maxFunction,
+    min as minFunction,
+    type ScaleBand,
+    type ScaleLinear
+  } from 'd3';
   import { onMount, afterUpdate } from 'svelte';
 
   // DMVis imports
@@ -56,8 +64,8 @@
   let currentY: string = '';
 
   // Scales used to space the scatterplots, where you can put in an attribute name and get the starting position back
-  let xScale: d3.ScaleBand<string>;
-  let yScale: d3.ScaleBand<string>;
+  let xScale: ScaleBand<string>;
+  let yScale: ScaleBand<string>;
 
   // Order of the attributes from top-left to bottom-right
   let axisNames: string[] = [];
@@ -123,13 +131,11 @@
       axisNames = dataUtil.columns.slice(1);
     }
     // Create scalebands to get the positioning of all the scatterplots correct, and also include padding
-    yScale = d3
-      .scaleBand()
+    yScale = scaleBand()
       .domain(axisNames)
       .range([marginTop, height - marginBottom])
       .paddingInner(padding);
-    xScale = d3
-      .scaleBand()
+    xScale = scaleBand()
       .domain(axisNames)
       .range([marginLeft, width - marginRight])
       .paddingInner(padding);
@@ -153,8 +159,8 @@
     currentY = yAxis;
 
     // Add highlight to the labels
-    d3.selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', true);
-    d3.selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', true);
+    selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', true);
+    selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', true);
 
     showMouseLines = true;
   }
@@ -162,8 +168,8 @@
   // This function is called when the mouse leaves a scatterplot
   function onMouseOut(xAxis: string, yAxis: string) {
     // Remove the highlight from the labels
-    d3.selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', false);
-    d3.selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', false);
+    selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', false);
+    selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', false);
 
     // There no longer are attributes that need to be highlighted
     currentX = '';
@@ -187,9 +193,9 @@
     let yIndex = dataUtil.columns.indexOf(yAxis);
 
     // Get the corresponding scales and set the correct range
-    let xScaleLinear = $xScales[xIndex] as d3.ScaleLinear<number, number>;
+    let xScaleLinear = $xScales[xIndex] as ScaleLinear<number, number>;
     xScaleLinear.range([xScale.bandwidth(), 0]);
-    let yScaleLinear = $yScales[yIndex] as d3.ScaleLinear<number, number>;
+    let yScaleLinear = $yScales[yIndex] as ScaleLinear<number, number>;
     yScaleLinear.range([0, yScale.bandwidth()]);
 
     // Scaled mouse coordinates are the scaled coordinates of a scatterplot
@@ -267,21 +273,21 @@
          Note that we want the highest minimum and the lowest maximum
          Which is why we use d3.max for min and vice versa */
       let minRow =
-        d3.max(rowValues, (selection) => {
+        maxFunction(rowValues, (selection) => {
           return Math.floor((selection as number[][])[0][0]);
         }) ?? -1;
       let maxRow =
-        d3.min(rowValues, (selection) => {
+        minFunction(rowValues, (selection) => {
           return Math.ceil((selection as number[][])[1][0]);
         }) ?? -1;
 
       // Do the same for the column
       let minCol =
-        d3.max(columnValues, (selection) => {
+        maxFunction(columnValues, (selection) => {
           return Math.floor((selection as number[][])[0][1]);
         }) ?? -1;
       let maxCol =
-        d3.min(columnValues, (selection) => {
+        minFunction(columnValues, (selection) => {
           return Math.ceil((selection as number[][])[1][1]);
         }) ?? -1;
 
@@ -317,8 +323,8 @@
 
       /* Get the relevant scales
          The +1 is because the columnnames also has a scale, which we are not interested in */
-      let xScaleLinear = $xScales[getDataUtilIndex(xIndex) + 1] as d3.ScaleLinear<number, number>;
-      let yScaleLinear = $yScales[getDataUtilIndex(yIndex) + 1] as d3.ScaleLinear<number, number>;
+      let xScaleLinear = $xScales[getDataUtilIndex(xIndex) + 1] as ScaleLinear<number, number>;
+      let yScaleLinear = $yScales[getDataUtilIndex(yIndex) + 1] as ScaleLinear<number, number>;
 
       let scaledSelection = [
         [xScaleLinear.invert(selection[0][0]), yScaleLinear.invert(selection[1][1])],
@@ -330,7 +336,7 @@
     /* Toggles the focus of all the points with a given classname
        If the bool is true the point will be grey, if false it will not be grey */
     function changeFocus(pointName: string, needsToBeGrey: boolean) {
-      d3.selectAll(`.point-${formatClassName(pointName)}`).classed('greyed', needsToBeGrey);
+      selectAll(`.point-${formatClassName(pointName)}`).classed('greyed', needsToBeGrey);
     }
 
     function* setMinus(A: string[], B: string[]) {
@@ -348,7 +354,7 @@
   /* Custom function that mimics the invert function on other scales.
      But scaleband does not support this function, so need to create it yourself
      Returns the index rather than the name */
-  function calculateAttributeIndex(scale: d3.ScaleBand<string>, coordinate: number) {
+  function calculateAttributeIndex(scale: ScaleBand<string>, coordinate: number) {
     const index = Math.floor(coordinate / scale.step());
     return index;
   }
@@ -359,7 +365,7 @@
     if (clickedPoint !== '') return;
     // Remove the highlight from all points
     let name = e.detail.name;
-    d3.selectAll(`.point-${formatClassName(name)}`).classed('highlighted', false);
+    selectAll(`.point-${formatClassName(name)}`).classed('highlighted', false);
     // Tooltip label is no longer visible
     tooltipData.visible = false;
   }
@@ -370,7 +376,7 @@
 
     // Select all the points with the same class name
     let name = e.detail.name;
-    d3.selectAll(`.point-${formatClassName(name)}`).classed('highlighted', true);
+    selectAll(`.point-${formatClassName(name)}`).classed('highlighted', true);
     // Get the coordinates of this point
     // Used for the tooltip label
     let xCoordPoint = e.detail.x + (xScale(currentX) ?? 0);
@@ -404,9 +410,8 @@
 
   afterUpdate(() => {
     // After each update, reapply the brush
-    d3.selectAll<SVGGElement, unknown>('.brush').call(
-      d3
-        .brush()
+    selectAll<SVGGElement, unknown>('.brush').call(
+      brush()
         .extent([
           [0, 0],
           [xScale.bandwidth(), yScale.bandwidth()]
@@ -421,9 +426,8 @@
        Add a d3 brush to them and set the brush size to a size that corresponds with the scatterplot size
        Finally, add eventhandlers to brushing
     */
-    d3.selectAll<SVGGElement, unknown>('.brush').call(
-      d3
-        .brush()
+    selectAll<SVGGElement, unknown>('.brush').call(
+      brush()
         .extent([
           [0, 0],
           [xScale.bandwidth(), yScale.bandwidth()]
@@ -464,7 +468,7 @@
 
   // Raise the label when we start dragging
   function onDragStart(e: CustomEvent) {
-    d3.selectAll(`.${formatClassName(e.detail.elementName)}`).raise();
+    selectAll(`.${formatClassName(e.detail.elementName)}`).raise();
   }
 
   // After dragging, find which label the dragged label should be swapped with and swap them

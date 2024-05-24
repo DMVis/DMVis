@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { select } from 'd3';
   import { onMount } from 'svelte';
 
   // DMVis imports
@@ -291,7 +291,7 @@
   // Raise the column when dragging so its displayed over the other ones
   function onDraggingStart(event: CustomEvent) {
     dragMove = event.detail.elementName as string;
-    d3.select(`.lineUp > #${formatClassName(dragMove)}-column`).raise();
+    select(`.lineUp > #${formatClassName(dragMove)}-column`).raise();
   }
 
   // Set the new position of the column when dragging

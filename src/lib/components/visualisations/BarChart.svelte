@@ -1,6 +1,14 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import {
+    type ScaleBand,
+    type ScaleLinear,
+    scaleBand,
+    scaleLinear,
+    max,
+    axisLeft,
+    axisBottom
+  } from 'd3';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -14,7 +22,7 @@
 
   // Optional attributes
   export let minValue: number = 0;
-  export let maxValue: number = d3.max(data.map((data) => data.value)) ?? 0;
+  export let maxValue: number = max(data.map((data) => data.value)) ?? 0;
   export let isVertical: boolean = false;
   export let ticks: number = 10;
   export let showLeftAxis: boolean = true;
@@ -31,29 +39,25 @@
 
   // Private attributes
   const values = data.map((data) => data.label);
-  let positionScale: d3.ScaleBand<string>;
-  let barScale: d3.ScaleLinear<number, number>;
+  let positionScale: ScaleBand<string>;
+  let barScale: ScaleLinear<number, number>;
 
   // Horizontal BarChart
   if (!isVertical) {
-    positionScale = d3
-      .scaleBand()
+    positionScale = scaleBand()
       .domain(values)
       .range([height - marginBottom, marginTop])
       .padding(padding);
-    barScale = d3
-      .scaleLinear()
+    barScale = scaleLinear()
       .domain([minValue, maxValue])
       .range([0, width - marginLeft - marginRight]);
     // Vertical BarChart
   } else {
-    positionScale = d3
-      .scaleBand()
+    positionScale = scaleBand()
       .domain(values)
       .range([marginLeft, width - marginRight])
       .padding(padding);
-    barScale = d3
-      .scaleLinear()
+    barScale = scaleLinear()
       .domain([minValue, maxValue])
       .range([height - marginTop - marginBottom, 0]);
   }
@@ -134,27 +138,24 @@ the other axis goes in the direction of the length of the bars and has numerical
       <Axis
         placementX={marginLeft}
         placementY={height - marginBottom}
-        axis={d3.axisBottom(barScale).ticks(ticks)} />
+        axis={axisBottom(barScale).ticks(ticks)} />
     {/if}
 
     {#if showLeftAxis}
       <!-- Vertical Axis -->
-      <Axis placementX={marginLeft} placementY={0} axis={d3.axisLeft(positionScale)} />
+      <Axis placementX={marginLeft} placementY={0} axis={axisLeft(positionScale)} />
     {/if}
 
     <!-- Axis orientation for vertical BarChart -->
   {:else}
     <!-- Horizontal Axis -->
     {#if showBottomAxis}
-      <Axis placementX={0} placementY={height - marginBottom} axis={d3.axisBottom(positionScale)} />
+      <Axis placementX={0} placementY={height - marginBottom} axis={axisBottom(positionScale)} />
     {/if}
 
     <!-- Vertical Axis -->
     {#if showLeftAxis}
-      <Axis
-        placementX={marginLeft}
-        placementY={marginTop}
-        axis={d3.axisLeft(barScale).ticks(ticks)} />
+      <Axis placementX={marginLeft} placementY={marginTop} axis={axisLeft(barScale).ticks(ticks)} />
     {/if}
   {/if}
 </svg>

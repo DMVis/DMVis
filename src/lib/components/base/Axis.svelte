@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { select, type Axis, type NumberValue } from 'd3';
   import { createEventDispatcher, onMount } from 'svelte';
 
   // DMVis imports
@@ -12,7 +12,7 @@
   // Required Attributes
   export let placementX: number;
   export let placementY: number;
-  export let axis: d3.Axis<string> | d3.Axis<d3.NumberValue>;
+  export let axis: Axis<string> | Axis<NumberValue>;
 
   // Optional attributes
   export let renderLabel: boolean = false;
@@ -40,12 +40,12 @@
   onMount(() => {
     if (element !== undefined) {
       // Render the axis
-      d3.select(element).call(axis).style('font-size', `${fontSize}px`).style('color', color);
+      select(element).call(axis).style('font-size', `${fontSize}px`).style('color', color);
     }
     // Render the label
     if (renderLabel) {
       // Retrieve axis bounding box
-      let axisRef = d3.select(element);
+      let axisRef = select(element);
       let lineNode = axisRef.select('.domain').node()! as SVGGElement;
       let axisWidth = lineNode.getBBox().width;
       let axisHeight = lineNode.getBBox().height;

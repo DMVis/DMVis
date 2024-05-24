@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
+  import { type ScaleLinear, scaleLinear, max as maxFunction, axisTop } from 'd3';
   import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
 
@@ -27,9 +27,8 @@
   export let icons: IconType[] = [IconType.Sort, IconType.Filter, IconType.More];
   export let weight: string = '10';
   export let overviewItem: 'histogram' | 'axis' | 'none' = 'none';
-  export let scale: d3.ScaleLinear<number, number> = d3
-    .scaleLinear()
-    .domain([0, d3.max(data) ?? 0])
+  export let scale: ScaleLinear<number, number> = scaleLinear()
+    .domain([0, maxFunction(data) ?? 0])
     .range([0, width - padding]);
 
   export let names: string[] = [];
@@ -216,7 +215,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   </g>
   <g slot="overview">
     {#if overviewItem === 'axis'}
-      <Axis placementX={x + padding / 2} placementY={100} axis={d3.axisTop(scale).ticks(5)} />
+      <Axis placementX={x + padding / 2} placementY={100} axis={axisTop(scale).ticks(5)} />
     {:else if overviewItem === 'histogram'}
       <foreignObject {x} y={45} {width} height={75}>
         <Histogram
