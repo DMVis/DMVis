@@ -459,6 +459,7 @@
     draggedAttribute = null;
     draggingLabelOffsetX = 0;
     draggingLabelOffsetY = 0;
+    currentGreyPoints = [];
   }
 
   // Raise the label when we start dragging
