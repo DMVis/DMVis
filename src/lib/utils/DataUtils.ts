@@ -77,10 +77,15 @@ export class DataUtils {
         Array<string | number>
       >;
 
+      // Remove empty, null or undefined values
+      const sanitisedData = csv_data.map((row) =>
+        row.map((cell) => (cell === undefined || cell === null ? (cell = 0) : cell))
+      );
+
       // Store the parsed data
-      this.rawData = csv_data;
-      this.data = csv_data.slice(1);
-      this.columns = csv_data[0].map((d: string | number) => String(d));
+      this.rawData = sanitisedData;
+      this.data = sanitisedData.slice(1);
+      this.columns = sanitisedData[0].map((d: string | number) => String(d));
 
       // Add an ID to each row
       if (this.includeId) {
