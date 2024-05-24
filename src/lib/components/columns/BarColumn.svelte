@@ -154,7 +154,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
   {padding}
   {name}
   {icons}
-  showSeparator={false}
+  showSeparator={overviewItem === 'none'}
   on:dragStart
   on:dragMove
   on:dragStop

@@ -212,7 +212,13 @@ The visualisation consists of two major components: namely, a visualisation clos
         on:scroll={onScroll}>
         <svg {width} height={calculateHeight($visualisationData.length)}>
           <!-- Create a colum for the labels -->
-          <TextColumn x={0} width={marginLeft} {height} data={labelColumn} name={'Labels'} />
+          <TextColumn
+            x={0}
+            width={marginLeft}
+            {height}
+            data={labelColumn}
+            name={'Labels'}
+            icons={[]} />
           <!-- Loop over all the columns and create a bar column for every column -->
           {#each numericalColumns as column, i}
             {#if typeof column[0] === 'number'}
@@ -226,6 +232,7 @@ The visualisation consists of two major components: namely, a visualisation clos
                 icons={[IconType.Weight, IconType.More]}
                 weight={columnWeights[i]}
                 scale={columnScales[i]}
+                barLabelVisibility={'alwaysVisible'}
                 on:weightChanged={onWeightChanged} />
             {/if}
           {/each}
@@ -255,7 +262,8 @@ The visualisation consists of two major components: namely, a visualisation clos
             width={marginLeft}
             {height}
             data={transposedData[0].map(String)}
-            name={'Labels'} />
+            name={'Labels'}
+            icons={[]} />
           <!-- Draw a very wide columns for a stacked bar for each row -->
           <SumColumn
             x={marginLeft}
