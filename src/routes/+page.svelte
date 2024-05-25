@@ -1,7 +1,6 @@
 <script lang="ts">
   import { DataUtils } from '$lib/utils/DataUtils.js';
 
-  import Filter from '$lib/components/base/Filter.svelte';
   import LineUp from '$lib/components/visualisations/LineUp.svelte';
   import ValueChart from '$lib/components/visualisations/ValueChart.svelte';
   import StackedBarChart from '$lib/components/visualisations/StackedBarChart.svelte';
@@ -21,7 +20,6 @@
 </script>
 
 {#await load then}
-  <Filter {dataUtil} />
   <ValueChart width={1500} height={900} {dataUtil} />
   <LineUp width={1920} height={1080} dataUtil={dataUtilWithId} />
   <TabularVisualisation {dataUtil} width={1500} />

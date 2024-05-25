@@ -25,6 +25,13 @@ Width of the visualisation that is shown. For this to be used, `isScrollable` mu
 
 Height of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
 
+## enableFilter
+
+- Type: `DataUtils`
+- Default: `null`
+
+Provide a DataUtils object when you want to show and use the `Filter` component within the visualisation. -
+
 # Example usage
 
 When creating your own visualisation, the first component that you should use is the `BaseVisualisation`:

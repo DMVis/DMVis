@@ -1,9 +1,12 @@
 <script lang="ts">
+  import Filter from '$lib/components/base/Filter.svelte';
   import Scrollable from './Scrollable.svelte';
+  import type { DataUtils } from '$lib/utils/DataUtils.js';
 
   export let isScrollable: boolean = false;
   export let scrollableWidth: number = 1000;
   export let scrollableHeight: number = 1000;
+  export let enableFilter: DataUtils | null = null;
 
   let isError = false;
   let errorMessage = '';
@@ -34,6 +37,8 @@ are set and error handling is kept within the scope of the visualisation.
                                             `isScrollable` must be set to `true`. Defaulted to `1000`.
 * scrollableHeight: number                - Height of the visualisation that is shown. For this to be used,
                                             `isScrollable` must be set to `true`. Defaulted to `1000`.
+* enableFilter: DataUtils                 - Provide a DataUtils object when you want to show and use the
+                                            `Filter` component within the visualisation.
 
 #### Slots
 * Visualisation         - Slot for the visualisation.
@@ -63,6 +68,9 @@ are set and error handling is kept within the scope of the visualisation.
   </div>
 {:else}
   <div class="visualisation">
+    {#if enableFilter}
+      <Filter dataUtil={enableFilter} />
+    {/if}
     <slot>
       <em>Please provide a visualisation component.</em>
     </slot>
@@ -73,6 +81,11 @@ are set and error handling is kept within the scope of the visualisation.
   .visualisation {
     overflow-y: auto;
     overflow-x: auto;
+    display: 'flex';
+    flex-wrap: nowrap;
+    width: '100%';
+    height: '100%';
+    position: relative;
   }
 
   .error {

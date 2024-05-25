@@ -180,11 +180,11 @@ Filter is a component that allows users to filter data based on the column value
 
 <style>
   .filter-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     width: 200px;
-    height: 100vh;
+    height: 100%;
     padding: 20px;
     background-color: #f9f9f9;
     z-index: 1000;
