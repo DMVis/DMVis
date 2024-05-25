@@ -36,6 +36,24 @@ Width of the border around the point.
 
 > Note: the border can be removed entirely by setting the value to 0.
 
+## borderColor
+
+- Type: `string`
+- Default: `black`
+
+Color of the border around the point.
+
+> Note: If `StyleUtil` is used, this value will be ignored
+
+## color
+
+- Type: `string`
+- Default: `red`
+
+Color of the point.
+
+> Note: If `StyleUtil` is used, this value will be ignored
+
 ## opacity
 
 - Type: `number`

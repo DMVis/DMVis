@@ -3,8 +3,10 @@
   import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { getVisualisationContext } from '$lib/Context.js';
+  import type { Writable } from 'svelte/store';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
+  import type { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import { getVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let x: number;
@@ -12,12 +14,20 @@
 
   // Optional attributes
   export let radius: number = 5;
+  export let color: string = 'red';
   export let borderWidth: number = 1;
+  export let borderColor: string = 'black';
   export let opacity: number = 1;
   export let name: string | undefined = undefined;
 
   // Get styles from the store
-  const { styleUtil } = getVisualisationContext();
+  let styleUtil: Writable<StyleUtils> | undefined;
+  try {
+    const { styleUtil: styleUtilStore } = getVisualisationContext();
+    styleUtil = styleUtilStore;
+  } catch (error) {
+    styleUtil = undefined;
+  }
 
   const dispatch = createEventDispatcher();
 
@@ -51,6 +61,10 @@ It is used in combination with other components to create a chart.
 #### Optional attributes
 * radius: number        - Radius of the point. This defaults to `5`.
 * borderWidth: number   - Width of the border. This defaults to `1`.
+* borderColor: string   - Color of the border. This defaults to `styleUtil.colorBorder`, if you do not use the StyleUtil,
+                          this will use `borderColor` and default to `black`.
+* color: string         - Color of the point. This defaults to `styleUtil.color`, if you do not use the StyleUtil,
+                          this will use `color` and default to `red`.
 * opacity: number       - Opacity of the point, where `0` is completely transparent and `1` is completely opaque.
                           Defaults to `1`.
 * name: string          - The class name of the point. It can be used as an identifier. This defaults to only `point`.
@@ -64,8 +78,8 @@ It is used in combination with other components to create a chart.
   cx={x}
   cy={y}
   r={radius}
-  stroke={$styleUtil.colorBorder}
-  fill={$styleUtil.color}
+  stroke={$styleUtil ? $styleUtil.colorBorder : borderColor}
+  fill={$styleUtil ? $styleUtil.color : color}
   stroke-width={borderWidth}
   {opacity}
   class={`point` + `${name === undefined ? '' : ' point-' + formatClassName(name)}`}

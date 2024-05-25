@@ -40,7 +40,7 @@
   export let labelOffset: number = 20;
   export let hasTicks: boolean = true;
   export let alignment: 'start' | 'end' | 'spaced' = 'start';
-  export let fontSize: number = $styleUtil.fontSize;
+  export let fontSize: number = $styleUtil ? $styleUtil.fontSize : 12;
   export let color: string = 'black';
   export let offset: number = 0;
   export let ticksNumber: number = 10;
