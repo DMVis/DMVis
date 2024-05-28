@@ -77,15 +77,10 @@ export class DataUtils {
         Array<string | number>
       >;
 
-      // Remove empty, null or undefined values
-      const sanitisedData = csv_data.map((row) =>
-        row.map((cell) => (cell === undefined || cell === null ? (cell = 0) : cell))
-      );
-
       // Store the parsed data
-      this.rawData = sanitisedData;
-      this.data = sanitisedData.slice(1);
-      this.columns = sanitisedData[0].map((d: string | number) => String(d));
+      this.rawData = csv_data;
+      this.data = csv_data.slice(1);
+      this.columns = csv_data[0].map((d: string | number) => String(d));
 
       // Add an ID to each row
       if (this.includeId) {
@@ -95,6 +90,20 @@ export class DataUtils {
 
       // Infer column types
       this.columnInfo = this.#inferColumnTypes();
+
+      // Sanitise data
+      if (this.data.length > 0) {
+        this.data = this.data.map((row) =>
+          row.map((cell, index) => {
+            if (this.columnInfo[this.columns[index]] === 'number') {
+              if (typeof cell !== 'number') cell = 0;
+            } else {
+              if (typeof cell !== 'string') cell = '';
+            }
+            return cell;
+          })
+        );
+      }
 
       // Set the visualisation data using a new array to prevent reactivity issues
       this.visualisationData.set([...this.data]);
@@ -167,6 +176,18 @@ export class DataUtils {
 
       // Infer column types
       this.columnInfo = this.#inferColumnTypes();
+
+      // Sanitise data
+      this.data = this.data.map((row) =>
+        row.map((cell, index) => {
+          if (this.columnInfo[this.columns[index]] === 'number') {
+            if (typeof cell !== 'number') cell = 0;
+          } else {
+            if (typeof cell !== 'string') cell = '';
+          }
+          return cell;
+        })
+      );
 
       // Set the visualisation data
       this.visualisationData.set(this.data);
@@ -473,7 +494,27 @@ export class DataUtils {
       const values = this.data.map((row) => row[column]);
       const types = values.map((value) => typeof value);
       const uniqueTypes = [...new Set(types)];
-      columnTypes[this.columns[column]] = uniqueTypes.length === 1 ? uniqueTypes[0] : 'string';
+
+      if (uniqueTypes.length === 0) {
+        columnTypes[this.columns[column]] = 'string';
+      } else if (uniqueTypes.length === 1) {
+        columnTypes[this.columns[column]] = uniqueTypes[0];
+      } else {
+        /* eslint-disable  @typescript-eslint/no-explicit-any */
+        const counter: any = {};
+
+        types.forEach((ele) => {
+          if (counter[ele]) {
+            counter[ele] += 1;
+          } else {
+            counter[ele] = 1;
+          }
+        });
+
+        columnTypes[this.columns[column]] = Object.keys(counter).reduce((a, b) =>
+          counter[a] > counter[b] ? a : b
+        );
+      }
     }
     return columnTypes;
   }
