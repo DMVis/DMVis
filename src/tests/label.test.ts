@@ -92,8 +92,7 @@ describe('Attribute test', () => {
       backgroundColor: 'orange',
       textOpacity: 0.5,
       rotationDegrees: 15,
-      radiusX: 10,
-      radiusY: 20,
+      borderRadius: 10,
       padding: 40,
       textColor: 'red',
       fontSize: '20px',
@@ -126,8 +125,8 @@ describe('Attribute test', () => {
     expect(group.getAttribute('style')).toBe('pointer-events: all;');
 
     // Check if the rectangle is correctly filled
-    expect(rect.getAttribute('rx')).toBe(`${config.radiusX}`);
-    expect(rect.getAttribute('ry')).toBe(`${config.radiusY}`);
+    expect(rect.getAttribute('rx')).toBe(`${config.borderRadius}`);
+    expect(rect.getAttribute('ry')).toBe(`${config.borderRadius}`);
     expect(rect.getAttribute('width')).toBe(`${config.width}`);
     expect(rect.getAttribute('height')).toBe(`${config.height}`);
     expect(rect.getAttribute('fill')).toBe(`${config.backgroundColor}`);

@@ -38,8 +38,7 @@
 
   export let color: string = 'blue';
   export let opacity: number | string = 1;
-  export let radiusX: number | string = 0;
-  export let radiusY: number | string = 0;
+  export let borderRadius: number = 0;
 
   // Private attributes
   let categoricalBuckets: { key: string; values: string[] }[] = [];
@@ -150,10 +149,7 @@ This visualisation shows frequencies of data. It can group data categorically or
 * color: string                    - The color of each bar. Defaults to `blue`.
 * opacity: number | string         - The opacity of each bar as a number in the range [0..1] or
                                      a percentage string formatted as '{number}%'. Defaults to `1`.
-* radiusX: number | string         - The horizontal corner radius of each bar as a number in the range [0..1] or
-                                     a percentage string formatted as '{number}%'. Defaults to `0`.
-* radiusY: number | string         - The vertical corner radius of each bar as a number in the range [0..1] or
-                                     a percentage string formatted as '{number}%'. Defaults to `0`.
+* borderRadius: number             - Border radius of each bar in pixels. This defaults to `0`.
 -->
 
 <BaseVisualisation>
@@ -171,8 +167,7 @@ This visualisation shows frequencies of data. It can group data categorically or
           originY={OriginY.Bottom}
           {color}
           {opacity}
-          {radiusX}
-          {radiusY} />
+          {borderRadius} />
       {/each}
       <!-- Draw numercial bars -->
     {:else}
@@ -189,8 +184,7 @@ This visualisation shows frequencies of data. It can group data categorically or
           originY={OriginY.Bottom}
           {color}
           {opacity}
-          {radiusX}
-          {radiusY} />
+          {borderRadius} />
       {/each}
     {/if}
     <!-- Draw categorical Axis because categoricalBuckets is not empty -->

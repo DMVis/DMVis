@@ -121,21 +121,12 @@ The colour of each bar.
 The opacity of each bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
-## radiusX
+## borderRadius
 
-- Type: `number | string`
+- Type: `number`
 - Default: `0`
 
-The horizontal corner radius of each bar as a number in the range [0..1] or
-a percentage string formatted as '{number}%'.
-
-## radiusY
-
-- Type: `number | string`
-- Default: `0`
-
-The vertical corner radius of each bar as a number in the range [0..1] or
-a percentage string formatted as '{number}%'.
+Border radius of each bar in pixels.
 
 # Example usage
 

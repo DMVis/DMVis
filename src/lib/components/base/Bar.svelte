@@ -22,8 +22,7 @@
   export let originX: OriginX = OriginX.Middle;
   export let originY: OriginY = OriginY.Bottom;
   export let rotationDegrees: number = 0;
-  export let radiusX: number | string = 0;
-  export let radiusY: number | string = 0;
+  export let borderRadius: number = 0;
   export let showsNegativeHeight: boolean = false;
   export let hoverText: string = height.toString();
   export let name: string | undefined = undefined;
@@ -146,12 +145,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
                                   Which value is useful depends on one's positioning logic.
                                   Defaults to `OriginY.Bottom`.
 * rotationDegrees: number       - Rotation of the bar in degrees. This defaults to `0`.
-* radiusX: number | string      - Horizontal corner radius of the bar as a number
-                                  or a percentage string formatted as '{number}%'.
-                                  Defaults to `0`.
-* radiusY: number | string      - Vertical corner radius of the bar as a number
-                                  or a percentage string formatted as '{number}%'.
-                                  Defaults to `0`.
+* borderRadius: number          - Border radius of the bar in pixels. This defaults to `0`.
 * showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative.
                                   Defaults to `false`.
 * hoverText: string             - Text to display in the label when the mouse hovers over the bar.
@@ -160,7 +154,6 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
                                   If set, the class names will be `bar` and `bar-name`.
 * labelType: 'none' | 'alwaysVisible' | 'visibleOnHighlight' - Determines the behaviour of the labels on the bars.
                                         Refer to the documentation for more information. This defaults to `'none'`
-
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -173,8 +166,8 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   transform="rotate({rotationDegrees}, {x}, {y})"
   x={xBar}
   y={yBar}
-  rx={radiusX}
-  ry={radiusY}
+  rx={borderRadius}
+  ry={borderRadius}
   {width}
   height={showsNegativeHeight && height < 0 ? -height : height}
   fill={color}

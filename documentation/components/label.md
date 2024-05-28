@@ -75,21 +75,12 @@ Which value is useful depends on your positioning logic.
 
 Rotation of the label in degrees.
 
-## radiusX
+## borderRadius
 
-- Type: `number | string`
+- Type: `number`
 - Default: `0`
 
-Horizontal corner radius of the label as a number in the range `[0..1]` or
-a percentage string formatted as `'{number}%'`.
-
-## radiusY
-
-- Type: `number | string`
-- Default: `0`
-
-Vertical corner radius of the label as a number in range `[0..1]` or
-a percentage string formatted as `'{number}%'`.
+Border radius of the background in pixels. This defaults to `0`.
 
 ## padding
 
@@ -194,7 +185,7 @@ Label with only required properties set.
 
 ```svelte
 <svg style="border: 1px solid black" width="500" height="500">
-  <Label x={100} y={100} text="Hello, world!" />
+  <Label x={250} y={250} text="Hello, world!" />
 </svg>
 ```
 
@@ -211,8 +202,7 @@ Label with all properties set.
     originX={OriginX.Middle}
     originY={OriginY.Middle}
     rotationDegrees={0}
-    radiusX={5}
-    radiusY={5}
+    borderRadius={5}
     padding={20}
     textColor="black"
     fontSize="12px"

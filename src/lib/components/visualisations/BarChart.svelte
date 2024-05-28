@@ -34,8 +34,7 @@
   export let padding: number = 0.2;
   export let color: string = 'blue';
   export let opacity: number | string = 1;
-  export let radiusX: number | string = 5;
-  export let radiusY: number | string = 5;
+  export let borderRadius: number = 5;
 
   // Private attributes
   const values = data.map((data) => data.label);
@@ -89,13 +88,10 @@ the other axis goes in the direction of the length of the bars and has numerical
 * marginTop: number                - Margin to the top of the visualisation.
 * marginBottom: number             - Margin to the bottom of the visualisation.
 * padding: number                  - Value for the distance between each bar in the range [0..1].
-* color: string = 'blue'           - Color of each bar.
+* color: string = 'blue'           - Colour of each bar.
 * opacity: number | string         - Opacity of each bar as a number in the range [0..1] or
                                      a percentage string formatted as '{number}%'.
-* radiusX: number | string         - Horizontal corner radius of each bar as a number in the range [0..1] or
-                                     a percentage string formatted as '{number}%'.
-* radiusY: number | string         - Vertical corner radius of each bar as a number in the range [0..1] or
-                                     a percentage string formatted as '{number}%'.
+* borderRadius: number             - Border radius of each bar in pixels. This defaults to `0`.
 -->
 <svg class="visualisation barchart" {width} {height}>
   {#key data}
@@ -112,8 +108,7 @@ the other axis goes in the direction of the length of the bars and has numerical
           originY={OriginY.Top}
           {color}
           {opacity}
-          {radiusX}
-          {radiusY} />
+          {borderRadius} />
       {:else}
         <Bar
           x={positionScale(bar.label) ?? 0}
@@ -125,8 +120,7 @@ the other axis goes in the direction of the length of the bars and has numerical
           originY={OriginY.Bottom}
           {color}
           {opacity}
-          {radiusX}
-          {radiusY} />
+          {borderRadius} />
       {/if}
     {/each}
   {/key}

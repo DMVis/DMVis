@@ -292,8 +292,7 @@ describe('Attribute test', () => {
       color: 'blue',
       opacity: 1,
       rotationDegrees: 45,
-      radiusX: 5,
-      radiusY: 5,
+      borderRadius: 5,
       showsNegativeHeight: false,
       name: 'test'
     };
@@ -311,8 +310,8 @@ describe('Attribute test', () => {
     expect(bar.getAttribute('transform')).toBe(
       `rotate(${config.rotationDegrees}, ${config.x}, ${config.y})`
     );
-    expect(bar.getAttribute('rx')).toBe(`${config.radiusX}`);
-    expect(bar.getAttribute('ry')).toBe(`${config.radiusY}`);
+    expect(bar.getAttribute('rx')).toBe(`${config.borderRadius}`);
+    expect(bar.getAttribute('ry')).toBe(`${config.borderRadius}`);
     expect(bar.getAttribute('fill')).toBe(`${config.color}`);
     expect(bar.getAttribute('fill-opacity')).toBe(`${config.opacity}`);
   });

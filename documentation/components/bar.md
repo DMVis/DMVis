@@ -84,21 +84,12 @@ Which value is useful depends on your positioning logic.
 
 Rotation of the bar in degrees.
 
-## radiusX
+## borderRadius
 
-- Type: `string`
+- Type: `number`
 - Default: `0`
 
-Horizontal corner radius of the bar as a number
-or a percentage string formatted as `'{number}%'`.
-
-## radiusY
-
-- Type: `number | string`
-- Default: `0`
-
-Vertical corner radius of the bar as a number
-or a percentage string formatted as `'{number}%'`.
+Border radius of the bar in pixels.
 
 ## showsNegativeHeight
 
@@ -149,18 +140,16 @@ To read more about these events, see the [Events](../utils/events.md) documentat
 # Example usage
 
 ```svelte
-<svg {width} {height}>
-  <Bar
-    x={100}
-    y={100}
-    width={25}
-    height={64}
-    isVertical={true}
-    originX={OriginX.Middle}
-    originY={OriginY.Bottom}
-    opacity={0.5}
-    radiusX={5}
-    radiusY={5}
-    on:mouseBarEnter={onMouseBarEnter} />
+<svg style="border: 1px solid black" width="500" height="500">
+  <Bar x={250} y={250} width={25} height={100} />
+</svg>
+```
+
+Vertical, slightly transparent, blue bar with perfectly rounded corners.
+Note that `borderRadius` is `0.5 * width` here.
+
+```svelte
+<svg style="border: 1px solid black" width="500" height="500">
+  <Bar x={250} y={250} width={25} height={100} color={'blue'} opacity={0.8} borderRadius={12.5} />
 </svg>
 ```

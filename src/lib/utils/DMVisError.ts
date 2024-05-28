@@ -1,5 +1,5 @@
 export function DMVisError(
-  message: string = 'Oops, something went wrong!',
+  message: string = 'Sorry, something went wrong.',
   component: string = 'DMVis'
 ) {
   // Throw error with set parameters.

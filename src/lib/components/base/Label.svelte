@@ -20,8 +20,7 @@
   export let originX: OriginX = OriginX.Middle;
   export let originY: OriginY = OriginY.Middle;
   export let rotationDegrees: number = 0;
-  export let radiusX: number | string = 0;
-  export let radiusY: number | string = 0;
+  export let borderRadius: number = 0;
   export let padding: number = 20;
   export let textColor: string = 'black';
   export let fontSize: string = '12px';
@@ -195,10 +194,7 @@ The default origin is the middle of the label.
                                   Which value is useful depends on your positioning logic.
                                   This defaults to `OriginX.Middle`.
 * rotationDegrees: number       - Rotation of the label in degrees. This defaults to `1`.
-* radiusX: number | string      - Horizontal corner radius of the bar as a number in the range [0..1] or
-                                  a percentage string formatted as '{number}%'. This defaults to `0`.
-* radiusY: number | string      - Vertical corner radius of the bar as a number in the range [0..1] or
-                                  a percentage string formatted as '{number}%'. This defaults to `0`.
+* borderRadius: number          - Border radius of the background in pixels. This defaults to `0`.
 * padding: number               - Padding around the text in the label. This defaults to `20`.
 * textColor: string             - Color of the text in the label. This defaults to `'black'`.
 * fontSize: string              - Font size of the text in the label. This defaults to `'12px'`.
@@ -237,8 +233,8 @@ The default origin is the middle of the label.
       bind:this={rectBlock}
       {x}
       {y}
-      rx={radiusX}
-      ry={radiusY}
+      rx={borderRadius}
+      ry={borderRadius}
       width={rectWidth}
       height={rectHeight}
       fill={backgroundColor}
