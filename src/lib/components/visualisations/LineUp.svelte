@@ -111,10 +111,10 @@
 
   // Handle events
   let selectedRows: Map<string, number> = new Map();
-  function selectRows(event: CustomEvent) {
+  function selectRows(event: CustomEvent, multiple: boolean = false) {
     if (shift) {
       shiftselectedRows(event);
-    } else if (ctrl) {
+    } else if (ctrl || multiple) {
       selectRow(event, false);
     } else {
       selectRow(event);
@@ -231,9 +231,52 @@
     return columnFilters.get(column) as { min: number; max: number };
   }
 
-  function groupData(event: CustomEvent) {
-    // TODO: Implement grouping functionality in DataUtils & LineUp
-    console.log('group', event.detail.column);
+  let groupColumn: string = '';
+  let grouped: boolean = false;
+  function groupSelect(event: CustomEvent) {
+    // Get the current column (DMVIS_Select) and if it is grouped or not
+    const { column } = event.detail;
+
+    // Check if the column is already grouped
+    if (grouped && groupColumn === column) {
+      // Reset the data
+      dataUtil.resetVisualisationData();
+      dataUtil.applyFilters(Object.fromEntries(columnFilters));
+    } else {
+      // Since we only group the select column, we can just sort the data based on the selectedRows
+      const selectedList = Array.from(selectedRows.keys());
+      const sortedData = $visualisationData.sort((a, b) => {
+        // ID is always the first column
+        const aIndex = selectedList.indexOf(a[0] as string);
+        const bIndex = selectedList.indexOf(b[0] as string);
+
+        // If one of the rows is not in the selected rows, it should be at the bottom
+        if (aIndex === -1 && bIndex === -1) {
+          return 0;
+        } else if (aIndex === -1) {
+          return 1;
+        } else if (bIndex === -1) {
+          return -1;
+        } else {
+          return aIndex - bIndex;
+        }
+      });
+
+      // Set the visualisation data
+      dataUtil.setVisualisationData(sortedData);
+    }
+
+    // Update the selected rows
+    const selected = new Map();
+    selectedRows.forEach((row, rowId) => {
+      const rowIndex = $dataMap.get('DMVIS_ID')?.indexOf(rowId) ?? row;
+      selected.set(rowId, rowIndex);
+    });
+    selectedRows = selected;
+
+    // Set the group column and grouped state
+    groupColumn = column;
+    grouped = !grouped;
   }
 
   function searchData(event: CustomEvent) {
@@ -361,7 +404,7 @@ displays different types of columns such as text, bar, and rank columns. This is
     on:keydown={setCurrentKey}
     on:keyup={setCurrentKey}
     bind:this={lineUpRef}>
-    {#key columnData || dataUtil || $dataMap || $visualisationData}
+    {#key columnData || dataUtil || $dataMap || $visualisationData || grouped || sortedOrder}
       <g class="lineUp-highlights">
         {#if highlightRow >= 0}
           <rect
@@ -423,12 +466,12 @@ displays different types of columns such as text, bar, and rank columns. This is
               {padding}
               selected={new Set(selectedRows.values())}
               length={$visualisationData.length}
-              on:check={selectRows}
+              on:check={(e) => selectRows(e, true)}
               on:dragStart={onDraggingStart}
               on:dragMove={onDragMove}
               on:dragStop={onDragStop}
               on:checkAll={selectAll}
-              on:group={groupData}
+              on:group={groupSelect}
               on:mouseHover={(e) => (highlightRow = e.detail.row)}
               on:mouseRowClick={selectRows}
               on:remove={() => (columns = columns.filter((c) => c !== column))}

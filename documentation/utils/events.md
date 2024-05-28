@@ -177,7 +177,6 @@ An event which handles the grouping of the data. Contains the name of the column
 ### Event Properties
 
 - `column` - The name of the column to group by.
-- `isGrouped` - A boolean value indicating whether the column is grouped or not.
 
 ## mouseBarClick
 

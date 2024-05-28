@@ -389,6 +389,43 @@ describe('LineUp column actions', async () => {
     const columnWidths = getBarWidths(column);
     expect(columnWidths.length).toBe(1);
   });
+
+  it('groups selected rows to the top and reverts it', async () => {
+    // Arrange
+    const config = {};
+    const container = await generateLineUp(config);
+
+    // Act - Select the second row
+    await (container.querySelector('#select-1') as HTMLInputElement)?.click();
+
+    // Act - Group selected rows
+    let groupIcon = container
+      .querySelectorAll('.column')[1]
+      .querySelectorAll('.column-options > svg')[0] as HTMLElement;
+    await groupIcon.dispatchEvent(new MouseEvent('mousedown'));
+
+    // Assert
+    let rows = container.getElementsByClassName('lineUp-highlights')[0].children;
+    let labelColumn = container.querySelectorAll('.column-bottom > g')[2];
+    expect(rows[0]).toBeDefined();
+    expect(rows[0].getAttribute('y')).toBe('120'); // Selected first row, which starts at 120
+    // Check if the first row contains label b
+    expect(labelColumn.children[0].textContent).toBe('y');
+
+    // Act - Revert grouping
+    groupIcon = container
+      .querySelectorAll('.column')[1]
+      .querySelectorAll('.column-options > svg')[0] as HTMLElement;
+    await groupIcon.dispatchEvent(new MouseEvent('mousedown'));
+
+    // Assert
+    rows = container.getElementsByClassName('lineUp-highlights')[0].children;
+    labelColumn = container.querySelectorAll('.column-bottom > g')[2];
+    expect(rows[0]).toBeDefined();
+    expect(rows[0].getAttribute('y')).toBe('140'); // Selected second row, which starts at 140
+    // Check if the first row contains label y again, as the grouping was reverted
+    expect(labelColumn.children[0].textContent).toBe('z');
+  });
 });
 
 function getBarWidths(column: Element): Array<number> {

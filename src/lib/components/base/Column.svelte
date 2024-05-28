@@ -38,14 +38,10 @@
   $: iconStart = width / 2 - (icons.length * 25) / 2;
 
   // Handle options for the column
-  let isGrouped: boolean = false;
   let showMore: boolean = false;
   let highlighted: boolean = false;
   const handleOptions = (option: string, column: string) => {
-    if (option === 'group') {
-      isGrouped = !isGrouped;
-      dispatch('group', { column, isGrouped });
-    } else if (option === 'more') {
+    if (option === 'more') {
       showMore = !showMore;
     } else {
       dispatch(option, { column });
