@@ -28,6 +28,8 @@
   export let height: number = calculateHeight(dataUtil.data.length);
   export let padding: number = 10;
 
+  let lineUpRef: SVGElement;
+
   // Get the visualisation data
   const { visualisationData, dataMap } = dataUtil;
 
@@ -291,7 +293,9 @@
   // Raise the column when dragging so its displayed over the other ones
   function onDraggingStart(event: CustomEvent) {
     dragMove = event.detail.elementName as string;
-    select(`.lineUp > #${formatClassName(dragMove)}-column`).raise();
+    select(lineUpRef)
+      .select(`#${formatClassName(dragMove)}-column`)
+      .raise();
   }
 
   // Set the new position of the column when dragging
@@ -355,7 +359,8 @@ displays different types of columns such as text, bar, and rank columns. This is
     role="cell"
     tabindex="-1"
     on:keydown={setCurrentKey}
-    on:keyup={setCurrentKey}>
+    on:keyup={setCurrentKey}
+    bind:this={lineUpRef}>
     {#key columnData || dataUtil || $dataMap || $visualisationData}
       <g class="lineUp-highlights">
         {#if highlightRow >= 0}

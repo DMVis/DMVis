@@ -41,7 +41,7 @@
 
   // Private variables
   const { visualisationData } = dataUtil;
-  let tabularElement: SVGElement;
+  let tabularRef: SVGElement;
   let tabularSelection: Selection<SVGElement, unknown, null, undefined>;
 
   // Values related to columns, will be set in the updateColumns function
@@ -341,7 +341,7 @@
   // Run initial and update functions
   updateColumns();
   afterUpdate(() => {
-    tabularSelection = select(tabularElement);
+    tabularSelection = select(tabularRef);
     dragHandler(tabularSelection.selectAll('.bar'));
     dragHandler(tabularSelection.select('.labelNames').selectAll('.label'));
     dragHandler(tabularSelection.selectAll('.bar-number'));
@@ -416,7 +416,7 @@ categorical data with labels in a column.
 -->
 
 <BaseVisualisation>
-  <svg class="visualisation tabularVisualisation" {width} {height} bind:this={tabularElement}>
+  <svg class="visualisation tabularVisualisation" {width} {height} bind:this={tabularRef}>
     {#key dataUtil || $visualisationData}
       <!-- Loop over all the columns and create a barcolumn for each of them -->
       <TextColumn

@@ -37,7 +37,7 @@
   export let autoDistributeWeight: boolean = true;
 
   // Local variables
-  let ref: SVGGElement;
+  let valueChartRef: SVGGElement;
   let weightSumTotal = 100;
   const marginBetweenTopAndBottom = 10;
   const topHeight = height / 2 - marginBetweenTopAndBottom / 2;
@@ -108,7 +108,7 @@
     // scrolledBox is the box that is actually scrolled
     const scrolledBox = e.target as Element;
     // scrollBoxes are all the boxes on the screen that are scrollable
-    const scrollBoxes = [...ref.querySelectorAll('.scrollable')];
+    const scrollBoxes = [...valueChartRef.querySelectorAll('.scrollable')];
     // Filter out the scrolledBox and sync all the other boxes
     scrollBoxes
       .filter((item) => item !== scrolledBox)
@@ -202,7 +202,7 @@ The visualisation consists of two major components: namely, a visualisation clos
                                                 This defaults to true
 -->
 <BaseVisualisation>
-  <svg {width} {height} class="valuechart" bind:this={ref}>
+  <svg {width} {height} class="valuechart" bind:this={valueChartRef}>
     {#key $visualisationData}
       <!-- Start of top half of the visualisation -->
       <Scrollable

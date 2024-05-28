@@ -2,7 +2,7 @@
   // Imports
   import {
     scaleBand,
-    selectAll,
+    select,
     brush,
     max as maxFunction,
     min as minFunction,
@@ -47,6 +47,8 @@
 
   export let padding: number = 0.1;
   export let pointOpacity: number = 0.3;
+
+  let scatterplotMatrixRef: SVGElement;
 
   // List that holds all the names of the grey points in the scatterplot matrix
   let currentGreyPoints: string[] = [];
@@ -165,8 +167,12 @@
     currentY = yAxis;
 
     // Add highlight to the labels
-    selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', true);
-    selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', true);
+    select(scatterplotMatrixRef)
+      .selectAll(`.label-${formatClassName(xAxis)}Attr > *`)
+      .classed('highlighted', true);
+    select(scatterplotMatrixRef)
+      .selectAll(`.label-${formatClassName(yAxis)}Attr > *`)
+      .classed('highlighted', true);
 
     showMouseLines = true;
   }
@@ -174,8 +180,12 @@
   // This function is called when the mouse leaves a scatterplot
   function onMouseOut(xAxis: string, yAxis: string) {
     // Remove the highlight from the labels
-    selectAll(`.label-${formatClassName(xAxis)}Attr > *`).classed('highlighted', false);
-    selectAll(`.label-${formatClassName(yAxis)}Attr > *`).classed('highlighted', false);
+    select(scatterplotMatrixRef)
+      .selectAll(`.label-${formatClassName(xAxis)}Attr > *`)
+      .classed('highlighted', false);
+    select(scatterplotMatrixRef)
+      .selectAll(`.label-${formatClassName(yAxis)}Attr > *`)
+      .classed('highlighted', false);
 
     // There no longer are attributes that need to be highlighted
     currentX = '';
@@ -362,7 +372,9 @@
     /* Toggles the focus of all the points with a given classname
        If the bool is true the point will be grey, if false it will not be grey */
     function changeFocus(pointName: string, needsToBeGrey: boolean) {
-      selectAll(`.point-${formatClassName(pointName)}`).classed('greyed', needsToBeGrey);
+      select(scatterplotMatrixRef)
+        .selectAll(`.point-${formatClassName(pointName)}`)
+        .classed('greyed', needsToBeGrey);
     }
 
     function* setMinus(A: string[], B: string[]) {
@@ -392,7 +404,9 @@
     // If there is a point clicked, do not do anything
     if (clickedPoint !== '') return;
     // Remove the highlight from all points
-    selectAll(`.point-${name}`).classed('highlighted', false);
+    select(scatterplotMatrixRef)
+      .selectAll(`.point-${formatClassName(name)}`)
+      .classed('highlighted', false);
     // Tooltip label is no longer visible
     tooltipData.visible = false;
   }
@@ -407,7 +421,9 @@
     if (clickedPoint !== '') return;
 
     // Select all the points with the same class name
-    selectAll(`.point-${name}`).classed('highlighted', true);
+    select(scatterplotMatrixRef)
+      .selectAll(`.point-${formatClassName(name)}`)
+      .classed('highlighted', true);
     // Get the coordinates of this point
     // Used for the tooltip label
     let xCoordPoint = e.detail.x + (xScale(currentX) ?? 0);
@@ -441,15 +457,17 @@
 
   afterUpdate(() => {
     // After each update, reapply the brush
-    selectAll<SVGGElement, unknown>('.brush').call(
-      brush()
-        .extent([
-          [0, 0],
-          [xScale.bandwidth(), yScale.bandwidth()]
-        ])
-        .on('brush end', brushing)
-        .on('start', brushStart)
-    );
+    select(scatterplotMatrixRef)
+      .selectAll<SVGGElement, unknown>('.brush')
+      .call(
+        brush()
+          .extent([
+            [0, 0],
+            [xScale.bandwidth(), yScale.bandwidth()]
+          ])
+          .on('brush end', brushing)
+          .on('start', brushStart)
+      );
   });
 
   onMount(() => {
@@ -457,15 +475,17 @@
        Add a d3 brush to them and set the brush size to a size that corresponds with the scatterplot size
        Finally, add eventhandlers to brushing
     */
-    selectAll<SVGGElement, unknown>('.brush').call(
-      brush()
-        .extent([
-          [0, 0],
-          [xScale.bandwidth(), yScale.bandwidth()]
-        ])
-        .on('brush end', brushing)
-        .on('start', brushStart)
-    );
+    select(scatterplotMatrixRef)
+      .selectAll<SVGGElement, unknown>('.brush')
+      .call(
+        brush()
+          .extent([
+            [0, 0],
+            [xScale.bandwidth(), yScale.bandwidth()]
+          ])
+          .on('brush end', brushing)
+          .on('start', brushStart)
+      );
 
     // Create an empty selectionMatrix, filled with all null values
     selectionMatrix = JSON.parse(
@@ -501,7 +521,9 @@
 
   // Raise the label when we start dragging
   function onDragStart(e: CustomEvent) {
-    selectAll(`.${formatClassName(e.detail.elementName)}`).raise();
+    select(scatterplotMatrixRef)
+      .selectAll(`.${formatClassName(e.detail.elementName)}`)
+      .raise();
   }
 
   // After dragging, find which label the dragged label should be swapped with and swap them
@@ -566,7 +588,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
   {#await xScale}
     <p>Loading visualisation, please wait...</p>
   {:then}
-    <svg class="visualisation scatterplotMatrix" {width} {height}>
+    <svg class="visualisation scatterplotMatrix" {width} {height} bind:this={scatterplotMatrixRef}>
       {#key reloadKey || $visualisationData}
         <!-- Loop over all the attributes on the xAxis -->
         {#each axisNames as xAxis, i}

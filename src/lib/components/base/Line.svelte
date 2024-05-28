@@ -33,6 +33,9 @@
   let axisIndexInRow: number[] = [];
   let drawingOrder: string[] = [];
 
+  // Reference to this instance of the line
+  let lineRef: SVGGElement;
+
   // Get store information
   const { yScales, width, marginLeft, marginRight, data, columns, styleUtil } =
     getVisualisationContext();
@@ -120,8 +123,8 @@
   async function redrawHoveredLine(id: number) {
     await tick();
     // Once the page has been updated, raise the line and points to be on top of all the other lines
-    select(`#line-${id}`).raise();
-    select(`#line-${id}-points`).raise();
+    select(lineRef).select(`#line-${id}`).raise();
+    select(lineRef).select(`#line-${id}-points`).raise();
   }
 
   const dispatch = createEventDispatcher();
@@ -202,7 +205,7 @@ It is used in combination with other components to create a chart.
 -->
 
 {#key axisOrder}
-  <g class="line-group">
+  <g class="line-group" bind:this={lineRef}>
     <!--  Group over all the paths -->
     {#each paths as path, i}
       <path

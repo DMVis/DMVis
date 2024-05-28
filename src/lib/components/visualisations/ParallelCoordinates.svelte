@@ -22,6 +22,8 @@
   export let marginTop: number = 40;
   export let marginBottom: number = 40;
 
+  let parallelCoordinatesRef: SVGElement;
+
   // Variables that keep track of axis dragging
   let draggedAxis: string | null = null;
   let draggingOffset: number = 0;
@@ -125,7 +127,7 @@
     // If user is hovering a line, select the tick that is to be highlighted and make it bold
     if (highlightedLine !== -1) {
       const highlightText = $visualisationData[highlightedLine][0];
-      select('.parallelCoordinates')
+      select(parallelCoordinatesRef)
         .selectAll('.tick text')
         .filter(function () {
           return select(this).text() === highlightText;
@@ -134,7 +136,7 @@
     }
     // If no line is being hovered, revert all ticks to normal font-weight
     else {
-      select('.parallelCoordinates').selectAll('.tick text').attr('font-weight', 'normal');
+      select(parallelCoordinatesRef).selectAll('.tick text').attr('font-weight', 'normal');
     }
   }
 </script>
@@ -159,7 +161,11 @@ and draws a line through each axis for each row in the table.
 * marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
 -->
 <BaseVisualisation>
-  <svg class="visualisation parallelCoordinates" {width} {height}>
+  <svg
+    class="visualisation parallelCoordinates"
+    {width}
+    {height}
+    bind:this={parallelCoordinatesRef}>
     {#key $visualisationData}
       <!-- Draw all the lines -->
       <Line
