@@ -228,27 +228,6 @@ describe('Mouse interactivity test', () => {
     expect(isLableVisible).toBeFalsy();
   });
 
-  it('checks if setting showTextOnHover to false will never show the label', async () => {
-    // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: false };
-
-    // Act
-    const bar = createBar(config);
-
-    // Simulate mouseEnter event
-    await fireEvent.mouseEnter(bar);
-    const label = document.body.getElementsByClassName('bar-number')[0];
-    // Get all the classes on the label
-    const classes = label.classList;
-    // If the tooltip has the class highlighted, it is visible
-    const isLableVisible = classes.contains('highlighted');
-
-    // Assert
-    expect(bar).toBeDefined();
-
-    expect(isLableVisible).toBeFalsy();
-  });
-
   it('fires an event when the bar is clicked', async () => {
     // Arrange
     const config = { x: 0, y: 0, width: 50, height: 250 };

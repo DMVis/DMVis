@@ -1,7 +1,6 @@
 <script lang="ts">
   // Imports
-  import * as d3 from 'd3';
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -17,7 +16,6 @@
   export let height: number;
 
   // Optional attributes
-  export let showTextOnHover: boolean = false;
   export let isVertical: boolean = true;
   export let color: string = 'red';
   export let opacity: number | string = 1;
@@ -37,63 +35,69 @@
 
   const dispatch = createEventDispatcher();
 
+  // If a bar has no numbers visible, then those numbers will also not receive pointer events
+  let labelHasPointerEvents: boolean = labelType !== 'none';
+
   // Depending on the labelType, we get a couple of different css values for the `display` option
-  let numberDisplayOption: string;
+  let numberOpacity: string;
   if (labelType === 'none') {
     // This needs to be important in order to override the `display: block` set by highlight
-    numberDisplayOption = 'none !important';
+    numberOpacity = '0 !important';
   } else if (labelType === 'alwaysVisible') {
     // In this case the label will always be visible
-    numberDisplayOption = 'block';
+    numberOpacity = '1';
   } else if (labelType === 'visibleOnHighlight') {
     // In this case the label will be invisible by default, but can be overridden by the highlight class
-    numberDisplayOption = 'none';
+    numberOpacity = '0';
   } else {
     throw DMVisError(`Labeltype ${labelType}, is not recognised`, 'Bar');
   }
+
   if (!isVertical) {
     // Swap width and height if the bar is horizontal
     const temp: number = width;
     width = height;
     height = temp;
   }
+  let xBar =
+    x +
+    getOrigin(
+      Math.abs(width),
+      OriginX.Left,
+      // Negative values get flipped
+      width < 0 ? getFlippedOrigin(originX) : originX
+    );
+  let yBar =
+    y +
+    getOrigin(
+      Math.abs(height),
+      OriginY.Top,
+      // Negative values get flipped
+      // `showsNegativeValue` determines whether this is visible for height < 0
+      height < 0 ? getFlippedOrigin(originY) : originY
+    );
 
-  onMount(() => {
-    // Update the rectangle
-    d3.select(rectBlock)
-      .attr(
-        'x',
-        x +
-          getOrigin(
-            Math.abs(width),
-            OriginX.Left,
-            // Negative values get flipped
-            width < 0 ? getFlippedOrigin(originX) : originX
-          )
-      )
-      .attr(
-        'y',
-        y +
-          getOrigin(
-            Math.abs(height),
-            OriginY.Top,
-            // Negative values get flipped
-            // `showsNegativeValue` determines whether this is visible for height < 0
-            height < 0 ? getFlippedOrigin(originY) : originY
-          )
-      );
-  });
-
+  // On this point xBar and yBar are the top left corner of the bar
+  // Depending on isVertical, do a translation to correctly place the text in either the left side or the bottom side
+  let yLabel: number;
+  let xLabel: number;
+  if (isVertical) {
+    xLabel = xBar + width / 2;
+    yLabel = yBar + height;
+  } else {
+    yLabel = yBar + height / 2;
+    xLabel = xBar;
+  }
   /** Fires when the mouse enters the bar. */
   function onMouseEnter() {
-    if (showTextOnHover) isMouseOnBar = true;
+    isMouseOnBar = true;
     // Fire an event to be picked up by parent components of this bar
     dispatch('mouseBarEnter', { name });
   }
 
   /** Fires when the mouse leaves the bar. */
   function onMouseLeave() {
-    if (showTextOnHover) isMouseOnBar = false;
+    isMouseOnBar = false;
     // Fire an event to be picked up by parent components of this bar
     dispatch('mouseBarLeave', { name });
   }
@@ -123,7 +127,6 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * height: number                - Height of the bar.
 
 #### Optional attributes
-* showTextOnHover: boolean      - Whether the `hoverText` is shown when the bar is being hovered over. This defaults to `false`.
 * isVertical: boolean           - Whether the bar is vertical bar or horizontal. This defaults to `true`.
 * color: string                 - Color of the bar.
 * opacity: string               - Opacity of the bar as a number in the range [0..1] or
@@ -163,8 +166,8 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   class={`bar` + `${name === undefined ? '' : ' bar-' + formatClassName(name)}`}
   bind:this={rectBlock}
   transform="rotate({rotationDegrees}, {x}, {y})"
-  {x}
-  {y}
+  x={xBar}
+  y={yBar}
   rx={radiusX}
   ry={radiusY}
   {width}
@@ -186,18 +189,19 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   class={'bar-number' +
     (name !== undefined ? ` bar-number-${formatClassName(name)}` : '') +
     (isMouseOnBar ? ' highlighted' : '')}
-  style={`display: ${numberDisplayOption}`}>
+  style={`opacity: ${numberOpacity}`}>
   <Label
-    {x}
-    {y}
+    x={xLabel}
+    y={yLabel}
     text={hoverText}
     hasBackground={false}
-    originX={OriginX.Left}
-    originY={OriginY.Middle}
+    originX={isVertical ? OriginX.Middle : OriginX.Left}
+    originY={isVertical ? OriginY.Bottom : OriginY.Middle}
     on:mouseLabelEnter={onMouseEnter}
     on:mouseLabelLeave={onMouseLeave}
-    hasPointerEvents={true}
-    name={`${name}`} />
+    hasPointerEvents={labelHasPointerEvents}
+    name={`${name}`}
+    padding={10} />
 </g>
 
 <style>
@@ -205,6 +209,6 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   .highlighted {
     font-weight: bold;
     fill-opacity: 1;
-    display: block !important;
+    opacity: 1 !important;
   }
 </style>
