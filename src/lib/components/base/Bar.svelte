@@ -59,7 +59,8 @@
     width = height;
     height = temp;
   }
-  let xBar =
+  let xBar: number;
+  $: xBar =
     x +
     getOrigin(
       Math.abs(width),
@@ -67,7 +68,9 @@
       // Negative values get flipped
       width < 0 ? getFlippedOrigin(originX) : originX
     );
-  let yBar =
+  let yBar: number;
+
+  $: yBar =
     y +
     getOrigin(
       Math.abs(height),
@@ -81,12 +84,14 @@
   // Depending on isVertical, do a translation to correctly place the text in either the left side or the bottom side
   let yLabel: number;
   let xLabel: number;
-  if (isVertical) {
-    xLabel = xBar + width / 2;
-    yLabel = yBar + height;
-  } else {
-    yLabel = yBar + height / 2;
-    xLabel = xBar;
+  $: {
+    if (isVertical) {
+      xLabel = xBar + width / 2;
+      yLabel = yBar + height;
+    } else {
+      yLabel = yBar + height / 2;
+      xLabel = xBar;
+    }
   }
   /** Fires when the mouse enters the bar. */
   function onMouseEnter() {
