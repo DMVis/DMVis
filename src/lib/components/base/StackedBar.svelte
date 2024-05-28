@@ -28,6 +28,8 @@
 
   // Calculate the scaled value for each bar in the stacked bar
   let values = rowData.map((value, i) => {
+    // If there is a value that is not a number, it is something that means undefined (which is the same as 0)
+    if (typeof value !== 'number') return 0;
     let scale = attributeScales[i];
     return scale(value);
   });
@@ -36,12 +38,18 @@
   let currentX = 0;
   xPositions.push(currentX);
   for (let i = 0; i < numericalCols.length; i++) {
+    // If there is a value that is not a number, it is something that means undefined (which is the same as 0)
+    if (typeof rowData[i] !== 'number') {
+      xPositions.push(currentX);
+      continue;
+    }
     currentX += attributeScales[i](rowData[i]);
     xPositions.push(currentX);
   }
 
   // Calculate the scaled total value of this row, this is displayed at the end of the stacked bar
   const total = rowData.reduce((old, current, i) => {
+    if (typeof current !== 'number') return old;
     return old + attributeScales[i](current);
   }, 0);
 </script>
