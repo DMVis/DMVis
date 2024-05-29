@@ -5,7 +5,7 @@ import colorbrewer from 'colorbrewer';
 // DMVis Imports
 import { DMVisError } from '$lib/utils/DMVisError.js';
 
-interface styleOptions {
+interface StyleOptions {
   fontSize?: number;
   fontFamily?: string;
   color?: string;
@@ -28,7 +28,7 @@ export class StyleUtils {
   public colorBorder;
   public focusColor;
 
-  constructor(options?: styleOptions) {
+  constructor(options?: StyleOptions) {
     this.colorScheme = [];
     this.colorSchemeDark = [];
     this.fontSize = options?.fontSize ? options.fontSize : 12;
@@ -50,9 +50,12 @@ export class StyleUtils {
    * @returns An array of color strings.
    */
   generateColors(colorSet: string, numberOfColors: number): Array<string> {
-    // Check if n is a positive integer
+    // Check if numberOfColors is a positive integer
     if (!Number.isInteger(numberOfColors) || numberOfColors <= 0) {
-      throw DMVisError('Invalid number of colors. Please provide a positive number.', 'StyleUtils');
+      throw DMVisError(
+        `Cannot assign '${numberOfColors}' to the numberOfColors parameter in the ${this.generateColors.name} function. Please use a number larger than 0.`,
+        'StyleUtils'
+      );
     }
 
     // Assert that colorSet is indeed a keyof typeof colorbrewer
@@ -88,7 +91,7 @@ export class StyleUtils {
       this.colorScheme = this.generateColors(scheme, numberOfColors);
     } else {
       throw DMVisError(
-        'Invalid color scheme. Look up the available color schemes in ColorBrewer2.org.',
+        `Cannot assign '${colorSet}' to the colorSet parameter in the ${this.generateColors.name} function. Please use one of the color schemes available on www.colorbrewer2.org.`,
         'StyleUtils'
       );
     }

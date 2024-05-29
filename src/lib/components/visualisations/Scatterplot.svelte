@@ -23,13 +23,19 @@
   const { columns } = getVisualisationContext();
   /*
     The attributes xAxis and yAxis specify which columns from the data to plot in this scatterplot.
-    Therefore it is essential to immediately check if these
+    Therefore, it is essential to immediately check if these are included in the columns.
    */
   if (!$columns.includes(xAxis)) {
-    throw DMVisError('xAxis attribute is not recognised', 'Scatterplot');
+    throw DMVisError(
+      `Cannot assign '${xAxis}' to the xAxis attribute. Please ensure that the value assigned to the xAxis parameter is a column name in your DataUtils instance.`,
+      'Scatterplot'
+    );
   }
   if (!$columns.includes(yAxis)) {
-    throw DMVisError('yAxis attribute is not recognised', 'Scatterplot');
+    throw DMVisError(
+      `Cannot assign '${yAxis}' to the yAxis attribute. Please ensure that the value assigned to the yAxis parameter is a column name in your DataUtils instance.`,
+      'Scatterplot'
+    );
   }
 
   // Get the rest of the data from the store

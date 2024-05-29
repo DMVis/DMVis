@@ -1,6 +1,6 @@
 # DMVisError
 
-DMVisError is a function in the DMVis library that standardises the way of error handling and messages.
+DMVisError is a function that standardises the way of error handling and messages in the DMVis library.
 
 # DMVisError
 
@@ -14,5 +14,5 @@ The function takes the parameters and throws an error with a message build up fr
 See an example of how `DMVisError` works below:
 
 ```javascript
-throw DMVisError('Sorry, something went wrong.', 'DMVis');
+throw DMVisError('Sorry, something went wrong. Please try again.', 'DMVisComponent');
 ```

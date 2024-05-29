@@ -9,7 +9,10 @@ export function Spacer(
   length: number
 ): number {
   if (length < 1) {
-    throw DMVisError('Cannot space less than 1 element', 'Spacer');
+    throw DMVisError(
+      `Cannot assign '${length}' to the length parameter in the ${Spacer.name} function. Please use a number larger than or equal to 1.`,
+      'Spacer'
+    );
   } else if (length === 1) {
     return (dimension - marginLow - marginHigh - 1) / 1;
   } else {
@@ -51,7 +54,10 @@ export function SpacerSide(
         .paddingOuter(paddingOuter);
     }
     default:
-      throw DMVisError('Invalid alignment', 'Spacer');
+      throw DMVisError(
+        `Cannot assign '${alignment}' to the alignment parameter in the ${SpacerSide.name} function. Please use: 'start' or 'end'.`,
+        'Spacer'
+      );
   }
 }
 

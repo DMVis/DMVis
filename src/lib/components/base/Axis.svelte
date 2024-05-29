@@ -34,7 +34,10 @@
   const dispatch = createEventDispatcher();
 
   $: if (isDraggable && !renderLabel) {
-    throw DMVisError("'renderLabel' must be enabled to make the Axis draggable.", 'Axis');
+    throw DMVisError(
+      `Cannot make the Axis draggable. Please enable the 'renderLabel' attribute.`,
+      'Axis'
+    );
   }
 
   onMount(() => {
@@ -77,7 +80,10 @@
           labelOriginY = OriginY.Top;
           break;
         default:
-          throw DMVisError('Incorrect labelPosition assignment.', 'Axis');
+          throw DMVisError(
+            `Cannot assign '${labelPosition}' to the labelPosition attribute. Please use: 'left', 'right', 'top', or 'bottom'.`,
+            'Axis'
+          );
       }
     }
     // Apply text-anchor to properly align the text on the axis

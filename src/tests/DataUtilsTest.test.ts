@@ -61,12 +61,13 @@ describe('dataUtils functionality test', () => {
     const column = 'd';
     const ascending = true;
     const dataUtils = new DataUtils();
+    const expectedErrorMessage = `Cannot assign '${column}' to the column parameter in the sortData function. Please ensure that the columns attribute of your DataUtils instance contains a column named '${column}'.`;
 
     // Act
     await dataUtils.parseCSV(csvData);
 
     // Assert
-    expect(() => dataUtils.sortData(column, ascending)).toThrowError('Column d not found.');
+    expect(() => dataUtils.sortData(column, ascending)).toThrowError(expectedErrorMessage);
   });
 
   it('should throw an error when supplying an incorrect amount of scales to the sortByWeights function', async () => {
@@ -75,6 +76,7 @@ describe('dataUtils functionality test', () => {
     const csvData = 'l,a,b,c\nfirst,3,2,1\nsecond,6,5,4\nthird,9,8,7';
     const ascending = true;
     const dataUtils = new DataUtils();
+    const expectedErrorMessage = `Incorrect amount of scales provided to the scales parameter in the sortByWeights function. Please provide one scale per numerical column in the data assigned to the data attribute.`;
 
     // Test whether an error is thrown when giving too few scales
     // Create 2 scales
@@ -83,9 +85,7 @@ describe('dataUtils functionality test', () => {
     await dataUtils.parseCSV(csvData);
 
     // Assert
-    expect(() => dataUtils.sortByWeights(scales, ascending)).toThrowError(
-      'Incorrect amount of scales supplied. There needs to be one scale per numerical column in the dataset'
-    );
+    expect(() => dataUtils.sortByWeights(scales, ascending)).toThrowError(expectedErrorMessage);
 
     // Test whether an error is thrown when giving too many scales
     // Create 4 scales
@@ -94,9 +94,7 @@ describe('dataUtils functionality test', () => {
     await dataUtils.parseCSV(csvData);
 
     // Assert
-    expect(() => dataUtils.sortByWeights(scales, ascending)).toThrowError(
-      'Incorrect amount of scales supplied. There needs to be one scale per numerical column in the dataset'
-    );
+    expect(() => dataUtils.sortByWeights(scales, ascending)).toThrowError(expectedErrorMessage);
   });
 
   it('should sort data in descending order', async () => {
@@ -202,42 +200,42 @@ describe('dataUtils functionality test', () => {
     // Arrange
     const invalidData = 'invalid data';
     const dataUtils = new DataUtils();
+    const expectedErrorMessage = `Invalid data provided to the data parameter in the parseData function. Please use data that can be parsed to JSON or CSV.`;
 
     // Act
     const parseInvalidData = dataUtils.parseData(invalidData);
 
     // Assert
-    await expect(parseInvalidData).rejects.toThrowError(
-      'Data could not be parsed as JSON or CSV. Please provide a valid type.'
-    );
+    await expect(parseInvalidData).rejects.toThrowError(expectedErrorMessage);
   });
 
   it('should throw an error when parsing invalid CSV data', async () => {
     // Arrange
-    const invalidData = 'invalid data';
+    const invalidCsvData = 'invalid data';
     const dataUtils = new DataUtils();
+    const expectedErrorMessage = `Invalid data provided to the csvData parameter in the parseCSV function. Please use data that can be parsed to CSV.`;
 
     // Act
-    const parseInvalidCSVData = dataUtils.parseCSV(invalidData);
+    const parseInvalidCSVData = dataUtils.parseCSV(invalidCsvData);
 
     // Assertions
-    await expect(parseInvalidCSVData).rejects.toThrowError(
-      'CSV data that was supplied is not in the correct format.'
-    );
+    await expect(parseInvalidCSVData).rejects.toThrowError(expectedErrorMessage);
   });
 
   it('should throw an error when parsing invalid JSON data', async () => {
     // Arrange
-    const invalidData = 'invalid data';
+    const invalidJsonData = 'invalid data';
     const dataUtils = new DataUtils();
-
+    const unexpectedErrorMessage = `Invalid data provided to the jsonData parameter in the parseJSON function. Please use data that can be parsed to JSON.`;
+    const expectedErrorMessage2 = `Invalid data provided to the jsonData parameter in the parseJSON function. Please ensure that the data is correctly formatted.`;
     // Act
-    const parseInvalidJSONData = dataUtils.parseJSON(invalidData);
+    const parseInvalidJSONData = dataUtils.parseJSON(invalidJsonData);
 
     // Assert
-    await expect(parseInvalidJSONData).rejects.toThrowError(
-      'JSON data that was supplied is not in the correct format.'
-    );
+    // Means that the data could be parsed to JSON (so the other error can happen still)
+    await expect(parseInvalidJSONData).not.rejects.toThrowError(unexpectedErrorMessage);
+    // Means that the JSON data is incorrectly formatted
+    await expect(parseInvalidJSONData).rejects.toThrowError(expectedErrorMessage2);
   });
 
   it('should reorder the rows of the data', async () => {

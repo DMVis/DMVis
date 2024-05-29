@@ -160,12 +160,13 @@ describe('Error checking in BarColumn', () => {
       data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       names: ['one', 'two', 'three']
     };
+    const expectedErrorMessage = `The value assigned to the names attribute does not have the same length as the value assigned to the data attribute. Please ensure that they are of the same length.`;
 
     // Act
     const createInvalidBarColumn = () => render(StoreWrapper, { Component: BarColumn, config });
 
     // Assert
-    expect(createInvalidBarColumn).toThrow('Specified names array is either too big, or too small');
+    expect(createInvalidBarColumn).toThrow(expectedErrorMessage);
   });
 
   it('checks if an error is thrown if the overviewItem attribute is not valid', () => {
@@ -177,13 +178,12 @@ describe('Error checking in BarColumn', () => {
       data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       overviewItem: 'WrongTestingName'
     };
+    const expectedErrorMessage = `Cannot assign '${config.overviewItem}' to the overviewItem attribute. Please use: 'histogram', 'axis', or 'none'.`;
 
     // Act
     const createInvalidBarColumn = () => render(StoreWrapper, { Component: BarColumn, config });
 
     // Assert
-    expect(createInvalidBarColumn).toThrow(
-      `${config.overviewItem} was not recognised as an overview item`
-    );
+    expect(createInvalidBarColumn).toThrow(expectedErrorMessage);
   });
 });

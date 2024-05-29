@@ -65,12 +65,13 @@ describe('Error checking test', () => {
       xAxis: 'something',
       yAxis: 'gdp'
     };
+    const expectedErrorMessage = `Cannot assign '${config.xAxis}' to the xAxis attribute. Please ensure that the value assigned to the xAxis parameter is a column name in your DataUtils instance.`;
 
     // Act
     const createScatterplotWithInvalidXAxis = () => createScatterplot(config);
 
     // Assert
-    expect(createScatterplotWithInvalidXAxis).toThrow('xAxis attribute is not recognised');
+    expect(createScatterplotWithInvalidXAxis).toThrow(expectedErrorMessage);
   });
 
   it('checks if an error is thrown if yAxis is not specified correctly', () => {
@@ -81,12 +82,13 @@ describe('Error checking test', () => {
       xAxis: 'Inhabitants',
       yAxis: 'something'
     };
+    const expectedErrorMessage = `Cannot assign '${config.yAxis}' to the yAxis attribute. Please ensure that the value assigned to the yAxis parameter is a column name in your DataUtils instance.`;
 
     // Act
     const createScatterplotWithInvalidYAxis = () => createScatterplot(config);
 
     // Assert
-    expect(createScatterplotWithInvalidYAxis).toThrow('yAxis attribute is not recognised');
+    expect(createScatterplotWithInvalidYAxis).toThrow(expectedErrorMessage);
   });
 });
 

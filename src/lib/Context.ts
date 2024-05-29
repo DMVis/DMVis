@@ -2,7 +2,7 @@ import type { StyleUtils } from '$lib/utils/StyleUtils.js';
 import { VisualisationStore } from '$lib/VisualisationStore.js';
 import { setContext, getContext } from 'svelte';
 
-interface contextOptions {
+interface ContextOptions {
   width?: number;
   height?: number;
   data?: Array<Array<number | string>>;
@@ -16,7 +16,7 @@ interface contextOptions {
 }
 
 // Set the store values that are passed in the options
-function updateVisualisationStore(store: VisualisationStore, options: contextOptions) {
+function updateVisualisationStore(store: VisualisationStore, options: ContextOptions) {
   if (options.width !== undefined) store.width.set(options.width);
   if (options.height !== undefined) store.height.set(options.height);
   if (options.data !== undefined) store.data.set(options.data);
@@ -30,14 +30,14 @@ function updateVisualisationStore(store: VisualisationStore, options: contextOpt
 }
 
 // Create a new store with the options passed in
-export function setVisualisationContext(options: contextOptions) {
+export function setVisualisationContext(options: ContextOptions) {
   const store = new VisualisationStore();
   updateVisualisationStore(store, options);
   setContext('store', store);
 }
 
 // Update the store with the options passed in
-export function updateVisualisationContext(options: contextOptions) {
+export function updateVisualisationContext(options: ContextOptions) {
   const store = getContext<VisualisationStore>('store');
   updateVisualisationStore(store, options);
 }

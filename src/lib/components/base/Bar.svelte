@@ -53,7 +53,10 @@
     // In this case the label will be invisible by default, but can be overridden by the highlight class
     numberOpacity = '0';
   } else {
-    throw DMVisError(`Labeltype ${labelType}, is not recognised`, 'Bar');
+    throw DMVisError(
+      `Cannot assign '${labelType}' to the labelType attribute. Please use: 'none', 'alwaysVisible', or 'visibleOnHighlight'.`,
+      'Bar'
+    );
   }
 
   let xBar: number;

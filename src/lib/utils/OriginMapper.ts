@@ -25,7 +25,10 @@ export function getOrigin(
     case OriginX.Right || OriginY.Bottom:
       return -mapEndToDestination(dimension, destinationOrigin);
     default:
-      throw DMVisError(`${sourceOrigin} is not a valid source origin`, 'OriginMapper');
+      throw DMVisError(
+        `Cannot assign '${sourceOrigin}' to the sourceOrigin parameter in the ${getOrigin.name} function. Please use: OriginX.Left, OriginX.Middle, OriginX.Right, OriginY.Top, OriginY.Middle, or OriginY.Bottom.`,
+        'OriginMapper'
+      );
   }
 }
 
@@ -49,11 +52,14 @@ export function getFlippedOrigin(origin: OriginX | OriginY): OriginX | OriginY {
     case OriginY.Bottom:
       return OriginY.Top;
     default:
-      throw DMVisError(`${origin} is not a valid origin`, 'OriginMapper');
+      throw DMVisError(
+        `Cannot assign '${origin}' to the origin parameter in the ${getFlippedOrigin.name} function. Please use: OriginX.Left, OriginX.Middle, OriginX.Right, OriginY.Top, OriginY.Middle, or OriginY.Bottom.`,
+        'OriginMapper'
+      );
   }
 }
 
-// Helper functions for shifting origins (i.e. mapping one to another)
+// Private helper functions for shifting origins (i.e. mapping one to another)
 
 function mapStartToDestination(dimension: number, destinationOrigin: OriginX | OriginY): number {
   switch (destinationOrigin) {
@@ -64,7 +70,10 @@ function mapStartToDestination(dimension: number, destinationOrigin: OriginX | O
     case OriginX.Right || OriginY.Bottom:
       return dimension;
     default:
-      throw DMVisError(`${destinationOrigin} is not a valid destination origin`, 'OriginMapper');
+      throw DMVisError(
+        `Cannot assign '${destinationOrigin}' to the destinationOrigin parameter in the ${mapStartToDestination.name} function. Please use: OriginX.Left, OriginX.Middle, OriginX.Right, OriginY.Top, OriginY.Middle, or OriginY.Bottom.`,
+        'OriginMapper'
+      );
   }
 }
 
@@ -77,7 +86,10 @@ function mapMiddleToDestination(dimension: number, destinationOrigin: OriginX | 
     case OriginX.Right || OriginY.Bottom:
       return dimension / 2;
     default:
-      throw DMVisError(`${destinationOrigin} is not a valid destination origin`, 'OriginMapper');
+      throw DMVisError(
+        `Cannot assign '${destinationOrigin}' to the destinationOrigin parameter in the ${mapMiddleToDestination.name} function. Please use: OriginX.Left, OriginX.Middle, OriginX.Right, OriginY.Top, OriginY.Middle, or OriginY.Bottom.`,
+        'OriginMapper'
+      );
   }
 }
 
@@ -90,6 +102,9 @@ function mapEndToDestination(dimension: number, destinationOrigin: OriginX | Ori
     case OriginX.Right || OriginY.Bottom:
       return 0;
     default:
-      throw DMVisError(`${destinationOrigin} is not a valid destination origin`, 'OriginMapper');
+      throw DMVisError(
+        `Cannot assign '${destinationOrigin}' to the destinationOrigin parameter in the ${mapMiddleToDestination.name} function. Please use: OriginX.Left, OriginX.Middle, OriginX.Right, OriginY.Top, OriginY.Middle, or OriginY.Bottom.`,
+        'OriginMapper'
+      );
   }
 }

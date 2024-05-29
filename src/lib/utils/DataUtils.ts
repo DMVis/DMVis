@@ -46,7 +46,7 @@ export class DataUtils {
           return await this.parseCSV(data);
         } catch (error) {
           throw DMVisError(
-            'Data could not be parsed as JSON or CSV. Please provide a valid type.',
+            `Invalid data provided to the data parameter in the ${this.parseData.name} function. Please use data that can be parsed to JSON or CSV.`,
             'DataUtils'
           );
         }
@@ -55,9 +55,10 @@ export class DataUtils {
   }
 
   /**
-   * @param {string} csvData - The CSV data to parse. Can be a csv string or a string URL pointing to the CSV file. URl to static file (\datasets\example.csv) can be passed as string.
+   * @param {string} csvData - The CSV data to parse. Can be a CSV string or a string URL pointing to the CSV file. URL to static file (\datasets\example.csv) can be passed as string.
    * @returns {Promise<Array<Array<String | Number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the CSV file.
    * Each row's values are automatically typed based on their content, thanks to d3.autoType.
+   * @throws {Error} If the data could not be parsed as CSV.
    */
   async parseCSV(csvData: string): Promise<Array<Array<string | number>>> {
     try {
@@ -119,7 +120,10 @@ export class DataUtils {
       // Return the parsed data
       return this.rawData;
     } catch (error) {
-      throw DMVisError('CSV data that was supplied is not in the correct format.', 'DataUtils');
+      throw DMVisError(
+        `Invalid data provided to the csvData parameter in the ${this.parseCSV.name} function. Please use data that can be parsed to CSV.`,
+        'DataUtils'
+      );
     }
   }
 
@@ -165,7 +169,10 @@ export class DataUtils {
         });
         this.rawData = [this.columns, ...this.data];
       } else {
-        throw DMVisError('Could not parse JSON data', 'DataUtils');
+        throw DMVisError(
+          `Invalid data provided to the jsonData parameter in the ${this.parseJSON.name} function. Please use data that can be parsed to JSON.`,
+          'DataUtils'
+        );
       }
 
       // Add an ID to each row
@@ -200,18 +207,25 @@ export class DataUtils {
       // Return the parsed data
       return this.rawData;
     } catch (error) {
-      throw DMVisError('JSON data that was supplied is not in the correct format.', 'DataUtils');
+      throw DMVisError(
+        `Invalid data provided to the jsonData parameter in the ${this.parseJSON.name} function. Please ensure that the data is correctly formatted.`,
+        'DataUtils'
+      );
     }
   }
 
   /**
    * @param {string} jsonData - The JSON data to order.
    * @returns {Array<Array<string | number>>} The sorted data.
+   * @throws {Error} If the data could not be sorted.
    */
   sortData(column: string, ascending: boolean): Array<Array<string | number>> {
     const index = this.columns.indexOf(column);
     if (index === -1) {
-      throw new Error(`Column ${column} not found.`);
+      throw DMVisError(
+        `Cannot assign '${column}' to the column parameter in the ${this.sortData.name} function. Please ensure that the columns attribute of your DataUtils instance contains a column named '${column}'.`,
+        'DataUtils'
+      );
     }
 
     // Sort the data based on the given column
@@ -239,6 +253,7 @@ export class DataUtils {
   /**
    * @param {Array<ScaleLinear<number,number>>} scales - The scales used to weigh the data, containing one scale per attribute.
    * @returns {Array<Array<string | number>>} The sorted data.
+   * @throws {Error} If an incorrect amount of scales is provided to the scales parameter.
    */
   sortByWeights(
     scales: Array<ScaleLinear<number, number>>,
@@ -252,7 +267,7 @@ export class DataUtils {
     });
     if (scales.length !== numericalScales) {
       throw DMVisError(
-        `Incorrect amount of scales supplied. There needs to be one scale per numerical column in the dataset`,
+        `Incorrect amount of scales provided to the scales parameter in the ${this.sortByWeights.name} function. Please provide one scale per numerical column in the data assigned to the data attribute.`,
         'DataUtil'
       );
     }
@@ -316,8 +331,8 @@ export class DataUtils {
 
   /**
    *
-   * @param {(number[] | null)[]} rangePerAttribute - The range for each attribute
-   * @returns {string[][]} The data in the format [Points inside[], Points outside[]]
+   * @param {(number[] | null)[]} rangePerAttribute - The range for each attribute.
+   * @returns {string[][]} The data in the format [Points inside[], Points outside[]].
    */
   filterData(rangePerAttribute: (number[] | null)[]): string[][] {
     // Find out what indices actually hold a selection and therefore need checking
@@ -428,10 +443,10 @@ export class DataUtils {
 
   /**
    * Filters a row based on the given ranges for each attribute.
-   * @param {Array<string | number>} row - The row to check
-   * @param {number[]} indicesToCheck - The indices of the attributes that have a selection
-   * @param {number[][]} rangePerAttribute - The range for each attribute
-   * @returns {boolean} Whether the row is valid based on the given ranges
+   * @param {Array<string | number>} row - The row to check.
+   * @param {number[]} indicesToCheck - The indices of the attributes that have a selection.
+   * @param {number[][]} rangePerAttribute - The range for each attribute.
+   * @returns {boolean} Whether the row is valid based on the given ranges.
    */
   #filterRow(
     row: (string | number)[],
@@ -521,9 +536,9 @@ export class DataUtils {
 
   /**
    * Determines the separator used in the data.
-   * @param {string} data - The data to check
-   * @returns {string} The separator used in the data
-   * @throws {Error} If the separator could not be determined
+   * @param {string} data - The data to check.
+   * @returns {string} The separator used in the data.
+   * @throws {Error} If the separator could not be determined.
    */
   #getSeparator(data: string): string {
     const options = [',', ';', '\t', '|'];
@@ -538,13 +553,16 @@ export class DataUtils {
       }
     }
 
-    throw DMVisError('Could not determine separator', 'DataUtils');
+    throw DMVisError(
+      `Cannot determine the separator character for the provided data. Please use: ',', ';', '\t', or '|' as a separator character in the provided data.`,
+      'DataUtils'
+    );
   }
 
   /**
    * Transposes the given data.
-   * @param {Array<Array<string | number>>} data - The data to transpose
-   * @returns {Array<Array<string | number>>} The transposed data
+   * @param {Array<Array<string | number>>} data - The data to transpose.
+   * @returns {Array<Array<string | number>>} The transposed data.
    */
   #transposeData(data: Array<Array<string | number>>): Array<Array<string | number>> {
     return data.reduce(

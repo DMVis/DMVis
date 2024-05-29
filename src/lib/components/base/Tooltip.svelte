@@ -28,7 +28,10 @@
     textColor = 'white';
   } else {
     // Error is for completeness, but never happens in practice (because of type safety)
-    throw DMVisError('theme attribute not recognised', 'Tooltip');
+    throw DMVisError(
+      `Cannot assign '${theme}' to the theme attribute. Please use: 'light' or 'dark'.`,
+      'Tooltip'
+    );
   }
 </script>
 

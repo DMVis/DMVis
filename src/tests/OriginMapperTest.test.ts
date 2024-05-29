@@ -4,7 +4,7 @@ import { OriginX, OriginY } from '$lib/Enums.js';
 import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
 
 // Note that the code coverage will never reach
-// the lines that throw errors, because of type safety
+// the lines that error, because of type safety
 
 describe('Horizontal getOrigin test 1/3', () => {
   it(`maps a source origin (left) to a destination origin (middle) given

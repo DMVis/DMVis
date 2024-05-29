@@ -58,7 +58,10 @@
       // When this point is reached, it means that the given alignment is not recognised
       // Note that due to Typescript, this should never happen
       default:
-        throw DMVisError('Invalid alignment provided.', 'Line');
+        throw DMVisError(
+          `Cannot assign '${alignment}' to the alignment attribute. Please use: 'start', 'end', or 'spaced'.`,
+          'Line'
+        );
     }
   }
 

@@ -359,7 +359,7 @@
   onMount(() => {
     if (!dataUtil.includeId) {
       throw DMVisError(
-        'The LineUp visualisation requires a DataUtils instance with the `includeId` flag set to true.',
+        `Cannot assign the provided DataUtils instance to the dataUtils attribute. Please use a DataUtils instance with its includeId attribute set to true.`,
         'LineUp'
       );
     }

@@ -36,11 +36,18 @@
   export let barLabelVisibility: 'none' | 'alwaysVisible' | 'visibleOnHighlight' = 'none';
 
   if (overviewItem !== 'histogram' && overviewItem !== 'axis' && overviewItem !== 'none') {
-    throw DMVisError(`${overviewItem} was not recognised as an overview item`, 'BarColumn');
+    // This is for completeness, as type safety ensures this cannot happen
+    throw DMVisError(
+      `Cannot assign '${overviewItem}' to the overviewItem attribute. Please use: 'histogram', 'axis', or 'none'.`,
+      'BarColumn'
+    );
   }
 
   if (names.length > 0 && names.length !== data.length) {
-    throw DMVisError('Specified names array is either too big, or too small', 'BarColumn');
+    throw DMVisError(
+      `The value assigned to the names attribute does not have the same length as the value assigned to the data attribute. Please ensure that they are of the same length.`,
+      'BarColumn'
+    );
   }
 
   // Bar standards

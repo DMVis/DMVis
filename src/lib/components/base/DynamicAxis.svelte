@@ -33,7 +33,7 @@
     styleUtil
   } = getVisualisationContext();
 
-  // Public variables
+  // Optional attributes
   export let axisOrder: string[] = [];
   export let renderLabel: boolean = false;
   export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
@@ -71,7 +71,10 @@
     drawingIndices = drawingOrder.map((attributeName: string) => {
       let index = $columns.indexOf(attributeName);
       if (index === -1) {
-        throw DMVisError(`${attributeName} is not a valid column name`, 'DynamicAxis');
+        throw DMVisError(
+          `'${attributeName}' is not a column name in the columns attribute of your DataUtils instance. Please ensure that the value assigned to the axisOrder parameter only contains column names in your DataUtils instance.`,
+          'DynamicAxis'
+        );
       }
       return index;
     });
@@ -107,7 +110,10 @@
         break;
       }
       default:
-        throw DMVisError('Invalid alignment provided.', 'DynamicAxis');
+        throw DMVisError(
+          `Cannot assign '${alignment}' to the alignment attribute. Please use: 'start', 'end', or 'spaced'.`,
+          'DynamicAxis'
+        );
     }
   }
 
@@ -167,7 +173,10 @@
               scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear<number, number>
             );
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Set the ticks of the scaleLinear axis
@@ -189,7 +198,10 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)!;
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Create an axis config to be drawn later on
@@ -230,7 +242,10 @@
               scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear<number, number>
             );
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Set the ticks of the scaleLinear axis
@@ -252,7 +267,10 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)!;
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Create an axis config to be drawn later on
@@ -289,7 +307,10 @@
             // If the scale is a scalelinear and horizontal spacing
             newAxis = axisLeft(scale as ScaleLinear<number, number>);
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Set the ticks of the scaleLinear axis
@@ -311,7 +332,10 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)! - offset;
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Create an axis config to be drawn later on
@@ -348,7 +372,10 @@
             // If the scale is a scalelinear and horizontal spacing
             newAxis = axisRight(scale as ScaleLinear<number, number>);
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Set the ticks of the scaleLinear axis
@@ -370,7 +397,10 @@
           } else if (spacingDirection === 'horizontal') {
             placementX = spacerHorizontal(columnName)! + offset;
           } else {
-            throw DMVisError('Invalid spacing direction', 'DynamicAxis');
+            throw DMVisError(
+              `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
+              'DynamicAxis'
+            );
           }
 
           // Create an axis config to be drawn later on
@@ -382,10 +412,13 @@
           } as AxisConfig);
         });
         break;
-      // If this point is reached, the input was not recognised. So throw an error
+      // If this point is reached, then the input was not recognised (error)
       // Note that due to TypeScript, this will never happen
       default:
-        throw DMVisError('Invalid axis position', 'DynamicAxis');
+        throw DMVisError(
+          `Cannot assign '${position}' to the position attribute. Please use: 'bottom', 'top', 'left', or 'right'.`,
+          'DynamicAxis'
+        );
     }
   }
 

@@ -82,7 +82,7 @@ export class VisualisationStore {
         const domain = extent(columnData as Array<number>);
         if (domain[0] === undefined) {
           throw DMVisError(
-            `Data is incompatable, value range could not be found in column ${data[0][i]}`,
+            `Value range could not be found in column '${data[0][i]}'. Please ensure the column contains only numerical data.`,
             'VisualisationStore'
           );
         } else {
