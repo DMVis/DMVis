@@ -269,9 +269,12 @@
 
   // Function that creates the columns from the visualisation data
   function updateColumns() {
-    columnScale = scaleBand()
-      .domain(dataUtil.columns)
-      .range([0, width - marginRight - marginLeft]);
+    // Create the column scale if this is the first time this function is called
+    if (columnScale === undefined) {
+      columnScale = scaleBand()
+        .domain(dataUtil.columns)
+        .range([0, width - marginRight - marginLeft]);
+    }
 
     // Transpose the entire data
     let transposedData = $visualisationData[0].map((_, colIndex) =>
@@ -386,6 +389,44 @@
       .selectAll(`.label-${formattedName} > text`)
       .classed('highlighted', classActive);
   }
+
+  // Handle columns being dragged
+  let dragMove: string | null = null;
+  let dragMoveX: number = 0;
+
+  // Raise the column when dragging so its displayed over the other ones
+  function onDraggingStart(event: CustomEvent) {
+    dragMove = event.detail.elementName as string;
+    tabularSelection.select(`#${formatClassName(dragMove)}-column`).raise();
+  }
+
+  // Set the new position of the column when dragging
+  function onDragMove(event: CustomEvent) {
+    dragMoveX += event.detail.movementX;
+  }
+
+  // Update the columns array with the new order
+  function onDragStop() {
+    if (dragMove === null) {
+      return;
+    }
+
+    // Update the columns array with the new order
+    let newColumnOrder = columnScale.domain();
+    const oldIndex = newColumnOrder.indexOf(dragMove);
+    let newIndex =
+      dragMoveX > 0
+        ? Math.floor(dragMoveX / columnScale.step())
+        : Math.ceil(dragMoveX / columnScale.step());
+    newIndex = oldIndex + newIndex;
+    const removedCol = newColumnOrder.splice(oldIndex, 1);
+    newColumnOrder.splice(newIndex, 0, removedCol[0]);
+    columnScale.domain(newColumnOrder);
+
+    // Reset the element that is being dragged
+    dragMove = null;
+    dragMoveX = 0;
+  }
 </script>
 
 <!--
@@ -420,7 +461,9 @@ categorical data with labels in a column.
     {#key dataUtil || $visualisationData}
       <!-- Loop over all the columns and create a barcolumn for each of them -->
       <TextColumn
-        x={marginLeft}
+        x={marginLeft +
+          (columnScale(dataUtil.columns[0]) ?? 0) +
+          (dragMove === dataUtil.columns[0] ? dragMoveX : 0)}
         icons={[IconType.Sort]}
         name={dataUtil.columns[0]}
         width={columnScale.step()}
@@ -428,11 +471,16 @@ categorical data with labels in a column.
         data={labelColumn}
         padding={columnPadding}
         on:mouseLabelEnter={onMouseLabelEnter}
-        on:mouseLabelLeave={onMouseLabelLeave} />
+        on:mouseLabelLeave={onMouseLabelLeave}
+        on:dragStart={onDraggingStart}
+        on:dragMove={onDragMove}
+        on:dragStop={onDragStop} />
       {#each numericalColumns as column, columnIndex}
         <BarColumn
           overviewItem={'axis'}
-          x={marginLeft + columnScale.step() * (columnIndex + 1)}
+          x={marginLeft +
+            (columnScale(dataUtil.columns[columnIndex + 1]) ?? 0) +
+            (dragMove === dataUtil.columns[columnIndex + 1] ? dragMoveX : 0)}
           icons={[IconType.Sort]}
           name={dataUtil.columns[columnIndex + 1]}
           width={columnScale.step()}
@@ -441,6 +489,9 @@ categorical data with labels in a column.
           on:mouseBarEnter={onMouseBarEnter}
           on:mouseBarLeave={onMouseBarLeave}
           on:sort={sortData}
+          on:dragStart={onDraggingStart}
+          on:dragMove={onDragMove}
+          on:dragStop={onDragStop}
           padding={columnPadding}
           names={labelColumn}
           {barOpacity}

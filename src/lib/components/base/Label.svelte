@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import { select } from 'd3';
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, afterUpdate } from 'svelte';
 
   // DMVis Imports
   import { getOrigin } from '$lib/utils/OriginMapper.js';
@@ -91,7 +91,7 @@
       });
   }
 
-  onMount(() => {
+  afterUpdate(() => {
     // Set attributes for the text
     select(textBlock)
       .attr('fill', textColor)
