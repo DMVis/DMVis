@@ -3,7 +3,7 @@
   import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
-  import { getVisualisationContext } from '$lib/context.js';
+  import { getVisualisationContext } from '$lib/Context.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes

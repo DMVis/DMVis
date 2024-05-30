@@ -29,7 +29,7 @@
     getVisualisationContext,
     setVisualisationContext,
     updateVisualisationContext
-  } from '$lib/context.js';
+  } from '$lib/Context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

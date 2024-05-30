@@ -1,5 +1,5 @@
 import type { StyleUtils } from '$lib/utils/StyleUtils.js';
-import { VisualisationStore } from '$lib/store.js';
+import { VisualisationStore } from '$lib/VisualisationStore.js';
 import { setContext, getContext } from 'svelte';
 
 interface contextOptions {

@@ -2,7 +2,7 @@ import { act, fireEvent, render } from '@testing-library/svelte';
 import { describe, it, expect } from 'vitest';
 
 import LineUp from '$lib/components/visualisations/LineUp.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 import prepareSvgGetter from '../vitest/svgMock.js';
 

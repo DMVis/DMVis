@@ -4,7 +4,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 import Axis from '$lib/components/base/Axis.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 

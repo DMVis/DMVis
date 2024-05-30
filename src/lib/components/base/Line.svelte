@@ -8,7 +8,7 @@
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
-  import { getVisualisationContext } from '$lib/context.js';
+  import { getVisualisationContext } from '$lib/Context.js';
 
   // Optional attributes
   export let axisOrder: string[] = [];

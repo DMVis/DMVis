@@ -8,7 +8,7 @@
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

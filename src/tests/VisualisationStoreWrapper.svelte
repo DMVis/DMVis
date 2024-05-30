@@ -3,7 +3,7 @@
   import { setContext, type ComponentType } from 'svelte';
 
   // DMVis imports
-  import { VisualisationStore } from '$lib/store.js';
+  import { VisualisationStore } from '$lib/VisualisationStore.js';
 
   // Exports
   export let Component: ComponentType;

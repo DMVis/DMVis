@@ -3,7 +3,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
 
 prepareSvgGetter();

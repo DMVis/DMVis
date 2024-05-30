@@ -5,12 +5,12 @@ import { describe, it, expect, beforeEach, vi, type MockedFunction } from 'vites
 
 // DMVis imports
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
-import { VisualisationStore } from '$lib/store.js';
+import { VisualisationStore } from '$lib/VisualisationStore.js';
 import {
   setVisualisationContext,
   updateVisualisationContext,
   getVisualisationContext
-} from '$lib/context.js';
+} from '$lib/Context.js';
 
 vi.mock('svelte', () => ({
   setContext: vi.fn(),

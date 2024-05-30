@@ -5,7 +5,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 // DMVis imports
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 import TabularVisualisation from '$lib/components/visualisations/TabularVisualisation.svelte';
 

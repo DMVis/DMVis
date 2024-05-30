@@ -17,7 +17,7 @@
   import Axis from '$lib/components/base/Axis.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
-  import { getVisualisationContext } from '$lib/context.js';
+  import { getVisualisationContext } from '$lib/Context.js';
 
   // Get store information
   const {

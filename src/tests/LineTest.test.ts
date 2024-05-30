@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/svelte';
 
 import Line from '$lib/components/base/Line.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();

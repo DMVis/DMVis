@@ -2,7 +2,7 @@ import { render } from '@testing-library/svelte';
 import { describe, it, expect } from 'vitest';
 
 import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();

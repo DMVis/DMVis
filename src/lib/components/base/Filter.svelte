@@ -8,7 +8,7 @@
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { ColumnType } from '$lib/Enums.js';
-  import { VisualisationStore } from '$lib/store.js';
+  import { VisualisationStore } from '$lib/VisualisationStore.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

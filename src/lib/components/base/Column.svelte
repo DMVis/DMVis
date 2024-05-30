@@ -8,7 +8,7 @@
   import Draggable from '$lib/components/base/Draggable.svelte';
   import { ColumnType } from '$lib/Enums.js';
   import { OriginX, OriginY, IconType } from '$lib/Enums.js';
-  import type { VisualisationStore } from '$lib/store.js';
+  import type { VisualisationStore } from '$lib/VisualisationStore.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
 
   // Required attributes

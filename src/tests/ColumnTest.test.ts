@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 
 import Column from '$lib/components/base/Column.svelte';
 import BarColumn from '$lib/components/columns/BarColumn.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
 import { ColumnType, IconType } from '$lib/Enums.js';
 

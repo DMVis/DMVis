@@ -14,7 +14,7 @@
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import { setVisualisationContext, updateVisualisationContext } from '$lib/context.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

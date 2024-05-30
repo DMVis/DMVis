@@ -4,7 +4,7 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 // DMVis imports
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 import ScatterplotMatrix from '$lib/components/visualisations/ScatterplotMatrix.svelte';
 

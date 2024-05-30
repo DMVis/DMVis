@@ -3,7 +3,7 @@ import { act, fireEvent, render } from '@testing-library/svelte';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
 import ValueChart from '$lib/components/visualisations/ValueChart.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 import prepareSvgGetter from '../vitest/svgMock.js';
 import userEvent from '@testing-library/user-event';

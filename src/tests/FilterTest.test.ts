@@ -8,7 +8,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 
 // DMVis imports
 import Filter from '$lib/components/base/Filter.svelte';
-import StoreWrapper from './StoreWrapper.svelte';
+import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 
 prepareSvgGetter();

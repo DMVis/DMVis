@@ -8,7 +8,7 @@
 
   // DMVis util import
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import { getVisualisationContext } from '$lib/context.js';
+  import { getVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let y: number;

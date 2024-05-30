@@ -6,7 +6,7 @@
   import Point from '$lib/components/base/Point.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
-  import { getVisualisationContext } from '$lib/context.js';
+  import { getVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let width: number;
