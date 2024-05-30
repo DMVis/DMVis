@@ -180,6 +180,60 @@ describe('Tabular Visualisation interactivity tests', () => {
     // Check if the labels are sorted correctly
     expect(labelTexts).toStrictEqual(['z', 'y', 'x']);
   });
+
+  it('drags the first column to the second position', async () => {
+    // Arrange
+    // Set up the configuration for the visualisation
+    const config = {};
+
+    // Generate the tabular visualisation based on the config
+    const { tabularVisualisation } = await generateTabularVisualisation(config);
+
+    // Get the column names and their respective positions
+    const colNames = Array.from(
+      tabularVisualisation.querySelectorAll('.column-top > g > text')
+    ).map((name) => name.textContent);
+    const colPositions = Array.from(
+      tabularVisualisation.querySelectorAll('.column-top > rect')
+    ).map((rect) => rect.getAttribute('x'));
+
+    // Act
+    const columns = tabularVisualisation.getElementsByClassName('column-top');
+    await columns[0].dispatchEvent(
+      new MouseEvent('mousedown', { bubbles: true, clientX: 100, clientY: 40 })
+    );
+    await columns[0].dispatchEvent(
+      new MouseEvent('mousemove', { bubbles: true, screenX: 300, screenY: 40 })
+    );
+    await columns[0].dispatchEvent(
+      new MouseEvent('mouseup', { bubbles: true, clientX: 300, clientY: 40 })
+    );
+
+    // Assert
+    const newColNames = Array.from(
+      tabularVisualisation.querySelectorAll('.column-top > g > text')
+    ).map((textElement) => textElement.textContent);
+    const newColPositions = Array.from(
+      tabularVisualisation.querySelectorAll('.column-top > rect')
+    ).map((rect) => rect.getAttribute('x'));
+
+    // First, we check the new indexes in for the columns; e.g. the column that used
+    // to be at index 0 is now at index 1. This is to make sure that the new x-positions
+    // that we check below actually apply to the right column.
+    expect(newColNames[0]).toBe(colNames[1]);
+    expect(newColNames[3]).toBe(colNames[0]);
+    expect(newColNames[1]).toBe(colNames[2]);
+    expect(newColNames[2]).toBe(colNames[3]);
+
+    // Here we make sure that the x-positions of the columns updated correctly. We use the
+    // same indices as above, except that we want the position for the column that was first
+    // to be equal to the position of the column that is now first (the old second column), and
+    // vice versa.
+    expect(newColPositions[0]).toBe(colPositions[0]);
+    expect(newColPositions[3]).toBe(colPositions[1]);
+    expect(newColPositions[1]).toBe(colPositions[2]);
+    expect(newColPositions[2]).toBe(colPositions[3]);
+  });
 });
 
 // Helper function to check highlighted state
