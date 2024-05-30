@@ -101,8 +101,8 @@ the other axis goes in the direction of the length of the bars and has numerical
         <Bar
           x={marginLeft}
           y={positionScale(bar.label) ?? 0}
-          width={positionScale.bandwidth()}
-          height={barScale(bar.value)}
+          barWidth={positionScale.bandwidth()}
+          value={barScale(bar.value)}
           isVertical={false}
           originX={OriginX.Left}
           originY={OriginY.Top}
@@ -113,8 +113,8 @@ the other axis goes in the direction of the length of the bars and has numerical
         <Bar
           x={positionScale(bar.label) ?? 0}
           y={height - marginBottom}
-          width={positionScale.bandwidth()}
-          height={barScale(maxValue - bar.value)}
+          barWidth={positionScale.bandwidth()}
+          value={barScale(maxValue - bar.value)}
           isVertical={true}
           originX={OriginX.Left}
           originY={OriginY.Bottom}

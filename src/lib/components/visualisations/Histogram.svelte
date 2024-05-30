@@ -160,8 +160,8 @@ This visualisation shows frequencies of data. It can group data categorically or
         <Bar
           x={categoricalScale(bucket.key) ?? 0}
           y={height - marginBottom}
-          width={categoricalScale.bandwidth()}
-          height={yScale(0) - yScale(bucket.values.length)}
+          barWidth={categoricalScale.bandwidth()}
+          value={yScale(0) - yScale(bucket.values.length)}
           isVertical={true}
           originX={OriginX.Left}
           originY={OriginY.Bottom}
@@ -175,10 +175,10 @@ This visualisation shows frequencies of data. It can group data categorically or
         <Bar
           x={numericalScale(bucket.x0 ?? 0) + 1 ?? 0}
           y={height - marginBottom}
-          width={numericalScale(bucket.x1 ?? 0) -
+          barWidth={numericalScale(bucket.x1 ?? 0) -
             numericalScale(bucket.x0 ?? 0) -
             (numericalScale(bucket.x1 ?? 0) - numericalScale(bucket.x0 ?? 0)) * padding}
-          height={yScale(0) - yScale(bucket.length)}
+          value={yScale(0) - yScale(bucket.length)}
           isVertical={true}
           originX={OriginX.Left}
           originY={OriginY.Bottom}

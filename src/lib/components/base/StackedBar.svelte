@@ -73,7 +73,7 @@ on top of each other.
                              Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
                              Defaults to `1`.
 * showTotals: boolean      - Whether or not to display the sum of all bars at the end as a number, defaults to false.
--->
+-->barWidth
 <g>
   <!-- Loop over all attributes -->
   {#each xPositions as x, i}
@@ -81,8 +81,8 @@ on top of each other.
     <Bar
       x={$marginLeft + x}
       {y}
-      width={barWidth}
-      height={values[i]}
+      {barWidth}
+      value={values[i]}
       isVertical={false}
       color={$styleUtil.colorScheme[i % $styleUtil.colorScheme.length]}
       originX={OriginX.Left}

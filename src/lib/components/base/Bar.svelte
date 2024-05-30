@@ -12,8 +12,8 @@
   // Required attributes
   export let x: number;
   export let y: number;
-  export let width: number;
-  export let height: number;
+  export let barWidth: number;
+  export let value: number;
 
   // Optional attributes
   export let isVertical: boolean = true;
@@ -24,13 +24,17 @@
   export let rotationDegrees: number = 0;
   export let borderRadius: number = 0;
   export let showsNegativeHeight: boolean = false;
-  export let hoverText: string = height.toString();
+  export let hoverText: string = value.toString();
   export let name: string | undefined = undefined;
   export let labelType: 'none' | 'alwaysVisible' | 'visibleOnHighlight' = 'none';
 
   // Private attributes
   let rectBlock: SVGRectElement;
   let isMouseOnBar: boolean = false;
+
+  // These local values are possibly flipped depending on `isVertical`
+  const localWidth = isVertical ? barWidth : value;
+  const localValue = isVertical ? value : barWidth;
 
   const dispatch = createEventDispatcher();
 
@@ -52,31 +56,25 @@
     throw DMVisError(`Labeltype ${labelType}, is not recognised`, 'Bar');
   }
 
-  if (!isVertical) {
-    // Swap width and height if the bar is horizontal
-    const temp: number = width;
-    width = height;
-    height = temp;
-  }
   let xBar: number;
   $: xBar =
     x +
     getOrigin(
-      Math.abs(width),
+      Math.abs(localWidth),
       OriginX.Left,
       // Negative values get flipped
-      width < 0 ? getFlippedOrigin(originX) : originX
+      localWidth < 0 ? getFlippedOrigin(originX) : originX
     );
   let yBar: number;
 
   $: yBar =
     y +
     getOrigin(
-      Math.abs(height),
+      Math.abs(localValue),
       OriginY.Top,
       // Negative values get flipped
       // `showsNegativeValue` determines whether this is visible for height < 0
-      height < 0 ? getFlippedOrigin(originY) : originY
+      localValue < 0 ? getFlippedOrigin(originY) : originY
     );
 
   // On this point xBar and yBar are the top left corner of the bar
@@ -85,10 +83,10 @@
   let xLabel: number;
   $: {
     if (isVertical) {
-      xLabel = xBar + width / 2;
-      yLabel = yBar + height;
+      xLabel = xBar + localWidth / 2;
+      yLabel = yBar + localValue;
     } else {
-      yLabel = yBar + height / 2;
+      yLabel = yBar + localValue / 2;
       xLabel = xBar;
     }
   }
@@ -127,8 +125,8 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 #### Required attributes
 * x: number                     - X-coordinate of the bar.
 * y: number                     - Y-coordinate of the bar.
-* width: number                 - Width of the bar.
-* height: number                - Height of the bar.
+* barWidth: number              - Width of the bar.
+* value: number                 - The value of the bar, and therefore the length of the bar.
 
 #### Optional attributes
 * isVertical: boolean           - Whether the bar is vertical bar or horizontal. This defaults to `true`.
@@ -168,8 +166,8 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
   y={yBar}
   rx={borderRadius}
   ry={borderRadius}
-  {width}
-  height={showsNegativeHeight && height < 0 ? -height : height}
+  width={localWidth}
+  height={showsNegativeHeight && localValue < 0 ? -localValue : localValue}
   fill={color}
   fill-opacity={opacity}
   role="treeitem"

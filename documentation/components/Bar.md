@@ -23,17 +23,17 @@ X-coordinate of the bar.
 
 Y-coordinate of the bar.
 
-## width
+## barWidth
 
 - Type: `number`
 
 Width of the bar.
 
-## height
+## value
 
 - Type: `number`
 
-Height of the bar.
+The value of the bar, and therefore the length of the bar.
 
 # Optional Attributes
 
@@ -141,15 +141,15 @@ To read more about these events, see the [Events](../utils/events.md) documentat
 
 ```svelte
 <svg style="border: 1px solid black" width="500" height="500">
-  <Bar x={250} y={250} width={25} height={100} />
+  <Bar x={250} y={250} barWidth={25} value={100} />
 </svg>
 ```
 
 Vertical, slightly transparent, blue bar with perfectly rounded corners.
-Note that `borderRadius` is `0.5 * width` here.
+Note that `borderRadius` is `0.5 * barWidth` here.
 
 ```svelte
 <svg style="border: 1px solid black" width="500" height="500">
-  <Bar x={250} y={250} width={25} height={100} color={'blue'} opacity={0.8} borderRadius={12.5} />
+  <Bar x={250} y={250} barWidth={25} value={100} color={'blue'} opacity={0.8} borderRadius={12.5} />
 </svg>
 ```

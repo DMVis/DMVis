@@ -236,8 +236,8 @@ BarColumn is a Column component that displays bars for each value in the data ar
         <Bar
           x={x + paddingSide}
           y={getY(i)}
-          width={barWidth}
-          height={scale(value)}
+          {barWidth}
+          value={scale(value)}
           originX={OriginX.Left}
           originY={OriginY.Middle}
           isVertical={false}

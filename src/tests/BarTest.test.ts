@@ -9,11 +9,11 @@ prepareSvgGetter();
 describe('isVertical test', () => {
   it('checks if a vertically configured bar is vertical', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
     // Since the bar is designed to be vertical by default, the
     // width corresponds to width and the height corresponds to height
-    const expectedWidth = config.width;
-    const expectedHeight = config.height;
+    const expectedWidth = config.barWidth;
+    const expectedHeight = config.value;
 
     // Act
     const bar = createBar(config);
@@ -25,10 +25,10 @@ describe('isVertical test', () => {
 
   it('checks if a horizontally configured bar is horizontal', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, isVertical: false };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250, isVertical: false };
     // Note that width and height are now swapped
-    const expectedWidth = config.height;
-    const expectedHeight = config.width;
+    const expectedWidth = config.value;
+    const expectedHeight = config.barWidth;
 
     // Act
     const bar = createBar(config);
@@ -49,12 +49,12 @@ describe('Height configuration test', () => {
     const config = {
       x: 0,
       y: 0,
-      width: 50,
-      height: 250,
+      barWidth: 50,
+      value: 250,
       isVertical: true,
       showsNegativeHeight: false
     };
-    const expectedHeight = config.height;
+    const expectedHeight = config.value;
 
     // Act
     const bar = createBar(config);
@@ -69,12 +69,12 @@ describe('Height configuration test', () => {
     const config = {
       x: 0,
       y: 0,
-      width: 50,
-      height: 250,
+      barWidth: 50,
+      value: 250,
       isVertical: true,
       showsNegativeHeight: true
     };
-    const expectedHeight = config.height;
+    const expectedHeight = config.value;
 
     // Act
     const bar = createBar(config);
@@ -89,14 +89,14 @@ describe('Height configuration test', () => {
     const config = {
       x: 0,
       y: 0,
-      width: 50,
-      height: -250,
+      barWidth: 50,
+      value: -250,
       isVertical: true,
       showsNegativeHeight: false
     };
     // A negative height resuls in no visible rendering, so this is fine
     // (i.e. clamping is not needed as a result)
-    const expectedHeight = config.height;
+    const expectedHeight = config.value;
 
     // Act
     const bar = createBar(config);
@@ -111,14 +111,14 @@ describe('Height configuration test', () => {
     const config = {
       x: 0,
       y: 0,
-      width: 50,
-      height: -250,
+      barWidth: 50,
+      value: -250,
       isVertical: true,
       showsNegativeHeight: true
     };
     // Since a negative height results in no visible rendering, the height has to be positive
     // if the bar is configured to show a negative height
-    const expectedHeight = -config.height;
+    const expectedHeight = -config.value;
 
     // Act
     const bar = createBar(config);
@@ -131,7 +131,7 @@ describe('Height configuration test', () => {
 describe('Mouse interactivity test', () => {
   it('checks if a bar has the number hidden by default', () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
 
     // Act
     const bar = createBar(config);
@@ -148,7 +148,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number appears on mouse enter event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
 
     // Act
     const bar = createBar(config);
@@ -169,7 +169,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number appears on focus event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
 
     // Act
     const bar = createBar(config);
@@ -190,7 +190,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number disappears on mouse leave event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
 
     // Act
     const bar = createBar(config);
@@ -210,7 +210,7 @@ describe('Mouse interactivity test', () => {
 
   it('checks if the bar number disappears on blur event with the bar', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250, showTextOnHover: true };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
 
     // Act
     const bar = createBar(config);
@@ -230,7 +230,7 @@ describe('Mouse interactivity test', () => {
 
   it('fires an event when the bar is clicked', async () => {
     // Arrange
-    const config = { x: 0, y: 0, width: 50, height: 250 };
+    const config = { x: 0, y: 0, barWidth: 50, value: 250 };
     let clicked = false;
 
     // Add svg block to the document
@@ -259,7 +259,7 @@ describe('Attribute test', () => {
   it('checks if default attributes are filled', () => {
     // Arrange
     // Note that x and y are intentionally different to test the default name attribute
-    const config = { x: 0, y: 1, width: 50, height: 250 };
+    const config = { x: 0, y: 1, barWidth: 50, value: 250 };
     const expectedClasses = `bar`;
 
     // Act
@@ -286,8 +286,8 @@ describe('Attribute test', () => {
     const config = {
       x: 0,
       y: 0,
-      width: 50,
-      height: 250,
+      barWidth: 50,
+      value: 250,
       isVertical: true,
       color: 'blue',
       opacity: 1,
