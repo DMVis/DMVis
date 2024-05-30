@@ -1,5 +1,5 @@
 {
-  "name": "dmvis",
+  "name": "@dmvis/dmvis",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite dev",
@@ -19,6 +19,13 @@
     "lint-staged": "lint-staged",
     "docs": "docsify serve documentation"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DMVis/DMVis.git"
+  },
+  "author": "DMVis",
+  "license": "AGPL-3.0-only",
+  "homepage": "https://github.com/DMVis/DMVis#readme",
   "exports": {
     ".": {
       "types": "./dist/Index.d.ts",
