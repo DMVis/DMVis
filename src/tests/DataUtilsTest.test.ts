@@ -186,6 +186,18 @@ describe('dataUtils functionality test', () => {
     testRegularAssertions(parsedData);
   });
 
+  it('should parse CSV with different types in column', async () => {
+    // Arrange
+    const csvData = 'a,b,c\n1,2,3\n4,hello,6\n7,8,9';
+    const dataUtil = new DataUtils();
+
+    // Act
+    await dataUtil.parseData(csvData);
+
+    // Assert
+    testColumnTypes(dataUtil.columnInfo);
+  });
+
   it('should throw an error when parsing invalid data', async () => {
     // Arrange
     const invalidData = 'invalid data';
@@ -257,4 +269,9 @@ function testRegularAssertions(data: Array<Array<string | number>>) {
   expect(data[1]).toEqual([1, 2, 3]);
   expect(data[2]).toEqual([4, 5, 6]);
   expect(data[3]).toEqual([7, 8, 9]);
+}
+
+function testColumnTypes(data: { [key: string]: string }) {
+  expect(data).toBeDefined();
+  expect(data).toEqual({ a: 'number', b: 'number', c: 'number' });
 }
