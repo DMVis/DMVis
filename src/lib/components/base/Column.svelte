@@ -60,7 +60,7 @@
 
   function selectRow(e: MouseEvent) {
     const row = getRow(e);
-    dispatch('mouseRowClick', { row });
+    dispatch('mouseRowClick', { row, ctrl: e.ctrlKey, shift: e.shiftKey });
   }
 
   function getRow(e: MouseEvent): number {

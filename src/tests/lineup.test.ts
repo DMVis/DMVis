@@ -117,19 +117,13 @@ describe('Interactive LineUp columns & rows', async () => {
       })
     );
 
-    // Hold the shift key
-    await container.dispatchEvent(
-      new KeyboardEvent('keydown', {
-        key: 'Shift'
-      })
-    );
-
     // Act
     await background.dispatchEvent(
       new MouseEvent('click', {
-        // Click at the center of the third column row
+        // Click at the center of the third column row whilst holding shift
         clientX: 75,
-        clientY: 60
+        clientY: 60,
+        shiftKey: true
       })
     );
 
@@ -153,19 +147,13 @@ describe('Interactive LineUp columns & rows', async () => {
       })
     );
 
-    // Hold the shift key
-    await container.dispatchEvent(
-      new KeyboardEvent('keydown', {
-        key: 'Control'
-      })
-    );
-
     // Act
     await background.dispatchEvent(
       new MouseEvent('click', {
-        // Click at the center of the third column row
+        // Click at the center of the third column row whilst holding ctrl
         clientX: 75,
-        clientY: 60
+        clientY: 60,
+        ctrlKey: true
       })
     );
 

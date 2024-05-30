@@ -367,6 +367,8 @@ An event that is triggered when the user clicks on a row.
 ### Event Properties
 
 - `row` - A number representing the row that the user clicked on.
+- `ctrl` - A boolean value indicating whether the user is holding the control key.
+- `shift` - A boolean value indicating whether the user is holding the shift key.
 
 ## remove
 

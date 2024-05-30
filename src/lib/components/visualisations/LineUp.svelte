@@ -87,18 +87,6 @@
     }
   });
 
-  // Booleans to track whether a special key is being held for selection
-  let shift: boolean = false;
-  let ctrl: boolean = false;
-  function setCurrentKey(event: KeyboardEvent) {
-    // Only checking Shift and Control for multi-select
-    if (event.key === 'Shift') {
-      shift = event.type === 'keydown';
-    } else if (event.key === 'Control') {
-      ctrl = event.type === 'keydown';
-    }
-  }
-
   // Calculate height based on number of rows
   function calculateHeight(numRows: number): number {
     return numRows * 20 + columnTopMargin;
@@ -112,6 +100,7 @@
   // Handle events
   let selectedRows: Map<string, number> = new Map();
   function selectRows(event: CustomEvent, multiple: boolean = false) {
+    const { shift, ctrl } = event.detail;
     if (shift) {
       shiftselectedRows(event);
     } else if (ctrl || multiple) {
@@ -401,8 +390,6 @@ displays different types of columns such as text, bar, and rank columns. This is
     {height}
     role="cell"
     tabindex="-1"
-    on:keydown={setCurrentKey}
-    on:keyup={setCurrentKey}
     bind:this={lineUpRef}>
     {#key columnData || dataUtil || $dataMap || $visualisationData || grouped || sortedOrder}
       <g class="lineUp-highlights">
