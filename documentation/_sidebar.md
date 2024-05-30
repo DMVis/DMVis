@@ -5,6 +5,7 @@
   - [Visualizing data](DATA.md)
   - [Running DMVis locally](LOCAL.md)
   - [Contributing](CONTRIBUTING.md)
+  - [License](LICENSE.md)
 
 ---
 

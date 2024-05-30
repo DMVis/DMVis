@@ -18,4 +18,4 @@ We welcome contributions from the community to help improve and grow this projec
 
 ## License
 
-DMVis will be licensed under a license provided by Utrecht University. By using this library, you agree to the terms of the license. For more information, please refer to the [license file](LICENSE).
+DMVis licensed under the GNU AFFERO GENERAL PUBLIC LICENSE, which was provided by Utrecht University. By using this library, you agree to the terms of the license. For more information, please refer to the [license file](LICENSE).
