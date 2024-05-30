@@ -60,7 +60,7 @@ The `axisOrderChanged` event is triggered when the user changes the order of the
 
 ### Event Properties
 
-- `axisOrder` - The new order of the axes
+- `axisOrder`: _`string[]`_ - The new order of the axes
 
 ## check
 
@@ -72,8 +72,8 @@ The `axisOrderChanged` event is triggered when the user changes the order of the
 
 ### Event Properties
 
-- `checked` - A boolean value indicating whether the checkbox is checked or not.
-- `row` - The row that the checkbox belongs to.
+- `checked`: _`boolean`_ - A boolean value indicating whether the checkbox is checked or not.
+- `row`: _`string`_ - The row that the checkbox belongs to.
 
 ## checkAll
 
@@ -85,7 +85,7 @@ The `axisOrderChanged` event is triggered when the user changes the order of the
 
 ### Event Properties
 
-- `checked` - A boolean value indicating whether the checkbox is checked or not.
+- `checked`: _`boolean`_ - A boolean value indicating whether the checkbox is checked or not.
 
 ## dragStart
 
@@ -105,7 +105,7 @@ This event is called when the user starts dragging the component inside the `Dra
 
 ### Event Properties
 
-- elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.
+- `elementName`: _`string`_ - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.
 
 ## dragMove
 
@@ -125,9 +125,9 @@ This event is called while the user is dragging the component inside the `Dragga
 
 ### Event Properties
 
-- elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, which is used for identifying which component is being dragged.
-- movementX: `number` - The number of pixels that the mouse moved in the horizontal direction.
-- movementY `number` - The number of pixels that the mouse moved in the vertical direction.
+- `elementName`: _`string`_ - This is the parameter that is passed to the `Draggable` wrapper, which is used for identifying which component is being dragged.
+- `movementX`: _`number`_ - The number of pixels that the mouse moved in the horizontal direction.
+- `movementY` _`number`_ - The number of pixels that the mouse moved in the vertical direction.
 
 ## dragStop
 
@@ -145,7 +145,7 @@ This event is called when the user stops dragging the component inside the `Drag
 
 ### Event Properties
 
-- elementName: `string` - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.
+- `elementName`: _`string`_ - This is the parameter that is passed to the `Draggable` wrapper, used for identifying which component is being dragged.
 
 ## filter
 
@@ -160,9 +160,9 @@ An event which handles the filtering of the data. It contains either text or num
 
 ### Event Properties
 
-- `column` - The name of the column.
-- `value` - Either a string or a number representing the value to filter by.
-- `isMin` - A boolean value indicating whether the filter should be a minimum or maximum filter.
+- `column`: _`string`_ - The name of the column.
+- `value`: _`string | number`_ - Either a string or a number representing the value to filter by.
+- `isMin`: _`boolean`_ - A boolean value indicating whether the filter should be a minimum or maximum filter.
 
 ## group
 
@@ -176,7 +176,7 @@ An event which handles the grouping of the data. Contains the name of the column
 
 ### Event Properties
 
-- `column` - The name of the column to group by.
+- `column`: _`string`_ - The name of the column to group by.
 
 ## mouseBarClick
 
@@ -188,7 +188,7 @@ Fire an event when the user clicks on a bar.
 
 ### Event Properties
 
-- `name` - The name of the bar. This is set by the parent component and is used to identify the bar.
+- `name`: _`string`_ - The name of the bar. This is set by the parent component and is used to identify the bar.
 
 ## mouseBarEnter
 
@@ -201,7 +201,7 @@ Fire an event when the mouse of a user enters a bar.
 
 ### Event Properties
 
-- `name` - The name of the bar. This is set by the parent component and is used to identify the bar.
+- `name`: _`string`_ - The name of the bar. This is set by the parent component and is used to identify the bar.
 
 ## mouseBarLeave
 
@@ -214,7 +214,7 @@ Fire an event when the mouse of a user leaves a bar.
 
 ### Event Properties
 
-- `name` - The name of the bar. This is set by the parent component and is used to identify the bar.
+- `name`: _`string`_ - The name of the bar. This is set by the parent component and is used to identify the bar.
 
 ## mouseHover
 
@@ -231,7 +231,7 @@ This event is triggered when the user hovers over a component. This is mainly us
 
 ### Event Properties
 
-- `row` - A number representing the row that the user is hovering over.
+- `row`: _`string`_ - A number representing the row that the user is hovering over.
 
 ## mouseIconClick
 
@@ -243,8 +243,8 @@ An event that is triggered when the user clicks on an icon.
 
 ### Event Properties
 
-- `x` - A number representing the x-coordinate of the mouse.
-- `y` - A number representing the y-coordinate of the mouse.
+- `x`: _`number`_ - A number representing the x-coordinate of the mouse.
+- `y`: _`number`_ - A number representing the y-coordinate of the mouse.
 
 ## mouseIconEnter
 
@@ -256,8 +256,8 @@ An event that is triggered when the user hovers over an icon.
 
 ### Event Properties
 
-- `x` - A number representing the x-coordinate of the mouse.
-- `y` - A number representing the y-coordinate of the mouse.
+- `x`: _`number`_ - A number representing the x-coordinate of the mouse.
+- `y`: _`number`_ - A number representing the y-coordinate of the mouse.
 
 ## mouseIconLeave
 
@@ -269,8 +269,8 @@ An event that is triggered when the user stops hovering over an icon.
 
 ### Event Properties
 
-- `x` - A number representing the x-coordinate of the mouse.
-- `y` - A number representing the y-coordinate of the mouse.
+- `x`: _`number`_ - A number representing the x-coordinate of the mouse.
+- `y`: _`number`_ - A number representing the y-coordinate of the mouse.
 
 ## mouseLabelClick
 
@@ -282,7 +282,7 @@ An event that is fired when the user clicks on a label.
 
 ### Event Properties
 
-- `name` - The name of the label.
+- `name`: _`string`_ - The name of the label.
 
 ## mouseLabelEnter
 
@@ -294,7 +294,7 @@ An event that is fired when the mouse enters a label.
 
 ### Event Properties
 
-- `name` - The name of the label.
+- `name`: _`string`_ - The name of the label.
 
 ## mouseLabelLeave
 
@@ -306,7 +306,7 @@ An event that is fired when the mouse leaves a label.
 
 ### Event Properties
 
-- `name` - The name of the label.
+- `name`: _`string`_ - The name of the label.
 
 ## mousePointClick
 
@@ -319,7 +319,7 @@ An event that is fired when the user clicks on a point.
 
 ### Event Properties
 
-- `name` - The name of the point.
+- `name`: _`string`_ - The name of the point.
 
 ## mousePointEnter
 
@@ -332,9 +332,9 @@ An event that is fired when the mouse enters a point.
 
 ### Event Properties
 
-- `name` - The name of the point.
-- `x` - The x-coordinate of the point.
-- `y` - The y-coordinate of the point.
+- `name`: _`string`_ - The name of the point.
+- `x`: _`number`_ - The x-coordinate of the point.
+- `y`: _`number`_ - The y-coordinate of the point.
 
 ## mousePointLeave
 
@@ -347,9 +347,9 @@ An event that is fired when the mouse leaves a point.
 
 ### Event Properties
 
-- `name` - The name of the point.
-- `x` - The x-coordinate of the point.
-- `y` - The y-coordinate of the point.
+- `name`: _`string`_ - The name of the point.
+- `x`: _`number`_ - The x-coordinate of the point.
+- `y`: _`number`_ - The y-coordinate of the point.
 
 ## mouseRowClick
 
@@ -366,9 +366,9 @@ An event that is triggered when the user clicks on a row.
 
 ### Event Properties
 
-- `row` - A number representing the row that the user clicked on.
-- `ctrl` - A boolean value indicating whether the user is holding the control key.
-- `shift` - A boolean value indicating whether the user is holding the shift key.
+- `row`: _`string`_ - A number representing the row that the user clicked on.
+- `ctrl`: _`boolean`_ - A boolean value indicating whether the user is holding the control key.
+- `shift`: _`boolean`_ - A boolean value indicating whether the user is holding the shift key.
 
 ## remove
 
@@ -385,7 +385,7 @@ An event that is triggered when a column is removed from the visualisation.
 
 ### Event Properties
 
-- `column` - The name of the column that is being removed.
+- `column`: _`string`_ - The name of the column that is being removed.
 
 ## renderAxis
 
@@ -415,8 +415,8 @@ An event that is triggered when the user searches for a specific value.
 
 ### Event Properties
 
-- `column` - The name of the column that the user is searching in.
-- `value` - The value that the user is searching for.
+- `column`: _`string`_ - The name of the column that the user is searching in.
+- `value`: _`string`_ - The value that the user is searching for.
 
 ## sort
 
@@ -433,5 +433,5 @@ An event that is triggered when the user sorts the data.
 
 ### Event Properties
 
-- `column` - The name of the column that the user is sorting by.
-- `sorting` - The sorting order. This can be one of the following values: `asc`, `desc`, or `none`.
+- `column`: _`string`_ - The name of the column that the user is sorting by.
+- `sorting`: _`'asc' | 'desc' | 'none'`_ - The sorting order of the column.
