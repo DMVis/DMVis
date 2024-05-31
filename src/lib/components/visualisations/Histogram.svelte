@@ -1,6 +1,7 @@
 <script lang="ts">
   // Imports
   import {
+    min,
     max,
     scaleLinear,
     scaleBand,
@@ -30,8 +31,7 @@
   export let marginTop: number = 20;
   export let marginBottom: number = 20;
 
-  // The default number of bins are calculated based on the max value in the data divided by 2
-  export let bins: number = (max(data as Array<number>) ?? 20) / 2;
+  export let bins: number = 10;
   export let showOuterTicks: boolean = true;
   export let forceCategorical: boolean = true;
   export let padding: number = 0.03;
@@ -46,6 +46,9 @@
   let yScale: ScaleLinear<number, number>;
   let categoricalScale: ScaleBand<string>;
   let numericalScale: ScaleLinear<number, number>;
+
+  let minValue: number;
+  let maxValue: number;
 
   // Check if data is categorical or numerical by checking the first entry in the 'data' array
   // Data is categorical
@@ -74,7 +77,9 @@
   } else {
     // Group data into buckets representing a range of numbers
     numericalBuckets = bin().thresholds(bins)(data as number[]);
-
+    minValue = min(data as number[]) ?? 0;
+    maxValue = max(data as number[]) ?? 0;
+    numericalBuckets[numericalBuckets.length - 1].x1 = maxValue;
     // Force the numerical data into categorical data
     // Make categories using the inclusive lower and exlusive upper bound of each bucket
     if (forceCategorical) {
@@ -138,7 +143,7 @@ This visualisation shows frequencies of data. It can group data categorically or
                                      This d3.bin function has a parameter called 'thresholds()' where you can enter a number to specify how many buckets you want. Here we use the bins variable as its input and thus should specify the number of buckets.
                                      However, the d3.bin().thresholds(bins) do not enforce the precise amount of buckets you wish to have.
                                      It only tries to get as close as possible to the specified number of 'bins' and may make more or less than the value assigned to 'bins'.
-                                     This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another. Defaults to `(d3.max(data as Array<number>) ?? 20) / 2`.
+                                     This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another. Defaults to `10`.
 * showOuterTicks: boolean          - A toggle to show only outer ticks.
                                      When `true`: show only the outer ticks.
                                      Otherwise: show all ticks. Defaults to `true`.
@@ -198,7 +203,7 @@ This visualisation shows frequencies of data. It can group data categorically or
       <Axis
         placementX={0}
         placementY={height - marginBottom}
-        axis={axisBottom(numericalScale).tickValues(numericalScale.domain())} />
+        axis={axisBottom(numericalScale).tickValues([minValue, maxValue])} />
       <!-- Draw numerical Axis with all ticks -->
     {:else}
       <Axis placementX={0} placementY={height - marginBottom} axis={axisBottom(numericalScale)} />

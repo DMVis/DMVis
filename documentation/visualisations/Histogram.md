@@ -70,7 +70,7 @@ The margin to the bottom of the visualisation.
 ## bins
 
 - Type: `number`
-- Default: `d3.max(data as number[]) as number`
+- Default: `10`
 
 The number of bins of numerical values. This only has an impact on numerical data.
 Categorical data is divided into unique categories (strings).
