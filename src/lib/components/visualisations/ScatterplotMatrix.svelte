@@ -627,7 +627,11 @@ A matrix of scatterplots that can be used to quickly find relations between attr
                   width={xScale.bandwidth()}
                   height={yScale.bandwidth()}
                   showAxis={false}
-                  {pointOpacity} />
+                  {pointOpacity}
+                  marginBottom={0}
+                  marginTop={0}
+                  marginRight={0}
+                  marginLeft={0} />
                 <!--The rect will function as a border around the scatterplot  -->
                 <rect
                   width={xScale.bandwidth()}

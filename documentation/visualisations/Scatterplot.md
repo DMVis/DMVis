@@ -2,6 +2,8 @@
 
 This is a visualisation to display a dataset of points
 
+> Note: By default the scatterplot assumes an existing pre-defined store. If this is not the case, the [dataUtil](#datautil) attribute is **required**!
+
 # Required Attributes
 
 ## width
@@ -22,7 +24,7 @@ Height of the visualisation.
 
 The name of the attribute should be plotted along the x-axis.
 
-> Note: This should be the same name as the one that is provided in the input data.
+> Note: This should be the same name as the one that is provided in the input dataUtil.
 
 ## yAxis
 
@@ -30,9 +32,16 @@ The name of the attribute should be plotted along the x-axis.
 
 The name of the attribute that should be plotted along the y-axis.
 
-> Note: This should be the same name as the one that is provided in the input data.
+> Note: This should be the same name as the one that is provided in the input dataUtil.
 
 # Optional Attributes
+
+## dataUtil
+
+- Type: `dataUtil`
+- Default: `null`
+
+The dataUtil adds the option to use the scatterplot without a predefined store. Note that this becomes a required attribite if you wish to do so.
 
 ## showAxis
 
@@ -55,6 +64,34 @@ Amount of ticks to display on each of the axes.
 
 The opacity of the points of the scatterplot.
 
+## marginLeft
+
+- Type: `number`
+- Default: `40`
+
+Margin left of the visualisation.
+
+## marginRight
+
+- Type: `number`
+- Default: `40`
+
+Margin right of the visualisation.
+
+## marginTop
+
+- Type: `number`
+- Default: `40`
+
+Margin above the visualisation.
+
+## marginBottom
+
+- Type: `number`
+- Default: `40`
+
+Margin under the visualisation.
+
 # Events
 
 This component emits the following events:
@@ -67,10 +104,18 @@ To read more about these events, see the [Events](../utils/events.md) documentat
 
 # Example usage
 
+Using the scatterplot with a pre-defined store.
+
 ```svelte
 <script lang="ts">
   const width: number = 500;
   const height: number = 500;
+
+  const marginLeft: number = 40;
+  const marginRight: number = 40;
+  const marginTop: number = 40;
+  const marginBottom: number = 40;
+
   const data: Array<Array<string | number>> = [
     ['Name', 'weight', 'size', 'age'],
     ['Piet', 0, 0, 0],
@@ -81,20 +126,42 @@ To read more about these events, see the [Events](../utils/events.md) documentat
     ['Pieter', 359, 429, 75]
   ];
 
-  const store = new VisualisationStore();
-
-  store.marginLeft.set(0);
-  store.marginRight.set(0);
-  store.marginTop.set(0);
-  store.marginBottom.set(0);
-
-  store.data.set(data.slice(1));
-  store.columns.set(data[0] as string[]);
-  store.height.set(height);
-  store.width.set(width);
-
-  setContext('store', store);
+  setVisualisationContext({
+    data: data.slice(1),
+    columns: data[0] as string[],
+    height,
+    width,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginBottom
+  });
 </script>
 
-<Scatterplot {height} {width} xAxis="age" yAxis="size" />
+<svg {width} {height}>
+  <Scatterplot {height} {width} xAxis="age" yAxis="size" />
+</svg>
+```
+
+Or creating a scatterplot with the dataUtil
+
+```svelte
+<script lang="ts">
+  const dataUrl: string = '/datasets/holidays-20.csv';
+  const dataUtil: DataUtils = new DataUtils();
+
+  const width: number = 800;
+  const height: number = 800;
+
+  // Load promising
+  $: load = (async () => {
+    await dataUtil.parseCSV(dataUrl);
+  })();
+</script>
+
+{#await load then}
+  <svg {width} {height}>
+    <Scatterplot {dataUtil} {height} {width} xAxis="hotel quality" yAxis="landscape interest" />
+  </svg>
+{/await}
 ```

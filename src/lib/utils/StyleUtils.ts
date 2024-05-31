@@ -33,7 +33,7 @@ export class StyleUtils {
     this.colorSchemeDark = [];
     this.fontSize = options?.fontSize ? options.fontSize : 12;
     this.fontFamily = options?.fontFamily ? options.fontFamily : 'Arial';
-    this.color = options?.color ? options.color : '#BBBBBB';
+    this.color = options?.color ? options.color : '#FF4444';
     this.colorBorder = options?.colorBorder ? options.colorBorder : '#8C8C8C';
     this.focusColor = options?.focusColor ? options.focusColor : '#FF0000';
 

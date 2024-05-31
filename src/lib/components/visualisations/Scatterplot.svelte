@@ -6,7 +6,8 @@
   import Point from '$lib/components/base/Point.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
-  import { getVisualisationContext } from '$lib/Context.js';
+  import { getVisualisationContext, setVisualisationContext } from '$lib/Context.js';
+  import type { DataUtils } from '$lib/Index.js';
 
   // Required attributes
   export let width: number;
@@ -15,9 +16,38 @@
   export let yAxis: string;
 
   // Optional attributes
+  export let dataUtil: DataUtils | null = null;
   export let showAxis: boolean = true;
   export let numTicks: number = 5;
   export let pointOpacity: number = 1;
+  export let marginLeft: number = 40;
+  export let marginRight: number = 40;
+  export let marginTop: number = 40;
+  export let marginBottom: number = 40;
+
+  if (dataUtil !== null) {
+    setVisualisationContext({
+      data: dataUtil.data,
+      columns: dataUtil.columns,
+      width,
+      height,
+      marginBottom,
+      marginLeft,
+      marginRight,
+      marginTop
+    });
+  }
+
+  // Check if store is defined, if not throw an error
+  // Note that if the dataUtil is used, the store is defined by now
+  try {
+    getVisualisationContext();
+  } catch (error) {
+    throw DMVisError(
+      'Visualisation Context is not defined, please ensure that either the context is defined or the dataUtil is passed as an attribute',
+      'scatterplot'
+    );
+  }
 
   //Get columns from the store
   const { columns } = getVisualisationContext();
@@ -49,11 +79,10 @@
     xIndex = $columns.indexOf(xAxis);
     yIndex = $columns.indexOf(yAxis);
     xScaleLocal = $xScales[xIndex] as ScaleLinear<number, number>;
-    xScaleLocal.range([width, 0]);
+    xScaleLocal.range([width - marginRight, marginLeft]);
     yScaleLocal = $yScales[yIndex] as ScaleLinear<number, number>;
-    yScaleLocal.range([0, height]);
+    yScaleLocal.range([marginTop, height - marginBottom]);
   }
-
   // Returns the value of the given attribute from a specific row
   // Done this way, because using `as` is not allowed when creating the component
   function getValue(row: (string | number)[], index: number): number {
@@ -81,9 +110,15 @@ This is a visualisation to display a dataset of points
                             This should be the same one that is provided in the data columns
 
 #### Optional attributes
+* dataUtil: DataUtils   - Adds the possibility to use scatterplot without a predefined store.
+                            By default the scatterplot assumes a defined store. Therefore the dataUtil is `null`
 * showAxis: bool        - Whether or not the axis should be drawn. This defaults to `true`.
 * numTicks: number      - Amount of ticks to be displayed on the axis. This defaults to `5`.
 * pointOpacity: number  - Opacity of the points of the scatterplot. This defaults to `1`.
+* marginLeft: number     - Margin to the left of the visualisation. This defaults to `40`.
+* marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
+* marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
+* marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
 -->
 
 <g {width} {height} class="visualisation scatterplot">

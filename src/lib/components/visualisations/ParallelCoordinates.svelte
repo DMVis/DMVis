@@ -14,7 +14,7 @@
   export let dataUtil: DataUtils;
 
   // Optional attributes
-  export let styleUtil: StyleUtils = new StyleUtils();
+  export let styleUtil: StyleUtils = new StyleUtils({ color: '#BBBBBB' });
   export let width: number = calculateWidth(dataUtil.columns.length);
   export let height: number = calculateHeight(dataUtil.data.length);
   export let marginLeft: number = 40;

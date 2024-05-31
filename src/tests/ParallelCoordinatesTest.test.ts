@@ -8,7 +8,8 @@ import prepareSvgGetter from '../vitest/svgMock.js';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
 prepareSvgGetter();
-const styleUtil = new StyleUtils();
+// The default styleUtil for ParallelCoordinates
+const styleUtil = new StyleUtils({ color: '#BBBBBB' });
 
 describe('Basic Parallel Coordinates rendering', async () => {
   it('renders a simple Parallel Coordinates visualisation', async () => {

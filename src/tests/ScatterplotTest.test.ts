@@ -4,11 +4,12 @@ import { describe, it, expect } from 'vitest';
 import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
 import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import prepareSvgGetter from '../vitest/svgMock.js';
+import { DataUtils } from '$lib/Index.js';
 
 prepareSvgGetter();
 
 describe('Render test', () => {
-  it('renders a scatterplot', () => {
+  it('renders a scatterplot with the pre-defined store', () => {
     // Arrange
     const config = {
       width: 438,
@@ -30,6 +31,38 @@ describe('Render test', () => {
     // Check number of points
     const numPoints = scatterplot.getElementsByClassName('point').length;
     expect(numPoints).toBe(5);
+
+    // Check axis
+    const numAxis = scatterplot.getElementsByClassName('axis').length;
+    expect(numAxis).toBe(2);
+  });
+
+  it('renders a scatterplot with a dataUtil', () => {
+    // Arrange
+    const csvData = 'label,a,b,c\nz,15,5,10\ny,5,10,10\nx,10,15,10\n';
+    const dataUtil = new DataUtils();
+    dataUtil.parseCSV(csvData);
+    const config = {
+      width: 438,
+      height: 942,
+      xAxis: 'a',
+      yAxis: 'b',
+      dataUtil: dataUtil
+    };
+
+    // Act
+    const { container } = render(Scatterplot, config);
+    const scatterplot = container.getElementsByClassName('visualisation')[0] as SVGElement;
+
+    // Assert
+    // Check if width, height, amount of points, and axis are all correct
+    // Check width and height
+    expect(scatterplot.getAttribute('width')).toBe('438');
+    expect(scatterplot.getAttribute('height')).toBe('942');
+
+    // Check number of points
+    const numPoints = scatterplot.getElementsByClassName('point').length;
+    expect(numPoints).toBe(3);
 
     // Check axis
     const numAxis = scatterplot.getElementsByClassName('axis').length;
@@ -119,7 +152,11 @@ describe('Scaling test', () => {
       width: 200,
       height: 200,
       xAxis: 'Inhabitants',
-      yAxis: 'gdp'
+      yAxis: 'gdp',
+      marginLeft: 0,
+      marginRight: 0,
+      marginTop: 0,
+      marginBottom: 0
     };
 
     // Act
@@ -139,7 +176,11 @@ describe('Scaling test', () => {
       width: 200,
       height: 200,
       xAxis: 'Inhabitants',
-      yAxis: 'gdp'
+      yAxis: 'gdp',
+      marginLeft: 0,
+      marginRight: 0,
+      marginTop: 0,
+      marginBottom: 0
     };
 
     // Act
@@ -159,7 +200,11 @@ describe('Scaling test', () => {
       width: 200,
       height: 200,
       xAxis: 'Inhabitants',
-      yAxis: 'gdp'
+      yAxis: 'gdp',
+      marginLeft: 0,
+      marginRight: 0,
+      marginTop: 0,
+      marginBottom: 0
     };
 
     // Act

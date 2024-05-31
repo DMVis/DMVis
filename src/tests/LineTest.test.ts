@@ -49,7 +49,7 @@ describe('Event test', () => {
 
     // Assert again
     // Check if line color resets on mouse leave event
-    expect(lineOne.getAttribute('stroke')).toBe('#BBBBBB');
+    expect(lineOne.getAttribute('stroke')).toBe('#FF4444');
   });
 });
 
@@ -64,7 +64,7 @@ describe('Attribute test', () => {
 
     // Assert
     // Check defaut values
-    expect(line.getAttribute('stroke')).toBe('#BBBBBB');
+    expect(line.getAttribute('stroke')).toBe('#FF4444');
     expect(line.getAttribute('stroke-width')).toBe('1');
   });
 
