@@ -13,6 +13,13 @@ It displays tick marks and labels based on provided data.
 
 The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. This defaults to `[]`, which draws axes in the order that they appear in the dataset.
 
+## squashOuterTicks
+
+- Type: `boolean`
+- Default: `false`
+
+Whether or not to tuck in the first and last tick.
+
 ## alignment
 
 - Type: `string`

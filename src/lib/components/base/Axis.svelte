@@ -22,6 +22,7 @@
   export let fontSize: number = 10;
   export let color: string = 'black';
   export let isDraggable: boolean = false;
+  export let squashOuterTicks: boolean = false;
 
   let element: SVGGElement;
 
@@ -86,19 +87,93 @@
           );
       }
     }
-    // Apply text-anchor to properly align the text on the axis
-    const ticks = Array.from(element.getElementsByClassName('tick'));
-    ticks.forEach((tick, index) => {
-      const text = tick.getElementsByTagName('text')[0];
-      if (index === 0) {
-        text.setAttribute('text-anchor', 'start');
-      } else if (index === ticks.length - 1) {
-        text.setAttribute('text-anchor', 'end');
+
+    // Apply squashing to the outer ticks if required
+    if (squashOuterTicks) {
+      const orientation = findAxisOrientation();
+      const ticks = Array.from(element.getElementsByClassName('tick'));
+      if (orientation === 'horizontal') {
+        // If this is a horizontal axis (so axisBottom or axisTop), change the horizontal allignment of the first and last tick
+
+        // Get the x position of the first drawn tick
+        const tick1 = ticks[0];
+        let { x } = getTransformCoordinates(tick1.getAttribute('transform'));
+        const tick1X = x;
+
+        // Get the x position of the last drawn tick
+        const tick2 = ticks[ticks.length - 1];
+        ({ x } = getTransformCoordinates(tick2.getAttribute('transform')));
+        const tick2X = x;
+        // Sometimes the axis is drawn the wrong way around, so see which tick is the first one and which one is the last one
+        // Then tuck them in
+        if (tick1X < tick2X) {
+          tick1.getElementsByTagName('text')[0].setAttribute('text-anchor', 'start');
+          tick2.getElementsByTagName('text')[0].setAttribute('text-anchor', 'end');
+        } else if (tick2X < tick1X) {
+          tick2.getElementsByTagName('text')[0].setAttribute('text-anchor', 'start');
+          tick1.getElementsByTagName('text')[0].setAttribute('text-anchor', 'end');
+        }
+      } else if (orientation === 'vertical') {
+        // If this is a vertical axis (so axisLeft or axisRight), change the vertical allignment of the first and last tick
+
+        // Get the y position of the first drawn tick
+        const tick1 = ticks[0];
+        let { y } = getTransformCoordinates(tick1.getAttribute('transform'));
+        const tick1Y = y;
+
+        // Get the y position of the last drawn tick
+        const tick2 = ticks[ticks.length - 1];
+        ({ y } = getTransformCoordinates(tick2.getAttribute('transform')));
+        const tick2Y = y;
+
+        // Sometimes the axis is drawn the wrong way around, so see which tick is the first one and which one is the last one
+        // Then tuck them in
+        if (tick1Y < tick2Y) {
+          tick1.getElementsByTagName('text')[0].setAttribute('dominant-baseline', 'central');
+          tick2
+            .getElementsByTagName('text')[0]
+            .setAttribute('dominant-baseline', 'text-after-edge');
+        } else if (tick2Y < tick1Y) {
+          tick2.getElementsByTagName('text')[0].setAttribute('dominant-baseline', 'central');
+          tick1
+            .getElementsByTagName('text')[0]
+            .setAttribute('dominant-baseline', 'text-after-edge');
+        }
       }
-    });
+    }
 
     dispatch('renderAxis');
   });
+
+  function findAxisOrientation(): 'horizontal' | 'vertical' | 'unknown' {
+    const ticks = Array.from(element.getElementsByClassName('tick'));
+    let foundX: number | null = null;
+    let foundY: number | null = null;
+    ticks.forEach((tick) => {
+      const translateAttr = tick.getAttribute('transform');
+      const { x, y } = getTransformCoordinates(translateAttr);
+      if (foundX === null) {
+        foundX = x;
+        foundY = y;
+      } else {
+        foundX = foundX !== x ? -1 : foundX;
+        foundY = foundY !== y ? -1 : foundY;
+      }
+    });
+    if (foundX === -1 && foundY === -1) return 'unknown';
+    if (foundX === -1) return 'horizontal';
+    if (foundY === -1) return 'vertical';
+    return 'unknown';
+  }
+
+  function getTransformCoordinates(transform: string | null | undefined) {
+    const translateRegex = /translate\(([^,]+),([^)]+)\)/;
+    const matches = transform?.match(translateRegex);
+    return {
+      x: matches ? parseFloat(matches[1]) : 0,
+      y: matches ? parseFloat(matches[2]) : 0
+    };
+  }
 </script>
 
 <!--
@@ -126,6 +201,7 @@ of adding a label on any side of the axis.
                                                         the axis should be handled outside this component.  For this
                                                         to work, the renderLabel parameter should be set to true.
                                                         Defaults to false.
+* squashOuterTicks: boolean                           - Whether or not to tuck in the first and last tick. This defaults to `false`.
 -->
 
 <g class="axis">

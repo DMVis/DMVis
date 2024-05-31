@@ -35,6 +35,7 @@
 
   // Optional attributes
   export let axisOrder: string[] = [];
+  export let squashOuterTicks: boolean = false;
   export let renderLabel: boolean = false;
   export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
   export let labelOffset: number = 20;
@@ -470,6 +471,7 @@ You can use this component to render the axis on the top, bottom, left, or right
 * axisOrder: string[]                             - The order in which the axes should be drawn. The array should contain strings
                                                     identical to column names in the dataset. This defaults to `[]`, which draws axes
                                                     in the order that they appear in the dataset.
+* squashOuterTicks: boolean                           - Whether or not to tuck in the first and last tick. This defaults to `false`.
 * alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (i.e. the side of the column where the axis is placed).
                                                     Defaults to `'start'`.
 * fontSize: number                                - Font size of the tick labels. This defaults to `12`.
@@ -509,6 +511,7 @@ You can use this component to render the axis on the top, bottom, left, or right
       {fontSize}
       {color}
       {isDraggable}
+      {squashOuterTicks}
       on:dragMove
       on:dragMove={onDragMove}
       on:dragStop

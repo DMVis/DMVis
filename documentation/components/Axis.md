@@ -71,7 +71,7 @@ Font size of the tick labels.
 
 Color of the axis line and label.
 
-## isDraggable:
+## isDraggable
 
 - Type: `boolean`
 - Default: `false`
@@ -79,6 +79,13 @@ Color of the axis line and label.
 Sets whether the axis is draggable. For this to work, the `renderLabel` parameter should be set to `true`.
 
 > Note: Logic for the displacement of the axis should be handled outside this component.
+
+## squashOuterTicks
+
+- Type: `boolean`
+- Default: `false`
+
+Whether or not to tuck in the first and last tick.
 
 # Events
 

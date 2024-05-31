@@ -754,34 +754,38 @@ A matrix of scatterplots that can be used to quickly find relations between attr
           <DynamicAxis
             position="right"
             spacingDirection="vertical"
-            ticksNumber={4}
+            ticksNumber={2}
             {padding}
             axisOrder={axisNames}
-            offset={5} />
+            offset={5}
+            squashOuterTicks={true} />
           <DynamicAxis
             position="top"
             spacingDirection="horizontal"
-            ticksNumber={4}
+            ticksNumber={2}
             {padding}
             axisOrder={axisNames}
-            offset={5} />
+            offset={5}
+            squashOuterTicks={true} />
         {/if}
         <!-- The bottom and left axis are not needed if only the top of the SM is drawn -->
         {#if display !== 'top'}
           <DynamicAxis
             position="left"
             spacingDirection="vertical"
-            ticksNumber={4}
+            ticksNumber={2}
             {padding}
             axisOrder={axisNames}
-            offset={5} />
+            offset={5}
+            squashOuterTicks={true} />
           <DynamicAxis
             position="bottom"
             spacingDirection="horizontal"
-            ticksNumber={4}
+            ticksNumber={2}
             {padding}
             axisOrder={axisNames}
-            offset={5} />
+            offset={5}
+            squashOuterTicks={true} />
         {/if}
       {/key}
     </svg>

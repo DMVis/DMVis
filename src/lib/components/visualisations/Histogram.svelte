@@ -197,16 +197,22 @@ This visualisation shows frequencies of data. It can group data categorically or
       <Axis
         placementX={0}
         placementY={height - marginBottom}
-        axis={axisBottom(categoricalScale).tickSizeOuter(0)} />
+        axis={axisBottom(categoricalScale).tickSizeOuter(0)}
+        squashOuterTicks={true} />
       <!-- Draw numerical Axis with only the outer ticks -->
     {:else if showOuterTicks}
       <Axis
         placementX={0}
         placementY={height - marginBottom}
-        axis={axisBottom(numericalScale).tickValues([minValue, maxValue])} />
+        axis={axisBottom(numericalScale).tickValues([minValue, maxValue])}
+        squashOuterTicks={true} />
       <!-- Draw numerical Axis with all ticks -->
     {:else}
-      <Axis placementX={0} placementY={height - marginBottom} axis={axisBottom(numericalScale)} />
+      <Axis
+        placementX={0}
+        placementY={height - marginBottom}
+        axis={axisBottom(numericalScale)}
+        squashOuterTicks={true} />
     {/if}
   </svg>
 </BaseVisualisation>

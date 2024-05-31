@@ -223,7 +223,11 @@ BarColumn is a Column component that displays bars for each value in the data ar
   </g>
   <g slot="overview">
     {#if overviewItem === 'axis'}
-      <Axis placementX={x + padding / 2} placementY={100} axis={axisTop(scale).ticks(5)} />
+      <Axis
+        placementX={x + padding / 2}
+        placementY={100}
+        axis={axisTop(scale).ticks(5)}
+        squashOuterTicks={true} />
     {:else if overviewItem === 'histogram'}
       <foreignObject {x} y={45} {width} height={75}>
         <Histogram
