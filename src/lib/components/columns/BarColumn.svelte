@@ -78,7 +78,8 @@
     if (regex.test(weight)) {
       const weightAsFloat = parseFloat(weight);
       if (weightAsFloat < 0 || weightAsFloat > 100) {
-        throw DMVisError('Invalid weight supplied', 'BarColumn');
+        weightInputIsCorrect = false;
+        return;
       }
       // Turn box back to white
       weightInputIsCorrect = true;
