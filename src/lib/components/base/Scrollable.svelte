@@ -1,16 +1,22 @@
 <script lang="ts">
+  // Optional attributes
   export let x: number = 0;
   export let y: number = 0;
-  export let width: number = 0;
-  export let height: number = 0;
+  export let width: number | string = '100%';
+  export let height: number | string = '100%';
   export let className: string = '';
   export let allowHorizontalScrolling: boolean = true;
   export let allowVerticalScrolling: boolean = true;
 
+  // Set the scroll values
   let horizontalScroll: string;
   $: horizontalScroll = allowHorizontalScrolling ? 'auto' : 'hidden';
   let verticalScroll: string;
   $: verticalScroll = allowVerticalScrolling ? 'auto' : 'hidden';
+  let scrollableWidth: string;
+  $: scrollableWidth = typeof width === 'number' ? width + 'px' : width;
+  let scrollableHeight: string;
+  $: scrollableHeight = typeof height === 'number' ? height + 'px' : height;
 </script>
 
 <!--
@@ -41,14 +47,16 @@ This component allows for making any visualisation smaller, by making it scrolla
 * For detailed information about dispatches, check the documentation.
 -->
 
-<svg {x} {y} class="scrollable-svg-{className} " {width} {height}>
+<svg {x} {y} class="scrollable-svg-{className}" {width} {height}>
   <foreignObject {width} {height}>
     <div
       class="scrollable scrollable-div-{className}"
-      style={`width:${width}px;
-          height:${height}px;
+      style={`
+          width:${scrollableWidth};
+          height:${scrollableHeight};
           overflow-x:${horizontalScroll};
-          overflow-y:${verticalScroll};`}
+          overflow-y:${verticalScroll};
+      `}
       on:scroll>
       <slot />
     </div>

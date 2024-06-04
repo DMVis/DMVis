@@ -4,8 +4,8 @@
   import type { DataUtils } from '$lib/utils/DataUtils.js';
 
   export let isScrollable: boolean = false;
-  export let scrollableWidth: number = 1000;
-  export let scrollableHeight: number = 1000;
+  export let scrollableWidth: number | string = '100%';
+  export let scrollableHeight: number | string = '100%';
   export let enableFilter: DataUtils | null = null;
 
   let isError = false;
@@ -81,10 +81,9 @@ are set and error handling is kept within the scope of the visualisation.
   .visualisation {
     overflow-y: auto;
     overflow-x: auto;
-    display: 'flex';
+    display: flex;
     flex-wrap: nowrap;
-    width: '100%';
-    height: '100%';
+    width: fit-content;
     position: relative;
   }
 
