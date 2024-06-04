@@ -459,6 +459,9 @@ categorical data with labels in a column.
 * barOpacity: number                  - Opacity of each bar as a number in the range [0..1].
                                         A value lower than one is recommended for visible bar highlighting.
                                         This defaults to `0.6`.
+
+* isScrollable: boolean               - Whether the visualisation should be scrollable. The default value is `false`.
+* showFilter: boolean                 - Whether the filter should be shown next to the visualisation. The default value is `false`.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>

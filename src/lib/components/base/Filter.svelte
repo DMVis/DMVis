@@ -156,7 +156,7 @@ Filter is a component that allows users to filter data based on the column value
 
 <!-- Drawn in reverse order so the overlays will be on top -->
 <div class="filter-container">
-  <Scrollable width={width + 50} height={window.innerHeight}>
+  <Scrollable width={width + 50}>
     <svg {height}>
       {#each reversedColumns as column, index}
         <FilterColumn
@@ -180,14 +180,10 @@ Filter is a component that allows users to filter data based on the column value
 
 <style>
   .filter-container {
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 200px;
     height: 100%;
     padding: 20px;
     background-color: #f9f9f9;
-    z-index: 1000;
   }
 
   svg {

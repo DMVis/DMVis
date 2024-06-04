@@ -205,6 +205,8 @@ The visualisation consists of two major components: namely, a visualisation clos
 * autoDistributeWeight: boolean             - Determines whether the total of the weights should be 100.
                                                 This will mean that when set to true all other weights will be redistributed.
                                                 This defaults to true
+* isScrollable: boolean                     - Whether the visualisation should be scrollable. The default value is `false`.
+* showFilter: boolean                       - Whether the filter should be shown next to the visualisation. The default value is `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg {width} {height} class="valuechart" bind:this={valueChartRef}>

@@ -384,6 +384,8 @@ displays different types of columns such as text, bar, and rank columns. This is
 * width: number                        - The width of the visualisation. The default value is calculated based on the number of columns and `columnWidth`.
 * height: number                       - The height of the visualisation. The default value is calculated based on the number of rows and the row height.
 * padding: number                      - The padding between columns. The default value is 10.
+* isScrollable: boolean                - Whether the visualisation should be scrollable. The default value is `false`.
+* showFilter: boolean                  - Whether the filter should be shown next to the visualisation. The default value is `false`.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>

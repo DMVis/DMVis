@@ -110,6 +110,8 @@ The y-axis represents the categories of the data.
 * styleUtil: StyleUtils     - Class holding all the styling. See its documentation.
                               Defaults to `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`.
 * showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number, defaults to false.
+* isScrollable: boolean     - Whether the visualisation should be scrollable. The default value is `false`.
+* showFilter: boolean       - Whether the filter should be shown next to the visualisation. The default value is `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg class="visualisation stackedBarchart" {width} {height}>

@@ -30,7 +30,7 @@ Height of the visualisation that is shown. For this to be used, `isScrollable` m
 - Type: `DataUtils`
 - Default: `null`
 
-Provide a DataUtils object when you want to show and use the `Filter` component within the visualisation. -
+Provide a DataUtils object when you want to show and use the [Filter](components/Filter.md) component within the visualisation.
 
 # Example usage
 

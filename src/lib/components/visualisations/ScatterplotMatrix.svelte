@@ -585,6 +585,8 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 * marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
 * marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
 * marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
+* isScrollable: boolean  - Whether the visualisation should be scrollable. The default value is `false`.
+* showFilter: boolean    - Whether the filter should be shown next to the visualisation. The default value is `false`.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>

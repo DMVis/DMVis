@@ -44,41 +44,49 @@ are set and error handling is kept within the scope of the visualisation.
 * Visualisation         - Slot for the visualisation.
  -->
 
-{#if isScrollable}
-  <Scrollable width={scrollableWidth} height={scrollableHeight}>
-    {#if isError}
-      <div class="error">
-        <h1>Something went wrong.</h1>
-        <h2>The following error occured:</h2>
-        <p>{errorMessage}</p>
-      </div>
-    {:else}
-      <div class="visualisation">
-        <slot>
-          <em>Please provide a visualisation component.</em>
-        </slot>
-      </div>
-    {/if}
-  </Scrollable>
-{:else if isError}
-  <div class="error">
-    <h1>Something went wrong.</h1>
-    <h2>The following error occured:</h2>
-    <p>{errorMessage}</p>
-  </div>
-{:else}
-  <div class="visualisation">
-    {#if showFilter}
-      <Filter dataUtil={showFilter} />
-    {/if}
-    <slot>
-      <em>Please provide a visualisation component.</em>
-    </slot>
-  </div>
-{/if}
+<div class="visualisation-container">
+  {#if isScrollable}
+    <Scrollable width={scrollableWidth} height={scrollableHeight}>
+      {#if isError}
+        <div class="error">
+          <h1>Something went wrong.</h1>
+          <h2>The following error occured:</h2>
+          <p>{errorMessage}</p>
+        </div>
+      {:else}
+        <div class="visualisation-base">
+          <slot>
+            <em>Please provide a visualisation component.</em>
+          </slot>
+        </div>
+      {/if}
+    </Scrollable>
+  {:else if isError}
+    <div class="error">
+      <h1>Something went wrong.</h1>
+      <h2>The following error occured:</h2>
+      <p>{errorMessage}</p>
+    </div>
+  {:else}
+    <div class="visualisation-base">
+      <slot>
+        <em>Please provide a visualisation component.</em>
+      </slot>
+    </div>
+  {/if}
+  {#if showFilter}
+    <Filter dataUtil={showFilter} />
+  {/if}
+</div>
 
 <style>
-  .visualisation {
+  .visualisation-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .visualisation-base {
     overflow-y: auto;
     overflow-x: auto;
     display: flex;
