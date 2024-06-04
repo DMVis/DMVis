@@ -28,6 +28,8 @@
   export let width: number = calculateWidth(Math.max(0, dataUtil.columns.length - 1)); // Exclude the ID column
   export let height: number = calculateHeight(dataUtil.data.length);
   export let padding: number = 10;
+  export let isScrollable: boolean = false;
+  export let showFilter: boolean = false;
 
   let lineUpRef: SVGElement;
 
@@ -384,7 +386,7 @@ displays different types of columns such as text, bar, and rank columns. This is
 * padding: number                      - The padding between columns. The default value is 10.
 -->
 
-<BaseVisualisation>
+<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg
     class="visualisation lineUp"
     {width}

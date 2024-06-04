@@ -34,6 +34,8 @@
   export let padding: number = 0.2;
   export let opacity: Opacity = 1;
   export let showTotals: boolean = false;
+  export let isScrollable: boolean = false;
+  export let showFilter: boolean = false;
 
   const { visualisationData } = dataUtil;
 
@@ -109,7 +111,7 @@ The y-axis represents the categories of the data.
                               Defaults to `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`.
 * showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number, defaults to false.
 -->
-<BaseVisualisation>
+<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg class="visualisation stackedBarchart" {width} {height}>
     {#key dataUtil || $visualisationData}
       {#each dataUtil.data as row}

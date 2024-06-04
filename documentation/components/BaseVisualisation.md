@@ -25,7 +25,7 @@ Width of the visualisation that is shown. For this to be used, `isScrollable` mu
 
 Height of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
 
-## enableFilter
+## showFilter
 
 - Type: `DataUtils`
 - Default: `null`

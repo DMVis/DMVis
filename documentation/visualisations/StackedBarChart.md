@@ -83,6 +83,20 @@ Whether or not to display the sum of all bars at the end as a number.
 
 The `StyleUtils` class contains all the style information for the chart.
 
+## isScrollable
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the visualisation is scrollable in its parent container.
+
+## showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
 # Example usage
 
 Create a StackedBarChart with custom opacity.

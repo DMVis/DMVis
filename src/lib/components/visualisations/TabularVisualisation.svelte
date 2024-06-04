@@ -40,6 +40,10 @@
   // Default opacity of the bars
   export let barOpacity: number = 0.6;
 
+  // Decide whether or not to show the filter or make the visualisation scrollable
+  export let isScrollable: boolean = false;
+  export let showFilter: boolean = false;
+
   // Private variables
   const { visualisationData } = dataUtil;
   let tabularRef: SVGElement;
@@ -457,7 +461,7 @@ categorical data with labels in a column.
                                         This defaults to `0.6`.
 -->
 
-<BaseVisualisation>
+<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg class="visualisation tabularVisualisation" {width} {height} bind:this={tabularRef}>
     {#key dataUtil || $visualisationData}
       <!-- Loop over all the columns and create a barcolumn for each of them -->

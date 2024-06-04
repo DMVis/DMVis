@@ -6,7 +6,7 @@
   export let isScrollable: boolean = false;
   export let scrollableWidth: number | string = '100%';
   export let scrollableHeight: number | string = '100%';
-  export let enableFilter: DataUtils | null = null;
+  export let showFilter: DataUtils | null = null;
 
   let isError = false;
   let errorMessage = '';
@@ -37,7 +37,7 @@ are set and error handling is kept within the scope of the visualisation.
                                             `isScrollable` must be set to `true`. Defaulted to `1000`.
 * scrollableHeight: number                - Height of the visualisation that is shown. For this to be used,
                                             `isScrollable` must be set to `true`. Defaulted to `1000`.
-* enableFilter: DataUtils                 - Provide a DataUtils object when you want to show and use the
+* showFilter: DataUtils                   - Provide a DataUtils object when you want to show and use the
                                             `Filter` component within the visualisation.
 
 #### Slots
@@ -68,8 +68,8 @@ are set and error handling is kept within the scope of the visualisation.
   </div>
 {:else}
   <div class="visualisation">
-    {#if enableFilter}
-      <Filter dataUtil={enableFilter} />
+    {#if showFilter}
+      <Filter dataUtil={showFilter} />
     {/if}
     <slot>
       <em>Please provide a visualisation component.</em>

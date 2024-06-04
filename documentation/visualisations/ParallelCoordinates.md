@@ -63,6 +63,20 @@ Margin under the visualisation.
 
 Class holding all the style information, see [StyleUtils](utils/styleUtils.md).
 
+## isScrollable
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the visualisation is scrollable in its parent container.
+
+## showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
 # Example usage
 
 ```svelte

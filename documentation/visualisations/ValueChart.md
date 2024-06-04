@@ -74,6 +74,20 @@ Margin to the bottom of the visualisation.
 
 Padding between the different visualisations.
 
+## isScrollable
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the visualisation is scrollable in its parent container.
+
+## showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
 # Example usage
 
 ```svelte

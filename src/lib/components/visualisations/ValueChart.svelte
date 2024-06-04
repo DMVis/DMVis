@@ -38,6 +38,8 @@
   export let marginTop: number = 40;
   export let padding: number = 0.1;
   export let autoDistributeWeight: boolean = true;
+  export let isScrollable: boolean = false;
+  export let showFilter: boolean = false;
 
   // Local variables
   let valueChartRef: SVGGElement;
@@ -204,7 +206,7 @@ The visualisation consists of two major components: namely, a visualisation clos
                                                 This will mean that when set to true all other weights will be redistributed.
                                                 This defaults to true
 -->
-<BaseVisualisation>
+<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg {width} {height} class="valuechart" bind:this={valueChartRef}>
     {#key $visualisationData}
       <!-- Start of top half of the visualisation -->

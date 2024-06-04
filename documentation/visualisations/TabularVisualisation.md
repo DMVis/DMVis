@@ -80,6 +80,20 @@ The opacity of each bar as a number in the range [0..1].
 
 > Note: A value lower than 1 is recommended for visible bar highlighting.
 
+## isScrollable
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the visualisation is scrollable in its parent container.
+
+## showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
 # Example usage
 
 ```svelte

@@ -24,6 +24,8 @@
   export let marginRight: number = 40;
   export let marginTop: number = 40;
   export let marginBottom: number = 40;
+  export let isScrollable: boolean = false;
+  export let showFilter: boolean = false;
 
   let parallelCoordinatesRef: SVGElement;
 
@@ -163,7 +165,7 @@ and draws a line through each axis for each row in the table.
 * marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
 * marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
 -->
-<BaseVisualisation>
+<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg
     class="visualisation parallelCoordinates"
     {width}

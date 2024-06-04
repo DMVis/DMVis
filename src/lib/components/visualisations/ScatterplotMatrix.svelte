@@ -46,9 +46,10 @@
   export let marginRight: number = 40;
   export let marginBottom: number = 40;
   export let marginTop: number = 40;
-
   export let padding: number = 0.1;
   export let pointOpacity: number = 0.3;
+  export let isScrollable: boolean = false;
+  export let showFilter: boolean = false;
 
   let scatterplotMatrixRef: SVGElement;
 
@@ -586,7 +587,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
 * marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
 -->
 
-<BaseVisualisation>
+<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   {#await xScale}
     <p>Loading visualisation, please wait...</p>
   {:then}

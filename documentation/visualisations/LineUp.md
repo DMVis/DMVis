@@ -49,6 +49,20 @@ Height of the visualisation. 120 is the height of the header, and each row is 20
 
 Padding between columns.
 
+## isScrollable
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the visualisation is scrollable in its parent container.
+
+## showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
 # Example usage
 
 ```svelte
