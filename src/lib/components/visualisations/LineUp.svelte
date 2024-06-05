@@ -14,6 +14,7 @@
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
+  import type { UndefineableString } from '$lib/Types.js';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -319,7 +320,7 @@
   }
 
   // Handle columns being dragged
-  let dragMove: string | null = null;
+  let dragMove: UndefineableString = undefined;
   let dragMoveX: number = 0;
 
   // Raise the column when dragging so its displayed over the other ones
@@ -337,7 +338,7 @@
 
   // Update the columns array with the new order
   function onDragStop() {
-    if (dragMove === null) {
+    if (dragMove === undefined) {
       return;
     }
 
@@ -351,7 +352,7 @@
     columns = columns;
 
     // Reset the element that is being dragged
-    dragMove = null;
+    dragMove = undefined;
     dragMoveX = 0;
   }
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-  // Imports
-  import { type ScaleLinear } from 'd3';
+  // Type imports
+  import type { ScaleLinear } from '$lib/Types.js';
 
   // DMVis imports
   import Point from '$lib/components/base/Point.svelte';
@@ -70,17 +70,17 @@
 
   // Get the rest of the data from the store
   const { yScales, xScales, data } = getVisualisationContext();
-  let xScaleLocal: ScaleLinear<number, number>;
-  let yScaleLocal: ScaleLinear<number, number>;
+  let xScaleLocal: ScaleLinear;
+  let yScaleLocal: ScaleLinear;
   let xIndex: number;
   let yIndex: number;
   $: {
     // Get the corresponding scales from the store
     xIndex = $columns.indexOf(xAxis);
     yIndex = $columns.indexOf(yAxis);
-    xScaleLocal = $xScales[xIndex] as ScaleLinear<number, number>;
+    xScaleLocal = $xScales[xIndex] as ScaleLinear;
     xScaleLocal.range([width - marginRight, marginLeft]);
-    yScaleLocal = $yScales[yIndex] as ScaleLinear<number, number>;
+    yScaleLocal = $yScales[yIndex] as ScaleLinear;
     yScaleLocal.range([marginTop, height - marginBottom]);
   }
   // Returns the value of the given attribute from a specific row

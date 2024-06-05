@@ -67,7 +67,7 @@ The opacity of each bar as a number in the range [0..1].
 
 ## barLabelVisibility
 
-- Type: `string`
+- Type: `Visibility`
 - Default: `'none'`
 - Options: `'none'`, `'alwaysVisible'`, `'visibleOnHighlight'`
 

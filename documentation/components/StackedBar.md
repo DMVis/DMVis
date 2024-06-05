@@ -34,7 +34,7 @@ An array of scales where the first entry is the scale for the first numerical en
 
 ## opacity
 
-- Type: `number | string`
+- Type: `Opacity`
 - Default: `1`
 
 Sets the opacity of the bars. Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.

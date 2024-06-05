@@ -1,5 +1,8 @@
 // Imports
-import { text as textFunction, autoType, dsvFormat, type ScaleLinear } from 'd3';
+import { text as textFunction, autoType, dsvFormat } from 'd3';
+
+// Type imports
+import type { ScaleLinear } from '$lib/Types.js';
 
 // DMVis imports
 import { DMVisError } from './DMVisError.js';
@@ -251,14 +254,11 @@ export class DataUtils {
   }
 
   /**
-   * @param {Array<ScaleLinear<number,number>>} scales - The scales used to weigh the data, containing one scale per attribute.
+   * @param {Array<ScaleLinear>} scales - The scales used to weigh the data, containing one scale per attribute.
    * @returns {Array<Array<string | number>>} The sorted data.
    * @throws {Error} If an incorrect amount of scales is provided to the scales parameter.
    */
-  sortByWeights(
-    scales: Array<ScaleLinear<number, number>>,
-    ascending: boolean
-  ): Array<Array<string | number>> {
+  sortByWeights(scales: Array<ScaleLinear>, ascending: boolean): Array<Array<string | number>> {
     let numericalScales: number = 0;
     this.columns.forEach((column, index) => {
       if (typeof this.data[0][index] === 'number') {

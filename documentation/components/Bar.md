@@ -53,7 +53,7 @@ Colour of the bar.
 
 ## opacity
 
-- Type: `number | string`
+- Type: `Opacity`
 - Default: `1`
 
 The opacity of the bar as a number in the range [0..1] or
@@ -109,7 +109,7 @@ Text to display in the label when the mouse hovers over the bar. This will defau
 
 ## labelType
 
-- Type: `string`
+- Type: `Visibility`
 - Default: `'none'`
 - Options: `'none'`, `'alwaysVisible'`, `'visibleOnHighlight'`
 
@@ -120,7 +120,8 @@ Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label r
 
 ## name
 
-- Type: `string`
+-
+- Type: `UndefineableString`
 - Default: `'bar'`
 
 Class name of the bar. It can be used as an identifier.

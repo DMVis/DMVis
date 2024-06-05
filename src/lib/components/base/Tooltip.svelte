@@ -1,4 +1,7 @@
 <script lang="ts">
+  // Type imports
+  import type { Theme } from '$lib/Types.js';
+
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
@@ -11,7 +14,7 @@
 
   // Optional attributes
   export let hasBackground: boolean = false;
-  export let theme: 'light' | 'dark' = 'light';
+  export let theme: Theme = 'light';
   export let originX: OriginX = OriginX.Middle;
   export let originY: OriginY = OriginY.Middle;
 
@@ -48,7 +51,7 @@ It can, for example, be used to display the name of a point when hovering over i
 
 #### Optional attributes
 * hasBackground: boolean  - Whether or not to display a background behind the tooltip text, by default this is off.
-* theme: 'light' | 'dark' - Theme of the tooltip, which controls both the background-color and the text-color.
+* theme: Theme            - Theme of the tooltip, which controls both the background-color and the text-color.
                             Options are: light (black text on white background) and dark (white text on black background).
                             Defaults to `'light'`.
 * originX: OriginX        - Horizontal origin of the label.

@@ -3,6 +3,9 @@
   import { select } from 'd3';
   import { createEventDispatcher, afterUpdate } from 'svelte';
 
+  // Type imports
+  import type { UndefineableString, NumberAuto } from '$lib/Types.js';
+
   // DMVis Imports
   import { getOrigin } from '$lib/utils/OriginMapper.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
@@ -29,9 +32,9 @@
   export let hasBackground: boolean = true;
   export let backgroundOpacity: number | string = textOpacity;
   export let hasPointerEvents: boolean = false;
-  export let name: string | undefined = undefined;
-  export let width: number | 'auto' = 'auto';
-  export let height: number | 'auto' = 'auto';
+  export let name: UndefineableString = undefined;
+  export let width: NumberAuto = 'auto';
+  export let height: NumberAuto = 'auto';
   export let borderColor: string = 'black';
 
   // Private attributes
@@ -59,7 +62,7 @@
       selectedDY = 0,
       tspan = textSelection
         //@ts-expect-error A text selection does have the .text() attribute
-        .text(null)
+        .text(undefined)
         .append('tspan')
         .attr('x', selectedX)
         .attr('y', selectedY)
@@ -184,7 +187,7 @@ The default origin is the middle of the label.
 
 #### Optional attributes
 * backgroundColor: string       - Color of the rectangle behind the label. This defaults to `'red'`.
-* textOpacity: number | string  - Opacity of the text of the label. This defaults to `1`.
+* textOpacity: Opacity          - Opacity of the text of the label. This defaults to `1`.
 * originX: OriginX              - Horizontal origin of the label.
                                   Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
                                   Which value is useful depends on your positioning logic.
@@ -204,10 +207,10 @@ The default origin is the middle of the label.
 * backgroundOpacity: number     - Opacity of the background behind the label. This defaults to `textOpacity`.
 * hasPointerEvents              - Whether the label should respond to all pointer events (`true`) or none (`false`).
                                   This defaults to `false`.
-* name: string                  - The class name of the label. It can be used as an identifier. This defaults to only `'label'`.
+* name: UndefineableString      - The class name of the label. It can be used as an identifier. This defaults to only `'label'`.
                                   If set to `'name'`, for example, the class names will be `'label'` and `'label-name'`.
-* width: number | 'auto'        - Width of the rectangle of the label. This defaults to `'auto'`.
-* height: number | 'auto'       - Height of the rectangle of the label. This defaults to `'auto'`.
+* width: NumberAuto             - Width of the rectangle of the label. This defaults to `'auto'`.
+* height: NumberAuto            - Height of the rectangle of the label. This defaults to `'auto'`.
 * borderColor: string           - Color of the border around the background of the label.
                                   This defaults to `'black'`. This value can be set to `'none'` for no border.
 

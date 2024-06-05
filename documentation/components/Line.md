@@ -12,7 +12,7 @@ None
 
 ## alignment
 
-- Type: `string`
+- Type: `Alignment`
 - Default: `'spaced'`
 - Options: `'start'`, `'end'`, `'spaced'`
 
@@ -41,8 +41,8 @@ Order of the attributes, which determines the placement of points on each line.
 
 ## draggedAxis:
 
-- Type: `string | null`
-- Default: `null`
+- Type: `UndefineableString`
+- Default: `undefined`
 
 The name of the axis that is being dragged, is used in visualisations that use draggable axes.
 

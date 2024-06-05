@@ -1,6 +1,8 @@
 <script lang="ts">
-  // Imports
-  import { type ScaleLinear } from 'd3';
+  // d3 imports
+
+  // Type imports
+  import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -14,10 +16,10 @@
   export let y: number;
   export let barWidth: number;
   export let row: (string | number)[];
-  export let attributeScales: ScaleLinear<number, number>[];
+  export let attributeScales: ScaleLinear[];
 
   // Optional attributes
-  export let opacity: number | string = 1;
+  export let opacity: Opacity = 1;
   export let showTotals: boolean = false;
 
   // Get store info
@@ -66,10 +68,10 @@ on top of each other.
 * barWidth: number           - The width of the bar.
 * y: number                  - The y position to place the stacked bar.
 * row: (string|number)[]     - A single row of the dataUtil, which to plot as a stacked bar.
-* attributeScales: d3.scaleLinear<number,number>[] - An array of scales where the first entry
+* attributeScales: ScaleLinear[] - An array of scales where the first entry
                                                       is the scale for the first numerical entry in the row attribute, etc.
 #### Optional attributes
-* opacity: number | string - Sets the opacity of the bars.
+* opacity: Opacity         - Sets the opacity of the bars.
                              Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
                              Defaults to `1`.
 * showTotals: boolean      - Whether or not to display the sum of all bars at the end as a number, defaults to false.

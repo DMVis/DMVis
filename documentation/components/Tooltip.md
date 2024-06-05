@@ -34,7 +34,7 @@ Whether or not to display a background behind the tooltip text.
 
 ## theme
 
-- Type: `string`
+- Type: `Theme`
 - Default: `'light'`
 - Options: `'light'`, `'dark'`
 

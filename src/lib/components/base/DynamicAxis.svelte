@@ -8,10 +8,18 @@
     axisTop,
     axisBottom,
     axisLeft,
-    axisRight,
-    type ScaleLinear
+    axisRight
   } from 'd3';
   import { createEventDispatcher } from 'svelte';
+
+  // Type imports
+  import type {
+    Position,
+    Alignment,
+    Orientation,
+    ScaleLinear,
+    UndefineableString
+  } from '$lib/Types.js';
 
   // DMVis imports
   import Axis from '$lib/components/base/Axis.svelte';
@@ -37,16 +45,16 @@
   export let axisOrder: string[] = [];
   export let squashOuterTicks: boolean = false;
   export let renderLabel: boolean = false;
-  export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
+  export let labelPosition: Position = 'top';
   export let labelOffset: number = 20;
   export let hasTicks: boolean = true;
-  export let alignment: 'start' | 'end' | 'spaced' = 'start';
+  export let alignment: Alignment = 'start';
   export let fontSize: number = $styleUtil ? $styleUtil.fontSize : 12;
   export let color: string = 'black';
   export let offset: number = 0;
   export let ticksNumber: number = 10;
-  export let position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
-  export let spacingDirection: 'vertical' | 'horizontal' = 'horizontal';
+  export let position: Position = 'bottom';
+  export let spacingDirection: Orientation = 'horizontal';
   export let padding: number = 0;
 
   export let isDraggable: boolean = false;
@@ -58,7 +66,7 @@
   let axisGenerator: AxisConfig[] = [];
   let drawingOrder: string[] = [];
   let drawingIndices: number[] = [];
-  let draggedAxis: string | null = null;
+  let draggedAxis: UndefineableString = undefined;
   let draggingOffset: number = 0;
   // Non-nullable operator because they will be set in createSpacer
   let spacerHorizontal!: ScaleBand<string> | ScalePoint<string>;
@@ -165,14 +173,10 @@
                Note that the range needs to be flipped,
                   this is because the range is flipped by default in the store */
             const oldRange = scale.range();
-            newAxis = axisTop(
-              scale.range([oldRange[1], oldRange[0]]) as ScaleLinear<number, number>
-            );
+            newAxis = axisTop(scale.range([oldRange[1], oldRange[0]]) as ScaleLinear);
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = axisTop(
-              scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear<number, number>
-            );
+            newAxis = axisTop(scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear);
           } else {
             throw DMVisError(
               `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
@@ -234,14 +238,10 @@
                Note that the range needs to be flipped,
                   this is because the range is flipped by default in the store */
             const oldRange = scale.range();
-            newAxis = axisBottom(
-              scale.range([oldRange[1], oldRange[0]]) as ScaleLinear<number, number>
-            );
+            newAxis = axisBottom(scale.range([oldRange[1], oldRange[0]]) as ScaleLinear);
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = axisBottom(
-              scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear<number, number>
-            );
+            newAxis = axisBottom(scale.range([spacerStepSizeHorizontal, 0]) as ScaleLinear);
           } else {
             throw DMVisError(
               `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
@@ -301,12 +301,10 @@
             newAxis = axisLeft(scale as ScaleBand<string>);
           } else if (spacingDirection === 'vertical') {
             // If the scale is a scalelinear and vertical spacing
-            newAxis = axisLeft(
-              scale.range([0, spacerStepSizeVertical]) as ScaleLinear<number, number>
-            );
+            newAxis = axisLeft(scale.range([0, spacerStepSizeVertical]) as ScaleLinear);
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = axisLeft(scale as ScaleLinear<number, number>);
+            newAxis = axisLeft(scale as ScaleLinear);
           } else {
             throw DMVisError(
               `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
@@ -366,12 +364,10 @@
             newAxis = axisRight(scale as ScaleBand<string>);
           } else if (spacingDirection === 'vertical') {
             // If the scale is a scalelinear and vertical spacing
-            newAxis = axisRight(
-              scale.range([0, spacerStepSizeVertical]) as ScaleLinear<number, number>
-            );
+            newAxis = axisRight(scale.range([0, spacerStepSizeVertical]) as ScaleLinear);
           } else if (spacingDirection === 'horizontal') {
             // If the scale is a scalelinear and horizontal spacing
-            newAxis = axisRight(scale as ScaleLinear<number, number>);
+            newAxis = axisRight(scale as ScaleLinear);
           } else {
             throw DMVisError(
               `Cannot assign '${spacingDirection}' to the spacingDirection attribute. Please use: 'vertical' or 'horizontal'.`,
@@ -434,7 +430,7 @@
   // Handle the logic when the user stops dragging an axis
   function onDragStop() {
     swapAxes();
-    draggedAxis = null;
+    draggedAxis = undefined;
     draggingOffset = 0;
   }
 
@@ -471,20 +467,19 @@ You can use this component to render the axis on the top, bottom, left, or right
 * axisOrder: string[]                             - The order in which the axes should be drawn. The array should contain strings
                                                     identical to column names in the dataset. This defaults to `[]`, which draws axes
                                                     in the order that they appear in the dataset.
-* squashOuterTicks: boolean                           - Whether or not to tuck in the first and last tick. This defaults to `false`.
-* alignment: 'start' | 'end' | 'spaced'           - Alignment of the axes (i.e. the side of the column where the axis is placed).
+* squashOuterTicks: boolean                       - Whether or not to tuck in the first and last tick. This defaults to `false`.
+* alignment: Alignment                            - Alignment of the axes (i.e. the side of the column where the axis is placed).
                                                     Defaults to `'start'`.
 * fontSize: number                                - Font size of the tick labels. This defaults to `12`.
 * color: string                                   - Color of the axis line. This defaults to `'black'`.
 * renderLabel: boolean                            - Renders a label next to the axis. This defaults to `false`.
-* labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. This defaults to `'top'`.
+* labelPosition: Position                         - Position of the label relative to the axis. This defaults to `'top'`.
 * labelOffset: number                             - Distance from the label to the axis. This defaults to `'20'`.
 * hasTicks: boolean                               - Whether to display tick marks. This defaults to `true`.
 * offset: number                                  - The offset of the axis from the side of the visualisation. This defaults to `0`.
 * ticksNumber: number                             - The number of ticks you want displayed on the axes. This defaults to `10`.
 * position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. This defaults to `'bottom'`.
-* spacingDirection: 'horizontal' | 'vertical'
-                  | 'left' | 'right'              - The direction to space the axes. This defaults to `'horizontal'`.
+* spacingDirection: Direction                     - The direction to space the axes. This defaults to `'horizontal'`.
 * padding: number                                 - The amount of padding between axes, important for either vertically spaced
                                                     vertical axes or horizontally spaced horizontal axes. This defaults to `0`.
 

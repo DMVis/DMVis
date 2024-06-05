@@ -1,7 +1,9 @@
 <script lang="ts">
-  // DMVis imports
-  import { type ScaleLinear } from 'd3';
+  // Imports
   import { createEventDispatcher } from 'svelte';
+
+  // type imports
+  import type { ScaleLinear } from '$lib/Types.js';
 
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
@@ -13,7 +15,7 @@
   export let width: number;
   export let height: number;
   export let data: Array<Array<number>>;
-  export let attributeScales: ScaleLinear<number, number>[];
+  export let attributeScales: ScaleLinear[];
 
   // Optional attributes
   export let name: string = 'Column';
@@ -54,7 +56,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
 * name: string - The name of the column. Usually the attribute name.
 * icons: IconType[] - List of what icons to display in the top of the column,
                           defaults to `[IconType.Sort, IconType.Group, IconType.More]`
-* attributeScales: d3.scaleLinear<number,number>[] - An array of scales where the first entry
+* attributeScales: ScaleLinear[] - An array of scales where the first entry
                                                       is the scale for the first numerical entry in the row attribute, etc.
 
 #### Events

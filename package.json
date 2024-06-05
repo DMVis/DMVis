@@ -38,6 +38,10 @@
     "./enums": {
       "types": "./dist/Enums.d.ts",
       "svelte": "./dist/Enums.js"
+    },
+    "./types": {
+      "types": "./dist/Types.d.ts",
+      "svelte": "./dist/Types.js"
     }
   },
   "files": [
@@ -94,8 +98,8 @@
     "vite": "^5.0.11",
     "vitest": "^1.2.0"
   },
-  "svelte": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "svelte": "./dist/Index.js",
+  "types": "./dist/Index.d.ts",
   "type": "module",
   "dependencies": {
     "chroma-js": "^2.4.2",

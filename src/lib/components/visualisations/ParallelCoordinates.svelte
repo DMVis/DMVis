@@ -2,6 +2,9 @@
   // Imports
   import { select } from 'd3';
 
+  // Type imports
+  import type { UndefineableString } from '$lib/Types.js';
+
   // DMVis imports
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
@@ -25,7 +28,7 @@
   let parallelCoordinatesRef: SVGElement;
 
   // Variables that keep track of axis dragging
-  let draggedAxis: string | null = null;
+  let draggedAxis: UndefineableString = undefined;
   let draggingOffset: number = 0;
 
   // Variables that keep track of line highlighting
@@ -77,7 +80,7 @@
 
   // Reset local dragging variables when we stop dragging
   function onDragStop() {
-    draggedAxis = null;
+    draggedAxis = undefined;
     draggingOffset = 0;
   }
 
@@ -90,7 +93,7 @@
   // Function that fires when the mouse enters any line
   function onMouseLineEnter(e: CustomEvent): void {
     const id = e.detail.id;
-    if (draggedAxis === null && !clickedLine && highlightedLine !== id) {
+    if (draggedAxis === undefined && !clickedLine && highlightedLine !== id) {
       highlightedLine = id;
     }
   }

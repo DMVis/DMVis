@@ -3,6 +3,9 @@
   import { type ScaleBand, type ScalePoint, select } from 'd3';
   import { createEventDispatcher, tick } from 'svelte';
 
+  // Type imports
+  import type { Alignment, UndefineableString } from '$lib/Types.js';
+
   // DMVis imports
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
@@ -14,8 +17,8 @@
   export let axisOrder: string[] = [];
   export let lineWidth: number = 1;
   export let hoverable: boolean = false;
-  export let alignment: 'start' | 'end' | 'spaced' = 'spaced';
-  export let draggedAxis: string | null = null;
+  export let alignment: Alignment = 'spaced';
+  export let draggedAxis: UndefineableString = undefined;
   export let draggingOffset: number = 0;
 
   // Private variables
@@ -141,7 +144,7 @@
       - The lines are hoverable
       - This line is not already highlighted
     */
-    if (draggedAxis === null && !clickedLine && hoverable && highlightedLine !== id) {
+    if (draggedAxis === undefined && !clickedLine && hoverable && highlightedLine !== id) {
       // Set the current line to be highlighted
       highlightedLine = id;
       // And raise it to be on top
@@ -193,7 +196,7 @@ The line component will pull data out of the visualisation store, and create a l
 It is used in combination with other components to create a chart.
 
 #### Optional attributes
-* alignment: 'start' | 'end' | 'spaced'  - Alignment of the points on the lines.
+* alignment: Alignment                   - Alignment of the points on the lines.
                                            If using DynamicAxis, choose the same alignment option.
                                            Defaults to `'spaced'`.
 * hoverable: boolean                     - Whether or not the line should be hoverable.
@@ -202,8 +205,8 @@ It is used in combination with other components to create a chart.
 * lineWidth: string                      - Width of the line. This defaults to `1`.
 * axisOrder: string[]                    - Order ofthe attributes, determines the placement of points on each line.
                                            Defaults to `[]`.
-* draggedAxis: string | null             - The name of the axis that is being dragged, used in visualisations that
-                                           use draggable axes. This defaults to `null`.
+* draggedAxis: UndefineableString        - The name of the axis that is being dragged, used in visualisations that
+                                           use draggable axes. This defaults to `undefined`.
 * draggingOffset: number                 - The offset of the axis that is being dragged. This defaults to `0`.
 -->
 

@@ -1,6 +1,9 @@
 <script lang="ts">
   // Imports
-  import { sum, type ScaleLinear } from 'd3';
+  import { sum } from 'd3';
+
+  // Type imports
+  import type { ScaleLinear } from '$lib/Types.js';
 
   // DMVis component imports
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
@@ -49,7 +52,7 @@
   // Logic about weights
   const startWeight = weightSumTotal / (dataUtil.data[0].length - 1);
   let columnWeights = Array(dataUtil.data[0].length - 1).fill(startWeight);
-  let columnScales: ScaleLinear<number, number>[];
+  let columnScales: ScaleLinear[];
 
   // Local variables to be set in the reactive block below
   let transposedData: (string | number)[][];
@@ -94,7 +97,7 @@
   });
 
   const { xScales } = getVisualisationContext();
-  columnScales = $xScales.slice(1) as ScaleLinear<number, number>[];
+  columnScales = $xScales.slice(1) as ScaleLinear[];
   // Sort the weight the moment the scales are loaded in
   dataUtil.sortByWeights(columnScales, false);
 

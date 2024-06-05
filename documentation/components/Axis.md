@@ -44,7 +44,7 @@ Text for the label.
 
 ## labelPosition:
 
-- Type: `string`
+- Type: `Position`
 - Default: `'top'`
 - Options: `'left'`, `'right'`, `'top'`, `'bottom'`
 

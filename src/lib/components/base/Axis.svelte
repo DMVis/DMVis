@@ -1,7 +1,11 @@
 <script lang="ts">
   // Imports
-  import { select, type Axis, type NumberValue } from 'd3';
+  import { select } from 'd3';
+  import type { Axis as D3Axis, NumberValue as D3NumberValue } from 'd3';
   import { createEventDispatcher, onMount } from 'svelte';
+
+  // Type imports
+  import type { Position } from '$lib/Types.js';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -12,12 +16,12 @@
   // Required Attributes
   export let placementX: number;
   export let placementY: number;
-  export let axis: Axis<string> | Axis<NumberValue>;
+  export let axis: D3Axis<string> | D3Axis<D3NumberValue>;
 
   // Optional attributes
   export let renderLabel: boolean = false;
   export let labelText: string = 'default';
-  export let labelPosition: 'left' | 'right' | 'top' | 'bottom' = 'top';
+  export let labelPosition: Position = 'top';
   export let labelOffset: number = 20;
   export let fontSize: number = 10;
   export let color: string = 'black';
@@ -193,7 +197,7 @@ of adding a label on any side of the axis.
 #### Optional attributes
 * renderLabel: boolean                                - Renders a label next to the axis. This defaults to `false`.
 * labelText: string                                   - Text for the label. This defaults to `'default'`.
-* labelPosition: 'left' | 'right' | 'top' | 'bottom'  - Position of the label relative to the axis. This defaults to `'top'`.
+* labelPosition: Position                             - Position of the label relative to the axis. This defaults to `'top'`.
 * labelOffset: number                                 - Distance from the label to the axis. This defaults to `'20'`.
 * fontSize: number                                    - Font size of the tick labels. This defaults to `12`.
 * color: string                                       - Color of the axis line and label. This defaults to `'black'`.

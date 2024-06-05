@@ -1,14 +1,9 @@
 <script lang="ts">
   // Imports
-  import {
-    type ScaleBand,
-    type ScaleLinear,
-    scaleBand,
-    scaleLinear,
-    max,
-    axisLeft,
-    axisBottom
-  } from 'd3';
+  import { type ScaleBand, scaleBand, scaleLinear, max, axisLeft, axisBottom } from 'd3';
+
+  // Type imports
+  import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -33,13 +28,13 @@
   export let marginTop: number = 40;
   export let padding: number = 0.2;
   export let color: string = 'blue';
-  export let opacity: number | string = 1;
+  export let opacity: Opacity = 1;
   export let borderRadius: number = 5;
 
   // Private attributes
   const values = data.map((data) => data.label);
   let positionScale: ScaleBand<string>;
-  let barScale: ScaleLinear<number, number>;
+  let barScale: ScaleLinear;
 
   // Horizontal BarChart
   if (!isVertical) {

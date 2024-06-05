@@ -63,7 +63,7 @@ The opacity of the point, where 0 represents a completely transparent point and 
 
 ## name
 
-- Type: `string`
+- Type: `UndefineableString`
 - Default: `'point'`
 
 The class name of the point. It can be used as an identifier. It defaults to only `'point'`. If set, the class names will be `'point'` and `'point-name'`.

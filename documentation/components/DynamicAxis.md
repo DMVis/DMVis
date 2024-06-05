@@ -22,7 +22,7 @@ Whether or not to tuck in the first and last tick.
 
 ## alignment
 
-- Type: `string`
+- Type: `Alignment`
 - Default: `'start'`
 - Options: `'start'`, `'end'`, `'spaced'`
 
@@ -51,7 +51,7 @@ Renders a label next to the axis.
 
 ## labelPosition:
 
-- Type: `string`
+- Type: `Position`
 - Default: `'top'`
 - Options: `'left'`, `'right'`, `'top'`, `'bottom'`
 
@@ -95,7 +95,7 @@ The position of the axis.
 
 ## spacingDirection
 
-- Type: `string`
+- Type: `Direction`
 - Default: `'horizontal'`
 - Options: `'horizontal'`, `'vertical'`
 

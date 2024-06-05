@@ -1,16 +1,9 @@
 <script lang="ts">
   // Imports
-  import {
-    min,
-    max,
-    scaleLinear,
-    scaleBand,
-    bin,
-    axisBottom,
-    type Bin,
-    type ScaleLinear,
-    type ScaleBand
-  } from 'd3';
+  import { min, max, scaleLinear, scaleBand, bin, axisBottom, type Bin, type ScaleBand } from 'd3';
+
+  // Type imports
+  import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
@@ -37,15 +30,15 @@
   export let padding: number = 0.03;
 
   export let color: string = 'blue';
-  export let opacity: number | string = 1;
+  export let opacity: Opacity = 1;
   export let borderRadius: number = 0;
 
   // Private attributes
   let categoricalBuckets: { key: string; values: string[] }[] = [];
   let numericalBuckets: Bin<number, number>[];
-  let yScale: ScaleLinear<number, number>;
+  let yScale: ScaleLinear;
   let categoricalScale: ScaleBand<string>;
-  let numericalScale: ScaleLinear<number, number>;
+  let numericalScale: ScaleLinear;
 
   let minValue: number;
   let maxValue: number;

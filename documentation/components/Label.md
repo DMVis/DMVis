@@ -126,7 +126,7 @@ Whether the label has a background.
 
 ## backgroundOpacity
 
-- Type: `number | string`
+- Type: `Opacity`
 - Defaults: `textOpacity`
 
 The opacity of the background behind the label.
@@ -140,7 +140,7 @@ Whether the label should respond to all pointer events (`true`) or none (`false`
 
 ## name
 
-- Type: `string`
+- Type: `UndefineableString`
 - Default: `'label'`
 
 Class name of the label. It can be used as an identifier.
@@ -148,14 +148,14 @@ If set to `'name'`, for example, the class names will be `'label'` and `'label-n
 
 ## width
 
-- Type: `number | 'auto'`
+- Type: `NumberAuto`
 - Default: `'auto'`
 
 Width of the rectangle of the label.
 
 ## height
 
-- Type: `number | 'auto'`
+- Type: `NumberAuto`
 - Default: `'auto'`
 
 Height of the rectangle of the label.

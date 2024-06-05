@@ -20,7 +20,7 @@ The height of the visualisation.
 
 - Type: `Array<string | number>`
 
-An array of data which should be shown in the histogram. They will be represented as bars.
+An array of data (either strings or numbers) which should be shown in the histogram. They will be represented as bars.
 
 # Optional Attributes
 

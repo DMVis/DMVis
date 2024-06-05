@@ -6,10 +6,12 @@
     brush,
     max as maxFunction,
     min as minFunction,
-    type ScaleBand,
-    type ScaleLinear
+    type ScaleBand
   } from 'd3';
   import { onMount, afterUpdate } from 'svelte';
+
+  // Type imports
+  import type { ScaleLinear, UndefineableString } from '$lib/Types.js';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -107,7 +109,7 @@
   // Drag related variables
   let draggingLabelOffsetX: number = 0;
   let draggingLabelOffsetY: number = 0;
-  let draggedAttribute: string | null = null;
+  let draggedAttribute: UndefineableString = undefined;
 
   // Hover line related variables
   let hoveredPoint: string = '';
@@ -232,9 +234,9 @@
     let yIndex = dataUtil.columns.indexOf(yAxis);
 
     // Get the corresponding scales and set the correct range
-    let xScaleLinear = $xScales[xIndex] as ScaleLinear<number, number>;
+    let xScaleLinear = $xScales[xIndex] as ScaleLinear;
     xScaleLinear.range([xScale.bandwidth(), 0]);
-    let yScaleLinear = $yScales[yIndex] as ScaleLinear<number, number>;
+    let yScaleLinear = $yScales[yIndex] as ScaleLinear;
     yScaleLinear.range([0, yScale.bandwidth()]);
 
     // Scaled mouse coordinates are the scaled coordinates of a scatterplot
@@ -359,8 +361,8 @@
 
       /* Get the relevant scales
          The +1 is because the columnnames also has a scale, which we are not interested in */
-      let xScaleLinear = $xScales[getDataUtilIndex(xIndex) + 1] as ScaleLinear<number, number>;
-      let yScaleLinear = $yScales[getDataUtilIndex(yIndex) + 1] as ScaleLinear<number, number>;
+      let xScaleLinear = $xScales[getDataUtilIndex(xIndex) + 1] as ScaleLinear;
+      let yScaleLinear = $yScales[getDataUtilIndex(yIndex) + 1] as ScaleLinear;
 
       let scaledSelection = [
         [xScaleLinear.invert(selection[0][0]), yScaleLinear.invert(selection[1][1])],
@@ -511,7 +513,7 @@
   // Reset local dragging variables when we stop dragging
   function onDragStop() {
     swapLabels();
-    draggedAttribute = null;
+    draggedAttribute = undefined;
     draggingLabelOffsetX = 0;
     draggingLabelOffsetY = 0;
     currentGreyPoints = [];

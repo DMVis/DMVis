@@ -1,8 +1,11 @@
 <script lang="ts">
   // Imports
-  import { type ScaleLinear, scaleLinear, max as maxFunction, axisTop } from 'd3';
+  import { max as maxFunction, axisTop, scaleLinear } from 'd3';
   import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
+
+  // Type imports
+  import type { Filter, Visibility, ScaleLinear } from '$lib/Types.js';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
@@ -20,20 +23,20 @@
   export let data: Array<number>;
 
   // Optional attributes
-  export let filter: { min: number; max: number } = { min: 0, max: 100 };
+  export let filter: Filter = { min: 0, max: 100 };
   export let name: string = 'Column';
   export let padding: number = 10;
   export let barColor: string = 'red';
   export let icons: IconType[] = [IconType.Sort, IconType.Filter, IconType.More];
   export let weight: string = '10';
   export let overviewItem: 'histogram' | 'axis' | 'none' = 'none';
-  export let scale: ScaleLinear<number, number> = scaleLinear()
+  export let scale: ScaleLinear = scaleLinear()
     .domain([0, maxFunction(data) ?? 0])
     .range([0, width - padding]);
 
   export let names: string[] = [];
   export let barOpacity: number = 1;
-  export let barLabelVisibility: 'none' | 'alwaysVisible' | 'visibleOnHighlight' = 'none';
+  export let barLabelVisibility: Visibility = 'none';
 
   if (overviewItem !== 'histogram' && overviewItem !== 'axis' && overviewItem !== 'none') {
     // This is for completeness, as type safety ensures this cannot happen
@@ -136,7 +139,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
                                               defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
 * overviewItem: 'histogram'|'axis'|'none' - Determines what item to display in the overview section of the column header.
                                               Defaults to none
-* scale: d3.ScaleLinear<number,number>    - What scale to use for all of the bars in the column.
+* scale: ScaleLinear                      - What scale to use for all of the bars in the column.
                                             Defaults to a scale that ranges from 0 to width
                                             and has a domain from 0 to the maximum value.
 * barOpacity: number                      - Opacity of all the bars in this column. This defaults to `1`

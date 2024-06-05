@@ -2,6 +2,9 @@
   // Imports
   import { createEventDispatcher } from 'svelte';
 
+  // Type imports
+  import type { UndefineableString } from '$lib/Types.js';
+
   // DMVis imports
   import type { Writable } from 'svelte/store';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
@@ -18,7 +21,7 @@
   export let borderWidth: number = 1;
   export let borderColor: string = 'black';
   export let opacity: number = 1;
-  export let name: string | undefined = undefined;
+  export let name: UndefineableString = undefined;
 
   // Get styles from the store
   let styleUtil: Writable<StyleUtils> | undefined;
@@ -67,7 +70,8 @@ It is used in combination with other components to create a chart.
                           this will use `color` and default to `red`.
 * opacity: number       - Opacity of the point, where `0` is completely transparent and `1` is completely opaque.
                           Defaults to `1`.
-* name: string          - The class name of the point. It can be used as an identifier. This defaults to only `point`.
+* name: UndefineableString
+                        - The class name of the point. It can be used as an identifier. This defaults to only `point`.
                           If set, the class names will be set to both `point` and `point-name`.
 
 #### Events

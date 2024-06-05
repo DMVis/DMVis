@@ -2,6 +2,9 @@
   // Imports
   import { max, sum, scaleLinear, type ScaleBand } from 'd3';
 
+  // Type imports
+  import type { Opacity } from '$lib/Types.js';
+
   // DMVis imports
   import StackedBar from '$lib/components/base/StackedBar.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
@@ -29,7 +32,7 @@
   export let marginBottom: number = 40;
   export let marginTop: number = 40;
   export let padding: number = 0.2;
-  export let opacity: number | string = 1;
+  export let opacity: Opacity = 1;
   export let showTotals: boolean = false;
 
   const { visualisationData } = dataUtil;
