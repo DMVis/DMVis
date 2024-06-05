@@ -230,7 +230,7 @@ The visualisation consists of two major components: namely, a visualisation clos
                 data={column}
                 name={dataUtil.columns[i + 1]}
                 barColor={styleUtil.colorScheme[i % styleUtil.colorScheme.length]}
-                icons={[IconType.Weight, IconType.More]}
+                icons={[IconType.Weight]}
                 weight={columnWeights[i]}
                 scale={columnScales[i]}
                 barLabelVisibility={'alwaysVisible'}
@@ -272,7 +272,8 @@ The visualisation consists of two major components: namely, a visualisation clos
             {height}
             data={numericalRows}
             name={'Sum'}
-            attributeScales={columnScales} />
+            attributeScales={columnScales}
+            icons={[]} />
         </svg>
       </Scrollable>
     {/key}
