@@ -10,28 +10,24 @@
   } from 'd3';
   import { onMount, afterUpdate } from 'svelte';
 
-  // Type imports
-  import type { ScaleLinear, UndefineableString } from '$lib/Types.js';
-
   // DMVis imports
+  import {
+    getVisualisationContext,
+    setVisualisationContext,
+    updateVisualisationContext
+  } from '$lib/Context.js';
   import Label from '$lib/components/base/Label.svelte';
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import Draggable from '$lib/components/base/Draggable.svelte';
   import StaticLine from '$lib/components/base/StaticLine.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
-  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
-
-  // Import dmvis utils
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import {
-    getVisualisationContext,
-    setVisualisationContext,
-    updateVisualisationContext
-  } from '$lib/Context.js';
+  import type { ScaleLinear, UndefineableString } from '$lib/Types.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

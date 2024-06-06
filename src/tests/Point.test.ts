@@ -1,9 +1,13 @@
+// Imports
 import { render } from '@testing-library/svelte';
 import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import Point from '$lib/components/base/Point.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -72,7 +76,7 @@ describe('Attribute test', () => {
 
 function createPoint(config: object): SVGCircleElement {
   // Render a point and return the circle element
-  const { container } = render(StoreWrapper, { props: { Component: Point, config } });
+  const { container } = render(VisualisationStoreWrapper, { props: { Component: Point, config } });
   const point = container.getElementsByClassName('point')[0] as SVGCircleElement;
   return point;
 }

@@ -1,10 +1,13 @@
 <script lang="ts">
+  // Imports
   import { createEventDispatcher } from 'svelte';
 
+  // Optional attributes
   export let offsetX: number = 0;
   export let offsetY: number = 0;
   export let elementName: string = '';
 
+  // Private attributes
   let isMoving = false;
   const dispatch = createEventDispatcher();
 

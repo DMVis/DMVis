@@ -3,13 +3,11 @@
   import { select } from 'd3';
   import { createEventDispatcher, afterUpdate } from 'svelte';
 
-  // Type imports
-  import type { UndefineableString, NumberAuto } from '$lib/Types.js';
-
-  // DMVis Imports
+  // DMVis imports
   import { getOrigin } from '$lib/utils/OriginMapper.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
+  import { OriginX, OriginY } from '$lib/Enums.js';
+  import type { UndefineableString, NumberAuto } from '$lib/Types.js';
 
   // Required attributes
   export let x: number;

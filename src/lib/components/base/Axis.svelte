@@ -1,16 +1,13 @@
 <script lang="ts">
   // Imports
-  import { select } from 'd3';
-  import type { Axis as D3Axis, NumberValue as D3NumberValue } from 'd3';
   import { createEventDispatcher, onMount } from 'svelte';
-
-  // Type imports
-  import type { Position } from '$lib/Types.js';
+  import { select, type Axis as D3Axis, type NumberValue as D3NumberValue } from 'd3';
 
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
-  import Draggable from './Draggable.svelte';
+  import Draggable from '$lib/components/base/Draggable.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
+  import type { Position } from '$lib/Types.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required Attributes

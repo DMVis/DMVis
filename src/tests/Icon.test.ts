@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+// Imports
 import { render } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import Icon from '$lib/components/base/Icon.svelte';
 import { IconType } from '$lib/Enums.js';
 

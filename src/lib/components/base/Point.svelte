@@ -2,14 +2,12 @@
   // Imports
   import { createEventDispatcher } from 'svelte';
 
-  // Type imports
-  import type { UndefineableString } from '$lib/Types.js';
-
   // DMVis imports
   import type { Writable } from 'svelte/store';
-  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import type { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import { getVisualisationContext } from '$lib/Context.js';
+  import type { UndefineableString } from '$lib/Types.js';
 
   // Required attributes
   export let x: number;

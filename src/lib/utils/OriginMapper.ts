@@ -1,6 +1,6 @@
 // DMVis imports
-import { OriginX, OriginY } from '$lib/Enums.js';
 import { DMVisError } from '$lib/utils/DMVisError.js';
+import { OriginX, OriginY } from '$lib/Enums.js';
 
 // See origin.md for more information about these functions
 

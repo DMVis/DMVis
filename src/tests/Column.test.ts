@@ -1,11 +1,15 @@
+// Imports
 import { render } from '@testing-library/svelte';
 import { describe, it, expect } from 'vitest';
 
+// DMVis  imports
 import Column from '$lib/components/base/Column.svelte';
 import BarColumn from '$lib/components/columns/BarColumn.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { ColumnType, IconType } from '$lib/Enums.js';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -20,7 +24,9 @@ describe('Base column test', () => {
     };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: Column, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: Column, config }
+    });
     const column = container.querySelector('.column');
     const options = container.querySelector('.column-options');
     const columnTop = container.querySelector('.column-top > rect');
@@ -47,7 +53,9 @@ describe('Base column test', () => {
     };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: Column, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: Column, config }
+    });
     const options = container.querySelector('.column-options');
 
     // Assert
@@ -67,7 +75,9 @@ describe('BarColumn tests', () => {
     };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: BarColumn, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: BarColumn, config }
+    });
     const column = container.querySelector('.column');
 
     // Assert
@@ -86,7 +96,9 @@ describe('BarColumn tests', () => {
     };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: BarColumn, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: BarColumn, config }
+    });
     const column = container.querySelector('.column');
 
     // Assert
@@ -105,7 +117,9 @@ describe('BarColumn tests', () => {
     };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: BarColumn, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: BarColumn, config }
+    });
     const column = container.querySelector('.column');
 
     // Assert
@@ -118,7 +132,9 @@ describe('Column interaction test', () => {
   it('highlights and unhighlights a column-top when moving over it', async () => {
     // Arrange
     const config = { x: 0, width: 150, height: 1000, type: ColumnType.Text };
-    const { container } = render(StoreWrapper, { props: { Component: Column, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: Column, config }
+    });
 
     // Act
     let columnTop = container.querySelector('.column-top > rect') as HTMLElement;
@@ -163,7 +179,8 @@ describe('Error checking in BarColumn', () => {
     const expectedErrorMessage = `The value assigned to the names attribute does not have the same length as the value assigned to the data attribute. Please ensure that they are of the same length.`;
 
     // Act
-    const createInvalidBarColumn = () => render(StoreWrapper, { Component: BarColumn, config });
+    const createInvalidBarColumn = () =>
+      render(VisualisationStoreWrapper, { Component: BarColumn, config });
 
     // Assert
     expect(createInvalidBarColumn).toThrow(expectedErrorMessage);
@@ -181,7 +198,8 @@ describe('Error checking in BarColumn', () => {
     const expectedErrorMessage = `Cannot assign '${config.overviewItem}' to the overviewItem attribute. Please use: 'histogram', 'axis', or 'none'.`;
 
     // Act
-    const createInvalidBarColumn = () => render(StoreWrapper, { Component: BarColumn, config });
+    const createInvalidBarColumn = () =>
+      render(VisualisationStoreWrapper, { Component: BarColumn, config });
 
     // Assert
     expect(createInvalidBarColumn).toThrow(expectedErrorMessage);

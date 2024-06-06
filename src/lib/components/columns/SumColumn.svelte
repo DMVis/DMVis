@@ -2,12 +2,10 @@
   // Imports
   import { createEventDispatcher } from 'svelte';
 
-  // type imports
-  import type { ScaleLinear } from '$lib/Types.js';
-
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import StackedBar from '$lib/components/base/StackedBar.svelte';
+  import type { ScaleLinear } from '$lib/Types.js';
   import { ColumnType, IconType } from '$lib/Enums.js';
 
   // Required attributes

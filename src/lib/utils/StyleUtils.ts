@@ -2,7 +2,7 @@
 import chroma from 'chroma-js';
 import colorbrewer from 'colorbrewer';
 
-// DMVis Imports
+// DMVis imports
 import { DMVisError } from '$lib/utils/DMVisError.js';
 
 interface StyleOptions {

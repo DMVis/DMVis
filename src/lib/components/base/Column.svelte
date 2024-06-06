@@ -7,9 +7,9 @@
   import Label from '$lib/components/base/Label.svelte';
   import Draggable from '$lib/components/base/Draggable.svelte';
   import { ColumnType } from '$lib/Enums.js';
-  import { OriginX, OriginY, IconType } from '$lib/Enums.js';
-  import type { VisualisationStore } from '$lib/VisualisationStore.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
+  import type { VisualisationStore } from '$lib/VisualisationStore.js';
+  import { OriginX, OriginY, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;

@@ -2,25 +2,21 @@
   // Imports
   import { sum } from 'd3';
 
-  // Type imports
-  import type { ScaleLinear } from '$lib/Types.js';
-
-  // DMVis component imports
-  import BarColumn from '$lib/components/columns/BarColumn.svelte';
-  import SumColumn from '$lib/components/columns/SumColumn.svelte';
-  import TextColumn from '$lib/components/columns/TextColumn.svelte';
-  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
-  import Scrollable from '$lib/components/base/Scrollable.svelte';
-
-  // DMVis util imports
-  import { IconType } from '$lib/Enums.js';
-  import { StyleUtils } from '$lib/utils/StyleUtils.js';
-  import type { DataUtils } from '$lib/utils/DataUtils.js';
+  // DMVis imports
   import {
     getVisualisationContext,
     setVisualisationContext,
     updateVisualisationContext
   } from '$lib/Context.js';
+  import BarColumn from '$lib/components/columns/BarColumn.svelte';
+  import SumColumn from '$lib/components/columns/SumColumn.svelte';
+  import TextColumn from '$lib/components/columns/TextColumn.svelte';
+  import Scrollable from '$lib/components/base/Scrollable.svelte';
+  import { IconType } from '$lib/Enums.js';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
+  import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import type { ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
   export let width: number;

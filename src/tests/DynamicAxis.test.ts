@@ -1,10 +1,14 @@
+// Imports
 import { render } from '@testing-library/svelte';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -819,7 +823,9 @@ function createAxis(config: object): (SVGElement | null)[][] {
   document.body.appendChild(svg);
 
   // Add axis to svg block
-  const { container } = render(StoreWrapper, { props: { Component: DynamicAxis, config } });
+  const { container } = render(VisualisationStoreWrapper, {
+    props: { Component: DynamicAxis, config }
+  });
   const completeAxes = [...container.getElementsByClassName('axis')] as SVGElement[];
   const axes = [...container.getElementsByClassName('axisElement')] as SVGElement[];
   const labels = [...(container.getElementsByClassName('label') ?? null)] as SVGElement[];

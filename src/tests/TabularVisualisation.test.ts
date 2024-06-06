@@ -1,13 +1,15 @@
 // Imports
 import userEvent from '@testing-library/user-event';
 import { render } from '@testing-library/svelte';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 // DMVis imports
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 import TabularVisualisation from '$lib/components/visualisations/TabularVisualisation.svelte';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -264,7 +266,7 @@ async function generateTabularVisualisation(
 
   // Setup Tabular Visualisation component and render it
   const config = { dataUtil, ...customConfig };
-  const { container, getAllByRole, rerender } = render(StoreWrapper, {
+  const { container, getAllByRole, rerender } = render(VisualisationStoreWrapper, {
     props: { Component: TabularVisualisation, config }
   });
   return {

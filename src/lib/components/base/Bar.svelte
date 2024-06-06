@@ -2,15 +2,13 @@
   // Imports
   import { createEventDispatcher } from 'svelte';
 
-  // Type imports
-  import type { UndefineableString, Visibility } from '$lib/Types.js';
-
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
+  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
-  import { formatClassName } from '$lib/utils/ClassNameFormat.js';
+  import type { UndefineableString, Visibility } from '$lib/Types.js';
 
   // Required attributes
   export let x: number;

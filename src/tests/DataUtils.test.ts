@@ -1,7 +1,9 @@
+// Imports
+import { scaleLinear } from 'd3';
 import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import { DataUtils } from '$lib/utils/DataUtils.js';
-import { scaleLinear } from 'd3';
 
 describe('dataUtils functionality test', () => {
   it('should parse CSV data', async () => {

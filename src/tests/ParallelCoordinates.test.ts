@@ -1,11 +1,15 @@
-import { fireEvent, render, waitFor } from '@testing-library/svelte';
+// Imports
 import { describe, it, expect } from 'vitest';
+import { fireEvent, render, waitFor } from '@testing-library/svelte';
 
-import ParallelCoordinates from '$lib/components/visualisations/ParallelCoordinates.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
+// DMVis imports
 import { DataUtils } from '$lib/utils/DataUtils.js';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
+import ParallelCoordinates from '$lib/components/visualisations/ParallelCoordinates.svelte';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 // The default styleUtil for ParallelCoordinates
@@ -280,6 +284,8 @@ async function generateParallelCoordinates(customConfig: object, customData: str
 
   // Setup Parallel Coordinates component and render it
   const config = { dataUtil, ...customConfig };
-  const { container } = render(StoreWrapper, { props: { Component: ParallelCoordinates, config } });
+  const { container } = render(VisualisationStoreWrapper, {
+    props: { Component: ParallelCoordinates, config }
+  });
   return container.querySelector('.parallelCoordinates') as HTMLElement;
 }

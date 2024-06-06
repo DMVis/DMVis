@@ -1,13 +1,11 @@
 <script lang="ts">
-  // Type imports
-  import type { ScaleLinear } from '$lib/Types.js';
-
   // DMVis imports
   import Point from '$lib/components/base/Point.svelte';
-  import { DMVisError } from '$lib/utils/DMVisError.js';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
-  import { getVisualisationContext, setVisualisationContext } from '$lib/Context.js';
+  import { DMVisError } from '$lib/utils/DMVisError.js';
   import type { DataUtils } from '$lib/Index.js';
+  import type { ScaleLinear } from '$lib/Types.js';
+  import { getVisualisationContext, setVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let width: number;

@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest';
+// Imports
 import { render } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import Tooltip from '$lib/components/base/Tooltip.svelte';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
 
 /*

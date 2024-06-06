@@ -1,10 +1,14 @@
-import { act, fireEvent, render } from '@testing-library/svelte';
+// Imports
 import { describe, it, expect } from 'vitest';
+import { act, fireEvent, render } from '@testing-library/svelte';
 
+// DMVis imports
 import LineUp from '$lib/components/visualisations/LineUp.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -437,6 +441,6 @@ async function generateLineUp(customConfig: object, customData: string | null = 
 
   // Setup LineUp component and render it
   const config = { dataUtil, ...customConfig };
-  const { container } = render(StoreWrapper, { props: { Component: LineUp, config } });
+  const { container } = render(VisualisationStoreWrapper, { props: { Component: LineUp, config } });
   return container.querySelector('.lineUp') as HTMLElement;
 }

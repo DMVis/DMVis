@@ -1,21 +1,19 @@
 <script lang="ts">
   // Imports
-  import { select, drag, scaleBand, type Selection, type ScaleBand } from 'd3';
   import { afterUpdate } from 'svelte';
+  import { select, drag, scaleBand, type Selection, type ScaleBand } from 'd3';
 
-  // DMVis component imports
+  // DMVis imports
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
   import StaticLine from '$lib/components/base/StaticLine.svelte';
   import TextColumn from '$lib/components/columns/TextColumn.svelte';
-  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
-
-  // DMVis imports
   import { IconType } from '$lib/Enums.js';
   import { DataUtils } from '$lib/utils/DataUtils.js';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
+  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
   import type { UndefineableString } from '$lib/Types.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

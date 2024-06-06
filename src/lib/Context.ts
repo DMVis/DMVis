@@ -1,6 +1,9 @@
+// Imports
+import { setContext, getContext } from 'svelte';
+
+// DMVis imports
 import type { StyleUtils } from '$lib/utils/StyleUtils.js';
 import { VisualisationStore } from '$lib/VisualisationStore.js';
-import { setContext, getContext } from 'svelte';
 
 interface ContextOptions {
   width?: number;

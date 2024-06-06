@@ -1,19 +1,17 @@
 <script lang="ts">
   // Imports
-  import { max as maxFunction, axisTop, scaleLinear } from 'd3';
   import { writable } from 'svelte/store';
   import { createEventDispatcher } from 'svelte';
-
-  // Type imports
-  import type { Filter, Visibility, ScaleLinear } from '$lib/Types.js';
+  import { max as maxFunction, axisTop, scaleLinear } from 'd3';
 
   // DMVis imports
-  import Label from '$lib/components/base/Label.svelte';
   import Bar from '$lib/components/base/Bar.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
+  import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
   import Histogram from '$lib/components/visualisations/Histogram.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
+  import type { Filter, Visibility, ScaleLinear } from '$lib/Types.js';
   import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
 
   // Required attributes

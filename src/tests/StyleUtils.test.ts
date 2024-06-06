@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+// Imports
 import chroma from 'chroma-js';
+import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
 
 describe('StyleUtils functionality test', () => {

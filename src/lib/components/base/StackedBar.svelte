@@ -1,16 +1,10 @@
 <script lang="ts">
-  // d3 imports
-
-  // Type imports
-  import type { Opacity, ScaleLinear } from '$lib/Types.js';
-
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Label from '$lib/components/base/Label.svelte';
-
-  // DMVis util import
   import { OriginX, OriginY } from '$lib/Enums.js';
   import { getVisualisationContext } from '$lib/Context.js';
+  import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
   export let y: number;

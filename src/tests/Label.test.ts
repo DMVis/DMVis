@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest';
+// Imports
 import { render, fireEvent } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import Label from '$lib/components/base/Label.svelte';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
 
 // Make sure that the get methods of SVGElement is mocked

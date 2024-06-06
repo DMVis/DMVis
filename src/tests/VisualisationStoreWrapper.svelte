@@ -5,8 +5,9 @@
   // DMVis imports
   import { VisualisationStore } from '$lib/VisualisationStore.js';
 
-  // Exports
+  // Required attributes
   export let Component: ComponentType;
+  // Optional attributes
   export let config = {};
 
   // Import VisualisationStore and use defaults for mocking

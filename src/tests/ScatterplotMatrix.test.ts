@@ -1,12 +1,14 @@
 // Imports
 import { render } from '@testing-library/svelte';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
 
 // DMVis imports
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
 import ScatterplotMatrix from '$lib/components/visualisations/ScatterplotMatrix.svelte';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -307,6 +309,8 @@ async function generateScatterplotMatrix(customConfig: object, customData: strin
 
   // Setup ScatterplotMatrix component and render it
   const config = { dataUtil, ...customConfig };
-  const { container } = render(StoreWrapper, { props: { Component: ScatterplotMatrix, config } });
+  const { container } = render(VisualisationStoreWrapper, {
+    props: { Component: ScatterplotMatrix, config }
+  });
   return container.querySelector('.scatterplotMatrix') as HTMLElement;
 }

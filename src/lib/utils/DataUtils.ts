@@ -1,12 +1,10 @@
 // Imports
+import { get, writable, type Writable } from 'svelte/store';
 import { text as textFunction, autoType, dsvFormat } from 'd3';
 
-// Type imports
-import type { ScaleLinear } from '$lib/Types.js';
-
 // DMVis imports
-import { DMVisError } from './DMVisError.js';
-import { get, writable, type Writable } from 'svelte/store';
+import { DMVisError } from '$lib/utils/DMVisError.js';
+import type { ScaleLinear } from '$lib/Types.js';
 
 /**
  * A class that provides utility functions to work with data.

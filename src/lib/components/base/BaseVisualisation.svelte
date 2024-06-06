@@ -1,8 +1,10 @@
 <script lang="ts">
+  // DMVis imports
   import Filter from '$lib/components/base/Filter.svelte';
   import Scrollable from './Scrollable.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
 
+  // Optional attributes
   export let isScrollable: boolean = false;
   export let scrollableWidth: number | string = '100%';
   export let scrollableHeight: number | string = '100%';

@@ -1,10 +1,14 @@
+// Imports
 import { render } from '@testing-library/svelte';
 import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { DataUtils } from '$lib/Index.js';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -230,7 +234,9 @@ describe('Scaling test', () => {
 });
 
 function createScatterplot(config: object): SVGElement {
-  const { container } = render(StoreWrapper, { props: { Component: Scatterplot, config } });
+  const { container } = render(VisualisationStoreWrapper, {
+    props: { Component: Scatterplot, config }
+  });
   const scatterplot = container.getElementsByClassName('visualisation')[0] as SVGElement;
   return scatterplot;
 }

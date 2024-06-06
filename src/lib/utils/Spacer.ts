@@ -1,5 +1,7 @@
+// Imports
 import { scaleBand, scalePoint } from 'd3-scale';
 
+// DMVis imports
 import { DMVisError } from '$lib/utils/DMVisError.js';
 
 export function Spacer(

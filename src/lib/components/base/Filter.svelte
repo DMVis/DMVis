@@ -6,8 +6,8 @@
   import Scrollable from '$lib/components/base/Scrollable.svelte';
   import FilterColumn from '$lib/components/columns/FilterColumn.svelte';
   import { DataUtils } from '$lib/utils/DataUtils.js';
-  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { ColumnType } from '$lib/Enums.js';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { VisualisationStore } from '$lib/VisualisationStore.js';
 
   // Required attributes

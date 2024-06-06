@@ -4,13 +4,15 @@ import { setContext, getContext } from 'svelte';
 import { describe, it, expect, beforeEach, vi, type MockedFunction } from 'vitest';
 
 // DMVis imports
-import { StyleUtils } from '$lib/utils/StyleUtils.js';
-import { VisualisationStore } from '$lib/VisualisationStore.js';
 import {
   setVisualisationContext,
   updateVisualisationContext,
   getVisualisationContext
 } from '$lib/Context.js';
+import { StyleUtils } from '$lib/utils/StyleUtils.js';
+
+// Mock imports
+import { VisualisationStore } from '$lib/VisualisationStore.js';
 
 vi.mock('svelte', () => ({
   setContext: vi.fn(),

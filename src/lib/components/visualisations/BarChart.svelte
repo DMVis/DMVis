@@ -2,13 +2,11 @@
   // Imports
   import { type ScaleBand, scaleBand, scaleLinear, max, axisLeft, axisBottom } from 'd3';
 
-  // Type imports
-  import type { Opacity, ScaleLinear } from '$lib/Types.js';
-
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
+  import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
   export let width: number;

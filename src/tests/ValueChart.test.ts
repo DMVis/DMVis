@@ -1,13 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// Imports
+import { tick } from 'svelte';
+import userEvent from '@testing-library/user-event';
 import { act, fireEvent, render } from '@testing-library/svelte';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
+// DMVis imports
 import ValueChart from '$lib/components/visualisations/ValueChart.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
-import userEvent from '@testing-library/user-event';
-import { tick } from 'svelte';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -272,7 +276,7 @@ async function generateValueChart(customConfig: object, customData: string | nul
 
   // Setup ValueChart component and render it
   const config = { dataUtil, ...customConfig };
-  const { container, getAllByRole, getAllByLabelText } = render(StoreWrapper, {
+  const { container, getAllByRole, getAllByLabelText } = render(VisualisationStoreWrapper, {
     props: { Component: ValueChart, config }
   });
   return {

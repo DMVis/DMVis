@@ -1,17 +1,15 @@
 <script lang="ts">
   // Imports
-  import { type ScaleBand, type ScalePoint, select } from 'd3';
   import { createEventDispatcher, tick } from 'svelte';
-
-  // Type imports
-  import type { Alignment, UndefineableString } from '$lib/Types.js';
+  import { type ScaleBand, type ScalePoint, select } from 'd3';
 
   // DMVis imports
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import { getVisualisationContext } from '$lib/Context.js';
+  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import type { Alignment, UndefineableString } from '$lib/Types.js';
 
   // Optional attributes
   export let axisOrder: string[] = [];

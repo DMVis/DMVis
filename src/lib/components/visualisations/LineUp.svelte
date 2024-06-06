@@ -8,13 +8,13 @@
   import TextColumn from '$lib/components/columns/TextColumn.svelte';
   import RankColumn from '$lib/components/columns/RankColumn.svelte';
   import SelectColumn from '$lib/components/columns/SelectColumn.svelte';
-  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { DMVisError } from '$lib/utils/DMVisError.js';
+  import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import type { UndefineableString } from '$lib/Types.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

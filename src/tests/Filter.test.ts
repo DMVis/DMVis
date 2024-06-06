@@ -2,14 +2,16 @@
 import { get } from 'svelte/store';
 import { tick } from 'svelte';
 import userEvent from '@testing-library/user-event';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { act, fireEvent, render } from '@testing-library/svelte';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
 // DMVis imports
 import Filter from '$lib/components/base/Filter.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
 import { DataUtils } from '$lib/utils/DataUtils.js';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -24,7 +26,9 @@ describe('Filter component tests', () => {
     const config = { dataUtil: dataUtil };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: Filter, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: Filter, config }
+    });
     const svgContainer = container.querySelector('svg.filter-container');
 
     const filterColumns = container.querySelectorAll('.column');
@@ -43,7 +47,9 @@ describe('Filter component tests', () => {
     const config = { dataUtil: dataUtil };
 
     // Act
-    const { container } = render(StoreWrapper, { props: { Component: Filter, config } });
+    const { container } = render(VisualisationStoreWrapper, {
+      props: { Component: Filter, config }
+    });
 
     const textElements = container.querySelectorAll('text');
 
@@ -63,7 +69,9 @@ describe('Filter component tests', () => {
 
     // Act
     // Render the component
-    const { getAllByRole } = render(StoreWrapper, { props: { Component: Filter, config } });
+    const { getAllByRole } = render(VisualisationStoreWrapper, {
+      props: { Component: Filter, config }
+    });
     // Get all the sort buttons
     const sortButtons = getAllByRole('button', { name: /sort/i });
     // Click the first sort button (Country)
@@ -89,7 +97,9 @@ describe('Filter component tests', () => {
       ]); // Simulating the setting of new data
     });
     const config = { dataUtil: dataUtil };
-    const { getAllByLabelText } = render(StoreWrapper, { props: { Component: Filter, config } });
+    const { getAllByLabelText } = render(VisualisationStoreWrapper, {
+      props: { Component: Filter, config }
+    });
 
     // Subscribe to the writable store and capture data
     let capturedData: Array<Array<string | number>> = [];
@@ -142,7 +152,7 @@ describe('Filter component tests', () => {
     // @ts-expect-error - Cant find setup in userEvent
     const user = userEvent.setup();
 
-    const { getAllByLabelText, getAllByRole } = render(StoreWrapper, {
+    const { getAllByLabelText, getAllByRole } = render(VisualisationStoreWrapper, {
       props: { Component: Filter, config }
     });
 

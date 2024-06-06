@@ -1,9 +1,13 @@
+// Imports
 import { describe, it, expect } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/svelte';
 
+// DMVis imports
 import Line from '$lib/components/base/Line.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -83,7 +87,7 @@ describe('Attribute test', () => {
 
 function createLines(config: object): SVGGElement {
   // Render lines and return the respective element
-  const { container } = render(StoreWrapper, { props: { Component: Line, config } });
+  const { container } = render(VisualisationStoreWrapper, { props: { Component: Line, config } });
   const hoverlines = container.getElementsByClassName('line-group')[0] as SVGGElement;
   return hoverlines;
 }

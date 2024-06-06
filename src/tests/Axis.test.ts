@@ -1,10 +1,14 @@
-import { scaleLinear, axisBottom, axisLeft, axisTop, type ScaleLinear } from 'd3';
+// Imports
 import { render } from '@testing-library/svelte';
-import prepareSvgGetter from '../vitest/svgMock.js';
 import { describe, it, expect } from 'vitest';
+import { scaleLinear, axisBottom, axisLeft, axisTop, type ScaleLinear } from 'd3';
 
+// DMVis imports
 import Axis from '$lib/components/base/Axis.svelte';
-import StoreWrapper from './VisualisationStoreWrapper.svelte';
+
+// Mock imports
+import prepareSvgGetter from '../vitest/svgMock.js';
+import VisualisationStoreWrapper from './VisualisationStoreWrapper.svelte';
 
 prepareSvgGetter();
 
@@ -284,7 +288,7 @@ function createAxis(config: object): (SVGElement | null)[] {
   document.body.appendChild(svg);
 
   // Add axis to svg block
-  const { container } = render(StoreWrapper, { props: { Component: Axis, config } });
+  const { container } = render(VisualisationStoreWrapper, { props: { Component: Axis, config } });
   const completeAxis = container.getElementsByClassName('axis')[0] as SVGElement;
   const axis = container.getElementsByClassName('axisElement')[0] as SVGElement;
   const label = container.getElementsByClassName('label')[0] ?? null;

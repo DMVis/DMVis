@@ -1,6 +1,9 @@
-import { describe, it, expect, expectTypeOf } from 'vitest';
-import { SpacerSide, SpacerEqual } from '$lib/utils/Spacer.js';
+// Imports
 import { type ScaleBand, type ScalePoint } from 'd3';
+import { describe, it, expect, expectTypeOf } from 'vitest';
+
+// DMVis imports
+import { SpacerSide, SpacerEqual } from '$lib/utils/Spacer.js';
 
 describe('SpacerSide placement test', () => {
   it(`creates a SpacerSide and checks the type`, () => {

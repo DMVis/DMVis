@@ -1,10 +1,8 @@
 <script lang="ts">
-  // Type imports
-  import type { Theme } from '$lib/Types.js';
-
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
+  import type { Theme } from '$lib/Types.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required attributes

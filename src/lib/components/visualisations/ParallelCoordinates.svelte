@@ -2,15 +2,13 @@
   // Imports
   import { select } from 'd3';
 
-  // Type imports
-  import type { UndefineableString } from '$lib/Types.js';
-
   // DMVis imports
   import Line from '$lib/components/base/Line.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import type { UndefineableString } from '$lib/Types.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
 
   // Required attributes

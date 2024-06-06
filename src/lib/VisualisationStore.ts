@@ -1,10 +1,10 @@
 // Imports
 import { extent, scaleBand, scaleLinear, type ScaleBand, type ScaleLinear } from 'd3';
-import { derived, writable, type Writable } from 'svelte/store';
 
-// DMVis Imports
+// DMVis imports
 import { DMVisError } from '$lib/utils/DMVisError.js';
 import { StyleUtils } from '$lib/utils/StyleUtils.js';
+import { derived, writable, type Writable } from 'svelte/store';
 
 export class VisualisationStore {
   public marginTop: Writable<number>;

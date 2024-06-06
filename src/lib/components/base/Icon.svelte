@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { IconType } from '$lib/Enums.js';
-
   // Imports
   import { createEventDispatcher } from 'svelte';
+
+  // DMVis imports
+  import type { IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;

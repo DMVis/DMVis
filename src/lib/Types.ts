@@ -1,7 +1,7 @@
-// Outside imported types
+// Types
 import type { ScaleLinear as D3ScaleLinear, ScaleBand as D3ScaleBand } from 'd3';
 
-// General types
+// DMVis types
 export type UndefineableString = string | undefined;
 export type Opacity = number | string;
 export type Position = 'left' | 'right' | 'top' | 'bottom';

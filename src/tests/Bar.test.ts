@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest';
+// Imports
 import { render, fireEvent } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
 
+// DMVis imports
 import Bar from '$lib/components/base/Bar.svelte';
+
+// Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
 
 prepareSvgGetter();
