@@ -77,6 +77,7 @@ It is used in combination with other components to create a chart.
 -->
 
 <circle
+  style="--highlight-color: {$styleUtil ? $styleUtil.focusColor : color}"
   cx={x}
   cy={y}
   r={radius}
@@ -98,7 +99,7 @@ It is used in combination with other components to create a chart.
   .highlighted {
     opacity: 1;
     stroke-width: 2;
-    fill: #f42b03;
+    fill: var(--highlight-color);
   }
   .greyed {
     fill: grey;
