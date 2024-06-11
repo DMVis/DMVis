@@ -25,7 +25,7 @@ describe('Basic Parallel Coordinates rendering', async () => {
     const expectedAmountOfLines = 3; // Amount of lines (one per row in data)
 
     // Act
-    const parallelCoordinates = await generateParallelCoordinates(config);
+    const parallelCoordinates = await createParallelCoordinates(config);
 
     // Assert
     expect(parallelCoordinates).not.toBeNull();
@@ -44,7 +44,7 @@ describe('Basic Parallel Coordinates rendering', async () => {
     const expectedAmountOfLines = 1; // Amount of lines (one per row in data)
 
     // Act
-    const parallelCoordinates = await generateParallelCoordinates(config, 'a,b\n1,2');
+    const parallelCoordinates = await createParallelCoordinates(config, 'a,b\n1,2');
 
     // Assert
     expect(parallelCoordinates).not.toBeNull();
@@ -62,7 +62,7 @@ describe('Basic Parallel Coordinates rendering', async () => {
     };
 
     // Act
-    const parallelCoordinates = await generateParallelCoordinates(config);
+    const parallelCoordinates = await createParallelCoordinates(config);
 
     // Assert
     expect(parallelCoordinates).not.toBeNull();
@@ -76,7 +76,7 @@ describe('Interactive Parallel Coordinates', async () => {
   it('highlights and raises a line when hovering over it', async () => {
     // Arrange
     const config = {};
-    const parallelCoordinates = (await generateParallelCoordinates(config)) as HTMLElement;
+    const parallelCoordinates = (await createParallelCoordinates(config)) as HTMLElement;
     const lines = parallelCoordinates.getElementsByClassName('line');
     const firstLineID = lines[0].getAttribute('id');
 
@@ -109,7 +109,7 @@ describe('Interactive Parallel Coordinates', async () => {
   it('highlights and raises a line when clicking', async () => {
     // Arrange
     const config = {};
-    const parallelCoordinates = (await generateParallelCoordinates(config)) as HTMLElement;
+    const parallelCoordinates = (await createParallelCoordinates(config)) as HTMLElement;
     const lines = parallelCoordinates.getElementsByClassName('line');
     const firstLineID = lines[0].getAttribute('id');
 
@@ -175,7 +175,7 @@ describe('Interactive Parallel Coordinates', async () => {
       marginLeft: 0,
       marginRight: 0
     };
-    const parallelCoordinates = (await generateParallelCoordinates(config)) as HTMLElement;
+    const parallelCoordinates = (await createParallelCoordinates(config)) as HTMLElement;
 
     // Store the column names of the first and the second axes
     const firstAxis = parallelCoordinates.getElementsByClassName('label')[0].children[0];
@@ -222,7 +222,7 @@ describe('Interactive Parallel Coordinates', async () => {
       marginTop: 0,
       marginBottom: 0
     };
-    const parallelCoordinates = (await generateParallelCoordinates(
+    const parallelCoordinates = (await createParallelCoordinates(
       config,
       'a,b,c\n10,0,10\n0,10,0'
     )) as HTMLElement;
@@ -267,7 +267,7 @@ describe('Interactive Parallel Coordinates', async () => {
   });
 });
 
-async function generateParallelCoordinates(customConfig: object, customData: string | null = null) {
+async function createParallelCoordinates(customConfig: object, customData: string | null = null) {
   // Prepare data
   const data = customData != null ? customData : 'a,b,c\n1,2,3\n4,5,6\n7,8,9';
   const dataUtil = new DataUtils();

@@ -31,7 +31,7 @@ describe('Basic ValueChart rendering', async () => {
     const expectedBottomHeight = '445'; // bottom half height (padding is subtracted from top half)
 
     // Act
-    const { container } = await generateValueChart(config);
+    const { container } = await createValueChart(config);
 
     // Assert
     expect(container).not.toBeNull();
@@ -60,7 +60,7 @@ describe('Basic ValueChart rendering', async () => {
     const expectedBottomHeight = '495'; // bottom half height (padding is subtracted from top half)
 
     // Act
-    const { container } = await generateValueChart(config, 'l,a,b\nfirst,1,2');
+    const { container } = await createValueChart(config, 'l,a,b\nfirst,1,2');
 
     // Assert
     expect(container).not.toBeNull();
@@ -90,7 +90,7 @@ describe('Interactive ValueChart', async () => {
     const expectedSmallerWidth = '162';
     // @ts-expect-error - Cant find setup in userEvent
     const user = userEvent.setup();
-    const { container, getAllByRole, getAllByLabelText } = await generateValueChart(config);
+    const { container, getAllByRole, getAllByLabelText } = await createValueChart(config);
     const weightButtons = getAllByRole('button', { name: /weight/i });
 
     // Act
@@ -146,7 +146,7 @@ describe('Interactive ValueChart', async () => {
     const expectedSmallerWidth = '216.3157894736842';
     // @ts-expect-error - Cant find setup in userEvent
     const user = userEvent.setup();
-    const { container, getAllByRole, getAllByLabelText } = await generateValueChart(config);
+    const { container, getAllByRole, getAllByLabelText } = await createValueChart(config);
     const weightButtons = getAllByRole('button', { name: /weight/i });
 
     // Act
@@ -206,7 +206,7 @@ describe('Interactive ValueChart', async () => {
     };
     // @ts-expect-error - Cant find setup in userEvent
     const user = userEvent.setup();
-    const { container, getAllByRole, getAllByLabelText } = await generateValueChart(
+    const { container, getAllByRole, getAllByLabelText } = await createValueChart(
       config,
       'label,a,b,c\nfirst,1,2,5\nsecond,3,4,7\nthird,6,8,1'
     );
@@ -259,7 +259,7 @@ describe('Interactive ValueChart', async () => {
   });
 });
 
-async function generateValueChart(customConfig: object, customData: string | null = null) {
+async function createValueChart(customConfig: object, customData: string | null = null) {
   // Prepare data (structured as follows)
   const data =
     customData != null ? customData : 'label,a,b,c\nfirst,1,2,3\nsecond,4,5,6\nthird,7,8,9';

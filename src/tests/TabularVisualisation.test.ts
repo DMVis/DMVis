@@ -20,7 +20,7 @@ describe('General Tabular Visualisation rendering tests', () => {
     const expectedNumberOfColumns = 4;
 
     // Act
-    const { tabularVisualisation } = await generateTabularVisualisation(config);
+    const { tabularVisualisation } = await createTabularVisualisation(config);
     const columns = tabularVisualisation.querySelectorAll('.column');
 
     // Assert
@@ -34,7 +34,7 @@ describe('General Tabular Visualisation rendering tests', () => {
     const expectedNumberOfRows = 9;
 
     // Act
-    const { tabularVisualisation } = await generateTabularVisualisation(config);
+    const { tabularVisualisation } = await createTabularVisualisation(config);
     const rows = tabularVisualisation.querySelectorAll('.bar');
 
     // Assert
@@ -52,7 +52,7 @@ describe('General Tabular Visualisation rendering tests', () => {
     const expectedNumberOfLines = 5;
 
     // Act
-    const { tabularVisualisation } = await generateTabularVisualisation(config);
+    const { tabularVisualisation } = await createTabularVisualisation(config);
 
     // Assert
     const bars = tabularVisualisation.querySelectorAll('.bar');
@@ -80,7 +80,7 @@ describe('Tabular Visualisation interactivity tests', () => {
     const config = {};
 
     // Generate the tabular visualisation based on the config
-    const { tabularVisualisation } = await generateTabularVisualisation(config);
+    const { tabularVisualisation } = await createTabularVisualisation(config);
 
     // Select all elements with the class 'bar'
     const bars = tabularVisualisation.querySelectorAll('.bar');
@@ -118,7 +118,7 @@ describe('Tabular Visualisation interactivity tests', () => {
     const config = {};
 
     // Generate the tabular visualisation based on the config
-    const { tabularVisualisation } = await generateTabularVisualisation(config);
+    const { tabularVisualisation } = await createTabularVisualisation(config);
 
     // Select all elements with the class 'bar'
     const bars = tabularVisualisation.querySelectorAll('.bar');
@@ -160,7 +160,7 @@ describe('Tabular Visualisation interactivity tests', () => {
     const config = {};
 
     // Generate the tabular visualisation based on the config
-    const { tabularVisualisation, getAllByRole } = await generateTabularVisualisation(config);
+    const { tabularVisualisation, getAllByRole } = await createTabularVisualisation(config);
 
     // Get all sort buttons (assuming buttons with names containing 'sort')
     const sortButtons = getAllByRole('button', { name: /sort/i });
@@ -189,7 +189,7 @@ describe('Tabular Visualisation interactivity tests', () => {
     const config = {};
 
     // Generate the tabular visualisation based on the config
-    const { tabularVisualisation } = await generateTabularVisualisation(config);
+    const { tabularVisualisation } = await createTabularVisualisation(config);
 
     // Get the column names and their respective positions
     const colNames = Array.from(
@@ -246,10 +246,7 @@ const checkHighlightState = (elements: Element[], shouldBeHighlighted: boolean) 
   });
 };
 
-async function generateTabularVisualisation(
-  customConfig: object,
-  customData: string | null = null
-) {
+async function createTabularVisualisation(customConfig: object, customData: string | null = null) {
   // Prepare data
   const data = customData != null ? customData : 'label,a,b,c\nz,15,5,10\ny,5,10,10\nx,10,15,10\n';
   const dataUtil = new DataUtils();

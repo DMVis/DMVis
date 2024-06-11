@@ -19,7 +19,7 @@ describe('Scatterplot matrix tests', () => {
     const expectedAmountOfScatterplots = 6;
 
     // Act
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
 
     // Assert
@@ -33,7 +33,7 @@ describe('Scatterplot matrix tests', () => {
     const expectedAmountOfScatterplots = 6;
 
     // Act
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
 
     // Assert
@@ -48,7 +48,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should swap two columns when dragging one column over the other', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const draggables = scatterplotMatrix.querySelectorAll('.draggable');
 
     // Act
@@ -78,7 +78,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should highlight the labels when hovering over a scatterplot', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
     const labels = scatterplotMatrix.querySelectorAll('.label');
 
@@ -102,7 +102,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should remove the highlight from the labels when the mouse leaves the scatterplot', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
     const labels = scatterplotMatrix.querySelectorAll('.label');
 
@@ -129,7 +129,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should highlight and unhighlight a point in all scatterplots when clicking it', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
     const points = scatterplotMatrix.querySelectorAll('.point-Belgium');
 
@@ -188,7 +188,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should highlight and unhighlight a point in all scatterplots when entering and leaving it', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
     const points = scatterplotMatrix.querySelectorAll('.point-Belgium');
 
@@ -229,7 +229,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should show a tooltip with the correct label when hovering over a point', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
     const points = scatterplotMatrix.querySelectorAll('.point-Belgium');
 
@@ -259,7 +259,7 @@ describe('Scatterplot matrix interaction tests', () => {
   it('should draw a static line when inside a scatterplot', async () => {
     // Arrange
     const config = { width: 750, height: 750 };
-    const scatterplotMatrix = await generateScatterplotMatrix(config);
+    const scatterplotMatrix = await createScatterplotMatrix(config);
     const scatterplots = scatterplotMatrix.querySelectorAll('.scatterplot');
 
     // Ensure TypeScript recognizes the onmouseover property
@@ -299,7 +299,7 @@ function getTransformCoordinates(transform: string | null | undefined) {
   };
 }
 
-async function generateScatterplotMatrix(customConfig: object, customData: string | null = null) {
+async function createScatterplotMatrix(customConfig: object, customData: string | null = null) {
   // Prepare data
   const data = customData
     ? customData

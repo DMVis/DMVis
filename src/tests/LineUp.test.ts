@@ -18,7 +18,7 @@ describe('Basic LineUp rendering', async () => {
     const config = {};
 
     // Act
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Assert
     expect(container).not.toBeNull();
@@ -32,7 +32,7 @@ describe('Basic LineUp rendering', async () => {
     const config = {};
 
     // Act
-    const container = await generateLineUp(config, 'a,b,c');
+    const container = await createLineUp(config, 'a,b,c');
 
     // Assert
     expect(container).not.toBeNull();
@@ -46,7 +46,7 @@ describe('Basic LineUp rendering', async () => {
     const config = {};
 
     // Act
-    const container = await generateLineUp(config, '');
+    const container = await createLineUp(config, '');
 
     // Assert
     expect(container).not.toBeNull();
@@ -60,7 +60,7 @@ describe('Basic LineUp rendering', async () => {
     const config = { columnWidth: 100 };
 
     // Act
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Assert
     expect(container).not.toBeNull();
@@ -74,7 +74,7 @@ describe('Interactive LineUp columns & rows', async () => {
   it('selects a row when clicking a checkbox', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act
     await (container.querySelector('#select-0') as HTMLInputElement)?.click();
@@ -88,7 +88,7 @@ describe('Interactive LineUp columns & rows', async () => {
   it('selects a row when clicking the background', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act
     const background = container.querySelectorAll('.column-bottom-background')[0] as HTMLElement;
@@ -109,7 +109,7 @@ describe('Interactive LineUp columns & rows', async () => {
   it('selects 3 rows when holding shift', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act
     const background = container.querySelectorAll('.column-bottom-background')[0] as HTMLElement;
@@ -139,7 +139,7 @@ describe('Interactive LineUp columns & rows', async () => {
   it('selects 2 rows when holding ctrl', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act
     const background = container.querySelectorAll('.column-bottom-background')[0] as HTMLElement;
@@ -173,7 +173,7 @@ describe('Interactive LineUp columns & rows', async () => {
   it('highlights and unhighlights a row when hovering over it', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act
     const background = container.querySelectorAll('.column-bottom')[0] as HTMLElement;
@@ -206,7 +206,7 @@ describe('Interactive LineUp columns & rows', async () => {
   it('drags the first column to the second position', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act
     const columns = container.getElementsByClassName('column-top');
@@ -231,7 +231,7 @@ describe('LineUp column actions', async () => {
   it('sorts a column when clicking the sort icon', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Assert
     let column = container.querySelectorAll('.column-bottom > g')[2]; // Testing using the 'a' column
@@ -275,7 +275,7 @@ describe('LineUp column actions', async () => {
   it('filters a column when filling in the filter fields', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act - Show filter fields
     let filterIcon = container
@@ -317,7 +317,7 @@ describe('LineUp column actions', async () => {
   it('removes a column when clicking the remove column text', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act - Show filter fields
     const moreIcon = container
@@ -338,7 +338,7 @@ describe('LineUp column actions', async () => {
   it('highlights a row when searching it in a text column', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act - Show search fields
     const searchIcon = container
@@ -361,7 +361,7 @@ describe('LineUp column actions', async () => {
   it('filters rows when filtering it in a text column', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act - Show filter fields
     const filterIcon = container
@@ -385,7 +385,7 @@ describe('LineUp column actions', async () => {
   it('groups selected rows to the top and reverts it', async () => {
     // Arrange
     const config = {};
-    const container = await generateLineUp(config);
+    const container = await createLineUp(config);
 
     // Act - Select the second row
     await (container.querySelector('#select-1') as HTMLInputElement)?.click();
@@ -424,7 +424,7 @@ function getBarWidths(column: Element): Array<number> {
   return Array.from(column.children).map((bar) => Number(bar.getAttribute('width')));
 }
 
-async function generateLineUp(customConfig: object, customData: string | null = null) {
+async function createLineUp(customConfig: object, customData: string | null = null) {
   // Prepare data
   const data = customData != null ? customData : 'label,a,b,c\nz,15,5,10\ny,5,10,10\nx,10,15,10\n';
   const dataUtil = new DataUtils(true);
