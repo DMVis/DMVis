@@ -8,7 +8,6 @@
   import Draggable from '$lib/components/base/Draggable.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import type { Position } from '$lib/Types.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
 
   // Required Attributes
   export let placementX: number;
@@ -29,8 +28,6 @@
 
   let labelOffsetY = 0;
   let labelOffsetX = 0;
-  let labelOriginX: OriginX = OriginX.Middle;
-  let labelOriginY: OriginY = OriginY.Middle;
   let labelRotationDegrees: number = 0;
 
   const dispatch = createEventDispatcher();
@@ -63,23 +60,19 @@
           labelRotationDegrees = 270;
           labelOffsetY = axisY + axisHeight / 2;
           labelOffsetX = axisX - labelOffset;
-          labelOriginX = OriginX.Right;
           break;
         case 'right':
           labelRotationDegrees = 90;
           labelOffsetY = axisY + axisHeight / 2;
           labelOffsetX = axisX + axisWidth + labelOffset;
-          labelOriginX = OriginX.Left;
           break;
         case 'top':
           labelOffsetX = axisX + axisWidth / 2;
           labelOffsetY = axisY - labelOffset;
-          labelOriginY = OriginY.Bottom;
           break;
         case 'bottom':
           labelOffsetX = axisX + axisWidth / 2;
           labelOffsetY = axisY + axisHeight + labelOffset;
-          labelOriginY = OriginY.Top;
           break;
         default:
           throw DMVisError(
@@ -213,8 +206,6 @@ of adding a label on any side of the axis.
           x={placementX + labelOffsetX}
           y={placementY + labelOffsetY}
           text={labelText}
-          originX={labelOriginX}
-          originY={labelOriginY}
           hasBackground={false}
           rotationDegrees={labelRotationDegrees}
           textColor={color}
@@ -225,8 +216,6 @@ of adding a label on any side of the axis.
         x={placementX + labelOffsetX}
         y={placementY + labelOffsetY}
         text={labelText}
-        originX={labelOriginX}
-        originY={labelOriginY}
         hasBackground={false}
         rotationDegrees={labelRotationDegrees}
         textColor={color} />
