@@ -119,17 +119,28 @@
 
         // If the text is longer than the width, add ellipsis
         if (textLength > rectWidth) {
-          let newText = text;
+          // Check whether the label is small enough that even ellipsis do not fit
+          select(textBlock).text('...');
+          const textWidth = select(textBlock)?.node()?.getComputedTextLength() ?? 0;
+          if (textWidth > rectWidth) {
+            // If this is the case, we make the label empty and throw a warning
+            select(textBlock).text('');
+            console.warn(
+              'A label has been created without any text, because no text fits within the label.'
+            );
+          } else {
+            let newText = text;
 
-          // Shorten the text until it fits
-          while (textLength > rectWidth) {
-            newText = newText.slice(0, -1);
-            select(textBlock).text(newText + '...');
-            textLength = select(textBlock)?.node()?.getComputedTextLength() || 0;
+            // Shorten the text until it fits
+            while (textLength > rectWidth) {
+              newText = newText.slice(0, -1);
+              select(textBlock).text(newText + '...');
+              textLength = select(textBlock)?.node()?.getComputedTextLength() || 0;
+            }
+
+            // Add a title to show the full text on hover
+            select(textBlock).html(select(textBlock).html() + `<title>${text}</title>`);
           }
-
-          // Add a title to show the full text on hover
-          select(textBlock).html(select(textBlock).html() + `<title>${text}</title>`);
         }
       } else {
         // @ts-expect-error Assigning a D3 text selection, but selections only have an interface

@@ -62,7 +62,7 @@
   const maxValue = Math.max(...data);
   let showFilter = false;
   let showWeight = false;
-  let weightInputIsCorrect = true;
+  let isWeightInputValid = true;
 
   // Get the y position of the column
   function getY(index: number) {
@@ -85,12 +85,12 @@
     const regex = /^[-+]?[0-9]*\.?[0-9]+$/;
     if (regex.test(weight)) {
       const weightAsFloat = parseFloat(weight);
-      if (weightAsFloat < 0 || weightAsFloat > 100) {
-        weightInputIsCorrect = false;
+      if (weightAsFloat <= 0 || weightAsFloat > 100) {
+        isWeightInputValid = false;
         return;
       }
       // Turn box back to white
-      weightInputIsCorrect = true;
+      isWeightInputValid = true;
       // Dispatch the new weight
       dispatch('weightChanged', {
         column: name,
@@ -98,7 +98,7 @@
       });
     } else {
       //Turn box red
-      weightInputIsCorrect = false;
+      isWeightInputValid = false;
     }
   }
 
@@ -215,7 +215,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
           placeholder={'Weight'}
           aria-label="WeightInput"
           style={`translate: ${0}px 0px; font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;` +
-            `background-color: ${weightInputIsCorrect ? 'white' : '#ff534a'}; height:14px; width: ${width - padding - 5}px;`}
+            `background-color: ${isWeightInputValid ? 'white' : '#ff534a'}; height:14px; width: ${width - padding - 5}px;`}
           min={0}
           bind:value={weight}
           on:change={dispatchWeight} />
