@@ -180,7 +180,7 @@ describe('Tabular Visualisation interactivity tests', () => {
     const labelTexts = labelNames ? Array.from(labelNames).map((label) => label.textContent) : [];
 
     // Check if the labels are sorted correctly
-    expect(labelTexts).toStrictEqual(['z', 'y', 'x']);
+    expect(labelTexts).toStrictEqual(['x', 'y', 'z']);
   });
 
   it('drags the first column to the second position', async () => {

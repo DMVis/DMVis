@@ -480,7 +480,8 @@ categorical data with labels in a column.
         on:mouseLabelLeave={onMouseLabelLeave}
         on:dragStart={onDraggingStart}
         on:dragMove={onDragMove}
-        on:dragStop={onDragStop} />
+        on:dragStop={onDragStop}
+        on:sort={sortData} />
       {#each numericalColumns as column, columnIndex}
         <BarColumn
           overviewItem={'axis'}
