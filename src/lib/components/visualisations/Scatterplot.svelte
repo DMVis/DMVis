@@ -67,7 +67,7 @@
   }
 
   // Get the rest of the data from the store
-  const { yScales, xScales, data } = getVisualisationContext();
+  const { yScales, xScales, data, styleUtil } = getVisualisationContext();
   let xScaleLocal: ScaleLinear;
   let yScaleLocal: ScaleLinear;
   let xIndex: number;
@@ -122,7 +122,9 @@ This is a visualisation to display a dataset of points
 <g {width} {height} class="visualisation scatterplot">
   {#key data}
     <!-- Create a brush group at the bottom of this visualisation -->
-    <g class="brush" />
+    <g class="brush">
+      <rect class="selection" style="fill:{$styleUtil.selectionColor}" />
+    </g>
     <!-- If needed, draw the axis -->
     {#if showAxis}
       <DynamicAxis position="bottom" ticksNumber={numTicks} axisOrder={[$columns[xIndex]]} />

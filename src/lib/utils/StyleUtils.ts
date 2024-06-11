@@ -13,6 +13,7 @@ interface StyleOptions {
   focusColor?: string;
   colorSet?: string;
   numColors?: number;
+  selectionColor?: string;
 }
 
 /**
@@ -27,6 +28,7 @@ export class StyleUtils {
   public color;
   public colorBorder;
   public focusColor;
+  public selectionColor;
 
   constructor(options?: StyleOptions) {
     this.colorScheme = [];
@@ -36,6 +38,7 @@ export class StyleUtils {
     this.color = options?.color ? options.color : '#FF4444';
     this.colorBorder = options?.colorBorder ? options.colorBorder : '#8C8C8C';
     this.focusColor = options?.focusColor ? options.focusColor : '#FF0000';
+    this.selectionColor = options?.selectionColor ? options.selectionColor : '#89CFF0';
 
     if (options?.colorSet && options?.numColors) {
       this.generateColors(options.colorSet, options.numColors);

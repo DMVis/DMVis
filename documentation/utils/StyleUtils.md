@@ -13,6 +13,7 @@ The `StyleUtils` class contains methods and properties that help in generating a
 - `color`: The default colour for the primary elements of the visualisation.
 - `colorBorder`: The default border colour for the visualisation elements.
 - `focusColor`: The colour used for elements in focus (e.g., during interactions).
+- `selectionColor`: The colour used for selection boxes in visualisations (e.g. during brushing).
 
 ## Constructor
 
@@ -25,6 +26,7 @@ The constructor accepts an optional `styleOptions` object with the following pro
 - `focusColor`: Overrides the default focus colour.
 - `colorSet`: Specifies the identifier for a colour set (find colorsets on https://colorbrewer2.org/).
 - `numColors`: Specifies the number of colours to generate from the set.
+- `selectionColor`: Overrides the default selection colour.
 
 Below is an example of how to instantiate the `StyleUtils` class with some custom options:
 
