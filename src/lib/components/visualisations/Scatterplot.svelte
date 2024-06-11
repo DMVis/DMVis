@@ -18,7 +18,7 @@
   export let showAxis: boolean = true;
   export let numTicks: number = 5;
   export let pointOpacity: number = 1;
-  export let marginLeft: number = 40;
+  export let marginLeft: number = 50;
   export let marginRight: number = 40;
   export let marginTop: number = 40;
   export let marginBottom: number = 40;
@@ -113,7 +113,7 @@ This is a visualisation to display a dataset of points
 * showAxis: bool        - Whether or not the axis should be drawn. This defaults to `true`.
 * numTicks: number      - Amount of ticks to be displayed on the axis. This defaults to `5`.
 * pointOpacity: number  - Opacity of the points of the scatterplot. This defaults to `1`.
-* marginLeft: number     - Margin to the left of the visualisation. This defaults to `40`.
+* marginLeft: number     - Margin to the left of the visualisation. This defaults to `50`.
 * marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
 * marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
 * marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
@@ -123,12 +123,25 @@ This is a visualisation to display a dataset of points
   {#key data}
     <!-- Create a brush group at the bottom of this visualisation -->
     <g class="brush">
-      <rect class="selection" style="fill:{$styleUtil.selectionColor}" />
+      <rect class="overlay" style="cursor: crosshair;" />
+      <rect class="selection" style="fill:{$styleUtil.selectionColor}; cursor:move" />
     </g>
     <!-- If needed, draw the axis -->
     {#if showAxis}
-      <DynamicAxis position="bottom" ticksNumber={numTicks} axisOrder={[$columns[xIndex]]} />
-      <DynamicAxis position="left" ticksNumber={numTicks} axisOrder={[$columns[yIndex]]} />
+      <DynamicAxis
+        position="bottom"
+        ticksNumber={numTicks}
+        axisOrder={[$columns[xIndex]]}
+        renderLabel={true}
+        labelPosition="bottom"
+        labelOffset={30} />
+      <DynamicAxis
+        position="left"
+        ticksNumber={numTicks}
+        axisOrder={[$columns[yIndex]]}
+        renderLabel={true}
+        labelPosition="left"
+        labelOffset={40} />
     {/if}
     <!-- Loop over all the points and draw them -->
     {#each $data as point}

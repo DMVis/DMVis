@@ -99,7 +99,7 @@ The opacity of the points of the scatterplot.
 ## marginLeft
 
 - Type: `number`
-- Default: `40`
+- Default: `50`
 
 Margin left of the visualisation.
 
