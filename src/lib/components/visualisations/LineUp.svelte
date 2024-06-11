@@ -367,6 +367,14 @@
       );
     }
   });
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key !== 'Escape') {
+      return;
+    }
+    const event = new CustomEvent('selectAll', { detail: { checked: false } });
+    selectAll(event);
+  }
 </script>
 
 <!--
@@ -495,3 +503,5 @@ displays different types of columns such as text, bar, and rank columns. This is
     {/key}
   </svg>
 </BaseVisualisation>
+
+<svelte:window on:keydown={onKeyDown} />

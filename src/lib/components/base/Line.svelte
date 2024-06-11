@@ -184,6 +184,14 @@
       highlightedLine = clickedLine ? highlightedLine : -1;
     }
   }
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key !== 'Escape') {
+      return;
+    }
+    clickedLine = false;
+    highlightedLine = -1;
+  }
 </script>
 
 <!--
@@ -258,3 +266,5 @@ It is used in combination with other components to create a chart.
     {/each}
   </g>
 {/key}
+
+<svelte:window on:keydown={onKeyDown} />

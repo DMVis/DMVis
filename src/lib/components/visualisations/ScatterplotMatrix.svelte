@@ -196,6 +196,7 @@
 
   // This function is called when the mouse moves over the scatterplot
   function onMouseMove(event: MouseEvent, xAxis: string, yAxis: string) {
+    if (!showMouseLines) showMouseLines = true;
     // Line to block the line from moving if a point is selected
     // An exception is when there is a new point entered, in that case update the line
     if ((hoveredPoint !== '' && !enteredNewPoint) || clickedPoint !== '') return;
@@ -368,14 +369,6 @@
       return scaledSelection;
     }
 
-    /* Toggles the focus of all the points with a given classname
-       If the bool is true the point will be grey, if false it will not be grey */
-    function changeFocus(pointName: string, needsToBeGrey: boolean) {
-      select(scatterplotMatrixRef)
-        .selectAll(`.point-${formatClassName(pointName)}`)
-        .classed('greyed', needsToBeGrey);
-    }
-
     function* setMinus(A: string[], B: string[]) {
       const setA = new Set(A);
       const setB = new Set(B);
@@ -386,6 +379,14 @@
         }
       }
     }
+  }
+
+  /* Toggles the focus of all the points with a given classname
+       If the bool is true the point will be grey, if false it will not be grey */
+  function changeFocus(pointName: string, needsToBeGrey: boolean) {
+    select(scatterplotMatrixRef)
+      .selectAll(`.point-${formatClassName(pointName)}`)
+      .classed('greyed', needsToBeGrey);
   }
 
   /* Custom function that mimics the invert function on other scales.
@@ -556,6 +557,39 @@
     rangePerAttribute = Array(axisNames.length).fill(null);
 
     tooltipData.visible = false;
+  }
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key !== 'Escape') {
+      return;
+    }
+    unSelectClickedPoint();
+    removeBrush();
+  }
+  function unSelectClickedPoint() {
+    if (clickedPoint === '') return;
+    select(scatterplotMatrixRef)
+      .selectAll(`.point-${formatClassName(clickedPoint)}`)
+      .classed('highlighted', false);
+    clickedPoint = '';
+    tooltipData.visible = false;
+    showMouseLines = false;
+  }
+  function removeBrush() {
+    select(scatterplotMatrixRef)
+      .selectAll<SVGGElement, unknown>('.brush')
+      .nodes()
+      .forEach((brushElem: SVGGElement) => {
+        select(brushElem).call(brush().clear);
+      });
+    currentGreyPoints.forEach((pointName) => {
+      console.log(pointName);
+      changeFocus(pointName, false);
+    });
+    currentGreyPoints = [];
+    selectionMatrix = JSON.parse(
+      JSON.stringify(Array(axisNames.length).fill(Array(axisNames.length).fill(null)))
+    );
+    rangePerAttribute = Array(axisNames.length).fill(null);
   }
 </script>
 
@@ -794,3 +828,4 @@ A matrix of scatterplots that can be used to quickly find relations between attr
     <p>Loading visualisation failed</p>
   {/await}
 </BaseVisualisation>
+<svelte:window on:keydown={onKeyDown} />

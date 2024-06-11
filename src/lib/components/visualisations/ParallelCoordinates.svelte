@@ -142,6 +142,14 @@
       select(parallelCoordinatesRef).selectAll('.tick text').attr('font-weight', 'normal');
     }
   }
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key !== 'Escape') {
+      return;
+    }
+    clickedLine = false;
+    highlightedLine = -1;
+  }
 </script>
 
 <!--
@@ -197,3 +205,5 @@ and draws a line through each axis for each row in the table.
     {/key}
   </svg>
 </BaseVisualisation>
+
+<svelte:window on:keydown={onKeyDown} />
