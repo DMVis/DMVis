@@ -3,6 +3,7 @@
   import Filter from '$lib/components/base/Filter.svelte';
   import Scrollable from './Scrollable.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import { onMount } from 'svelte';
 
   // Optional attributes
   export let isScrollable: boolean = false;
@@ -13,17 +14,19 @@
   let isError = false;
   let errorMessage = '';
 
-  // Global Error Listener for Uncaught Exceptions
-  window.onerror = function (message) {
-    errorMessage = message.toString();
-    isError = true;
-  };
+  onMount(() => {
+    // Global Error Listener for Uncaught Exceptions
+    window.onerror = function (message) {
+      errorMessage = message.toString();
+      isError = true;
+    };
 
-  // Global Error Listener for Unhandled Promise Rejections
-  window.onunhandledrejection = function (event) {
-    errorMessage = event.reason.toString();
-    isError = true;
-  };
+    // Global Error Listener for Unhandled Promise Rejections
+    window.onunhandledrejection = function (event) {
+      errorMessage = event.reason.toString();
+      isError = true;
+    };
+  });
 </script>
 
 <!--
@@ -86,6 +89,7 @@ are set and error handling is kept within the scope of the visualisation.
     display: flex;
     width: 100%;
     height: 100%;
+    justify-content: center;
   }
 
   .visualisation-base {
