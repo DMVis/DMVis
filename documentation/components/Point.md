@@ -4,6 +4,13 @@ The point component is meant to be used in visualisations like a scatterplot. It
 
 > Note: This component produces a single point, use it repeatedly to plot multiple points.
 
+# Table of Contents
+
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
 # Required Attributes
 
 ## x
@@ -76,7 +83,7 @@ This component emits the following events:
 - `mousePointLeave`
 - `mousePointClick`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

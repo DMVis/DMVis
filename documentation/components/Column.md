@@ -2,6 +2,41 @@
 
 The column is a component that represents a column in a table. It can be used to display data in a table or to create a visual representation of data.
 
+# Table of Contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Draggable">Draggable</td>
+      <td>Enables drag-and-drop interactions.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Icon.md">Icon</a></td>
+      <td>Provides a way to display icons in the UI for visualisations</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Label.md">Label</a></td>
+      <td>Used for the column headers.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## x
@@ -67,7 +102,7 @@ The padding around the column.
 - Type: `IconType[]`
 - Default `[]`
 
-What icons to display in the top of the column.
+What icons to display in the top of the column. See [Icon](components/Icon.md) for more information.
 
 ## showSeparator
 
@@ -90,7 +125,7 @@ This component emits the following events:
 - `search`
 - `sort`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

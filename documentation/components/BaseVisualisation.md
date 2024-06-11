@@ -2,6 +2,35 @@
 
 The BaseVisualisation component is a wrapper component that handles a few default tasks for your visualisation. Certain styling standards are set and error handling is kept within the scope of the visualisation.
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Filter.md">Filter</a></td>
+      <td>Adds a filter to the visualisation for sorting and filtering data. Recommended to use outside <code>BaseVisualisation</code> for multiple visualisations.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Scrollable.md">Scrollable</a></td>
+      <td>Makes any visualisation scrollable, allowing for smaller display areas.</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Optional Attributes
 
 ## isScrollable
@@ -9,7 +38,7 @@ The BaseVisualisation component is a wrapper component that handles a few defaul
 - Type: `boolean`
 - Default: `false`
 
-Whether the component that is wrapped by the `BaseVisualisation` component should be scrollable.
+Whether the component that is wrapped by the `BaseVisualisation` component should be [scrollable](components/Scrollable.md).
 
 ## scrollableWidth
 

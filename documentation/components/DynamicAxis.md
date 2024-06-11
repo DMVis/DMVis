@@ -4,6 +4,32 @@ The DynamicAxis component is responsible for rendering axes
 based on the data with labels along the correct side of the visualisation.
 It displays tick marks and labels based on provided data.
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Axis.md">Axis</a></td>
+      <td>Renders an axis using a provided D3 axis element, with options to place and label the axis on any side of a visualisation.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Optional Attributes
 
 ## axisOrder
@@ -117,7 +143,7 @@ This component emits the following events:
 - `dragStop`
 - `renderAxis`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

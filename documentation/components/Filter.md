@@ -4,13 +4,43 @@ The filter component adds a filter to the right side of the visualisation. It ca
 
 > Note: Filter can be enabled inside [BaseVisualisation](components/basevisualisation.md) by passing the DataUtil to `showFilter`. If you have multiple visualisation on one page it is advised to use the `Filter` component outside of `BaseVisualisation`.
 
+# Table of Contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example Usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/FilterColumn.md">FilterColumn</a></td>
+      <td>Displays a filter input for each column.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Scrollable.md">Scrollable</a></td>
+      <td>Makes any visualisation scrollable, allowing for smaller display areas.</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ## dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/dataUtils.md).
+Class holding all the data. See [DataUtils](utils/DataUtils.md).
 
 ## Optional Attributes
 

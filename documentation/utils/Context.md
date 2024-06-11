@@ -2,6 +2,11 @@
 
 The Visualisation Context facilitates the management and update of visualisation contexts. It provides a set of functions to set, update, and retrieve context options through a shared VisualisationStore object.
 
+# Table of contents
+
+- [Interface](#interface)
+- [Functions](#functions)
+
 ## Interface
 
 ```typescript

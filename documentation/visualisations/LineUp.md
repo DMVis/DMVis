@@ -2,13 +2,55 @@
 
 LineUp is a visualisation technique for visualising different types of data in a set of columns. It is a table-based visualisation that allows users to sort, filter, and group data in a table.
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/BarColumn.md">BarColumn</a></td>
+      <td>BarColumn is a column that displays a bar chart. It is useful for visualising the relative size of values in a column.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/BaseVisualisation.md">BaseVisualisation</a></td>
+      <td>The BaseVisualisation component is a wrapper component that handles a few default tasks for your visualisation.</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/RankColumn.md">RankColumn</a></td>
+      <td>RankColumn is a column that shows the index of the row in the table.</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn.md">SelectColumn</a></td>
+      <td>The SelectColumn is a column that allows you to select a row using a checkbox.</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn.md">TextColumn</a></td>
+      <td>TextColumn is a column that shows the text of the given column.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/dataUtils.md) for more information.
+Class holding all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
 > Note: The `dataUtil` class must be initialised with `includeId` set to `true` in order to use the LineUp visualisation. This is because LineUp requires a unique identifier for each row in the data.
 
@@ -19,7 +61,7 @@ Class holding all the data. See [DataUtils](utils/dataUtils.md) for more informa
 - Type: `StyleUtils`
 - Default: `new StyleUtils()`
 
-Class holding all the styling. See [StyleUtils](utils/styleUtils.md).
+Class holding all the styling. See [StyleUtils](utils/StyleUtils.md).
 
 ## columnWidth
 
@@ -54,7 +96,7 @@ Padding between columns.
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the visualisation is scrollable in its parent container.
+Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
 ## showFilter
 

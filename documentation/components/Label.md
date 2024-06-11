@@ -5,6 +5,13 @@ It can be used in combination with other components.
 Coordinates are relative to the parent SVG element.
 The default origin is the middle of the label.
 
+# Table of Contents
+
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
 # Required Attributes
 
 ## x
@@ -57,7 +64,7 @@ The opacity of the text of the label.
 
 Horizontal origin of the label.
 Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-Which value is useful depends on your positioning logic.
+Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 ## originY
 
@@ -66,7 +73,7 @@ Which value is useful depends on your positioning logic.
 
 Vertical origin of the label.
 Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-Which value is useful depends on your positioning logic.
+Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 ## rotationDegrees
 
@@ -177,7 +184,7 @@ This component emits the following events, when `hasPointerEvents` is set to tru
 - `mouseLabelEnter`
 - `mouseLabelLeave`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

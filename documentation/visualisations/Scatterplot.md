@@ -4,6 +4,37 @@ This is a visualisation to display a dataset of points
 
 > Note: By default the scatterplot assumes an existing pre-defined store. If this is not the case, the [dataUtil](#datautil) attribute is **required**!
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/DynamicAxis.md">DynamicAxis</a></td>
+      <td>The DynamicAxis component is responsible for rendering axes
+based on the data with labels along the correct side of the visualisation.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Point.md">Point</a></td>
+      <td>Produces a point at a given coordinate of certain color, size and style.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## width
@@ -42,6 +73,7 @@ The name of the attribute that should be plotted along the y-axis.
 - Default: `null`
 
 The dataUtil adds the option to use the scatterplot without a predefined store. Note that this becomes a required attribite if you wish to do so.
+See [DataUtils](utils/DataUtils.md) for more information.
 
 ## showAxis
 
@@ -100,7 +132,7 @@ This component emits the following events:
 - `mousePointLeave`
 - `mousePointClick`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

@@ -4,6 +4,36 @@ The StackedBar component is a visual representation of a data row. It is used to
 
 > Note: This creates a single stacked bar, not the whole stacked bar chart
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example](#example)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Bar.md">Bar</a></td>
+      <td>A bar that can be used for bar visualisations.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Label.md">Label</a></td>
+      <td>Provides labelling functionality for data points.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## y

@@ -2,6 +2,13 @@
 
 This component allows for making any visualisation smaller, by making it scrollable.
 
+# Table of contents
+
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
 # Required Attributes
 
 ## width
@@ -64,7 +71,7 @@ This component emits the following events:
 
 - `scroll`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

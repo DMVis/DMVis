@@ -4,6 +4,12 @@ The static line component is meant to be used in charts like a line chart. It pr
 
 > Note: The points passed to the StaticLine component are true coordinates, meaning that they will be plotted at these exact coordinates.
 
+# Table of Contents
+
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
 # Required Attributes
 
 ## points

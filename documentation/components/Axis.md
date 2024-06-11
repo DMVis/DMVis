@@ -4,6 +4,37 @@ The Axis component renders a single axis based on a single, provided d3.axis ele
 You can use this component to render an axis on any side of a visualisation, with the option
 of adding a label on any side of the axis.
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Required attributes](#required-attributes)
+- [Optional attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Draggable.md">Draggable</a></td>
+      <td>Enables drag-and-drop interactions for axis.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Label.md">Label</a></td>
+      <td>The label allows you to add text with a background.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required attributes
 
 ## placementX
@@ -76,7 +107,7 @@ Color of the axis line and label.
 - Type: `boolean`
 - Default: `false`
 
-Sets whether the axis is draggable. For this to work, the `renderLabel` parameter should be set to `true`.
+Sets whether the axis is [draggable](components/Draggable.md) . For this to work, the `renderLabel` parameter should be set to `true`.
 
 > Note: Logic for the displacement of the axis should be handled outside this component.
 
@@ -95,7 +126,7 @@ This component emits the following events:
 - `dragStop`
 - `renderAxis`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

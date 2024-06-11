@@ -14,6 +14,16 @@ Each instance of this class has seven attributes available
 
 The `DataUtils` class contains a set of utility functions that help with data manipulation. The functions are as follows:
 
+## Functions
+
+- [parseData](#parsedata)
+- [parseCSV](#parsecsv)
+- [parseJSON](#parsejson)
+- [sortData](#sortdata)
+- [filterData](#filterdata)
+- [applyFilters](#applyfilters)
+- [reorderRows](#reorderrows)
+
 # parseData
 
 The `parseData` function takes in a string which is either a file location or a CSV/JSON string and returns a promise that resolves to an array of arrays containing either strings or numbers. You can optionally supply a `type` parameter to specify the type of data you are parsing (e.g., 'csv' or 'json'). This function calls either the `parseCSV` or `parseJSON` function based on the given or inferred type.

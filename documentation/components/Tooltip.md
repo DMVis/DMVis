@@ -3,6 +3,32 @@
 A tooltip is typically used to quickly display a small amount of information to the user.
 It can, for example, be used to display the name of a point when hovering over it with a mouse.
 
+# Table of Contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Label.md">Label</a></td>
+      <td>Provides labelling functionality for data points.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## x
@@ -51,7 +77,7 @@ See below what the options look like.
 
 Horizontal origin of the tooltip.
 Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-Which value is useful depends on your positioning logic.
+Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 ## originY
 
@@ -60,7 +86,7 @@ Which value is useful depends on your positioning logic.
 
 Vertical origin of the tooltip.
 Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-Which value is useful depends on your positioning logic.
+Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 # Example usage
 

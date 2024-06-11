@@ -4,9 +4,30 @@ The line component is used for visualisations that need lines. It produces a lin
 
 > Note: This component can handle 2 or multiple points to draw a line through.
 
-# Required Attributes
+# Table of Contents
 
-None
+- [Referenced Components](#referenced-components)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Tooltip.md">Tooltip</a></td>
+      <td>Used to quickly display a small amount of information to the user.</td>
+    </tr>
+  </tbody>
+</table>
 
 # Optional Attributes
 

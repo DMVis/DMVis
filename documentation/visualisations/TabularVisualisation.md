@@ -5,13 +5,51 @@ categorical data with labels in a column.
 
 > Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop`.
 
+# Table of Contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/BarColumn.md">BarColumn</a></td>
+      <td>BarColumn is a column that displays a bar chart. It is useful for visualising the relative size of values in a column.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/BaseVisualisation.md">BaseVisualisation</a></td>
+      <td>The BaseVisualisation component is a wrapper component that handles a few default tasks for your visualisation.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/StaticLine.md">StaticLine</a></td>
+      <td>Produces a line between the points with a certain colour, size and style.</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn.md">TextColumn</a></td>
+      <td>TextColumn is a column that shows the text of the given column.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ### dataUtil
 
 - Type: `DataUtils`
 
-The `DataUtils` class which, contains all the data to be displayed.
+The `DataUtils` class which, contains all the data to be displayed. See [DataUtils](utils/DataUtils.md).
 
 # Optional Attributes
 
@@ -85,7 +123,7 @@ The opacity of each bar as a number in the range [0..1].
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the visualisation is scrollable in its parent container.
+Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
 ## showFilter
 

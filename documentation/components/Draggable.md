@@ -2,6 +2,12 @@
 
 Some visualisations require elements that are draggable. This wrapper makes it easier to drag components and execute some logic based on where the component is being dragged.
 
+# Table of contents
+
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
 # Optional Attributes
 
 ## offsetX
@@ -33,7 +39,7 @@ This component emits the following events:
 - `dragMove`
 - `dragStop`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

@@ -2,6 +2,15 @@
 
 To calculate a (new) origin for an element, we have created the `getOrigin` function. This function takes in the dimension and origin of the element, and the origin of the destination. It returns a number that represents the new origin.
 
+# Table of contents
+
+- [Origin enums](#origin-enums)
+- [getOrigin](#getorigin)
+- [mapStartToDestination](#mapstarttodestination)
+- [mapMiddleToDestination](#mapmiddletodestination)
+- [mapEndToDestination](#mapendtodestination)
+- [getFlippedOrigin](#getflippedorigin)
+
 # Origin enums
 
 For both the horizontal and vertical axis, we have created enums to represent the origin of an element. The enums are as follows:
@@ -20,7 +29,7 @@ export enum OriginY {
 }
 ```
 
-# getOrigin
+## getOrigin
 
 The `getOrigin` function takes in the following parameters:
 
@@ -77,7 +86,7 @@ This function maps the end of the element to the destination origin. It takes in
 
 The function returns a number that represents the new origin of the element.
 
-# getFlippedOrigin
+## getFlippedOrigin
 
 The `getFlippedOrigin` function takes in the following parameter:
 

@@ -2,6 +2,14 @@
 
 Some visualisations, like LineUp, require icons to be displayed. This component provides a way to display icons in the UI.
 
+# Table of Contents
+
+- [Supported IconTypes](#supported-icontypes)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
 # Supported IconTypes
 
 Out of the box, we support the following icons:
@@ -52,7 +60,7 @@ This component emits the following events:
 - `mouseIconEnter`
 - `mouseIconLeave`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

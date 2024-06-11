@@ -9,6 +9,33 @@ depending on `showsNegativeHeight`.
 > Note: By default, the bar is vertical (i.e. `isVertical` is `true`)
 > and its origin is the bottom middle (see defaults for `originX` and `originY`).
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Label.md">Label</a></td>
+      <td>Provides labelling functionality.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## x
@@ -66,7 +93,7 @@ a percentage string formatted as '{number}%'.
 
 Horizontal origin of the bar.
 Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-Which value is useful depends on your positioning logic.
+Which value is useful depends on your positioning logic. See the [OriginMapper](../utils/OriginMapper.md) documentation for more information.
 
 ## originY
 
@@ -75,7 +102,7 @@ Which value is useful depends on your positioning logic.
 
 Vertical origin of the label.
 Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-Which value is useful depends on your positioning logic.
+Which value is useful depends on your positioning logic. See the [OriginMapper](../utils/OriginMapper.md) documentation for more information.
 
 ## rotationDegrees
 
@@ -136,7 +163,7 @@ This component emits the following events:
 - `mouseBarEnter`
 - `mouseBarLeave`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

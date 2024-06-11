@@ -4,6 +4,13 @@ To ensure consistent and visually appealing visualisations, we have developed a 
 
 The `StyleUtils` class contains methods and properties that help in generating and managing colour schemes and other style-related settings.
 
+# Table of contents
+
+- [Class Properties](#class-properties)
+- [Constructor](#constructor)
+- [Functions](#functions)
+  - [generateColors](#generatecolors)
+
 ## Class Properties
 
 - `colorScheme`: An array of strings that represents the current colour scheme for the visualisation.
@@ -46,7 +53,7 @@ const styleUtil = new StyleUtils(styleOptions);
 
 In the example above, the `StyleUtils` class is instantiated with custom options for the font family, primary colour, focus colour, and colour set.
 
-## Methods
+## Functions
 
 ### `generateColors`
 

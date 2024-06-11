@@ -2,6 +2,49 @@
 
 BarColumn is a column that displays a bar chart. It is useful for visualising the relative size of values in a column.
 
+# Table of contents
+
+- [Referenced Components](#referenced-components)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
+- [Events](#events)
+- [Example usage](#example-usage)
+
+# Referenced Components
+
+This component utilises the following components:
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Component</th>
+      <th style="width: 80%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/components/Axis.md">Axis</a></td>
+      <td>Renders an axis using a provided D3 axis element, with options to place and label the axis on any side of a visualisation.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Bar.md">Bar</a></td>
+      <td>A bar that can be used for bar visualisations.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Column.md">Column</a></td>
+      <td>The column is a component that represents a column in a table. It can be used to display data in a table or to create a visual representation of data.</td>
+    </tr>
+    <tr>
+      <td><a href="#/visualisations/Histogram.md">Histogram</a></td>
+      <td>This visualisation shows frequencies of data. It can group data categorically or numerically.</td>
+    </tr>
+    <tr>
+      <td><a href="#/components/Label.md">Label</a></td>
+      <td>The label allows you to add text with a background.</td>
+    </tr>
+  </tbody>
+</table>
+
 # Required Attributes
 
 ## x
@@ -49,7 +92,7 @@ Padding around the column.
 - Type: `IconType[]`
 - Default: `[IconType.Sort,IconType.Filter,IconType.More]`
 
-List of what icons to display in the top of the column.
+List of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
 
 ## scale
 
@@ -109,7 +152,7 @@ This component emits the following events:
 - `mouseRowClick`
 - `sort`
 
-To read more about these events, see the [Events](../utils/events.md) documentation.
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

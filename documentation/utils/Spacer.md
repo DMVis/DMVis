@@ -1,6 +1,12 @@
-# Spacer
+# Spacer Util
 
 Use the various Spacer functions to space elements depending on the data. These functions work for both horizontal and vertical spacing, using width or height.
+
+# Table of Contents
+
+- [Spacer](#spacer)
+- [SpacerSide](#spacerside)
+- [SpacerEqual](#spacerequal)
 
 # Spacer
 
