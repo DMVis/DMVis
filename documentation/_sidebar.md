@@ -33,7 +33,6 @@
     - [FilterColumn](columns/FilterColumn.md)
     - [RankColumn](columns/RankColumn.md)
     - [SelectColumn](columns/SelectColumn.md)
-    - [SeparatorColumn](columns/SeparatorColumn.md)
     - [SumColumn](columns/SumColumn.md)
     - [TextColumn](columns/TextColumn.md)
   - [Draggable](components/Draggable.md)
