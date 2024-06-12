@@ -6,21 +6,10 @@ The `StyleUtils` class contains methods and properties that help in generating a
 
 # Table of contents
 
-- [Class Properties](#class-properties)
 - [Constructor](#constructor)
+- [Class Properties](#class-properties)
 - [Functions](#functions)
   - [generateColors](#generatecolors)
-
-## Class Properties
-
-- `colorScheme`: An array of strings that represents the current colour scheme for the visualisation.
-- `colorSchemeDark`: An array of strings that represents the darkened version of the current colour scheme, suitable for night mode or darker backgrounds.
-- `fontSize`: The default font size used in the visualisation, unless overridden.
-- `fontFamily`: The default font family used in the visualisation, unless overridden.
-- `color`: The default colour for the primary elements of the visualisation.
-- `colorBorder`: The default border colour for the visualisation elements.
-- `focusColor`: The colour used for elements in focus (e.g., during interactions).
-- `selectionColor`: The colour used for selection boxes in visualisations (e.g. during brushing).
 
 ## Constructor
 
@@ -31,27 +20,69 @@ The constructor accepts an optional `styleOptions` object with the following pro
 - `color`: Overrides the default primary colour.
 - `colorBorder`: Overrides the default border colour.
 - `focusColor`: Overrides the default focus colour.
-- `colorSet`: Specifies the identifier for a colour set (find colorsets on https://colorbrewer2.org/).
+- `colorSet`: Specifies the identifier for a colour set, which can be found on [Colorbrewer](https://colorbrewer2.org/).
 - `numColors`: Specifies the number of colours to generate from the set.
 - `selectionColor`: Overrides the default selection colour.
 
-Below is an example of how to instantiate the `StyleUtils` class with some custom options:
+The following example demonstrates how to instantiate the `StyleUtils` class with the default options:
 
-```javascript
-import { StyleUtils } from '$lib/utils/StyleUtils.js';
+```html
+<script lang="ts">
+  import { StyleUtils } from '@dmvis/dmvis/utils';
 
-const styleOptions = {
-  fontFamily: 'Helvetica',
-  color: '#333333',
-  focusColor: '#FF4500',
-  colorSet: 'Paired',
-  numColors: 10
-};
-
-const styleUtil = new StyleUtils(styleOptions);
+  const styleUtil = new StyleUtils();
+</script>
 ```
 
-In the example above, the `StyleUtils` class is instantiated with custom options for the font family, primary colour, focus colour, and colour set.
+Below is an example of how to instantiate the `StyleUtils` class with some custom options changed:
+
+```html
+<script lang="ts">
+  import { StyleUtils } from '@dmvis/dmvis/utils';
+
+  const styleOptions = {
+    color: '#333333',
+    colorSet: 'Paired',
+    focusColor: '#FF4500',
+    fontFamily: 'Helvetica',
+    numColors: 10
+  };
+
+  const styleUtil = new StyleUtils(styleOptions);
+</script>
+```
+
+In this last example, the class is instantiated with custom options for all the possible style options. The `styleUtil` object can now be used to generate colour schemes and manage styles across visualisations.:
+
+```html
+<script lang="ts">
+  import { StyleUtils } from '@dmvis/dmvis/utils';
+
+  const styleOptions = {
+    fontSize = '12px',
+    fontFamily = 'Arial',
+    color = '#333333',
+    colorBorder = '#000000',
+    focusColor = '#FF4500',
+    colorSet = 'Paired',
+    numColors = 10,
+    selectionColor = '#FF0000'
+  };
+
+  const styleUtil = new StyleUtils(styleOptions);
+</script>
+```
+
+## Class Properties
+
+- `color`: The default colour for the primary elements of the visualisation.
+- `colorBorder`: The default border colour for the visualisation elements.
+- `colorScheme`: An array of strings that represents the current colour scheme for the visualisation.
+- `colorSchemeDark`: An array of strings that represents the darkened version of the current colour scheme, suitable for night mode or darker backgrounds.
+- `focusColor`: The colour used for elements in focus (e.g., during interactions).
+- `fontFamily`: The default font family used in the visualisation, unless overridden.
+- `fontSize`: The default font size used in the visualisation, unless overridden.
+- `selectionColor`: The colour used for selection boxes in visualisations (e.g. during brushing).
 
 ## Functions
 

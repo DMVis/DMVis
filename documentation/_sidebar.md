@@ -52,6 +52,7 @@
 - [Events](utils/Events.md)
 - [Types](Types.md)
 - Utilities
+  - [ClassNameFormat](utils/ClassNameFormat.md)
   - [Context](utils/Context.md)
   - [DataUtils](utils/DataUtils.md)
   - [DMVisError](utils/DMVisError.md)
@@ -59,3 +60,4 @@
   - [Performance](utils/Performance.md)
   - [Spacer](utils/Spacer.md)
   - [StyleUtils](utils/StyleUtils.md)
+  - [VisualisationStore](utils/VisualisationStore.md)

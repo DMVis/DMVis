@@ -2,29 +2,41 @@
 
 Use the various Spacer functions to space elements depending on the data. These functions work for both horizontal and vertical spacing, using width or height.
 
-# Table of Contents
+## Table of contents
 
 - [Spacer](#spacer)
 - [SpacerSide](#spacerside)
 - [SpacerEqual](#spacerequal)
+- [Alignments](#alignments)
 
-# Spacer
+## Spacer
 
 The `Spacer` function takes in the following parameters:
 
 - `dimension`: The dimension of the element.
 - `marginLow`: The margin closest to the origin.
 - `marginHigh`: The margin furthest from the origin.
+- `length`: The amount of elements that need to be spaced.
 
 The function returns a number that represents the needed gap between elements to space them between the given dimension.
 
 See an example of how `Spacer` works below:
 
-```javascript
-Spacer($width, $marginLeft, $marginRight, data[0].length);
+```html
+<script lang="ts">
+  import { Spacer } from '@dmvis/dmvis/utils';
+
+  const dimension = 500;
+  const marginLow = 10;
+  const marginHigh = 10;
+  const length = 10;
+
+  const gap = Spacer(dimension, marginLow, marginHigh, length);
+  console.log(gap); // 47.9
+</script>
 ```
 
-# SpacerSide
+## SpacerSide
 
 The `SpacerSide` function takes in the following parameters:
 
@@ -40,11 +52,36 @@ The function returns a function, which, given a column name as a string, returns
 
 See an example of how `SpacerSide` works below:
 
-```javascript
-SpacerSide($width, $marginLeft, $marginRight, $columns, 'start');
+```html
+<script lang="ts">
+  import { SpacerSide } from '@dmvis/dmvis/utils';
+
+  const width = 500;
+  const marginLow = 10;
+  const marginHigh = 10;
+  const columns = ['A', 'B', 'C', 'D', 'E'];
+  const alignment = 'start';
+  const paddingInner = 10;
+  const paddingOuter = 10;
+
+  const position = SpacerSide(
+    width,
+    marginLow,
+    marginHigh,
+    columns,
+    alignment,
+    paddingInner,
+    paddingOuter
+  );
+  console.log(position('A')); // 210
+  console.log(position('B')); // 230
+  console.log(position('C')); // 250
+  console.log(position('D')); // 270
+  console.log(position('E')); // 290
+</script>
 ```
 
-# SpacerEqual
+## SpacerEqual
 
 The `SpacerEqual` function takes in the following parameters:
 
@@ -58,10 +95,25 @@ The function returns a function, which, given a column name as a string, returns
 
 See an example of how `SpacerEqual` works below:
 
-```javascript
-SpacerEqual($width, $marginLeft, $marginRight, $columns);
+```html
+<script lang="ts">
+  import { SpacerEqual } from '@dmvis/dmvis/utils';
+
+  const width = 500;
+  const marginLow = 10;
+  const marginHigh = 10;
+  const columns = ['A', 'B', 'C'];
+  const paddingOuter = 0;
+
+  const position = SpacerEqual(width, marginLow, marginHigh, columns, paddingOuter);
+  console.log(position('A')); // 10
+  console.log(position('B')); // 250
+  console.log(position('C')); // 490
+</script>
 ```
 
-#### Alignments for the different Spacer implementations
+## Alignments
+
+Below is a visual representation of the different alignments that can be used with the Spacer functions:
 
 ![Spacer Alignments](../media/alignments_spacer.png ':size=700')
