@@ -37,6 +37,6 @@ We expect all contributors to adhere to our community guidelines:
 
 ## License
 
-By contributing to DMVis, you agree that your contributions will be licensed under the [T.B.D.]. Please make sure to read and understand the license before contributing.
+By contributing to DMVis, you agree that your contributions will be licensed under the [GNU AGPL V3](LICENSE.md). Please make sure to read and understand the license before contributing.
 
 Thank you for your contributions! We appreciate your help in making DMVis better.
