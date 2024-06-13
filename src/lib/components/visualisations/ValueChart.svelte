@@ -7,7 +7,7 @@
     getVisualisationContext,
     setVisualisationContext,
     updateVisualisationContext
-  } from '$lib/Context.js';
+  } from '$lib/utils/Context.js';
   import BarColumn from '$lib/components/columns/BarColumn.svelte';
   import SumColumn from '$lib/components/columns/SumColumn.svelte';
   import TextColumn from '$lib/components/columns/TextColumn.svelte';

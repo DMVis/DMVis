@@ -7,7 +7,7 @@
     setVisualisationContext,
     updateVisualisationContext,
     getVisualisationContext
-  } from '$lib/Context.js';
+  } from '$lib/utils/Context.js';
   import StackedBar from '$lib/components/base/StackedBar.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { StyleUtils } from '$lib/utils/StyleUtils.js';

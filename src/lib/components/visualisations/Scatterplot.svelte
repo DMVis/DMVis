@@ -3,9 +3,9 @@
   import Point from '$lib/components/base/Point.svelte';
   import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
-  import type { DataUtils } from '$lib/Index.js';
+  import { DataUtils } from '$lib/utils/DataUtils.js';
   import type { ScaleLinear } from '$lib/Types.js';
-  import { getVisualisationContext, setVisualisationContext } from '$lib/Context.js';
+  import { getVisualisationContext, setVisualisationContext } from '$lib/utils/Context.js';
 
   // Required attributes
   export let width: number;

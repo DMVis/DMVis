@@ -14,7 +14,7 @@
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import type { UndefineableString } from '$lib/Types.js';
-  import { setVisualisationContext, updateVisualisationContext } from '$lib/Context.js';
+  import { setVisualisationContext, updateVisualisationContext } from '$lib/utils/Context.js';
 
   // Required attributes
   export let dataUtil: DataUtils;

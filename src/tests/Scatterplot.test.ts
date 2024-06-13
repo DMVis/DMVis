@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 
 // DMVis imports
 import Scatterplot from '$lib/components/visualisations/Scatterplot.svelte';
-import { DataUtils } from '$lib/Index.js';
+import { DataUtils } from '$lib/utils/DataUtils.js';
 
 // Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';

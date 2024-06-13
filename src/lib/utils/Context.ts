@@ -3,7 +3,7 @@ import { setContext, getContext } from 'svelte';
 
 // DMVis imports
 import type { StyleUtils } from '$lib/utils/StyleUtils.js';
-import { VisualisationStore } from '$lib/VisualisationStore.js';
+import { VisualisationStore } from '$lib/utils/VisualisationStore.js';
 
 interface ContextOptions {
   width?: number;

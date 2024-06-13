@@ -6,7 +6,7 @@
   import type { Writable } from 'svelte/store';
   import type { StyleUtils } from '$lib/utils/StyleUtils.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import { getVisualisationContext } from '$lib/Context.js';
+  import { getVisualisationContext } from '$lib/utils/Context.js';
   import type { UndefineableString } from '$lib/Types.js';
 
   // Required attributes

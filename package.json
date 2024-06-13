@@ -35,6 +35,10 @@
       "types": "./dist/Components.d.ts",
       "svelte": "./dist/Components.js"
     },
+    "./utils": {
+      "types": "./dist/Utils.d.ts",
+      "svelte": "./dist/Utils.js"
+    },
     "./enums": {
       "types": "./dist/Enums.d.ts",
       "svelte": "./dist/Enums.js"

@@ -6,7 +6,7 @@
   import Label from '$lib/components/base/Label.svelte';
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType, IconType } from '$lib/Enums.js';
-  import { getVisualisationContext } from '$lib/Context.js';
+  import { getVisualisationContext } from '$lib/utils/Context.js';
 
   // Required attributes
   export let x: number;

@@ -7,7 +7,7 @@
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import { getVisualisationContext } from '$lib/Context.js';
+  import { getVisualisationContext } from '$lib/utils/Context.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import type { Alignment, UndefineableString } from '$lib/Types.js';
 

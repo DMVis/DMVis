@@ -15,7 +15,7 @@
     getVisualisationContext,
     setVisualisationContext,
     updateVisualisationContext
-  } from '$lib/Context.js';
+  } from '$lib/utils/Context.js';
   import Label from '$lib/components/base/Label.svelte';
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import Draggable from '$lib/components/base/Draggable.svelte';

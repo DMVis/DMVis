@@ -22,4 +22,3 @@ export { default as RankColumn } from '$lib/components/columns/RankColumn.svelte
 export { default as TextColumn } from '$lib/components/columns/TextColumn.svelte';
 export { default as FilterColumn } from '$lib/components/columns/FilterColumn.svelte';
 export { default as SelectColumn } from '$lib/components/columns/SelectColumn.svelte';
-export { default as SeparatorColumn } from '$lib/components/columns/SeparatorColumn.svelte';

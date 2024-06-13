@@ -3,7 +3,7 @@
   import Bar from '$lib/components/base/Bar.svelte';
   import Label from '$lib/components/base/Label.svelte';
   import { OriginX, OriginY } from '$lib/Enums.js';
-  import { getVisualisationContext } from '$lib/Context.js';
+  import { getVisualisationContext } from '$lib/utils/Context.js';
   import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
