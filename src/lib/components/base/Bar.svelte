@@ -6,9 +6,13 @@
   import Label from '$lib/components/base/Label.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
-  import { getOrigin, getFlippedOrigin } from '$lib/utils/OriginMapper.js';
-  import type { UndefineableString, Visibility } from '$lib/Types.js';
+  import type { UndefineableString, Visibility, Origin } from '$lib/Types.js';
+  import {
+    getOriginOffsetX,
+    getOriginOffsetY,
+    getFlippedOriginX,
+    getFlippedOriginY
+  } from '$lib/utils/OriginMapper.js';
 
   // Required attributes
   export let x: number;
@@ -20,8 +24,7 @@
   export let isVertical: boolean = true;
   export let color: string = 'red';
   export let opacity: number | string = 1;
-  export let originX: OriginX = OriginX.Middle;
-  export let originY: OriginY = OriginY.Bottom;
+  export let origin: Origin = 'bottomMiddle';
   export let rotationDegrees: number = 0;
   export let borderRadius: number = 0;
   export let showsNegativeHeight: boolean = false;
@@ -63,22 +66,22 @@
   let xBar: number;
   $: xBar =
     x +
-    getOrigin(
+    getOriginOffsetX(
       Math.abs(localWidth),
-      OriginX.Left,
+      'topLeft',
       // Negative values get flipped
-      localWidth < 0 ? getFlippedOrigin(originX) : originX
+      localWidth < 0 ? getFlippedOriginX(origin) : origin
     );
   let yBar: number;
 
   $: yBar =
     y +
-    getOrigin(
+    getOriginOffsetY(
       Math.abs(localValue),
-      OriginY.Top,
+      'topLeft',
       // Negative values get flipped
       // `showsNegativeValue` determines whether this is visible for height < 0
-      localValue < 0 ? getFlippedOrigin(originY) : originY
+      localValue < 0 ? getFlippedOriginY(origin) : origin
     );
 
   // On this point xBar and yBar are the top left corner of the bar
@@ -121,10 +124,9 @@
 A bar that can be used for bar visualisations.
 Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
-Both positive and negative `height` values are visible
-depending on `showsNegativeHeight`.
-By default, the bar is vertical (i.e. `isVertical` is `true`)
-and its origin is the bottom middle (see defaults for `originX` and `originY`).
+Negative `height` values can be visible depending on `showsNegativeHeight`.
+Note that by default, `Bar` is vertical (i.e. `isVertical` is `true`)
+and its origin is at its bottom middle (see the `origin` attribute).
 
 #### Required attributes
 * x: number                     - X-coordinate of the bar.
@@ -138,14 +140,9 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * opacity: Opacity              - Opacity of the bar as a number in the range [0..1] or
                                   a percentage string formatted as '{number}%'.
                                   Defaults to `1`.
-* originX: OriginX              - Horizontal origin of the bar.
-                                  Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-                                  Which value is useful depends on one's positioning logic.
-                                  Defaults to `OriginX.Middle`.
-* originY: OriginY              - Vertical origin of the label.
-                                  Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-                                  Which value is useful depends on one's positioning logic.
-                                  Defaults to `OriginY.Bottom`.
+* origin: Origin                - The origin of the bar.
+                                  Which value is useful depends on your positioning logic.
+                                  Defaults to `'bottomMiddle'`.
 * rotationDegrees: number       - Rotation of the bar in degrees. This defaults to `0`.
 * borderRadius: number          - Border radius of the bar in pixels. This defaults to `0`.
 * showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative.
@@ -155,7 +152,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
 * name: UndefineableString      - Class name of the bar. It can be used as an identifier. This defaults to only `bar`.
                                   If set, the class names will be `bar` and `bar-name`.
 * labelType: Visibility         - Determines the behaviour of the labels on the bars.
-                                        Refer to the documentation for more information. This defaults to `'none'`
+                                  Refer to the documentation for more information. This defaults to `'none'`.
 
 #### Events
 * For detailed information about dispatches, check the documentation.
@@ -195,8 +192,7 @@ and its origin is the bottom middle (see defaults for `originX` and `originY`).
     y={yLabel}
     text={hoverText}
     hasBackground={false}
-    originX={isVertical ? OriginX.Middle : OriginX.Left}
-    originY={isVertical ? OriginY.Bottom : OriginY.Middle}
+    origin={isVertical ? 'bottomMiddle' : 'middleLeft'}
     on:mouseLabelEnter={onMouseEnter}
     on:mouseLabelLeave={onMouseLeave}
     hasPointerEvents={labelHasPointerEvents}

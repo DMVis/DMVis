@@ -26,7 +26,6 @@
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import type { ScaleLinear, UndefineableString } from '$lib/Types.js';
 
   // Required attributes
@@ -723,8 +722,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               x={width - marginRight - 5}
               y={Math.round(mouseY) + 10}
               text={`${Math.round(scaledMouseY)}`}
-              originX={OriginX.Right}
-              originY={OriginY.Top} />
+              origin={'topRight'} />
             <!-- Draw a line to the top axis, and a label displaying the scaled x position of the mouse -->
             <StaticLine
               points={[
@@ -737,8 +735,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               x={Math.round(mouseX) + 10}
               y={marginTop + 5}
               text={`${Math.round(scaledMouseX)}`}
-              originX={OriginX.Left}
-              originY={OriginY.Top} />
+              origin={'topLeft'} />
           {/if}
           {#if showBottomLeftLines}
             <!-- Draw a line to the left axis, and a label displaying the scaled y position of the mouse -->
@@ -753,8 +750,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               x={marginLeft + 5}
               y={Math.round(mouseY) + 10}
               text={`${Math.round(scaledMouseY)}`}
-              originY={OriginY.Top}
-              originX={OriginX.Left} />
+              origin={'topLeft'} />
 
             <!-- Draw a line to the bottom axis, and a label displaying the scaled x position of the mouse -->
             <StaticLine
@@ -768,8 +764,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
               x={Math.round(mouseX) + 10}
               y={height - marginBottom}
               text={`${Math.round(scaledMouseX)}`}
-              originX={OriginX.Left}
-              originY={OriginY.Bottom} />
+              origin={'bottomLeft'} />
           {/if}
           <!-- End of if-statement about the mouselines-->
         {/if}
@@ -780,8 +775,7 @@ A matrix of scatterplots that can be used to quickly find relations between attr
             y={tooltipData.y - 5}
             text={tooltipData.text}
             hasBackground={true}
-            originX={OriginX.Right}
-            originY={OriginY.Bottom} />
+            origin={'bottomRight'} />
         {/if}
         <!-- Draw the axis on all 4 sides of the Scatterplot matrix -->
         <!-- The top and right axis are not needed if only the bottom of the SM is drawn -->

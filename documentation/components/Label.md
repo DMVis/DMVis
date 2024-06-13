@@ -3,7 +3,8 @@
 The label allows you to add text with a background.
 It can be used in combination with other components.
 Coordinates are relative to the parent SVG element.
-The default origin is the middle of the label.
+
+> Note: The label's origin is at its middle (see the `origin` attribute).
 
 # Table of Contents
 
@@ -57,23 +58,15 @@ Color of the rectangle behind the label.
 
 The opacity of the text of the label.
 
-## originX
+## origin
 
 - Type: `OriginX`
 - Default: `OriginX.Middle`
+- Options: `'topLeft'`, `'topMiddle'`, `'topRight'`, `'middleLeft'`, `'middle'`, `'middleRight'`, `'bottomLeft'`, `'bottomMiddle'`, `'bottomRight'`
 
 Horizontal origin of the label.
-Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
-
-## originY
-
-- Type: `OriginY`
-- Default: `OriginY.Middle`
-
-Vertical origin of the label.
-Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
+Which value is useful depends on your positioning logic.
+See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 ## rotationDegrees
 
@@ -206,8 +199,7 @@ Label with all properties set.
     text="Hello, world!"
     backgroundColor="#fe7215"
     textOpacity={1}
-    originX={OriginX.Middle}
-    originY={OriginY.Middle}
+    origin={'middle'}
     rotationDegrees={0}
     borderRadius={5}
     padding={20}

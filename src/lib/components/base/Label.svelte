@@ -4,10 +4,9 @@
   import { createEventDispatcher, afterUpdate } from 'svelte';
 
   // DMVis imports
-  import { getOrigin } from '$lib/utils/OriginMapper.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
-  import type { UndefineableString, NumberAuto } from '$lib/Types.js';
+  import { getOriginOffsetX, getOriginOffsetY } from '$lib/utils/OriginMapper.js';
+  import type { UndefineableString, NumberAuto, Origin } from '$lib/Types.js';
 
   // Required attributes
   export let x: number;
@@ -18,8 +17,7 @@
   export let showEllipsis: boolean = false;
   export let backgroundColor: string = 'red';
   export let textOpacity: number | string = 1;
-  export let originX: OriginX = OriginX.Middle;
-  export let originY: OriginY = OriginY.Middle;
+  export let origin: Origin = 'middle';
   export let rotationDegrees: number = 0;
   export let borderRadius: number = 0;
   export let padding: number = 20;
@@ -150,13 +148,13 @@
 
     // Update the text
     select(textBlock)
-      .attr('x', x + getOrigin(rectWidth, OriginX.Middle, originX))
-      .attr('y', y + getOrigin(rectHeight, OriginY.Middle, originY));
+      .attr('x', x + getOriginOffsetX(rectWidth, 'middle', origin))
+      .attr('y', y + getOriginOffsetY(rectHeight, 'middle', origin));
 
     // Update the rectangle
     select(rectBlock)
-      .attr('x', x + getOrigin(rectWidth, OriginX.Left, originX))
-      .attr('y', y + getOrigin(rectHeight, OriginY.Top, originY))
+      .attr('x', x + getOriginOffsetX(rectWidth, 'topLeft', origin))
+      .attr('y', y + getOriginOffsetY(rectHeight, 'topLeft', origin))
       .attr('width', rectWidth)
       .attr('height', rectHeight)
       .attr('stroke', borderColor);
@@ -187,7 +185,7 @@
 The label allows you to add text with a background.
 It can be used in combination with other components.
 Coordinates are relative to the parent SVG element.
-The default origin is the middle of the label.
+Note that a `Label`'s origin is at its middle (see the `origin` attribute).
 
 #### Required attributes
 * x: number                     - X-coordinate of the label.
@@ -197,14 +195,9 @@ The default origin is the middle of the label.
 #### Optional attributes
 * backgroundColor: string       - Color of the rectangle behind the label. This defaults to `'red'`.
 * textOpacity: Opacity          - Opacity of the text of the label. This defaults to `1`.
-* originX: OriginX              - Horizontal origin of the label.
-                                  Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
+* origin: Origin                - The origin of the label.
                                   Which value is useful depends on your positioning logic.
-                                  This defaults to `OriginX.Middle`.
-* originY: OriginY              - Vertical origin of the label.
-                                  Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-                                  Which value is useful depends on your positioning logic.
-                                  This defaults to `OriginX.Middle`.
+                                  Defaults to `'middle'`.
 * rotationDegrees: number       - Rotation of the label in degrees. This defaults to `1`.
 * borderRadius: number          - Border radius of the background in pixels. This defaults to `0`.
 * padding: number               - Padding around the text in the label. This defaults to `20`.

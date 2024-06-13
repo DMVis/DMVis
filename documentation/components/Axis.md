@@ -107,7 +107,7 @@ Color of the axis line and label.
 - Type: `boolean`
 - Default: `false`
 
-Sets whether the axis is [draggable](components/Draggable.md) . For this to work, the `renderLabel` parameter should be set to `true`.
+Sets whether the axis is [draggable](components/Draggable.md). For this to work, the `renderLabel` parameter should be set to `true`.
 
 > Note: Logic for the displacement of the axis should be handled outside this component.
 

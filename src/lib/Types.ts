@@ -10,6 +10,16 @@ export type Theme = 'light' | 'dark';
 export type Alignment = 'start' | 'end' | 'spaced';
 export type Visibility = 'none' | 'alwaysVisible' | 'visibleOnHighlight';
 export type Orientation = 'horizontal' | 'vertical';
+export type Origin =
+  | 'topLeft'
+  | 'topMiddle'
+  | 'topRight'
+  | 'middleLeft'
+  | 'middle'
+  | 'middleRight'
+  | 'bottomLeft'
+  | 'bottomMiddle'
+  | 'bottomRight';
 export type ScaleLinear = D3ScaleLinear<number, number>;
 export type ScaleBand = D3ScaleBand<string>;
 export type Filter = { min: number; max: number };

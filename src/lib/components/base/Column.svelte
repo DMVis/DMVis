@@ -6,10 +6,10 @@
   import Icon from '$lib/components/base/Icon.svelte';
   import Label from '$lib/components/base/Label.svelte';
   import Draggable from '$lib/components/base/Draggable.svelte';
+  import { IconType } from '$lib/Enums.js';
   import { ColumnType } from '$lib/Enums.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
   import type { VisualisationStore } from '$lib/utils/VisualisationStore.js';
-  import { OriginX, OriginY, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
@@ -156,8 +156,7 @@ Each columns contains a top part with information about the column and a bottom 
           textColor={$styleUtil.color}
           fontSize={`${$styleUtil.fontSize}px`}
           fontFamily={$styleUtil.fontFamily}
-          originX={OriginX.Middle}
-          originY={OriginY.Middle}
+          origin={'middle'}
           hasPointerEvents={true}
           hasBackground={false} />
         <svg class="column-options" {width} height="25px" {x} y={y - 70}>

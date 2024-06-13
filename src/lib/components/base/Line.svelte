@@ -6,7 +6,6 @@
   // DMVis imports
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import { getVisualisationContext } from '$lib/utils/Context.js';
   import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
   import type { Alignment, UndefineableString } from '$lib/Types.js';
@@ -254,8 +253,7 @@ It is used in combination with other components to create a chart.
                 x={path.xPos[j] + 10}
                 y={path.yPos[j]}
                 text={$data[i][column].toString()}
-                originX={OriginX.Left}
-                originY={OriginY.Middle} />
+                origin={'middleLeft'} />
             {/if}
             <!-- End of loop over all attributes -->
           {/each}

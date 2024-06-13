@@ -56,7 +56,7 @@
   - [Context](utils/Context.md)
   - [DataUtils](utils/DataUtils.md)
   - [DMVisError](utils/DMVisError.md)
-  - [Origin](utils/OriginMapper.md)
+  - [OriginMapper](utils/OriginMapper.md)
   - [Performance](utils/Performance.md)
   - [Spacer](utils/Spacer.md)
   - [StyleUtils](utils/StyleUtils.md)

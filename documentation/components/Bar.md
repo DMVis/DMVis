@@ -3,11 +3,11 @@
 A bar that can be used for bar visualisations.
 Coordinates are relative to the parent SVG element.
 Only positive `width` values are visible.
-Both positive and negative `height` values are visible
+Negative `height` values can be visible
 depending on `showsNegativeHeight`.
 
-> Note: By default, the bar is vertical (i.e. `isVertical` is `true`)
-> and its origin is the bottom middle (see defaults for `originX` and `originY`).
+> Note: By default, `Bar` is vertical (i.e. `isVertical` is `true`)
+> and its origin is at its bottom middle (see the `origin` attribute).
 
 # Table of contents
 
@@ -86,23 +86,15 @@ Colour of the bar.
 The opacity of the bar as a number in the range [0..1] or
 a percentage string formatted as '{number}%'.
 
-## originX
+## origin
 
 - Type: `OriginX`
 - Default: `OriginX.Middle`
+- Options: `'topLeft'`, `'topMiddle'`, `'topRight'`, `'middleLeft'`, `'middle'`, `'middleRight'`, `'bottomLeft'`, `'bottomMiddle'`, `'bottomRight'`
 
 Horizontal origin of the bar.
-Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-Which value is useful depends on your positioning logic. See the [OriginMapper](../utils/OriginMapper.md) documentation for more information.
-
-## originY
-
-- Type: `OriginY`
-- Default: `OriginY.Bottom`
-
-Vertical origin of the label.
-Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-Which value is useful depends on your positioning logic. See the [OriginMapper](../utils/OriginMapper.md) documentation for more information.
+Which value is useful depends on your positioning logic.
+See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 ## rotationDegrees
 

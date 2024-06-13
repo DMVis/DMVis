@@ -1,7 +1,9 @@
 # Tooltip component
 
-A tooltip is typically used to quickly display a small amount of information to the user.
+A tooltip to display a small amount of information to a user.
 It can, for example, be used to display the name of a point when hovering over it with a mouse.
+
+> Note: By default, a `Tooltip`'s origin is at its middle (see the `origin` attribute).
 
 # Table of Contents
 
@@ -65,28 +67,20 @@ Whether or not to display a background behind the tooltip text.
 - Options: `'light'`, `'dark'`
 
 The theme of the tooltip. This controls both the `background-color` and the `text-color`.
-Options are: light (black text on white background) and dark (white text on black background).
+Options are: `'light'` (black text on white background) and `'dark'` (white text on black background).
 See below what the options look like.
 
 ![Theme options for Tooltip](../media/tooltip_themes.png ':size=250')
 
-## originX
+## origin
 
 - Type: `OriginX`
 - Default: `OriginX.Middle`
+- Options: `'topLeft'`, `'topMiddle'`, `'topRight'`, `'middleLeft'`, `'middle'`, `'middleRight'`, `'bottomLeft'`, `'bottomMiddle'`, `'bottomRight'`
 
 Horizontal origin of the tooltip.
-Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
-Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
-
-## originY
-
-- Type: `OriginY`
-- Default: `OriginY.Middle`
-
-Vertical origin of the tooltip.
-Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-Which value is useful depends on your positioning logic. See [OriginMapper](../utils/OriginMapper.md) for more information.
+Which value is useful depends on your positioning logic.
+See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 # Example usage
 
@@ -97,6 +91,5 @@ Which value is useful depends on your positioning logic. See [OriginMapper](../u
   text={pointName}
   theme={'dark'}
   hasBackground={true}
-  originX={OriginX.Right}
-  originY={OriginY.Bottom} />
+  origin={'bottomRight'} />
 ```

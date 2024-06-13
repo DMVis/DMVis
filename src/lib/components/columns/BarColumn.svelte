@@ -12,7 +12,7 @@
   import Histogram from '$lib/components/visualisations/Histogram.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import type { Filter, Visibility, ScaleLinear } from '$lib/Types.js';
-  import { ColumnType, OriginX, OriginY, IconType } from '$lib/Enums.js';
+  import { ColumnType, IconType } from '$lib/Enums.js';
 
   // Required attributes
   export let x: number;
@@ -68,7 +68,7 @@
   function getY(index: number) {
     // 20 = height of row, 120 = height of top part, 1 = padding
     // Get the top-left y of the supposed position and the next position and half
-    // for OriginX.Left and OriginY.Middle usage
+    // for origin 'middleLeft' usage
     return (index * 20 + 120 + 1 + ((index + 1) * 20 + 120 + 1)) / 2;
   }
 
@@ -251,8 +251,7 @@ BarColumn is a Column component that displays bars for each value in the data ar
           y={getY(i)}
           {barWidth}
           value={scale(value)}
-          originX={OriginX.Left}
-          originY={OriginY.Middle}
+          origin={'middleLeft'}
           isVertical={false}
           color={barColor}
           hoverText={formatValue(value)}

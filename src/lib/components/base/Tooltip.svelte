@@ -2,8 +2,7 @@
   // DMVis imports
   import Label from '$lib/components/base/Label.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
-  import type { Theme } from '$lib/Types.js';
-  import { OriginX, OriginY } from '$lib/Enums.js';
+  import type { Theme, Origin } from '$lib/Types.js';
 
   // Required attributes
   export let x: number;
@@ -13,8 +12,7 @@
   // Optional attributes
   export let hasBackground: boolean = false;
   export let theme: Theme = 'light';
-  export let originX: OriginX = OriginX.Middle;
-  export let originY: OriginY = OriginY.Middle;
+  export let origin: Origin = 'middle';
 
   // Private variables
   let backgroundColor: string;
@@ -39,8 +37,9 @@
 <!--
 @component
 ### Tooltip
-A tooltip is typically used to quickly display a small amount of information to the user.
+A tooltip to display a small amount of information to a user.
 It can, for example, be used to display the name of a point when hovering over it with a mouse.
+Note that by default, `Tooltip`'s origin is at its middle (see the `origin` attribute).
 
 #### Required attributes
 * x: number               - X-coordinate of the tooltip.
@@ -50,16 +49,11 @@ It can, for example, be used to display the name of a point when hovering over i
 #### Optional attributes
 * hasBackground: boolean  - Whether or not to display a background behind the tooltip text, by default this is off.
 * theme: Theme            - Theme of the tooltip, which controls both the background-color and the text-color.
-                            Options are: light (black text on white background) and dark (white text on black background).
+                            Options are: `'light'` (black text on white background) and `'dark'` (white text on black background).
                             Defaults to `'light'`.
-* originX: OriginX        - Horizontal origin of the label.
-                            Possible values: `OriginX.Left`, `OriginX.Middle`, `OriginX.Right`.
+* origin: Origin          - The origin of the tooltip.
                             Which value is useful depends on your positioning logic.
-                            This defauls to `OriginX.Middle`.
-* originY: OriginY        - Vertical origin of the label.
-                            Possible values: `OriginY.Top`, `OriginY.Middle`, `OriginY.Bottom`.
-                            Which value is useful depends on your positioning logic.
-                            This defaults to `OriginX.Middle`.
+                            Defaults to `'middle'`.
 -->
 
 <Label
@@ -71,8 +65,7 @@ It can, for example, be used to display the name of a point when hovering over i
   {hasBackground}
   backgroundOpacity={0.7}
   name={'tooltip'}
-  {originX}
-  {originY}
+  {origin}
   {backgroundColor}
   fontWeight={'bold'}
   {textColor}

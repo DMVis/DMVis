@@ -6,7 +6,6 @@
   import Bar from '$lib/components/base/Bar.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
   import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
@@ -159,8 +158,7 @@ This visualisation shows frequencies of data. It can group data categorically or
           barWidth={categoricalScale.bandwidth()}
           value={yScale(0) - yScale(bucket.values.length)}
           isVertical={true}
-          originX={OriginX.Left}
-          originY={OriginY.Bottom}
+          origin={'bottomLeft'}
           {color}
           {opacity}
           {borderRadius} />
@@ -176,8 +174,7 @@ This visualisation shows frequencies of data. It can group data categorically or
             (numericalScale(bucket.x1 ?? 0) - numericalScale(bucket.x0 ?? 0)) * padding}
           value={yScale(0) - yScale(bucket.length)}
           isVertical={true}
-          originX={OriginX.Left}
-          originY={OriginY.Bottom}
+          origin={'bottomLeft'}
           {color}
           {opacity}
           {borderRadius} />

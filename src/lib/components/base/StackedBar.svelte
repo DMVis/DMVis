@@ -2,7 +2,6 @@
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Label from '$lib/components/base/Label.svelte';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import { getVisualisationContext } from '$lib/utils/Context.js';
   import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
@@ -81,8 +80,7 @@ on top of each other.
       value={values[i]}
       isVertical={false}
       color={$styleUtil.colorScheme[i % $styleUtil.colorScheme.length]}
-      originX={OriginX.Left}
-      originY={OriginY.Top}
+      origin={'topLeft'}
       hoverText={`${numericalCols[i]}: ${Number(rowData[i])}`}
       {opacity} />
   {/each}
@@ -91,8 +89,7 @@ on top of each other.
       x={currentX + $marginLeft}
       y={y + barWidth / 2}
       text={Math.floor(total).toString()}
-      originX={OriginX.Left}
-      originY={OriginY.Middle}
+      origin={'middleLeft'}
       hasBackground={false}
       fontSize={`${10}px`} />
   {/if}

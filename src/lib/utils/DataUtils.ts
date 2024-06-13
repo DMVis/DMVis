@@ -29,7 +29,7 @@ export class DataUtils {
   }
 
   /**
-   * Function to parse data as JSON or CSV
+   * Function to parse data as JSON or CSV.
    * @param data - The data to parse. Can be a JSON string, a CSV string, or a string URL pointing to a JSON or CSV file.
    * @param type - The type of data to parse. Can be 'json' or 'csv'. If not provided, the function will try to infer the type.
    * @returns {Promise<Array<Array<string | number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the data.

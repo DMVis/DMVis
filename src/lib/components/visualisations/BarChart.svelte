@@ -5,7 +5,6 @@
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
-  import { OriginX, OriginY } from '$lib/Enums.js';
   import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
@@ -97,8 +96,7 @@ the other axis goes in the direction of the length of the bars and has numerical
           barWidth={positionScale.bandwidth()}
           value={barScale(bar.value)}
           isVertical={false}
-          originX={OriginX.Left}
-          originY={OriginY.Top}
+          origin={'topLeft'}
           {color}
           {opacity}
           {borderRadius} />
@@ -109,8 +107,7 @@ the other axis goes in the direction of the length of the bars and has numerical
           barWidth={positionScale.bandwidth()}
           value={barScale(maxValue - bar.value)}
           isVertical={true}
-          originX={OriginX.Left}
-          originY={OriginY.Bottom}
+          origin={'bottomLeft'}
           {color}
           {opacity}
           {borderRadius} />
