@@ -1,16 +1,18 @@
 <script lang="ts">
+  // Imports
+  import { onMount } from 'svelte';
+
   // DMVis imports
   import Filter from '$lib/components/base/Filter.svelte';
-  import Scrollable from './Scrollable.svelte';
+  import Scrollable from '$lib/components/base/Scrollable.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { onMount } from 'svelte';
+  import { getVisualisationContext } from '$lib/Utils.js';
 
   // Optional attributes
   export let isScrollable: boolean = false;
-  export let scrollableWidth: number | string = '100%';
-  export let scrollableHeight: number | string = '100%';
   export let showFilter: DataUtils | null = null;
 
+  // Handle errors
   let isError = false;
   let errorMessage = '';
 
@@ -27,6 +29,38 @@
       isError = true;
     };
   });
+
+  // Get and set the size of the visualisation
+  let { width, height } = getVisualisationContext();
+  let originalWidth = $width;
+  let originalHeight = $height;
+
+  // Update the size of the visualisation
+  function updateSize() {
+    $width = visualisationRef?.parentElement?.clientWidth || 1000;
+    $height = visualisationRef?.parentElement?.clientHeight || 1000;
+  }
+
+  let visualisationRef: HTMLDivElement;
+  onMount(() => {
+    if (!isScrollable) {
+      window.addEventListener('resize', () => updateSize());
+      updateSize();
+    } else {
+      $width = originalWidth;
+      $height = originalHeight;
+    }
+  });
+
+  // Reactive updates for updating the size
+  $: {
+    if (isScrollable) {
+      $width = originalWidth;
+      $height = originalHeight;
+    } else {
+      updateSize();
+    }
+  }
 </script>
 
 <!--
@@ -53,40 +87,42 @@ Certain styling standards are set and error handling is kept within the scope of
 * Visualisation             - Slot for the visualisation.
  -->
 
-<div class="visualisation-container">
-  {#if isScrollable}
-    <Scrollable width={scrollableWidth} height={scrollableHeight}>
-      {#if isError}
-        <div class="error">
-          <h1>Something went wrong.</h1>
-          <h2>The following error occured:</h2>
-          <p>{errorMessage}</p>
-        </div>
-      {:else}
-        <div class="visualisation-base">
-          <slot>
-            <em>Please provide a visualisation component.</em>
-          </slot>
-        </div>
-      {/if}
-    </Scrollable>
-  {:else if isError}
-    <div class="error">
-      <h1>Something went wrong.</h1>
-      <h2>The following error occured:</h2>
-      <p>{errorMessage}</p>
-    </div>
-  {:else}
-    <div class="visualisation-base">
-      <slot>
-        <em>Please provide a visualisation component.</em>
-      </slot>
-    </div>
-  {/if}
-  {#if showFilter}
-    <Filter dataUtil={showFilter} />
-  {/if}
-</div>
+{#key $height || $width}
+  <div class="visualisation-container" bind:this={visualisationRef}>
+    {#if isScrollable}
+      <Scrollable width="100%" height="100%">
+        {#if isError}
+          <div class="error">
+            <h1>Something went wrong.</h1>
+            <h2>The following error occured:</h2>
+            <p>{errorMessage}</p>
+          </div>
+        {:else}
+          <div class="visualisation-base" style="width: fit-content">
+            <slot>
+              <em>Please provide a visualisation component.</em>
+            </slot>
+          </div>
+        {/if}
+      </Scrollable>
+    {:else if isError}
+      <div class="error">
+        <h1>Something went wrong.</h1>
+        <h2>The following error occured:</h2>
+        <p>{errorMessage}</p>
+      </div>
+    {:else}
+      <div class="visualisation-base" style="width: 100%">
+        <slot>
+          <em>Please provide a visualisation component.</em>
+        </slot>
+      </div>
+    {/if}
+    {#if showFilter}
+      <Filter dataUtil={showFilter} />
+    {/if}
+  </div>
+{/key}
 
 <style>
   .visualisation-container {
@@ -101,7 +137,6 @@ Certain styling standards are set and error handling is kept within the scope of
     overflow-x: auto;
     display: flex;
     flex-wrap: nowrap;
-    width: fit-content;
     position: relative;
   }
 

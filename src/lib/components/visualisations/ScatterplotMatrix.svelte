@@ -126,7 +126,7 @@
       marginRight,
       marginTop,
       marginBottom,
-      width,
+      width: showFilter ? width - 150 : width,
       height,
       styleUtil
     });
@@ -635,7 +635,11 @@ It can be used to quickly find relations between attributes in a large data set.
   {#await xScale}
     <p>Loading visualisation, please wait...</p>
   {:then}
-    <svg class="visualisation scatterplotMatrix" {width} {height} bind:this={scatterplotMatrixRef}>
+    <svg
+      width={isScrollable ? width : '100%'}
+      height={isScrollable ? height : '100%'}
+      class="visualisation scatterplotMatrix"
+      bind:this={scatterplotMatrixRef}>
       {#key reloadKey || $visualisationData}
         <!-- Loop over all the attributes on the xAxis -->
         {#each axisNames as xAxis, i}

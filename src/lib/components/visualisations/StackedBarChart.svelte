@@ -39,7 +39,7 @@
 
   // Set store values
   setVisualisationContext({
-    width,
+    width: showFilter ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -124,7 +124,10 @@ The y-axis represents the categories of the data.
                               Defaults to `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
-  <svg class="visualisation stackedBarchart" {width} {height}>
+  <svg
+    class="visualisation stackedBarchart"
+    width={isScrollable ? width : '100%'}
+    height={isScrollable ? height : '100%'}>
     {#key dataUtil || $visualisationData}
       {#each dataUtil.data as row}
         <StackedBar

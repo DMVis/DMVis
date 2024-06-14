@@ -39,7 +39,7 @@
 
   // Fill the store
   setVisualisationContext({
-    width,
+    width: showFilter ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -185,8 +185,8 @@ and draws a line through each axis for each row in the table.
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg
     class="visualisation parallelCoordinates"
-    {width}
-    {height}
+    width={isScrollable ? width : '100%'}
+    height={isScrollable ? height : '100%'}
     bind:this={parallelCoordinatesRef}>
     {#key $visualisationData}
       <!-- Draw all the lines -->

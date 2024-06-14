@@ -87,7 +87,7 @@
     marginRight,
     marginTop,
     padding,
-    width,
+    width: showFilter ? width - 150 : width,
     height,
     data: dataUtil.data,
     columns: dataUtil.columns,
@@ -216,7 +216,11 @@ Both parts of the visualisation are scrollable, to allow for visualising large d
                                   Defaults to `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
-  <svg {width} {height} class="valuechart" bind:this={valueChartRef}>
+  <svg
+    class="valuechart"
+    width={isScrollable ? width : '100%'}
+    height={isScrollable ? height : '100%'}
+    bind:this={valueChartRef}>
     {#key $visualisationData}
       <!-- Start of top half of the visualisation -->
       <Scrollable

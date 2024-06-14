@@ -38,7 +38,7 @@
 
   // Set store values
   setVisualisationContext({
-    width,
+    width: showFilter ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -410,8 +410,8 @@ This is based on the type of the supplied data.
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg
     class="visualisation lineUp"
-    {width}
-    {height}
+    width={isScrollable ? width : '100%'}
+    height={isScrollable ? height : '100%'}
     role="cell"
     tabindex="-1"
     bind:this={lineUpRef}>

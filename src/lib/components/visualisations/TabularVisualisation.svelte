@@ -70,7 +70,7 @@
 
   // Set store values
   setVisualisationContext({
-    width,
+    width: showFilter ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -474,7 +474,11 @@ categorical data with labels in a column.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
-  <svg class="visualisation tabularVisualisation" {width} {height} bind:this={tabularRef}>
+  <svg
+    class="visualisation tabularVisualisation"
+    width={isScrollable ? width : '100%'}
+    height={isScrollable ? height : '100%'}
+    bind:this={tabularRef}>
     {#key dataUtil || $visualisationData}
       <!-- Loop over all the columns and create a barcolumn for each of them -->
       <TextColumn
