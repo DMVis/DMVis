@@ -1,8 +1,8 @@
 # Axis component
 
-The Axis component renders a single axis based on a single, provided d3.axis element.
-You can use this component to render an axis on any side of a visualisation, with the option
-of adding a label on any side of the axis.
+The Axis component is used to render a singular Axis, given a [d3.axis](https://d3js.org/d3-axis) element. This needs to be supplied by the parent through the [axis](#axis) parameter. The axis can be oriented in any direction, depending on the provided `d3.axis`. The axis can also have a label on any of the four sides, regardless of the axis orientation. Furthermore, the axis can be made draggable, although how this dragging behaviour should be handled is up to the user to implement.
+
+> Note: This component is made specifically for visualisations that require <u>only one</u> axis (or multiple with different orientations). If you want to have multiple axes created automatically from your dataset, consider using the [DynamicAxis](../components/DynamicAxis.md) component.
 
 # Table of contents
 
@@ -73,7 +73,7 @@ Renders a label next to the axis.
 
 Text for the label.
 
-## labelPosition:
+## labelPosition
 
 - Type: `Position`
 - Default: `'top'`
@@ -130,39 +130,117 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Creating a left axis with a label at the bottom.
+<b>Creating a basic axis.</b>
 
 ```svelte
-<script>
-  let scale = scaleLinear().domain([0, 100]).range([40, 460]).nice();
-  let newAxis = d3.axisLeft(scale as d3.ScaleLinear<number, number>);
+<script lang="ts">
+  import { Axis } from '@dmvis/dmvis/components';
+  import { axisBottom, scaleLinear } from 'd3';
+
+  /* Create a scale that can take values between 0 and 1000
+  and scales them to values between 0 and 400 */
+  const scale = scaleLinear().range([0, 400]).domain([0, 1000]);
+  const axisElement = axisBottom(scale);
 </script>
 
-<svg {width} {height}>
-  <Axis
-    placementX={axisX}
-    placementY={axisY}
-    axis={d3Axis}
-    renderLabel={true}
-    labelPosition={'bottom'}
-    labelText={axisName} />
+<svg width={500} height={500}>
+  <Axis placementX={50} placementY={450} axis={axisElement} />
 </svg>
 ```
 
-Creating a draggable axis (excl. any reordering logic)
+<b>Creating an axis with 3 ticks and a label. </b>
 
 ```svelte
-<svg {width} {height}>
+<script lang="ts">
+  import { Axis } from '@dmvis/dmvis/components';
+  import { axisLeft, scaleLinear } from 'd3';
+
+  /* Create a scale that can take values between 0 and 1000
+  and scales them to values between 0 and 400 */
+  let scale = scaleLinear().domain([0, 100]).range([40, 400]);
+  let axisElement = axisLeft(scale).ticks(3);
+</script>
+
+<svg width={500} height={500}>
   <Axis
-    placementX={axis.column === draggedAxis ? axis.x + draggingOffset : axis.x}
-    placementY={axis.y}
-    axis={axis.axis}
+    placementX={100}
+    placementY={50}
+    axis={axisElement}
     renderLabel={true}
-    labelText={axis.column}
+    labelPosition={'bottom'}
+    labelText={'Name for an axis'} />
+</svg>
+```
+
+<b>Creating a fully customised axis.</b>
+
+```svelte
+<script lang="ts">
+  import { Axis } from '@dmvis/dmvis/components';
+  import { axisRight, scaleLinear } from 'd3';
+
+  /* Create a scale that can take values between 0 and 1000
+  and scales them to values between 0 and 400 */
+  let scale = scaleLinear().domain([0, 100]).range([40, 400]);
+  let axisElement = axisRight(scale).ticks(3);
+</script>
+
+<svg width={500} height={500}>
+  <Axis
+    placementX={100}
+    placementY={50}
+    axis={axisElement}
+    renderLabel={true}
+    labelPosition={'right'}
+    labelOffset={100}
+    labelText={'Name for an axis'}
+    color={'rgb(255,100,10)'}
+    squashOuterTicks={true}
+    fontSize={20} />
+</svg>
+```
+
+<b>Creating a draggable axis.</b>
+
+> Note: Dragging works by dragging the label.
+
+```svelte
+<script lang="ts">
+  import { Axis } from '@dmvis/dmvis/components';
+  import { axisTop, scaleLinear } from 'd3';
+
+  let scale = scaleLinear().domain([0, 100]).range([40, 400]);
+  let axisElement = axisTop(scale);
+
+  let axisDeltaX = 0;
+  let axisDeltaY = 0;
+
+  /* Everytime the axis is dragged, this function gets fired.
+    Which will update the local delta in position for the axis */
+  function onDragMove(e: CustomEvent) {
+    axisDeltaX += e.detail.movementX;
+    axisDeltaY += e.detail.movementY;
+  }
+
+  /* This function fires when the dragging of the axis is stopped
+      At this point the axis is put back to its original spot. */
+  function onDragStop() {
+    axisDeltaX = 0;
+    axisDeltaY = 0;
+  }
+</script>
+
+<svg width={1000} height={1000}>
+  <!-- Draw an axis with the added positioning delta starting at (50,250) -->
+  <Axis
+    placementX={50 + axisDeltaX}
+    placementY={250 + axisDeltaY}
+    axis={axisElement}
+    renderLabel={true}
+    labelPosition={'top'}
+    labelText={'Name for an axis'}
     isDraggable={true}
     on:dragMove={onDragMove}
     on:dragStop={onDragStop} />
 </svg>
 ```
-
-> Note: `onDragMove` and `onDragStop` should be functions that handle the logic for dragging the axis (or axes). In this example, `draggedAxis` keeps track of the name of the axis that is being moved and `draggingOffset` keeps track of how much the axis has been dragged.

@@ -1,8 +1,18 @@
 # DynamicAxis component
 
-The DynamicAxis component is responsible for rendering axes
-based on the data with labels along the correct side of the visualisation.
-It displays tick marks and labels based on provided data.
+The DynamicAxis component is a component used for rendering any number of axes, depending on the given dataset.
+By default, it will generate an axis per column in the dataset. This means that for a column with numerical data,
+a numerical axis is generated, and for a column with text data, a text axis is generated.
+DynamicAxis can generate axes in different orientations. Axes themselves can be both vertical and horizontal, and
+the axes can also be placed vertically or horizontally with respect to each other. Two examples to differentiate these
+are found in the following visualisations:
+
+- [Parallel Coordinates](../visualisations/ParallelCoordinates.md): this visualisation contains _vertical_ axes which are placed _horizontally_ with respect to each other.
+- [ScatterplotMatrix](../visualisations/ScatterplotMatrix.md): this visualisation contains both
+  - _vertical_ axes which are placed _vertically_ with respect to each other, and
+  - _horizontal_ axes which are placed _horizontally_ with respect to each other.
+
+> Note: This component is made specifically for visualisations that require <u>one or more</u> axes. If you want to just use a single axis, it is recommended to use the [Axis](../components/Axis.md) component.
 
 # Table of contents
 
@@ -147,18 +157,25 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Creating a bottom axis with a custom colour and no tick marks.
+Creates a `DynamicAxis`. Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.
 
 ```svelte
-<svg {width} {height}>
-  <DynamicAxis fontSize={12} color={'#FF0000'} hasTicks={false} position="bottom" />
-</svg>
-```
+<script lang="ts">
+  import { setVisualisationContext, DataUtils } from '@dmvis/dmvis/utils';
+  import { DynamicAxis } from '@dmvis/dmvis/components';
 
-Creating a left axis with a custom font size and 5 ticks.
+  export let dataUtil: DataUtils;
+  const size = 500;
 
-```svelte
-<svg {width} {height}>
-  <DynamicAxis fontSize={12} ticksNumber={5} position="left" />
+  setVisualisationContext({
+    width: size,
+    height: size,
+    data: dataUtil.data,
+    columns: dataUtil.columns
+  });
+</script>
+
+<svg width={size} height={size}>
+  <DynamicAxis spacingDirection="vertical" />
 </svg>
 ```
