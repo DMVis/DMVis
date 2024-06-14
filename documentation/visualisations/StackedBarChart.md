@@ -134,22 +134,27 @@ Determines whether the [Filter](components/Filter.md) component is displayed nex
 
 # Example usage
 
-Create a StackedBarChart with custom opacity.
+<b>Creating a StackedBarChart from a csv string, with custom styling.</b>
 
 ```svelte
-<script>
-  // Set variables
-  const opacity = 0.5;
+<script lang="ts">
+  import { StackedBarChart } from '@dmvis/dmvis';
+  import { DataUtils, StyleUtils } from '@dmvis/dmvis/utils';
 
-  // Get & set data
-  const dataUrl = '/datasets/holidays-20.csv';
+  const dataCsv =
+    'Name,Column1,Column2,Column3,Column4\nJohn,54,23,78,12\nSarah,87,45,91,63\nMichael,32,68,15,77\nEmily,96,42,19,55\nDavid,21,84,37,29\nLisa,73,10,56,88\nMatthew,49,27,83,14\nEmma,17,36,70,92\nJames,61,79,24,47\nSophia,38,52,66,31\n';
+
   const dataUtil = new DataUtils();
 
-  // Load promising
+  // Load promise
   $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
+    await dataUtil.parseData(dataCsv);
   })();
+
+  const styleUtil = new StyleUtils({ colorSet: 'Pastel2', numColors: 5 });
 </script>
 
-<StackedBarChart {dataUtil} {height} {width} {opacity} />
+{#await load then}
+  <StackedBarChart {dataUtil} {styleUtil} />
+{/await}
 ```

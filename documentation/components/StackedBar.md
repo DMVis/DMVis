@@ -78,31 +78,77 @@ Whether or not to display the sum of all bars at the end as a number.
 
 # Example
 
-Create a StackedBar of the 10th row of the data. Where each column is scaled the same
+Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.
+
+<b>Create a stacked bar for a given row.</b>
 
 ```svelte
-<script>
-  // Set variables
-  const visStore = new VisualisationStore();
-  const opacity = 0.5;
-  const width = 1000;
-  const maxValue = d3.max(visStore.data.map((row) => d3.sum(row.slice(1) as number[]))) ?? 0;
-  const attributeScales = Array(visStore.columns.length - 1).fill(
-    d3.scaleLinear().range([0, width]).domain([0, maxValue])
+<script lang="ts">
+  import { setVisualisationContext } from '$lib/utils/Context.js';
+  import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import StackedBar from './StackedBar.svelte';
+  import { scaleLinear } from 'd3';
+
+  export let dataUtil: DataUtils;
+
+  const size = 500;
+
+  // Fill the visualisation context
+  setVisualisationContext({
+    width: size,
+    height: size,
+    data: dataUtil.data,
+    columns: dataUtil.columns
+  });
+
+  // Create a random row to be shown in a stacked bar
+  const rowValues = ['Row', 73, 59, 61, 57, 97];
+
+  // Create a scale for each value, with random values
+  const rowScales = Array(5).fill(
+    scaleLinear()
+      .domain([0, 100])
+      .range([0, 500 / 5])
   );
-
-  // Get & set data
-  const dataUrl = '/datasets/holidays-20.csv';
-  const dataUtil = new DataUtils();
-
-  // Load promising
-  $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
-    visStore.data.set(dataUtils.data);
-  })();
 </script>
 
-{#await load then}
-  <StackedBar barWidth={10} y={10} {attributeScales} row={visStore.data.slice(10)} {opacity} />
-{/await}
+<svg width={500} height={500}>
+  <StackedBar y={100} barWidth={50} row={rowValues} attributeScales={rowScales} />
+</svg>
+```
+
+<b>Create a `StackedBar` with a color scheme.</b>
+
+```svelte
+<script lang="ts">
+  import { scaleLinear } from 'd3';
+
+  import { StyleUtils } from '$lib/Utils.js';
+  import { setVisualisationContext } from '$lib/utils/Context.js';
+  import type { DataUtils } from '$lib/utils/DataUtils.js';
+  import StackedBar from './StackedBar.svelte';
+
+  export let dataUtil: DataUtils;
+
+  const size = 500;
+
+  setVisualisationContext({
+    width: size,
+    height: size,
+    data: dataUtil.data,
+    columns: dataUtil.columns,
+    styleUtil: new StyleUtils({ colorSet: 'Set1', numColors: 5 })
+  });
+
+  const rowValues = ['Row', 73, 59, 61, 57, 97];
+  const rowScales = Array(5).fill(
+    scaleLinear()
+      .domain([0, 100])
+      .range([0, 500 / 5])
+  );
+</script>
+
+<svg width={500} height={500}>
+  <StackedBar y={100} barWidth={50} row={rowValues} attributeScales={rowScales} />
+</svg>
 ```

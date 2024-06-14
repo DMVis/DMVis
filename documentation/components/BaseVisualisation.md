@@ -63,52 +63,46 @@ Provide a DataUtils object when you want to show and use the [Filter](components
 
 # Example usage
 
-When creating your own visualisation, the first component that you should use is the `BaseVisualisation`:
+<b>Create a scrollable visualisation, in this case a scatterplot. </b>
 
 ```svelte
 <script lang="ts">
-  const width: number = 100;
-  const height: number = 1000;
+  import { BaseVisualisation, Point, Axis } from '@dmvis/dmvis/components';
+  import { axisBottom, axisLeft, scaleLinear } from 'd3';
+
+  const visualisationSize = 1000;
+  const containerSize = 500;
+
+  // Points ranging from 0 to 500
+  const points: { x: number; y: number }[] = [
+    { x: 50, y: 400 },
+    { x: 220, y: 300 },
+    { x: 330, y: 90 },
+    { x: 480, y: 250 },
+    { x: 150, y: 50 }
+  ];
+
+  const marginLeft = 100;
+  const marginBottom = 100;
+  // Create a scale for both the x- and y-direction
+  const scaleX = scaleLinear().range([marginLeft, visualisationSize]).domain([0, 500]);
+  const scaleY = scaleLinear()
+    .range([visualisationSize - marginBottom, 0])
+    .domain([0, 500]);
 </script>
 
-<BaseVisualisation>
-  <svg>
-    {#each columns as column, i}
-      <Column
-        x={i * column.width}
-        {width}
-        {height}
-        type={column.type}
-        name={column.name}
-        padding={column.padding} />
+<!-- Make the entire visualisation scrollable -->
+<BaseVisualisation
+  isScrollable={true}
+  scrollableHeight={containerSize}
+  scrollableWidth={containerSize}>
+  <!-- Create a normal scatterplot -->
+  <svg width={visualisationSize} height={visualisationSize} style="border: 1px solid black;">
+    <Axis placementX={0} placementY={visualisationSize - marginBottom} axis={axisBottom(scaleX)} />
+    <Axis placementX={marginLeft} placementY={0} axis={axisLeft(scaleY)} />
+    {#each points as p}
+      <Point x={scaleX(p.x)} y={scaleY(p.y)} />
     {/each}
-    ...
-  </svg>
-</BaseVisualisation>
-```
-
-If you want this visualisation to be of size 2000px by 2000px, but to only take up 1000px by 1000px on your page, you can do the following:
-
-```svelte
-<script lang="ts">
-  const actualWidth: number = 2000;
-  const actualHeight: number = 2000;
-  const scrollableWidth: number = 1000;
-  const scrollableHeight: number = 1000;
-</script>
-
-<BaseVisualisation isScrollable={true} {scrollableWidth} {scrollableHeight}>
-  <svg width={actualWidth} height={actualHeight}>
-    {#each columns as column, i}
-      <Column
-        x={i * column.width}
-        width={actualWidth / columns.length}
-        {actualHeight}
-        type={column.type}
-        name={column.name}
-        padding={column.padding} />
-    {/each}
-    ...
   </svg>
 </BaseVisualisation>
 ```

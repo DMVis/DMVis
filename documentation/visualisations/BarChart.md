@@ -75,7 +75,7 @@ Maximum value of the numerical length of each bar.
 ## isVertical
 
 - Type: `boolean`
-- Default: `false`
+- Default: `true`
 
 Orients `BarChart` vertically as opposed to horizontally if `true`.
 
@@ -153,22 +153,52 @@ a percentage string formatted as '{number}%'.
 ## borderRadius
 
 - Type: `number`
-- Default: `5`
+- Default: `0`
 
 Border radius of each bar in pixels.
 
 # Example usage
 
+<b> Creating a basic `BarChart`.</b>
+
 ```svelte
+<script lang="ts">
+  import { BarChart } from '@dmvis/dmvis';
+
+  const data = [
+    { label: 'Point1', value: 23 },
+    { label: 'Point2', value: 87 },
+    { label: 'Point3', value: 45 },
+    { label: 'Point4', value: 78 },
+    { label: 'Point5', value: 56 }
+  ];
+</script>
+
+<BarChart width={500} height={500} {data} />
+```
+
+<b>Creating a customised horizontal `BarChart`.</b>
+
+```svelte
+<script lang="ts">
+  import { BarChart } from '@dmvis/dmvis';
+
+  const data = [
+    { label: 'Point1', value: 23 },
+    { label: 'Point2', value: 87 },
+    { label: 'Point3', value: 45 },
+    { label: 'Point4', value: 78 },
+    { label: 'Point5', value: 56 }
+  ];
+</script>
+
 <BarChart
   width={500}
   height={500}
   {data}
-  minValue={0}
-  maxValue={100}
-  isVertical={true}
-  ticks={1}
-  padding={0}
-  showBottomAxis={true}
-  showLeftAxis={false} />
+  color={'green'}
+  borderRadius={8}
+  opacity={0.5}
+  isVertical={false}
+  padding={0.4} />
 ```

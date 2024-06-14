@@ -434,4 +434,3 @@ An event that is triggered when the user sorts the data.
 ### Event Properties
 
 - `column`: _`string`_ - The name of the column that the user is sorting by.
-- `sorting`: _`'asc' | 'desc' | 'none'`_ - The sorting order of the column.

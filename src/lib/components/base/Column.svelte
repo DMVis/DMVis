@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import { getContext, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
 
   // DMVis imports
   import Icon from '$lib/components/base/Icon.svelte';
@@ -9,7 +9,7 @@
   import { IconType } from '$lib/Enums.js';
   import { ColumnType } from '$lib/Enums.js';
   import { formatClassName } from '$lib/utils/ClassNameFormat.js';
-  import type { VisualisationStore } from '$lib/utils/VisualisationStore.js';
+  import { getVisualisationContext } from '$lib/utils/Context.js';
 
   // Required attributes
   export let x: number;
@@ -30,8 +30,9 @@
 
   // Ready the column
   const dispatch = createEventDispatcher();
-  const { styleUtil } = getContext<VisualisationStore>('store');
-  $styleUtil.color = '#000000';
+
+  // Get styles from the store
+  const { styleUtil } = getVisualisationContext();
 
   // Calculate the position for the icons
   let iconStart: number;
@@ -153,7 +154,7 @@ Each columns contains a top part with information about the column and a bottom 
           text={columnTitle.includes('LineUp') ? columnTitle.split('_')[1] : columnTitle}
           width={width - padding}
           showEllipsis={true}
-          textColor={$styleUtil.color}
+          textColor={'#000000'}
           fontSize={`${$styleUtil.fontSize}px`}
           fontFamily={$styleUtil.fontFamily}
           origin={'middle'}

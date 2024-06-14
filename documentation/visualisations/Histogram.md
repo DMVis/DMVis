@@ -52,7 +52,7 @@ The height of the visualisation.
 
 ## data
 
-- Type: `Array<string | number>`
+- Type: `string[]` | `number[]`
 
 An array of data (either strings or numbers) which should be shown in the histogram. They will be represented as bars.
 
@@ -164,12 +164,47 @@ Border radius of each bar in pixels.
 
 # Example usage
 
-The example below shows a histogram with numerical values formated into categories.
+<b> Using a `Histogram` with numerical values.</b>
 
 ```svelte
-<Histogram
-  width={500}
-  height={500}
-  data={[1, 3, 4, 2, 6, 7, 1, 7, 9, 6, 1]}
-  forceCategorical={true} />
+<script lang="ts">
+  import { Histogram } from '@dmvis/dmvis';
+
+  const data = [34, 67, 12, 89, 45, 23, 78, 90, 56, 41, 74, 62, 33, 88, 27, 59, 95, 18, 81, 50];
+</script>
+
+<Histogram width={500} height={200} {data} />
+```
+
+<b> Using a `Histogram` with categorical values.</b>
+
+```svelte
+<script lang="ts">
+  import { Histogram } from '@dmvis/dmvis';
+
+  const data = [
+    'Mango',
+    'Banana',
+    'Kiwi',
+    'Kiwi',
+    'Mango',
+    'Apple',
+    'Banana',
+    'Kiwi',
+    'Mango',
+    'Pear',
+    'Banana',
+    'Banana',
+    'Banana',
+    'Pear',
+    'Kiwi',
+    'Apple',
+    'Kiwi',
+    'Banana',
+    'Kiwi',
+    'Banana'
+  ];
+</script>
+
+<Histogram width={500} height={200} {data} />
 ```

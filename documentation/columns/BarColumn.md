@@ -156,6 +156,74 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b> Creating a basic BarColumn with no icons and a histogram as overview item. </b>
+
 ```svelte
-<BarColumn x={0} width={100} height={200} data={[10, 20, 30, 40]} />
+<script lang="ts">
+  import { BarColumn } from '@dmvis/dmvis/components';
+
+  const values = [84, 92, 14, 85, 39, 23, 89, 37, 71, 97, 61, 22, 36, 60, 55];
+</script>
+
+<svg width={500} height={1000}>
+  <BarColumn x={50} width={100} height={900} data={values} icons={[]} overviewItem="histogram" />
+</svg>
+```
+
+<b> Creating a BarColumn with sorting functionality. </b>
+
+```svelte
+<script lang="ts">
+  import { BarColumn } from '@dmvis/dmvis/components';
+  import { IconType } from '@dmvis/dmvis/enums';
+
+  let values = [84, 92, 14, 85, 39, 23, 89, 37, 71, 97, 61, 22, 36, 60, 55];
+
+  let sortedAsc = false;
+
+  function onSort(e: CustomEvent) {
+    values = sortedAsc ? values.sort((a, b) => b - a) : values.sort();
+
+    sortedAsc = !sortedAsc;
+  }
+</script>
+
+<svg width={500} height={1000}>
+  <BarColumn
+    x={50}
+    width={200}
+    height={900}
+    data={values}
+    icons={[IconType.Sort]}
+    overviewItem="axis"
+    on:sort={onSort} />
+</svg>
+```
+
+<b> Creating multiple BarColumns next to each other. </b>
+
+> Note that in this case each column holds the same values
+
+```svelte
+<script lang="ts">
+  import { BarColumn } from '@dmvis/dmvis/components';
+
+  const values = [84, 92, 14, 85, 39, 23, 89, 37, 71, 97, 61, 22, 36, 60, 55];
+
+  const columnWidth = 200;
+  const columnNames = ['Column 1', 'Column 2', 'Column 3', 'Column 4'];
+</script>
+
+<svg width={1000} height={1000}>
+  {#each columnNames as columnName, i}
+    <BarColumn
+      x={50 + columnWidth * i}
+      width={columnWidth}
+      height={900}
+      data={values}
+      icons={[]}
+      overviewItem="axis"
+      name={columnName} />
+  {/each}
+</svg>
 ```

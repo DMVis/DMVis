@@ -181,18 +181,30 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Label with only required properties set.
+<b>Creating a basic label.</b>
 
 ```svelte
-<svg style="border: 1px solid black" width="500" height="500">
+<script lang="ts">
+  import { Label } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={500} height={500}>
   <Label x={250} y={250} text="Hello, world!" />
 </svg>
 ```
 
-Label with all properties set.
+<b>Creating a label with all properties set.</b>
 
 ```svelte
-<svg style="border: 1px solid black" width="500" height="500">
+<script lang="ts">
+  import { Label } from '@dmvis/dmvis/components';
+
+  function onMouseLabelClick(e: CustomEvent) {
+    console.log('Mouse Click');
+  }
+</script>
+
+<svg width={500} height={500}>
   <Label
     x={100}
     y={100}
@@ -214,7 +226,6 @@ Label with all properties set.
     width={100}
     height={100}
     borderColor="none"
-    on:mouseLabelEnter={onMouseLabelEnter}
-    on:mouseLabelLeave={onMouseLabelLeave} />
+    on:mouseLabelClick={onMouseLabelClick} />
 </svg>
 ```

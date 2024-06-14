@@ -159,17 +159,39 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b>Creating a basic bar.</b>
+
 ```svelte
-<svg style="border: 1px solid black" width="500" height="500">
-  <Bar x={250} y={250} barWidth={25} value={100} />
+<script lang="ts">
+  import { Bar } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={500} height={500}>
+  <Bar x={250} y={450} barWidth={100} value={200} />
 </svg>
 ```
 
-Vertical, slightly transparent, blue bar with perfectly rounded corners.
-Note that `borderRadius` is `0.5 * barWidth` here.
+<b>Creating a customised horizontal bar that displays its value on hover.</b>
 
 ```svelte
-<svg style="border: 1px solid black" width="500" height="500">
-  <Bar x={250} y={250} barWidth={25} value={100} color={'blue'} opacity={0.8} borderRadius={12.5} />
+<script lang="ts">
+  import { Bar } from '@dmvis/dmvis/components';
+
+  const barValue = 200;
+</script>
+
+<svg width={500} height={500}>
+  <Bar
+    x={50}
+    y={100}
+    barWidth={50}
+    value={barValue}
+    isVertical={false}
+    origin={'middleLeft'}
+    hoverText={barValue.toString()}
+    labelType="visibleOnHighlight"
+    color={'rgb(0,255,160)'}
+    borderRadius={25}
+    opacity={0.8} />
 </svg>
 ```

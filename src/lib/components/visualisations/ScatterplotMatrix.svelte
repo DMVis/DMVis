@@ -581,7 +581,6 @@
         select(brushElem).call(brush().clear);
       });
     currentGreyPoints.forEach((pointName) => {
-      console.log(pointName);
       changeFocus(pointName, false);
     });
     currentGreyPoints = [];

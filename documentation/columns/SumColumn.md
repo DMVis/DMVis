@@ -99,12 +99,34 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b>Creating a `SumColumn` with a small dataset.</b>
+
 ```svelte
 <script lang="ts">
-  const uniformScales = Array(data.columns.length - 1).fill(
-    d3.ScaleLinear().domain([0, 100]).range([0, 100])
+  import { scaleLinear } from 'd3';
+
+  import { SumColumn } from '@dmvis/dmvis/components';
+  import { setVisualisationContext, StyleUtils } from '@dmvis/dmvis/utils';
+
+  const data: number[][] = [
+    [45, 78, 23, 56, 12],
+    [34, 89, 67, 21, 9],
+    [13, 47, 50, 80, 94],
+    [66, 33, 72, 5, 88],
+    [20, 99, 11, 42, 58],
+    [100, 100, 100, 100, 100]
+  ];
+  const columnWidth = 500;
+  const scales = Array(5).fill(
+    scaleLinear()
+      .domain([0, 100])
+      .range([0, columnWidth / 5])
   );
+
+  setVisualisationContext({ styleUtil: new StyleUtils({ colorSet: 'Set1', numColors: 5 }) });
 </script>
 
-<SumColumn x={0} width={100} height={200} {data} attributeScales={uniformScales} />
+<svg width={1000} height={1000}>
+  <SumColumn x={50} width={columnWidth} height={800} {data} attributeScales={scales} />
+</svg>
 ```

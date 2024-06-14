@@ -15,7 +15,7 @@
   // Optional attributes
   export let minValue: number = 0;
   export let maxValue: number = max(data.map((data) => data.value)) ?? 0;
-  export let isVertical: boolean = false;
+  export let isVertical: boolean = true;
   export let ticks: number = 10;
   export let showLeftAxis: boolean = true;
   export let showBottomAxis: boolean = true;
@@ -26,7 +26,7 @@
   export let padding: number = 0.2;
   export let color: string = 'blue';
   export let opacity: Opacity = 1;
-  export let borderRadius: number = 5;
+  export let borderRadius: number = 0;
 
   // Private attributes
   const values = data.map((data) => data.label);

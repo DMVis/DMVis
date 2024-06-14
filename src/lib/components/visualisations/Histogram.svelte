@@ -11,7 +11,7 @@
   // Required attributes
   export let width: number;
   export let height: number;
-  export let data: Array<string | number>;
+  export let data: string[] | number[];
 
   // Optional attributes
   export let x: number = 0;
@@ -117,7 +117,7 @@ This visualisation shows frequencies of data. It can group data categorically or
 #### Required attributes
 * width: number                - The width of the visualisation.
 * height: number               - The height of the visualisation.
-* data: Array<string | number> - An array of data which should be shown in the histogram. They will be represented as bars.
+* data: string[] | number[] - An array of data which should be shown in the histogram. They will be represented as bars.
 
 #### Optional attributes
 * x: number                        - The x position of the histogram. Defaults to `0`.
@@ -139,7 +139,7 @@ This visualisation shows frequencies of data. It can group data categorically or
                                      Otherwise: show all ticks. Defaults to `true`.
 * forceCategorical: boolean        - A toggle to force numerical data into a categorical format.
                                      When `true`: forces numerical data into a categorical format.
-                                     Otherwise: keep numerical as is. Deafaults to `true`.
+                                     Otherwise: keep numerical as is. Defaults to `true`.
 * padding: number                  - The value for the distance between each bar in the range [0..1]. Defaults to `0.03`.
 * color: string                    - The color of each bar. Defaults to `blue`.
 * opacity: number | string         - The opacity of each bar as a number in the range [0..1] or

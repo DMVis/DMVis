@@ -47,6 +47,10 @@ export function updateVisualisationContext(options: ContextOptions) {
 
 // Return the store values
 export function getVisualisationContext() {
+  // If no store is defined, return a default store
+  if (getContext<VisualisationStore>('store') === undefined) {
+    setVisualisationContext({});
+  }
   const {
     xScales,
     yScales,

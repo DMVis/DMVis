@@ -157,7 +157,7 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Creates a `DynamicAxis`. Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.
+<b>Creates a `DynamicAxis`. Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.</b>
 
 ```svelte
 <script lang="ts">

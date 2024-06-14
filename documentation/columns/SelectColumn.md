@@ -88,6 +88,26 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b> Creating a basic select column with 10 checkboxes.</b>
+
 ```svelte
-<SelectColumn x={0} width={100} height={200} length={10} />
+<script lang="ts">
+  import { SelectColumn } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={1000} height={1000}>
+  <SelectColumn x={50} width={200} height={800} length={10} selected={new Set()} />
+</svg>
+```
+
+<b> Creating a basic select column with 10 checkboxes, with some checkboxes already selected.</b>
+
+```svelte
+<script lang="ts">
+  import { SelectColumn } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={1000} height={1000}>
+  <SelectColumn x={50} width={200} height={800} length={10} selected={new Set([0, 4, 6])} />
+</svg>
 ```

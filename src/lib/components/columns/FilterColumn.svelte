@@ -5,6 +5,7 @@
   // DMVis imports
   import Column from '$lib/components/base/Column.svelte';
   import { ColumnType, IconType } from '$lib/Enums.js';
+  import { select } from 'd3';
 
   // Required attributes
   export let x: number;
@@ -20,6 +21,8 @@
     type === ColumnType.Text
       ? [IconType.Sort, IconType.Search, IconType.Filter, IconType.More]
       : [IconType.Sort, IconType.Filter, IconType.More];
+
+  let filterElem: SVGGElement;
 
   // Column standards
   const paddingSide: number = padding / 2;
@@ -38,14 +41,7 @@
   };
 
   onMount(() => {
-    // Get the filter container
-    const filterContainer = document.querySelector('.filter-container');
-
-    // Get all .column-bottom elements within that container
-    const columnBottom = (filterContainer as HTMLElement)?.getElementsByClassName('column-bottom');
-
-    // Remove each found element, otherwise they will overlap and the filter container will not be clickable
-    Array.from(columnBottom).forEach((element) => element.remove());
+    select(filterElem).selectAll('column-bottom').remove();
   });
 </script>
 
@@ -73,75 +69,76 @@ FilterColumn is a component that displays a filter input for each column.
 #### Events
 * For detailed information about dispatches, check the documentation.
 -->
-
-<Column
-  {type}
-  {x}
-  {y}
-  {height}
-  {width}
-  {padding}
-  {name}
-  {icons}
-  on:sort
-  on:filter={() => {
-    showFilter = !showFilter;
-    showSearch = false;
-  }}
-  on:search={() => {
-    showSearch = !showSearch;
-    showFilter = false;
-  }}>
-  <g slot="overview">
-    <!-- Insert histogram using bar chart -->
-    {#if type === ColumnType.Bar}
-      <foreignObject x={x + paddingSide} y={y - 40} width={width / 3} height={30}>
-        <input
-          type="number"
-          placeholder="Min"
-          aria-label="MinInput"
-          style="width: 100%; padding:0; margin:0; border:1;"
-          on:change={(e) => dispatchFilterData(e, true)} />
-      </foreignObject>
-      <foreignObject x={x + paddingSide * 8 + width / 3} y={y - 40} width={width / 3} height={30}>
-        <input
-          type="number"
-          placeholder="Max"
-          aria-label="MaxInput"
-          style="width: 100%; padding:0; margin:0; border:1;"
-          on:change={(e) => dispatchFilterData(e, false)} />
-      </foreignObject>
-    {/if}
-  </g>
-  <g slot="overlay">
-    {#if showSearch || showFilter}
-      <rect
-        class="column-overlay"
-        x={x + paddingSide}
-        y={y - 40}
-        width={width - padding}
-        height={100}
-        fill="#f8f8f8"
-        fill-opacity="0"
-        role="gridcell" />
-      <foreignObject x={x + paddingSide} y={y - 40} width={width - padding - 1} height={100}>
-        <input
-          type="text"
-          placeholder={showSearch ? 'Search...' : 'Filter...'}
-          list="filter-data"
-          aria-label="TextInput"
-          style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;" />
-        {#if showFilter && type === ColumnType.Bar}
-          <datalist id="filter-data">
-            {#each ['Option 1', 'Option 2', 'Option 3'] as option}
-              <option value={option} />
-            {/each}
-          </datalist>
-        {/if}
-      </foreignObject>
-    {/if}
-  </g>
-</Column>
+<g bind:this={filterElem}>
+  <Column
+    {type}
+    {x}
+    {y}
+    {height}
+    {width}
+    {padding}
+    {name}
+    {icons}
+    on:sort
+    on:filter={() => {
+      showFilter = !showFilter;
+      showSearch = false;
+    }}
+    on:search={() => {
+      showSearch = !showSearch;
+      showFilter = false;
+    }}>
+    <g slot="overview">
+      <!-- Insert histogram using bar chart -->
+      {#if type === ColumnType.Bar}
+        <foreignObject x={x + paddingSide} y={y - 40} width={width / 3} height={30}>
+          <input
+            type="number"
+            placeholder="Min"
+            aria-label="MinInput"
+            style="width: 100%; padding:0; margin:0; border:1;"
+            on:change={(e) => dispatchFilterData(e, true)} />
+        </foreignObject>
+        <foreignObject x={x + paddingSide * 8 + width / 3} y={y - 40} width={width / 3} height={30}>
+          <input
+            type="number"
+            placeholder="Max"
+            aria-label="MaxInput"
+            style="width: 100%; padding:0; margin:0; border:1;"
+            on:change={(e) => dispatchFilterData(e, false)} />
+        </foreignObject>
+      {/if}
+    </g>
+    <g slot="overlay">
+      {#if showSearch || showFilter}
+        <rect
+          class="column-overlay"
+          x={x + paddingSide}
+          y={y - 40}
+          width={width - padding}
+          height={100}
+          fill="#f8f8f8"
+          fill-opacity="0"
+          role="gridcell" />
+        <foreignObject x={x + paddingSide} y={y - 40} width={width - padding - 1} height={100}>
+          <input
+            type="text"
+            placeholder={showSearch ? 'Search...' : 'Filter...'}
+            list="filter-data"
+            aria-label="TextInput"
+            style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;" />
+          {#if showFilter && type === ColumnType.Bar}
+            <datalist id="filter-data">
+              {#each ['Option 1', 'Option 2', 'Option 3'] as option}
+                <option value={option} />
+              {/each}
+            </datalist>
+          {/if}
+        </foreignObject>
+      {/if}
+    </g>
+  </Column>
+</g>
 
 <style>
   .column-overlay {

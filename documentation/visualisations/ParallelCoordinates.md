@@ -114,23 +114,47 @@ Determines whether the [Filter](components/Filter.md) component is displayed nex
 
 # Example usage
 
+<b>Creating a basic `ParallelCoordinates` visualisation from a csv string.</b>
+
 ```svelte
-<script>
-  const dataUrl = '/datasets/holidays-20.csv';
+<script lang="ts">
+  import { ParallelCoordinates } from '@dmvis/dmvis';
+  import { DataUtils } from '@dmvis/dmvis/utils';
+
+  const dataCsv =
+    'Name,Age,City,Food,Quantity\n John,34,New York,Fruit,15\nMichael,42,Chicago,Dairy,20\nSarah,28,Los Angeles,Vegetable,10\nEmily,31,Houston,Grains,12\nDavid,25,Miami,Meat,18\nLisa,39,Seattle,Fruit,22\nMatthew,47,Denver,Vegetable,16\nEmma,36,Boston,Dairy,25\nJames,29,San Francisco,Grains,14\nSophia,33,Austin,Meat,19\n';
   const dataUtil = new DataUtils();
 
+  // Load promise
   $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
+    await dataUtil.parseData(dataCsv);
   })();
 </script>
 
 {#await load then}
-  <ParallelCoordinates
-    marginLeft={100}
-    marginTop={40}
-    marginRight={50}
-    {dataUtil}
-    width={1750}
-    height={1500} />
+  <ParallelCoordinates {dataUtil} />
+{/await}
+```
+
+<b>Creating a custom `ParallelCoordinates` visualisation from a datapath.</b>
+
+```svelte
+<script lang="ts">
+  import { ParallelCoordinates } from '@dmvis/dmvis';
+  import { DataUtils, StyleUtils } from '@dmvis/dmvis/utils';
+
+  const dataUrl = 'FILEPATH';
+  const dataUtil = new DataUtils();
+
+  // Load promise
+  $: load = (async () => {
+    await dataUtil.parseData(dataUrl);
+  })();
+
+  const styleUtil = new StyleUtils({ color: 'lime', focusColor: 'magenta' });
+</script>
+
+{#await load then}
+  <ParallelCoordinates {dataUtil} {styleUtil} />
 {/await}
 ```

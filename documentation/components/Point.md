@@ -87,17 +87,55 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b>Creating the most basic point.</b>
+
 ```svelte
-<svg {width} {height}>
+<script lang="ts">
+  import { Point } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={500} height={500}>
+  <Point x={200} y={200} />
+</svg>
+```
+
+<b>Creating a more customised point.</b>
+
+```svelte
+<script lang="ts">
+  import { Point } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={500} height={500}>
+  <Point
+    x={200}
+    y={200}
+    radius={10}
+    borderWidth={2}
+    borderColor={'lime'}
+    color={'#FF88AA'}
+    opacity={0.5} />
+</svg>
+```
+
+<b>Creating a point cloud following a dataset.</b>
+
+```svelte
+<script lang="ts">
+  import { Point } from '@dmvis/dmvis/components';
+
+  const data: { x: number; y: number }[] = [
+    { x: 75, y: 250 },
+    { x: 130, y: 475 },
+    { x: 300, y: 125 },
+    { x: 450, y: 350 },
+    { x: 200, y: 50 }
+  ];
+</script>
+
+<svg width={500} height={500}>
   {#each data as p}
-    <Point
-      x={p.x}
-      y={p.y}
-      radius={6}
-      color="rgb(255,102,255)"
-      borderColor="purple"
-      borderWidth={4}
-      on:mousePointEnter={onMousePointEnter} />
+    <Point x={p.x} y={p.y} />
   {/each}
 </svg>
 ```

@@ -89,6 +89,14 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b> Creating a rank column with 10 entries.</b>
+
 ```svelte
-<RankColumn x={0} width={100} height={200} length={10} />
+<script lang="ts">
+  import { RankColumn } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={1000} height={1000}>
+  <RankColumn x={50} width={200} height={800} length={10} />
+</svg>
 ```

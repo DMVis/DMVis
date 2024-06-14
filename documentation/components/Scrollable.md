@@ -75,10 +75,19 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Create a scrollable Parallel Coordinates visualisation. At any time, the user will see a 700px by 500px part of the Parallel Coordinates visualisation. The user can scroll up, down, left and right to view the entire visualisation.
+<b>Creating a scrollable, large `Point`. </b>
 
 ```svelte
-<Scrollable height={500} width={700}>
-  <ParallelCoordinates marginLeft={100} marginTop={40} marginRight={50} {dataUtil} />
+<script lang="ts">
+  import { Point, Scrollable } from '@dmvis/dmvis/components';
+
+  const visualisationSize = 1000;
+  const containerSize = 500;
+</script>
+
+<Scrollable width={containerSize} height={containerSize}>
+  <svg width={visualisationSize} height={visualisationSize}>
+    <Point x={visualisationSize / 2} y={visualisationSize / 2} radius={visualisationSize / 2} />
+  </svg>
 </Scrollable>
 ```

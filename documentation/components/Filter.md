@@ -34,7 +34,7 @@ This component utilises the following components:
   </tbody>
 </table>
 
-## Required Attributes
+# Required Attributes
 
 ## dataUtil
 
@@ -42,7 +42,7 @@ This component utilises the following components:
 
 Class holding all the data. See [DataUtils](utils/DataUtils.md).
 
-## Optional Attributes
+# Optional Attributes
 
 ## width
 
@@ -65,21 +65,28 @@ Height for each column in the filter.
 
 Class holding all the styles. See [StyleUtils](utils/styleUtils.md).
 
-## Example Usage
+# Example Usage
+
+<b> Draws a `ParallelCoordinates` combined with a `Filter` component to allow for filtering.</b>
 
 ```svelte
 <script lang="ts">
-  const dataUrl = '/datasets/holidays-20.csv';
+  import { Filter } from '@dmvis/dmvis/components';
+  import { ParallelCoordinates } from '@dmvis/dmvis';
+  import { DataUtils } from '@dmvis/dmvis/utils';
+
+  const csvData =
+    'Name,Attribute1,Attribute2,Attribute3\nJohn Doe,85,90,88\nJane Smith,92,87,91\nBob Johnson,78,82,79';
   const dataUtil = new DataUtils();
 
   // Load promising
   $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
+    await dataUtil.parseData(csvData);
   })();
 </script>
 
 {#await load then}
-  <Filter {dataUtil} width={200} />
-  <ScatterplotMatrix {dataUtil} />
+  <Filter {dataUtil} />
+  <ParallelCoordinates {dataUtil} width={700} height={700} />
 {/await}
 ```

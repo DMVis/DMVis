@@ -43,21 +43,33 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Create a draggable SVG circle element that resets to its original location when the user stops dragging it.
+<b>Create a draggable SVG circle element that resets to its original location when the user stops dragging it.</b>
 
 ```svelte
 <script lang="ts">
+  import { Draggable } from '@dmvis/dmvis/components';
+
+  let offsetX = 0;
+  let offsetY = 0;
+
+  /* Everytime the axis is dragged, this function gets fired.
+    Which will update the local delta in position for the circle */
   function onDragMove(e: CustomEvent) {
     offsetX += e.detail.movementX;
+    offsetY += e.detail.movementY;
   }
 
+  /* This function fires when the dragging of the circle is stopped
+      At this point the circle is put back to its original spot. */
   function onDragStop(e: CustomEvent) {
     offsetX = 0;
+    offsetY = 0;
   }
 </script>
 
 <svg width={500} height={500}>
-  <Draggable {offsetX} on:dragMove={onDragMove} on:dragStop={onDragStop}>
+  <!-- Draw a draggable circle with an offset depending on the offset variables -->
+  <Draggable {offsetX} {offsetY} on:dragMove={onDragMove} on:dragStop={onDragStop}>
     <circle cx={100} cy={100} r={10} />
   </Draggable>
 </svg>

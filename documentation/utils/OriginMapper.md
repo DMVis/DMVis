@@ -83,22 +83,44 @@ Example of how to use the `getOriginOffsetX` and `getOriginOffsetY` functions:
 <script lang="ts">
   // Imports
   import { select } from 'd3';
+  import { onMount } from 'svelte';
 
   // DMVis imports
+  import { Point } from '@dmvis/dmvis/components';
   import { getOriginOffsetX, getOriginOffsetY } from '@dmvis/dmvis/utils';
 
+  // Constants
   const sourceOrigin = 'topLeft';
-  const destinationOrigin = 'middle';
-  const x = 500;
-  const y = 500;
-  const width = 250;
-  const height = 250;
+  const destinationOrigin = 'bottomRight';
 
-  // Update the text
-  d3.select('#text-block')
-    .attr('x', x + getOriginOffsetX(width, sourceOrigin, destinationOrigin))
-    .attr('y', y + getOriginOffsetY(height, sourceOrigin, destinationOrigin));
+  const rectWidth = 50;
+  const rectHeight = 50;
+  const rectX = 250;
+  const rectY = 250;
+
+  // Reference to the rectangle on the screen
+  let rectElem: SVGRectElement;
+
+  onMount(() => {
+    // Move the rectangle to its correct position
+    select(rectElem)
+      .attr('x', rectX + getOriginOffsetX(rectWidth, sourceOrigin, destinationOrigin))
+      .attr('y', rectY + getOriginOffsetY(rectHeight, sourceOrigin, destinationOrigin));
+  });
 </script>
+
+<svg width={1000} height={1000}>
+  <!-- Point for reference, drawn at the origin of the rectangle -->
+  <Point x={rectX} y={rectY} />
+  <!-- Rectangle to be moved by the originMapper -->
+  <rect
+    x={rectX}
+    y={rectY}
+    fill="lime"
+    width={rectWidth}
+    height={rectHeight}
+    bind:this={rectElem} />
+</svg>
 ```
 
 In the example above, the `getOrigin` function is used to calculate the new origin of the text block. The `x` and `y` variables represent the position of the element. The `width` and `height` variables represent the dimension of the element. The `sourceOrigin` represents the default origin of the element and the `destinationOrigin` variable represents the desired origin of the element. The `getOriginOffsetX` and `getOriginOffsetY` functions are used to calculate the new origin of the text block.

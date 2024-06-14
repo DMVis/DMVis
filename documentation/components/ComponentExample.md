@@ -31,9 +31,9 @@ Amount of components to be placed
 # Example usage
 
 ```svelte
-<svg width="{width}," {height}>
-  {#each barData as p}
-    <Bar x={p.x} y={p.y} barWidth={p.width} value={p.height} />
-  {/each}
-</svg>
+<script lang="ts">
+  // Write TS code here
+</script>
+
+<!-- Write HTML code here -->
 ```

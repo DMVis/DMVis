@@ -50,8 +50,42 @@ The opacity of the line, where `1` represents a fully opaque line and `0` a full
 
 # Example usage
 
+<b>Creating a basic static line.</b>
+
 ```svelte
-<svg {width} {height}>
-  <StaticLine points={data} color={'#800816'} lineWidth={2} />
+<script lang="ts">
+  import { StaticLine } from '@dmvis/dmvis/components';
+
+  const pointList = [
+    { x: 0, y: 432 },
+    { x: 125, y: 234 },
+    { x: 250, y: 285 },
+    { x: 375, y: 158 },
+    { x: 500, y: 458 }
+  ];
+</script>
+
+<svg width={500} height={500}>
+  <StaticLine points={pointList} />
+</svg>
+```
+
+<b>Creating a more customised dotted line.</b>
+
+```svelte
+<script lang="ts">
+  import { StaticLine } from '@dmvis/dmvis/components';
+
+  const pointList = [
+    { x: 0, y: 432 },
+    { x: 125, y: 234 },
+    { x: 250, y: 285 },
+    { x: 375, y: 158 },
+    { x: 500, y: 458 }
+  ];
+</script>
+
+<svg width={500} height={500}>
+  <StaticLine points={pointList} color={'#ABCDEF'} lineWidth={5} dashLength="10" opacity={0.5} />
 </svg>
 ```

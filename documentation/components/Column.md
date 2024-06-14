@@ -129,23 +129,17 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Creating columns for each of the attributes in the data:
+<b>Creating a column.</b>
+
+> Note: In itself the `Column` component does not do anything. Use one of the more specific column components for functionallity.
 
 ```svelte
 <script lang="ts">
-  const width: number = 100;
-  const height: number = 1000;
+  import { Column } from '@dmvis/dmvis/components';
+  import { ColumnType } from '@dmvis/dmvis/enums';
 </script>
 
-<svg>
-  {#each columns as column, i}
-    <Column
-      x={i * column.width}
-      {width}
-      {height}
-      type={column.type}
-      name={column.name}
-      padding={column.padding} />
-  {/each}
+<svg width={500} height={1000}>
+  <Column x={100} width={200} height={800} type={ColumnType.Bar} />
 </svg>
 ```

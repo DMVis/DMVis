@@ -502,7 +502,8 @@ categorical data with labels in a column.
           padding={columnPadding}
           names={labelColumn}
           {barOpacity}
-          barLabelVisibility={'alwaysVisible'} />
+          barLabelVisibility={'alwaysVisible'}
+          barColor={styleUtil.color} />
       {/each}
       {#if showColumnLines}
         {#each Array(columns.length) as i}

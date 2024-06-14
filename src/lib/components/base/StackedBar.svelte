@@ -18,7 +18,8 @@
   // Get store info
   const { columns, marginLeft, styleUtil } = getVisualisationContext();
   // Prepare data for rendering
-  const numericalCols = $columns.slice(1);
+  let numericalCols = $columns.slice(1);
+  if (numericalCols.length === 0) numericalCols = new Array(row.length);
   const rowData = row.slice(1) as number[];
 
   // Calculate the scaled value for each bar in the stacked bar
@@ -41,7 +42,6 @@
     currentX += attributeScales[i](rowData[i]);
     xPositions.push(currentX);
   }
-
   // Calculate the scaled total value of this row, this is displayed at the end of the stacked bar
   const total = rowData.reduce((old, current, i) => {
     if (typeof current !== 'number') return old;
@@ -68,7 +68,7 @@ on top of each other.
                              Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
                              Defaults to `1`.
 * showTotals: boolean      - Whether or not to display the sum of all bars at the end as a number, defaults to false.
--->barWidth
+-->
 <g>
   <!-- Loop over all attributes -->
   {#each xPositions as x, i}
@@ -81,7 +81,7 @@ on top of each other.
       isVertical={false}
       color={$styleUtil.colorScheme[i % $styleUtil.colorScheme.length]}
       origin={'topLeft'}
-      hoverText={`${numericalCols[i]}: ${Number(rowData[i])}`}
+      hoverText={`${numericalCols[i] ? numericalCols[i] + ':' : ''}${Number(rowData[i])}`}
       {opacity} />
   {/each}
   {#if showTotals}

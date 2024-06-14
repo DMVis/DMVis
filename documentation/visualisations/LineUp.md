@@ -107,14 +107,41 @@ Determines whether the [Filter](components/Filter.md) component is displayed nex
 
 # Example usage
 
-```svelte
-<script>
-  const dataUrl = '/datasets/holidays-20.csv';
-  const dataUtil = new DataUtils();
+<b>Creating a `LineUp` visualisation from a csv string.</b>
 
-  // Load promising
+```svelte
+<script lang="ts">
+  import { LineUp } from '@dmvis/dmvis';
+  import { DataUtils } from '@dmvis/dmvis/utils';
+
+  const dataCsv =
+    'Name,Age,City,Food,Quantity\n John,34,New York,Fruit,15\nMichael,42,Chicago,Dairy,20\nSarah,28,Los Angeles,Vegetable,10\nEmily,31,Houston,Grains,12\nDavid,25,Miami,Meat,18\nLisa,39,Seattle,Fruit,22\nMatthew,47,Denver,Vegetable,16\nEmma,36,Boston,Dairy,25\nJames,29,San Francisco,Grains,14\nSophia,33,Austin,Meat,19\n';
+  const dataUtil = new DataUtils(true);
+
+  // Load promise
   $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
+    await dataUtil.parseData(dataCsv);
+  })();
+</script>
+
+{#await load then}
+  <LineUp {dataUtil} />
+{/await}
+```
+
+<b>Creating a `LineUp` visualisation from a data url.</b>
+
+```svelte
+<script lang="ts">
+  import { LineUp } from '@dmvis/dmvis';
+  import { DataUtils } from '@dmvis/dmvis/utils';
+
+  const dataUrl = 'FILEPATH';
+  const dataUtil = new DataUtils(true);
+
+  // Load promise
+  $: load = (async () => {
+    await dataUtil.parseData(dataUrl);
   })();
 </script>
 

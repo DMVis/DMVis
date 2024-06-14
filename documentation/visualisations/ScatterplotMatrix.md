@@ -151,18 +151,49 @@ Determines whether the [Filter](components/Filter.md) component is displayed nex
 
 # Example usage
 
+<b>Creating a basic `ScatterplotMatrix` visualisation from a csv string.</b>
+
 ```svelte
-<script>
-  const dataUrl = '/datasets/holidays-20.csv';
+<script lang="ts">
+  import { ScatterplotMatrix } from '@dmvis/dmvis';
+  import { DataUtils } from '@dmvis/dmvis/utils';
+
+  const dataCsv =
+    'Name,Column1,Column2,Column3,Column4\nJohn,54,23,78,12\nSarah,87,45,91,63\nMichael,32,68,15,77\nEmily,96,42,19,55\nDavid,21,84,37,29\nLisa,73,10,56,88\nMatthew,49,27,83,14\nEmma,17,36,70,92\nJames,61,79,24,47\nSophia,38,52,66,31\n';
+
   const dataUtil = new DataUtils();
 
-  // Load promising
+  // Load promise
   $: load = (async () => {
-    await dataUtil.parseCSV(dataUrl);
+    await dataUtil.parseData(dataCsv);
   })();
 </script>
 
 {#await load then}
-  <ScatterplotMatrix {dataUtil} {height} {width} pointColor="red" pointOpacity={0.3} />
+  <ScatterplotMatrix {dataUtil} />
+{/await}
+```
+
+<b>Creating a custom `ScatterplotMatrix` visualisation from a datapath.</b>
+
+```svelte
+<script lang="ts">
+  import { ScatterplotMatrix } from '@dmvis/dmvis';
+  import { DataUtils, StyleUtils } from '@dmvis/dmvis/utils';
+
+  const dataUrl = 'FILEPATH';
+
+  const dataUtil = new DataUtils();
+
+  // Load promise
+  $: load = (async () => {
+    await dataUtil.parseData(dataUrl);
+  })();
+
+  const styleUtil = new StyleUtils({ color: 'lime', focusColor: 'magenta' });
+</script>
+
+{#await load then}
+  <ScatterplotMatrix {dataUtil} {styleUtil} />
 {/await}
 ```

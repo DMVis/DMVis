@@ -76,15 +76,27 @@ The offset of the axis that is being dragged.
 
 # Example usage
 
+<b>Creating a line for each data row in the `dataUtil`. Note that this component requires a predefined `dataUtil` to be set by the parent component. </b>
+
 ```svelte
 <script lang="ts">
-  const visualisationStore = new VisualisationStore();
-  visualisationStore.width.set(width);
-  visualisationStore.height.set(height);
-  visualisationStore.data.set(data);
+  import { setVisualisationContext, type DataUtils } from '@dmvis/dmvis/utils';
+  import { Line } from '@dmvis/dmvis/components';
+
+  export let dataUtil: DataUtils;
+
+  const size = 500;
+
+  // Set the data, columns and size which are used to calculate the scales
+  setVisualisationContext({
+    width: size,
+    height: size,
+    data: dataUtil.data,
+    columns: dataUtil.columns
+  });
 </script>
 
-<svg {width} {height}>
-  <Line hoverable={true} />
+<svg width={size} height={size}>
+  <Line />
 </svg>
 ```

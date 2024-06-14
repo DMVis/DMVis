@@ -84,12 +84,26 @@ See [OriginMapper](../utils/OriginMapper.md) for more information.
 
 # Example usage
 
+<b>Creating a tooltip with the light theme. </b>
+
 ```svelte
-<Tooltip
-  x={mouseX + offset}
-  y={mouseY + offset}
-  text={pointName}
-  theme={'dark'}
-  hasBackground={true}
-  origin={'bottomRight'} />
+<script lang="ts">
+  import { Tooltip } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={500} height={500}>
+  <Tooltip x={250} y={250} text="Hello World" />
+</svg>
+```
+
+<b>Creating a tooltip with the dark theme. </b>
+
+```svelte
+<script lang="ts">
+  import { Tooltip } from '@dmvis/dmvis/components';
+</script>
+
+<svg width={500} height={500}>
+  <Tooltip x={250} y={250} text="Hello World" theme="dark" hasBackground={true} />
+</svg>
 ```

@@ -100,6 +100,41 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
+<b> Creating a `TextColumn` with no interactivity.</b>
+
 ```svelte
-<TextColumn x={0} width={100} height={200} data={['A', 'B', 'C']} />
+<script lang="ts">
+  import { TextColumn } from '@dmvis/dmvis/components';
+
+  const strings = ['Row 1', 'Row 2', 'Row 3', 'Row 4', 'Row 5'];
+</script>
+
+<svg width={1000} height={1000}>
+  <TextColumn x={50} height={500} width={200} data={strings} icons={[]} />
+</svg>
+```
+
+<b>Creating a `TextColumn` with built in search functionallity.</b>
+
+```svelte
+<script lang="ts">
+  import { TextColumn } from '@dmvis/dmvis/components';
+
+  const inputValues = ['Apple', 'Banana', 'Pear', 'Kiwi', 'Mango'];
+
+  function onSearch(e: CustomEvent) {
+    const searchedValue = e.detail.value;
+    if (searchedValue !== '') {
+      let results: string[] = [];
+      inputValues.forEach((value) => {
+        if (value.toLowerCase().includes(searchedValue.toLowerCase())) results.push(value);
+      });
+      console.log('The results from the search are: ', results);
+    }
+  }
+</script>
+
+<svg width={1000} height={1000}>
+  <TextColumn x={50} height={500} width={200} data={inputValues} on:search={onSearch} />
+</svg>
 ```

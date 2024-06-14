@@ -136,10 +136,13 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-Using the scatterplot with a pre-defined store.
+<b>Using the scatterplot with a pre-defined store.</b>
 
 ```svelte
 <script lang="ts">
+  import { Scatterplot } from '@dmvis/dmvis';
+  import { setVisualisationContext } from '@dmvis/dmvis/utils';
+
   const width: number = 500;
   const height: number = 500;
 
@@ -175,11 +178,14 @@ Using the scatterplot with a pre-defined store.
 </svg>
 ```
 
-Or creating a scatterplot with the dataUtil
+<b>Or creating a scatterplot with the dataUtil.</b>
 
 ```svelte
 <script lang="ts">
-  const dataUrl: string = '/datasets/holidays-20.csv';
+  import { Scatterplot } from '@dmvis/dmvis';
+  import { DataUtils } from '@dmvis/dmvis/utils';
+
+  const dataUrl: string = 'FILEPATH';
   const dataUtil: DataUtils = new DataUtils();
 
   const width: number = 800;

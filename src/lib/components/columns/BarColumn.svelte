@@ -30,7 +30,8 @@
   export let overviewItem: 'histogram' | 'axis' | 'none' = 'none';
   export let scale: ScaleLinear = scaleLinear()
     .domain([0, maxFunction(data) ?? 0])
-    .range([0, width - padding]);
+    .range([0, width - padding])
+    .nice();
 
   export let names: string[] = [];
   export let barOpacity: number = 1;

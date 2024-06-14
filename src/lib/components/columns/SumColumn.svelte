@@ -48,14 +48,14 @@ SumColumn is a Column component that displays the StackedBar for the given attri
 * width: number - The width of the column.
 * height: number - The height of the column.
 * data: number[][] - Data for the sumColum.
+* attributeScales: ScaleLinear[] - An array of scales where the first entry
+                                                      is the scale for the first numerical entry in the row attribute, etc.
 
 #### Optional attributes
 * padding: number - The padding of the column.
 * name: string - The name of the column. Usually the attribute name.
 * icons: IconType[] - List of what icons to display in the top of the column,
                           defaults to `[IconType.Sort, IconType.Group, IconType.More]`
-* attributeScales: ScaleLinear[] - An array of scales where the first entry
-                                                      is the scale for the first numerical entry in the row attribute, etc.
 
 #### Events
 * For detailed information about dispatches, check the documentation.

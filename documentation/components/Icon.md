@@ -64,14 +64,23 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 
 # Example usage
 
-If you want to create a stock sorting icon you can use the following code:
+<b>Creating a pre-defined sorting icon.</b>
 
 ```svelte
-<Icon x={10} y={10} icon="sort" />
+<script lang="ts">
+  import { Icon } from '@dmvis/dmvis/components';
+  import { IconType } from '@dmvis/dmvis/enums';
+</script>
+
+<Icon x={50} y={50} icon={IconType.Sort} />
 ```
 
-If you want to create a custom icon you can use the following code:
+<b>Creating a custom icon with a specified path.</b>
 
 ```svelte
-<Icon x={10} y={10} icon="M0,0 L10,10 L0,10 Z" />
+<script lang="ts">
+  import { Icon } from '@dmvis/dmvis/components';
+</script>
+
+<Icon x={50} y={50} icon="M0,0 L10,10 L0,10 Z" />
 ```
