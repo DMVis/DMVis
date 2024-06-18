@@ -2,7 +2,7 @@
 import { setContext, getContext } from 'svelte';
 
 // DMVis imports
-import type { StyleUtils } from '$lib/utils/StyleUtils.js';
+import { StyleUtils } from '$lib/utils/StyleUtils.js';
 import { VisualisationStore } from '$lib/utils/VisualisationStore.js';
 
 interface ContextOptions {
@@ -51,6 +51,7 @@ export function getVisualisationContext() {
   if (getContext<VisualisationStore>('store') === undefined) {
     setVisualisationContext({});
   }
+  const store = getContext<VisualisationStore>('store');
   const {
     xScales,
     yScales,
@@ -64,7 +65,7 @@ export function getVisualisationContext() {
     marginBottom,
     styleUtil,
     padding
-  } = getContext<VisualisationStore>('store');
+  } = store;
   return {
     xScales,
     yScales,
