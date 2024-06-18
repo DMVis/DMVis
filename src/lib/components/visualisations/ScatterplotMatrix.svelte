@@ -103,6 +103,7 @@
   let reloadKey = false;
 
   // Drag related variables
+  let dragging: boolean = false;
   let draggingLabelOffsetX: number = 0;
   let draggingLabelOffsetY: number = 0;
   let draggedAttribute: UndefineableString = undefined;
@@ -157,7 +158,7 @@
   }
 
   // This function is called when the mouse is over a scatterplot
-  function onMouseOver(xAxis: string, yAxis: string) {
+  function onMouseOver(xAxis: string, yAxis: string, showLines: boolean = true) {
     // If both the xAxis and yAxis have not changed, then there is no need to update anything, so return
     if (currentX === xAxis && currentY === yAxis) return;
     // Update the global variables
@@ -172,7 +173,7 @@
       .selectAll(`.label-${formatClassName(yAxis)}Attr > *`)
       .classed('highlighted', true);
 
-    showMouseLines = true;
+    showMouseLines = showLines;
   }
 
   // This function is called when the mouse leaves a scatterplot
@@ -398,24 +399,37 @@
 
   // Function that fires when the mouse leaves any point
   function onMousePointLeave(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+    // Reset the cursor
+    document.body.style.cursor = 'crosshair';
+
+    // Set the hovered point to the name of the point
     let name = e.detail.name;
     hoveredPoint = '';
+
     // If there is a point clicked, do not do anything
     if (clickedPoint !== '') return;
+
     // Remove the highlight from all points
     select(scatterplotMatrixRef)
       .selectAll(`.point-${formatClassName(name)}`)
       .classed('highlighted', false);
+
     // Tooltip label is no longer visible
     tooltipData.visible = false;
   }
+
   // Function that fires when the mouse hovers over any point
   function onMousePointEnter(e: CustomEvent<{ name: string; x: number; y: number }>): void {
+    // Update the cursor
+    document.body.style.cursor = 'pointer';
+
+    // Set the hovered point to the name of the point
     enteredNewPoint = true;
     hoveredPointX = e.detail.x;
     hoveredPointY = e.detail.y;
     let name = e.detail.name;
     hoveredPoint = name;
+
     // If there is a point clicked, do not do anything
     if (clickedPoint !== '') return;
 
@@ -510,6 +524,7 @@
   // Reset local dragging variables when we stop dragging
   function onDragStop() {
     swapLabels();
+    dragging = false;
     draggedAttribute = undefined;
     draggingLabelOffsetX = 0;
     draggingLabelOffsetY = 0;
@@ -520,6 +535,7 @@
 
   // Raise the label when we start dragging
   function onDragStart(e: CustomEvent) {
+    dragging = true;
     select(scatterplotMatrixRef)
       .selectAll(`.${formatClassName(e.detail.elementName)}`)
       .raise();
@@ -649,7 +665,6 @@ It can be used to quickly find relations between attributes in a large data set.
               Also check if this scatterplot needs to be drawn if only half of the SM is drawn -->
             {#if xAxis !== yAxis && (display !== 'top' || j < i) && (display !== 'bottom' || j > i)}
               <g
-                style="cursor:crosshair"
                 transform="translate({xScale(xAxis)},{yScale(yAxis)})"
                 on:mouseover={() => {
                   onMouseOver(xAxis, yAxis);
@@ -697,6 +712,7 @@ It can be used to quickly find relations between attributes in a large data set.
               <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
             {:else if xAxis === yAxis}
               <g
+                style={dragging ? 'cursor:grabbing' : 'cursor:grab'}
                 transform="translate({xScale(xAxis)},{yScale(yAxis)})"
                 class={formatClassName(xAxis)}>
                 <Draggable
@@ -715,6 +731,12 @@ It can be used to quickly find relations between attributes in a large data set.
                     width={xScale.bandwidth()}
                     height={yScale.bandwidth()}
                     backgroundColor={'white'}
+                    on:mouseLabelEnter={() => {
+                      onMouseOver(xAxis, yAxis, false);
+                    }}
+                    on:mouseLabelLeave={() => {
+                      onMouseOut(xAxis, yAxis);
+                    }}
                     hasPointerEvents={true} />
                 </Draggable>
               </g>

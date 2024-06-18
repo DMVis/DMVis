@@ -79,6 +79,18 @@
     const row = Math.floor(y / 20);
     return row;
   }
+
+  // Drag functions
+  let dragging: boolean = false;
+  function dragStart() {
+    dragging = true;
+    dispatch('dragStart', { elementName: name });
+  }
+
+  function dragStop() {
+    dragging = false;
+    dispatch('dragStop', { elementName: name });
+  }
 </script>
 
 <!--
@@ -135,7 +147,7 @@ Each columns contains a top part with information about the column and a bottom 
       on:keydown />
     <slot name="data" />
   </g>
-  <Draggable elementName={name} on:dragStart on:dragMove on:dragStop>
+  <Draggable elementName={name} on:dragStart={dragStart} on:dragMove on:dragStop={dragStop}>
     {#key x}
       <g class="column-top">
         <rect
@@ -147,6 +159,7 @@ Each columns contains a top part with information about the column and a bottom 
           tabindex="0"
           fill-opacity="10%"
           role="cell"
+          style={dragging ? 'cursor:grabbing' : 'cursor:grab'}
           on:mouseenter={() => {
             highlighted = true;
           }}

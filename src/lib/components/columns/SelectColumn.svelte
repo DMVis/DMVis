@@ -97,7 +97,11 @@ SelectColumn is a Column component that displays checkboxes for each value in th
   on:sort>
   <g slot="overview">
     <foreignObject x={x + (width - 20) / 2} y="60" width="20px" height="20px">
-      <input id="column-select-all" type="checkbox" on:change={(e) => toggleAllRows(e)} />
+      <input
+        id="column-select-all"
+        type="checkbox"
+        style="cursor:pointer;"
+        on:change={(e) => toggleAllRows(e)} />
     </foreignObject>
   </g>
   <g slot="data">
@@ -106,6 +110,7 @@ SelectColumn is a Column component that displays checkboxes for each value in th
         <input
           class="column-select"
           type="checkbox"
+          style="cursor:pointer;"
           id={`select-${row}`}
           checked={selected.has(row)}
           on:change={(e) => dispatchCheck(e)} />

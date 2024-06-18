@@ -430,6 +430,18 @@
     dragMove = undefined;
     dragMoveX = 0;
   }
+
+  // Set the cursor to the grab cursor when dragging
+  $: {
+    const bars = tabularRef ? Array.from(tabularRef.getElementsByClassName('bar')) : [];
+    bars.forEach((bar) => {
+      if (draggedRow !== '' || dragMove !== undefined) {
+        (bar as HTMLElement).style.cursor = 'grabbing';
+      } else {
+        (bar as HTMLElement).style.cursor = 'grab';
+      }
+    });
+  }
 </script>
 
 <!--

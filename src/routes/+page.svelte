@@ -19,16 +19,18 @@
   })();
 </script>
 
-{#await load then}
-  <ValueChart width={1500} height={900} {dataUtil} isScrollable={true} />
-  <LineUp width={1920} height={1080} dataUtil={dataUtilWithId} isScrollable={true} />
-  <TabularVisualisation {dataUtil} width={1500} isScrollable={true} />
-  <ParallelCoordinates
-    marginLeft={100}
-    marginTop={40}
-    marginRight={50}
-    {dataUtil}
-    isScrollable={true} />
-  <ScatterplotMatrix {dataUtil} isScrollable={true} />
-  <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} isScrollable={true} />
-{/await}
+<div style="width: 100%; height: 100vh">
+  {#await load then}
+    <ValueChart width={1500} height={900} {dataUtil} isScrollable={true} />
+    <LineUp width={1920} height={1080} dataUtil={dataUtilWithId} isScrollable={true} />
+    <TabularVisualisation {dataUtil} width={1500} isScrollable={true} />
+    <ParallelCoordinates
+      marginLeft={100}
+      marginTop={40}
+      marginRight={50}
+      {dataUtil}
+      isScrollable={true} />
+    <ScatterplotMatrix {dataUtil} isScrollable={true} />
+    <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} isScrollable={true} />
+  {/await}
+</div>
