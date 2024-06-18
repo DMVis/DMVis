@@ -24,7 +24,8 @@ describe('Basic ValueChart rendering', async () => {
     // Arrange
     const config = {
       width: 1500,
-      height: 900
+      height: 900,
+      isScrollable: true
     };
     const expectedAmountOfColumns = 4 + 2; // 4 columns in top half + 2 in the bottom half
     const expectedTopHeight = '445'; // top half height
@@ -52,7 +53,8 @@ describe('Basic ValueChart rendering', async () => {
     // Arrange
     const config = {
       width: 500,
-      height: 1000
+      height: 1000,
+      isScrollable: true
     };
 
     const expectedAmountOfColumns = 3 + 2; // 3 columns in top half + 2 in the bottom half

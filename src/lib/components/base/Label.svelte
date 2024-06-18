@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import { select } from 'd3';
+  import { select, type Selection } from 'd3';
   import { createEventDispatcher, afterUpdate } from 'svelte';
 
   // DMVis imports
@@ -42,18 +42,20 @@
   const dispatch = createEventDispatcher();
 
   /** Function that gets called on a TextElement, which wraps the text based on the given width */
-  function wrapWords(textSelection: Selection, width: number) {
-    // @ts-expect-error A text selection does have the .text() attribute
-    let selectedWords = textSelection.text().split(/\s+/).reverse();
+  function wrapWords(
+    textSelection: Selection<SVGTextElement, unknown, null, undefined>,
+    width: number
+  ) {
+    if (!textSelection.node()) return;
+    const textContent = textSelection.text() || '';
+    let selectedWords = textContent?.split(/\s+/).reverse() || [];
     // Cant wrap if there is only 1 word
     if (selectedWords.length === 1) return;
     let selectedWord,
-      line = [],
+      line: string[] = [],
       lineNumber = 0,
       lineHeight = 1.1, // ems
-      //@ts-expect-error A text selection does have the x attribute
       selectedX = textSelection.attr('x'),
-      //@ts-expect-error A text selection does have the y attribute
       selectedY = textSelection.attr('y'),
       selectedDY = 0,
       tspan = textSelection
@@ -67,14 +69,14 @@
     while ((selectedWord = selectedWords.pop())) {
       line.push(selectedWord);
       tspan.text(line.join(' '));
-      if (tspan.node().getComputedTextLength() + 5 > width) {
+      const tspanNode = tspan.node();
+      if (tspanNode && tspanNode.getComputedTextLength() + 5 > width) {
         /* Add 5 to the length to give the label some sort of padding,
         this prevents text from going too close to the border of the label */
         line.pop();
         tspan.text(line.join(' '));
         line = [selectedWord];
         tspan = textSelection
-          //@ts-expect-error A text selection does have the .append() attribute
           .append('tspan')
           .attr('x', selectedX)
           .attr('y', selectedY)
@@ -83,11 +85,9 @@
       }
     }
     let yCorrection = (select(textBlock)?.node()?.getBBox()?.height || 0) / 4;
-    tspan = textSelection
-      // @ts-expect-error A text selection does have the .call() attribute
-      .call(function (selection) {
-        selection.selectAll('tspan').attr('y', (selectedY - yCorrection).toString());
-      });
+    tspan = textSelection.call(function (selection) {
+      selection.selectAll('tspan').attr('y', (Number(selectedY) - yCorrection).toString());
+    });
   }
 
   afterUpdate(() => {
@@ -141,7 +141,6 @@
           }
         }
       } else {
-        // @ts-expect-error Assigning a D3 text selection, but selections only have an interface
         select(textBlock).call(wrapWords, rectWidth);
       }
     }

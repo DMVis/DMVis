@@ -6,7 +6,7 @@
   import Filter from '$lib/components/base/Filter.svelte';
   import Scrollable from '$lib/components/base/Scrollable.svelte';
   import type { DataUtils } from '$lib/utils/DataUtils.js';
-  import { getVisualisationContext } from '$lib/Utils.js';
+  import { getVisualisationContext } from '$lib/utils/Context.js';
 
   // Optional attributes
   export let isScrollable: boolean = false;

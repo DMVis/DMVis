@@ -29,7 +29,7 @@ describe('Scatterplot matrix tests', () => {
 
   it('renders a Scatterplotmatrix with custom width and height', async () => {
     // Arrange
-    const config = { width: 750, height: 750 };
+    const config = { width: 750, height: 750, isScrollable: true };
     const expectedAmountOfScatterplots = 6;
 
     // Act

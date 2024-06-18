@@ -15,7 +15,7 @@ prepareSvgGetter();
 describe('Basic LineUp rendering', async () => {
   it('renders a LineUp', async () => {
     // Arrange
-    const config = {};
+    const config = { isScrollable: true };
 
     // Act
     const container = await createLineUp(config);
@@ -29,7 +29,7 @@ describe('Basic LineUp rendering', async () => {
 
   it('renders a LineUp with zero rows', async () => {
     // Arrange
-    const config = {};
+    const config = { isScrollable: true };
 
     // Act
     const container = await createLineUp(config, 'a,b,c');
@@ -43,7 +43,7 @@ describe('Basic LineUp rendering', async () => {
 
   it('renders a LineUp with no data', async () => {
     // Arrange
-    const config = {};
+    const config = { isScrollable: true };
 
     // Act
     const container = await createLineUp(config, '');
@@ -57,7 +57,7 @@ describe('Basic LineUp rendering', async () => {
 
   it('renders a LineUp with custom column width', async () => {
     // Arrange
-    const config = { columnWidth: 100 };
+    const config = { columnWidth: 100, isScrollable: true };
 
     // Act
     const container = await createLineUp(config);

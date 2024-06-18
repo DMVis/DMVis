@@ -18,7 +18,7 @@ const styleUtil = new StyleUtils({ color: '#BBBBBB' });
 describe('Basic Parallel Coordinates rendering', async () => {
   it('renders a simple Parallel Coordinates visualisation', async () => {
     // Arrange
-    const config = {};
+    const config = { isScrollable: true };
     const expectedWidth = 175 * 3; // Default column width * amount of columns
     const expectedHeight = 3 * 12 * 1.5; // Amount of rows * fontsize * 1.5
     const expectedAmountOfAxes = 3; // Amount of axes (one per column in data)
@@ -37,7 +37,7 @@ describe('Basic Parallel Coordinates rendering', async () => {
 
   it('renders a Parallel Coordinates visualisation with only one entry', async () => {
     // Arrange
-    const config = {};
+    const config = { isScrollable: true };
     const expectedWidth = 175 * 2; // Default column width * amount of columns
     const expectedHeight = 1 * 12 * 1.5; // Amount of rows * fontsize * 1.5
     const expectedAmountOfAxes = 2; // Amount of axes (one per column in data)
@@ -58,7 +58,8 @@ describe('Basic Parallel Coordinates rendering', async () => {
     // Arrange
     const config = {
       width: 500,
-      height: 500
+      height: 500,
+      isScrollable: true
     };
 
     // Act
@@ -75,7 +76,7 @@ describe('Basic Parallel Coordinates rendering', async () => {
 describe('Interactive Parallel Coordinates', async () => {
   it('highlights and raises a line when hovering over it', async () => {
     // Arrange
-    const config = {};
+    const config = { isScrollable: true };
     const parallelCoordinates = (await createParallelCoordinates(config)) as HTMLElement;
     const lines = parallelCoordinates.getElementsByClassName('line');
     const firstLineID = lines[0].getAttribute('id');
@@ -173,7 +174,8 @@ describe('Interactive Parallel Coordinates', async () => {
       width: 500,
       height: 500,
       marginLeft: 0,
-      marginRight: 0
+      marginRight: 0,
+      isScrollable: true
     };
     const parallelCoordinates = (await createParallelCoordinates(config)) as HTMLElement;
 
@@ -220,7 +222,8 @@ describe('Interactive Parallel Coordinates', async () => {
       marginLeft: 0,
       marginRight: 0,
       marginTop: 0,
-      marginBottom: 0
+      marginBottom: 0,
+      isScrollable: true
     };
     const parallelCoordinates = (await createParallelCoordinates(
       config,

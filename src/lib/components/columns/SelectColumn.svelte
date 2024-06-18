@@ -50,6 +50,7 @@
 
   onMount(() => {
     const allCheckbox = document.getElementById('column-select-all') as HTMLInputElement;
+    if (!allCheckbox) return;
     allCheckbox.checked = selected.size === length;
     allCheckbox.indeterminate = selected.size > 0 && selected.size < length;
   });

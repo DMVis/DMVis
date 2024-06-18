@@ -20,10 +20,15 @@
 </script>
 
 {#await load then}
-  <ValueChart width={1500} height={900} {dataUtil} />
-  <LineUp width={1920} height={1080} dataUtil={dataUtilWithId} />
-  <TabularVisualisation {dataUtil} width={1500} />
-  <ParallelCoordinates marginLeft={100} marginTop={40} marginRight={50} {dataUtil} />
-  <ScatterplotMatrix {dataUtil} />
-  <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} />
+  <ValueChart width={1500} height={900} {dataUtil} isScrollable={true} />
+  <LineUp width={1920} height={1080} dataUtil={dataUtilWithId} isScrollable={true} />
+  <TabularVisualisation {dataUtil} width={1500} isScrollable={true} />
+  <ParallelCoordinates
+    marginLeft={100}
+    marginTop={40}
+    marginRight={50}
+    {dataUtil}
+    isScrollable={true} />
+  <ScatterplotMatrix {dataUtil} isScrollable={true} />
+  <StackedBarChart marginLeft={100} {dataUtil} showTotals={true} isScrollable={true} />
 {/await}
