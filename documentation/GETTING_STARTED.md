@@ -1,6 +1,6 @@
 # Getting started
 
-**1.** Start a Svelte project and import DMVis as a dependency. You can follow [installation guide](INSTALLING.md).
+**1** Start a Svelte project and import DMVis as a dependency. You can follow [installation guide](INSTALLING.md).
 
 **2**. Go to `+page.svelte` in an empty Svelte project, or just any displayed page in an existing project.
 

@@ -6,6 +6,7 @@
   - [Visualizing data](DATA.md)
   - [Running DMVis locally](LOCAL.md)
   - [Contributing](CONTRIBUTING.md)
+  - [Good Practices](GOOD_PRACTICES.md)
   - [License](LICENSE.md)
 
 ---
