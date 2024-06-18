@@ -1,6 +1,6 @@
 # StaticLine component
 
-The static line component is meant to be used in charts like a line chart. It produces a line between the points with a certain colour, size and style.
+The static line component is meant to be used in charts like a line chart. It produces a line between the points that are provided with a certain colour, size and style.
 
 > Note: The points passed to the StaticLine component are true coordinates, meaning that they will be plotted at these exact coordinates.
 

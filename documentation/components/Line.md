@@ -1,13 +1,14 @@
 # Line component
 
-The line component is used for visualisations that need lines. It produces a line between the points with a certain colour, size and style. It holds the possibility to highlight these lines by hovering over them.
+The line component is used for visualisations that need lines. It generates lines dynamically from the provided dataset.
 
-> Note: This component can handle 2 or multiple points to draw a line through.
+> Note: This component only works if `VisualisationStore` has been set, since it uses the dataset present in the store.
 
 # Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Optional Attributes](#optional-attributes)
+- [Events](#events)
 - [Example usage](#example-usage)
 
 # Referenced Components
@@ -73,6 +74,16 @@ The name of the axis that is being dragged, is used in visualisations that use d
 - Default: `0`
 
 The offset of the axis that is being dragged.
+
+# Events
+
+This component emits the following events, when `hoverable` is set to true:
+
+- `mouseLineEnter`
+- `mouseLineLeave`
+- `mouseLineClick`
+
+To read more about these events, see the [Events](../utils/Events.md) documentation.
 
 # Example usage
 

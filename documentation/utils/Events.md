@@ -40,6 +40,9 @@ Here is a list of all the events that are used in DMVis.
 - [mouseLabelClick](#mouseLabelClick)
 - [mouseLabelEnter](#mouseLabelEnter)
 - [mouseLabelLeave](#mouseLabelLeave)
+- [mouseLineClick](#mouseLineClick)
+- [mouseLineEnter](#mouseLineEnter)
+- [mouseLineLeave](#mouseLineLeave)
 - [mousePointClick](#mousePointClick)
 - [mousePointEnter](#mousePointEnter)
 - [mousePointLeave](#mousePointLeave)
@@ -307,6 +310,30 @@ An event that is fired when the mouse leaves a label.
 ### Event Properties
 
 - `name`: _`string`_ - The name of the label.
+
+## mouseLineClick
+
+An event that is fired when the user clicks on a line.
+
+### Components using this event
+
+- [Line](../components/line.md)
+
+## mouseLineEnter
+
+An event that is fired when the mouse enters a label.
+
+### Components using this event
+
+- [Line](../components/line.md)
+
+## mouseLineLeave
+
+An event that is fired when the mouse leaves a label.
+
+### Components using this event
+
+- [Line](../components/line.md)
 
 ## mousePointClick
 
