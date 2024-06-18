@@ -46,7 +46,7 @@ describe('Attribute test', () => {
       y: 523,
       radius: 8,
       borderWidth: 2,
-      opacity: 0.5,
+      opacity: '50%',
       name: 'test'
     };
     const expectedClasses = `point point-${config.name}`;

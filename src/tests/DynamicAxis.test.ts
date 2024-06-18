@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 
 // DMVis imports
 import DynamicAxis from '$lib/components/base/DynamicAxis.svelte';
-import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+import { spacerEqual, spacerSide } from '$lib/utils/Spacer.js';
 
 // Mock imports
 import prepareSvgGetter from '../vitest/svgMock.js';
@@ -20,7 +20,7 @@ describe('Rendering vertical axes with horizontal spacing test', () => {
       spacingDirection: 'horizontal'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -70,7 +70,7 @@ describe('Rendering vertical axes with horizontal spacing test', () => {
       alignment: 'start'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -120,7 +120,7 @@ describe('Rendering vertical axes with horizontal spacing test', () => {
       alignment: 'end'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'end');
+    const spacer = spacerSide(1000, 0, 0, columns, 'end');
 
     // Act
     const axisGroup = createAxis(config);
@@ -170,7 +170,7 @@ describe('Rendering vertical axes with horizontal spacing test', () => {
       alignment: 'spaced'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerEqual(1000, 0, 0, columns);
+    const spacer = spacerEqual(1000, 0, 0, columns);
 
     // Act
     const axisGroup = createAxis(config);
@@ -221,7 +221,7 @@ describe('Rendering horizontal axes with horizontal spacing test', () => {
       spacingDirection: 'horizontal'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -271,7 +271,7 @@ describe('Rendering horizontal axes with horizontal spacing test', () => {
       alignment: 'start'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -321,7 +321,7 @@ describe('Rendering horizontal axes with horizontal spacing test', () => {
       alignment: 'end'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'end');
+    const spacer = spacerSide(1000, 0, 0, columns, 'end');
 
     // Act
     const axisGroup = createAxis(config);
@@ -371,7 +371,7 @@ describe('Rendering horizontal axes with horizontal spacing test', () => {
       alignment: 'spaced'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerEqual(1000, 0, 0, columns);
+    const spacer = spacerEqual(1000, 0, 0, columns);
 
     // Act
     const axisGroup = createAxis(config);
@@ -422,7 +422,7 @@ describe('Rendering vertical axes with vertical spacing test', () => {
       spacingDirection: 'vertical'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -472,7 +472,7 @@ describe('Rendering vertical axes with vertical spacing test', () => {
       alignment: 'start'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -522,7 +522,7 @@ describe('Rendering vertical axes with vertical spacing test', () => {
       alignment: 'end'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'end');
+    const spacer = spacerSide(1000, 0, 0, columns, 'end');
 
     // Act
     const axisGroup = createAxis(config);
@@ -572,7 +572,7 @@ describe('Rendering vertical axes with vertical spacing test', () => {
       alignment: 'spaced'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerEqual(1000, 0, 0, columns);
+    const spacer = spacerEqual(1000, 0, 0, columns);
 
     // Act
     const axisGroup = createAxis(config);
@@ -623,7 +623,7 @@ describe('Rendering horizontal axes with vertical spacing test', () => {
       spacingDirection: 'vertical'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -673,7 +673,7 @@ describe('Rendering horizontal axes with vertical spacing test', () => {
       alignment: 'start'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'start');
+    const spacer = spacerSide(1000, 0, 0, columns, 'start');
 
     // Act
     const axisGroup = createAxis(config);
@@ -723,7 +723,7 @@ describe('Rendering horizontal axes with vertical spacing test', () => {
       alignment: 'end'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerSide(1000, 0, 0, columns, 'end');
+    const spacer = spacerSide(1000, 0, 0, columns, 'end');
 
     // Act
     const axisGroup = createAxis(config);
@@ -773,7 +773,7 @@ describe('Rendering horizontal axes with vertical spacing test', () => {
       alignment: 'spaced'
     };
     const columns = ['Country', 'Inhabitants', 'gdp'];
-    const spacer = SpacerEqual(1000, 0, 0, columns);
+    const spacer = spacerEqual(1000, 0, 0, columns);
 
     // Act
     const axisGroup = createAxis(config);

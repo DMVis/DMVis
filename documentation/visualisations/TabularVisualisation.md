@@ -3,16 +3,16 @@
 This is a visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
 
-> Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop`.
+> Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop` for `TabularVisualisation` to be properly displayed.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -43,96 +43,104 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
 ### dataUtil
 
 - Type: `DataUtils`
 
-The `DataUtils` class which, contains all the data to be displayed. See [DataUtils](utils/DataUtils.md).
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-# Optional Attributes
+## Optional Attributes
 
-## width
+### styleUtil
+
+- Type: `StyleUtils`
+- Default: `new StyleUtils()`
+
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/StyleUtils.md) for more information.
+
+### width
 
 - Type: `number`
 - Default: `numberOfColumns * 200`
 
-Width of the visualisation.
+The width of the visualisation in pixels.
 
-## height
+### height
 
 - Type: `number`
 - Default: `numberOfRows * 20 + header`
 
-Height of the visualisation.
+The height of the visualisation in pixels.
 
-## marginLeft
-
-- Type: `number`
-- Default: `30`
-
-Margin to the left of the visualisation.
-
-## marginRight
+### marginLeft
 
 - Type: `number`
 - Default: `30`
 
-Margin to the right of the visualisation.
+The margin to the left of the visualisation in pixels.
 
-## marginTop
+### marginRight
+
+- Type: `number`
+- Default: `30`
+
+The margin to the right of the visualisation in pixels.
+
+### marginTop
 
 - Type: `number`
 - Default: `50`
 
-Margin to the top of the visualisation.
+The margin to the top of the visualisation in pixels.
 
-## marginBottom
+### marginBottom
 
 - Type: `number`
 - Default: `30`
 
-Margin to the bottom of the visualisation.
+The margin to the bottom of the visualisation in pixels.
 
-## showColumnLines
+### showColumnLines
 
 - Type: `boolean`
 - Default: `false`
 
-Whether to show lines at the start and end of each column. This defaults to false.
+Whether to show lines at the start and end of each column. Defaults to false.
 
-## columnPadding
+### columnPadding
 
 - Type: `number`
 - Default: `10`
 
-Value for the distance between each column.
+The distance between each column in pixels.
 
-## barOpacity
+### barOpacity
 
 - Type: number
 - Default: `0.6`
 
-The opacity of each bar as a number in the range [0..1].
+The opacity of each bar.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-> Note: A value lower than 1 is recommended for visible bar highlighting.
+> Note: A value lower than `1` is recommended for visible bar highlighting.
 
-## isScrollable
-
-- Type: `boolean`
-- Default: `false`
-
-Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
-
-## showFilter
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-# Example usage
+### showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Example Usage
 
 <b>Creating a basic `TabularVisualisation` from a csv string.</b>
 

@@ -87,18 +87,23 @@
 Columns are required for visualisations such as Tabular Visualisation and LineUp.
 Each columns contains a top part with information about the column and a bottom part with the actual data.
 
-#### Required attributes
-* x: number              - Scaled x-coordinate of the column, which is the starting point of the column
-* width: number          - Width of the column
-* height: number         - Height of the column
-* type: ColumnType       - Type of the column. See the ColumnType enum for more information.
+#### Required Attributes
+* x: number              - The scaled x-coordinate of the column.
+* width: number          - The width of the column.
+* height: number         - The height of the column.
+* type: ColumnType       - The type of the column.
+                           Influences the rendering of the column. See the `ColumnType` enum for more information.
 
-#### Optional attributes
-* y: number              - Scaled y-coordinate of the column. The default is `100`.
-* name: string           - Name of the column. Set this to the name of the attribute. The default is 'Column'.
-* padding: number        - Padding of the column. The default is 10.
-* icons: IconType[]      - List of what icons to display in the top of the column.
-* showSeparator: boolean - Whether to show the separator line at the bottom of the column header. The default is `true`.
+#### Optional Attributes
+* y: number              - The scaled y-coordinate of the column. Defaults to `100`.
+* name: string           - The name of the column. Set this to the name of the attribute.
+                           Defaults to `'Column'`.
+* padding: number        - The padding around the column in pixels.
+                           Defaults to `10`.
+* icons: IconType[]      - A list of what icons to display in the top of the column.
+                           Defaults to `[]`.
+* showSeparator: boolean - Whether to show the separator line at the bottom of the column header.
+                           Defaults to `true`.
 
 #### Slots
 * data                   - Slot for the data of the column.
@@ -106,7 +111,7 @@ Each columns contains a top part with information about the column and a bottom 
 * overlay                - Slot for the menu overlay at the top of the column. Only required if an overview is specified.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
 <g class="column" id={`${formatClassName(name)}-column`} role="tablist" tabindex={-1}>

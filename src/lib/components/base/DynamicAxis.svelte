@@ -23,7 +23,7 @@
   import Axis from '$lib/components/base/Axis.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { getVisualisationContext } from '$lib/utils/Context.js';
-  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import { spacerEqual, spacerSide } from '$lib/utils/Spacer.js';
 
   // Get store information
   const {
@@ -89,7 +89,7 @@
       // For alignment 'start' and 'end', the spacer is the same
       case 'start':
       case 'end':
-        spacerHorizontal = SpacerSide(
+        spacerHorizontal = spacerSide(
           $width,
           $marginLeft,
           $marginRight,
@@ -98,7 +98,7 @@
           padding
         );
         spacerStepSizeHorizontal = spacerHorizontal.bandwidth();
-        spacerVertical = SpacerSide(
+        spacerVertical = spacerSide(
           $height,
           $marginTop,
           $marginBottom,
@@ -109,8 +109,8 @@
         spacerStepSizeVertical = spacerVertical.bandwidth();
         break;
       case 'spaced': {
-        spacerHorizontal = SpacerEqual($width, $marginLeft, $marginRight, drawingOrder, padding);
-        spacerVertical = SpacerEqual($height, $marginTop, $marginBottom, drawingOrder, padding);
+        spacerHorizontal = spacerEqual($width, $marginLeft, $marginRight, drawingOrder, padding);
+        spacerVertical = spacerEqual($height, $marginTop, $marginBottom, drawingOrder, padding);
         spacerStepSizeHorizontal = spacerHorizontal.step();
         spacerStepSizeVertical = spacerVertical.step();
 
@@ -456,33 +456,48 @@
 
 <!--
 @component
-### Dynamic Axis
-The Dynamic Axis component renders the axes based on the data.
-It displays tick marks and labels based on provided data.
-You can use this component to render the axis on the top, bottom, left, or right side of the visualisation.
+### DynamicAxis
+The DynamicAxis component is a component used for rendering any number of axes, depending on the given dataset.
+By default, it will generate an axis per column in the dataset. This means that for a column with numerical data,
+a numerical axis is generated, and for a column with text data, a text axis is generated.
+DynamicAxis can generate axes in different orientations. Axes themselves can be both vertical and horizontal, and
+the axes can also be placed vertically or horizontally with respect to each other.
 
-#### Optional attributes
-* axisOrder: string[]                             - The order in which the axes should be drawn. The array should contain strings
-                                                    identical to column names in the dataset. This defaults to `[]`, which draws axes
-                                                    in the order that they appear in the dataset.
-* squashOuterTicks: boolean                       - Whether or not to tuck in the first and last tick. This defaults to `false`.
-* alignment: Alignment                            - Alignment of the axes (i.e. the side of the column where the axis is placed).
-                                                    Defaults to `'start'`.
-* fontSize: number                                - Font size of the tick labels. This defaults to `12`.
-* color: string                                   - Color of the axis line. This defaults to `'black'`.
-* renderLabel: boolean                            - Renders a label next to the axis. This defaults to `false`.
-* labelPosition: Position                         - Position of the label relative to the axis. This defaults to `'top'`.
-* labelOffset: number                             - Distance from the label to the axis. This defaults to `'20'`.
-* hasTicks: boolean                               - Whether to display tick marks. This defaults to `true`.
-* offset: number                                  - The offset of the axis from the side of the visualisation. This defaults to `0`.
-* ticksNumber: number                             - The number of ticks you want displayed on the axes. This defaults to `10`.
-* position: 'bottom' | 'top' | 'left' | 'right'   - The position of the axis. This defaults to `'bottom'`.
-* spacingDirection: Direction                     - The direction to space the axes. This defaults to `'horizontal'`.
-* padding: number                                 - The amount of padding between axes, important for either vertically spaced
-                                                    vertical axes or horizontally spaced horizontal axes. This defaults to `0`.
+#### Optional Attributes
+* axisOrder: string[]                           - The order in which the axes should be drawn. The array should contain strings
+                                                  identical to column names in the dataset.
+                                                  Defaults to `[]`, which draws axes in the order that they appear in the dataset.
+* squashOuterTicks: boolean                     - Whether or not to tuck in the first and last tick.
+                                                  Defaults to `false`.
+* alignment: Alignment                          - Alignment of the axes (i.e. the side of the column where the axis is placed).
+                                                  Defaults to `'start'`.
+* fontSize: number                              - Font size of the tick labels.
+                                                  Defaults to `12`.
+* color: string                                 - The colour of the axis line.
+                                                  Valid inputs include CSS colours specified as a string.
+                                                  Defaults to `'black'`.
+* renderLabel: boolean                          - Renders a label next to the axis.
+                                                  Defaults to `false`.
+* labelPosition: Position                       - Position of the label relative to the axis.
+                                                  Defaults to `'top'`.
+* labelOffset: number                           - Distance from the label to the axis.
+                                                  Defaults to `'20'`.
+* hasTicks: boolean                             - Whether to display tick marks.
+                                                  Defaults to `true`.
+* offset: number                                - The offset of the axis from the side of the visualisation.
+                                                  Defaults to `0`.
+* ticksNumber: number                           - The number of ticks you want displayed on the axes.
+                                                  Defaults to `10`.
+* position: 'bottom' | 'top' | 'left' | 'right' - The position of the axis.
+                                                  Defaults to `'bottom'`.
+* spacingDirection: Direction                   - The direction to space the axes.
+                                                  Defaults to `'horizontal'`.
+* padding: number                               - The amount of padding between axes, important for either vertically spaced
+                                                  vertical axes or horizontally spaced horizontal axes.
+                                                  Defaults to `0`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
 <!-- Loop over all the axis and draw them at their corresponding position -->

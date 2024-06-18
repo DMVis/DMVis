@@ -32,23 +32,25 @@
 <!--
 @component
 ### RankColumn
-RankColumn is a Column component that displays the rank of each value in the data array.
+`RankColumn` is a `Column` component that displays the rank of each value in the data array.
 
-#### Required attributes
-* x - X-coordinate of the column.
-* width - The width of the column.
-* height - The height of the column.
-* length - The number of ranks to display.
+#### Required Attributes
+* x: number         - The x-coordinate of the column.
+* width: number     - The width of the column in pixels.
+* height: number    - The height of the column in pixels.
+* length: number    - The number of ranks to display.
 
-#### Optional attributes
-* padding - The padding of the column.
-* icons: IconType[] - List of what icons to display in the top of the column,
-                        defaults to `[IconType.More]`
+#### Optional Attributes
+* padding: number   - The padding around the column in pixels.
+                      Defaults to `10`.
+* icons: IconType[] - A list of what icons to display in the top of the column.
+                      Defaults to `[IconType.More]`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The rank column -->
 <Column
   {type}
   {x}

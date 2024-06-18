@@ -50,25 +50,30 @@
 ### FilterColumn
 FilterColumn is a component that displays a filter input for each column.
 
-#### Required attributes
-* x       - X-coordinate of the column.
-* y       - Y-coordinate of the column.
-* width   - The width of the column.
-* height  - The height of the column.
+#### Required Attributes
+* x       - The x-coordinate of the column.
+* y       - The y-coordinate of the column.
+* width   - The width of the column in pixels.
+* height  - The height of the column in pixels.
 * data    - The data to display as text.
 
-#### Optional attributes
-* name    - The name of the column. Usually the attribute name.
-* padding - The padding of the column.
-* type    - The type of the column that is being filtered. Defaults to `ColumnType.Text`.
-* icons: IconType[]   - List of what icons to display in the top of the column. Defaults
-                        to `[IconType.Sort,IconType.Search,IconType.Filter,IconType.More]`
-                        if type is `ColumnType.Text`, else it defaults to
-                        `[IconType.Sort,IconType.Filter,IconType.More]`.
+#### Optional Attributes
+* name    - The name of the column to display at its top. Set this to the attribute name.
+            Defaults to `'Column'`.
+* padding - The padding around the column in pixels.
+            Defaults to `10`.
+* type    - The type of the column that is being filtered.
+            Defaults to `ColumnType.Text`.
+* icons: IconType[] - A list of what icons to display in the top of the column. Defaults
+                      to `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`
+                      if the type is `ColumnType.Text`, else it defaults to
+                      `[IconType.Sort, IconType.Filter, IconType.More]`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
+
+<!-- The filter column -->
 <g bind:this={filterElem}>
   <Column
     {type}

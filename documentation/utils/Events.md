@@ -1,4 +1,4 @@
-# Events
+## Events
 
 Events are a way to communicate between different parts of the code. They are used to notify that something has happened. For example, when a user clicks a button, an event is triggered to notify the rest of the code that the button has been clicked. The way that these events work is based on the Svelte framework. For a more detailed explanation, click [here](https://learn.svelte.dev/tutorial/component-events).
 

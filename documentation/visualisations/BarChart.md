@@ -6,14 +6,14 @@ The axes have different meanings depending on `isVertical`.
 One axis has categorical data, which represents a data entry, whereas
 the other axis goes in the direction of the length of the bars and has numerical values.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -36,128 +36,129 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## width
-
-- Type: `number`
-
-Width of the visualisation.
-
-## height
+### width
 
 - Type: `number`
 
-Height of the visualisation.
+The width of the visualisation in pixels.
 
-## data
+### height
+
+- Type: `number`
+
+The height of the visualisation in pixels.
+
+### data
 
 - Type: `{ label: string; value: number }[]`
 
-List of bars.
+A list of data to display as bars.
 
-# Optional Attributes
+## Optional Attributes
 
-## minValue
+### minValue
 
 - Type: `number`
 - Default: `0`
 
-Minimum value of the numerical length of each bar.
+The minimum value of the numerical length of each bar.
 
-## maxValue
+### maxValue
 
 - Type: `number`
-- Default: `Highest value in the dataset`
+- Default: `The highest value in the dataset`
 
-Maximum value of the numerical length of each bar.
+The maximum value of the numerical length of each bar.
 
-## isVertical
+### isVertical
 
 - Type: `boolean`
 - Default: `true`
 
-Orients `BarChart` vertically as opposed to horizontally if `true`.
+Whether to orient `BarChart` vertically or horizontally.
 
-## ticks
+### ticks
 
 - Type: `number`
 - Default: `10`
 
-Number of ticks on the value axis.
+The number of ticks on the value axis.
 
-## showLeftAxis
-
-- Type: `boolean`
-- Default: `true`
-
-Toggle left axis.
-
-## showBottomAxis
+### showLeftAxis
 
 - Type: `boolean`
 - Default: `true`
 
-Toggle bottom axis.
+Whether the left axis is visible.
 
-## marginLeft
+### showBottomAxis
 
-- Type: `number`
-- Default: `40`
+- Type: `boolean`
+- Default: `true`
 
-Margin to the left of the visualisation.
+Whether the bottom axis is visible.
 
-## marginRight
-
-- Type: `number`
-- Default: `40`
-
-Margin to the right of the visualisation.
-
-## marginTop
+### marginLeft
 
 - Type: `number`
 - Default: `40`
 
-Margin to the top of the visualisation.
+The margin to the left of the visualisation in pixels.
 
-## marginBottom
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
-Margin to the bottom of the visualisation.
+The margin to the right of the visualisation in pixels.
 
-## padding
+### marginTop
+
+- Type: `number`
+- Default: `40`
+
+The margin to the top of the visualisation in pixels.
+
+### marginBottom
+
+- Type: `number`
+- Default: `40`
+
+The margin to the bottom of the visualisation in pixels.
+
+### padding
 
 - Type: `number`
 - Default: `0.2`
 
-Value for the distance between each bar in the range [0..1].
+The distance between each bar.
+It can be a number between `0` and `1` (inclusive).
 
-## color
+### color
 
 - Type: `string`
 - Default: `'blue'`
 
-Colour of each bar.
+The colour of each bar.
 
-## opacity
+### opacity
 
 - Type: `number | string`
 - Default: `1`
 
-The opacity of each bar as a number in the range [0..1] or
-a percentage string formatted as '{number}%'.
+The opacity of each bar.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## borderRadius
+### borderRadius
 
 - Type: `number`
 - Default: `0`
 
-Border radius of each bar in pixels.
+The border radius of each bar in pixels.
 
-# Example usage
+## Example Usage
 
 <b> Creating a basic `BarChart`.</b>
 

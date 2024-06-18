@@ -54,18 +54,24 @@ Out of the box, it supports the following icons:
 * filter
 * more
 
-#### Required attributes
-* x: number - x-coordinate of the icon
-* y: number - y-coordinate of the icon
-* icon: IconType | string - Type of icon to display. It can be either one of the supported icons (specified as `IconType`) or a custom SVG path (as a string)
+#### Required Attributes
+* x: number               - The x-coordinate of the icon
+* y: number               - The y-coordinate of the icon
+* icon: IconType | string - The type of icon to display.
+                            It can be either one of the supported icons (specified as `IconType`)
+                            or an SVG path with your own icon (specified as string).
+                            The icon is 25px by 25px, so you may need to adjust the path to fit within these dimensions.
 
-#### Optional attributes
-* color: string - The color of the icon, defaults to #000000
+#### Optional Attributes
+* color: string           - The colour of the icon.
+                            Valid inputs include CSS colours specified as a string.
+                            Defaults to `'#000000'`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The icon -->
 <svg
   {x}
   {y}

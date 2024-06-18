@@ -154,24 +154,33 @@
 
 <!--
 @component
-### Parallel Coordinates
+### ParallelCoordinates
 This is a visualisation that is capable of visualising multi-dimensional data.
 It creates an axis for each column in the supplied table with data
 and draws a line through each axis for each row in the table.
 
-#### Required attributes
-* dataUtil: DataUtils    - Class holding all the data, see documentation.
+#### Required Attributes
+* dataUtil: DataUtils   - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
-#### Optional attributes
-* styleUtil: StyleUtils  - Class holding all the styling. See its documentation.
-* width: number;         - Width of the visualisation. This defaults to `numberOfColumns * 175`.
-* height: number;        - Height of the visualisation. This defaults to `numberOfRows * 15`.
-* marginLeft: number     - Margin to the left of the visualisation. This defaults to `40`.
-* marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
-* marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
-* marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
-* isScrollable: boolean  - Whether the visualisation should be scrollable. The default value is `false`.
-* showFilter: boolean    - Whether the filter should be shown next to the visualisation. The default value is `false`.
+#### Optional Attribute
+* styleUtil: StyleUtils - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
+                          Defaults to `new StyleUtils({ color: '#BBBBBB' })`.
+* width: number;        - The width of the visualisation in pixels.
+                          Defaults to `numberOfColumns * 175`.
+* height: number;       - The height of the visualisation in pixels.
+                          Defaults to `numberOfRows * 15`.
+* marginLeft: number    - The margin to the left of the visualisation in pixels.
+                          Defaults to `40`.
+* marginRight: number   - The margin to the right of the visualisation in pixels.
+                          Defaults to `40`.
+* marginTop: number     - The margin to the top of the visualisation in pixels.
+                          Defaults to `40`.
+* marginBottom: number  - The margin to the bottom of the visualisation in pixels.
+                          Defaults to `40`.
+* isScrollable: boolean - Whether the visualisation is scrollable in its parent container.
+                          Defaults to `false`.
+* showFilter: boolean   - Whether the filter is displayed next to the visualisation.
+                          Defaults to `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg

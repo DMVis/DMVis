@@ -2,14 +2,14 @@
 
 FilterColumn is a component that displays a filter input for each column.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -34,25 +34,25 @@ This component utilises the following components:
 
 - Type: `number`
 
-X-coordinate of the column.
+The x-coordinate of the column.
 
 ### y
 
 - Type: `number`
 
-Y-coordinate of the column
+The y-coordinate of the column
 
 ### width
 
 - Type: `number`
 
-Width of the column.
+The width of the column in pixels.
 
 ### height
 
 - Type: `number`
 
-Height of the column.
+The height of the column in pixels.
 
 ## Optional Attributes
 
@@ -61,14 +61,14 @@ Height of the column.
 - Type: `string`
 - Default: `'Column'`
 
-Name of the column to display at the top. Set this to the attribute name.
+The name of the column to display at its top. Set this to the attribute name.
 
 ### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding around the column.
+The padding around the column in pixels.
 
 ### type
 
@@ -82,12 +82,22 @@ The type of the column that is being filtered.
 - Type: `IconType[]`
 - Default: Depending on `type`.
 
-List of what icons to display in the top of the column.
+A list of what icons to display in the top of the column.
 
 Defaults to `[IconType.Sort,IconType.Search,IconType.Filter,IconType.More]` if type is `ColumnType.Text`, otherwise it defaults to `[IconType.Sort,IconType.Filter,IconType.More]`.
 See [Icon](../components/Icon.md) for more information.
 
-## Example usage
+## Events
+
+This component emits the following events:
+
+- `filter`
+- `search`
+- `sort`
+
+See the [Events](../utils/Events.md) documentation to read more about these events.
+
+## Example Usage
 
 <b>Creating a working `FilterColumn` next to a `BarColumn`.</b>
 

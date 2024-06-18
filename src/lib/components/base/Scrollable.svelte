@@ -25,26 +25,29 @@
 This component allows for making any visualisation smaller, by making it scrollable.
 
 #### Required Attributes
-* width: number                     - Width of the visualisation that is shown at any moment.
-* height: number                    - Height of the visualisation that is shown at any moment.
+* width: number                     - Width of the visualisation that is shown at any moment in pixels.
+* height: number                    - Height of the visualisation that is shown at any moment in pixels.
 
 #### Optional Attributes
-  * x: number                         - Optional horizontal offset for the `div`. Defaulted to `0`.
-  * y: number                         - Optional vertical offset for the `div`. Defaulted to `0`.
-  * className: string                 - Optional string that will be added to the class of the `div` (which
+  * x: number                         - The horizontal offset for the `div`.
+                                        Defaults to `0`.
+  * y: number                         - The vertical offset for the `div`.
+                                        Defaults to `0`.
+  * className: string                 - A string value that is added to the class of the `div` (which
                                         will be `'scrollable-div-{className}'`) and to the class of the `svg`
                                         (which will be `'scrollable-svg-{className}'`). This could be used if
                                         the user needs to be able to get a reference to the specific `Scrollable`
-                                        instance. Defaulted to `''` (empty string).
+                                        instance.
+                                        Defaults to `''`.
   * allowHorizontalScrolling: boolean - If this is set to `false`, no horizontal scrolling will be allowed,
-                                        even if the contained component is bigger than the `div`. Defaulted
-                                        to `true`.
+                                        even if the contained component is bigger than the `div`.
+                                        Defaults to `true`.
   * allowVerticalScrolling: boolean   - If this is set to `false`, no vertical scrolling will be allowed,
-                                        even if the contained component is bigger than the `div`. Defaulted
-                                        to `true`.
+                                        even if the contained component is bigger than the `div`.
+                                        Defaults to `true`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
 <svg {x} {y} class="scrollable-svg-{className}" {width} {height}>

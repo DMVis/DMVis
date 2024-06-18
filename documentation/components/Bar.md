@@ -1,23 +1,23 @@
-# Bar component
+# Bar
 
-A bar that can be used for bar visualisations.
-Coordinates are relative to the parent SVG element.
+A bar that can be used for visualisations.
 Only positive `width` values are visible.
-Negative `height` values can be visible
-depending on `showsNegativeHeight`.
+Negative `length` values can be visible
+depending on whether `showsNegativeLength` is toggled.
 
-> Note: By default, `Bar` is vertical (i.e. `isVertical` is `true`)
-> and its origin is at its bottom middle (see the `origin` attribute).
+> Note: By default, `Bar` is vertical (i.e. `isVertical` is `true`),
+> its origin is at its bottom middle (see the `origin` attribute), and
+> its coordinates are relative to its parent the SVG element.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -36,97 +36,98 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the bar.
-
-## y
+### x
 
 - Type: `number`
 
-Y-coordinate of the bar.
+The x-coordinate of the bar.
 
-## barWidth
-
-- Type: `number`
-
-Width of the bar.
-
-## value
+### y
 
 - Type: `number`
 
-The value of the bar, and therefore the length of the bar.
+The y-coordinate of the bar.
 
-# Optional Attributes
+### width
 
-## isVertical
+- Type: `number`
+
+The width of the bar in pixels.
+
+### length
+
+- Type: `number`
+
+The length of the bar to represent its value in pixels.
+
+## Optional Attributes
+
+### isVertical
 
 - Type: `boolean`
 - Default: `true`
 
 Whether the bar is vertical bar or horizontal.
 
-## color
+### color
 
 - Type: `string`
 - Default: `'red'`
 
-Colour of the bar.
+The colour of the bar. Valid inputs include CSS colours specified as a string.
 
-## opacity
+### opacity
 
 - Type: `Opacity`
 - Default: `1`
 
-The opacity of the bar as a number in the range [0..1] or
-a percentage string formatted as '{number}%'.
+The opacity of the bar.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## origin
+### origin
 
-- Type: `OriginX`
-- Default: `OriginX.Middle`
+- Type: `Origin`
+- Default: `'bottomMiddle'`
 - Options: `'topLeft'`, `'topMiddle'`, `'topRight'`, `'middleLeft'`, `'middle'`, `'middleRight'`, `'bottomLeft'`, `'bottomMiddle'`, `'bottomRight'`
 
-Horizontal origin of the bar.
+The origin of the bar.
 Which value is useful depends on your positioning logic.
 See [OriginMapper](../utils/OriginMapper.md) for more information.
 
-## rotationDegrees
+### rotationDegrees
 
 - Type: `number`
 - Default: `0`
 
-Rotation of the bar in degrees.
+The rotation of the bar in degrees.
 
-## borderRadius
+### borderRadius
 
 - Type: `number`
 - Default: `0`
 
-Border radius of the bar in pixels.
+The border radius of the bar in pixels.
+Use this to have rounded corners.
 
-## showsNegativeHeight
+### showsNegativeLength
 
 - Type: `boolean`
 - Default: `false`
 
-Whether the bar flips its orientation when `height` is negative.
+Whether the bar flips its orientation when `length` is negative.
 
-## hoverText
+### hoverText
 
 - Type: `string`
 - Default: `height`
 
-Text to display in the label when the mouse hovers over the bar. This will default to the specified `height` attribute.
+The text to display in the label when the mouse hovers over the bar.
 
-> Note: in order for this text to be visible, you need to set the `labelType` attribute to either `'alwaysVisible'` or `'visibleOnHighlight'`.
+> Note: In order for this text to be visible, you need to set the `labelType` attribute to either `'alwaysVisible'` or `'visibleOnHighlight'`.
 
-## labelType
+### labelType
 
 - Type: `Visibility`
 - Default: `'none'`
@@ -137,17 +138,17 @@ Setting this to `'none'`, means no label will be drawn.<br>
 Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
 Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label receives the class `'highlighted'`, the numbers will become visible.
 
-## name
+### name
 
--
 - Type: `UndefineableString`
 - Default: `'bar'`
 
-Class name of the bar. It can be used as an identifier.
-Defaults to only `'bar'`.
+The class name of the bar.
+It can be used as an identifier.
 If set, the class names will be `'bar'` and `'bar-name'`.
+Defaults to `'bar'`.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -155,9 +156,9 @@ This component emits the following events:
 - `mouseBarEnter`
 - `mouseBarLeave`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creating a basic bar.</b>
 
@@ -167,7 +168,7 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
 </script>
 
 <svg width={500} height={500}>
-  <Bar x={250} y={450} barWidth={100} value={200} />
+  <Bar x={250} y={450} width={100} length={200} />
 </svg>
 ```
 
@@ -184,8 +185,8 @@ To read more about these events, see the [Events](../utils/Events.md) documentat
   <Bar
     x={50}
     y={100}
-    barWidth={50}
-    value={barValue}
+    width={50}
+    length={barValue}
     isVertical={false}
     origin={'middleLeft'}
     hoverText={barValue.toString()}

@@ -593,28 +593,42 @@
 
 <!--
 @component
-### Scatterplot Matrix
-A matrix of scatterplots that can be used to quickly find relations between attributes in a large dataset.
+### ScatterplotMatrix
+This is a visualisation that consists of multiple scatterplots in a matrix.
+It can be used to quickly find relations between attributes in a large data set.
 
-#### Required attributes
-* dataUtil: DataUtils    - Class holding all the data, see documentation.
+#### Required Attributes
+* dataUtil: DataUtils - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
-#### Optional attributes
-* styleUtil: StyleUtils               - Class holding all the styling. See its documentation.
-* padding: number                     - Padding between the different scatterplots. The default is `0.1`.
-* pointColor: string                  - Color of the points in the scatterplots. The default is `'red'`.
-* pointOpacity: number                - Default opacity of the points in the scatterplots. The default is `0.3`.
-* display: 'full'|'top'|'bottom'      - Whether to draw the entire Scatterplot Matrix, or only the top,
-                                        or only the bottom half. This defaults to `'full'`.
+#### Optional Attributes
+* styleUtil: StyleUtils              - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
+                                       Defaults to `new StyleUtils({ color: '#f42b03' })`.
+* padding: number                    - The padding between each scatterplots.
+                                       Defaults to `0.1`.
+* pointColor: string                 - The colour of each point in each scatterplot. Valid inputs include CSS colours specified as a string.
+                                       Defaults to `'red'`.
+* pointOpacity: number               - The default opacity of the points in each scatterplot.
+                                       It can be a number between `0` and `1` (inclusive).
+                                       Defaults to `0.3`.
+* display: 'full' | 'top' | 'bottom' - Whether to draw the entire visualisation, or only the top, or only the bottom half.
+                                       Defaults to `'full'`.
 
-* height: number         - Height of the Scatterplot Matrix. This defaults to `numberOfAttributes * 150`.
-* width: number          - Width of the Scatterplot Matrix. This defaults to `numberOfAttributes * 150`.
-* marginLeft: number     - Margin to the left of the visualisation. This defaults to `40`.
-* marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
-* marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
-* marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
-* isScrollable: boolean  - Whether the visualisation should be scrollable. The default value is `false`.
-* showFilter: boolean    - Whether the filter should be shown next to the visualisation. The default value is `false`.
+* height: number                     - The height of the visualisation in pixels.
+                                       Defaults to `numberOfAttributes * 150`.
+* width: number                      - The width of the visualisation in pixels.
+                                       Defaults to `numberOfAttributes * 150`.
+* marginLeft: number                 - The margin to the left of the visualisation in pixels.
+                                       Defaults to `40`.
+* marginRight: number                - The margin to the right of the visualisation in pixels.
+                                       Defaults to `40`.
+* marginTop: number                  - The margin to the top of the visualisation in pixels.
+                                       Defaults to `40`.
+* marginBottom: number               - The margin to the bottom of the visualisation in pixels.
+                                       Defaults to `40`.
+* isScrollable: boolean              - Whether the visualisation is scrollable in its parent container.
+                                       Defaults to `false`.
+* showFilter: boolean                - Whether the filter is displayed next to the visualisation.
+                                       Defaults to `false`.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>

@@ -4,14 +4,14 @@ This is a visualisation that is capable of visualising multi-dimensional data.
 It creates an axis for each column in the supplied table with data
 and draws a line through each axis for each row in the table.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -39,80 +39,80 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## dataUtil
+### dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/DataUtils.md).
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-# Optional Attributes
+## Optional Attributes
 
-## width
+### width
 
 - Type: `number`
 - Default: `numberOfColumns * 175`
 
-Width of the visualisation.
+The width of the visualisation in pixels.
 
-## height
+### height
 
 - Type: `number`
 - Default: `numberOfRows * 15`
 
-Height of the visualisation.
+The height of the visualisation in pixels.
 
-## marginLeft
-
-- Type: `number`
-- Default: `40`
-
-Margin left of the visualisation.
-
-## marginRight
+### marginLeft
 
 - Type: `number`
 - Default: `40`
 
-Margin right of the visualisation.
+The margin left of the visualisation in pixels.
 
-## marginTop
-
-- Type: `number`
-- Default: `40`
-
-Margin above the visualisation.
-
-## marginBottom
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
-Margin under the visualisation.
+The margin right of the visualisation in pixels.
 
-## styleUtils
+### marginTop
+
+- Type: `number`
+- Default: `40`
+
+The margin above the visualisation in pixels.
+
+### marginBottom
+
+- Type: `number`
+- Default: `40`
+
+The margin under the visualisation in pixels.
+
+### styleUtils
 
 - Type: `StyleUtils`
-- Default: `new StyleUtils()`
+- Default: `new StyleUtils({ color: '#BBBBBB' })`
 
-Class holding all the style information, see [StyleUtils](utils/StyleUtils.md).
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/StyleUtils.md) for more information.
 
-## isScrollable
-
-- Type: `boolean`
-- Default: `false`
-
-Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
-
-## showFilter
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-# Example usage
+### showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Example Usage
 
 <b>Creating a basic `ParallelCoordinates` visualisation from a csv string.</b>
 

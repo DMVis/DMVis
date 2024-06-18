@@ -43,24 +43,28 @@
 ### SumColumn
 SumColumn is a Column component that displays the StackedBar for the given attributes in the data array.
 
-#### Required attributes
-* x: number - X-coordinate of the column.
-* width: number - The width of the column.
-* height: number - The height of the column.
-* data: number[][] - Data for the sumColum.
+#### Required Attributes
+* x: number                      - The x-coordinate of the column.
+* width: number                  - The width of the column in pixels.
+* height: number                 - The height of the column in pixels.
+* data: Array<Array<number>>     - The data for the column.
 * attributeScales: ScaleLinear[] - An array of scales where the first entry
-                                                      is the scale for the first numerical entry in the row attribute, etc.
+                                   is the scale for the first numerical entry in the row attribute and so on.
 
-#### Optional attributes
-* padding: number - The padding of the column.
-* name: string - The name of the column. Usually the attribute name.
-* icons: IconType[] - List of what icons to display in the top of the column,
-                          defaults to `[IconType.Sort, IconType.Group, IconType.More]`
+#### Optional Attributes
+* name                           - The name of the column.
+                                   It should contain the names of the attributes you're comparing.
+                                   It could also contain weights.
+                                   Defaults to `'Column'`.
+* padding: number                - The padding around the column in pixels.
+* icons: IconType[]              - A list of what icons to display in the top of the column.
+                                   Defaults to `[IconType.Sort, IconType.Group, IconType.More]`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The sum column -->
 <Column
   {type}
   {x}

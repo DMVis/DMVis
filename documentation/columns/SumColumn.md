@@ -2,15 +2,15 @@
 
 SumColumn is a column that shows the stacked bar of the given columns. This is used to compare the values of multiple columns in one view.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -33,56 +33,62 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the column.
-
-## width
+### x
 
 - Type: `number`
 
-Width of the column.
+The x-coordinate of the column.
 
-## height
+### width
 
 - Type: `number`
 
-Height of the column.
+The width of the column in pixels.
 
-## attributeScales
+### height
+
+- Type: `number`
+
+The height of the column in pixels.
+
+### data
+
+- Type: `Array<Array<number>>`
+
+The data for the column.
+
+### attributeScales
 
 - Type: `d3.scaleLinear<number,number>[]`
 
-An array of scales where the first entry is the scale for the first numerical entry in the row attribute, etc.
+An array of scales where the first entry is the scale for the first numerical entry in the row attribute and so on.
 
-# Optional Attributes
+## Optional Attributes
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding around the column.
+The padding around the column in pixels.
 
-## name
+### name
 
 - Type: `string`
 - Default: `'Column'`
 
-Name of the column. This should contain the names of the attributes you're comparing. It could also contain weights.
+The name of the column. It should contain the names of the attributes you're comparing. It could also contain weights.
 
-## icons
+### icons
 
 - Type: `IconType[]`
 - Default: `[IconType.Sort, IconType.Group, IconType.More]`
 
-List of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
+A list of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -95,9 +101,9 @@ This component emits the following events:
 - `mouseRowClick`
 - `sort`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creating a `SumColumn` with a small dataset.</b>
 

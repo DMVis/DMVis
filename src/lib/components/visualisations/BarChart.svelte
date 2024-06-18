@@ -63,27 +63,42 @@ The axes have different meanings depending on `isVertical`.
 One axis has categorical data, which represents a data entry, whereas
 the other axis goes in the direction of the length of the bars and has numerical values.
 
-#### Required attributes
-* width: number                            - Width of the visualisation.
-* height: number                           - Height of the visualisation.
-* data: { label: string; value: number }[] - List of bars.
+#### Required Attributes
+* width: number                            - The width of the visualisation in pixels.
+* height: number                           - The height of the visualisation in pixels.
+* data: { label: string; value: number }[] - A list of data to display as bars.
 
-#### Optional attributes
-* minValue: number                 - Minimum value of the numerical length of each bar.
-* maxValue: number                 - Maximum value of the numerical length of each bar.
-* isVertical: boolean              - Orients `BarChart` vertically as opposed to horizontally if `true`.
-* ticks: number = 10;              - Number of ticks on the value axis.
+#### Optional Attributes
+* minValue: number                 - The minimum value of the numerical length of each bar.
+                                     Defaults to `0`.
+* maxValue: number                 - The maximum value of the numerical length of each bar.
+                                     Defaults to the highest value in the dataset.
+* isVertical: boolean              - Whether to orient `BarChart` vertically or horizontally.
+* ticks: number                    - The number of ticks on the value axis.
+                                     Defaults to `10`.
 * showLeftAxis: boolean = true;    - Whether the left axis is visible.
+                                     Defaults to `true`.
 * showBottomAxis: boolean = true;  - Whether the bottom axis is visible.
-* marginLeft: number               - Margin to the left of the visualisation.
-* marginRight: number              - Margin to the right of the visualisation.
-* marginTop: number                - Margin to the top of the visualisation.
-* marginBottom: number             - Margin to the bottom of the visualisation.
-* padding: number                  - Value for the distance between each bar in the range [0..1].
-* color: string = 'blue'           - Colour of each bar.
-* opacity: number | string         - Opacity of each bar as a number in the range [0..1] or
-                                     a percentage string formatted as '{number}%'.
-* borderRadius: number             - Border radius of each bar in pixels. This defaults to `0`.
+                                     Defaults to `true`.
+* marginLeft: number               - The margin to the left of the visualisation in pixels.
+                                     Defaults to `40`.
+* marginRight: number              - The margin to the right of the visualisation in pixels.
+                                     Defaults to `40`.
+* marginTop: number                - The margin to the top of the visualisation in pixels.
+                                     Defaults to `40`.
+* marginBottom: number             - The margin to the bottom of the visualisation in pixels.
+                                     Defaults to `40`.
+* padding: number                  - The distance between each bar.
+                                     It can be a number between `0` and `1` (inclusive).
+                                     Defaults to `0.2`.
+* color: string = 'blue'           - The colour of each bar.
+                                     Valid inputs include CSS colours specified as a string.
+                                     Defaults to `'blue'`.
+* opacity: Opacity                 - The opacity of each bar.
+                                     It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                                     Defaults to `1`.
+* borderRadius: number             - The border radius of each bar in pixels.
+                                     Defaults to `0`.
 -->
 <svg class="visualisation barchart" {width} {height}>
   {#key data}
@@ -93,8 +108,8 @@ the other axis goes in the direction of the length of the bars and has numerical
         <Bar
           x={marginLeft}
           y={positionScale(bar.label) ?? 0}
-          barWidth={positionScale.bandwidth()}
-          value={barScale(bar.value)}
+          width={positionScale.bandwidth()}
+          length={barScale(bar.value)}
           isVertical={false}
           origin={'topLeft'}
           {color}
@@ -104,8 +119,8 @@ the other axis goes in the direction of the length of the bars and has numerical
         <Bar
           x={positionScale(bar.label) ?? 0}
           y={height - marginBottom}
-          barWidth={positionScale.bandwidth()}
-          value={barScale(maxValue - bar.value)}
+          width={positionScale.bandwidth()}
+          length={barScale(maxValue - bar.value)}
           isVertical={true}
           origin={'bottomLeft'}
           {color}

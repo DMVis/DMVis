@@ -1,81 +1,85 @@
-# Point component
+# Point
 
-The point component is meant to be used in visualisations like a scatterplot. It produces a point at a given coordinate of certain color, size and style.
+The point component is meant to be used in visualisations like scatterplots.
+It produces a point at a given coordinate of certain color, size and style.
 
-> Note: This component produces a single point, use it repeatedly to plot multiple points.
-
-# Table of Contents
+## Table of Contents
 
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Required Attributes
+## Required Attributes
 
-## x
+### x
 
 - Type: `number`
 
-Scaled x-coordinate of the point.
+The scaled x-coordinate of the point.
 
-## y
+### y
 
 -Type: `number`
 
-Scaled y-coordinate of the point.
+The scaled y-coordinate of the point.
 
-# Optional Attributes
+## Optional Attributes
 
-## radius
+### radius
 
 - Type: `number`
 - Default: `5`
 
-The radius of the circle that represents the point.
+The radius of the point in pixels.
 
-## borderWidth
+### borderWidth
 
 - Type: `number`
 - Default: `1`
 
-Width of the border around the point.
+The width of the border in pixels.
 
-> Note: the border can be removed entirely by setting the value to 0.
+> Note: It can be removed entirely by setting the value to `0`.
 
-## borderColor
+### borderColor
 
 - Type: `string`
 - Default: `black`
 
-Color of the border around the point.
+The colour of the border.
 
-> Note: If `StyleUtil` is used, this value will be ignored
+> Note: If `StyleUtil` is used, this value will be ignored.
 
-## color
+### color
 
 - Type: `string`
 - Default: `red`
 
-Color of the point.
+The colour of the point.
+Valid inputs include CSS colours specified as a string.
 
-> Note: If `StyleUtil` is used, this value will be ignored
+> Note: If `StyleUtil` is used, this value will be ignored.
 
-## opacity
+### opacity
 
 - Type: `number`
 - Default: `1`
 
-The opacity of the point, where 0 represents a completely transparent point and 1 represents a completely opaque point.
+The opacity of the point.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## name
+### name
 
 - Type: `UndefineableString`
 - Default: `'point'`
 
-The class name of the point. It can be used as an identifier. It defaults to only `'point'`. If set, the class names will be `'point'` and `'point-name'`.
+The class name of the point.
+It can be used as an identifier.
+If set, the class names will be `'point'` and `'point-name'`.
+Defaults to `'point'`.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -83,9 +87,9 @@ This component emits the following events:
 - `mousePointLeave`
 - `mousePointClick`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creating the most basic point.</b>
 

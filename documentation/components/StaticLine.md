@@ -1,54 +1,58 @@
-# StaticLine component
+# StaticLine
 
 The static line component is meant to be used in charts like a line chart. It produces a line between the points that are provided with a certain colour, size and style.
 
 > Note: The points passed to the StaticLine component are true coordinates, meaning that they will be plotted at these exact coordinates.
 
-# Table of Contents
+## Table of Contents
 
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Required Attributes
+## Required Attributes
 
-## points
+### points
 
 - Type: `{ x: number; y: number }[]`
 
-List of points containing an x and y value.
+A list of points containing an x and y value.
 
-# Optional Attributes
+## Optional Attributes
 
-## color
+### color
 
 - Type: `string`
 - Default: `#000`
 
-Colour of the line.
+The colour of the line.
+Valid inputs include CSS colours specified as a string.
 
-## lineWidth
+### lineWidth
 
 - Type: `number`
 - Default: `1`
 
-Width of the line.
+The width of the line.
 
-## dashLength
+### dashLength
 
 - Type: `string`
 - Default: `'0'`
 
-Length of the strokes of the line. By default, this is a normal line. If set to a higher value, it will result in a dotted line.
+The length of the strokes of the line.
+If set to a higher value, it will result in a dotted line.
+Defaults to a normal line.
 
-## opacity
+### opacity
 
 - Type: `number`
 - Default: `1`
 
-The opacity of the line, where `1` represents a fully opaque line and `0` a fully transparent line.
+The opacity of the line.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-# Example usage
+## Example Usage
 
 <b>Creating a basic static line.</b>
 

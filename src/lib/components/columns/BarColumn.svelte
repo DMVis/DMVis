@@ -11,8 +11,8 @@
   import Column from '$lib/components/base/Column.svelte';
   import Histogram from '$lib/components/visualisations/Histogram.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
-  import type { Filter, Visibility, ScaleLinear } from '$lib/Types.js';
   import { ColumnType, IconType } from '$lib/Enums.js';
+  import type { Filter, Visibility, ScaleLinear, Opacity } from '$lib/Types.js';
 
   // Required attributes
   export let x: number;
@@ -24,7 +24,6 @@
   export let filter: Filter = { min: 0, max: 100 };
   export let name: string = 'Column';
   export let padding: number = 10;
-  export let barColor: string = 'red';
   export let icons: IconType[] = [IconType.Sort, IconType.Filter, IconType.More];
   export let weight: string = '10';
   export let overviewItem: 'histogram' | 'axis' | 'none' = 'none';
@@ -34,7 +33,8 @@
     .nice();
 
   export let names: string[] = [];
-  export let barOpacity: number = 1;
+  export let barColor: string = 'red';
+  export let barOpacity: Opacity = 1;
   export let barLabelVisibility: Visibility = 'none';
 
   if (overviewItem !== 'histogram' && overviewItem !== 'axis' && overviewItem !== 'none') {
@@ -122,36 +122,50 @@
 <!--
 @component
 ### BarColumn
-BarColumn is a Column component that displays bars for each value in the data array.
+`BarColumn` is a column that displays a bar chart.
+It is useful for visualising the relative size of values in a column.
 
-#### Required attributes
-* x: number       - The X-coordinate of the column.
-* width: number   - The width of the column.
-* height: number  - The height of the column.
-* data: number[]  - The data you want to display as bars.
+#### Required Attributes
+* x: number       - The x-coordinate of the column.
+* width: number   - The width of the column in pixels.
+* height: number  - The height of the column in pixels.
+* data: number[]  - The data that is to be displayed as bars in the column.
 
-#### Optional attributes
-* name: string                            - The name of the column. Usually the attribute name.
-* padding: number                         - The padding of the column.
-* barColor: string                        - The colour of the bars.
-* icons: IconType[]                       - List of what icons to display in the top of the column,
-                                              defaults to `[IconType.Sort,IconType.Filter,IconType.More]`
-* overviewItem: 'histogram'|'axis'|'none' - Determines what item to display in the overview section of the column header.
-                                              Defaults to none
-* scale: ScaleLinear                      - What scale to use for all of the bars in the column.
-                                            Defaults to a scale that ranges from 0 to width
-                                            and has a domain from 0 to the maximum value.
-* barOpacity: number                      - Opacity of all the bars in this column. This defaults to `1`
-* names: string[]                         - The name for each point. Will be used for accessing the bars with classnames.
-                                            The first entry of this array is linked with the first item of the data array, etc..
-                                            This defaults to [], meaning no names are given
+#### Optional Attributes
+* filter: Filter                             - `!!! MISSING DESCRIPTION !!!`.
+                                               Defaults to `{ min: 0, max: 100 }`.
+* name: string                               - The name of the column to display at its top. Set this to the attribute name.
+                                               Defaults to `'Column'`.
+* padding: number                            - The padding around the column in pixels.
+                                               Defaults to `10`.
+* icons: IconType[]                          - A list of what icons to display in the top of the column.
+                                               Defaults to `[IconType.Sort, IconType.Filter, IconType.More]`.
+* weight: string                             - `!!! MISSING DESCRIPTION !!!`.
+                                               Defaults to `'10'`.
+* overviewItem: 'histogram' | 'axis'| 'none' - Determines what item to display in the overview section of the column header.
+                                               Defaults to `'none'`.
+* scale: ScaleLinear                         - What scale to use for the entire column.
+                                               Defaults to a scale that has a range that is equal to the width of the column
+                                               and a domain that goes from `0` to the maximum value of the column:
+                                               `d3.scaleLinear().domain([0, d3.max(data) ?? 0]).range([0, width - padding])`.
+* names: string[]                            - The name for each point. It is used for accessing the bars with class names.
+                                               The first entry of this array is linked with the first item of the data array and so on.
+                                               Defaults to `[]`, meaning that the bars to have no additional name.
+* barColor: string                           - The colour of each bars.
+                                               Valid inputs include CSS colours specified as a string.
+                                               Defaults to `'red'`.
+* barOpacity: Opacity                        - The opacity of each bar of the column.
+                                               It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                                               Defaults to `1`.
 * barLabelVisibility: 'none' | 'alwaysVisible' | 'visibleOnHighlight' - Determines the behaviour of the labels on the bars.
-                                                                        Refer to the documentation for more information. This defaults to `'none'`
+                                                                        Refer to the documentation for more information.
+                                                                        Defaults to `'none'`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The bar column -->
 <Column
   {type}
   {x}
@@ -250,8 +264,8 @@ BarColumn is a Column component that displays bars for each value in the data ar
         <Bar
           x={x + paddingSide}
           y={getY(i)}
-          {barWidth}
-          value={scale(value)}
+          width={barWidth}
+          length={scale(value)}
           origin={'middleLeft'}
           isVertical={false}
           color={barColor}

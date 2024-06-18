@@ -1,14 +1,14 @@
-# BaseVisualisation Component
+# BaseVisualisation
 
 The BaseVisualisation component is a wrapper component that handles a few default tasks for your visualisation. Certain styling standards are set and error handling is kept within the scope of the visualisation.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -33,35 +33,35 @@ This component utilises the following components:
 
 ## Optional Attributes
 
-## isScrollable
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
 Whether the component that is wrapped by the `BaseVisualisation` component should be [scrollable](components/Scrollable.md).
 
-## scrollableWidth
+### scrollableWidth
 
 - Type: `number`
-- Default: `1000`
+- Default: `'100%'`
 
-Width of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
+The width of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
 
-## scrollableHeight
+### scrollableHeight
 
 - Type: `number`
-- Default: `1000`
+- Default: `'100%'`
 
-Height of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
+The height of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
 
-## showFilter
+### showFilter
 
 - Type: `DataUtils`
 - Default: `null`
 
-Provide a DataUtils object when you want to show and use the [Filter](components/Filter.md) component within the visualisation.
+Whether to show and use the [Filter](components/Filter.md) component within a visualisation using an instance of DataUtils.
 
-# Example usage
+## Example Usage
 
 <b>Create a scrollable visualisation, in this case a scatterplot. </b>
 

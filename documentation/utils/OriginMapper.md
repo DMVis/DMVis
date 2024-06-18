@@ -7,15 +7,18 @@ These are: `getOriginOffsetX`, `getOriginOffsetY`, `getFlippedOriginX`, and `get
 
 > DMVis components that have a customisable origin are: [Bar](components/Bar.md), [Label](components/Label.md), and [Tooltip](components/Tooltip.md).
 
-# Table of contents
+## Table of Contents
 
-- [getOriginOffsetX](#getOriginOffsetX)
-- [getOriginOffsetY](#getOriginOffsetY)
-- [getFlippedOriginX](#getFlippedOriginX)
-- [getFlippedOriginY](#getFlippedOriginY)
-- [Example usage](#example-usage)
+- [Functions](#functions)
+  - [getOriginOffsetX](#getOriginOffsetX)
+  - [getOriginOffsetY](#getOriginOffsetY)
+  - [getFlippedOriginX](#getFlippedOriginX)
+  - [getFlippedOriginY](#getFlippedOriginY)
+- [Example Usage](#example-usage)
 
-## getOriginOffsetX
+## Functions
+
+### getOriginOffsetX
 
 A function to calculate how much an x-coordinate should be offset to map one origin to another.
 It has the following parameters:
@@ -26,7 +29,7 @@ It has the following parameters:
 
 It returns the horizontal offset in pixels needed to to get the desired origin mapping effect.
 
-## getOriginOffsetY
+### getOriginOffsetY
 
 A function to calculate how much a y-coordinate should be offset to map one origin to another.
 It has the following parameters:
@@ -37,7 +40,7 @@ It has the following parameters:
 
 It returns the vertical offset in pixels needed to to get the desired origin mapping effect.
 
-## getFlippedOriginX
+### getFlippedOriginX
 
 A function to map an origin to its horizontally flipped equivalent.
 It has the following parameter:
@@ -56,7 +59,7 @@ It returns the horizontally opposite origin of the provided origin using the fol
 - `'bottomMiddle'` -> `'bottomMiddle'`
 - `'bottomRight'` -> `'bottomLeft'`
 
-## getFlippedOriginY
+### getFlippedOriginY
 
 A function to map an origin to its vertically flipped equivalent.
 It has the following parameter:
@@ -75,7 +78,7 @@ It returns the vertically opposite origin of the provided origin using the follo
 - `'bottomMiddle'` -> `'topMiddle'`
 - `'bottomRight'` -> `'topRight'`
 
-# Example usage
+## Example Usage
 
 Example of how to use the `getOriginOffsetX` and `getOriginOffsetY` functions:
 

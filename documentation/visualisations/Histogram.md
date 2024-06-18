@@ -2,14 +2,14 @@
 
 This visualisation shows frequencies of data. It can group data categorically or numerically.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -36,36 +36,36 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## width
+### width
 
 - Type: `number`
 
 The width of the visualisation.
 
-## height
+### height
 
 - Type: `number`
 
 The height of the visualisation.
 
-## data
+### data
 
 - Type: `string[]` | `number[]`
 
 An array of data (either strings or numbers) which should be shown in the histogram. They will be represented as bars.
 
-# Optional Attributes
+## Optional Attributes
 
-## x
+### x
 
 - Type: `number`
 - Default: `0`
 
 The x position of the histogram.
 
-## y
+### y
 
 -Type: `number`
 
@@ -73,35 +73,35 @@ The x position of the histogram.
 
 The y position of the histogram.
 
-## marginLeft
+### marginLeft
 
 - Type: `number`
 - Default: `40`
 
 The margin to the left of the visualisation.
 
-## marginRight
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
 The margin to the right of the visualisation.
 
-## marginTop
+### marginTop
 
 - Type: `number`
 - Default: `40`
 
 The margin to the top of the visualisation.
 
-## marginBottom
+### marginBottom
 
 - Type: `number`
 - Default: `40`
 
 The margin to the bottom of the visualisation.
 
-## bins
+### bins
 
 - Type: `number`
 - Default: `10`
@@ -115,7 +115,7 @@ However, the d3.bin().thresholds(bins) function call does not enforce the precis
 It only tries to get as close as possible to the specified number of 'bins' and may make more or less than the value assigned to 'bins'.
 This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another.
 
-## showOuterTicks
+### showOuterTicks
 
 - Type: `boolean`
 - Default: `true`
@@ -124,7 +124,7 @@ A toggle to show only outer ticks.
 When `true`: show only the outer ticks.
 Otherwise: show all ticks.
 
-## forceCategorical
+### forceCategorical
 
 - Type: `boolean`
 - Default: `true`
@@ -133,36 +133,38 @@ A toggle to force numerical data into a categorical format.
 When `true`: forces numerical data into a categorical format.
 Otherwise: keep numerical as is.
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `0.03`
 
-The value for the distance between each bar in the range [0..1].
+The distance between each bar.
+It can be a number between `0` and `1` (inclusive).
 
-## color
+### color
 
 - Type: `string`
 - Default: `'blue'`
 
 The colour of each bar.
+Valid inputs include CSS colours specified as a string.
 
-## opacity
+### opacity
 
 - Type: `number | string`
 - Default: `1`
 
-The opacity of each bar as a number in the range [0..1] or
-a percentage string formatted as '{number}%'.
+The opacity of each bar.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## borderRadius
+### borderRadius
 
 - Type: `number`
 - Default: `0`
 
-Border radius of each bar in pixels.
+The border radius of each bar in pixels.
 
-# Example usage
+## Example Usage
 
 <b> Using a `Histogram` with numerical values.</b>
 

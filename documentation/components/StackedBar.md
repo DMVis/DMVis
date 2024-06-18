@@ -2,16 +2,16 @@
 
 The StackedBar component is a visual representation of a data row. It is used to compare the parts to the whole and show the relationship of individual items to the total.
 
-> Note: This creates a single stacked bar, not the whole stacked bar chart
+> Note: This creates a single stacked bar as opposed to a stacked bar chart.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example](#example)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -34,49 +34,50 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## y
-
-- Type: `number`
-
-The y position of the stacked bar.
-
-## barWidth
+### y
 
 - Type: `number`
 
-The width of the bar.
+The y-coordinate of the stacked bar.
 
-## row
+### barWidth
+
+- Type: `number`
+
+The width of the stacked bar in pixels.
+
+### row
 
 - Type: `(number|string)[]`
 
-An entire row of the dataUtil. Which will be represented as a stacked bar.
+An entire row of the `DataUtils` instance, which will be represented as a stacked bar.
 
-## attributeScales
+### attributeScales
 
 - Type: `d3.scaleLinear<number,number>[]`
 
-An array of scales where the first entry is the scale for the first numerical entry in the row attribute, etc.
+An array of scales where the first entry is the scale for the first numerical entry in the row attribute and so on.
 
-# Optional Attributes
+### Optional Attributes
 
-## opacity
+### opacity
 
 - Type: `Opacity`
 - Default: `1`
 
-Sets the opacity of the bars. Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
+The opacity of the stacked bar.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## showLabel
+### showLabel
 
 - Type: `boolean`
 - Default: `false`
 
 Whether or not to display the sum of all bars at the end as a number.
 
-# Example
+## Example Usage
 
 Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.
 

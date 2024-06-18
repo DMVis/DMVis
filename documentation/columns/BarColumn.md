@@ -1,16 +1,17 @@
 # BarColumn
 
-BarColumn is a column that displays a bar chart. It is useful for visualising the relative size of values in a column.
+`BarColumn` is a column that displays a bar chart.
+It is useful for visualising the relative size of values in a column.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -45,70 +46,113 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the column.
-
-## width
+### x
 
 - Type: `number`
 
-Width of the column.
+The x-coordinate of the column.
 
-## height
+### width
 
 - Type: `number`
 
-Height of the column.
+The width of the column in pixels.
 
-## data
+### height
+
+- Type: `number`
+
+The height of the column in pixels.
+
+### data
 
 - Type: `number[]`
 
-Data that is to be displayed as bars in the column.
+The data that is to be displayed as bars in the column.
 
-# Optional Attributes
+## Optional Attributes
 
-## name
+### filter
+
+- Type: `Filter`
+- Default: `{ min: 0, max: 100 }`
+
+`!!! MISSING DESCRIPTION !!!`.
+
+### name
 
 - Type: `string`
 - Default: `'Column'`
 
-Name of the column to display at the top. Set this to the attribute name.
+The name of the column to display at its top. Set this to the attribute name.
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding around the column.
+The padding around the column in pixels.
 
-## icons
+### icons
 
 - Type: `IconType[]`
-- Default: `[IconType.Sort,IconType.Filter,IconType.More]`
+- Default: `[IconType.Sort, IconType.Filter, IconType.More]`
 
-List of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
+A list of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
 
-## scale
+### weight
+
+- Type: `string`
+- Default: `'10'`
+
+`!!! MISSING DESCRIPTION !!!`.
+
+### overviewItem
+
+- Type: `string`
+- Options: `'histogram' | 'axis' | 'none'`
+- Default: `'none'`
+
+Determines what item to display in the overview section of the column header. <br>
+Setting the value to `histogram` will cause `BarColumn` to display a histogram of the data in the column. <br>
+Setting this to `'axis'` will cause `BarColumn` to automatically create a `d3.axisTop` from the specified scale.
+
+### scale
 
 - Type: `d3.ScaleLinear<number,number>`
 - Default: `d3.scaleLinear().domain([0, d3.max(data) ?? 0]).range([0, width - padding])`
 
-What scale to use for the entire column. This default scale is nothing more than a scale that has a range that is equal to the width of the column and a domain that goes from 0 to the maximum value of the column.
+What scale to use for the entire column.
+Defaults to a scale that has a range that is equal to the width of the column and a domain that goes from `0` to the maximum value of the column.
 
-## barOpacity
+### names
+
+- Type: `string[]`
+- Default: `[]`
+
+The name for each point. It is used for accessing the bars with class names. The first entry of this array is linked with the first item of the data array and so on.
+
+> Note: Setting this to `[]` will cause the bars to have no additional name.
+
+### barColor
+
+- Type: `string`
+- Default: `'red'`
+
+The colour of each bars.
+Valid inputs include CSS colours specified as a string.
+
+### barOpacity
 
 - Type: `number`
 - Default: `1`
 
-The opacity of each bar as a number in the range [0..1].
+The opacity of each bar of the column.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## barLabelVisibility
+### barLabelVisibility
 
 - Type: `Visibility`
 - Default: `'none'`
@@ -119,26 +163,7 @@ Setting this to `'none'`, means no label will be drawn.<br>
 Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
 Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label receives the class `'highlighted'`, the numbers will become visible.
 
-## names
-
-- Type: `string[]`
-- Default: `[]`
-
-The name for each point. Will be used for accessing the bars with classnames. The first entry of this array is linked with the first item of the data array, etc..
-
-> Note: Setting this to `[]` will cause the bars to have no additional name
-
-## overviewItem
-
-- Type: `string`
-- Options: `'histogram' | 'axis' | 'none'`
-- Default: `'none'`
-
-Determines what item to display in the overview section of the column header. <br>
-Setting the value to `histogram` will cause `BarColumn` to display a histogram of the data in the column. <br>
-Setting this to `'axis'`, will cause `BarColumn` to automatically create a `d3.axisTop` from the specified scale.
-
-# Events
+## Events
 
 This component emits the following events:
 
@@ -152,9 +177,9 @@ This component emits the following events:
 - `mouseRowClick`
 - `sort`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b> Creating a basic BarColumn with no icons and a histogram as overview item. </b>
 

@@ -31,22 +31,26 @@
 
 <!--
 @component
-### Base Visualisation
-The Base Visualisation component is a wrapper component that handles a few default tasks for your visualisation. Certain styling standards
-are set and error handling is kept within the scope of the visualisation.
+### BaseVisualisation
+The Base Visualisation component is a wrapper component that handles a few default tasks for your visualisation.
+Certain styling standards are set and error handling is kept within the scope of the visualisation.
 
 #### Optional Attributes
-* isScrollable: boolean                   - Whether the component that is wrapped by the `BaseVisualisation`
-                                            component should be scrollable. Defaulted to `false`.
-* scrollableWidth: number                 - Width of the visualisation that is shown. For this to be used,
-                                            `isScrollable` must be set to `true`. Defaulted to `1000`.
-* scrollableHeight: number                - Height of the visualisation that is shown. For this to be used,
-                                            `isScrollable` must be set to `true`. Defaulted to `1000`.
-* showFilter: DataUtils                   - Provide a DataUtils object when you want to show and use the
-                                            `Filter` component within the visualisation.
+* isScrollable: boolean     - Whether the component that is wrapped by the `BaseVisualisation`
+                              component should be scrollable.
+                              Defaults to `false`.
+* scrollableWidth: number   - The width of the visualisation that is shown. For this to be used,
+                             `isScrollable` must be set to `true`.
+                              Defaults to `'100%'`.
+* scrollableHeight: number  - The height of the visualisation that is shown. For this to be used,
+                             `isScrollable` must be set to `true`.
+                              Defaults to `'100%'`.
+* showFilter: DataUtils     - Whether to show and use the `Filter` component within a visualisation
+                              using an instance of DataUtils.
+                              Defaults to `null`.
 
 #### Slots
-* Visualisation         - Slot for the visualisation.
+* Visualisation             - Slot for the visualisation.
  -->
 
 <div class="visualisation-container">

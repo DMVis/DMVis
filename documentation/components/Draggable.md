@@ -2,36 +2,36 @@
 
 Some visualisations require elements that are draggable. This wrapper makes it easier to drag components and execute some logic based on where the component is being dragged.
 
-# Table of contents
+## Table of Contents
 
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Optional Attributes
+## Optional Attributes
 
-## offsetX
+### offsetX
 
 - Type: `number`
 - Default: `0`
 
 The horizontal offset that the component within the `Draggable` should have. This should be handled by the parent component, because the exact offset (and when the offset should be reset) is dependent on the specific visualisation.
 
-## offsetY
+### offsetY
 
 - Type: `number`
 - Default: `0`
 
 The vertical offset that the component within the `Draggable` should have. This should be handled by the parent component, because the exact offset (and when the offset should be reset) is dependent on the specific visualisation.
 
-## elementName
+### elementName
 
 - Type: `string`
-- Default: `default`
+- Default: `''`
 
 The name of the element within the `Draggable`. This is returned in the dispatched events, so the parent component can tell which component is being dragged.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -39,9 +39,9 @@ This component emits the following events:
 - `dragMove`
 - `dragStop`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Create a draggable SVG circle element that resets to its original location when the user stops dragging it.</b>
 

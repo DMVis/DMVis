@@ -2,7 +2,7 @@
 
 To make sure that every visualisation is consistent, we have created a set of utility functions that help with data manipulation. These functions are used to transform data into a format that can be easily used by the visualisation components.
 
-## Table of contents
+### Table of Contents
 
 - [Constructor](#constructor)
 - [Class Properties](#attributes)

@@ -1,16 +1,16 @@
 # ScatterplotMatrix
 
 This is a visualisation that consists of multiple scatterplots in a matrix.
-It can be used to quickly find relations between attributes in a large dataset.
+It can be used to quickly find relations between attributes in a large data set.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -54,102 +54,110 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## dataUtil
+### dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/DataUtils.md).
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-# Optional Attributes
+## Optional Attributes
 
-## width
-
-- Type: `number`
-- Default: `numberOfAttributes * 150`
-
-Width of the visualisation.
-
-## height
+### width
 
 - Type: `number`
 - Default: `numberOfAttributes * 150`
 
-Height of the visualisation.
+The width of the visualisation in pixels.
 
-## padding
+### height
+
+- Type: `number`
+- Default: `numberOfAttributes * 150`
+
+The height of the visualisation in pixels.
+
+### padding
 
 - Type: `number`
 - Default: `0.1`
 
-Padding between all of the different scatterplots.
+The padding between each scatterplot.
 
-## pointOpacity
+### pointColor
+
+- Type: `string`
+- Default: `'red'`
+
+The colour of each point in each scatterplot. Valid inputs include CSS colours specified as a string.
+
+### pointOpacity
 
 - Type: `number`
 - Default: `0.3`
 
-Default opacity of the points of the scatterplots.
+The default opacity of each point in each scatterplot.
+It can be a number between `0` and `1` (inclusive).
 
-## display
+### display
 
 - Type: `string`
 - Default: `'full'`
 - Options: `'full'`,`'top'`, `'bottom'`
 
-Whether to draw the entire Scatterplot Matrix, or only the top, or only the bottom half.
+Whether to draw the entire visualisation, or only the top, or only the bottom half.
 
-## marginLeft
-
-- Type: `number`
-- Default: `40`
-
-Margin left of the visualisation.
-
-## marginRight
+### marginLeft
 
 - Type: `number`
 - Default: `40`
 
-Margin right of the visualisation.
+The margin left of the visualisation in pixels.
 
-## marginTop
-
-- Type: `number`
-- Default: `40`
-
-Margin above the visualisation.
-
-## marginBottom
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
-Margin under the visualisation.
+The margin right of the visualisation in pixels.
 
-## styleUtils
+### marginTop
+
+- Type: `number`
+- Default: `40`
+
+The margin above the visualisation in pixels.
+
+### marginBottom
+
+- Type: `number`
+- Default: `40`
+
+The margin under the visualisation in pixels.
+
+### styleUtils
 
 - Type: `StyleUtils`
-- Default: `new StyleUtils()`
+- Default: `new StyleUtils({ color: '#f42b03' })`
 
-Class holding all the style information. See [StyleUtils](utils/StyleUtils.md).
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/StyleUtils.md) for more information.
 
-## isScrollable
-
-- Type: `boolean`
-- Default: `false`
-
-Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
-
-## showFilter
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-# Example usage
+### showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Example Usage
 
 <b>Creating a basic `ScatterplotMatrix` visualisation from a csv string.</b>
 
@@ -174,7 +182,7 @@ Determines whether the [Filter](components/Filter.md) component is displayed nex
 {/await}
 ```
 
-<b>Creating a custom `ScatterplotMatrix` visualisation from a datapath.</b>
+<b>Creating a custom `ScatterplotMatrix` visualisation from a data path.</b>
 
 ```svelte
 <script lang="ts">

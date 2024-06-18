@@ -1,17 +1,17 @@
-# Line component
+# Line
 
 The line component is used for visualisations that need lines. It generates lines dynamically from the provided dataset.
 
 > Note: This component only works if `VisualisationStore` has been set, since it uses the dataset present in the store.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -30,9 +30,9 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Optional Attributes
+## Optional Attributes
 
-## alignment
+### alignment
 
 - Type: `Alignment`
 - Default: `'spaced'`
@@ -40,42 +40,42 @@ This component utilises the following components:
 
 Alignment of the points on the lines. If using `DynamicAxis`, choose the same alignment option.
 
-## lineWidth
+### lineWidth
 
 - Type: `number`
 - Default: `1`
 
 Width of the line that is drawn.
 
-## hoverable
+### hoverable
 
 - Type: `boolean`
 - Default: `false`
 
 Whether or not the line should be hoverable. When set to `true`, the line will become highlighted if the line is hovered, and numbers will be displayed on all the points.
 
-## axisOrder
+### axisOrder
 
 - Type: `string[]`
 - Default: `[]`
 
 Order of the attributes, which determines the placement of points on each line.
 
-## draggedAxis:
+### draggedAxis:
 
 - Type: `UndefineableString`
 - Default: `undefined`
 
 The name of the axis that is being dragged, is used in visualisations that use draggable axes.
 
-## draggingOffset
+### draggingOffset
 
 - Type: `number`
 - Default: `0`
 
 The offset of the axis that is being dragged.
 
-# Events
+## Events
 
 This component emits the following events, when `hoverable` is set to true:
 
@@ -85,7 +85,7 @@ This component emits the following events, when `hoverable` is set to true:
 
 To read more about these events, see the [Events](../utils/Events.md) documentation.
 
-# Example usage
+## Example Usage
 
 <b>Creating a line for each data row in the `dataUtil`. Note that this component requires a predefined `dataUtil` to be set by the parent component. </b>
 

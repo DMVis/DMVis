@@ -1,18 +1,18 @@
-# Axis component
+# Axis
 
 The Axis component is used to render a singular Axis, given a [d3.axis](https://d3js.org/d3-axis) element. This needs to be supplied by the parent through the [axis](#axis) parameter. The axis can be oriented in any direction, depending on the provided `d3.axis`. The axis can also have a label on any of the four sides, regardless of the axis orientation. Furthermore, the axis can be made draggable, although how this dragging behaviour should be handled is up to the user to implement.
 
 > Note: This component is made specifically for visualisations that require <u>only one</u> axis (or multiple with different orientations). If you want to have multiple axes created automatically from your dataset, consider using the [DynamicAxis](../components/DynamicAxis.md) component.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required attributes](#required-attributes)
 - [Optional attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -35,74 +35,75 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required attributes
+## Required Attributes
 
-## placementX
+### placementX
 
 - Type: `number`
 
-Horizontal start position of the axis.
+The horizontal start position of the axis.
 
-## placementY
+### placementY
 
 - Type: `number`
 
 The vertical start position of the axis.
 
-## axis
+### axis
 
 - Type: `d3.Axis<string>` | `d3.Axis<d3.NumberValue>`
 
-D3 Axis component. See example usage on how to create the d3 axis.
+A D3 Axis component. See example usage on how to create the d3 axis.
 
 > Note: See [d3 documentation](https://d3js.org/d3-axis) for the different kinds of axes you can create.
 
-# Optional Attributes
+## Optional Attributes
 
-## renderLabel
+### renderLabel
 
 - Type: `boolean`
 - Default: `false`
 
 Renders a label next to the axis.
 
-## labelText
+### labelText
 
 - Type: `string`
 - Default: `'default'`
 
-Text for the label.
+The text for the label.
 
-## labelPosition
+### labelPosition
 
 - Type: `Position`
 - Default: `'top'`
 - Options: `'left'`, `'right'`, `'top'`, `'bottom'`
 
-Position of the label relative to the axis.
+The position of the label relative to the axis.
 
-## labelOffset
+### labelOffset
 
 - Type: `number`
 - Default: `20`
 
-Distance from the label to the axis.
+The distance from the label to the axis.
 
-## fontSize
+### fontSize
 
 - Type: `number`
 - Default: `12`
 
-Font size of the tick labels.
+The font size of the tick labels.
 
-## color
+### color
 
 - Type: `string`
-- Default: `'#000000'`
+- Default: `'black'`
 
-Color of the axis line and label.
+The colour of the axis line and label.
+Valid inputs include CSS colours specified as a string.
 
-## isDraggable
+### isDraggable
 
 - Type: `boolean`
 - Default: `false`
@@ -111,14 +112,14 @@ Sets whether the axis is [draggable](components/Draggable.md). For this to work,
 
 > Note: Logic for the displacement of the axis should be handled outside this component.
 
-## squashOuterTicks
+### squashOuterTicks
 
 - Type: `boolean`
 - Default: `false`
 
 Whether or not to tuck in the first and last tick.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -126,9 +127,9 @@ This component emits the following events:
 - `dragStop`
 - `renderAxis`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creating a basic axis.</b>
 

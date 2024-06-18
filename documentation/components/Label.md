@@ -1,185 +1,189 @@
-# Label component
+# Label
 
 The label allows you to add text with a background.
 It can be used in combination with other components.
-Coordinates are relative to the parent SVG element.
 
-> Note: The label's origin is at its middle (see the `origin` attribute).
+> Note: The label's origin is at its middle (see the `origin` attribute)
+> and coordinates are relative to the parent SVG element.
 
-# Table of Contents
+## Table of Contents
 
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the label.
-
-## y
+### x
 
 - Type: `number`
 
-Y-coordinate of the label.
+The x-coordinate of the label.
 
-## text
+### y
+
+- Type: `number`
+
+The y-coordinate of the label.
+
+### text
 
 - Type: `string`
 
-Text to display on the label.
+The text to display on the label.
 
-?> Words in the text will be automatically placed on a new line if they take up too much horizontal space depending on `width`.
+?> Words are automatically placed on a new line if they take up too much space depending on `width`'s value.
 
-# Optional Attributes
+## Optional Attributes
 
-## showEllipsis
+### showEllipsis
 
 - Type: `boolean`
 - Default: `false`
 
 Whether to show an ellipsis at the end of the text if it overflows the label.
 
-## backgroundColor
+### backgroundColor
 
 - Type: `string`
 - Default: `'red'`
 
-Color of the rectangle behind the label.
+The colour of the rectangle behind the label.
 
-## textOpacity
+### textOpacity
 
 - Type: `number | string`
 - Default: `1`
 
 The opacity of the text of the label.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## origin
+### origin
 
-- Type: `OriginX`
-- Default: `OriginX.Middle`
+- Type: `Origin`
+- Default: `'middle'`
 - Options: `'topLeft'`, `'topMiddle'`, `'topRight'`, `'middleLeft'`, `'middle'`, `'middleRight'`, `'bottomLeft'`, `'bottomMiddle'`, `'bottomRight'`
 
-Horizontal origin of the label.
+The origin of the bar.
 Which value is useful depends on your positioning logic.
 See [OriginMapper](../utils/OriginMapper.md) for more information.
 
-## rotationDegrees
+### rotationDegrees
 
 - Type: `number`
 - Default: `0`
 
-Rotation of the label in degrees.
+The rotation of the label in degrees.
 
-## borderRadius
+### borderRadius
 
 - Type: `number`
 - Default: `0`
 
-Border radius of the background in pixels. This defaults to `0`.
+The border radius of the background in pixels.
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `20`
 
-Padding around the text in the label.
+The padding around the text in the label in pixels.
 
-## textColor
+### textColor
 
 - Type: `string`
 - Default: `'black'`
 
-Color of the text in the label.
+The colour of the text in the label.
+Valid inputs include CSS colours specified as a string.
 
-## fontSize
+### fontSize
 
 - Type: `string`
 - Default: `'12px'`
 
 The font size of the text in the label.
 
-## fontWeight
+### fontWeight
 
 - Type: `string`
 - Default: `'normal'`
 
-Font weight of the text in the label.
+The font weight of the text in the label.
 
-## fontFamily
+### fontFamily
 
 - Type: `string`
 - Default: `'Arial'`
 
-Font family of the text in the label.
+The font family of the text in the label.
 
-## hasBackground
+### hasBackground
 
 - Type: `bool`
 - Default: `true`
 
 Whether the label has a background.
 
-## backgroundOpacity
+### backgroundOpacity
 
 - Type: `Opacity`
 - Defaults: `textOpacity`
 
-The opacity of the background behind the label.
+The opacity of the background of the label.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## hasPointerEvents
+### hasPointerEvents
 
 - Type: `boolean`
 - Default: `false`
 
 Whether the label should respond to all pointer events (`true`) or none (`false`).
 
-## name
+### name
 
 - Type: `UndefineableString`
 - Default: `'label'`
 
-Class name of the label. It can be used as an identifier.
+The class name of the label. It can be used as an identifier.
 If set to `'name'`, for example, the class names will be `'label'` and `'label-name'`.
 
-## width
+### width
 
 - Type: `NumberAuto`
 - Default: `'auto'`
 
-Width of the rectangle of the label.
+The width of the rectangle of the label in pixels.
 
-## height
+### height
 
 - Type: `NumberAuto`
 - Default: `'auto'`
 
-Height of the rectangle of the label.
+The height of the rectangle of the label in pixels.
 
-## borderColor
+### borderColor
 
 - Type: `string`
 - Default: `'black'`
 
-Colour of the border around the background of the label.
+The colour of the border around the background of the label.
+Valid inputs include CSS colours specified as a string.
 
 > Note: Can be set to `'none'` for no border.
 
-# Events
+## Events
 
-This component emits the following events, when `hasPointerEvents` is set to true:
+This component emits the following events when `hasPointerEvents` is set to true:
 
 - `mouseLabelClick`
 - `mouseLabelEnter`
 - `mouseLabelLeave`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creating a basic label.</b>
 

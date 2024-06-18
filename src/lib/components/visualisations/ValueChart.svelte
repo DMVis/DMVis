@@ -183,26 +183,37 @@
 <!--
 @component
 ### ValueChart
-ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision-making, depending on how important the user thinks the attribute is.
-The visualisation consists of two major components: namely, a visualisation close to `TabularVisualisation` at the top, and a visualisation similar to `StackedBarChart` at the bottom.
+ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision-making, depending on how important the user thinks the attribute is. The visualisation exists of two major components; at the top, there are `BarColumn` components (one for each numerical attribute). These same bars are shown at the bottom as well, except for each row entry in the dataset, there is a `SumColumn`.
+Both parts of the visualisation are scrollable, to allow for visualising large datasets in a compact window.
 
-### Required Attributes
-* width: number                               - Width of the visualisation.
-* height: number                              - Height of the visualisation.
-* dataUtil: DataUtils                         - Class holding all the data, see documentation.
+#### Required Attributes
+* width: number                 - The width of the visualisation in pixels.
+* height: number                - The height of the visualisation in pixels.
+* dataUtil: DataUtils           - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
-### Optional Attributes
-* styleUtil: StyleUtils                     - Class holding all the styling. See its documentation.
-* marginLeft: number                        - Margin to the left of the visualisation. This defaults to `100`.
-* marginRight: number                       - Margin to the right of the visualisation. This defaults to `40`.
-* marginTop: number                         - Margin to the top of the visualisation. This defaults to `40`.
-* marginBottom: number                      - Margin to the bottom of the visualisation. This defaults to `40`.
-* padding: number                           - Padding between the different visualisations. This defaults to `0.1`.
-* autoDistributeWeight: boolean             - Determines whether the total of the weights should be 100.
-                                                This will mean that when set to true all other weights will be redistributed.
-                                                This defaults to true
-* isScrollable: boolean                     - Whether the visualisation should be scrollable. The default value is `false`.
-* showFilter: boolean                       - Whether the filter should be shown next to the visualisation. The default value is `false`.
+#### Optional Attributes
+* styleUtil: StyleUtils         - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
+                                  Defaults to `new StyleUtils({ colorSet: 'Dark2', numColors: dataUtil.columns.length - 1 })`.
+* marginLeft: number            - The margin to the left of the visualisation in pixels.
+                                  Defaults to `100`.
+* marginRight: number           - The margin to the right of the visualisation in pixels.
+                                  Defaults to `40`.
+* marginTop: number             - The margin to the top of the visualisation in pixels.
+                                  Defaults to `40`.
+* marginBottom: number          - The margin to the bottom of the visualisation in pixels.
+                                  Defaults to `40`.
+* padding: number               - The padding between the different visualisations.
+                                  Defaults to `0.1`.
+* autoDistributeWeight: boolean - Whether the total of the weights should be `100`.
+                                  This means that when the weight of one attribute is changed, all of the other weights
+                                  will be redistributed such that their sum will be equal to `100`.
+                                  When set to `false`, it will take the sum of all the weights as the total and scale
+                                  with this number as opposed to 100%.
+                                  Defaults to `true`.
+* isScrollable: boolean         - Whether the visualisation is scrollable in its parent container.
+                                  Defaults to `false`.
+* showFilter: boolean           - Whether the filter is displayed next to the visualisation.
+                                  Defaults to `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg {width} {height} class="valuechart" bind:this={valueChartRef}>

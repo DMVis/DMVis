@@ -1,17 +1,17 @@
 # Scatterplot
 
-This is a visualisation to display a dataset of points
+This is a visualisation to display a dataset of points.
 
 > Note: By default the scatterplot assumes an existing pre-defined store. If this is not the case, the [dataUtil](#datautil) attribute is **required**!
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -35,96 +35,99 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## width
-
-- Type: `number`
-
-Width of the visualisation.
-
-## height
+### width
 
 - Type: `number`
 
-Height of the visualisation.
+The width of the visualisation in pixels.
 
-## xAxis
+### height
 
-- Type: `string`
+- Type: `number`
 
-The name of the attribute should be plotted along the x-axis.
+The height of the visualisation in pixels.
 
-> Note: This should be the same name as the one that is provided in the input dataUtil.
-
-## yAxis
+### xAxis
 
 - Type: `string`
 
-The name of the attribute that should be plotted along the y-axis.
+The name of the attribute to be plotted along the x-axis.
 
-> Note: This should be the same name as the one that is provided in the input dataUtil.
+> Note: This should be the same name as the one that is provided in the input `dataUtil`.
 
-# Optional Attributes
+### yAxis
 
-## dataUtil
+- Type: `string`
+
+The name of the attribute to be plotted along the y-axis.
+
+> Note: This should be the same name as the one that is provided in the input `dataUtil`.
+
+## Optional Attributes
+
+### dataUtil
 
 - Type: `dataUtil`
 - Default: `null`
 
-The dataUtil adds the option to use the scatterplot without a predefined store. Note that this becomes a required attribite if you wish to do so.
+An instance of `dataUtils`, which holds all the data.
+It adds the possibility to use `Scatterplot` without a predefined store.
+By default, the scatterplot assumes a defined store.
 See [DataUtils](utils/DataUtils.md) for more information.
 
-## showAxis
+### showAxis
 
 - Type: `bool`
 - Default: `true`
 
 Whether or not to display the Left- and Bottom-axis.
 
-## numTicks
+### numTicks
 
 - Type: `number`
 - Default: `5`
 
-Amount of ticks to display on each of the axes.
+The amount of ticks to display on each axis.
 
-## pointOpacity
+### pointOpacity
 
 - Type: `number`
 - Default: `1`
 
 The opacity of the points of the scatterplot.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## marginLeft
+### marginLeft
 
 - Type: `number`
 - Default: `50`
 
-Margin left of the visualisation.
+The margin left of the visualisationThe m
 
-## marginRight
-
-- Type: `number`
-- Default: `40`
-
-Margin right of the visualisation.
-
-## marginTop
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
-Margin above the visualisation.
+The margin right of the visualisationThe m
 
-## marginBottom
+### marginTop
 
 - Type: `number`
 - Default: `40`
 
-Margin under the visualisation.
+The margin above the visualisation The m
 
-# Events
+### marginBottom
+
+- Type: `number`
+- Default: `40`
+
+The margin under the visualisationThe m
+
+## Events
 
 This component emits the following events:
 
@@ -132,9 +135,9 @@ This component emits the following events:
 - `mousePointLeave`
 - `mousePointClick`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Using the scatterplot with a pre-defined store.</b>
 

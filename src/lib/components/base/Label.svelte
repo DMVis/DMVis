@@ -160,19 +160,19 @@
       .attr('stroke', borderColor);
   });
 
-  /** Function that fires when the mouse enters this label if `hasPointerEvents` is `true` */
+  /** A function that fires when the mouse enters this label if `hasPointerEvents` is `true`. */
   function onMouseEnter() {
     // Fire an event to be picked up by parent components of this label
     dispatch('mouseLabelEnter', { name: name });
   }
 
-  /** Function that fires when the mouse leaves this label if `hasPointerEvents` is `true` */
+  /** A function that fires when the mouse leaves this label if `hasPointerEvents` is `true`. */
   function onMouseLeave() {
     // Fire an event to be picked up by parent components of this label
     dispatch('mouseLabelLeave', { name: name });
   }
 
-  /** Function that fires when the mouse is pressed down on this label if `hasPointerEvents` is `true` */
+  /** A function that fires when the mouse is pressed down on this label if `hasPointerEvents` is `true`. */
   function onMouseDown() {
     // Fire an event to be picked up by parent components of this label
     dispatch('mouseLabelClick', { name: name });
@@ -187,37 +187,56 @@ It can be used in combination with other components.
 Coordinates are relative to the parent SVG element.
 Note that a `Label`'s origin is at its middle (see the `origin` attribute).
 
-#### Required attributes
-* x: number                     - X-coordinate of the label.
-* y: number                     - Y-coordinate of the label.
-* text: string                  - Text to display in the label.
+#### Required Attributes
+* x: number                     - The x-coordinate of the label.
+* y: number                     - The y-coordinate of the label.
+* text: string                  - The text to display in the label.
+                                  Words are automatically placed on a new line if they take up too much space depending on `width`'s value.
 
-#### Optional attributes
-* backgroundColor: string       - Color of the rectangle behind the label. This defaults to `'red'`.
-* textOpacity: Opacity          - Opacity of the text of the label. This defaults to `1`.
+#### Optional Attributes
+* backgroundColor: string       - The colour of the rectangle behind the label.
+                                  Defaults to `'red'`.
+* textOpacity: Opacity          - The opacity of the text of the label.
+                                  It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                                  Defaults to `1`.
 * origin: Origin                - The origin of the label.
                                   Which value is useful depends on your positioning logic.
                                   Defaults to `'middle'`.
-* rotationDegrees: number       - Rotation of the label in degrees. This defaults to `1`.
-* borderRadius: number          - Border radius of the background in pixels. This defaults to `0`.
-* padding: number               - Padding around the text in the label. This defaults to `20`.
-* textColor: string             - Color of the text in the label. This defaults to `'black'`.
-* fontSize: string              - Font size of the text in the label. This defaults to `'12px'`.
-* fontWeight: string            - Font weight of the text in the label. This defaults to `'normal'`.
-* fontFamily: string            - Font family of the text in the label. This defaults to `'Arial'`.
-* hasBackground: bool           - Whether the label has a background. This defaults to `true`.
-* backgroundOpacity: number     - Opacity of the background behind the label. This defaults to `textOpacity`.
+* rotationDegrees: number       - The rotation of the label in degrees.
+                                  Defaults to `1`.
+* borderRadius: number          - The border radius of the background in pixels.
+                                  Defaults to `0`.
+* padding: number               - The padding around the text in the label.
+                                  Defaults to `20`.
+* textColor: string             - The colour of the text in the label.
+                                  Valid inputs include CSS colours specified as a string.
+                                  Defaults to `'black'`.
+* fontSize: string              - The font size of the text in the label.
+                                  Defaults to `'12px'`.
+* fontWeight: string            - The font weight of the text in the label.
+                                  Defaults to `'normal'`.
+* fontFamily: string            - The font family of the text in the label.
+                                  Defaults to `'Arial'`.
+* hasBackground: bool           - Whether the label has a background.
+                                  Defaults to `true`.
+* backgroundOpacity: number     - The opacity of the background of the label.
+                                  It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                                  Defaults to `textOpacity`.
 * hasPointerEvents              - Whether the label should respond to all pointer events (`true`) or none (`false`).
-                                  This defaults to `false`.
-* name: UndefineableString      - The class name of the label. It can be used as an identifier. This defaults to only `'label'`.
+                                  Defaults to `false`.
+* name: UndefineableString      - The class name of the label. It can be used as an identifier.
                                   If set to `'name'`, for example, the class names will be `'label'` and `'label-name'`.
-* width: NumberAuto             - Width of the rectangle of the label. This defaults to `'auto'`.
-* height: NumberAuto            - Height of the rectangle of the label. This defaults to `'auto'`.
-* borderColor: string           - Color of the border around the background of the label.
-                                  This defaults to `'black'`. This value can be set to `'none'` for no border.
+                                  Defaults to only `'label'`.
+* width: NumberAuto             - The width of the rectangle of the label in pixels.
+                                  Defaults to `'auto'`.
+* height: NumberAuto            - The height of the rectangle of the label in pixels.
+                                  Defaults to `'auto'`.
+* borderColor: string           - The colour of the border around the background of the label.
+                                  Valid inputs include CSS colours specified as a string or `'none'` for no border.
+                                  Defaults to `'black'`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
 <g

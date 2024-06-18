@@ -2,15 +2,15 @@
 
 The column is a component that represents a column in a table. It can be used to display data in a table or to create a visual representation of data.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -37,31 +37,31 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the column.
-
-## width
+### x
 
 - Type: `number`
 
-Width of the column.
+The x-coordinate of the column.
 
-## height
+### width
 
 - Type: `number`
 
-Height of the column.
+The width of the column.
 
-## type
+### height
+
+- Type: `number`
+
+The height of the column.
+
+### type
 
 - Type: `ColumnType`
 
-Signifies the type of the column. Influences the rendering of the column.
+The type of the column. Influences the rendering of the column. See the `ColumnType` enum for more information.
 
 ### ColumnType
 
@@ -74,44 +74,44 @@ An enum, containing types of columns. This can be selected by importing `ColumnT
 - `'Sum'`
 - `'Text'`
 
-# Optional Attributes
+## Optional Attributes
 
-## y
+### y
 
 - Type: `number`
 - Default: `100`
 
-Y-coordinate of the column.
+The y-coordinate of the column.
 
-## name
+### name
 
 - Type: `string`
 - Default: `'Column'`
 
 The name is at the top of the column. Set this to the attribute name.
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `10`
 
-The padding around the column.
+The padding around the column in pixels.
 
-## icons
+### icons
 
 - Type: `IconType[]`
 - Default `[]`
 
 What icons to display in the top of the column. See [Icon](components/Icon.md) for more information.
 
-## showSeparator
+### showSeparator
 
 - Type: `boolean`
 - Default: `true`
 
 Whether to show the separator line at the bottom of the column header.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -125,9 +125,9 @@ This component emits the following events:
 - `search`
 - `sort`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creating a column.</b>
 

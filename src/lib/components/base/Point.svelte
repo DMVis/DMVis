@@ -52,30 +52,38 @@
 <!--
 @component
 ### Point
-The point allows you to plot a point at a given coordinate.
-It is used in combination with other components to create a chart.
+The point component is meant to be used in visualisations like scatterplots.
+It produces a point at a given coordinate of certain color, size and style.
 
-#### Required attributes
-* x: number             - Scaled x-coordinate of the point.
-* y: number             - Scaled y-coordinate of the point.
+#### Required Attributes
+* x: number                - The scaled x-coordinate of the point.
+* y: number                - The scaled y-coordinate of the point.
 
-#### Optional attributes
-* radius: number        - Radius of the point. This defaults to `5`.
-* borderWidth: number   - Width of the border. This defaults to `1`.
-* borderColor: string   - Color of the border. This defaults to `styleUtil.colorBorder`, if you do not use the StyleUtil,
-                          this will use `borderColor` and default to `black`.
-* color: string         - Color of the point. This defaults to `styleUtil.color`, if you do not use the StyleUtil,
-                          this will use `color` and default to `red`.
-* opacity: number       - Opacity of the point, where `0` is completely transparent and `1` is completely opaque.
-                          Defaults to `1`.
-* name: UndefineableString
-                        - The class name of the point. It can be used as an identifier. This defaults to only `point`.
-                          If set, the class names will be set to both `point` and `point-name`.
+#### Optional Attributes
+* radius: number           - The radius of the point in pixels.
+                             Defaults to `5`.
+* borderWidth: number      - The width of the border in pixels.
+                             Defaults to `1`.
+* borderColor: string      - The colour of the border in pixels.
+                             Note that it can be removed entirely by setting the value to `0`.
+                             Defaults to `styleUtil.colorBorder`, unless you do not use a `StyleUtil` instance.
+                             Defaults to `borderColor`'s value otherwise, which is `'black'`.
+* color: string            - The colour of the point.
+                             Defaults to `styleUtil.color`, unless you do not use a `StyleUtil` instance.
+                             Defaults to `color`'s value otherwise, which is `'red'`.
+* opacity: number          - The opacity of the point.
+                             It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                             Defaults to `1`.
+* name: UndefineableString - The class name of the point.
+                             It can be used as an identifier.
+                             If set, the class names will be set to both `'point'` and `'point-name'`.
+                             Defaults to `'point'`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The point -->
 <circle
   style="--highlight-color: {$styleUtil ? $styleUtil.focusColor : color}"
   cx={x}

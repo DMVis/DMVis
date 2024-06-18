@@ -4,7 +4,7 @@ To ensure consistent and visually appealing visualisations, we have developed a 
 
 The `StyleUtils` class contains methods and properties that help in generating and managing colour schemes and other style-related settings.
 
-# Table of contents
+## Table of Contents
 
 - [Constructor](#constructor)
 - [Class Properties](#class-properties)

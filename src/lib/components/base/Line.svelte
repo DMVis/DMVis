@@ -7,7 +7,7 @@
   import Tooltip from '$lib/components/base/Tooltip.svelte';
   import { DMVisError } from '$lib/utils/DMVisError.js';
   import { getVisualisationContext } from '$lib/utils/Context.js';
-  import { SpacerEqual, SpacerSide } from '$lib/utils/Spacer.js';
+  import { spacerEqual, spacerSide } from '$lib/utils/Spacer.js';
   import type { Alignment, UndefineableString } from '$lib/Types.js';
 
   // Optional attributes
@@ -49,10 +49,10 @@
       // The aligmnent will be the same for alignments `start` and `end`
       case 'start':
       case 'end':
-        spacer = SpacerSide($width, $marginLeft, $marginRight, drawingOrder, alignment);
+        spacer = spacerSide($width, $marginLeft, $marginRight, drawingOrder, alignment);
         break;
       case 'spaced': {
-        spacer = SpacerEqual($width, $marginLeft, $marginRight, drawingOrder);
+        spacer = spacerEqual($width, $marginLeft, $marginRight, drawingOrder);
         break;
       }
       // When this point is reached, it means that the given alignment is not recognised
@@ -196,23 +196,24 @@
 <!--
 @component
 ### Line
-The Line allows you to plot a line between given coordinates.
-The line component will pull data out of the visualisation store, and create a line for each row.
-It is used in combination with other components to create a chart.
+The line component is used for visualisations that need lines. It generates lines dynamically from the provided dataset.
+Note that this component only works if `VisualisationStore` has been set, since it uses the dataset present in the store.
 
-#### Optional attributes
-* alignment: Alignment                   - Alignment of the points on the lines.
+#### Optional Attributes
+* alignment: Alignment                   - The alignment of the points on the lines.
                                            If using DynamicAxis, choose the same alignment option.
                                            Defaults to `'spaced'`.
 * hoverable: boolean                     - Whether or not the line should be hoverable.
                                            When set to `true`, the line will become highlighted if the line is hovered, and
-                                           numbers will be displayed on all the points. This defaults to `false`.
-* lineWidth: string                      - Width of the line. This defaults to `1`.
-* axisOrder: string[]                    - Order ofthe attributes, determines the placement of points on each line.
+                                           numbers will be displayed on all the points.
+                                           Defaults to `false`.
+* lineWidth: string                      - The width of the line. Defaults to `1`.
+* axisOrder: string[]                    - The order of the attributes. It determines the placement of points on each line.
                                            Defaults to `[]`.
-* draggedAxis: UndefineableString        - The name of the axis that is being dragged, used in visualisations that
-                                           use draggable axes. This defaults to `undefined`.
-* draggingOffset: number                 - The offset of the axis that is being dragged. This defaults to `0`.
+* draggedAxis: UndefineableString        - The name of the axis that is being dragged, used in visualisations that use draggable axes.
+                                           Defaults to `undefined`.
+* draggingOffset: number                 - The offset of the axis that is being dragged.
+                                           Defaults to `0`.
 -->
 
 {#key axisOrder}

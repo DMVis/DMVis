@@ -266,7 +266,7 @@ export class DataUtils {
     if (scales.length !== numericalScales) {
       throw DMVisError(
         `Incorrect amount of scales provided to the scales parameter in the ${this.sortByWeights.name} function. Please provide one scale per numerical column in the data assigned to the data attribute.`,
-        'DataUtil'
+        'DataUtils'
       );
     }
 

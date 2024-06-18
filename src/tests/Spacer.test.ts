@@ -3,7 +3,7 @@ import { type ScaleBand, type ScalePoint } from 'd3';
 import { describe, it, expect, expectTypeOf } from 'vitest';
 
 // DMVis imports
-import { SpacerSide, SpacerEqual } from '$lib/utils/Spacer.js';
+import { spacerSide, spacerEqual } from '$lib/utils/Spacer.js';
 
 describe('SpacerSide placement test', () => {
   it(`creates a SpacerSide and checks the type`, () => {
@@ -15,7 +15,7 @@ describe('SpacerSide placement test', () => {
     const alignment = 'start';
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment);
 
     // Assert
     expectTypeOf(spacer).toEqualTypeOf<ScaleBand<string>>();
@@ -30,7 +30,7 @@ describe('SpacerSide placement test', () => {
     const alignment = 'start';
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment);
 
     // Assert
     expect(spacer('p1')).toBe(0);
@@ -50,7 +50,7 @@ describe('SpacerSide placement test', () => {
     const alignment = 'end';
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment);
 
     // Assert
     expect(spacer('p1')).toBe(250);
@@ -70,7 +70,7 @@ describe('SpacerSide placement test', () => {
     const alignment = 'start';
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment);
 
     // Assert
     expect(spacer('p1')).toBe(100);
@@ -90,7 +90,7 @@ describe('SpacerSide placement test', () => {
     const alignment = 'end';
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment);
 
     // Assert
     expect(spacer('p1')).toBe(300);
@@ -111,7 +111,7 @@ describe('SpacerSide placement test', () => {
     const paddingInner = 0.1;
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment, paddingInner);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment, paddingInner);
 
     // Assert
     // Hard coded numbers because padding calculations in ScaleBand return ugly numbers
@@ -133,7 +133,7 @@ describe('SpacerSide placement test', () => {
     const paddingInner = 0.1;
 
     // Act
-    const spacer = SpacerSide(dimension, marginLow, marginHigh, columns, alignment, paddingInner);
+    const spacer = spacerSide(dimension, marginLow, marginHigh, columns, alignment, paddingInner);
 
     // Assert
     // Hard coded numbers because padding calculations in ScaleBand return ugly numbers
@@ -155,7 +155,7 @@ describe('SpacerEqual placement test', () => {
     const columns = ['p1', 'p2', 'p3', 'p4'];
 
     // Act
-    const spacer = SpacerEqual(dimension, marginLow, marginHigh, columns);
+    const spacer = spacerEqual(dimension, marginLow, marginHigh, columns);
 
     // Assert
     expectTypeOf(spacer).toEqualTypeOf<ScalePoint<string>>();
@@ -169,7 +169,7 @@ describe('SpacerEqual placement test', () => {
     const columns = ['p1', 'p2', 'p3', 'p4'];
 
     // Act
-    const spacer = SpacerEqual(dimension, marginLow, marginHigh, columns);
+    const spacer = spacerEqual(dimension, marginLow, marginHigh, columns);
 
     // Assert
     expect(spacer('p1')).toBe(0);
@@ -187,7 +187,7 @@ describe('SpacerEqual placement test', () => {
     const columns = ['p1', 'p2', 'p3', 'p4'];
 
     // Act
-    const spacer = SpacerEqual(dimension, marginLow, marginHigh, columns);
+    const spacer = spacerEqual(dimension, marginLow, marginHigh, columns);
 
     // Assert
     expect(spacer('p1')).toBe(50);
@@ -206,7 +206,7 @@ describe('SpacerEqual placement test', () => {
     const paddingOuter = 0.1;
 
     // Act
-    const spacer = SpacerEqual(dimension, marginLow, marginHigh, columns, paddingOuter);
+    const spacer = spacerEqual(dimension, marginLow, marginHigh, columns, paddingOuter);
 
     // Assert
     // Hard coded numbers because padding calculations in ScaleBand return ugly numbers

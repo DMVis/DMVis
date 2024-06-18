@@ -2,14 +2,14 @@
 
 LineUp is a visualisation technique for visualising different types of data in a set of columns. It is a table-based visualisation that allows users to sort, filter, and group data in a table.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -44,68 +44,68 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## dataUtil
+### dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/DataUtils.md) for more information.
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-> Note: The `dataUtil` class must be initialised with `includeId` set to `true` in order to use the LineUp visualisation. This is because LineUp requires a unique identifier for each row in the data.
+> Note: It must be initialised with `includeId` set to `true` in order to use the `LineUp` visualisation, because each row in the data requires a unique identifier.
 
-# Optional Attributes
+## Optional Attributes
 
-## styleUtil
+### styleUtil
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils()`
 
-Class holding all the styling. See [StyleUtils](utils/StyleUtils.md).
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/StyleUtils.md) for more information.
 
-## columnWidth
+### columnWidth
 
 - Type: `number`
 - Default: `150`
 
-Width of each column in the table.
+The width of each column in pixels.
 
-## width
+### width
 
 - Type: `number`
 - Default: `dataUtil.columns.length * columnWidth`
 
-The width of the visualisation. The default value is calculated based on the number of columns and `columnWidth`.
+The width of the visualisation in pixels. Defaults to a number based on the amount of columns and `columnWidth`.
 
-## height
+### height
 
 - Type: `number`
 - Default: `number of rows * 20 + 120`
 
-Height of the visualisation. 120 is the height of the header, and each row is 20 pixels high.
+The height of the visualisation in pixels. Defaults to a number based on the amount of rows and the row height.
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding between columns.
+The padding between each column in pixels.
 
-## isScrollable
-
-- Type: `boolean`
-- Default: `false`
-
-Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
-
-## showFilter
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-# Example usage
+### showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Example Usage
 
 <b>Creating a `LineUp` visualisation from a csv string.</b>
 

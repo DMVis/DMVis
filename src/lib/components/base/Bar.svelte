@@ -17,8 +17,8 @@
   // Required attributes
   export let x: number;
   export let y: number;
-  export let barWidth: number;
-  export let value: number;
+  export let width: number;
+  export let length: number;
 
   // Optional attributes
   export let isVertical: boolean = true;
@@ -27,8 +27,8 @@
   export let origin: Origin = 'bottomMiddle';
   export let rotationDegrees: number = 0;
   export let borderRadius: number = 0;
-  export let showsNegativeHeight: boolean = false;
-  export let hoverText: string = value.toString();
+  export let showsNegativeLength: boolean = false;
+  export let hoverText: string = length.toString();
   export let name: UndefineableString = undefined;
   export let labelType: Visibility = 'none';
 
@@ -37,8 +37,8 @@
   let isMouseOnBar: boolean = false;
 
   // These local values are possibly flipped depending on `isVertical`
-  const localWidth = isVertical ? barWidth : value;
-  const localValue = isVertical ? value : barWidth;
+  const localWidth = isVertical ? width : length;
+  const localLength = isVertical ? length : width;
 
   const dispatch = createEventDispatcher();
 
@@ -47,6 +47,7 @@
 
   // Depending on the labelType, we get a couple of different css values for the `display` option
   let numberOpacity: string;
+
   if (labelType === 'none') {
     // This needs to be important in order to override the `display: block` set by highlight
     numberOpacity = '0 !important';
@@ -77,11 +78,11 @@
   $: yBar =
     y +
     getOriginOffsetY(
-      Math.abs(localValue),
+      Math.abs(localLength),
       'topLeft',
       // Negative values get flipped
       // `showsNegativeValue` determines whether this is visible for height < 0
-      localValue < 0 ? getFlippedOriginY(origin) : origin
+      localLength < 0 ? getFlippedOriginY(origin) : origin
     );
 
   // On this point xBar and yBar are the top left corner of the bar
@@ -91,9 +92,9 @@
   $: {
     if (isVertical) {
       xLabel = xBar + localWidth / 2;
-      yLabel = yBar + localValue;
+      yLabel = yBar + localLength;
     } else {
-      yLabel = yBar + localValue / 2;
+      yLabel = yBar + localLength / 2;
       xLabel = xBar;
     }
   }
@@ -121,41 +122,51 @@
 <!--
 @component
 ### Bar
-A bar that can be used for bar visualisations.
-Coordinates are relative to the parent SVG element.
+A bar that can be used for visualisations.
 Only positive `width` values are visible.
-Negative `height` values can be visible depending on `showsNegativeHeight`.
-Note that by default, `Bar` is vertical (i.e. `isVertical` is `true`)
-and its origin is at its bottom middle (see the `origin` attribute).
+Negative `length` values can be visible depending on `showsNegativeLength`.
+Note that by default, `Bar` is vertical (i.e. `isVertical` is `true`),
+its origin is at its bottom middle (see the `origin` attribute), and
+its coordinates are relative to its parent the SVG element.
 
-#### Required attributes
-* x: number                     - X-coordinate of the bar.
-* y: number                     - Y-coordinate of the bar.
-* barWidth: number              - Width of the bar.
-* value: number                 - The value of the bar, and therefore the length of the bar.
+#### Required Attributes
+* x: number                     - The x-coordinate of the bar.
+* y: number                     - The y-coordinate of the bar.
+* width: number                 - The width of the bar in pixels.
+* length: number                - The length of the bar to represent its value in pixels.
 
-#### Optional attributes
-* isVertical: boolean           - Whether the bar is vertical bar or horizontal. This defaults to `true`.
-* color: string                 - Color of the bar.
-* opacity: Opacity              - Opacity of the bar as a number in the range [0..1] or
-                                  a percentage string formatted as '{number}%'.
+#### Optional Attributes
+* isVertical: boolean           - Whether the bar is vertical or horizontal.
+                                  Defaults to `true`.
+* color: string                 - The colour of the bar. Valid inputs include CSS colours specified as a string.
+                                  Defaults to `'red'`.
+* opacity: Opacity              - The opacity of the bar.
+                                  It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
                                   Defaults to `1`.
 * origin: Origin                - The origin of the bar.
                                   Which value is useful depends on your positioning logic.
                                   Defaults to `'bottomMiddle'`.
-* rotationDegrees: number       - Rotation of the bar in degrees. This defaults to `0`.
-* borderRadius: number          - Border radius of the bar in pixels. This defaults to `0`.
-* showsNegativeHeight: boolean  - Whether the bar flips its orientation when `height` is negative.
+* rotationDegrees: number       - The rotation of the bar in degrees.
+                                  Defaults to `0`.
+* borderRadius: number          - The border radius of the bar in pixels.
+                                  Use this to have rounded corners.
+                                  Defaults to `0`.
+* showsNegativeLength: boolean  - Whether the bar flips its orientation when `length` is negative.
                                   Defaults to `false`.
-* hoverText: string             - Text to display in the label when the mouse hovers over the bar.
-                                  Defaults to the given `height` attribute.
-* name: UndefineableString      - Class name of the bar. It can be used as an identifier. This defaults to only `bar`.
-                                  If set, the class names will be `bar` and `bar-name`.
+* hoverText: string             - The text to display in the label when the mouse hovers over the bar.
+                                  In order for this text to be visible, you need to set the `labelType` attribute
+                                  to either `'alwaysVisible'` or `'visibleOnHighlight'`.
+                                  Defaults to `length`'s value.
+* name: UndefineableString      - The class name of the bar.
+                                  It can be used as an identifier.
+                                  If set, the class names will be `'bar'` and `'bar-name'`.
+                                  Defaults to `bar`.
 * labelType: Visibility         - Determines the behaviour of the labels on the bars.
-                                  Refer to the documentation for more information. This defaults to `'none'`.
+                                  Refer to the documentation for more information.
+                                  Defaults to `'none'`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
 <!-- The bar -->
@@ -168,7 +179,7 @@ and its origin is at its bottom middle (see the `origin` attribute).
   rx={borderRadius}
   ry={borderRadius}
   width={localWidth}
-  height={showsNegativeHeight && localValue < 0 ? -localValue : localValue}
+  height={showsNegativeLength && localLength < 0 ? -localLength : localLength}
   fill={color}
   fill-opacity={opacity}
   role="treeitem"
@@ -180,8 +191,7 @@ and its origin is at its bottom middle (see the `origin` attribute).
   on:focus={onMouseEnter}
   on:blur={onMouseLeave} />
 
-<!-- Create a tooltip that lies on top of the bar
-  and is only visible if the class `highlighted` is active -->
+<!-- The tooltip on top of the bar, which is only visible if the class `highlighted` is active -->
 <g
   class={'bar-number' +
     (name !== undefined ? ` bar-number-${formatClassName(name)}` : '') +
@@ -201,7 +211,7 @@ and its origin is at its bottom middle (see the `origin` attribute).
 </g>
 
 <style>
-  /* Styling for the bar, this class will be set by parent components of the bar */
+  /* Styling for the bar, where the class can be set by a parent component */
   .highlighted {
     font-weight: bold;
     fill-opacity: 1;

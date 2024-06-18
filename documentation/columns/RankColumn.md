@@ -1,16 +1,16 @@
 # RankColumn
 
-RankColumn is a column that shows the index of the row in the table.
+`RankColumn` is a `Column` component that displays the rank of each value in the data array.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -33,49 +33,49 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the column.
-
-## width
+### x
 
 - Type: `number`
 
-Width of the column.
+The x-coordinate of the column.
 
-## height
-
-- Type: `number`
-
-Height of the column.
-
-## length
+### width
 
 - Type: `number`
 
-Number of rows in the table.
+The width of the column in pixels.
 
-# Optional Attributes
+### height
 
-## padding
+- Type: `number`
+
+The height of the column in pixels.
+
+### length
+
+- Type: `number`
+
+The number of ranks to display.
+
+## Optional Attributes
+
+### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding around the column.
+The padding around the column in pixels.
 
-## icons
+### icons
 
 - Type: `IconType[]`
 - Default: `[IconType.More]`
 
-List of what icons to display in the top of the column. See [IconType](../components/Icons.md) for the different icons you can use.
+A list of what icons to display in the top of the column. See [IconType](../components/Icons.md) for the different icons you can use.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -85,9 +85,9 @@ This component emits the following events:
 - `mouseHover`
 - `mouseRowClick`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b> Creating a rank column with 10 entries.</b>
 

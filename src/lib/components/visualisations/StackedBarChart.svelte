@@ -85,31 +85,43 @@
 
 <!--
 @component
-### Stacked Bar Chart
+### StackedBarChart
 This is a visualisation that represents categorical data with rectangular bars.
+It is used to compare the parts to the whole and show the relationship of individual items to the total.
 The length of each bar corresponds to the numerical value of the data being represented.
 The x-axis represents the numerical values of the data.
 The y-axis represents the categories of the data.
 
-#### Required attributes
-* dataUtil: Array<Array<string | number>>  - Data to visualise.
+#### Required Attributes
+* dataUtil: Array<Array<string | number>> - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
-#### Optional attributes
-* width: number             - Width of the visualisation. This defaults to `numberOfRows * 15`.
-* height: number            - Height of the visualisation. This defaults to `1500`.
-* marginLeft: number        - Margin to the left of the visualisation. This defaults to `40`.
-* marginRight: number       - Margin to the right of the visualisation. This defaults to `40`.
-* marginTop: number         - Margin to the top of the visualisation. This defaults to `40`.
-* marginBottom: number      - Margin to the bottom of the visualisation. This defaults to `40`.
-* padding: number           - Value for the distance between each bar in the range [0..1].
+#### Optional Attributes
+* width: number             - The width of the visualisation in pixels.
+                              Defaults to `numberOfRows * 15`.
+* height: number            - The height of the visualisation in pixels.
+                              Defaults to `1500`.
+* marginLeft: number        - The margin to the left of the visualisation in pixels.
+                              Defaults to `40`.
+* marginRight: number       - The margin to the right of the visualisation in pixels.
+                              Defaults to `40`.
+* marginTop: number         - The margin to the top of the visualisation in pixels.
+                              Defaults to `40`.
+* marginBottom: number      - The margin to the bottom of the visualisation in pixels.
+                              Defaults to `40`.
+* padding: number           - The distance between each bar.
+                              It can be a number between `0` and `1` (inclusive).
                               Defaults to `0.2`.
-* opacity: number | string  - Opacity of each bar as a number in the range [0..1] or
-                              a percentage string formatted as '{number}%'. This defaults to `1`.
-* styleUtil: StyleUtils     - Class holding all the styling. See its documentation.
+* opacity: Opacity          - The opacity of each bar.
+                              It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                              Defaults to `1`.
+* styleUtil: StyleUtils     - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
                               Defaults to `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`.
-* showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number, defaults to false.
-* isScrollable: boolean     - Whether the visualisation should be scrollable. The default value is `false`.
-* showFilter: boolean       - Whether the filter should be shown next to the visualisation. The default value is `false`.
+* showTotals: boolean       - Whether or not to display the sum of all bars at the end as a number.
+                              Defaults to `false`.
+* isScrollable: boolean     - Whether the visualisation is scrollable in its parent container.
+                              Defaults to `false`.
+* showFilter: boolean       - Whether the filter is displayed next to the visualisation.
+                              Defaults to `false`.
 -->
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
   <svg class="visualisation stackedBarchart" {width} {height}>

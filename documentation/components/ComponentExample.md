@@ -4,31 +4,31 @@ This component is a component, It's meant to be used as a component perhaps with
 
 !> This is a component!
 
-# Required Attributes
+## Required Attributes
 
-## x
+### x
 
 - Type: `number`
 
 The x coordinate of where the component is placed
 
-# Optional Attributes
+## Optional Attributes
 
-## color
+### color
 
 - Type: `string`
 - Default: `rgb(50, 50, 50)`
 
 Color of the component
 
-## amount
+### amount
 
 - Type: `number`
 - Default: `0`
 
 Amount of components to be placed
 
-# Example usage
+## Example Usage
 
 ```svelte
 <script lang="ts">

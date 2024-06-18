@@ -173,29 +173,42 @@
 <!--
 @component
 ### Axis
-The Axis component renders a single axis based on a single, provided d3.axis element.
-You can use this component to render an axis on any side of a visualisation, with the option
-of adding a label on any side of the axis.
+The Axis component is used to render a singular Axis, given a `d3.axis` element.
+This needs to be supplied by the parent through the `axis` parameter.
+The axis can be oriented in any direction, depending on the provided `d3.axis`.
+The axis can also have a label on any of the four sides, regardless of the axis orientation.
+Furthermore, the axis can be made draggable, although how this dragging behaviour should be handled is up to the user to implement.
 
-### Required attributes
-* placementX: number                                  - Horizontal start position of the axis.
-* placementY: number                                  - Vertical start position of the axis.
-* axis: d3.Axis<string> | d3.Axis<d3.NumberValue>     - D3 Axis component.
-                                                          See [d3 documentation](https://d3js.org/d3-axis)
-                                                          for the different kinds of axes you can create.
+> Note: This component is made specifically for visualisations that require only one axis (or multiple with different orientations).
+ If you want to have multiple axes created automatically from your dataset, consider using `DynamicAxis`.
 
-#### Optional attributes
-* renderLabel: boolean                                - Renders a label next to the axis. This defaults to `false`.
-* labelText: string                                   - Text for the label. This defaults to `'default'`.
-* labelPosition: Position                             - Position of the label relative to the axis. This defaults to `'top'`.
-* labelOffset: number                                 - Distance from the label to the axis. This defaults to `'20'`.
-* fontSize: number                                    - Font size of the tick labels. This defaults to `12`.
-* color: string                                       - Color of the axis line and label. This defaults to `'black'`.
-* isDraggable: boolean                                - Sets whether the axis is draggable. The logic for displacement of
-                                                        the axis should be handled outside this component.  For this
-                                                        to work, the renderLabel parameter should be set to true.
-                                                        Defaults to false.
-* squashOuterTicks: boolean                           - Whether or not to tuck in the first and last tick. This defaults to `false`.
+#### Required Attributes
+* placementX: number                              - The horizontal start position of the axis.
+* placementY: number                              - The vertical start position of the axis.
+* axis: d3.Axis<string> | d3.Axis<d3.NumberValue> - A D3 Axis component.
+                                                    See [d3 documentation](https://d3js.org/d3-axis)
+                                                    for the different kinds of axes you can create.
+
+#### Optional Attributes
+* renderLabel: boolean      - Renders a label next to the axis.
+                              Defaults to `false`.
+* labelText: string         - The text for the label.
+                              Defaults to `'default'`.
+* labelPosition: Position   - The position of the label relative to the axis.
+                              Defaults to `'top'`.
+* labelOffset: number       - The distance from the label to the axis.
+                              Defaults to `'20'`.
+* fontSize: number          - The font size of the tick labels.
+                              Defaults to `12`.
+* color: string             - The colour of the axis line and label.
+                              Valid inputs include CSS colours specified as a string.
+                              Defaults to `'black'`.
+* isDraggable: boolean      - Sets whether the axis is draggable. The logic for displacement of
+                              the axis should be handled outside this component. For this
+                              to work, the renderLabel parameter should be set to true.
+                              Defaults to `false`.
+* squashOuterTicks: boolean - Whether or not to tuck in the first and last tick.
+                              Defaults to `false`.
 -->
 
 <g class="axis">

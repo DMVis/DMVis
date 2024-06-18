@@ -1,4 +1,4 @@
-# DynamicAxis component
+# DynamicAxis
 
 The DynamicAxis component is a component used for rendering any number of axes, depending on the given dataset.
 By default, it will generate an axis per column in the dataset. This means that for a column with numerical data,
@@ -14,14 +14,14 @@ are found in the following visualisations:
 
 > Note: This component is made specifically for visualisations that require <u>one or more</u> axes. If you want to just use a single axis, it is recommended to use the [Axis](../components/Axis.md) component.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -40,23 +40,23 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Optional Attributes
+## Optional Attributes
 
-## axisOrder
+### axisOrder
 
 - Type: `string[]`
 - Default: `[]`
 
-The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. This defaults to `[]`, which draws axes in the order that they appear in the dataset.
+The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. Defaults to `[]`, which draws axes in the order that they appear in the dataset.
 
-## squashOuterTicks
+### squashOuterTicks
 
 - Type: `boolean`
 - Default: `false`
 
 Whether or not to tuck in the first and last tick.
 
-## alignment
+### alignment
 
 - Type: `Alignment`
 - Default: `'start'`
@@ -64,28 +64,28 @@ Whether or not to tuck in the first and last tick.
 
 Alignment of the axes (i.e. the side of the column where the axis is placed).
 
-## fontSize
+### fontSize
 
 - Type: `number`
 - Default: `10`
 
 The font size of the tick labels.
 
-## color
+### color
 
 - Type: `string`
-- Default: `'#000000'`
+- Default: `'black'`
 
-Color of the axis line.
+The colour of the axis line. Valid inputs include CSS colours specified as a string.
 
-## renderLabel
+### renderLabel
 
 - Type: `boolean`
 - Default: `false`
 
 Renders a label next to the axis.
 
-## labelPosition:
+### labelPosition:
 
 - Type: `Position`
 - Default: `'top'`
@@ -93,35 +93,35 @@ Renders a label next to the axis.
 
 Position of the label relative to the axis.
 
-## labelOffset
+### labelOffset
 
 - Type: `number`
 - Default: `20`
 
 Distance from the label to the axis.
 
-## hasTicks
+### hasTicks
 
 - Type: `boolean`
 - Default: `true`
 
 Whether to display tick marks.
 
-## offset
+### offset
 
 - Type: `number`
 - Default: `0`
 
 The offset of the axis from the side of the visualisation.
 
-## ticksNumber
+### ticksNumber
 
 - Type: `number`
 - Default: `10`
 
 The number of ticks to display on the axes.
 
-## position
+### position
 
 - Type: `string`
 - Default: `'bottom'`
@@ -129,7 +129,7 @@ The number of ticks to display on the axes.
 
 The position of the axis.
 
-## spacingDirection
+### spacingDirection
 
 - Type: `Direction`
 - Default: `'horizontal'`
@@ -137,14 +137,14 @@ The position of the axis.
 
 The direction to space the axes.
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `0`
 
 The amount of padding between axes is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -153,9 +153,9 @@ This component emits the following events:
 - `dragStop`
 - `renderAxis`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b>Creates a `DynamicAxis`. Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.</b>
 

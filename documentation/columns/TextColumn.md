@@ -2,15 +2,15 @@
 
 TextColumn is a column that shows the text of the given column.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -33,56 +33,56 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the column.
-
-## width
+### x
 
 - Type: `number`
 
-Width of the column.
+The x-coordinate of the column.
 
-## height
+### width
 
 - Type: `number`
 
-Height of the column.
+The width of the column in pixels.
 
-## data
+### height
+
+- Type: `number`
+
+The height of the column in pixes.
+
+### data
 
 - Type: `string[]`
 
-Data to display.
+The data to display as text.
 
-# Optional Attributes
+## Optional Attributes
 
-## padding
+### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding around the column.
+The padding around the column in pixels.
 
-## name
+### name
 
 - Type: `string`
 - Default: `'Column'`
 
-Name of the column. It should contain the name of the attribute you're displaying.
+The name of the column. It should contain the name of the attribute you're displaying.
 
-## icons
+### icons
 
 - Type: `IconType[]`
 - Default: `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`
 
-List of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
+A list of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -96,9 +96,9 @@ This component emits the following events:
 - `search`
 - `sort`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b> Creating a `TextColumn` with no interactivity.</b>
 

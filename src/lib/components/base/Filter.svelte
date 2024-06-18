@@ -143,15 +143,20 @@
 <!--
 @component
 ### Filter
-Filter is a component that allows users to filter data based on the column values. It is a fixed component that appears on the right side of the screen.
+The filter component adds a filter to the right side of a visualisation.
+It can be used to filter and sort the data displayed in a visualisation.
 
-#### Required attributes
-* dataUtil: DataUtils    - Class holding all the data, see documentation.
+#### Required Attributes
+* dataUtil: DataUtils   - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
-#### Optional attributes
-* columnHeight: number   - Height per column filter. This defaults to `100`.
-* width: number          - Width of the filter. This defaults to `150`.
-* styleUtil: StyleUtils  - Class holding all the styling. Is needed in the column component. See its documentation.
+#### Optional attribute
+* columnHeight: number  - The height per column filter in pixels.
+                          Defaults to `100`.
+* width: number         - The width of the filter in pixels.
+                          Defaults to `150`.
+* styleUtil: StyleUtils - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
+                          It is needed in the column component.
+                          Defaults to `new StyleUtils()`.
 -->
 
 <!-- Drawn in reverse order so the overlays will be on top -->

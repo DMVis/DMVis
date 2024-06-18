@@ -4,7 +4,7 @@ import { scaleBand, scalePoint } from 'd3-scale';
 // DMVis imports
 import { DMVisError } from '$lib/utils/DMVisError.js';
 
-export function Spacer(
+export function spacer(
   dimension: number,
   marginLow: number,
   marginHigh: number,
@@ -12,7 +12,7 @@ export function Spacer(
 ): number {
   if (length < 1) {
     throw DMVisError(
-      `Cannot assign '${length}' to the length parameter in the ${Spacer.name} function. Please use a number larger than or equal to 1.`,
+      `Cannot assign '${length}' to the length parameter in the ${spacer.name} function. Please use a number larger than or equal to 1.`,
       'Spacer'
     );
   } else if (length === 1) {
@@ -24,8 +24,8 @@ export function Spacer(
 
 // Spacer that creates a 'box' per column and returns the x-coordinate of the
 //  start or end (left/top or right/bottom) of this box depending on the alignment
-//  useful for, for example, Tabular Visualisation
-export function SpacerSide(
+//  useful for, for example, TabularVisualisation
+export function spacerSide(
   dimension: number,
   marginLow: number,
   marginHigh: number,
@@ -57,7 +57,7 @@ export function SpacerSide(
     }
     default:
       throw DMVisError(
-        `Cannot assign '${alignment}' to the alignment parameter in the ${SpacerSide.name} function. Please use: 'start' or 'end'.`,
+        `Cannot assign '${alignment}' to the alignment parameter in the ${spacerSide.name} function. Please use: 'start' or 'end'.`,
         'Spacer'
       );
   }
@@ -66,7 +66,7 @@ export function SpacerSide(
 // Spacer that places columns spread equally throughout the range, left-most
 //  column being at the far beginning of the range and right-most column being
 //  at the end of the range
-export function SpacerEqual(
+export function spacerEqual(
   dimension: number,
   marginLow: number,
   marginHigh: number,

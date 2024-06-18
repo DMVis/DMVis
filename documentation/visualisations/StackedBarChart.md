@@ -1,15 +1,19 @@
 # StackedBarChart
 
-The stacked BarChart component is a visual representation of data in a stacked bar chart format. It is used to compare the parts to the whole and show the relationship of individual items to the total.
+This is a visualisation that represents categorical data with rectangular bars.
+It is used to compare the parts to the whole and show the relationship of individual items to the total.
+The length of each bar corresponds to the numerical value of the data being represented.
+The x-axis represents the numerical values of the data.
+The y-axis represents the categories of the data.
 
-# Table of contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required attributes](#required-attributes)
 - [Optional attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -37,102 +41,103 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-# Required attributes
+## Required Attributes
 
-## dataUtil
+### dataUtil
 
 - Type: `DataUtils`
 
-The `DataUtils` class which contains all the data to be displayed in the chart. See [DataUtils](utils/DataUtils.md).
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-# Optional attributes
+## Optional attributes
 
-## height
+### height
 
 - Type: `number`
 - Default: `numberOfRows * 15`
 
-The height of the visualisation.
+The height of the visualisation in pixels.
 
-## width
+### width
 
 - Type: `number`
 - Default: `1500`
 
-The width of the visualisation.
+The width of the visualisation in pixels.
 
-## marginLeft
-
-- Type: `number`
-- Default: `40`
-
-The margin on the left side of the chart.
-
-## marginRight
+### marginLeft
 
 - Type: `number`
 - Default: `40`
 
-The margin on the right side of the chart.
+The margin on the left side of the visualisation in pixels.
 
-## marginTop
-
-- Type: `number`
-- Default: `40`
-
-The margin on the top side of the chart.
-
-## marginBottom
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
-The margin on the bottom side of the chart.
+The margin on the right side of the visualisation in pixels.
 
-## padding
+### marginTop
+
+- Type: `number`
+- Default: `40`
+
+The margin on the top side of the visualisation in pixels.
+
+### marginBottom
+
+- Type: `number`
+- Default: `40`
+
+The margin on the bottom side of the visualisation in pixels.
+
+### padding
 
 - Type: `number`
 - Default: `0.2`
 
-Value for the distance between each bar in the range [0..1].
+The distance between each bar.
+It can be a number between `0` and `1` (inclusive).
 
-## opacity
+### opacity
 
 - Type: `number | string`
 - Default: `1`
 
-Sets the opacity of the bars.
-Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
+The opacity of each bar.
+It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
 
-## showTotals
+### showTotals
 
 - Type: `boolean`
 - Default: `false`
 
 Whether or not to display the sum of all bars at the end as a number.
 
-## styleUtils
+### styleUtils
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`
 
-The `StyleUtils` class contains all the style information for the chart. See [StyleUtils](utils/StyleUtils.md).
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/StyleUtils.md) for more information.
 
-## isScrollable
-
-- Type: `boolean`
-- Default: `false`
-
-Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
-
-## showFilter
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
-Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-# Example usage
+### showFilter
+
+- Type: `boolean`
+- Default: `false`
+
+Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Example Usage
 
 <b>Creating a StackedBarChart from a csv string, with custom styling.</b>
 

@@ -60,22 +60,24 @@
 ### SelectColumn
 SelectColumn is a Column component that displays checkboxes for each value in the data array.
 
-#### Required attributes
-* x - X-coordinate of the column.
-* width - The width of the column.
-* height - The height of the column.
-* length - The number of checkboxes to display.
-* selected - List of rows which are currently selected
+#### Required Attributes
+* x: number             - The x-coordinate of the column.
+* width: number         - The width of the column in pixels
+* height: number        - The height of the column in pixels.
+* length: number        - The number of checkboxes to display.
+* selected: Set<number> - A list of rows which are currently selected
 
-#### Optional attributes
-* padding - The padding of the column.
-* icons: IconType[] - List of what icons to display in the top of the column,
-                        defaults to `[IconType.Group, IconType.More]`
+#### Optional Attributes
+* padding: number       - The padding around the column pixels.
+                          Defaults to `10`.
+* icons: IconType[]     - A list of what icons to display in the top of the column.
+                          Defaults to `[IconType.Group, IconType.More]`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The select column -->
 <Column
   {type}
   {x}

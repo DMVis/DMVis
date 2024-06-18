@@ -2,15 +2,15 @@
 
 The SelectColumn is a column that allows you to select a row using a checkbox.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -29,49 +29,49 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## x
-
-- Type: `number`
-
-X-coordinate of the column.
-
-## width
+### x
 
 - Type: `number`
 
-Width of the column.
+The x-coordinate of the column.
 
-## height
-
-- Type: `number`
-
-Height of the column.
-
-## length
+### width
 
 - Type: `number`
 
-Number of rows to display.
+The width of the column in pixels.
 
-# Optional Attributes
+### height
 
-## padding
+- Type: `number`
+
+The height of the column in pixels.
+
+### length
+
+- Type: `number`
+
+The number of checkboxes to display.
+
+## Optional Attributes
+
+### padding
 
 - Type: `number`
 - Default: `10`
 
-Padding around the column.
+The padding around the column in pixels.
 
-## icons
+### icons
 
 - Type: `IconType[]`
 - Default: `[IconType.Group, IconType.More]`
 
-List of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
+A list of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
 
-# Events
+## Events
 
 This component emits the following events:
 
@@ -84,9 +84,9 @@ This component emits the following events:
 - `mouseRowClick`
 - `sort`
 
-To read more about these events, see the [Events](../utils/Events.md) documentation.
+See the [Events](../utils/Events.md) documentation to read more about these events.
 
-# Example usage
+## Example Usage
 
 <b> Creating a basic select column with 10 checkboxes.</b>
 

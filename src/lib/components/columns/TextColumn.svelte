@@ -53,22 +53,25 @@
 ### TextColumn
 TextColumn is a Column component that displays text for each value in the data array.
 
-#### Required attributes
-* x - X-coordinate of the column.
-* width - The width of the column.
-* height - The height of the column.
-* data - The data to display as text.
+#### Required Attributes
+* x: number           - The x-coordinate of the column.
+* width: number       - The width of the column in pixels.
+* height: number      - The height of the column in pixels.
+* data: Array<number> - The data to display as text.
 
-#### Optional attributes
-* name - The name of the column. Usually the attribute name.
-* padding - The padding of the column.
-* icons: IconType[] - List of what icons to display in the top of the column,
-                          defaults to `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`
+#### Optional Attributes
+* name                - The name of the column. It should contain the name of the attribute you're displaying.
+                        Defaults to `'Column'`.
+* padding             - The padding of the column in pixels.
+                        Defaults to `10`.
+* icons: IconType[]   - A list of what icons to display in the top of the column.
+                        Defaults to `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`.
 
 #### Events
-* For detailed information about dispatches, check the documentation.
+* Please check the documentation for detailed information about dispatches.
 -->
 
+<!-- The text column -->
 <Column
   {type}
   {x}

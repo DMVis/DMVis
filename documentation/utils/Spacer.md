@@ -1,60 +1,63 @@
-# Spacer Util
+# Spacer
 
-Use the various Spacer functions to space elements depending on the data. These functions work for both horizontal and vertical spacing, using width or height.
+Use the various spacer functions to space elements depending on the data. These functions work for both horizontal and vertical spacing, using width or height.
 
-## Table of contents
+## Table of Contents
 
-- [Spacer](#spacer)
-- [SpacerSide](#spacerside)
-- [SpacerEqual](#spacerequal)
+- [Functions](#functions)
+  - [spacer](#spacer)
+  - [spacerSide](#spacerside)
+  - [spacerEqual](#spacerequal)
 - [Alignments](#alignments)
 
-## Spacer
+## Functions
 
-The `Spacer` function takes in the following parameters:
+### spacer
 
-- `dimension`: The dimension of the element.
-- `marginLow`: The margin closest to the origin.
-- `marginHigh`: The margin furthest from the origin.
-- `length`: The amount of elements that need to be spaced.
+The `spacer` function takes in the following parameters:
+
+- dimension: `number` - The dimension of the element.
+- marginLow: `number` - The margin closest to the origin.
+- marginHigh: `number` - The margin furthest from the origin.
+- length: `number` - The amount of elements that need to be spaced.
 
 The function returns a number that represents the needed gap between elements to space them between the given dimension.
 
-See an example of how `Spacer` works below:
+See an example of how `spacer` works below:
 
 ```html
 <script lang="ts">
-  import { Spacer } from '@dmvis/dmvis/utils';
+  import { spacer } from '@dmvis/dmvis/utils';
 
   const dimension = 500;
   const marginLow = 10;
   const marginHigh = 10;
   const length = 10;
 
-  const gap = Spacer(dimension, marginLow, marginHigh, length);
+  const gap = spacer(dimension, marginLow, marginHigh, length);
   console.log(gap); // 47.9
 </script>
 ```
 
-## SpacerSide
+### spacerSide
 
-The `SpacerSide` function takes in the following parameters:
+The `spacerSide` function takes in the following parameters:
 
-- `dimension`: number - The size of the dimension of the element (amount of pixels in width or height).
-- `marginLow`: number - The margin closest to the origin.
-- `marginHigh`: number - The margin furthest from the origin.
-- `columns`: string[] - List of column names.
-- `alignment`: 'start' | 'end' - Alignment of the spacing, if each given column is one 'box', then start gives the coordinate at the start of the box and end at the end of the box.
-- `paddingInner`: number - The padding between each step in the spacer (relating to one element in the domain). This defaults to 0.
-- `paddingOuter`: number - The padding on the outside of the spacer (before the first element and after the last element in the domain). This defaults to 0.
+- dimension: `number` - The size of the dimension of the element (amount of pixels in width or height).
+- marginLow: `number` - The margin closest to the origin.
+- marginHigh: `number` - The margin furthest from the origin.
+- columns: `string[]` - A list of column names.
+- alignment: `'start' | 'end'` - The alignment of the spacing, if each given column is one 'box', then start gives the coordinate at the start of the box and end at the end of the box.
+- paddingInner: `number` - The padding between each step in the spacer (relating to one element in the domain). Defaults to `0`.
+- paddingOuter: `number` - The padding on the outside of the spacer (before the first element and after the last element in the domain). Defaults to `0`.
 
 The function returns a function, which, given a column name as a string, returns a number. This represents the position of the component that corresponds with the given column name should be placed.
 
-See an example of how `SpacerSide` works below:
+See an example of how `spacerSide` works below:
 
 ```html
 <script lang="ts">
-  import { SpacerSide } from '@dmvis/dmvis/utils';
+  import { spacerSide } from '@dmvis/dmvis/utils';
 
   const width = 500;
   const marginLow = 10;
@@ -64,7 +67,7 @@ See an example of how `SpacerSide` works below:
   const paddingInner = 10;
   const paddingOuter = 10;
 
-  const position = SpacerSide(
+  const position = spacerSide(
     width,
     marginLow,
     marginHigh,
@@ -81,23 +84,23 @@ See an example of how `SpacerSide` works below:
 </script>
 ```
 
-## SpacerEqual
+### spacerEqual
 
-The `SpacerEqual` function takes in the following parameters:
+The `spacerEqual` function takes in the following parameters:
 
-- `dimension`: number - The size of the dimension of the element (amount of pixels in width or height).
-- `marginLow`: number - The margin closest to the origin.
-- `marginHigh`: number - The margin furthest from the origin.
-- `columns`: string[] - List of column names.
-- `paddingOuter`: number - The padding on the outside of the spacer (before the first element and after the last element in the domain). This defaults to 0.
+- dimension: `number` - The size of the dimension of the element (amount of pixels in width or height).
+- marginLow: `number` - The margin closest to the origin.
+- marginHigh: `number` - The margin furthest from the origin.
+- columns: `string[]` - List of column names.
+- paddingOuter`: `number` - The padding on the outside of the spacer (before the first element and after the last element in the domain). Defaults to 0.
 
 The function returns a function, which, given a column name as a string, returns a number. This represents the position of the component that corresponds with the given column name should be placed.
 
-See an example of how `SpacerEqual` works below:
+See an example of how `spacerEqual` works below:
 
 ```html
 <script lang="ts">
-  import { SpacerEqual } from '@dmvis/dmvis/utils';
+  import { spacerEqual } from '@dmvis/dmvis/utils';
 
   const width = 500;
   const marginLow = 10;
@@ -105,7 +108,7 @@ See an example of how `SpacerEqual` works below:
   const columns = ['A', 'B', 'C'];
   const paddingOuter = 0;
 
-  const position = SpacerEqual(width, marginLow, marginHigh, columns, paddingOuter);
+  const position = spacerEqual(width, marginLow, marginHigh, columns, paddingOuter);
   console.log(position('A')); // 10
   console.log(position('B')); // 250
   console.log(position('C')); // 490

@@ -1,12 +1,12 @@
 # DMVisError
 
-DMVisError is a function that standardises the way of error handling and messages in the DMVis library. It is used to throw errors with a standardised message format, displaying the component where the error occurred and a custom message.
+`DMVisError` is a function that standardises the way of error handling and messages in the DMVis library. It is used to throw errors with a standardised message format, displaying the component where the error occurred and a custom message.
 
-## Table of contents
+## Table of Contents
 
 - [Parameters](#parameters)
 - [Throws](#throws)
-- [Example](#example)
+- [Example Usage](#example-usage)
 
 ## Parameters
 
@@ -17,7 +17,7 @@ DMVisError is a function that standardises the way of error handling and message
 
 - `Error`: An error with the message built from the `message` and `component` parameters.
 
-## Example
+## Example Usage
 
 See an example of how `DMVisError` works below:
 

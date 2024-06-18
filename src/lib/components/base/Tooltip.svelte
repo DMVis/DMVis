@@ -41,14 +41,14 @@ A tooltip to display a small amount of information to a user.
 It can, for example, be used to display the name of a point when hovering over it with a mouse.
 Note that by default, `Tooltip`'s origin is at its middle (see the `origin` attribute).
 
-#### Required attributes
-* x: number               - X-coordinate of the tooltip.
-* y: number               - Y-coordinate of the tooltip.
-* text: string            - Text to display in the tooltip.
+#### Required Attributes
+* x: number               - The x-coordinate of the tooltip.
+* y: number               - The y-coordinate of the tooltip.
+* text: string            - The text to display in the tooltip.
 
-#### Optional attributes
+#### Optional Attributes
 * hasBackground: boolean  - Whether or not to display a background behind the tooltip text, by default this is off.
-* theme: Theme            - Theme of the tooltip, which controls both the background-color and the text-color.
+* theme: Theme            - The theme of the tooltip. It controls both the background-color and the text-color.
                             Options are: `'light'` (black text on white background) and `'dark'` (white text on black background).
                             Defaults to `'light'`.
 * origin: Origin          - The origin of the tooltip.

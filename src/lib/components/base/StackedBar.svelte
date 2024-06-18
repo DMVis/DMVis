@@ -57,18 +57,21 @@ stacked bar format. It is a wrapper around the Bar
 component that allows for multiple bars to be stacked
 on top of each other.
 
-#### Required attributes
-* barWidth: number           - The width of the bar.
-* y: number                  - The y position to place the stacked bar.
-* row: (string|number)[]     - A single row of the dataUtil, which to plot as a stacked bar.
-* attributeScales: ScaleLinear[] - An array of scales where the first entry
-                                                      is the scale for the first numerical entry in the row attribute, etc.
-#### Optional attributes
-* opacity: Opacity         - Sets the opacity of the bars.
-                             Either a number between 0 and 1, or a string representing a percentage between 0% and 100%.
-                             Defaults to `1`.
-* showTotals: boolean      - Whether or not to display the sum of all bars at the end as a number, defaults to false.
+#### Required Attributes
+* y: number                      - The y-coordinate of the stacked bar.
+* barWidth: number               - The width of the stacked bar in pixels.
+* row: (string|number)[]         - An entire row of the `DataUtils` instance, which will be represented as a stacked bar.
+* attributeScales: ScaleLinear[] - An array of scales, where the first entry
+                                   is the scale for the first numerical entry in the row attribute and so on.
+#### Optional Attributes
+* opacity: Opacity    - The opacity of the stacked bar.
+                       It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                       Defaults to `1`.
+* showTotals: boolean - Whether or not to display the sum of all bars at the end as a number.
+                       Defaults to `false`.
 -->
+
+<!-- The stacked bar -->
 <g>
   <!-- Loop over all attributes -->
   {#each xPositions as x, i}
@@ -76,8 +79,8 @@ on top of each other.
     <Bar
       x={$marginLeft + x}
       {y}
-      {barWidth}
-      value={values[i]}
+      width={barWidth}
+      length={values[i]}
       isVertical={false}
       color={$styleUtil.colorScheme[i % $styleUtil.colorScheme.length]}
       origin={'topLeft'}

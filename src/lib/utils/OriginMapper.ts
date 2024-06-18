@@ -19,7 +19,7 @@ export function getOriginOffsetX(
   // Get enum from string
   const source = extractOriginX(sourceOrigin);
   const destination = extractOriginX(destinationOrigin);
-  // The extract functions error on invalid source/destination origin arguments, so a valid OriginX is guaranteeed now
+  // The extract functions error on invalid source/destination origin arguments, so a valid OriginX is guaranteed now
   return getOriginOffset(dimension, source, destination);
 }
 
@@ -38,7 +38,7 @@ export function getOriginOffsetY(
   // Get enum from string
   const source = extractOriginY(sourceOrigin);
   const destination = extractOriginY(destinationOrigin);
-  // The extract functions error on invalid source/destination origin arguments, so a valid OriginY is guaranteeed now
+  // The extract functions error on invalid source/destination origin arguments, so a valid OriginY is guaranteed now
   return getOriginOffset(dimension, source, destination);
 }
 

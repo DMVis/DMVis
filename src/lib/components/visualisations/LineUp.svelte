@@ -72,7 +72,7 @@
     ...dataUtil.columns.filter((column) => column !== 'DMVIS_ID')
   ];
 
-  // Set the colors for each columns
+  // Set the colours for each columns
   if (dataUtil.columns.length > 0) {
     const barColors = styleUtil.generateColors('Dark2', dataUtil.columns.length);
     dataUtil.columns.forEach((column, i) => {
@@ -380,20 +380,31 @@
 <!--
 @component
 ### LineUp
-LineUp is a visualisation that displays multiple columns of data in a tabular format. It is used to compare and rank data. The visualisation
-displays different types of columns such as text, bar, and rank columns. This is based on the type of the supplied data.
+LineUp is a visualisation that displays multiple columns of data in a tabular format.
+It is used to compare and rank data.
+The visualisation displays different types of columns such as text, bar, and rank columns.
+This is based on the type of the supplied data.
 
-#### Required attributes
-* dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed. Requires a dataUtil with the `includeId` flag set to `true`.
+#### Required Attributes
+* dataUtil: DataUtils   - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
+                          It must be initialised with `includeId` set to `true` in order to use the `LineUp` visualisation, because each row in the data requires a unique identifier.
 
-#### Optional attributes
-* styleUtil: StyleUtils                - The `StyleUtils` class contains all the styling information. The default value is a new instance of `StyleUtils`.
-* columnWidth: number                  - The width of each column. The default value is 150.
-* width: number                        - The width of the visualisation. The default value is calculated based on the number of columns and `columnWidth`.
-* height: number                       - The height of the visualisation. The default value is calculated based on the number of rows and the row height.
-* padding: number                      - The padding between columns. The default value is 10.
-* isScrollable: boolean                - Whether the visualisation should be scrollable. The default value is `false`.
-* showFilter: boolean                  - Whether the filter should be shown next to the visualisation. The default value is `false`.
+#### Optional Attribute
+* styleUtil: StyleUtils - An instance of `StyleUtils`, which contains styling for the visualisation.
+                          Defaults to `new StyleUtils()`.
+* columnWidth: number   - The width of each column in pixels.
+                          Defaults to `150`.
+* width: number         - The width of the visualisation in pixels.
+                          Defaults to a number based on the amount of columns and `columnWidth`:
+                          `dataUtil.columns.length * columnWidth`.
+* height: number        - The height of the visualisation in pixels.
+                          Defaults to a number based on the amount of rows and the row height.
+* padding: number       - The padding between each column in pixels.
+                          Defaults to `10`.
+* isScrollable: boolean - Whether the visualisation is scrollable in its parent container.
+                          Defaults to `false`.
+* showFilter: boolean   - Whether the filter is displayed next to the visualisation.
+                          Defaults to `false`.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>

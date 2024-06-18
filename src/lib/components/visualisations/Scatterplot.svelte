@@ -96,27 +96,38 @@
 <!--
 @component
 ### Scatterplot
-This is a visualisation to display a dataset of points
+This is a visualisation to display a dataset of points.
 
-#### Required attributes
-* width: number         - Width of the visualisation.
-* height: number        - Height of the visualisation.
+#### Required Attributes
+* width: number         - The width of the visualisation in pixels.
+* height: number        - The height of the visualisation in pixels.
 
-* xAxis: string         - The name of the attribute that needs to be plotted on the x-axis.
-                            This should be the same one that is provided in the data columns
-* yAxis: string         - The name of the attribute that needs to be plotted on the y-axis.
-                            This should be the same one that is provided in the data columns
+* xAxis: string         - The name of the attribute to be plotted along the x-axis.
+                          Note that this should be the same name as the one that is provided in the input `dataUtil`.
+* yAxis: string         - The name of the attribute to be plotted along the y-axis.
+                          Note that this should be the same name as the one that is provided in the input `dataUtil`.
 
-#### Optional attributes
-* dataUtil: DataUtils   - Adds the possibility to use scatterplot without a predefined store.
-                            By default the scatterplot assumes a defined store. Therefore the dataUtil is `null`
-* showAxis: bool        - Whether or not the axis should be drawn. This defaults to `true`.
-* numTicks: number      - Amount of ticks to be displayed on the axis. This defaults to `5`.
-* pointOpacity: number  - Opacity of the points of the scatterplot. This defaults to `1`.
-* marginLeft: number     - Margin to the left of the visualisation. This defaults to `50`.
-* marginRight: number    - Margin to the right of the visualisation. This defaults to `40`.
-* marginTop: number      - Margin to the top of the visualisation. This defaults to `40`.
-* marginBottom: number   - Margin to the bottom of the visualisation. This defaults to `40`.
+#### Optional Attributes
+* dataUtil: DataUtils   - An instance of `dataUtils`, which holds all the data.
+                          See its documentation for more information.
+                          It adds the possibility to use `Scatterplot` without a predefined store.
+                          By default, the scatterplot assumes a defined store.
+                          Defaults to `null`.
+* showAxis: bool        - Whether or not the axis should be drawn.
+                          Defaults to `true`.
+* numTicks: number      - The amount of ticks to display on each axis.
+                          Defaults to `5`.
+* pointOpacity: number  - The opacity of each point in the visualisation.
+                          It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                          Defaults to `1`.
+* marginLeft: number    - The margin to the left of the visualisation in pixels.
+                          Defaults to `50`.
+* marginRight: number   - The margin to the right of the visualisation in pixels.
+                          Defaults to `40`.
+* marginTop: number     - The margin to the top of the visualisation in pixels.
+                          Defaults to `40`.
+* marginBottom: number  - The margin to the bottom of the visualisation in pixels.
+                          Defaults to `40`.
 -->
 
 <g {width} {height} class="visualisation scatterplot">

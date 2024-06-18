@@ -1,17 +1,18 @@
 # Filter
 
-The filter component adds a filter to the right side of the visualisation. It can be used to filter and sort the data displayed in the visualisation.
+The filter component adds a filter to the right side of a visualisation.
+It can be used to filter and sort the data displayed in a visualisation.
 
-> Note: Filter can be enabled inside [BaseVisualisation](components/basevisualisation.md) by passing the DataUtil to `showFilter`. If you have multiple visualisation on one page it is advised to use the `Filter` component outside of `BaseVisualisation`.
+> Note: Filter can be enabled inside [BaseVisualisation](components/basevisualisation.md) by passing the `DataUtils` instance to `showFilter`. If you have multiple visualisation on one page it is advised to use the `Filter` component outside of `BaseVisualisation`.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -36,34 +37,34 @@ This component utilises the following components:
 
 # Required Attributes
 
-## dataUtil
+### dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/DataUtils.md).
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
 # Optional Attributes
 
-## width
+### width
 
 - Type: `number`
 - Default: `150`
 
-Width of the filter container.
+The width of the filter container in pixels.
 
-## columnHeight
+### columnHeight
 
 - Type: `number`
 - Default: `100`
 
-Height for each column in the filter.
+The height for each column in the filter in pixels.
 
-## styleUtils
+### styleUtils
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils()`
 
-Class holding all the styles. See [StyleUtils](utils/styleUtils.md).
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/styleUtils.md) for more information.
 
 # Example Usage
 

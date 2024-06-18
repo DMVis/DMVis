@@ -3,14 +3,14 @@
 ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision-making, depending on how important the user thinks the attribute is. The visualisation exists of two major components; at the top, there are `BarColumn` components (one for each numerical attribute). These same bars are shown at the bottom as well, except for each row entry in the dataset, there is a `SumColumn`.
 Both parts of the visualisation are scrollable, to allow for visualising large datasets in a compact window.
 
-# Table of Contents
+## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
-- [Example usage](#example-usage)
+- [Example Usage](#example-usage)
 
-# Referenced Components
+## Referenced Components
 
 This component utilises the following components:
 
@@ -45,92 +45,92 @@ This component utilises the following components:
   </tbody>
 </table>
 
-# Required Attributes
+## Required Attributes
 
-## width
-
-- Type: `number`
-
-Width of the visualisation.
-
-## height
+### width
 
 - Type: `number`
 
-Height of the visualisation.
+The width of the visualisation in pixels.
 
-## dataUtil
+### height
+
+- Type: `number`
+
+The height of the visualisation in pixels.
+
+### dataUtil
 
 - Type: `DataUtils`
 
-Class holding all the data. See [DataUtils](utils/DataUtils.md).
+An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-# Optional Attributes
+## Optional Attributes
 
-## styleUtil
+### styleUtil
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`
 
-Class holding all the styling. See [StyleUtils](utils/StyleUtils.md).
+An instance of `StyleUtils`, which contains styling for the visualisation. See [StyleUtils](utils/StyleUtils.md) for more information.
 
-## autoDistributeWeights
-
-- Type: `boolean`
-- Default: `true`
-
-Determines whether the total of the weights should be 100. This will mean that when the weight of one attribute is changed, all of the other weights will be redistributed such that their sum will be equal to 100. When set to false, it will take the sum of all the weights as the total and scale with this number as opposed to 100%..
-
-## marginLeft
+### marginLeft
 
 - Type: `number`
 - Default: `100`
 
-Margin to the left of the visualisation.
+The margin to the left of the visualisation in pixels.
 
-## marginRight
-
-- Type: `number`
-- Default: `40`
-
-Margin to the right of the visualisation.
-
-## marginTop
+### marginRight
 
 - Type: `number`
 - Default: `40`
 
-Margin to the top of the visualisation.
+The margin to the right of the visualisation in pixels.
 
-## marginBottom
+### marginTop
 
 - Type: `number`
 - Default: `40`
 
-Margin to the bottom of the visualisation.
+The margin to the top of the visualisation in pixels.
 
-## padding
+### marginBottom
+
+- Type: `number`
+- Default: `40`
+
+The margin to the bottom of the visualisation in pixels.
+
+### padding
 
 - Type: `number`
 - Default: `0.1`
 
-Padding between the different visualisations.
+The padding between the different visualisations.
 
-## isScrollable
+### autoDistributeWeights
+
+- Type: `boolean`
+- Default: `true`
+
+Whether the total of the weights should be `100`. This means that when the weight of one attribute is changed, all of the other weights will be redistributed such that their sum will be equal to `100`. When set to `false`, it will take the sum of all the weights as the total and scale with this number as opposed to 100%.
+
+### isScrollable
 
 - Type: `boolean`
 - Default: `false`
 
 Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-## showFilter
+### showFilter
 
 - Type: `boolean`
 - Default: `false`
 
 Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
 
-# Example usage
+## Example Usage
 
 <b>Creating a basic `ValueChart` visualisation from a csv string.</b>
 

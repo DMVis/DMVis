@@ -101,7 +101,7 @@
         ])
         .range([marginLeft, width - marginRight]);
 
-      // Scale used for length of the bars
+      // Scale used for length of each bar
       yScale = scaleLinear()
         .domain([0, max(numericalBuckets, (bucket) => bucket.length) ?? 0])
         .range([height - marginBottom - marginTop, 0]);
@@ -114,18 +114,24 @@
 ### Histogram
 This visualisation shows frequencies of data. It can group data categorically or numerically.
 
-#### Required attributes
+#### Required Attributes
 * width: number                - The width of the visualisation.
 * height: number               - The height of the visualisation.
 * data: string[] | number[] - An array of data which should be shown in the histogram. They will be represented as bars.
 
-#### Optional attributes
-* x: number                        - The x position of the histogram. Defaults to `0`.
-* y: number                        - The y position of the histogram. Defaults to `0`.
-* marginLeft: number               - The margin to the left of the visualisation. Defaults to `10`.
-* marginRight: number              - The margin to the right of the visualisation. Defaults to `10`.
-* marginTop: number                - The margin to the top of the visualisation. Defaults to `20`.
-* marginBottom: number             - The margin to the bottom of the visualisation. Defaults to `20`.
+#### Optional Attributes
+* x: number                        - The x position of the histogram.
+                                     Defaults to `0`.
+* y: number                        - The y position of the histogram.
+                                     Defaults to `0`.
+* marginLeft: number               - The margin to the left of the visualisation.
+                                     Defaults to `10`.
+* marginRight: number              - The margin to the right of the visualisation.
+                                     Defaults to `10`.
+* marginTop: number                - The margin to the top of the visualisation.
+                                     Defaults to `20`.
+* marginBottom: number             - The margin to the bottom of the visualisation.
+                                     Defaults to `20`.
 * bins: number                     - The number of bins of numerical values. This only has an impact on numerical data.
                                      Categorical data is divided into unique categories (strings).
                                      Bucketing multiple strings together makes the histogram less useful/clear.
@@ -133,18 +139,26 @@ This visualisation shows frequencies of data. It can group data categorically or
                                      This d3.bin function has a parameter called 'thresholds()' where you can enter a number to specify how many buckets you want. Here we use the bins variable as its input and thus should specify the number of buckets.
                                      However, the d3.bin().thresholds(bins) do not enforce the precise amount of buckets you wish to have.
                                      It only tries to get as close as possible to the specified number of 'bins' and may make more or less than the value assigned to 'bins'.
-                                     This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another. Defaults to `10`.
+                                     This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another.
+                                     Defaults to `10`.
 * showOuterTicks: boolean          - A toggle to show only outer ticks.
                                      When `true`: show only the outer ticks.
-                                     Otherwise: show all ticks. Defaults to `true`.
+                                     Otherwise: show all ticks.
+                                     Defaults to `true`.
 * forceCategorical: boolean        - A toggle to force numerical data into a categorical format.
                                      When `true`: forces numerical data into a categorical format.
-                                     Otherwise: keep numerical as is. Defaults to `true`.
-* padding: number                  - The value for the distance between each bar in the range [0..1]. Defaults to `0.03`.
-* color: string                    - The color of each bar. Defaults to `blue`.
-* opacity: number | string         - The opacity of each bar as a number in the range [0..1] or
-                                     a percentage string formatted as '{number}%'. Defaults to `1`.
-* borderRadius: number             - Border radius of each bar in pixels. This defaults to `0`.
+                                     Otherwise: keep numerical as is. Deafaults to `true`.
+* padding: number                  - The distance between each bar.
+                                     It can be a number between `0` and `1` (inclusive).
+                                     Defaults to `0.03`.
+* color: string                    - The colour of each bar.
+                                     Valid inputs include CSS colours specified as a string.
+                                     Defaults to `blue`.
+* opacity: number | string         - The opacity of each bar.
+                                     It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                                     Defaults to `1`.
+* borderRadius: number             - The border radius of each bar in pixels.
+                                     Defaults to `0`.
 -->
 
 <BaseVisualisation>
@@ -155,8 +169,8 @@ This visualisation shows frequencies of data. It can group data categorically or
         <Bar
           x={categoricalScale(bucket.key) ?? 0}
           y={height - marginBottom}
-          barWidth={categoricalScale.bandwidth()}
-          value={yScale(0) - yScale(bucket.values.length)}
+          width={categoricalScale.bandwidth()}
+          length={yScale(0) - yScale(bucket.values.length)}
           isVertical={true}
           origin={'bottomLeft'}
           {color}
@@ -169,10 +183,10 @@ This visualisation shows frequencies of data. It can group data categorically or
         <Bar
           x={numericalScale(bucket.x0 ?? 0) + 1 ?? 0}
           y={height - marginBottom}
-          barWidth={numericalScale(bucket.x1 ?? 0) -
+          width={numericalScale(bucket.x1 ?? 0) -
             numericalScale(bucket.x0 ?? 0) -
             (numericalScale(bucket.x1 ?? 0) - numericalScale(bucket.x0 ?? 0)) * padding}
-          value={yScale(0) - yScale(bucket.length)}
+          length={yScale(0) - yScale(bucket.length)}
           isVertical={true}
           origin={'bottomLeft'}
           {color}

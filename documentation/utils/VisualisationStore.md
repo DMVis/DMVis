@@ -2,7 +2,7 @@
 
 The `VisualisationStore` class is a store that manages the visualisation's properties, such as the data, dimensions, and margins. It is used to store the visualisation's properties and update them when necessary.
 
-## Table of contents
+## Table of Contents
 
 - [Constructor](#constructor)
 - [Class Properties](#attributes)

@@ -2,11 +2,11 @@
 
 The `Performance` function is used to benchmark the performance of functions used in the DMVis library. To ensure the speed of the library, a function can be wrapped within this function to see the time it takes to execute. The results will be pushed to `stdout` and can be found in the console of the browser.
 
-## Table of contents
+## Table of Contents
 
 - [Parameters](#parameters)
 - [Returns](#returns)
-- [Example](#example)
+- [Example ](#example)
 
 ## Parameters
 

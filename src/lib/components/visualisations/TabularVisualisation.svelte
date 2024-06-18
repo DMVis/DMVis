@@ -35,7 +35,7 @@
   export let showColumnLines: boolean = false;
   // Padding between columns
   export let columnPadding: number = 10;
-  // Default opacity of the bars
+  // Default opacity of each bar
   export let barOpacity: number = 0.6;
 
   // Decide whether or not to show the filter or make the visualisation scrollable
@@ -152,9 +152,9 @@
       tabularSelection.selectAll(`.bar-number-${draggedItem}`).raise();
     })
     .on('drag', function (event) {
-      // Update y position of the bars
+      // Update y position of each bar
       tabularSelection.selectAll(`.bar-${draggedItem}`).attr('y', event.y + deltaY);
-      // Update y position of the number in the bar
+      // Update y position of the number in each bar
       tabularSelection
         .selectAll(`.bar-number-${draggedItem} > g > text`)
         .attr('y', event.y + deltaYNumber);
@@ -434,32 +434,43 @@
 
 <!--
 @component
-### Tabular Visualisation
+### TabularVisualisation
 This is a visualisation that represents numerical data with rectangular bars or
 categorical data with labels in a column.
 
-#### Required attributes
-* dataUtil: DataUtils                 - The `DataUtils` class contains all the data to be displayed.
+#### Required Attributes
+* dataUtil: DataUtils      - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
-#### Optional attributes
-* styleUtil: StyleUtils               - The `StyleUtils` class contains all the styling for the visualisation.
+#### Optional Attributes
+* styleUtil: StyleUtils    - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
+                             Defaults to `new StyleUtils()`.
+* width: number            - The width of the visualisation in pixels.
+                             Defaults to `numberOfColumns * 200`.
+* height: number           - The height of the visualisation in pixels.
+                             Defaults to `numberOfRows * 20 + header`.
 
-* width: number                       - Width of the visualisation. This defaults to `numberOfColumns * 200`.
-* height: number                      - Height of the visualisation. This defaults to `numberOfRows * 20 + header`.
+* marginLeft: number       - The margin to the left of the visualisation in pixels.
+                             Defaults to `30`.
+* marginRight: number      - The margin to the right of the visualisation in pixels.
+                             Defaults to `30`.
+* marginTop: number        - The margin to the top of the visualisation in pixels.
+                             Defaults to `50`.
+* marginBottom: number     - The margin to the bottom of the visualisation in pixels.
+                             Defaults to `30`.
 
-* marginLeft: number                  - Margin to the left of the visualisation. This defaults to `30`.
-* marginRight: number                 - Margin to the right of the visualisation. This defaults to `30`.
-* marginTop: number                   - Margin to the top of the visualisation. This defaults to `50`.
-* marginBottom: number                - Margin to the bottom of the visualisation. This defaults to `30`.
+* showColumnLines: boolean - Whether to show lines at the start and end of each column.
+                             Defaults to `false`.
+* columnPadding: number    - The distance between each column in pixels.
+                             Defaults to `10`.
+* barOpacity: number       - The opacity of each bar.
+                             It can be a number between `0` and `1` (inclusive) or a string representing a percentage (e.g. `'50%'`).
+                             A value lower than `1` is recommended for visible bar highlighting.
+                             Defaults to `0.6`.
 
-* showColumnLines: boolean            - Whether to show lines at the start and end of each column. This defaults to `false`.
-* columnPadding: number               - Value for the distance between each column. This defaults to `10`.
-* barOpacity: number                  - Opacity of each bar as a number in the range [0..1].
-                                        A value lower than one is recommended for visible bar highlighting.
-                                        This defaults to `0.6`.
-
-* isScrollable: boolean               - Whether the visualisation should be scrollable. The default value is `false`.
-* showFilter: boolean                 - Whether the filter should be shown next to the visualisation. The default value is `false`.
+* isScrollable: boolean    - Whether the visualisation is scrollable in its parent container.
+                             Defaults to is `false`.
+* showFilter: boolean      - Whether the filter is displayed next to the visualisation.
+                             Defaults to `false`.
 -->
 
 <BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
