@@ -2,6 +2,7 @@
 
   - [Introduction](README.md)
   - [Installation](INSTALLING.md)
+  - [Getting started](GETTING_STARTED.md)
   - [Visualizing data](DATA.md)
   - [Running DMVis locally](LOCAL.md)
   - [Contributing](CONTRIBUTING.md)
