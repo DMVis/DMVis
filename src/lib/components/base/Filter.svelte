@@ -91,6 +91,9 @@
     const { column } = event.detail;
     const sorting = filterMap.get(column) ?? 'none'; // Default to 'none' if undefined
 
+    // Always apply filters regardless of whether sorting is applied
+    dataUtil.applyFilters(filters);
+
     // Check if sorting should be applied or not
     if (sorting !== 'none') {
       // Set sorting values
@@ -108,9 +111,6 @@
 
     // Update the filterMap with the new sorting state
     filterMap.set(column, getNextSortingState(sorting));
-
-    // Always apply filters regardless of whether sorting is applied
-    dataUtil.applyFilters(filters);
   }
 
   function getNextSortingState(currentState: string | undefined): string {
@@ -169,7 +169,7 @@ It can be used to filter and sort the data displayed in a visualisation.
           y={(reversedColumns.length - index) * columnHeight}
           type={dataUtil.columnInfo[column] === 'string' ? ColumnType.Text : ColumnType.Bar}
           {width}
-          height={columnHeight}
+          height={0}
           padding={10}
           name={column}
           on:filter={() => {
