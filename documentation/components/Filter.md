@@ -59,7 +59,7 @@ The width of the filter container in pixels.
 
 The height for each column in the filter in pixels.
 
-### styleUtils
+### styleUtil
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils()`

@@ -116,7 +116,7 @@ It can be a number between `0` and `1` (inclusive) or a string representing a pe
 
 Whether or not to display the sum of all bars at the end as a number.
 
-### styleUtils
+### styleUtil
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})`
