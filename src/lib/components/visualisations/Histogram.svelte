@@ -5,7 +5,6 @@
   // DMVis imports
   import Bar from '$lib/components/base/Bar.svelte';
   import Axis from '$lib/components/base/Axis.svelte';
-  import BaseVisualisation from '$lib/components/base/BaseVisualisation.svelte';
   import type { Opacity, ScaleLinear } from '$lib/Types.js';
 
   // Required attributes
@@ -161,60 +160,58 @@ This visualisation shows frequencies of data. It can group data categorically or
                                      Defaults to `0`.
 -->
 
-<BaseVisualisation>
-  <svg class="visualisation histogram" {width} {height} {x} {y}>
-    <!-- Draw categorical bars because categoricalBuckets is not empty -->
-    {#if categoricalBuckets.length > 0}
-      {#each categoricalBuckets as bucket}
-        <Bar
-          x={categoricalScale(bucket.key) ?? 0}
-          y={height - marginBottom}
-          width={categoricalScale.bandwidth()}
-          length={yScale(0) - yScale(bucket.values.length)}
-          isVertical={true}
-          origin={'bottomLeft'}
-          {color}
-          {opacity}
-          {borderRadius} />
-      {/each}
-      <!-- Draw numercial bars -->
-    {:else}
-      {#each numericalBuckets as bucket}
-        <Bar
-          x={numericalScale(bucket.x0 ?? 0) + 1 ?? 0}
-          y={height - marginBottom}
-          width={numericalScale(bucket.x1 ?? 0) -
-            numericalScale(bucket.x0 ?? 0) -
-            (numericalScale(bucket.x1 ?? 0) - numericalScale(bucket.x0 ?? 0)) * padding}
-          length={yScale(0) - yScale(bucket.length)}
-          isVertical={true}
-          origin={'bottomLeft'}
-          {color}
-          {opacity}
-          {borderRadius} />
-      {/each}
-    {/if}
-    <!-- Draw categorical Axis because categoricalBuckets is not empty -->
-    {#if categoricalBuckets.length > 0}
-      <Axis
-        placementX={0}
-        placementY={height - marginBottom}
-        axis={axisBottom(categoricalScale).tickSizeOuter(0)}
-        squashOuterTicks={true} />
-      <!-- Draw numerical Axis with only the outer ticks -->
-    {:else if showOuterTicks}
-      <Axis
-        placementX={0}
-        placementY={height - marginBottom}
-        axis={axisBottom(numericalScale).tickValues([minValue, maxValue])}
-        squashOuterTicks={true} />
-      <!-- Draw numerical Axis with all ticks -->
-    {:else}
-      <Axis
-        placementX={0}
-        placementY={height - marginBottom}
-        axis={axisBottom(numericalScale)}
-        squashOuterTicks={true} />
-    {/if}
-  </svg>
-</BaseVisualisation>
+<svg class="visualisation histogram" {width} {height} {x} {y}>
+  <!-- Draw categorical bars because categoricalBuckets is not empty -->
+  {#if categoricalBuckets.length > 0}
+    {#each categoricalBuckets as bucket}
+      <Bar
+        x={categoricalScale(bucket.key) ?? 0}
+        y={height - marginBottom}
+        width={categoricalScale.bandwidth()}
+        length={yScale(0) - yScale(bucket.values.length)}
+        isVertical={true}
+        origin={'bottomLeft'}
+        {color}
+        {opacity}
+        {borderRadius} />
+    {/each}
+    <!-- Draw numercial bars -->
+  {:else}
+    {#each numericalBuckets as bucket}
+      <Bar
+        x={numericalScale(bucket.x0 ?? 0) + 1 ?? 0}
+        y={height - marginBottom}
+        width={numericalScale(bucket.x1 ?? 0) -
+          numericalScale(bucket.x0 ?? 0) -
+          (numericalScale(bucket.x1 ?? 0) - numericalScale(bucket.x0 ?? 0)) * padding}
+        length={yScale(0) - yScale(bucket.length)}
+        isVertical={true}
+        origin={'bottomLeft'}
+        {color}
+        {opacity}
+        {borderRadius} />
+    {/each}
+  {/if}
+  <!-- Draw categorical Axis because categoricalBuckets is not empty -->
+  {#if categoricalBuckets.length > 0}
+    <Axis
+      placementX={0}
+      placementY={height - marginBottom}
+      axis={axisBottom(categoricalScale).tickSizeOuter(0)}
+      squashOuterTicks={true} />
+    <!-- Draw numerical Axis with only the outer ticks -->
+  {:else if showOuterTicks}
+    <Axis
+      placementX={0}
+      placementY={height - marginBottom}
+      axis={axisBottom(numericalScale).tickValues([minValue, maxValue])}
+      squashOuterTicks={true} />
+    <!-- Draw numerical Axis with all ticks -->
+  {:else}
+    <Axis
+      placementX={0}
+      placementY={height - marginBottom}
+      axis={axisBottom(numericalScale)}
+      squashOuterTicks={true} />
+  {/if}
+</svg>

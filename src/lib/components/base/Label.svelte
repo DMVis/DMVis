@@ -46,7 +46,6 @@
     textSelection: Selection<SVGTextElement, unknown, null, undefined>,
     width: number
   ) {
-    if (!textSelection.node()) return;
     const textContent = textSelection.text() || '';
     let selectedWords = textContent?.split(/\s+/).reverse() || [];
     // Cant wrap if there is only 1 word
