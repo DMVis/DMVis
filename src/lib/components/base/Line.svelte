@@ -227,7 +227,7 @@ Note that this component only works if `VisualisationStore` has been set, since 
         id={`line-${i}`}
         class="line"
         d={path.path}
-        style="cursor: pointer"
+        style="cursor: {hoverable ? 'pointer' : 'auto'}"
         stroke={highlightedLine !== -1 && hoverable
           ? highlightedLine === i
             ? $styleUtil.focusColor

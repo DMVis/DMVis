@@ -75,7 +75,8 @@ some logic based on where the component is dragged.
   on:mousedown={onMouseDown}
   role="treeitem"
   tabindex="0"
-  aria-selected="false">
+  aria-selected="false"
+  style="cursor: {isMoving ? 'grabbing' : 'grab'};">
   <slot />
 </g>
 

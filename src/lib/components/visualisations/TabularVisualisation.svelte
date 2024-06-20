@@ -348,6 +348,7 @@
   updateColumns();
   afterUpdate(() => {
     tabularSelection = select(tabularRef);
+
     dragHandler(tabularSelection.selectAll('.bar'));
     dragHandler(tabularSelection.select('.labelNames').selectAll('.label'));
     dragHandler(tabularSelection.selectAll('.bar-number'));
@@ -356,6 +357,8 @@
     if (axes !== null && axes.children.length > 0) {
       axes.removeChild(axes.children[0]);
     }
+    // Add the drag cursor to all the bars
+    tabularSelection.selectAll('.bar').attr('cursor', 'grab');
   });
 
   function sortData(event: CustomEvent) {

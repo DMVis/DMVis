@@ -10,7 +10,6 @@
   import type { DataUtils } from '$lib/utils/DataUtils.js';
   import type { UndefineableString } from '$lib/Types.js';
   import { setVisualisationContext, updateVisualisationContext } from '$lib/utils/Context.js';
-  import { afterUpdate } from 'svelte';
 
   // Required attributes
   export let dataUtil: DataUtils;
@@ -151,14 +150,6 @@
     clickedLine = false;
     highlightedLine = -1;
   }
-
-  // Add the correct cursor to axis title
-  afterUpdate(() => {
-    const axes = parallelCoordinatesRef.querySelectorAll('.axis > .draggable > .label');
-    for (let i = 0; i < axes.length; i++) {
-      (axes[i] as HTMLElement).style.cursor = 'grab';
-    }
-  });
 </script>
 
 <!--

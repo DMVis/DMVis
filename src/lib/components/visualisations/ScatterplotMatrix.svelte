@@ -103,7 +103,6 @@
   let reloadKey = false;
 
   // Drag related variables
-  let dragging: boolean = false;
   let draggingLabelOffsetX: number = 0;
   let draggingLabelOffsetY: number = 0;
   let draggedAttribute: UndefineableString = undefined;
@@ -400,7 +399,7 @@
   // Function that fires when the mouse leaves any point
   function onMousePointLeave(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     // Reset the cursor
-    scatterplotMatrixRef.style.cursor = 'crosshair';
+    scatterplotMatrixRef.style.cursor = 'auto';
 
     // Set the hovered point to the name of the point
     let name = e.detail.name;
@@ -524,7 +523,6 @@
   // Reset local dragging variables when we stop dragging
   function onDragStop() {
     swapLabels();
-    dragging = false;
     draggedAttribute = undefined;
     draggingLabelOffsetX = 0;
     draggingLabelOffsetY = 0;
@@ -535,7 +533,6 @@
 
   // Raise the label when we start dragging
   function onDragStart(e: CustomEvent) {
-    dragging = true;
     select(scatterplotMatrixRef)
       .selectAll(`.${formatClassName(e.detail.elementName)}`)
       .raise();
@@ -712,7 +709,6 @@ It can be used to quickly find relations between attributes in a large data set.
               <!-- If xAxis and yAxis are the same, draw a label displaying the attribute name -->
             {:else if xAxis === yAxis}
               <g
-                style={dragging ? 'cursor:grabbing' : 'cursor:grab'}
                 transform="translate({xScale(xAxis)},{yScale(yAxis)})"
                 class={formatClassName(xAxis)}>
                 <Draggable

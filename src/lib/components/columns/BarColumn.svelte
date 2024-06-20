@@ -1,7 +1,7 @@
 <script lang="ts">
   // Imports
   import { writable } from 'svelte/store';
-  import { createEventDispatcher, onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { max as maxFunction, axisTop, scaleLinear } from 'd3';
 
   // DMVis imports
@@ -51,6 +51,8 @@
       'BarColumn'
     );
   }
+  // Reference to the group tag that contains all the bars
+  let barsContainer: SVGGElement;
 
   // Bar standards
   const barWidth = 18;
@@ -117,14 +119,6 @@
     // These empty values are handled later on
     return value as unknown as string;
   }
-
-  // Set the correct cursor on mount
-  onMount(() => {
-    const bars = document.getElementsByClassName('bar');
-    for (let i = 0; i < bars.length; i++) {
-      (bars[i] as HTMLElement).style.cursor = 'grab';
-    }
-  });
 </script>
 
 <!--
@@ -266,7 +260,7 @@ It is useful for visualising the relative size of values in a column.
       </foreignObject>
     {/if}
   </g>
-  <g slot="data">
+  <g slot="data" bind:this={barsContainer}>
     {#key data || width}
       {#each data as value, i}
         <Bar

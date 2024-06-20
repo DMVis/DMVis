@@ -206,7 +206,7 @@ its coordinates are relative to its parent the SVG element.
     on:mouseLabelEnter={onMouseEnter}
     on:mouseLabelLeave={onMouseLeave}
     hasPointerEvents={labelHasPointerEvents}
-    name={`${name}`}
+    {name}
     padding={10} />
 </g>
 
