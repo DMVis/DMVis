@@ -91,7 +91,7 @@ The margin above the visualisation in pixels.
 
 The margin under the visualisation in pixels.
 
-### styleUtils
+### styleUtil
 
 - Type: `StyleUtils`
 - Default: `new StyleUtils({ color: '#BBBBBB' })`

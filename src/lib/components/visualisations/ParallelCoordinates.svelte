@@ -154,7 +154,7 @@
 
   // Add the correct cursor to axis title
   afterUpdate(() => {
-    const axes = document.querySelectorAll('.axis > .draggable > .label');
+    const axes = parallelCoordinatesRef.querySelectorAll('.axis > .draggable > .label');
     for (let i = 0; i < axes.length; i++) {
       (axes[i] as HTMLElement).style.cursor = 'grab';
     }
