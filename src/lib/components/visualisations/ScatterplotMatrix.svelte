@@ -400,7 +400,7 @@
   // Function that fires when the mouse leaves any point
   function onMousePointLeave(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     // Reset the cursor
-    document.body.style.cursor = 'crosshair';
+    scatterplotMatrixRef.style.cursor = 'crosshair';
 
     // Set the hovered point to the name of the point
     let name = e.detail.name;
@@ -421,7 +421,7 @@
   // Function that fires when the mouse hovers over any point
   function onMousePointEnter(e: CustomEvent<{ name: string; x: number; y: number }>): void {
     // Update the cursor
-    document.body.style.cursor = 'pointer';
+    scatterplotMatrixRef.style.cursor = 'pointer';
 
     // Set the hovered point to the name of the point
     enteredNewPoint = true;
