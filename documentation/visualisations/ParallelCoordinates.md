@@ -105,7 +105,7 @@ An instance of `StyleUtils`, which contains styling for the visualisation. See [
 
 Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-### showFilter
+### showFilterPanel
 
 - Type: `boolean`
 - Default: `false`

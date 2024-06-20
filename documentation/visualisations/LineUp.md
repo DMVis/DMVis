@@ -98,7 +98,7 @@ The padding between each column in pixels.
 
 Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-### showFilter
+### showFilterPanel
 
 - Type: `boolean`
 - Default: `false`

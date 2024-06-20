@@ -123,7 +123,7 @@ Whether the total of the weights should be `100`. This means that when the weigh
 
 Determines whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-### showFilter
+### showFilterPanel
 
 - Type: `boolean`
 - Default: `false`

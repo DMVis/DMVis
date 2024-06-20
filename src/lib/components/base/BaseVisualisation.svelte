@@ -10,7 +10,7 @@
 
   // Optional attributes
   export let isScrollable: boolean = false;
-  export let showFilter: DataUtils | null = null;
+  export let showFilterPanel: DataUtils | null = null;
 
   // Handle errors
   let isError = false;
@@ -79,7 +79,7 @@ Certain styling standards are set and error handling is kept within the scope of
 * scrollableHeight: number  - The height of the visualisation that is shown. For this to be used,
                              `isScrollable` must be set to `true`.
                               Defaults to `'100%'`.
-* showFilter: DataUtils     - Whether to show and use the `Filter` component within a visualisation
+* showFilterPanel: DataUtils     - Whether to show and use the `Filter` component within a visualisation
                               using an instance of DataUtils.
                               Defaults to `null`.
 
@@ -118,8 +118,8 @@ Certain styling standards are set and error handling is kept within the scope of
         </slot>
       </div>
     {/if}
-    {#if showFilter}
-      <Filter dataUtil={showFilter} />
+    {#if showFilterPanel}
+      <Filter dataUtil={showFilterPanel} />
     {/if}
   </div>
 {/key}

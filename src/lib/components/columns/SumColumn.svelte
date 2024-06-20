@@ -23,7 +23,7 @@
   // Column standards
   const type = ColumnType.Sum;
   const paddingSide: number = padding / 2;
-  let showFilter = false;
+  let showFilterPanel = false;
 
   // Get the y position of the column
   function getY(index: number) {
@@ -76,7 +76,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   on:dragStart
   on:dragMove
   on:dragStop
-  on:filter={() => (showFilter = !showFilter)}
+  on:filter={() => (showFilterPanel = !showFilterPanel)}
   on:mouseHover
   on:group
   on:remove
@@ -84,7 +84,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
   on:mouseRowClick>
   <g slot="overlay">
     <!-- Insert overlay for editing weights -->
-    {#if showFilter}
+    {#if showFilterPanel}
       <rect
         class="column-overlay"
         x={x + paddingSide}

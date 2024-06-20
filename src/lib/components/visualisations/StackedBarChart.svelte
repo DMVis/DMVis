@@ -33,13 +33,13 @@
   export let opacity: Opacity = 1;
   export let showTotals: boolean = false;
   export let isScrollable: boolean = false;
-  export let showFilter: boolean = false;
+  export let showFilterPanel: boolean = false;
 
   const { visualisationData } = dataUtil;
 
   // Set store values
   setVisualisationContext({
-    width: showFilter ? width - 150 : width,
+    width: showFilterPanel ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -120,10 +120,10 @@ The y-axis represents the categories of the data.
                               Defaults to `false`.
 * isScrollable: boolean     - Whether the visualisation is scrollable in its parent container.
                               Defaults to `false`.
-* showFilter: boolean       - Whether the filter is displayed next to the visualisation.
+* showFilterPanel: boolean       - Whether the filter is displayed next to the visualisation.
                               Defaults to `false`.
 -->
-<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
+<BaseVisualisation {isScrollable} showFilterPanel={showFilterPanel ? dataUtil : null}>
   <svg
     class="visualisation stackedBarchart"
     width={isScrollable ? width : '100%'}

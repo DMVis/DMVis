@@ -23,7 +23,7 @@
   // Column standards
   const type = ColumnType.Text;
   const paddingSide: number = padding / 2;
-  let showFilter: boolean = false;
+  let showFilterPanel: boolean = false;
   let showSearch: boolean = false;
 
   // Get the y position of the column
@@ -85,7 +85,7 @@ TextColumn is a Column component that displays text for each value in the data a
   on:dragStop
   on:sort
   on:filter={() => {
-    showFilter = !showFilter;
+    showFilterPanel = !showFilterPanel;
     showSearch = false;
   }}
   on:mouseHover
@@ -93,10 +93,10 @@ TextColumn is a Column component that displays text for each value in the data a
   on:remove
   on:search={() => {
     showSearch = !showSearch;
-    showFilter = false;
+    showFilterPanel = false;
   }}>
   <g slot="overlay">
-    {#if showSearch || showFilter}
+    {#if showSearch || showFilterPanel}
       <rect
         class="column-overlay"
         x={x + paddingSide}
@@ -114,7 +114,7 @@ TextColumn is a Column component that displays text for each value in the data a
           value={filter}
           on:input={dispatchSearchData}
           on:keydown={dispatchFilterData} />
-        {#if showFilter}
+        {#if showFilterPanel}
           <datalist id="filter-data">
             {#each data as option}
               <option value={String(option)} />

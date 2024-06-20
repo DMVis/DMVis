@@ -3,7 +3,7 @@
 The filter component adds a filter to the right side of a visualisation.
 It can be used to filter and sort the data displayed in a visualisation.
 
-> Note: Filter can be enabled inside [BaseVisualisation](components/basevisualisation.md) by passing the `DataUtils` instance to `showFilter`. If you have multiple visualisation on one page it is advised to use the `Filter` component outside of `BaseVisualisation`.
+> Note: Filter can be enabled inside [BaseVisualisation](components/basevisualisation.md) by passing the `DataUtils` instance to `showFilterPanel`. If you have multiple visualisation on one page it is advised to use the `Filter` component outside of `BaseVisualisation`.
 
 ## Table of Contents
 

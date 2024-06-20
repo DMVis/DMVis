@@ -40,7 +40,7 @@
 
   // Decide whether or not to show the filter or make the visualisation scrollable
   export let isScrollable: boolean = false;
-  export let showFilter: boolean = false;
+  export let showFilterPanel: boolean = false;
 
   // Private variables
   const { visualisationData } = dataUtil;
@@ -70,7 +70,7 @@
 
   // Set store values
   setVisualisationContext({
-    width: showFilter ? width - 150 : width,
+    width: showFilterPanel ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -481,11 +481,11 @@ categorical data with labels in a column.
 
 * isScrollable: boolean    - Whether the visualisation is scrollable in its parent container.
                              Defaults to is `false`.
-* showFilter: boolean      - Whether the filter is displayed next to the visualisation.
+* showFilterPanel: boolean      - Whether the filter is displayed next to the visualisation.
                              Defaults to `false`.
 -->
 
-<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
+<BaseVisualisation {isScrollable} showFilterPanel={showFilterPanel ? dataUtil : null}>
   <svg
     class="visualisation tabularVisualisation"
     width={isScrollable ? width : '100%'}

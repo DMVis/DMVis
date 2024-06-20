@@ -37,7 +37,7 @@
   /* eslint-disable */
   let showSearch = false; // Ignored because its needed in the svg but linter does not approve
   /* eslint-enable */
-  let showFilter = true;
+  let showFilterPanel = true;
   let reversedColumns: string[] = [];
   // Create a map to store the last filter value for each column
   let filterMap: Map<string, string> = new Map();
@@ -173,7 +173,7 @@ It can be used to filter and sort the data displayed in a visualisation.
           padding={10}
           name={column}
           on:filter={() => {
-            showFilter = !showFilter;
+            showFilterPanel = !showFilterPanel;
             showSearch = false;
           }}
           on:filter={handleFilterData}

@@ -29,7 +29,7 @@
   export let height: number = calculateHeight(dataUtil.data.length);
   export let padding: number = 10;
   export let isScrollable: boolean = false;
-  export let showFilter: boolean = false;
+  export let showFilterPanel: boolean = false;
 
   let lineUpRef: SVGElement;
 
@@ -38,7 +38,7 @@
 
   // Set store values
   setVisualisationContext({
-    width: showFilter ? width - 150 : width,
+    width: showFilterPanel ? width - 150 : width,
     height,
     data: $visualisationData,
     columns: dataUtil.columns,
@@ -403,11 +403,11 @@ This is based on the type of the supplied data.
                           Defaults to `10`.
 * isScrollable: boolean - Whether the visualisation is scrollable in its parent container.
                           Defaults to `false`.
-* showFilter: boolean   - Whether the filter is displayed next to the visualisation.
+* showFilterPanel: boolean   - Whether the filter is displayed next to the visualisation.
                           Defaults to `false`.
 -->
 
-<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
+<BaseVisualisation {isScrollable} showFilterPanel={showFilterPanel ? dataUtil : null}>
   <svg
     class="visualisation lineUp"
     width={isScrollable ? width : '100%'}

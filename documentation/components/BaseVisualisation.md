@@ -54,7 +54,7 @@ The width of the visualisation that is shown. For this to be used, `isScrollable
 
 The height of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
 
-### showFilter
+### showFilterPanel
 
 - Type: `DataUtils`
 - Default: `null`

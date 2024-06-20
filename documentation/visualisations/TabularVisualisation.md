@@ -133,7 +133,7 @@ It can be a number between `0` and `1` (inclusive) or a string representing a pe
 
 Whether the visualisation is [scrollable](components/Scrollable.md) in its parent container.
 
-### showFilter
+### showFilterPanel
 
 - Type: `boolean`
 - Default: `false`

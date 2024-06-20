@@ -35,7 +35,7 @@
   export let padding: number = 0.1;
   export let autoDistributeWeight: boolean = true;
   export let isScrollable: boolean = false;
-  export let showFilter: boolean = false;
+  export let showFilterPanel: boolean = false;
 
   // Local variables
   let valueChartRef: SVGGElement;
@@ -87,7 +87,7 @@
     marginRight,
     marginTop,
     padding,
-    width: showFilter ? width - 150 : width,
+    width: showFilterPanel ? width - 150 : width,
     height,
     data: dataUtil.data,
     columns: dataUtil.columns,
@@ -212,10 +212,10 @@ Both parts of the visualisation are scrollable, to allow for visualising large d
                                   Defaults to `true`.
 * isScrollable: boolean         - Whether the visualisation is scrollable in its parent container.
                                   Defaults to `false`.
-* showFilter: boolean           - Whether the filter is displayed next to the visualisation.
+* showFilterPanel: boolean           - Whether the filter is displayed next to the visualisation.
                                   Defaults to `false`.
 -->
-<BaseVisualisation {isScrollable} showFilter={showFilter ? dataUtil : null}>
+<BaseVisualisation {isScrollable} showFilterPanel={showFilterPanel ? dataUtil : null}>
   <svg
     class="valuechart"
     width={isScrollable ? width : '100%'}

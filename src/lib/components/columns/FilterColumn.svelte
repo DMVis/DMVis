@@ -26,7 +26,7 @@
 
   // Column standards
   const paddingSide: number = padding / 2;
-  let showFilter: boolean = false;
+  let showFilterPanel: boolean = false;
   let showSearch: boolean = false;
 
   // Dispatch search data
@@ -86,12 +86,12 @@ FilterColumn is a component that displays a filter input for each column.
     {icons}
     on:sort
     on:filter={() => {
-      showFilter = !showFilter;
+      showFilterPanel = !showFilterPanel;
       showSearch = false;
     }}
     on:search={() => {
       showSearch = !showSearch;
-      showFilter = false;
+      showFilterPanel = false;
     }}>
     <g slot="overview">
       <!-- Insert histogram using bar chart -->
@@ -115,7 +115,7 @@ FilterColumn is a component that displays a filter input for each column.
       {/if}
     </g>
     <g slot="overlay">
-      {#if showSearch || showFilter}
+      {#if showSearch || showFilterPanel}
         <rect
           class="column-overlay"
           x={x + paddingSide}
@@ -132,7 +132,7 @@ FilterColumn is a component that displays a filter input for each column.
             list="filter-data"
             aria-label="TextInput"
             style="font-size: 12px; font-family: Arial; padding: 5px; border: 1px solid black;" />
-          {#if showFilter && type === ColumnType.Bar}
+          {#if showFilterPanel && type === ColumnType.Bar}
             <datalist id="filter-data">
               {#each ['Option 1', 'Option 2', 'Option 3'] as option}
                 <option value={option} />

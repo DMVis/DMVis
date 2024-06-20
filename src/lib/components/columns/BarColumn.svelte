@@ -61,7 +61,7 @@
   const paddingSide: number = padding / 2;
   const minValue = Math.min(...data);
   const maxValue = Math.max(...data);
-  let showFilter = false;
+  let showFilterPanel = false;
   let showWeight = false;
   let isWeightInputValid = true;
 
@@ -186,14 +186,14 @@ It is useful for visualising the relative size of values in a column.
   on:dragStart
   on:dragMove
   on:dragStop
-  on:filter={() => (showFilter = !showFilter)}
+  on:filter={() => (showFilterPanel = !showFilterPanel)}
   on:mouseHover
   on:mouseRowClick
   on:remove
   on:sort
   on:weight={() => (showWeight = !showWeight)}>
   <g slot="overlay">
-    {#if showFilter}
+    {#if showFilterPanel}
       <rect
         class="column-overlay"
         x={x + paddingSide}
