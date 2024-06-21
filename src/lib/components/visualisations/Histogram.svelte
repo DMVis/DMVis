@@ -111,7 +111,8 @@
 <!--
 @component
 ### Histogram
-This visualisation shows frequencies of data. It can group data categorically or numerically.
+Histogram is an extension upon BarChart, that automatically calculates bins based on frequency of given data.
+It can group data categorically or numerically.
 
 #### Required Attributes
 * width: number                - The width of the visualisation.

@@ -1,5 +1,9 @@
 # BarChart
 
+![Barchart example](../media/barchart-example.png ':size=600')
+
+A bar chart is one of the most used visualisations for representing density of data among bins, or categories. Amount of (density) children per capita (bins) for example. In a regular barchart, those bins (how large each bar is) is to be simply provided in the dataset. To automatically calculate density / how large a bar should be based on unorganized data, see [Histogram](visualisations/Histogram.md)
+
 This is a visualisation that represents categorical data with rectangular bars.
 The length of each bar corresponds to the numerical value of the data being represented.
 The axes have different meanings depending on `isVertical`.

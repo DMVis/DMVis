@@ -1,7 +1,8 @@
 # TabularVisualisation
 
-This is a visualisation that represents numerical data with rectangular bars or
-categorical data with labels in a column.
+![TabularVisualisation example](../media/tabular-example.png ':size=700')
+
+This visualisation represents the numerical value of each attribute in a datapoint as a bar, and puts those bars in a table. Columns represent the different attributes, and rows the different datapoints. Tabular also allows for representing categorical data with labels in a column
 
 > Note: Since a header label is added on top of each column, it might be necessary to adjust `marginTop` for `TabularVisualisation` to be properly displayed.
 
@@ -10,6 +11,7 @@ categorical data with labels in a column.
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
+- [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
 
 ## Referenced Components
@@ -139,6 +141,26 @@ Whether the visualisation is [scrollable](components/Scrollable.md) in its paren
 - Default: `false`
 
 Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Interactivity
+
+### Sorting
+
+![Tabularvisualisation selecting](../media/tabular-sorting.png ':size=200')
+
+At the top of every numerical column, pressing the two arrows will sort based on that column.
+
+### Switching attributes
+
+![Parallelcoordinates switching](../media/tabular-switching-columns.png ':size=500')
+
+Grab the name of an attribute column (The top of the column) and drag it to switch attributes around.
+
+### Switching rows
+
+![Parallelcoordinates switching](../media/tabular-switching-rows.png ':size=500')
+
+Grab a row and drag it to put it below or above a different row.
 
 ## Example Usage
 

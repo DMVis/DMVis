@@ -1,12 +1,17 @@
 # LineUp
 
-LineUp is a visualisation technique for visualising different types of data in a set of columns. It is a table-based visualisation that allows users to sort, filter, and group data in a table.
+![Lineup example](../media/lineup-example.png ':size=700')
+
+LineUp computes a rank based on unorganized collections of data, based on the value of attributes (represented as columns). It is a table-based visualisation that allows users to sort, filter, and group data.
+
+[S. Gratzl, A. Lex, N. Gehlenborg, H. Pfister and M. Streit, "LineUp: Visual Analysis of Multi-Attribute Rankings," in IEEE Transactions on Visualization and Computer Graphics, vol. 19, no. 12, pp. 2277-2286, Dec. 2013](https://ieeexplore.ieee.org/abstract/document/6634146)
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
+- [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
 
 ## Referenced Components
@@ -104,6 +109,34 @@ Whether the visualisation is [scrollable](components/Scrollable.md) in its paren
 - Default: `false`
 
 Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Interactivity
+
+### Selecting
+
+![Lineup search](../media/lineup-search.png ':size=200')
+
+Within a categorical / name column of a in lineup, you can search for a specific datapoints by string value. You can also look for multiple values by looking for a string that both of their names contain. Press enter to confirm your search.
+
+![Lineup float](../media/lineup-float.png ':size=400')
+
+At the left of every row in LineUp, there is a separate column available for selection. When you activate this and press the "Stack" button, selected rows will float to the top for easy viewing.
+
+![Lineup remove](../media/lineup-remove.png ':size=200')
+
+At the top of every column, pressing ellipses popup a button to remove that column. This allows a user to focus only on the columns they care about.
+
+### Filtering
+
+![Lineup filter](../media/lineup-filter.png ':size=200')
+
+At the top of every numerical column, you can press a filter icon to filter between a range of values. Press enter to confirm your range.
+
+### Sorting
+
+![Lineup sort](../media/lineup-sort.png ':size=200')
+
+At the top of every numerical column, pressing the two arrows will sort based on that column.
 
 ## Example Usage
 

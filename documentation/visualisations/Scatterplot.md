@@ -1,6 +1,9 @@
 # Scatterplot
 
+![Scatterplot example](../media/scatterplot-example.png ':size=600')
+
 This is a visualisation to display a dataset of points.
+A scatterplot displays two attributes of given datapoints and maps them in an X and Y axis. If you want to display every attribute, use a [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
 
 > Note: By default the scatterplot assumes an existing pre-defined store. If this is not the case, the [dataUtil](#datautil) attribute is **required**!
 

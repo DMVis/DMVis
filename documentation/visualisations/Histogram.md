@@ -1,6 +1,10 @@
 # Histogram
 
-This visualisation shows frequencies of data. It can group data categorically or numerically.
+![Barchart example](../media/histogram-example.png ':size=700')
+
+Histogram is an extension upon [BarChart](visualisations/Barchart.md), that automatically calculates bins based on frequency of given data.
+
+It can group data categorically or numerically.
 
 ## Table of Contents
 

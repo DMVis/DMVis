@@ -1,13 +1,18 @@
 # ValueChart
 
+![ValueChart example](../media/valuechart-example.png ':size=700')
+
 ValueChart is a visualisation that lets the user give weights to different attributes to aid in decision-making, depending on how important the user thinks the attribute is. The visualisation exists of two major components; at the top, there are `BarColumn` components (one for each numerical attribute). These same bars are shown at the bottom as well, except for each row entry in the dataset, there is a `SumColumn`.
 Both parts of the visualisation are scrollable, to allow for visualising large datasets in a compact window.
+
+[Carenini, G., & Loyd, J. (2004). ValueCharts. Proceedings of the Working Conference on Advanced Visual Interfaces - AVI ’04. doi:10.1145/989863.989885 ](https://dl.acm.org/doi/abs/10.1145/989863.989885)
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
+- [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
 
 ## Referenced Components
@@ -129,6 +134,14 @@ Determines whether the visualisation is [scrollable](components/Scrollable.md) i
 - Default: `false`
 
 Determines whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Interactivity
+
+### Scaling
+
+![Valuechart scaling](../media/valuechart-scaling.png ':size=200')
+
+At the top of any column, press the icon to set the horizontal size of that column.
 
 ## Example Usage
 

@@ -1,13 +1,17 @@
 # ScatterplotMatrix
 
-This is a visualisation that consists of multiple scatterplots in a matrix.
-It can be used to quickly find relations between attributes in a large data set.
+![ScatterplotMatrix example](../media/scatterplotmatrix-example.png ':size=500')
+
+This visualisation is a combination of many [scatterplots](visualisations/Scatterplot.md), allowing for quickly finding relations between many different attributes in a dataset.
+
+[N. Elmqvist, P. Dragicevic and J. -D. Fekete, "Rolling the Dice: Multidimensional Visual Exploration using Scatterplot Matrix Navigation," in IEEE Transactions on Visualization and Computer Graphics, vol. 14, no. 6, pp. 1539-1148, Nov.-Dec. 2008, doi: 10.1109/TVCG.2008.153.](https://ieeexplore.ieee.org/abstract/document/4658123)
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
+- [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
 
 ## Referenced Components
@@ -156,6 +160,25 @@ Whether the visualisation is [scrollable](components/Scrollable.md) in its paren
 - Default: `false`
 
 Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Interactivity
+
+### Switching attributes
+
+![Scatterplotmatrix switching](../media/scatterplotmatrix-switching.png ':size=200')
+
+Grab any attribute in the scatterplot matrix and drag it to another attribute to switch the two around.
+
+### Selecting datapoints
+
+![Scatterplotmatrix selecting](../media/scatterplotmatrix-selecting.png ':size=200')
+
+To select a single datapoint, click on it. It shows its name, and two lines point to where in the axis it is located. The attributes that form the axis of this scatterplot light up, and all other occurences of this datapoint also light up. To remove your selection, press `escape`
+
+![Scatterplotmatrix brushing](../media/scatterplotmatrix-brushing.png ':size=200')
+
+To look at a collection of datapoints, press and hold anywhere in a scatterplot and drag to form a selection square. All datapoints in your selection in other scatterplots will also light up. You can move this selection around by grabbing it and dragging it. You can also make multiple selections in multiple scatterplots to refine your selection.
+To remove your selection, press `escape`
 
 ## Example Usage
 

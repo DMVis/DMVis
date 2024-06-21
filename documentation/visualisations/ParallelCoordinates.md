@@ -1,14 +1,19 @@
 # Parallel Coordinates
 
+![ParallelCoordinates example](../media/parallelcoordinates-example.png ':size=700')
+
 This is a visualisation that is capable of visualising multi-dimensional data.
 It creates an axis for each column in the supplied table with data
 and draws a line through each axis for each row in the table.
+
+[Chatterjee, A. Das, and P. P. Bhattacharya. S. 1993.Visualization in Linear Programming Using Parallel Coordinates. Pattern Recognit, 26–11:1725–1736,](https://link.springer.com/chapter/10.1007/978-1-84800-269-2_3)
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
+- [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
 
 ## Referenced Components
@@ -111,6 +116,20 @@ Whether the visualisation is [scrollable](components/Scrollable.md) in its paren
 - Default: `false`
 
 Whether the [Filter](components/Filter.md) component is displayed next to the visualisation.
+
+## Interactivity
+
+### Selecting
+
+![Parallelcoordinates selecting](../media/parallelcoordinates-selecting.png ':size=500')
+
+How over any line in parallelcoordinates to highlight its corresponding datapoint. You can also click on a line for the same effect, but now your selection stays until you press `escape`
+
+### Switching attributes
+
+![Parallelcoordinates switching](../media/parallelcoordinates-switching.png ':size=500')
+
+Grab the name of an attribute column (The top of the column) and drag it to switch attributes around.
 
 ## Example Usage
 

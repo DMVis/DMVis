@@ -380,10 +380,8 @@
 <!--
 @component
 ### LineUp
-LineUp is a visualisation that displays multiple columns of data in a tabular format.
-It is used to compare and rank data.
-The visualisation displays different types of columns such as text, bar, and rank columns.
-This is based on the type of the supplied data.
+LineUp computes a rank based on unorganized collections of data, based on the value of attributes (represented as columns).
+ It is a table-based visualisation that allows users to sort, filter, and group data.
 
 #### Required Attributes
 * dataUtil: DataUtils   - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
