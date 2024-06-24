@@ -66,7 +66,7 @@ This component utilises the following components:
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="#/columns/SumColumn?id=attributeScales">attributeScales</a>*</td>
+      <td><a href="#/columns/SumColumn?id=attributescales">attributeScales</a>*</td>
       <td><code>d3.scaleLinear<number,number>[]</code></td>
       <td>-</td>
     </tr>

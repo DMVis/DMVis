@@ -104,7 +104,7 @@ This component utilises the following components:
       <td><code>'10'</code></td>
     </tr>
     <tr>
-      <td><a href="#/columns/BarColumn?id=overviewItem">overviewItem</a></td>
+      <td><a href="#/columns/BarColumn?id=overviewitem">overviewItem</a></td>
       <td><code>'histogram' | 'axis' | 'none'</code></td>
       <td><code>'none'</code></td>
     </tr>
@@ -119,17 +119,17 @@ This component utilises the following components:
       <td><code>[]</code></td>
     </tr>
     <tr>
-      <td><a href="#/columns/BarColumn?id=barColor">barColor</a></td>
+      <td><a href="#/columns/BarColumn?id=barcolor">barColor</a></td>
       <td><code>string</code></td>
       <td><code>'red'</code></td>
     </tr>
     <tr>
-      <td><a href="#/columns/BarColumn?id=barOpacity">barOpacity</a></td>
+      <td><a href="#/columns/BarColumn?id=baropacity">barOpacity</a></td>
       <td><code>number</code></td>
-      <td>`1`</td>
+      <td><code>1</code></td>
     </tr>
     <tr>
-      <td><a href="#/columns/BarColumn?id=barLabelVisibility">barLabelVisibility</a></td>
+      <td><a href="#/columns/BarColumn?id=barlabelvisibility">barLabelVisibility</a></td>
       <td><code>Visibility</code></td>
       <td><code>'none'</code></td>
     </tr>
