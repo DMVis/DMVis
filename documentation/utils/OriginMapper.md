@@ -1,6 +1,6 @@
 # OriginMapper
 
-Many SVG elements have a top-left origin by default. This works in many situations, but it can become cumbersome to calculate new positions to offset such elements (e.g. center). Besides that, it can make it harder to think about what such an element's center of rotation is.
+Many SVG elements have a top-left origin by default. This works in many situations, but it can become cumbersome to calculate new positions to offset such elements (e.g. centre). Besides that, it can make it harder to think about what such an element's centre of rotation is.
 
 To mitigate these issues, the OriginMapper provides functions to help calculate and reason about a component's new origin.
 These are: `getOriginOffsetX`, `getOriginOffsetY`, `getFlippedOriginX`, and `getFlippedOriginY`. All of them use the `Origin` type, which enables you to map from and to nine possible origins: `'topLeft'`, `'topMiddle'`, `'topRight'`, `'middleLeft'`, `'middle'`, `'middleRight'`, `'bottomLeft'`, `'bottomMiddle'`, and `'bottomRight'`.

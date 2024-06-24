@@ -1,6 +1,6 @@
 # Performance
 
-The `Performance` function is used to benchmark the performance of functions used in the DMVis library. To ensure the speed of the library, a function can be wrapped within this function to see the time it takes to execute. The results will be pushed to `stdout` and can be found in the console of the browser.
+The `Performance` function is used to benchmark the functions' performance used in the DMVis library. To ensure the speed of the library, a function can be wrapped within this function to see the time it takes to execute. The results will be pushed to `stdout` and can be found in the console of the browser.
 
 ## Table of Contents
 
@@ -13,7 +13,7 @@ The `Performance` function is used to benchmark the performance of functions use
 - `function`: The function that you want to benchmark. Please provide the name only, so without the `()`.
 - `args`: Any arguments you would normally pass to the function are added as parameters.
 
-> Note: Functions from within a class that refer to `this` will not work with this function.
+> Note: Functions within a class that refer to `this` will not work with this function.
 
 ## Returns
 

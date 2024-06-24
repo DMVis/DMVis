@@ -47,7 +47,7 @@ The `spacerSide` function takes in the following parameters:
 - marginLow: `number` - The margin closest to the origin.
 - marginHigh: `number` - The margin furthest from the origin.
 - columns: `string[]` - A list of column names.
-- alignment: `'start' | 'end'` - The alignment of the spacing, if each given column is one 'box', then start gives the coordinate at the start of the box and end at the end of the box.
+- alignment: `'start' | 'end'` - The spacing's alignment, if each given column is one 'box', then start gives the coordinate at the start of the box and end at the end of the box.
 - paddingInner: `number` - The padding between each step in the spacer (relating to one element in the domain). Defaults to `0`.
 - paddingOuter: `number` - The padding on the outside of the spacer (before the first element and after the last element in the domain). Defaults to `0`.
 

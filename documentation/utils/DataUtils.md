@@ -19,7 +19,7 @@ To make sure that every visualisation is consistent, we have created a set of ut
 
 To use the data utility, you will need a dataset prepared, either through a URL or a local file. The data utility can parse CSV and JSON files. The parsed data is stored in an instance of the `DataUtils` class. The class has a set of attributes and functions that help with data manipulation.
 
-The `DataUtils` class can be initalized with an optional boolean parameter `includeId`. This parameter determines whether the data should include an ID column. This is used for visualisations that require a unique identifier for each row. The value can be set when creating an instance of the `DataUtils` class by using `new DataUtils(true)`.
+The `DataUtils` class can be initialized with an optional boolean parameter `includeId`. This parameter determines whether the data should include an ID column. This is used for visualisations that require a unique identifier for each row. The value can be set when creating an instance of the `DataUtils` class using `new DataUtils(true)`.
 
 The example below can be used to parse a CSV file and log the parsed data, with the `includeId` parameter not set, which defaults to `false`:
 
@@ -55,7 +55,7 @@ The following examples creates a `DataUtils` instance and parses a CSV file, whi
 </script>
 ```
 
-Both examples can be used with the functions that are mentoined below to manipulate the data.
+Both examples can be used with the functions mentioned below to manipulate the data.
 
 ## Attributes
 

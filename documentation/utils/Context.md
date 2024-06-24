@@ -1,6 +1,6 @@
 # Context
 
-The Visualisation Context facilitates the management and update of visualisation contexts. It provides a set of functions to set, update, and retrieve context options through a shared VisualisationStore object.
+The Visualisation Context facilitates the management and update of visualisation contexts. It provides functions to set, update, and retrieve context options through a shared VisualisationStore object.
 
 ## Table of Contents
 

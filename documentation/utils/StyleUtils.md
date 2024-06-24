@@ -88,7 +88,7 @@ In this last example, the class is instantiated with custom options for all the 
 
 ### `generateColors`
 
-The `generateColors` method generates an array of colours based on the specified colour set and a number of colours. It updates the `colorScheme` and `colorSchemeDark` properties of the class.
+The `generateColors` method generates an array of colours based on the specified colour set and several colours. It updates the `colorScheme` and `colorSchemeDark` properties of the class.
 
 Parameters
 
