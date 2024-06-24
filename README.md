@@ -1,4 +1,18 @@
-# DMVis
+<div align="center">
+
+<h1>DMVis</h1>
+
+[Documentation](https://dmvis-docs.netlify.app/) • [Demo website](https://dmvis.netlify.app/) • [Gallery repository](https://github.com/DMVis/Gallery) • [Contributing](CONTRIBUTING.md)
+
+[![NPM Version](https://img.shields.io/npm/v/%40dmvis%2Fdmvis)](https://www.npmjs.com/package/@dmvis/dmvis)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dmvis/dmvis/tests.yaml)
+![GitHub License](https://img.shields.io/github/license/dmvis/dmvis)
+
+A Framework for Interactive Multi-Criteria Decision Making with Data Visualisations
+
+</div>
+
+## Introduction
 
 DMVis is an innovative platform designed to revolutionize multi-criteria decision making through the power of data visualisation. In the existing landscape, decision making tools frequently restrict users from independently exploring their information space. Users are generally confined to navigating through cumbersome lists or relying on opaque recommendations, as seen in platforms like Funda and Netflix. This project aspires to transcend these limitations by leveraging data visualisations, an impactful but underemployed tool in public domains for multi-criteria decision making.
 
@@ -12,25 +26,15 @@ The framework is designed to be flexible and extensible, allowing developers to 
 
 This application was written for the [Softwareproject](https://softwareprojecten.sites.uu.nl/) course at [Utrecht University](https://www.uu.nl/). The goal of the course is to develop a software application for a real-world client. The client for this project is [Evanthia Dimara](https://www.uu.nl/staff/EDimara/0), an Assistant Professor and a researcher in Information Visualisation at the [Visualisation and Graphics Group (VIG)](https://www.uu.nl/en/research/interaction/visualization-and-graphics/people) at Utrecht University.
 
-## Prerequisites
+## Demo
 
-We develop inside Visual Studio Code
-
-- [Visual Studio Code](https://code.visualstudio.com/download)
-
-The recommended extensions for Visual Studio Code can be installed by typing
-`@recommended` in the extensions tab. Install all the recommended workspace
-extensions.
-
-We have created a `.editorconfig` file to ensure that all developers use the same
-settings for their code editor. This is used by the EditorConfig plugin for
-Visual Studio Code.
+You can view a live demo of the project [here](https://dmvis.netlify.app/). It displays the [Gallery](https://github.com/DMVis/Gallery) project which was created to showcase the visualisations that can be created using the DMVis framework.
 
 ## Setting up
 
 You will need to install the following dependencies:
 
-- [Node.js](https://nodejs.org/en/download/)
+- [Node.js](https://nodejs.org/en/download/) (preferably version `20.x` or higher)
 - [npm](https://www.npmjs.com/get-npm)
 
 We have pinned our node version in `.nvmrc` so you can use `nvm` to install the
@@ -87,8 +91,12 @@ You can preview the production build with `npm run preview`.
 
 ## Documentation
 
-The documentation is written in markdown and rendered using [docsify](https://docsify.js.org/). To serve the documentation locally, run the following command:
+The documentation is written in markdown and rendered using [docsify](https://docsify.js.org/). You can check it out over [here](https://dmvis-docs.netlify.app/). To serve the documentation locally, run the following command:
 
 ```bash
 npm run docs
 ```
+
+## License
+
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
