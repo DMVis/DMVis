@@ -34,7 +34,8 @@ export default defineConfig(({ mode }) => ({
         '**/__tests__/**',
         '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
         '**/vitest.{workspace,projects}.[jt]s?(on)',
-        '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}'
+        '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
+        '**/lib/*.ts'
       ]
     }
   },
