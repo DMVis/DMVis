@@ -18,7 +18,7 @@
   export let x: number;
   export let width: number;
   export let height: number;
-  export let data: Array<number>;
+  export let data: number[];
 
   // Optional attributes
   export let filter: Filter = { min: 0, max: 100 };

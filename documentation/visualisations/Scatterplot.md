@@ -157,7 +157,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
   const marginTop: number = 40;
   const marginBottom: number = 40;
 
-  const data: Array<Array<string | number>> = [
+  const data: (number | string)[][] = [
     ['Name', 'weight', 'size', 'age'],
     ['Piet', 0, 0, 0],
     ['Jaap', 98, 295, 52],

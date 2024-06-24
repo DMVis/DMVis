@@ -102,7 +102,7 @@ describe('Filter component tests', () => {
     });
 
     // Subscribe to the writable store and capture data
-    let capturedData: Array<Array<string | number>> = [];
+    let capturedData: (number | string)[][] = [];
     const unsubscribe = dataUtil.visualisationData.subscribe((value) => {
       capturedData = value;
     });
@@ -157,7 +157,7 @@ describe('Filter component tests', () => {
     });
 
     // Subscribe to the writable store and capture data
-    let capturedData: Array<Array<string | number>> = [];
+    let capturedData: (number | string)[][] = [];
     const unsubscribe = dataUtil.visualisationData.subscribe((value) => {
       capturedData = value;
     });

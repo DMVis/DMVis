@@ -17,7 +17,7 @@
 
   // Column standards
   const type = ColumnType.Rank;
-  const rowArray: Array<number> = Array.from({ length }, (_, index) => index);
+  const rowArray: number[] = Array.from({ length }, (_, index) => index);
 
   // Get the y position of the column
   function getY(index: number) {

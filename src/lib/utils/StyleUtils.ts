@@ -21,8 +21,8 @@ interface StyleOptions {
  * the generation of color schemes based on color sets and datatypes.
  */
 export class StyleUtils {
-  public colorScheme: Array<string>;
-  public colorSchemeDark: Array<string>;
+  public colorScheme: string[];
+  public colorSchemeDark: string[];
   public fontSize;
   public fontFamily;
   public color;
@@ -52,7 +52,7 @@ export class StyleUtils {
    * @param numberOfColors The number of colors to generate.
    * @returns An array of color strings.
    */
-  generateColors(colorSet: string, numberOfColors: number): Array<string> {
+  generateColors(colorSet: string, numberOfColors: number): string[] {
     // Check if numberOfColors is a positive integer
     if (!Number.isInteger(numberOfColors) || numberOfColors <= 0) {
       throw DMVisError(
@@ -106,7 +106,7 @@ export class StyleUtils {
   }
 
   // Helper function to wrap around the color set if the number of colors exceeds the maximum
-  wrapColorSet(scheme: keyof typeof colorbrewer, colorSet: string, n: number): Array<string> {
+  wrapColorSet(scheme: keyof typeof colorbrewer, colorSet: string, n: number): string[] {
     const colors = colorbrewer[scheme][this.findMaximumColorCount(scheme)];
 
     // Calculate the number of times the full color set is needed

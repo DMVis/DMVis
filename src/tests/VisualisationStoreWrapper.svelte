@@ -23,7 +23,7 @@
 
   setContext('store', store);
 
-  function createNewData(): Array<Array<string | number>> {
+  function createNewData(): (number | string)[][] {
     return [
       ['Country', 'Inhabitants', 'gdp'],
       ['Netherlands', 0, 0],

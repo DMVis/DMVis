@@ -62,7 +62,7 @@ This component utilises the following components:
     </tr>
     <tr>
       <td><a href="#/columns/SumColumn?id=data">data</a>*</td>
-      <td><code>Array<Array<number>></code></td>
+      <td><code>number[][]</code></td>
       <td>-</td>
     </tr>
     <tr>
@@ -113,7 +113,7 @@ The height of the column in pixels.
 
 ### data
 
-- Type: `Array<Array<number>>`
+- Type: `number[][]`
 - <span style="color: coral;">Required</span>
 
 The data for the column.

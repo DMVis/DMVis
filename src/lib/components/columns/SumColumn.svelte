@@ -12,7 +12,7 @@
   export let x: number;
   export let width: number;
   export let height: number;
-  export let data: Array<Array<number>>;
+  export let data: number[][];
   export let attributeScales: ScaleLinear[];
 
   // Optional attributes
@@ -47,7 +47,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
 * x: number                      - The x-coordinate of the column.
 * width: number                  - The width of the column in pixels.
 * height: number                 - The height of the column in pixels.
-* data: Array<Array<number>>     - The data for the column.
+* data: number[][]     - The data for the column.
 * attributeScales: ScaleLinear[] - An array of scales where the first entry
                                    is the scale for the first numerical entry in the row attribute and so on.
 

@@ -8,8 +8,8 @@ import { VisualisationStore } from '$lib/utils/VisualisationStore.js';
 interface ContextOptions {
   width?: number;
   height?: number;
-  data?: Array<Array<number | string>>;
-  columns?: Array<string>;
+  data?: (number | string)[][];
+  columns?: string[];
   marginLeft?: number;
   marginRight?: number;
   marginTop?: number;

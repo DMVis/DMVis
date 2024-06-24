@@ -12,7 +12,7 @@
   export let x: number;
   export let width: number;
   export let height: number;
-  export let data: Array<string>;
+  export let data: string[];
 
   // Optional attributes
   export let filter: string = '';
@@ -57,7 +57,7 @@ TextColumn is a Column component that displays text for each value in the data a
 * x: number           - The x-coordinate of the column.
 * width: number       - The width of the column in pixels.
 * height: number      - The height of the column in pixels.
-* data: Array<number> - The data to display as text.
+* data: number[] - The data to display as text.
 
 #### Optional Attributes
 * name                - The name of the column. It should contain the name of the attribute you're displaying.

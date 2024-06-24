@@ -24,8 +24,8 @@ The class contains the following properties. They are all instances of the [Writ
 - `width`: Writable<number> - The width of the visualisation. Defaults to `640`.
 - `height`: Writable<number> - The height of the visualisation. Defaults to `400`.
 - `padding`: Writable<number> - The padding around the visualisation. Defaults to `0.1`.
-- `data`: Writable<Array<Array<number | string>>> - The data to be visualised, which is a 2D array of numbers or strings, pulled from the [DataUtils](/utils/DataUtils.md) class. Defaults to `[]`.
-- `columns`: Writable<Array<string>> - The column names of the data, which can be pulled from the [DataUtils](/utils/DataUtils.md) class. Defaults to `[]`.
+- `data`: Writable<(number | string)[][];> - The data to be visualised, which is a 2D array of numbers or strings, pulled from the [DataUtils](/utils/DataUtils.md) class. Defaults to `[]`.
+- `columns`: Writable<string[]> - The column names of the data, which can be pulled from the [DataUtils](/utils/DataUtils.md) class. Defaults to `[]`.
 - `styleUtil`: Writable<StyleUtils> - An instance of the [StyleUtils](/utils/StyleUtils.md) class that is used to manage the visualisation's style. Defaults to `new StyleUtils()`.
 
 The class also contains the following `get` properties:
@@ -41,8 +41,8 @@ The `VisualisationStore` class only contains the `getScales` function.
 
 The `getScales` function returns an array of scales based on the data and the visualisation's dimensions. It takes in the following parameters:
 
-- `data`: Array<Array<number | string>> - The data to be visualised.
-- `columns`: Array<string> - The column names of the data.
+- `data`: (number | string)[][]; - The data to be visualised.
+- `columns`: string[] - The column names of the data.
 - `marginLow`: number - The margin at the low end of the visualisation.
 - `marginHigh`: number - The margin at the high end of the visualisation.
 - `dimension`: number - The dimension of the visualisation.

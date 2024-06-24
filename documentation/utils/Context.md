@@ -16,8 +16,8 @@ The Visualisation Context facilitates the management and update of visualisation
 interface contextOptions {
   width?: number;
   height?: number;
-  data?: Array<Array<number | string>>;
-  columns?: Array<string>;
+  data?: (number | string)[][];;
+  columns?: string[];
   marginLeft?: number;
   marginRight?: number;
   marginTop?: number;

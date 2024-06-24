@@ -187,7 +187,7 @@
       // Select the column with all the other labels in it
       const labelColumn = tabularSelection.select('.labelNames');
       // From this column, select all the text elements
-      const rows: Array<Element> = labelColumn.selectAll('text').nodes() as Array<Element>;
+      const rows: Element[] = labelColumn.selectAll('text').nodes() as Element[];
       // Loop over all these text elements and compute the distance from this one to the dragged row
       const distances = rows.map((row: Element) => {
         // If this row is not found, return infinity

@@ -14,8 +14,8 @@ export class VisualisationStore {
   public width: Writable<number>;
   public height: Writable<number>;
   public padding: Writable<number>;
-  public data: Writable<Array<Array<number | string>>>;
-  public columns: Writable<Array<string>>;
+  public data: Writable<(number | string)[][]>;
+  public columns: Writable<string[]>;
   public styleUtil: Writable<StyleUtils>;
 
   constructor() {
@@ -50,8 +50,8 @@ export class VisualisationStore {
   }
 
   getScales = (
-    data: Array<Array<number | string>>,
-    columns: Array<string>,
+    data: (number | string)[][],
+    columns: string[],
     marginLow: number,
     marginHigh: number,
     dimension: number,
@@ -64,7 +64,7 @@ export class VisualisationStore {
     const scales: Array<ScaleLinear<number, number> | ScaleBand<string>> = [];
 
     for (let i = 0; i < columns.length; i++) {
-      const columnData: Array<number | string> = [];
+      const columnData: (number | string)[] = [];
 
       data.forEach((row) => {
         columnData.push(row[i]);
@@ -74,12 +74,12 @@ export class VisualisationStore {
       if (typeof columnData[0] === 'string') {
         scales.push(
           scaleBand()
-            .domain(columnData as Array<string>)
+            .domain(columnData as string[])
             .range([marginLow, dimension - marginHigh])
             .padding(padding)
         );
       } else {
-        const domain = extent(columnData as Array<number>);
+        const domain = extent(columnData as number[]);
         if (domain[0] === undefined) {
           throw DMVisError(
             `Value range could not be found in column '${data[0][i]}'. Please ensure the column contains only numerical data.`,

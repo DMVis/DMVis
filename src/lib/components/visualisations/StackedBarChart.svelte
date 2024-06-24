@@ -93,7 +93,7 @@ The x-axis represents the numerical values of the data.
 The y-axis represents the categories of the data.
 
 #### Required Attributes
-* dataUtil: Array<Array<string | number>> - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
+* dataUtil: (number | string)[][] - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
 #### Optional Attributes
 * width: number             - The width of the visualisation in pixels.

@@ -261,7 +261,7 @@ describe('dataUtils functionality test', () => {
   });
 });
 
-function testRegularAssertions(data: Array<Array<string | number>>) {
+function testRegularAssertions(data: (number | string)[][]) {
   expect(data).toBeDefined();
   expect(data).toBeInstanceOf(Array);
   expect(data.length).toBe(4);

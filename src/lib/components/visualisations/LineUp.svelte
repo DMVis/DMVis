@@ -48,7 +48,7 @@
   // Handle mount
   const columnFilters: Map<string, string | { min: number; max: number }> = new Map();
   const columnColours: Map<string, string> = new Map();
-  let columnData: Map<string, Array<number | string>> = $dataMap;
+  let columnData: Map<string, (number | string)[]> = $dataMap;
 
   $: {
     // Update the visualisation context
@@ -83,7 +83,7 @@
   // Set the filters
   columns.forEach((column) => {
     if (dataUtil.columnInfo[column] === 'number') {
-      const data = $dataMap.get(column) as Array<number>;
+      const data = $dataMap.get(column) as number[];
       columnFilters.set(column, { min: Math.min(...data), max: Math.max(...data) });
     } else {
       columnFilters.set(column, '');

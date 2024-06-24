@@ -420,7 +420,7 @@ describe('LineUp column actions', async () => {
   });
 });
 
-function getBarWidths(column: Element): Array<number> {
+function getBarWidths(column: Element): number[] {
   return Array.from(column.children).map((bar) => Number(bar.getAttribute('width')));
 }
 

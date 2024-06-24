@@ -10,12 +10,12 @@ import type { ScaleLinear } from '$lib/Types.js';
  * A class that provides utility functions to work with data.
  */
 export class DataUtils {
-  public rawData: Array<Array<string | number>>;
-  public data: Array<Array<string | number>>;
-  public columns: Array<string>;
+  public rawData: (number | string)[][];
+  public data: (number | string)[][];
+  public columns: string[];
   public columnInfo: { [key: string]: string };
-  public visualisationData: Writable<Array<Array<string | number>>>;
-  public dataMap: Writable<Map<string, Array<string | number>>>;
+  public visualisationData: Writable<(number | string)[][]>;
+  public dataMap: Writable<Map<string, (number | string)[]>>;
   public includeId: boolean;
 
   constructor(includeId: boolean = false) {
@@ -32,9 +32,9 @@ export class DataUtils {
    * Function to parse data as JSON or CSV.
    * @param data - The data to parse. Can be a JSON string, a CSV string, or a string URL pointing to a JSON or CSV file.
    * @param type - The type of data to parse. Can be 'json' or 'csv'. If not provided, the function will try to infer the type.
-   * @returns {Promise<Array<Array<string | number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the data.
+   * @returns {Promise<(number | string)[][]>} A promise that resolves with an array of arrays, each inner array representing a row of the data.
    */
-  async parseData(data: string, type?: string): Promise<Array<Array<string | number>>> {
+  async parseData(data: string, type?: string): Promise<(number | string)[][]> {
     if (type === 'json' || data.includes('.json')) {
       return this.parseJSON(data);
     } else if (type === 'csv' || data.includes('.csv')) {
@@ -57,11 +57,11 @@ export class DataUtils {
 
   /**
    * @param {string} csvData - The CSV data to parse. Can be a CSV string or a string URL pointing to the CSV file. URL to static file (\datasets\example.csv) can be passed as string.
-   * @returns {Promise<Array<Array<String | Number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the CSV file.
+   * @returns {Promise<(number | string)[][]>} A promise that resolves with an array of arrays, each inner array representing a row of the CSV file.
    * Each row's values are automatically typed based on their content, thanks to d3.autoType.
    * @throws {Error} If the data could not be parsed as CSV.
    */
-  async parseCSV(csvData: string): Promise<Array<Array<string | number>>> {
+  async parseCSV(csvData: string): Promise<(number | string)[][]> {
     try {
       let text: string;
       if (csvData.includes('.csv') || this.isValidUrl(csvData)) {
@@ -75,9 +75,7 @@ export class DataUtils {
 
       // Get the separator used in the data and parse it
       const separator = this.#getSeparator(text);
-      const csv_data = dsvFormat(separator).parseRows(text, autoType) as Array<
-        Array<string | number>
-      >;
+      const csv_data = dsvFormat(separator).parseRows(text, autoType) as Array<(number | string)[]>;
 
       // Store the parsed data
       this.rawData = csv_data;
@@ -130,11 +128,11 @@ export class DataUtils {
 
   /**
    * @param {string} jsonData - The JSON data to parse. Can be a JSON string or a string URL pointing to the JSON file.
-   * @returns {Promise<Array<Array<String | Number>>>} A promise that resolves with an array of arrays, each inner array representing a row of the JSON file.
+   * @returns {Promise<(number | string)[][]>} A promise that resolves with an array of arrays, each inner array representing a row of the JSON file.
    * Each row's values are automatically typed based on their content, thanks to d3.autoType.
    * @throws {Error} If the data could not be parsed as JSON.
    */
-  async parseJSON(jsonData: string): Promise<Array<Array<string | number>>> {
+  async parseJSON(jsonData: string): Promise<(number | string)[][]> {
     try {
       let text: string;
       if (jsonData.includes('.json') || this.isValidUrl(jsonData)) {
@@ -146,7 +144,7 @@ export class DataUtils {
       // Parse the JSON data
       let json_data:
         | Array<{ [key: string]: string | number }>
-        | { [key: string]: Array<string | number> } = JSON.parse(text);
+        | { [key: string]: (number | string)[] } = JSON.parse(text);
 
       // Store the parsed data
       if (Array.isArray(json_data) && typeof json_data[0] === 'object') {
@@ -157,7 +155,7 @@ export class DataUtils {
         this.rawData = [this.columns, ...this.data];
       } else if (typeof json_data === 'object' && Object.values(json_data)[0] instanceof Array) {
         // Data should look like | {col:[row1, row2], col2:[row1, row2]}
-        json_data = json_data as { [key: string]: Array<string | number> };
+        json_data = json_data as { [key: string]: (number | string)[] };
         this.data = [];
         Object.entries(json_data).forEach(([key, values]) => {
           this.columns.push(key);
@@ -217,10 +215,10 @@ export class DataUtils {
 
   /**
    * @param {string} jsonData - The JSON data to order.
-   * @returns {Array<Array<string | number>>} The sorted data.
+   * @returns {(number | string)[][]} The sorted data.
    * @throws {Error} If the data could not be sorted.
    */
-  sortData(column: string, ascending: boolean): Array<Array<string | number>> {
+  sortData(column: string, ascending: boolean): (number | string)[][] {
     const index = this.columns.indexOf(column);
     if (index === -1) {
       throw DMVisError(
@@ -253,10 +251,10 @@ export class DataUtils {
 
   /**
    * @param {Array<ScaleLinear>} scales - The scales used to weigh the data, containing one scale per attribute.
-   * @returns {Array<Array<string | number>>} The sorted data.
+   * @returns {(number | string)[][]} The sorted data.
    * @throws {Error} If an incorrect amount of scales is provided to the scales parameter.
    */
-  sortByWeights(scales: Array<ScaleLinear>, ascending: boolean): Array<Array<string | number>> {
+  sortByWeights(scales: Array<ScaleLinear>, ascending: boolean): (number | string)[][] {
     let numericalScales: number = 0;
     this.columns.forEach((column, index) => {
       if (typeof this.data[0][index] === 'number') {
@@ -271,7 +269,7 @@ export class DataUtils {
     }
 
     // Function that takes a row, and uses the global scales to compute the total of the entire row
-    function computeScaledTotal(row: Array<string | number>) {
+    function computeScaledTotal(row: (number | string)[]) {
       // Compute running total
       return (row.slice(1) as number[]).reduce((old, current, i) => {
         return old + scales[i](current);
@@ -304,13 +302,13 @@ export class DataUtils {
    * @param column The column to reorder the rows based on.
    * @param oldIndex The old index of the row.
    * @param newIndex The new index of the row.
-   * @returns {Array<Array<string | number>>} The reordered data.
+   * @returns {(number | string)[][]} The reordered data.
    */
   reorderRows(
     oldIndex: number,
     newIndex: number,
-    visData: Array<Array<string | number>>
-  ): Array<Array<string | number>> {
+    visData: (number | string)[][]
+  ): (number | string)[][] {
     // Reorder data
     const reorderedData = visData;
     const [removed] = reorderedData.splice(oldIndex, 1);
@@ -429,10 +427,10 @@ export class DataUtils {
 
   /**
    * Sets the visualisation data.
-   * @param {Array<Array<string | number>>} data - The data to set as the visualisation data.
+   * @param {(number | string)[][]} data - The data to set as the visualisation data.
    * @returns {void}
    */
-  setVisualisationData(data: Array<Array<string | number>>): void {
+  setVisualisationData(data: (number | string)[][]): void {
     this.visualisationData.set(data);
     this.dataMap.set(
       new Map(this.#transposeData(data).map((row, index) => [this.columns[index] as string, row]))
@@ -441,7 +439,7 @@ export class DataUtils {
 
   /**
    * Filters a row based on the given ranges for each attribute.
-   * @param {Array<string | number>} row - The row to check.
+   * @param {(number | string)[]} row - The row to check.
    * @param {number[]} indicesToCheck - The indices of the attributes that have a selection.
    * @param {number[][]} rangePerAttribute - The range for each attribute.
    * @returns {boolean} Whether the row is valid based on the given ranges.
@@ -559,21 +557,21 @@ export class DataUtils {
 
   /**
    * Transposes the given data.
-   * @param {Array<Array<string | number>>} data - The data to transpose.
-   * @returns {Array<Array<string | number>>} The transposed data.
+   * @param {(number | string)[][]} data - The data to transpose.
+   * @returns {(number | string)[][]} The transposed data.
    */
-  #transposeData(data: Array<Array<string | number>>): Array<Array<string | number>> {
+  #transposeData(data: (number | string)[][]): (number | string)[][] {
     return data.reduce(
       (acc, currentRow) => {
         currentRow.forEach((value, index) => {
           if (acc[index] === undefined) {
-            acc[index] = [] as Array<number | string>;
+            acc[index] = [] as (number | string)[];
           }
           acc[index].push(value);
         });
         return acc;
       },
-      [[]] as Array<Array<number | string>>
+      [[]] as (number | string)[][]
     );
   }
 }
