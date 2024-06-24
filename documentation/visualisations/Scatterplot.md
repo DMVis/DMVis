@@ -3,13 +3,14 @@
 ![Scatterplot example](../media/scatterplot-example.png ':size=600')
 
 This is a visualisation to display a dataset of points.
-A scatterplot displays two attributes of given datapoints and maps them in an X and Y axis. If you want to display every attribute, use a [ScatterplotMatrix](visualisations/ScatterplotMatrix.md)
+A scatterplot displays two attributes of given datapoints and maps them in an X and Y axis. If you want to display every attribute, use a [ScatterplotMatrix](visualisations/ScatterplotMatrix.md).
 
 > Note: By default the scatterplot assumes an existing pre-defined store. If this is not the case, the [dataUtil](#datautil) attribute is **required**!
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
@@ -38,23 +39,101 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=width'>width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=height'>height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=xaxis'>xAxis</a>*</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=yaxis'>yAxis</a>*</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=datautil'>dataUtil</a></td>
+      <td><code>dataUtil</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=showaxis'>showAxis</a></td>
+      <td><code>bool</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=numticks'>numTicks</a></td>
+      <td><code>number</code></td>
+      <td><code>5</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=pointopacity'>pointOpacity</a></td>
+      <td><code>number</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>50</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Scatterplot?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### width
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The width of the visualisation in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The height of the visualisation in pixels.
 
 ### xAxis
 
 - Type: `string`
+- <span style="color:coral">Required</span>
 
 The name of the attribute to be plotted along the x-axis.
 
@@ -63,6 +142,7 @@ The name of the attribute to be plotted along the x-axis.
 ### yAxis
 
 - Type: `string`
+- <span style="color:coral">Required</span>
 
 The name of the attribute to be plotted along the y-axis.
 
@@ -107,28 +187,28 @@ It can be a number between `0` and `1` (inclusive) or a string representing a pe
 - Type: `number`
 - Default: `50`
 
-The margin left of the visualisationThe m
+The margin left of the visualisation in pixels.
 
 ### marginRight
 
 - Type: `number`
 - Default: `40`
 
-The margin right of the visualisationThe m
+The margin right of the visualisation in pixels.
 
 ### marginTop
 
 - Type: `number`
 - Default: `40`
 
-The margin above the visualisation The m
+The margin above the visualisation in pixels.
 
 ### marginBottom
 
 - Type: `number`
 - Default: `40`
 
-The margin under the visualisationThe m
+The margin under the visualisation in pixels.
 
 ## Events
 

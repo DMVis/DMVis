@@ -86,14 +86,16 @@
 <!--
 @component
 ### StackedBarChart
-This is a visualisation that represents categorical data with rectangular bars.
-It is used to compare the parts to the whole and show the relationship of individual items to the total.
-The length of each bar corresponds to the numerical value of the data being represented.
+This visualisation is an extension of the normal barchart,
+where it allows comparing attributes to each other and their total.
+The length of each bar corresponds to the numerical value of the data being represented,
+but instead of a normal barchart,
+we combine multiple categories or attributes to show their total.
 The x-axis represents the numerical values of the data.
 The y-axis represents the categories of the data.
 
 #### Required Attributes
-* dataUtil: (number | string)[][] - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
+* dataUtil: dataUtils       - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
 
 #### Optional Attributes
 * width: number             - The width of the visualisation in pixels.

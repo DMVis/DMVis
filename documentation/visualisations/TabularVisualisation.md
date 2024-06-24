@@ -9,7 +9,8 @@ This visualisation represents the numerical value of each attribute in a datapoi
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
-- [Required Attributes](#required-attributes)
+- [Attributes](#attributes)
+- [Required Attribute](#required-attribute)
 - [Optional Attributes](#optional-attributes)
 - [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
@@ -45,11 +46,91 @@ This component utilises the following components:
   </tbody>
 </table>
 
-## Required Attributes
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=datautil'>dataUtil</a>*</td>
+      <td><code>DataUtils</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=styleutil'>styleUtil</a></td>
+      <td><code>StyleUtils</code></td>
+      <td><code>new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=width'>width</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfColumns * 200</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=height'>height</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfRows * 20 + header</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=showcolumnlines'>showColumnLines</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=columnpadding'>columnPadding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=baropacity'>barOpacity</a></td>
+      <td><code>number</code></td>
+      <td><code>0.6</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/TabularVisualisation?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+## Required Attribute
 
 ### dataUtil
 
 - Type: `DataUtils`
+- <span style="color:coral">Required</span>
 
 An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
@@ -109,7 +190,7 @@ The margin to the bottom of the visualisation in pixels.
 - Type: `boolean`
 - Default: `false`
 
-Whether to show lines at the start and end of each column. Defaults to false.
+Whether to show lines at the start and end of each column.
 
 ### columnPadding
 
@@ -120,7 +201,7 @@ The distance between each column in pixels.
 
 ### barOpacity
 
-- Type: number
+- Type: `number`
 - Default: `0.6`
 
 The opacity of each bar.
@@ -187,7 +268,7 @@ Grab a row and drag it to put it below or above a different row.
 {/await}
 ```
 
-<b>Creating a custom `TabularVisualisation` from a datapath.</b>
+<b>Creating a custom `TabularVisualisation` from a file path.</b>
 
 ```svelte
 <script lang="ts">

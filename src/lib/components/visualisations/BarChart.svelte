@@ -61,7 +61,9 @@ This is a visualisation that represents categorical data with rectangular bars.
 The length of each bar corresponds to the numerical value of the data being represented.
 The axes have different meanings depending on `isVertical`.
 One axis has categorical data, which represents a data entry, whereas
-the other axis goes in the direction of the length of the bars and has numerical values.
+the other axis goes in the direction of the length of the bars and holds corresponding numerical values.
+`isVertical` switches the two axes.
+
 
 #### Required Attributes
 * width: number                            - The width of the visualisation in pixels.

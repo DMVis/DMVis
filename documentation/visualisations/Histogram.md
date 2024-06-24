@@ -2,13 +2,14 @@
 
 ![Barchart example](../media/histogram-example.png ':size=700')
 
-Histogram is an extension upon [BarChart](visualisations/Barchart.md), that automatically calculates bins based on frequency of given data.
+Histogram is an extension upon [BarChart](visualisations/BarChart.md), that automatically calculates bins based on frequency of given data.
 
-It can group data categorically or numerically.
+It can group data categorically or numerically in one axis, as the other axis holds corresponding numerical values.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
@@ -40,23 +41,116 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=width'>width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=height'>height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=data'>data*</a></td>
+      <td><code>string[] | number[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=x'>x</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=y'>y</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    </tr>
+      <td><a href='#visualisations/Histogram?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=bins'>bins</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=showouterticks'>showOuterTicks</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=forcecategorical'>forceCategorical</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'blue'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=opacity'>opacity</a></td>
+      <td><code>Opacity</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/Histogram?id=borderradius'>borderRadius</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### width
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The width of the visualisation.
 
 ### height
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The height of the visualisation.
 
 ### data
 
 - Type: `string[]` | `number[]`
+- <span style="color:coral">Required</span>
 
 An array of data (either strings or numbers) which should be shown in the histogram. They will be represented as bars.
 
@@ -71,8 +165,7 @@ The x position of the histogram.
 
 ### y
 
--Type: `number`
-
+- Type: `number`
 - Default: `0`
 
 The y position of the histogram.
@@ -115,7 +208,7 @@ Categorical data is divided into unique categories (strings).
 Bucketing multiple strings together makes the histogram less useful/clear.
 To make buckets for numerical data we use the [d3.bin](https://d3js.org/d3-array/bin) function which groups numerical values in buckets with equally large ranges.
 This d3.bin function has a parameter called 'thresholds()' where you can enter a number to specify how many buckets you want. Here we use the bins variable as its input and thus should specify the number of buckets.
-However, the d3.bin().thresholds(bins) function call does not enforce the precise amount of buckets you wish to have.
+However, this function call does not enforce the precise amount of buckets you wish to have.
 It only tries to get as close as possible to the specified number of 'bins' and may make more or less than the value assigned to 'bins'.
 This is heavily influenced by the data you give it; with bins set to 5 it could make 5 buckets with one set of data, but 7 with another.
 
@@ -155,7 +248,7 @@ Valid inputs include CSS colours specified as a string.
 
 ### opacity
 
-- Type: `number | string`
+- Type: `Opacity`
 - Default: `1`
 
 The opacity of each bar.

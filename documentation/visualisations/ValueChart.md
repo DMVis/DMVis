@@ -10,6 +10,7 @@ Both parts of the visualisation are scrollable, to allow for visualising large d
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Interactivity](#interactivity)
@@ -50,23 +51,100 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=width'>width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=height'>height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=datautil'>dataUtil</a>*</td>
+      <td><code>DataUtils</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=styleutil'>styleUtil</a></td>
+      <td><code>StyleUtils</code></td>
+      <td><code>new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>0.1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=autodistributeweights'>autoDistributeWeights</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ValueChart?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### width
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The width of the visualisation in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The height of the visualisation in pixels.
 
 ### dataUtil
 
 - Type: `DataUtils`
+- <span style="color:coral">Required</span>
 
 An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
@@ -168,7 +246,7 @@ At the top of any column, press the icon to set the horizontal size of that colu
 {/await}
 ```
 
-<b>Creating a custom `ValueChart` visualisation from a datapath.</b>
+<b>Creating a custom `ValueChart` visualisation from a file path.</b>
 
 ```svelte
 <script lang="ts">

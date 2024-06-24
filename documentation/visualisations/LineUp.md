@@ -9,7 +9,8 @@ LineUp computes a rank based on unorganized collections of data, based on the va
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
-- [Required Attributes](#required-attributes)
+- [Attributes](#attributes)
+- [Required Attribute](#required-attribute)
 - [Optional Attributes](#optional-attributes)
 - [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
@@ -49,11 +50,66 @@ This component utilises the following components:
   </tbody>
 </table>
 
-## Required Attributes
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=datautil'>dataUtil</a>*</td>
+      <td><code>DataUtils</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=styleutil'>styleUtil</a></td>
+      <td><code>StyleUtils</code></td>
+      <td><code>new StyleUtils()</code> </td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=columnwidth'>columnWidth</a></td>
+      <td><code>number</code></td>
+      <td><code>150</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=width'>width</a></td>
+      <td><code>number</code></td>
+      <td><code>dataUtil.columns.length * columnWidth</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=height'>height</a></td>
+      <td><code>number</code></td>
+      <td><code>number of rows * 20 + 120</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/LineUp?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+## Required Attribute
 
 ### dataUtil
 
 - Type: `DataUtils`
+- <span style="color:coral">Required</span>
 
 An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 

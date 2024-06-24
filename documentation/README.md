@@ -2,11 +2,11 @@
 
 ## Introduction
 
-Welcome to the DMVis documentation. DMVis stands for interactive multi-criteria "Decision Making with Data Visualisations". It is a library to create interactive data visualisations to aid in decision-making with relative ease. It is open-source and meant to be extended with more visualisations. This documentation provides an overview of the project, installation instructions, and guidelines for contributing.
+Welcome to the DMVis documentation. DMVis stands for "Interactive multi-criteria **D**ecision **M**aking with data **Vis**ualisations". It is a svelte library to create interactive data visualisations to aid in decision-making with relative ease. It is open-source and meant to be extended with more visualisations. This documentation provides an overview of the project, installation instructions, and guidelines for contributing.
 
 ## How to use the library
 
-To use DMVis in your project, you can install it as an npm dependency and import the necessary components and utilities. You can then use these components to create custom decision making visualisations in your project. For more information on how to use the library, refer to the [installation guide](INSTALLING.md).
+To use DMVis in your svelte project, you can install it as an npm dependency and import the necessary components and utilities. You can then use these components to create custom decision making visualisations in your project. For more information on how to use the library, refer to the [installation guide](INSTALLING.md).
 
 ## What is the goal of DMVis?
 

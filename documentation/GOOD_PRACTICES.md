@@ -55,7 +55,7 @@ Every new documentation file needs to be added to the `documentation/_sidebar.md
 
 ## Visualisation Layout
 
-The layout of a visualisation is similair to the component, the difference being that all the logic like setting the [Context](utils/Context.md) should happen at this level, in order to set all the information properly for components that may be used.
+The layout of a visualisation is similar to the component, the difference being that all the logic like setting the [Context](utils/Context.md) should happen at this level, in order to set all the information properly for components that may be used.
 
 We recommend the use of the [BaseVisualisation](components/BaseVisualisation.md) to start of with some helpful features.
 

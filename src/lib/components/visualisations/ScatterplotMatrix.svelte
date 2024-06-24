@@ -618,12 +618,10 @@ It can be used to quickly find relations between attributes in a large data set.
                                        Defaults to `new StyleUtils({ color: '#f42b03' })`.
 * padding: number                    - The padding between each scatterplots.
                                        Defaults to `0.1`.
-* pointColor: string                 - The colour of each point in each scatterplot. Valid inputs include CSS colours specified as a string.
-                                       Defaults to `'red'`.
 * pointOpacity: number               - The default opacity of the points in each scatterplot.
                                        It can be a number between `0` and `1` (inclusive).
                                        Defaults to `0.3`.
-* display: 'full' | 'top' | 'bottom' - Whether to draw the entire visualisation, or only the top, or only the bottom half.
+* display: 'full' | 'top' | 'bottom' - Whether to draw the entire visualisation, only the top, or only the bottom half.
                                        Defaults to `'full'`.
 
 * height: number                     - The height of the visualisation in pixels.

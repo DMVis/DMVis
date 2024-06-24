@@ -2,15 +2,17 @@
 
 ![StackedBarChart example](../media/stackedbarchart-example.png ':size=700')
 
-This visualisation is an extension of the normal barchart, where it allows comparing attributes to eachother and their total.
+This visualisation is an extension of the normal barchart, where it allows comparing attributes to each other and their total.
 The length of each bar corresponds to the numerical value of the data being represented, but instead of a normal barchart, we combine multiple categories or attributes to show their total.
+
 The x-axis represents the numerical values of the data, the y-axis represents the categories of the data.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
-- [Required attributes](#required-attributes)
-- [Optional attributes](#optional-attributes)
+- [Attributes](#attributes)
+- [Required Attribute](#required-attribute)
+- [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
 
 ## Referenced Components
@@ -41,15 +43,90 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-## Required Attributes
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=datautil'>dataUtil*</a></td>
+      <td><code>DataUtils</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=styleutil'>styleUtil</a></td>
+      <td><code>StyleUtils</code></td>
+      <td><code>new StyleUtils({ colorSet: 'Set1', numColors: dataUtil.columns.length - 1})</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=height'>height</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfRows * 15</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=width'>width</a></td>
+      <td><code>number</code></td>
+      <td><code>200</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>0.2</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=opacity'>opacity</a></td>
+      <td><code>Opacity</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/StackedBarChart?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+## Required Attribute
 
 ### dataUtil
 
 - Type: `DataUtils`
+- <span style="color:coral">Required</span>
 
 An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
-## Optional attributes
+## Optional Attributes
 
 ### height
 
@@ -103,7 +180,7 @@ It can be a number between `0` and `1` (inclusive).
 
 ### opacity
 
-- Type: `number | string`
+- Type: `Opacity`
 - Default: `1`
 
 The opacity of each bar.

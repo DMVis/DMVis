@@ -112,7 +112,7 @@
 @component
 ### Histogram
 Histogram is an extension upon BarChart, that automatically calculates bins based on frequency of given data.
-It can group data categorically or numerically.
+It can group data categorically or numerically in one axis, as the other axis holds corresponding numerical values.
 
 #### Required Attributes
 * width: number                - The width of the visualisation.

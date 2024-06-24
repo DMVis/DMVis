@@ -9,7 +9,8 @@ This visualisation is a combination of many [scatterplots](visualisations/Scatte
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
-- [Required Attributes](#required-attributes)
+- [Attributes](#attributes)
+- [Required Attribute](#required-attribute)
 - [Optional Attributes](#optional-attributes)
 - [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
@@ -58,11 +59,91 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-## Required Attributes
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=datautil'>dataUtil</a>*</td>
+      <td><code>DataUtils</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=width'>width</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfAttributes * 150</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=height'>height</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfAttributes * 150</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>0.1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=pointopacity'>pointOpacity</a></td>
+      <td><code>number</code></td>
+      <td><code>0.3</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=display'>display</a></td>
+      <td><code>string</code></td>
+      <td><code>'full'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=styleutil'>styleUtil</a></td>
+      <td><code>StyleUtils</code></td>
+      <td><code>new StyleUtils({ color: '#f42b03' })</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ScatterplotMatrix?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+## Required Attribute
 
 ### dataUtil
 
 - Type: `DataUtils`
+- <span style="color:coral">Required</span>
 
 An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
@@ -89,13 +170,6 @@ The height of the visualisation in pixels.
 
 The padding between each scatterplot.
 
-### pointColor
-
-- Type: `string`
-- Default: `'red'`
-
-The colour of each point in each scatterplot. Valid inputs include CSS colours specified as a string.
-
 ### pointOpacity
 
 - Type: `number`
@@ -110,7 +184,7 @@ It can be a number between `0` and `1` (inclusive).
 - Default: `'full'`
 - Options: `'full'`,`'top'`, `'bottom'`
 
-Whether to draw the entire visualisation, or only the top, or only the bottom half.
+Whether to draw the entire visualisation, only the top, or only the bottom half.
 
 ### marginLeft
 
@@ -173,12 +247,12 @@ Grab any attribute in the scatterplot matrix and drag it to another attribute to
 
 ![Scatterplotmatrix selecting](../media/scatterplotmatrix-selecting.png ':size=200')
 
-To select a single datapoint, click on it. It shows its name, and two lines point to where in the axis it is located. The attributes that form the axis of this scatterplot light up, and all other occurences of this datapoint also light up. To remove your selection, press `escape`
+To select a single datapoint, click on it. It shows its name, and two lines point to where in the axis it is located. The attributes that form the axis of this scatterplot light up, and all other occurrences of this datapoint also light up. To remove your selection, press `escape`.
 
 ![Scatterplotmatrix brushing](../media/scatterplotmatrix-brushing.png ':size=200')
 
 To look at a collection of datapoints, press and hold anywhere in a scatterplot and drag to form a selection square. All datapoints in your selection in other scatterplots will also light up. You can move this selection around by grabbing it and dragging it. You can also make multiple selections in multiple scatterplots to refine your selection.
-To remove your selection, press `escape`
+To remove your selection, press `escape`.
 
 ## Example Usage
 
@@ -205,7 +279,7 @@ To remove your selection, press `escape`
 {/await}
 ```
 
-<b>Creating a custom `ScatterplotMatrix` visualisation from a data path.</b>
+<b>Creating a custom `ScatterplotMatrix` visualisation from a file path.</b>
 
 ```svelte
 <script lang="ts">

@@ -4,15 +4,14 @@
 
 A bar chart is one of the most used visualisations for representing density of data among bins, or categories. Amount of (density) children per capita (bins) for example. In a regular barchart, those bins (how large each bar is) is to be simply provided in the dataset. To automatically calculate density / how large a bar should be based on unorganized data, see [Histogram](visualisations/Histogram.md)
 
-This is a visualisation that represents categorical data with rectangular bars.
-The length of each bar corresponds to the numerical value of the data being represented.
-The axes have different meanings depending on `isVertical`.
 One axis has categorical data, which represents a data entry, whereas
-the other axis goes in the direction of the length of the bars and has numerical values.
+the other axis goes in the direction of the length of the bars and holds corresponding numerical values.
+`isVertical` switches the two axes.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
@@ -40,23 +39,126 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=width'>width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=height'>height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=data'>data</a>*</td>
+      <td><code>{ label: string; value: number }[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=minvalue'>minValue</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=maxvalue'>maxValue</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=isvertical'>isVertical</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=ticks'>ticks</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=showleftaxis'>showLeftAxis</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=showbottomaxis'>showBottomAxis</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>0.2</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'blue'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=opacity'>opacity</a></td>
+      <td><code>Opacity</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/BarChart?id=borderradius'>borderRadius</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### width
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The width of the visualisation in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The height of the visualisation in pixels.
 
 ### data
 
 - Type: `{ label: string; value: number }[]`
+- <span style="color:coral">Required</span>
 
 A list of data to display as bars.
 
@@ -149,7 +251,7 @@ The colour of each bar.
 
 ### opacity
 
-- Type: `number | string`
+- Type: `Opacity`
 - Default: `1`
 
 The opacity of each bar.

@@ -19,13 +19,13 @@ To get started with contributing, please follow these steps:
 
 We follow a specific code style in this project to maintain consistency. Please make sure to adhere to the following guidelines:
 
-- Use ESLint and Prettier to ensure your code follows the style guide.
+- Use _ESLint_ and _Prettier_ to ensure your code follows the style guide.
 - Keep your code clean, readable, and well-documented.
 - Follow the naming conventions for variables, functions, and components.
 
 ## Reporting Issues
 
-If you encounter any bugs, issues, or have suggestions for improvements, please open an issue on the [issue tracker](#). Provide as much detail as possible, including steps to reproduce the problem and any relevant code snippets.
+If you encounter any bugs, issues, or have suggestions for improvements, please open an issue on the [issue tracker](https://github.com/DMVis/DMVis/issues). Provide as much detail as possible, including steps to reproduce the problem and any relevant code snippets.
 
 ## Community Guidelines
 

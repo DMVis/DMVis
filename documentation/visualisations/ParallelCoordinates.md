@@ -3,15 +3,16 @@
 ![ParallelCoordinates example](../media/parallelcoordinates-example.png ':size=700')
 
 This is a visualisation that is capable of visualising multi-dimensional data.
-It creates an axis for each column in the supplied table with data
-and draws a line through each axis for each row in the table.
+It creates an axis for each column in the supplied dataset with data
+and draws a line through each axis for each row in the dataset.
 
 [Chatterjee, A. Das, and P. P. Bhattacharya. S. 1993.Visualization in Linear Programming Using Parallel Coordinates. Pattern Recognit, 26–11:1725–1736,](https://link.springer.com/chapter/10.1007/978-1-84800-269-2_3)
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
-- [Required Attributes](#required-attributes)
+- [Attributes](#attributes)
+- [Required Attribute](#required-attribute)
 - [Optional Attributes](#optional-attributes)
 - [Interactivity](#interactivity)
 - [Example Usage](#example-usage)
@@ -44,11 +45,77 @@ based on the data with labels along the correct side of the visualisation.</td>
   </tbody>
 </table>
 
-## Required Attributes
+## Attributes
+
+<table style="width: 60%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=datautil'>dataUtil</a>*</td>
+      <td><code>DataUtils</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=width'>width</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfColumns * 175</code></td>
+    </tr>
+    <tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=height'>height</a></td>
+      <td><code>number</code></td>
+      <td><code>numberOfRows * 15</code></td>
+    </tr>
+    </tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=marginleft'>marginLeft</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=marginright'>marginRight</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=margintop'>marginTop</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=marginbottom'>marginBottom</a></td>
+      <td><code>number</code></td>
+      <td><code>40</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=styleutil'>styleUtil</a></td>
+      <td><code>StyleUtils</code></td>
+      <td><code>new StyleUtils({ color: '#BBBBBB' })</code>
+    </td>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#visualisations/ParallelCoordinates?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
+## Required Attribute
 
 ### dataUtil
 
 - Type: `DataUtils`
+- <span style="color:coral">Required</span>
 
 An instance of `dataUtils`, which holds all the data. See [DataUtils](utils/DataUtils.md) for more information.
 
@@ -123,7 +190,7 @@ Whether the [Filter](components/Filter.md) component is displayed next to the vi
 
 ![Parallelcoordinates selecting](../media/parallelcoordinates-selecting.png ':size=500')
 
-How over any line in parallelcoordinates to highlight its corresponding datapoint. You can also click on a line for the same effect, but now your selection stays until you press `escape`
+How over any line in parallelcoordinates to highlight its corresponding datapoint. You can also click on a line for the same effect, but now your selection stays until you press `escape`.
 
 ### Switching attributes
 
@@ -155,7 +222,7 @@ Grab the name of an attribute column (The top of the column) and drag it to swit
 {/await}
 ```
 
-<b>Creating a custom `ParallelCoordinates` visualisation from a datapath.</b>
+<b>Creating a custom `ParallelCoordinates` visualisation from a file path.</b>
 
 ```svelte
 <script lang="ts">
