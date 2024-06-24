@@ -457,43 +457,47 @@
 <!--
 @component
 ### DynamicAxis
-The DynamicAxis component is a component used for rendering any number of axes, depending on the given dataset.
+DynamicAxis is a component used for rendering any number of axes, depending on the given dataset.
 By default, it will generate an axis per column in the dataset. This means that for a column with numerical data,
 a numerical axis is generated, and for a column with text data, a text axis is generated.
 DynamicAxis can generate axes in different orientations. Axes themselves can be both vertical and horizontal, and
 the axes can also be placed vertically or horizontally with respect to each other.
 
+This component is made specifically for visualisations that require one or more axes.
+If you want to use a single axis, it is recommended to use the Axis component.
+
 #### Optional Attributes
-* axisOrder: string[]                           - The order in which the axes should be drawn. The array should contain strings
-                                                  identical to column names in the dataset.
-                                                  Defaults to `[]`, which draws axes in the order that they appear in the dataset.
-* squashOuterTicks: boolean                     - Whether or not to tuck in the first and last tick.
+* axisOrder: string[]                           - The order that the axes should be drawn in.
+                                                  The array should contain strings identical to column names in the dataset.
+                                                  Defaults to `[]`, which draws axes in the order they appear in the dataset.
+* squashOuterTicks: boolean                     - Specifies whether or not to tuck in the first and last tick.
                                                   Defaults to `false`.
-* alignment: Alignment                          - Alignment of the axes (i.e. the side of the column where the axis is placed).
+* alignment: Alignment                          - The alignment of the axes (i.e. the side of the column where the axis is placed).
                                                   Defaults to `'start'`.
-* fontSize: number                              - Font size of the tick labels.
+* fontSize: number                              - The font size of the tick labels.
                                                   Defaults to `12`.
-* color: string                                 - The colour of the axis line.
+* color: string                                 - The colour of the axis line. Valid inputs include CSS colours specified as a string.
                                                   Valid inputs include CSS colours specified as a string.
                                                   Defaults to `'black'`.
-* renderLabel: boolean                          - Renders a label next to the axis.
+* renderLabel: boolean                          - Specifies wether a label should be rendered next to the axis.
                                                   Defaults to `false`.
-* labelPosition: Position                       - Position of the label relative to the axis.
+* labelPosition: Position                       - The position of the label relative to the axis.
                                                   Defaults to `'top'`.
-* labelOffset: number                           - Distance from the label to the axis.
+* labelOffset: number                           - The distance from the label to the axis in pixels.
                                                   Defaults to `'20'`.
-* hasTicks: boolean                             - Whether to display tick marks.
+* hasTicks: boolean                             - Specifies whether to display tick marks or not.
                                                   Defaults to `true`.
-* offset: number                                - The offset of the axis from the side of the visualisation.
+* offset: number                                - The offset of the axis from the side of the visualisation in pixels.
                                                   Defaults to `0`.
-* ticksNumber: number                           - The number of ticks you want displayed on the axes.
+* ticksNumber: number                           - The number of ticks to display on the axes.
                                                   Defaults to `10`.
 * position: 'bottom' | 'top' | 'left' | 'right' - The position of the axis.
                                                   Defaults to `'bottom'`.
 * spacingDirection: Direction                   - The direction to space the axes.
                                                   Defaults to `'horizontal'`.
-* padding: number                               - The amount of padding between axes, important for either vertically spaced
-                                                  vertical axes or horizontally spaced horizontal axes.
+* padding: number                               - The amount of padding between axes in pixels.
+                                                  This is important for either vertically spaced vertical axes or
+                                                  horizontally spaced horizontal axes.
                                                   Defaults to `0`.
 
 #### Events

@@ -133,10 +133,10 @@ its coordinates are relative to its parent the SVG element.
 * x: number                     - The x-coordinate of the bar.
 * y: number                     - The y-coordinate of the bar.
 * width: number                 - The width of the bar in pixels.
-* length: number                - The length of the bar to represent its value in pixels.
+* length: number                - The length of the bar in pixels. This represents a value from the data.
 
 #### Optional Attributes
-* isVertical: boolean           - Whether the bar is vertical or horizontal.
+* isVertical: boolean           - Toggles whether the bar is a vertical- or horizontal bar.
                                   Defaults to `true`.
 * color: string                 - The colour of the bar. Valid inputs include CSS colours specified as a string.
                                   Defaults to `'red'`.
@@ -148,13 +148,13 @@ its coordinates are relative to its parent the SVG element.
                                   Defaults to `'bottomMiddle'`.
 * rotationDegrees: number       - The rotation of the bar in degrees.
                                   Defaults to `0`.
-* borderRadius: number          - The border radius of the bar in pixels.
+* borderRadius: number          - The border-radius of the bar in pixels.
                                   Use this to have rounded corners.
                                   Defaults to `0`.
-* showsNegativeLength: boolean  - Whether the bar flips its orientation when `length` is negative.
+* showsNegativeLength: boolean  - Whether or not the bar will show negative values rather than putting them to `0`.
                                   Defaults to `false`.
 * hoverText: string             - The text to display in the label when the mouse hovers over the bar.
-                                  In order for this text to be visible, you need to set the `labelType` attribute
+                                  For this text to be visible, you need to set the `labelType` attribute
                                   to either `'alwaysVisible'` or `'visibleOnHighlight'`.
                                   Defaults to `length`'s value.
 * name: UndefineableString      - The class name of the bar.
@@ -163,6 +163,10 @@ its coordinates are relative to its parent the SVG element.
                                   Defaults to `bar`.
 * labelType: Visibility         - Determines the behaviour of the labels on the bars.
                                   Refer to the documentation for more information.
+                                  Setting this to `'none'`, means no label will be drawn.
+                                  Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.
+                                  Setting this to `'visibleOnHighlight'`, means that the numbers will become visible when
+                                  the 'bar-number' label receives the class `'highlighted'`.
                                   Defaults to `'none'`.
 
 #### Events

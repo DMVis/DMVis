@@ -173,14 +173,14 @@
 <!--
 @component
 ### Axis
-The Axis component is used to render a singular Axis, given a `d3.axis` element.
+The Axis component renders a singular Axis, given a `d3.axis` element.
 This needs to be supplied by the parent through the `axis` parameter.
 The axis can be oriented in any direction, depending on the provided `d3.axis`.
 The axis can also have a label on any of the four sides, regardless of the axis orientation.
 Furthermore, the axis can be made draggable, although how this dragging behaviour should be handled is up to the user to implement.
 
 > Note: This component is made specifically for visualisations that require only one axis (or multiple with different orientations).
- If you want to have multiple axes created automatically from your dataset, consider using `DynamicAxis`.
+ If you want multiple axes created automatically from your dataset, consider using the `DynamicAxis`.
 
 #### Required Attributes
 * placementX: number                              - The horizontal start position of the axis.

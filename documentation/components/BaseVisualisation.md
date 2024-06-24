@@ -1,10 +1,11 @@
 # BaseVisualisation
 
-The BaseVisualisation component is a wrapper component that handles a few default tasks for your visualisation. Certain styling standards are set and error handling is kept within the scope of the visualisation.
+The BaseVisualisation component is a wrapper component that handles a few default tasks for your visualisation. Certain styling standards are set and error handling is kept within the visualisation's scope.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
 
@@ -31,6 +32,30 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#components/BaseVisualisation?id=isscrollable'>isScrollable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/BaseVisualisation?id=showfilterpanel'>showFilterPanel</a></td>
+      <td><code>DataUtils</code></td>
+      <td><code>null</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Optional Attributes
 
 ### isScrollable
@@ -39,20 +64,6 @@ This component utilises the following components:
 - Default: `false`
 
 Whether the component that is wrapped by the `BaseVisualisation` component should be [scrollable](components/Scrollable.md).
-
-### scrollableWidth
-
-- Type: `number`
-- Default: `'100%'`
-
-The width of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
-
-### scrollableHeight
-
-- Type: `number`
-- Default: `'100%'`
-
-The height of the visualisation that is shown. For this to be used, `isScrollable` must be set to `true`.
 
 ### showFilterPanel
 

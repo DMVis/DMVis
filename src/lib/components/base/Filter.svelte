@@ -144,7 +144,10 @@
 @component
 ### Filter
 The filter component adds a filter to the right side of a visualisation.
-It can be used to filter and sort the data displayed in a visualisation.
+It is used to filter and sort the data displayed in a visualisation.
+
+Filter can be enabled inside `BaseVisualisation` by passing the `DataUtils` instance to `showFilterPanel`.
+If you have multiple visualisation on one page, it is advised to use the `Filter` component outside of `BaseVisualisation`.
 
 #### Required Attributes
 * dataUtil: DataUtils   - An instance of `dataUtils`, which holds all the data. See its documentation for more information.
@@ -154,7 +157,8 @@ It can be used to filter and sort the data displayed in a visualisation.
                           Defaults to `100`.
 * width: number         - The width of the filter in pixels.
                           Defaults to `150`.
-* styleUtil: StyleUtils - An instance of `StyleUtils`, which contains styling for the visualisation. See its documentation for more information.
+* styleUtil: StyleUtils - An instance of `StyleUtils`, containing styling for the visualisation.
+                          See its documentation for more information.
                           It is needed in the column component.
                           Defaults to `new StyleUtils()`.
 -->

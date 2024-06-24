@@ -5,13 +5,14 @@ Only positive `width` values are visible.
 Negative `length` values can be visible
 depending on whether `showsNegativeLength` is toggled.
 
-> Note: By default, `Bar` is vertical (i.e. `isVertical` is `true`),
-> its origin is at its bottom middle (see the `origin` attribute), and
+> Note: By default, `Bar` is vertical (i.e. [`isVertical`](#isvertical) is `true`),
+> its origin is at its bottom middle (see the [`origin`](#origin) attribute), and
 > its coordinates are relative to its parent the SVG element.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -36,31 +37,114 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href='#components/Bar?id=x'>x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=y'>y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=width'>width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=length'>length</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'red'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=opacity'>opacity</a></td>
+      <td><code>Opacity</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=origin'>origin</a></td>
+      <td><code>Origin</code></td>
+      <td><code>'bottomMiddle'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=rotationdegrees'>rotationDegrees</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=borderradius'>borderRadius</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=showsnegativelength'>showsNegativeLength</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=hovertext'>hoverText</a></td>
+      <td><code>string</code></td>
+      <td><code>length.toString()</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=labeltype'>labelType</a></td>
+      <td><code>Visibility</code></td>
+      <td><code>'none'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Bar?id=name'>name</a></td>
+      <td><code>UndefineableString</code></td>
+      <td><code>'bar'</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The x-coordinate of the bar.
 
 ### y
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The y-coordinate of the bar.
 
 ### width
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The width of the bar in pixels.
 
 ### length
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
-The length of the bar to represent its value in pixels.
+The length of the bar in pixels. This represents a value from the data.
 
 ## Optional Attributes
 
@@ -69,7 +153,7 @@ The length of the bar to represent its value in pixels.
 - Type: `boolean`
 - Default: `true`
 
-Whether the bar is vertical bar or horizontal.
+Toggles whether the bar is a vertical- or horizontal bar.
 
 ### color
 
@@ -108,7 +192,7 @@ The rotation of the bar in degrees.
 - Type: `number`
 - Default: `0`
 
-The border radius of the bar in pixels.
+The border-radius of the bar in pixels.
 Use this to have rounded corners.
 
 ### showsNegativeLength
@@ -116,16 +200,16 @@ Use this to have rounded corners.
 - Type: `boolean`
 - Default: `false`
 
-Whether the bar flips its orientation when `length` is negative.
+Whether or not the bar will show negative values rather than putting them to `0`.
 
 ### hoverText
 
 - Type: `string`
-- Default: `height`
+- Default: `length.toString()`
 
 The text to display in the label when the mouse hovers over the bar.
 
-> Note: In order for this text to be visible, you need to set the `labelType` attribute to either `'alwaysVisible'` or `'visibleOnHighlight'`.
+> Note: For this text to be visible, you need to set the `labelType` attribute to either `'alwaysVisible'` or `'visibleOnHighlight'`.
 
 ### labelType
 
@@ -134,9 +218,10 @@ The text to display in the label when the mouse hovers over the bar.
 - Options: `'none'`, `'alwaysVisible'`, `'visibleOnHighlight'`
 
 Determines the behaviour of the label on the bar.<br>
-Setting this to `'none'`, means no label will be drawn.<br>
-Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
-Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label receives the class `'highlighted'`, the numbers will become visible.
+
+- Setting this to `'none'`, means no label will be drawn.<br>
+- Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
+- Setting this to `'visibleOnHighlight'`, means that the numbers will become visible when the 'bar-number' label receives the class `'highlighted'`.
 
 ### name
 

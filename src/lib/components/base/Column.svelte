@@ -100,7 +100,7 @@ Each columns contains a top part with information about the column and a bottom 
                            Defaults to `'Column'`.
 * padding: number        - The padding around the column in pixels.
                            Defaults to `10`.
-* icons: IconType[]      - A list of what icons to display in the top of the column.
+* icons: IconType[]      - A list of icons to display in the top of the column.
                            Defaults to `[]`.
 * showSeparator: boolean - Whether to show the separator line at the bottom of the column header.
                            Defaults to `true`.

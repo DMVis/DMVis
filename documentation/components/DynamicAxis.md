@@ -1,6 +1,6 @@
 # DynamicAxis
 
-The DynamicAxis component is a component used for rendering any number of axes, depending on the given dataset.
+DynamicAxis is a component used for rendering any number of axes, depending on the given dataset.
 By default, it will generate an axis per column in the dataset. This means that for a column with numerical data,
 a numerical axis is generated, and for a column with text data, a text axis is generated.
 DynamicAxis can generate axes in different orientations. Axes themselves can be both vertical and horizontal, and
@@ -12,11 +12,12 @@ are found in the following visualisations:
   - _vertical_ axes which are placed _vertically_ with respect to each other, and
   - _horizontal_ axes which are placed _horizontally_ with respect to each other.
 
-> Note: This component is made specifically for visualisations that require <u>one or more</u> axes. If you want to just use a single axis, it is recommended to use the [Axis](../components/Axis.md) component.
+> Note: This component is made specifically for visualisations that require <u>one or more</u> axes. If you want to use a single axis, it is recommended to use the [Axis](../components/Axis.md) component.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
@@ -40,6 +41,90 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/DynamicAxis?id=axisorder">axisOrder</a></td>
+      <td><code>string[]</code></td>
+      <td><code>[]</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=squashouterticks'>squashOuterTicks</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=alignment'>alignment</a></td>
+      <td><code>Alignment</code></td>
+      <td><code>'start'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=fontsize'>fontSize</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'black'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=renderlabel'>renderLabel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=labelposition'>labelPosition</a></td>
+      <td><code>Position</code></td>
+      <td><code>'top'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=labeloffset'>labelOffset</a></td>
+      <td><code>number</code></td>
+      <td><code>20</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=hasticks'>hasTicks</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=offset'>offset</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=ticksnumber'>ticksNumber</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=position'>position</a></td>
+      <td><code>string</code></td>
+      <td><code>'bottom'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=spacingdirection'>spacingDirection</a></td>
+      <td><code>Direction</code></td>
+      <td><code>'horizontal'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/DynamicAxis?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Optional Attributes
 
 ### axisOrder
@@ -47,14 +132,16 @@ This component utilises the following components:
 - Type: `string[]`
 - Default: `[]`
 
-The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. Defaults to `[]`, which draws axes in the order that they appear in the dataset.
+The order that the axes should be drawn in. The array should contain strings identical to column names in the dataset. Defaults to `[]`, which draws axes in the order they appear in the dataset.
+
+> Note: You can exclude rows from the dataset by removing these entries from the array.
 
 ### squashOuterTicks
 
 - Type: `boolean`
 - Default: `false`
 
-Whether or not to tuck in the first and last tick.
+Specifies whether or not to tuck in the first and last tick.
 
 ### alignment
 
@@ -62,7 +149,9 @@ Whether or not to tuck in the first and last tick.
 - Default: `'start'`
 - Options: `'start'`, `'end'`, `'spaced'`
 
-Alignment of the axes (i.e. the side of the column where the axis is placed).
+The alignment of the axes (i.e. the side of the column where the axis is placed).
+
+> Note: Check [`Spacer`](../utils/Spacer.md) for an explenation on the options.
 
 ### fontSize
 
@@ -83,7 +172,7 @@ The colour of the axis line. Valid inputs include CSS colours specified as a str
 - Type: `boolean`
 - Default: `false`
 
-Renders a label next to the axis.
+Specifies wether a label should be rendered next to the axis.
 
 ### labelPosition:
 
@@ -91,28 +180,28 @@ Renders a label next to the axis.
 - Default: `'top'`
 - Options: `'left'`, `'right'`, `'top'`, `'bottom'`
 
-Position of the label relative to the axis.
+The position of the label relative to the axis.
 
 ### labelOffset
 
 - Type: `number`
 - Default: `20`
 
-Distance from the label to the axis.
+The distance from the label to the axis in pixels.
 
 ### hasTicks
 
 - Type: `boolean`
 - Default: `true`
 
-Whether to display tick marks.
+Specifies whether to display tick marks or not.
 
 ### offset
 
 - Type: `number`
 - Default: `0`
 
-The offset of the axis from the side of the visualisation.
+The offset of the axis from the side of the visualisation in pixels.
 
 ### ticksNumber
 
@@ -142,7 +231,7 @@ The direction to space the axes.
 - Type: `number`
 - Default: `0`
 
-The amount of padding between axes is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
+The amount of padding between axes in pixels. This is important for either vertically spaced vertical axes or horizontally spaced horizontal axes.
 
 ## Events
 
@@ -157,7 +246,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
 
 ## Example Usage
 
-<b>Creates a `DynamicAxis`. Note that this component requires a predefined [dataUtil](../utils/DataUtils), which in this case is to be set by a parent component.</b>
+<b>Creates a `DynamicAxis`. Note that this component requires a predefined [dataUtil](../utils/DataUtils), which is to be set by a parent component.</b>
 
 ```svelte
 <script lang="ts">

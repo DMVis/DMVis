@@ -1,14 +1,15 @@
 # Axis
 
-The Axis component is used to render a singular Axis, given a [d3.axis](https://d3js.org/d3-axis) element. This needs to be supplied by the parent through the [axis](#axis) parameter. The axis can be oriented in any direction, depending on the provided `d3.axis`. The axis can also have a label on any of the four sides, regardless of the axis orientation. Furthermore, the axis can be made draggable, although how this dragging behaviour should be handled is up to the user to implement.
+The Axis component renders a singular Axis, given a [d3.axis](https://d3js.org/d3-axis) element. This needs to be supplied by the parent through the [axis](#axis) parameter. The axis can be oriented in any direction, depending on the provided `d3.axis`. The axis can also have a label on any of the four sides, regardless of the axis orientation. Furthermore, the axis can be made draggable, although how this dragging behaviour should be handled is up to the user to implement.
 
-> Note: This component is made specifically for visualisations that require <u>only one</u> axis (or multiple with different orientations). If you want to have multiple axes created automatically from your dataset, consider using the [DynamicAxis](../components/DynamicAxis.md) component.
+> Note: This component is made specifically for visualisations that require <u>only one</u> axis (or multiple with different orientations). If you want multiple axes created automatically from your dataset, consider using the [DynamicAxis](../components/DynamicAxis.md) component.
 
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
-- [Required attributes](#required-attributes)
-- [Optional attributes](#optional-attributes)
+- [Attributes](#attributes)
+- [Required Attributes](#required-attributes)
+- [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
 
@@ -35,23 +36,95 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Axis?id=placementx">placementX</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=placementy'>placementY</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=axis-attribute'>axis</a>*</td>
+      <td><code>d3.Axis<string>` | `d3.Axis<d3.NumberValue></code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=renderlabel'>renderLabel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=labeltext'>labelText</a></td>
+      <td><code>string</code></td>
+      <td><code>'default'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=labelposition'>labelPosition</a></td>
+      <td><code>Position</code></td>
+      <td><code>'top'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=labeloffset'>labelOffset</a></td>
+      <td><code>number</code></td>
+      <td><code>20</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=fontsize'>fontSize</a></td>
+      <td><code>number</code></td>
+      <td><code>12</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'black'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=isdraggable'>isDraggable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Axis?id=squashouterticks'>squashOuterTicks</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### placementX
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The horizontal start position of the axis.
 
 ### placementY
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The vertical start position of the axis.
 
-### axis
+### <a id="axis-attribute"></a> axis
 
 - Type: `d3.Axis<string>` | `d3.Axis<d3.NumberValue>`
+- <span style="color:coral">Required</span>
 
 A D3 Axis component. See example usage on how to create the d3 axis.
 
@@ -110,7 +183,7 @@ Valid inputs include CSS colours specified as a string.
 
 Sets whether the axis is [draggable](components/Draggable.md). For this to work, the `renderLabel` parameter should be set to `true`.
 
-> Note: Logic for the displacement of the axis should be handled outside this component.
+> Note: Logic for the axis displacement should be handled outside this component.
 
 ### squashOuterTicks
 

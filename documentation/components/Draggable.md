@@ -1,12 +1,42 @@
 # Draggable
 
-Some visualisations require elements that are draggable. This wrapper makes it easier to drag components and execute some logic based on where the component is being dragged.
+Some visualisations require draggable elements. This wrapper makes it easier to drag components and execute some logic based on where the component is dragged.
 
 ## Table of Contents
 
+- [Attributes](#attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
+
+## Attributes
+
+<table style="width: 50%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Draggable?id=offsetx">offsetX</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Draggable?id=offsety'>offsetY</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Draggable?id=elementname'>elementName</a></td>
+      <td><code>string</code></td>
+      <td><code>''</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Optional Attributes
 
@@ -15,14 +45,14 @@ Some visualisations require elements that are draggable. This wrapper makes it e
 - Type: `number`
 - Default: `0`
 
-The horizontal offset that the component within the `Draggable` should have. This should be handled by the parent component, because the exact offset (and when the offset should be reset) is dependent on the specific visualisation.
+The horizontal offset that the component within the `Draggable` should have. The parent component should handle this. The exact offset (and when the offset should be reset) depends on the specific visualisation.
 
 ### offsetY
 
 - Type: `number`
 - Default: `0`
 
-The vertical offset that the component within the `Draggable` should have. This should be handled by the parent component, because the exact offset (and when the offset should be reset) is dependent on the specific visualisation.
+The vertical offset that the component within the `Draggable` should have. The parent component should handle this. The exact offset (and when the offset should be reset) depends on the specific visualisation.
 
 ### elementName
 
