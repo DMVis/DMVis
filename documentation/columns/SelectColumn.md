@@ -5,6 +5,7 @@ The SelectColumn is a column that allows you to select a row using a checkbox.
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -29,31 +30,91 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Default value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=height">height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=length">length</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=selected">selected</a>*</td>
+      <td><code>Set<number></code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=padding">padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SelectColumn?id=icons">icons</a></td>
+      <td><code>IconType[]</code></td>
+      <td><code>[IconType.Group, IconType.More]</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The x-coordinate of the column.
 
 ### width
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The width of the column in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The height of the column in pixels.
 
 ### length
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The number of checkboxes to display.
+
+### selected
+
+- Type: `Set<number>`
+- <span style="color: coral;">Required</span>
+
+A set of numbers that represent the selected rows.
 
 ## Optional Attributes
 
@@ -69,7 +130,7 @@ The padding around the column in pixels.
 - Type: `IconType[]`
 - Default: `[IconType.Group, IconType.More]`
 
-A list of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
+A list of what icons to display at the top of the column. See [Icon](../components/Icon.md) for more information.
 
 ## Events
 

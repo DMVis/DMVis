@@ -5,6 +5,7 @@ TextColumn is a column that shows the text of the given column.
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -33,29 +34,82 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Default value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=height">height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=data">data</a>*</td>
+      <td><code>string[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=padding">padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=name">name</a></td>
+      <td><code>string</code></td>
+      <td><code>'Column'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/TextColumn?id=icons">icons</a></td>
+      <td><code>IconType[]</code></td>
+      <td><code>[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The x-coordinate of the column.
 
 ### width
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The width of the column in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
-The height of the column in pixes.
+The height of the column in pixels.
 
 ### data
 
 - Type: `string[]`
+- <span style="color: coral;">Required</span>
 
 The data to display as text.
 
@@ -100,7 +154,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
 
 ## Example Usage
 
-<b> Creating a `TextColumn` with no interactivity.</b>
+<b>Creating a `TextColumn` with no interactivity.</b>
 
 ```svelte
 <script lang="ts">
@@ -114,7 +168,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
 </svg>
 ```
 
-<b>Creating a `TextColumn` with built in search functionallity.</b>
+<b>Creating a `TextColumn` with built-in search functionality.</b>
 
 ```svelte
 <script lang="ts">

@@ -62,7 +62,7 @@ TextColumn is a Column component that displays text for each value in the data a
 #### Optional Attributes
 * name                - The name of the column. It should contain the name of the attribute you're displaying.
                         Defaults to `'Column'`.
-* padding             - The padding of the column in pixels.
+* padding             - The padding around the column in pixels.
                         Defaults to `10`.
 * icons: IconType[]   - A list of what icons to display in the top of the column.
                         Defaults to `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`.

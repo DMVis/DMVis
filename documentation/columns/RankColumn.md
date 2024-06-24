@@ -4,7 +4,8 @@
 
 ## Table of Contents
 
-- [Referenced Components](#referenced-components)
+- [Referenced Components](#referenced-components)`
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -33,29 +34,77 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Default value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/RankColumn?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/RankColumn?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/RankColumn?id=height">height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/RankColumn?id=length">length</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/RankColumn?id=padding">padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/RankColumn?id=icons">icons</a></td>
+      <td><code>IconType[]</code></td>
+      <td><code>[IconType.More]</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The x-coordinate of the column.
 
 ### width
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The width of the column in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The height of the column in pixels.
 
 ### length
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The number of ranks to display.
 
@@ -73,7 +122,7 @@ The padding around the column in pixels.
 - Type: `IconType[]`
 - Default: `[IconType.More]`
 
-A list of what icons to display in the top of the column. See [IconType](../components/Icons.md) for the different icons you can use.
+A list of icons which will be displayed at the top of the column. See [IconType](../components/Icons.md) for the different icons you can use.
 
 ## Events
 

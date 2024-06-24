@@ -66,12 +66,12 @@ SelectColumn is a Column component that displays checkboxes for each value in th
 * width: number         - The width of the column in pixels
 * height: number        - The height of the column in pixels.
 * length: number        - The number of checkboxes to display.
-* selected: Set<number> - A list of rows which are currently selected
+* selected: Set<number> - A set of numbers that represent the selected rows.
 
 #### Optional Attributes
 * padding: number       - The padding around the column pixels.
                           Defaults to `10`.
-* icons: IconType[]     - A list of what icons to display in the top of the column.
+* icons: IconType[]     - A list of what icons to display at the top of the column.
                           Defaults to `[IconType.Group, IconType.More]`.
 
 #### Events

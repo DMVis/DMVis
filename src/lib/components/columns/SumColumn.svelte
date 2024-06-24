@@ -57,7 +57,7 @@ SumColumn is a Column component that displays the StackedBar for the given attri
                                    It could also contain weights.
                                    Defaults to `'Column'`.
 * padding: number                - The padding around the column in pixels.
-* icons: IconType[]              - A list of what icons to display in the top of the column.
+* icons: IconType[]              - A list of what icons to display at the top of the column.
                                    Defaults to `[IconType.Sort, IconType.Group, IconType.More]`.
 
 #### Events

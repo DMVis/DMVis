@@ -5,6 +5,7 @@ FilterColumn is a component that displays a filter input for each column.
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
@@ -28,29 +29,87 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Default value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=y">y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=height">height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=name">name</a></td>
+      <td><code>string</code></td>
+      <td><code>'Column'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=padding">padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=type">type</a></td>
+      <td><code>ColumnType</code></td>
+      <td><code>ColumnType.Text</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/FilterColumn?id=icons">icons</a></td>
+      <td><code>IconType[]</code></td>
+      <td>Depending on <code>type</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The x-coordinate of the column.
 
 ### y
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The y-coordinate of the column
 
 ### width
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The width of the column in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The height of the column in pixels.
 
@@ -61,7 +120,7 @@ The height of the column in pixels.
 - Type: `string`
 - Default: `'Column'`
 
-The name of the column to display at its top. Set this to the attribute name.
+The name of the column that is displayed at its top. Set this to the attribute name.
 
 ### padding
 
@@ -82,9 +141,9 @@ The type of the column that is being filtered.
 - Type: `IconType[]`
 - Default: Depending on `type`.
 
-A list of what icons to display in the top of the column.
+A list of what icons that is displayed in the top of the column.
 
-Defaults to `[IconType.Sort,IconType.Search,IconType.Filter,IconType.More]` if type is `ColumnType.Text`, otherwise it defaults to `[IconType.Sort,IconType.Filter,IconType.More]`.
+Defaults to `[IconType.Sort,IconType.Search,IconType.Filter,IconType.More]`. If the type is `ColumnType.Text`, otherwise it defaults to `[IconType.Sort,IconType.Filter,IconType.More]`.
 See [Icon](../components/Icon.md) for more information.
 
 ## Events

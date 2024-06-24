@@ -134,7 +134,9 @@ It is useful for visualising the relative size of values in a column.
 * data: number[]  - The data that is to be displayed as bars in the column.
 
 #### Optional Attributes
-* filter: Filter                             - `!!! MISSING DESCRIPTION !!!`.
+* filter: Filter                             - The filter contains an object with attributes min and max, which are both numbers
+                                               and represent the minimum and maximum values of the filter. The filter is used to
+                                               filter the data that is displayed in the column.
                                                Defaults to `{ min: 0, max: 100 }`.
 * name: string                               - The name of the column to display at its top. Set this to the attribute name.
                                                Defaults to `'Column'`.
@@ -142,7 +144,9 @@ It is useful for visualising the relative size of values in a column.
                                                Defaults to `10`.
 * icons: IconType[]                          - A list of what icons to display in the top of the column.
                                                Defaults to `[IconType.Sort, IconType.Filter, IconType.More]`.
-* weight: string                             - `!!! MISSING DESCRIPTION !!!`.
+* weight: string                             - The weight of the column. This is used to determine the width for the columns in
+                                               visualisations like `ValueChart`. The weight is a string that represents a number.
+                                               The higher the number, the wider the column will be.
                                                Defaults to `'10'`.
 * overviewItem: 'histogram' | 'axis'| 'none' - Determines what item to display in the overview section of the column header.
                                                Defaults to `'none'`.

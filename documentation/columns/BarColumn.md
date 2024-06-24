@@ -6,6 +6,7 @@ It is useful for visualising the relative size of values in a column.
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -46,29 +47,122 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Default value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=height">height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=data">data</a>*</td>
+      <td><code>number[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=filter">filter</a></td>
+      <td><code>Filter</code></td>
+      <td><code>{ min: 0, max: 100 }</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=name">name</a></td>
+      <td><code>string</code></td>
+      <td><code>'Column'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=padding">padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=icons">icons</a></td>
+      <td><code>IconType[]</code></td>
+      <td><code>[IconType.Sort, IconType.Filter, IconType.More]</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=weight">weight</a></td>
+      <td><code>string</code></td>
+      <td><code>'10'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=overviewItem">overviewItem</a></td>
+      <td><code>'histogram' | 'axis' | 'none'</code></td>
+      <td><code>'none'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=scale">scale</a></td>
+      <td><code>d3.ScaleLinear<number,number></code></td>
+      <td><code>d3.scaleLinear().domain([0, d3.max(data) ?? 0]).range([0, width - padding])</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=names">names</a></td>
+      <td><code>string[]</code></td>
+      <td><code>[]</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=barColor">barColor</a></td>
+      <td><code>string</code></td>
+      <td><code>'red'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=barOpacity">barOpacity</a></td>
+      <td><code>number</code></td>
+      <td>`1`</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/BarColumn?id=barLabelVisibility">barLabelVisibility</a></td>
+      <td><code>Visibility</code></td>
+      <td><code>'none'</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color: coral">Required</span>
 
 The x-coordinate of the column.
 
 ### width
 
 - Type: `number`
+- <span style="color: coral">Required</span>
 
 The width of the column in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color: coral">Required</span>
 
 The height of the column in pixels.
 
 ### data
 
 - Type: `number[]`
+- <span style="color: coral">Required</span>
 
 The data that is to be displayed as bars in the column.
 
@@ -79,7 +173,7 @@ The data that is to be displayed as bars in the column.
 - Type: `Filter`
 - Default: `{ min: 0, max: 100 }`
 
-`!!! MISSING DESCRIPTION !!!`.
+The filter contains an object with attributes min and max, which are both numbers and represent the minimum and maximum values of the filter. The filter is used to filter the data that is displayed in the column.
 
 ### name
 
@@ -107,7 +201,7 @@ A list of what icons to display in the top of the column. See [Icon](../componen
 - Type: `string`
 - Default: `'10'`
 
-`!!! MISSING DESCRIPTION !!!`.
+The weight of the column. This is used to determine the width for the columns in visualisations like [ValueChart](../visualisations/ValueChart.md). The weight is a string that represents a number. The higher the number, the wider the column will be.
 
 ### overviewItem
 
@@ -161,7 +255,7 @@ It can be a number between `0` and `1` (inclusive) or a string representing a pe
 Determines the behaviour of the labels on the bars.<br>
 Setting this to `'none'`, means no label will be drawn.<br>
 Setting this to `'alwaysVisible'`, means that there will always be a label inside the bar.<br>
-Setting this to `'visibleOnHighlight'`, means that when the 'bar-number' label receives the class `'highlighted'`, the numbers will become visible.
+Setting this to `'visibleOnHighlight'`, means that the numbers will become visible when the 'bar-number' label receives the class `'highlighted'`.
 
 ## Events
 
@@ -181,7 +275,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
 
 ## Example Usage
 
-<b> Creating a basic BarColumn with no icons and a histogram as overview item. </b>
+<b>Creating a basic BarColumn with no icons and a histogram as an overview item.</b>
 
 ```svelte
 <script lang="ts">
@@ -195,7 +289,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
 </svg>
 ```
 
-<b> Creating a BarColumn with sorting functionality. </b>
+<b>Creating a BarColumn with sorting functionality.</b>
 
 ```svelte
 <script lang="ts">
@@ -225,7 +319,7 @@ See the [Events](../utils/Events.md) documentation to read more about these even
 </svg>
 ```
 
-<b> Creating multiple BarColumns next to each other. </b>
+<b>Creating multiple BarColumns next to each other.</b>
 
 > Note that in this case each column holds the same values
 

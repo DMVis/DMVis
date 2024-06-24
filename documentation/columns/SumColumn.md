@@ -5,6 +5,7 @@ SumColumn is a column that shows the stacked bar of the given columns. This is u
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -33,35 +34,94 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Default value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=height">height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=data">data</a>*</td>
+      <td><code>Array<Array<number>></code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=attributeScales">attributeScales</a>*</td>
+      <td><code>d3.scaleLinear<number,number>[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=padding">padding</a></td>
+      <td><code>number</code></td>
+      <td><code>10</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=name">name</a></td>
+      <td><code>string</code></td>
+      <td><code>'Column'</code></td>
+    </tr>
+    <tr>
+      <td><a href="#/columns/SumColumn?id=icons">icons</a></td>
+      <td><code>IconType[]</code></td>
+      <td><code>[IconType.Sort, IconType.Group, IconType.More]</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The x-coordinate of the column.
 
 ### width
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The width of the column in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color: coral;">Required</span>
 
 The height of the column in pixels.
 
 ### data
 
 - Type: `Array<Array<number>>`
+- <span style="color: coral;">Required</span>
 
 The data for the column.
 
 ### attributeScales
 
 - Type: `d3.scaleLinear<number,number>[]`
+- <span style="color: coral;">Required</span>
 
 An array of scales where the first entry is the scale for the first numerical entry in the row attribute and so on.
 
@@ -86,7 +146,7 @@ The name of the column. It should contain the names of the attributes you're com
 - Type: `IconType[]`
 - Default: `[IconType.Sort, IconType.Group, IconType.More]`
 
-A list of what icons to display in the top of the column. See [Icon](../components/Icon.md) for more information.
+A list of what icons to display at the top of the column. See [Icon](../components/Icon.md) for more information.
 
 ## Events
 

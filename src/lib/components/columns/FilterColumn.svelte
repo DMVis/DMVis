@@ -55,7 +55,6 @@ FilterColumn is a component that displays a filter input for each column.
 * y       - The y-coordinate of the column.
 * width   - The width of the column in pixels.
 * height  - The height of the column in pixels.
-* data    - The data to display as text.
 
 #### Optional Attributes
 * name    - The name of the column to display at its top. Set this to the attribute name.
@@ -64,7 +63,7 @@ FilterColumn is a component that displays a filter input for each column.
             Defaults to `10`.
 * type    - The type of the column that is being filtered.
             Defaults to `ColumnType.Text`.
-* icons: IconType[] - A list of what icons to display in the top of the column. Defaults
+* icons: IconType[] - A list of what icons to display at the top of the column. Defaults
                       to `[IconType.Sort, IconType.Search, IconType.Filter, IconType.More]`
                       if the type is `ColumnType.Text`, else it defaults to
                       `[IconType.Sort, IconType.Filter, IconType.More]`.

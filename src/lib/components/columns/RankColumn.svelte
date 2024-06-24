@@ -43,7 +43,7 @@
 #### Optional Attributes
 * padding: number   - The padding around the column in pixels.
                       Defaults to `10`.
-* icons: IconType[] - A list of what icons to display in the top of the column.
+* icons: IconType[] - A list of what icons to display at the top of the column.
                       Defaults to `[IconType.More]`.
 
 #### Events
