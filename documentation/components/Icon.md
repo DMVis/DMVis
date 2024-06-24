@@ -5,6 +5,7 @@ Some visualisations, like LineUp, require icons to be displayed. This component 
 ## Table of Contents
 
 - [Supported IconTypes](#supported-icontypes)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
@@ -23,23 +24,60 @@ Out of the box, we support the following icons:
 
 They can be accessed by importing the enum `IconType` and using it as the type of the `type` attribute. An example is `IconType.Sort`.
 
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Icon?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Icon?id=y'>y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Icon?id=icon'>icon</a>*</td>
+      <td><code>IconType | string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Icon?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>#000000</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The x-coordinate of the icon.
 
 ### y
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The y-coordinate of the icon.
 
 ### icon
 
 - Type: `IconType` | `string`
+- <span style="color:coral">Required</span>
 
 The type of icon to display.
 This can be either one of the supported icons (specified as `IconType`) or an SVG path with your own icon (specified as string).

@@ -7,6 +7,7 @@ The StackedBar component is a visual representation of a data row. It is used to
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
@@ -34,33 +35,80 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/StackedBar?id=y">y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/StackedBar?id=barwidth'>barWidth</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/StackedBar?id=row'>row</a>*</td>
+      <td><code>(number|string)[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/StackedBar?id=attributescales'>attributeScales</a>*</td>
+      <td><code>d3.scaleLinear&lt;number,number&gt;[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/StackedBar?id=opacity'>opacity</a></td>
+      <td><code>Opacity</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/StackedBar?id=showlabel'>showLabel</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+</table>
+
 ## Required Attributes
 
 ### y
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The y-coordinate of the stacked bar.
 
 ### barWidth
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The width of the stacked bar in pixels.
 
 ### row
 
 - Type: `(number|string)[]`
+- <span style="color:coral">Required</span>
 
 An entire row of the `DataUtils` instance, which will be represented as a stacked bar.
 
 ### attributeScales
 
 - Type: `d3.scaleLinear<number,number>[]`
+- <span style="color:coral">Required</span>
 
 An array of scales where the first entry is the scale for the first numerical entry in the row attribute and so on.
 
-### Optional Attributes
+## Optional Attributes
 
 ### opacity
 

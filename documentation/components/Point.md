@@ -5,22 +5,79 @@ It produces a point at a given coordinate of certain color, size and style.
 
 ## Table of Contents
 
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
+
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Point?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=y'>y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=radius'>radius</a></td>
+      <td><code>number</code></td>
+      <td><code>5</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=borderwidth'>borderWidth</a></td>
+      <td><code>number</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=bordercolor'>borderColor</a></td>
+      <td><code>string</code></td>
+      <td><code>'black'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'red'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=opacity'>opacity</a></td>
+      <td><code>number</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Point?id=name'>name</a></td>
+      <td><code>UndefineableString</code></td>
+      <td><code>undefined</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The scaled x-coordinate of the point.
 
 ### y
 
--Type: `number`
+- Type: `number`
+- <span style="color:coral">Required</span>
 
 The scaled y-coordinate of the point.
 
@@ -45,7 +102,7 @@ The width of the border in pixels.
 ### borderColor
 
 - Type: `string`
-- Default: `black`
+- Default: `'black'`
 
 The colour of the border.
 
@@ -54,7 +111,7 @@ The colour of the border.
 ### color
 
 - Type: `string`
-- Default: `red`
+- Default: `'red'`
 
 The colour of the point.
 Valid inputs include CSS colours specified as a string.
@@ -72,7 +129,7 @@ It can be a number between `0` and `1` (inclusive) or a string representing a pe
 ### name
 
 - Type: `UndefineableString`
-- Default: `'point'`
+- Default: `undefined`
 
 The class name of the point.
 It can be used as an identifier.

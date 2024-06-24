@@ -6,15 +6,56 @@ The static line component is meant to be used in charts like a line chart. It pr
 
 ## Table of Contents
 
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
+
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/StaticLine?id=points">points</a>*</td>
+      <td><code>{ x: number; y: number }[]</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/StaticLine?id=color'>color</a></td>
+      <td><code>string</code></td>
+      <td><code>'#000'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/StaticLine?id=linewidth'>lineWidth</a></td>
+      <td><code>number</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/StaticLine?id=dashlength'>dashLength</a></td>
+      <td><code>string</code></td>
+      <td><code>'0'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/StaticLine?id=opacity'>opacity</a></td>
+      <td><code>number</code></td>
+      <td><code>1</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Required Attributes
 
 ### points
 
 - Type: `{ x: number; y: number }[]`
+- <span style="color:coral">Required</span>
 
 A list of points containing an x and y value.
 
@@ -23,7 +64,7 @@ A list of points containing an x and y value.
 ### color
 
 - Type: `string`
-- Default: `#000`
+- Default: `'#000'`
 
 The colour of the line.
 Valid inputs include CSS colours specified as a string.

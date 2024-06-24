@@ -8,6 +8,7 @@ It can, for example, be used to display the name of a point when hovering over i
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Example Usage](#example-usage)
@@ -31,23 +32,70 @@ This component utilises the following components:
   </tbody>
 </table>
 
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Tooltip?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Tooltip?id=y'>y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Tooltip?id=text'>text</a>*</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Tooltip?id=hasbackground'>hasBackground</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Tooltip?id=theme'>theme</a></td>
+      <td><code>Theme</code></td>
+      <td><code>'light'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Tooltip?id=origin'>origin</a></td>
+      <td><code>Origin</code></td>
+      <td><code>'middle'</code></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The y-coordinate of the tooltip.
 
 ### y
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The y-coordinate of the tooltip.
 
 ### text
 
 - Type: `string`
+- <span style="color:coral">Required</span>
 
 The text to display in the tooltip.
 

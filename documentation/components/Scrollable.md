@@ -4,22 +4,74 @@ This component allows for making any visualisation smaller, by making it scrolla
 
 ## Table of Contents
 
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
+
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Scrollable?id=width">width</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Scrollable?id=height'>height</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Scrollable?id=x'>x</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Scrollable?id=y'>y</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Scrollable?id=classname'>className</a></td>
+      <td><code>string</code></td>
+      <td><code>''</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Scrollable?id=allowhorizontalscrolling'>allowHorizontalScrolling</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Scrollable?id=allowverticalscrolling'>allowVerticalScrolling</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Required Attributes
 
 ### width
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 Width of the visualisation that is shown at any moment in pixels.
 
 ### height
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 Height of the visualisation that is shown at any moment in pixels.
 

@@ -8,28 +8,151 @@ It can be used in combination with other components.
 
 ## Table of Contents
 
+- [Attributes](#attributes)
 - [Required Attributes](#required-attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
+
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Label?id=x">x</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=y'>y</a>*</td>
+      <td><code>number</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=text'>text</a>*</td>
+      <td><code>string</code></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=showellipsis'>showEllipsis</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=backgroundcolor'>backgroundColor</a></td>
+      <td><code>string</code></td>
+      <td><code>'red'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=textopacity'>textOpacity</a></td>
+      <td><code>number | string</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=origin'>origin</a></td>
+      <td><code>Origin</code></td>
+      <td><code>'middle'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=rotationdegrees'>rotationDegrees</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=borderradius'>borderRadius</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=padding'>padding</a></td>
+      <td><code>number</code></td>
+      <td><code>20</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=textcolor'>textColor</a></td>
+      <td><code>string</code></td>
+      <td><code>'black'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=fontsize'>fontSize</a></td>
+      <td><code>string</code></td>
+      <td><code>'12px'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=fontweight'>fontWeight</a></td>
+      <td><code>string</code></td>
+      <td><code>'normal'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=fontfamily'>fontFamily</a></td>
+      <td><code>string</code></td>
+      <td><code>'Arial'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=hasbackground'>hasBackground</a></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=backgroundopacity'>backgroundOpacity</a></td>
+      <td><code>Opacity</code></td>
+      <td><code>textOpacity</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=haspointerevents'>hasPointerEvents</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=name'>name</a></td>
+      <td><code>UndefineableString</code></td>
+      <td><code>'label'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=width'>width</a></td>
+      <td><code>NumberAuto</code></td>
+      <td><code>'auto'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=height'>height</a></td>
+      <td><code>NumberAuto</code></td>
+      <td><code>'auto'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Label?id=bordercolor'>borderColor</a></td>
+      <td><code>string</code></td>
+      <td><code>'black'</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Required Attributes
 
 ### x
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The x-coordinate of the label.
 
 ### y
 
 - Type: `number`
+- <span style="color:coral">Required</span>
 
 The y-coordinate of the label.
 
 ### text
 
 - Type: `string`
+- <span style="color:coral">Required</span>
 
 The text to display on the label.
 
@@ -121,7 +244,7 @@ The font family of the text in the label.
 
 ### hasBackground
 
-- Type: `bool`
+- Type: `boolean`
 - Default: `true`
 
 Whether the label has a background.

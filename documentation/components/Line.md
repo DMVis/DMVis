@@ -7,6 +7,7 @@ The line component is used for visualisations that need lines. It generates line
 ## Table of Contents
 
 - [Referenced Components](#referenced-components)
+- [Attributes](#attributes)
 - [Optional Attributes](#optional-attributes)
 - [Events](#events)
 - [Example Usage](#example-usage)
@@ -26,6 +27,50 @@ This component utilises the following components:
     <tr>
       <td><a href="#/components/Tooltip.md">Tooltip</a></td>
       <td>Used to quickly display a small amount of information to the user.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Attributes
+
+<table style="width: 75%">
+  <thead>
+    <tr>
+      <th style="width: 33%;">Attribute</th>
+      <th style="width: 33%;">Type</th>
+      <th style="width: 33%;">Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#components/Line?id=alignment">alignment</a></td>
+      <td><code>Alignment</code></td>
+      <td><code>'spaced'</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Line?id=linewidth'>lineWidth</a></td>
+      <td><code>number</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Line?id=hoverable'>hoverable</a></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Line?id=axisorder'>axisOrder</a></td>
+      <td><code>string[]</code></td>
+      <td><code>[]</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Line?id=draggedaxis'>draggedAxis</a></td>
+      <td><code>UndefineableString</code></td>
+      <td><code>undefined</code></td>
+    </tr>
+    <tr>
+      <td><a href='#components/Line?id=draggingoffset'>draggingOffset</a></td>
+      <td><code>number</code></td>
+      <td><code>0</code></td>
     </tr>
   </tbody>
 </table>
